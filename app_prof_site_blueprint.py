@@ -3,14 +3,14 @@ import random
 import os
 
 #
-try:
-    from dotenv import load_dotenv
-except:
-    os.system("pip install python-dotenv")
-    from dotenv import load_dotenv
+#try:
+#    from dotenv import load_dotenv
+#except:
+#    os.system("pip install python-dotenv")
+#    from dotenv import load_dotenv
     
 # Load environment variables from a .env file
-load_dotenv()
+#load_dotenv()
 
 # Default WhatsApp number, which can be overridden by the .env file
 whatsapp_number = os.getenv("WHATSAPP_NUMBER", "+57 3053658650")
