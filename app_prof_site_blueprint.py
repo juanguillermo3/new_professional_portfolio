@@ -2,16 +2,6 @@ import streamlit as st
 import random
 import os
 
-#
-#try:
-#    from dotenv import load_dotenv
-#except:
-#    os.system("pip install python-dotenv")
-#    from dotenv import load_dotenv
-    
-# Load environment variables from a .env file
-#load_dotenv()
-
 # Default WhatsApp number, which can be overridden by the .env file
 whatsapp_number = os.getenv("WHATSAPP_NUMBER", "+57 3053658650")
 # Set the title of the app
@@ -66,7 +56,8 @@ recsys_area = st.container()
 with recsys_area:
     cols = st.columns(3)  # Three columns layout for the cards
 
-    recommendations = generate_mock_recommendations()  # Get recommendations
+    recommendations = generate_mock_recommendations()[selected_project]  # Get recommendations for the selected project
+    recommendations = recommendations[:NUM_RECOMMENDED_ITEMS]  # Limit to the number of recommended items
 
     # Populate the columns with card components
     for i, rec in enumerate(recommendations):
@@ -79,14 +70,33 @@ with recsys_area:
                 </div>
             """, unsafe_allow_html=True)
 
+    # Add a new row if the number of recommendations is greater than the current number of columns
+    if len(recommendations) > 3:
+        extra_rows = len(recommendations) // 3
+        if len(recommendations) % 3 != 0:
+            extra_rows += 1
+        for row in range(extra_rows):
+            st.markdown("---")
+
+            cols = st.columns(3)
+            for i in range(row * 3, min((row + 1) * 3, len(recommendations))):
+                with cols[i % 3]:  # Distribute the cards in the 3 columns
+                    rec = recommendations[i]
+                    st.markdown(f"""
+                        <div style="border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); padding: 10px; text-align: center;">
+                            <img src="{rec['image']}" alt="{rec['title']}" style="border-radius: 10px; width: 100%; height: auto;">
+                            <h5>{rec['title']}</h5>
+                            <p>{rec['description']}</p>
+                        </div>
+                    """, unsafe_allow_html=True)
+
 # Add some space between the recsys and next section
 st.markdown("<br>", unsafe_allow_html=True)
 
 # **Services Section** - No query, fixed content
 st.subheader("Services I Offer 💼")
-#st.tooltip("Here are the key services I provide to my clients.")
+st.markdown('<p style="color: gray;">Here are the key services I provide to my clients. Hover over the titles for more information.</p>', unsafe_allow_html=True)
 st.write("Below are the services I offer as part of my professional expertise:")
-
 
 # Add a horizontal line for separation
 st.markdown("---")
