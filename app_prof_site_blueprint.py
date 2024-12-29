@@ -3,6 +3,13 @@ import random
 from dotenv import load_dotenv
 import os
 
+#
+try:
+    from dotenv import load_dotenv
+except:
+    os.system("pip install python-dotenv")
+    from dotenv import load_dotenv
+    
 # Load environment variables from a .env file
 load_dotenv()
 
