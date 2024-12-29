@@ -38,7 +38,7 @@ query = st.text_input("Ask for a recommendation:", "Type something...")
 
 # **Recommendation Section** - Fixed-size with visual cues
 st.subheader("Recommended Content 📝")
-st.tooltip("Here you can find some handpicked recommendations based on your query.")  # Tooltip for hover
+#st.tooltip("Here you can find some handpicked recommendations based on your query.")  # Tooltip for hover
 st.write("Here are some recommendations based on your query:")
 
 # Add a horizontal line for separation
@@ -68,7 +68,7 @@ st.markdown("<br>", unsafe_allow_html=True)
 
 # **Services Section** - No query, fixed content
 st.subheader("Services I Offer 💼")
-st.tooltip("Here are the key services I provide to my clients.")
+#st.tooltip("Here are the key services I provide to my clients.")
 st.write("Below are the services I offer as part of my professional expertise:")
 
 
@@ -104,7 +104,7 @@ st.markdown("<br>", unsafe_allow_html=True)
 
 # **Professional Profile Section**
 st.subheader("About Me 👤")
-st.tooltip("Learn more about my professional background and expertise.")
+#st.tooltip("Learn more about my professional background and expertise.")
 st.write("Here's a little bit about me:")
 
 # Ordered List for Key Differentials
@@ -128,7 +128,7 @@ st.markdown("</ol>", unsafe_allow_html=True)
 
 # **Social Media Links and WhatsApp Button**
 st.subheader("Connect with Me 📱")
-st.tooltip("Feel free to connect with me via social media or WhatsApp.")
+#st.tooltip("Feel free to connect with me via social media or WhatsApp.")
 st.write("You can reach me on the following platforms:")
 
 # Social Media Links (example links, customize them with your actual URLs)
