@@ -1,6 +1,5 @@
 import streamlit as st
 import random
-from dotenv import load_dotenv
 import os
 
 #
