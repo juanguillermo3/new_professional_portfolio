@@ -21,25 +21,41 @@ st.set_page_config(page_title="Welcome to My Professional Portfolio", layout="ce
 st.title("Welcome to My Professional Portfolio")
 st.write("Explore the recommendations and learn more about my professional background.")
 
-# Function to generate mock recommendations
+# Parametrize the number of recommended items (default: 6)
+NUM_RECOMMENDED_ITEMS = 6
+
+# Function to generate mock recommendations for each project
 def generate_mock_recommendations():
-    recommendations = [
-        {"image": "https://via.placeholder.com/150", "title": "Project A", "description": "Description of project A."},
-        {"image": "https://via.placeholder.com/150", "title": "Project B", "description": "Description of project B."},
-        {"image": "https://via.placeholder.com/150", "title": "Project C", "description": "Description of project C."},
-        {"image": "https://via.placeholder.com/150", "title": "Project D", "description": "Description of project D."},
-        {"image": "https://via.placeholder.com/150", "title": "Project E", "description": "Description of project E."},
-        {"image": "https://via.placeholder.com/150", "title": "Project F", "description": "Description of project F."},
-    ]
-    return random.sample(recommendations, k=3)  # Randomly select k=3 recommendations
+    recommendations = {
+        "Ethology Research": [
+            {"image": "https://via.placeholder.com/150", "title": "Ethology Data Collection", "description": "Module on data collection techniques."},
+            {"image": "https://via.placeholder.com/150", "title": "Behavioral Data Analysis", "description": "Analyzing animal behavior in the wild."}
+        ],
+        "Forecasting Sales with Artificial Intelligence": [
+            {"image": "https://via.placeholder.com/150", "title": "Sales Forecasting with ML", "description": "Using machine learning models for accurate sales predictions."},
+            {"image": "https://via.placeholder.com/150", "title": "AI in Retail", "description": "Application of AI techniques in retail sales forecasting."}
+        ],
+        "Ensemble Models for Human Resources": [
+            {"image": "https://via.placeholder.com/150", "title": "HR Data Analysis", "description": "Leveraging ensemble models for employee retention."},
+            {"image": "https://via.placeholder.com/150", "title": "Predicting Employee Turnover", "description": "Predictive modeling for employee turnover using ensemble techniques."}
+        ],
+        "Trends in the Colombian Labor Market": [
+            {"image": "https://via.placeholder.com/150", "title": "Labor Market Trends Analysis", "description": "Analyzing the evolution of the Colombian labor market."},
+            {"image": "https://via.placeholder.com/150", "title": "Job Market Forecasting", "description": "Predicting future job trends in Colombia using data analytics."}
+        ]
+    }
+    return recommendations
 
 # Recsys Query Input (optional for future feature)
 query = st.text_input("Ask for a recommendation:", "Type something...")
 
 # **Recommendation Section** - Fixed-size with visual cues
 st.subheader("Recommended Content 📝")
-#st.tooltip("Here you can find some handpicked recommendations based on your query.")  # Tooltip for hover
-st.write("Here are some recommendations based on your query:")
+st.markdown('<p style="color: gray;">Here you can find some handpicked recommendations based on your query. Hover over the title for more details.</p>', unsafe_allow_html=True)
+
+# Project Filter: Select which project to view modules from
+projects = list(generate_mock_recommendations().keys())
+selected_project = st.selectbox("Select a Project to Filter Recommendations", projects)
 
 # Add a horizontal line for separation
 st.markdown("---")
