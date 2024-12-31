@@ -99,9 +99,6 @@ with services_area:
                 </div>
             """, unsafe_allow_html=True)
 
-st.markdown("<br>", unsafe_allow_html=True)
-st.markdown("<br>", unsafe_allow_html=True)
-
 # 
 st.markdown("<br>", unsafe_allow_html=True)
 st.markdown("<br>", unsafe_allow_html=True)
@@ -125,7 +122,8 @@ for item in key_differentials:
     st.markdown(f"<li>{item}</li>", unsafe_allow_html=True)
 st.markdown("</ol>", unsafe_allow_html=True)
 
-#
+# 
+st.markdown("<br>", unsafe_allow_html=True)
 st.markdown("<br>", unsafe_allow_html=True)
 st.markdown("<br>", unsafe_allow_html=True)
 
