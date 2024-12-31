@@ -11,12 +11,12 @@ st.set_page_config(page_title="Welcome to My Professional Portfolio", layout="ce
 
 # **Title Section**
 st.title("Welcome to My Professional Portfolio")
-st.markdown("<br>", unsafe_allow_html=True)
+st.markdown("---")
 st.markdown('<p style="color: gray;">Explore the recommendations and learn more about my professional background.</p>', unsafe_allow_html=True)
 
 # Horizontal rule
-st.markdown("---")
-
+st.markdown("<br>", unsafe_allow_html=True)
+st.markdown("<br>", unsafe_allow_html=True)
 
 # Number of recommended items and columns
 NUM_RECOMMENDED_ITEMS = 6
@@ -37,7 +37,7 @@ def generate_recommendations():
     
 # **Recommendation System Section**
 st.subheader("Recommendation System")
-st.markdown("<br>", unsafe_allow_html=True)
+st.markdown("---")
 st.markdown('<p style="color: gray;">Discover content tailored to your needs. Use the search bar to find recommendations and filter by project category.</p>', unsafe_allow_html=True)
 
 # Horizontal rule
@@ -80,11 +80,8 @@ with recsys_area:
 
 # **Services Section**
 st.subheader("Services I Offer 💼")
-st.markdown("<br>", unsafe_allow_html=True)
-st.markdown('<p style="color: gray;">Here are the key services I provide to my clients. Hover over the titles for more information.</p>', unsafe_allow_html=True)
-
-# Horizontal rule
 st.markdown("---")
+st.markdown('<p style="color: gray;">Here are the key services I provide to my clients. Hover over the titles for more information.</p>', unsafe_allow_html=True)
 
 services_area = st.container()
 with services_area:
@@ -104,13 +101,18 @@ with services_area:
                 </div>
             """, unsafe_allow_html=True)
 
+st.markdown("<br>", unsafe_allow_html=True)
+st.markdown("<br>", unsafe_allow_html=True)
+
+#
+st.markdown("<br>", unsafe_allow_html=True)
+st.markdown("<br>", unsafe_allow_html=True)
+
 # **About Me Section**
 st.subheader("About Me 👤")
-st.markdown("<br>", unsafe_allow_html=True)
+st.markdown("---")
 st.markdown('<p style="color: gray;">Learn more about my professional background and expertise. Below are key differentiators in my professional offering.</p>', unsafe_allow_html=True)
 
-# Horizontal rule
-st.markdown("---")
 
 key_differentials = [
     "Expertise in data-driven decision-making.",
@@ -124,13 +126,15 @@ for item in key_differentials:
     st.markdown(f"<li>{item}</li>", unsafe_allow_html=True)
 st.markdown("</ol>", unsafe_allow_html=True)
 
+#
+st.markdown("<br>", unsafe_allow_html=True)
+st.markdown("<br>", unsafe_allow_html=True)
+
 # **Connect with Me Section**
 st.subheader("Connect with Me 📱")
-st.markdown("<br>", unsafe_allow_html=True)
+st.markdown("---")
 st.markdown('<p style="color: gray;">Feel free to connect with me via social media or WhatsApp.</p>', unsafe_allow_html=True)
 
-# Horizontal rule
-st.markdown("---")
 
 social_links = {
     "LinkedIn": "https://www.linkedin.com/in/your-profile/",
@@ -149,5 +153,7 @@ st.markdown(f"""
     </a>
 """, unsafe_allow_html=True)
 
-
+#
+st.markdown("<br>", unsafe_allow_html=True)
+st.markdown("<br>", unsafe_allow_html=True)
 
