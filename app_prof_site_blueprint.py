@@ -11,10 +11,10 @@ st.set_page_config(page_title="Welcome to My Professional Portfolio", layout="ce
 
 # **Title Section**
 st.title("Welcome to My Professional Portfolio")
-st.markdown("---")
 st.markdown('<p style="color: gray;">Explore the recommendations and learn more about my professional background.</p>', unsafe_allow_html=True)
 
-# Horizontal rule
+# 
+st.markdown("<br>", unsafe_allow_html=True)
 st.markdown("<br>", unsafe_allow_html=True)
 st.markdown("<br>", unsafe_allow_html=True)
 
@@ -40,8 +40,6 @@ st.subheader("Recommendation System")
 st.markdown("---")
 st.markdown('<p style="color: gray;">Discover content tailored to your needs. Use the search bar to find recommendations and filter by project category.</p>', unsafe_allow_html=True)
 
-# Horizontal rule
-st.markdown("---")
 
 # Query Input
 query = st.text_input(
