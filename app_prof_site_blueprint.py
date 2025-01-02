@@ -2,7 +2,7 @@ import streamlit as st
 import random
 import os
 import re
-import * from git_api
+from git_api import * 
 
 # Default WhatsApp number, which can be overridden by the .env file
 whatsapp_number = os.getenv("WHATSAPP_NUMBER", "+57 3053658650")
