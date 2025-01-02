@@ -108,4 +108,4 @@ def fetch_metadata_from_github_modules():
     ]
 
    
-fetch_metadata_from_github_modules()
+modules_metadata=fetch_metadata_from_github_modules()
