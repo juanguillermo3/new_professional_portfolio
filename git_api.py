@@ -8,7 +8,7 @@ import requests
 from requests.auth import HTTPBasicAuth
 
 REPO_OWNER= os.getenv("REPO_OWNER", "juanguillermo3")
-REPOS_IN_PORTFOLIO= ["lab_market_trends"]
+REPOS_IN_PORTFOLIO= ["lab_market_trends"] 
 
 def get_repo_metadata(repo_owner, repo_name):
     url = f"https://api.github.com/repos/{repo_owner}/{repo_name}"
