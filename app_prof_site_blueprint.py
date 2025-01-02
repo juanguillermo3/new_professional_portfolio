@@ -34,7 +34,7 @@ def generate_recommendations():
         {"project": "Ensemble Models for Human Resources", "image": "https://via.placeholder.com/150", "title": "Predicting Employee Turnover", "description": "Predictive modeling for employee turnover using ensemble techniques."},
         {"project": "Trends in the Colombian Labor Market", "image": "https://via.placeholder.com/150", "title": "Labor Market Trends Analysis", "description": "Analyzing the evolution of the Colombian labor market."},
         {"project": "Trends in the Colombian Labor Market", "image": "https://via.placeholder.com/150", "title": "Job Market Forecasting", "description": "Predicting future job trends in Colombia using data analytics."},
-    ]
+    ] + fetch_metadata_from_github_modules()
     
 # **Recommendation System Section**
 st.subheader("Recommendation System")
@@ -54,6 +54,7 @@ selected_project = st.radio("Filter recommendations by project:", projects)
 
 # Container for Recommendations
 recsys_area = st.container()
+
 with recsys_area:
     recommendations = generate_recommendations()
     if selected_project != "All Projects":
@@ -65,17 +66,26 @@ with recsys_area:
             if query_pattern.search(rec["title"]) or query_pattern.search(rec["description"])
         ]
     recommendations = recommendations[:NUM_RECOMMENDED_ITEMS]
+    
     for i in range(0, len(recommendations), NUM_COLUMNS):
         cols = st.columns(NUM_COLUMNS)
         for col, rec in zip(cols, recommendations[i:i + NUM_COLUMNS]):
             with col:
+                # Attempt to fetch the image from assets
+                image_url = rec.get('image', '')
+                if not image_url:
+                    image_url = "https://via.placeholder.com/150"  # Fallback to placeholder if no image URL is provided
+                elif not os.path.exists(image_url):  # Check if the image exists locally
+                    image_url = "https://via.placeholder.com/150"  # Fallback if image does not exist
+                
                 st.markdown(f"""
                     <div style="border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); padding: 10px; text-align: center;">
-                        <img src="{rec['image']}" alt="{rec['title']}" style="border-radius: 10px; width: 100%; height: auto;">
+                        <img src="{image_url}" alt="{rec['title']}" style="border-radius: 10px; width: 100%; height: auto;">
                         <h5>{rec['title']}</h5>
                         <p>{rec['description']}</p>
                     </div>
                 """, unsafe_allow_html=True)
+                """, unsafe_allow_html=True) "https://via.placeholder.com/150"
 
 # 
 st.markdown("<br>", unsafe_allow_html=True)
