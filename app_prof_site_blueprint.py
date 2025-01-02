@@ -85,7 +85,6 @@ with recsys_area:
                         <p>{rec['description']}</p>
                     </div>
                 """, unsafe_allow_html=True)
-                """, unsafe_allow_html=True) "https://via.placeholder.com/150"
 
 # 
 st.markdown("<br>", unsafe_allow_html=True)
