@@ -97,14 +97,15 @@ def get_module_metadata(repo_owner, repo_name, file_path, username=None, token=N
         return None
 
 def fetch_metadata_from_github_modules():
-   return [
-      _ for _ in 
-   [_ for _ in 
-   [get_module_metadata(REPO_OWNER, "lab_market_trends", _ ) for _ in 
-   [_["path"] for _ in get_repo_script_metadata(REPO_OWNER, "lab_market_trends") if re.search(".py$", _["path"] )]]
-   if _ 
-   ]
-      if _['Portfolio']=="True"
-   ]
+    return [
+        {**_, 'project': 'lab_market_trends'} for _ in 
+        [
+            _ for _ in 
+            [get_module_metadata(REPO_OWNER, "lab_market_trends", _) for _ in 
+             [_["path"] for _ in get_repo_script_metadata(REPO_OWNER, "lab_market_trends") if re.search(".py$", _["path"])]] 
+            if _ 
+        ] if _['Portfolio'] == "True"
+    ]
+
    
 modules_metadata=fetch_metadata_from_github_modules()
