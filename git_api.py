@@ -107,4 +107,4 @@ def fetch_metadata_from_github_modules():
       if _['Portfolio']=="True"
    ]
    
-fetch_metadata_from_github_modules()
+modules_metadata=fetch_metadata_from_github_modules()
