@@ -25,7 +25,7 @@ NUM_COLUMNS = 3
 
 # Flattened structure for the recommendations
 def generate_recommendations():
-    print( modules_metadata)
+    print( metadata_list)
     return [
         {"project": "Ethology Research", "image": "https://via.placeholder.com/150", "title": "Ethology Data Collection", "description": "Module on data collection techniques."},
         {"project": "Ethology Research", "image": "https://via.placeholder.com/150", "title": "Behavioral Data Analysis", "description": "Analyzing animal behavior in the wild."},
