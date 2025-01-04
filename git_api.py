@@ -61,10 +61,6 @@ def get_repo_metadata(repo_owner, repo_name, username=None, token=None):
         return None
 
 #
-repos_metadata=[get_repo_metadata(REPO_OWNER,some_repo) for some_repo in REPOS_IN_PORTFOLIO]
-repos_metadata
-
-#
 # 1.
 #
 def list_repo_files(repo_owner, repo_name, username=None, token=None, file_pattern=r".*\.(py|R)$"):
@@ -229,6 +225,9 @@ for some_repo in REPOS_IN_PORTFOLIO:
         all_code_files.append(file_data)
 #
 all_code_files
+#
+repos_metadata=[get_repo_metadata(REPO_OWNER,some_repo) for some_repo in REPOS_IN_PORTFOLIO]
+repos_metadata
 # 
 metadata_list = extract_metadata_from_all_files(
     all_code_files,
