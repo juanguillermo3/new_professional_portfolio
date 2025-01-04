@@ -64,13 +64,10 @@ with recsys_area:
     project_metadata = None
     if selected_project != "All Projects":
         for repo in repos_metadata:
-            try:
-                if repo["title"].lower() == selected_project.lower():
-                    project_metadata = repo
-                    break
-            except:
-                pass
-    
+            if repo["title"].lower() == selected_project.lower():
+                project_metadata = repo
+                #break
+
     # Filter recommendations by selected project
     if selected_project != "All Projects":
         recommendations = [rec for rec in recommendations if rec["project"] == selected_project]
