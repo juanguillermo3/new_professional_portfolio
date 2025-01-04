@@ -59,15 +59,13 @@ selected_project = st.selectbox("Filter recommendations by project:", projects)
 recsys_area = st.container()
 
 with recsys_area:
-    #recommendations = generate_recommendations()
-    
     # Check if the selected project exists in repos_metadata
     project_metadata = None
     if selected_project != "All Projects":
         for repo in repos_metadata:
             if repo["title"].lower() == selected_project.lower():
                 project_metadata = repo
-                #break
+                break
 
     # Filter recommendations by selected project
     if selected_project != "All Projects":
@@ -84,38 +82,59 @@ with recsys_area:
     # Truncate recommendations to NUM_RECOMMENDED_ITEMS
     recommendations = recommendations[:NUM_RECOMMENDED_ITEMS]
     
-    # If project metadata exists, render it as the first card
+    # Add project metadata as the first recommendation (if available)
     if project_metadata:
-        st.markdown('<h4 style="color: gold;">Project Overview</h4>', unsafe_allow_html=True)
-        st.markdown(
-            f"""
-            <div style="border: 2px solid gold; border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); padding: 10px; text-align: center;">
-                <img src="{project_metadata.get('image', 'https://via.placeholder.com/150')}" 
-                     alt="{project_metadata['title']}" 
-                     style="border-radius: 10px; width: 100%; height: auto;">
-                <h5>{project_metadata['title']}</h5>
-                <p>{project_metadata['description']}</p>
-            </div>
-            """, unsafe_allow_html=True
-        )
-        st.markdown("<br>", unsafe_allow_html=True)
+        project_card = {
+            "title": project_metadata["title"],
+            "description": project_metadata["description"],
+            "image": project_metadata.get("image", "https://via.placeholder.com/150"),
+            "url": project_metadata.get("url", None),
+            "is_project": True
+        }
+        recommendations.insert(0, project_card)
     
-    # Render the recommendations in a grid
+    # Render recommendations in a grid
     for i in range(0, len(recommendations), NUM_COLUMNS):
         cols = st.columns(NUM_COLUMNS)
         for col, rec in zip(cols, recommendations[i:i + NUM_COLUMNS]):
             with col:
-                # Attempt to fetch the image from assets
+                # Style the project card distinctly
+                background_color = "#fff5e6" if rec.get("is_project") else "white"
+                border_style = "2px solid gold" if rec.get("is_project") else "1px solid #ddd"
+                
+                # Render the card
                 image_url = rec.get('image', 'https://via.placeholder.com/150')
                 st.markdown(
                     f"""
-                    <div style="border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); padding: 10px; text-align: center;">
-                        <img src="{image_url}" alt="{rec['title']}" style="border-radius: 10px; width: 100%; height: auto;">
+                    <div style="background-color: {background_color}; border: {border_style}; 
+                                border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+                                padding: 10px; text-align: center;">
+                        <img src="{image_url}" alt="{rec['title']}" 
+                             style="border-radius: 10px; width: 100%; height: auto;">
                         <h5>{rec['title']}</h5>
                         <p>{rec['description']}</p>
                     </div>
                     """, unsafe_allow_html=True
                 )
+                
+                # Add "See in GitHub" button if URL is present
+                if "url" in rec and rec["url"]:
+                    st.markdown(
+                        f"""
+                        <a href="{rec['url']}" target="_blank" 
+                           style="text-decoration: none;">
+                            <button style="background-color: #4CAF50; color: white; 
+                                           border: none; padding: 10px 20px; 
+                                           text-align: center; text-decoration: none; 
+                                           display: inline-block; font-size: 14px; 
+                                           margin-top: 10px; cursor: pointer; 
+                                           border-radius: 5px;">
+                                See in GitHub
+                            </button>
+                        </a>
+                        """, unsafe_allow_html=True
+                    )
+
 
 
 
