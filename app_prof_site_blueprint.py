@@ -65,7 +65,7 @@ with recsys_area:
     if selected_project != "All Projects":
         for repo in repos_metadata:
             try:
-                if repo["project"].lower() == selected_project.lower():
+                if repo["title"].lower() == selected_project.lower():
                     project_metadata = repo
                     break
             except:
