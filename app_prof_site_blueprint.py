@@ -50,6 +50,7 @@ query = st.text_input(
 )
 
 # Radial Button for Project Filter
+recommendations = generate_recommendations()
 projects = ["All Projects"] + list({rec["project"] for rec in generate_recommendations()})
 selected_project = st.radio("Filter recommendations by project:", projects)
 
@@ -57,7 +58,7 @@ selected_project = st.radio("Filter recommendations by project:", projects)
 recsys_area = st.container()
 
 with recsys_area:
-    recommendations = generate_recommendations()
+    #recommendations = generate_recommendations()
     
     # Check if the selected project exists in repos_metadata
     project_metadata = None
