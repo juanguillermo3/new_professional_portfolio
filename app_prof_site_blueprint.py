@@ -100,7 +100,7 @@ with recsys_area:
                 # Use the placeholder image for all cards
                 image_url = "https://via.placeholder.com/150"
                 
-                # Card HTML with a fixed height and vertical scroller
+                # Card HTML with fixed size and properly positioned button
                 st.markdown(
                     f"""
                     <div style="
@@ -110,21 +110,24 @@ with recsys_area:
                         text-align: center; 
                         width: 100%; 
                         height: 300px;  /* Fixed height */
-                        overflow: hidden; 
                         display: flex; 
                         flex-direction: column; 
-                        justify-content: space-between;
-                        border: 1px solid #ddd;">
+                        justify-content: space-between; 
+                        border: 1px solid #ddd;
+                        background-color: white;">
+                        
                         <img src="{image_url}" 
                              alt="{rec['title']}" 
                              style="border-radius: 10px; width: 100%; height: auto; margin-bottom: 10px;">
+                        
                         <div style="
                             overflow-y: auto; 
-                            max-height: 150px;  /* Scroller height */
+                            flex-grow: 1; 
                             text-align: left;">
-                            <h5 style="margin: 0;">{rec['title']}</h5>
-                            <p style="margin: 0; font-size: 14px; color: #555;">{rec['description']}</p>
+                            <h5 style="margin: 0; font-size: 16px; font-weight: bold; text-align: center;">{rec['title']}</h5>
+                            <p style="margin: 0; font-size: 14px; color: #555; text-align: justify;">{rec['description']}</p>
                         </div>
+                        
                         <a href="{rec.get('url', '#')}" 
                            target="_blank" 
                            style="
@@ -141,6 +144,7 @@ with recsys_area:
                     </div>
                     """, unsafe_allow_html=True
                 )
+
 
 
 
