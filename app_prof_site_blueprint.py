@@ -58,34 +58,63 @@ recsys_area = st.container()
 
 with recsys_area:
     recommendations = generate_recommendations()
+    
+    # Check if the selected project exists in repos_metadata
+    project_metadata = None
+    if selected_project != "All Projects":
+        for repo in repos_metadata:
+            if repo["project"].lower() == selected_project.lower():
+                project_metadata = repo
+                break
+    
+    # Filter recommendations by selected project
     if selected_project != "All Projects":
         recommendations = [rec for rec in recommendations if rec["project"] == selected_project]
+    
+    # Filter recommendations by search query
     if query:
         query_pattern = re.compile(re.escape(query), re.IGNORECASE)
         recommendations = [
             rec for rec in recommendations 
             if query_pattern.search(rec["title"]) or query_pattern.search(rec["description"])
         ]
+    
+    # Truncate recommendations to NUM_RECOMMENDED_ITEMS
     recommendations = recommendations[:NUM_RECOMMENDED_ITEMS]
     
+    # If project metadata exists, render it as the first card
+    if project_metadata:
+        st.markdown('<h4 style="color: gold;">Project Overview</h4>', unsafe_allow_html=True)
+        st.markdown(
+            f"""
+            <div style="border: 2px solid gold; border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); padding: 10px; text-align: center;">
+                <img src="{project_metadata.get('image', 'https://via.placeholder.com/150')}" 
+                     alt="{project_metadata['title']}" 
+                     style="border-radius: 10px; width: 100%; height: auto;">
+                <h5>{project_metadata['title']}</h5>
+                <p>{project_metadata['description']}</p>
+            </div>
+            """, unsafe_allow_html=True
+        )
+        st.markdown("<br>", unsafe_allow_html=True)
+    
+    # Render the recommendations in a grid
     for i in range(0, len(recommendations), NUM_COLUMNS):
         cols = st.columns(NUM_COLUMNS)
         for col, rec in zip(cols, recommendations[i:i + NUM_COLUMNS]):
             with col:
                 # Attempt to fetch the image from assets
-                image_url = rec.get('image', '')
-                if not image_url:
-                    image_url = "https://via.placeholder.com/150"  # Fallback to placeholder if no image URL is provided
-                elif not os.path.exists(image_url):  # Check if the image exists locally
-                    image_url = "https://via.placeholder.com/150"  # Fallback if image does not exist
-                
-                st.markdown(f"""
+                image_url = rec.get('image', 'https://via.placeholder.com/150')
+                st.markdown(
+                    f"""
                     <div style="border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); padding: 10px; text-align: center;">
                         <img src="{image_url}" alt="{rec['title']}" style="border-radius: 10px; width: 100%; height: auto;">
                         <h5>{rec['title']}</h5>
                         <p>{rec['description']}</p>
                     </div>
-                """, unsafe_allow_html=True)
+                    """, unsafe_allow_html=True
+                )
+
 
 
 # 
