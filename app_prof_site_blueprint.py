@@ -97,42 +97,51 @@ with recsys_area:
         cols = st.columns(NUM_COLUMNS)
         for col, rec in zip(cols, recommendations[i:i + NUM_COLUMNS]):
             with col:
-                # Style the project card distinctly
-                background_color = "#fff5e6" if rec.get("is_project") else "white"
-                border_style = "2px solid gold" if rec.get("is_project") else "1px solid #ddd"
+                # Use the placeholder image for all cards
+                image_url = "https://via.placeholder.com/150"
                 
-                # Render the card
+                # Card HTML with a fixed height and vertical scroller
                 st.markdown(
                     f"""
-                    <div style="background-color: {background_color}; border: {border_style}; 
-                                border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
-                                padding: 10px; text-align: center;">
-                        <img src="https://via.placeholder.com/150" alt="{rec['title']}" 
-                             style="border-radius: 10px; width: 100%; height: auto;">
-                        <h5>{rec['title']}</h5>
-                        <p>{rec['description']}</p>
+                    <div style="
+                        border-radius: 10px; 
+                        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+                        padding: 10px; 
+                        text-align: center; 
+                        width: 100%; 
+                        height: 300px;  /* Fixed height */
+                        overflow: hidden; 
+                        display: flex; 
+                        flex-direction: column; 
+                        justify-content: space-between;
+                        border: 1px solid #ddd;">
+                        <img src="{image_url}" 
+                             alt="{rec['title']}" 
+                             style="border-radius: 10px; width: 100%; height: auto; margin-bottom: 10px;">
+                        <div style="
+                            overflow-y: auto; 
+                            max-height: 150px;  /* Scroller height */
+                            text-align: left;">
+                            <h5 style="margin: 0;">{rec['title']}</h5>
+                            <p style="margin: 0; font-size: 14px; color: #555;">{rec['description']}</p>
+                        </div>
+                        <a href="{rec.get('url', '#')}" 
+                           target="_blank" 
+                           style="
+                           display: inline-block; 
+                           margin-top: 10px; 
+                           padding: 5px 10px; 
+                           background-color: #24292f; 
+                           color: white; 
+                           text-decoration: none; 
+                           border-radius: 5px; 
+                           font-size: 14px;">
+                           See on GitHub
+                        </a>
                     </div>
                     """, unsafe_allow_html=True
                 )
-                
-                # Add "See in GitHub" button if URL is present
-                if "url" in rec and rec["url"]:
-                    st.markdown(
-                        f"""
-                        <div style="display: flex; justify-content: center; margin-top: 10px;">
-                            <a href="{rec['url']}" target="_blank" 
-                               style="text-decoration: none;">
-                                <button style="background-color: #333; color: white; 
-                                               border: none; padding: 10px 20px; 
-                                               text-align: center; text-decoration: none; 
-                                               font-size: 14px; cursor: pointer; 
-                                               border-radius: 5px;">
-                                    See in GitHub
-                                </button>
-                            </a>
-                        </div>
-                        """, unsafe_allow_html=True
-                    )
+
 
 
 # 
