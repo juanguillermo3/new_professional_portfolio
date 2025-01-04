@@ -10,7 +10,7 @@ try:
 except ImportError:
     os.system("pip install python-dotenv")
     from dotenv import load_dotenv
-
+ 
 #
 from dotenv import load_dotenv
 load_dotenv()
