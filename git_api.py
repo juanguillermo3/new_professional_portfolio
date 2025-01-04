@@ -226,8 +226,8 @@ for some_repo in REPOS_IN_PORTFOLIO:
 #
 all_code_files
 #
-repos_metadata=[get_repo_metadata(REPO_OWNER,some_repo) for some_repo in REPOS_IN_PORTFOLIO]
-repos_metadata
+#repos_metadata=[get_repo_metadata(REPO_OWNER,some_repo) for some_repo in REPOS_IN_PORTFOLIO]
+repos_metadata=[]
 # 
 metadata_list = extract_metadata_from_all_files(
     all_code_files,
