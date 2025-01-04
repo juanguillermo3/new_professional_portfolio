@@ -87,7 +87,6 @@ with recsys_area:
         project_card = {
             "title": project_metadata["title"],
             "description": project_metadata["description"],
-            "image": project_metadata.get("image", "https://via.placeholder.com/150"),
             "url": project_metadata.get("url", None),
             "is_project": True
         }
@@ -103,13 +102,12 @@ with recsys_area:
                 border_style = "2px solid gold" if rec.get("is_project") else "1px solid #ddd"
                 
                 # Render the card
-                image_url = rec.get('image', 'https://via.placeholder.com/150')
                 st.markdown(
                     f"""
                     <div style="background-color: {background_color}; border: {border_style}; 
                                 border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
                                 padding: 10px; text-align: center;">
-                        <img src="{image_url}" alt="{rec['title']}" 
+                        <img src="https://via.placeholder.com/150" alt="{rec['title']}" 
                              style="border-radius: 10px; width: 100%; height: auto;">
                         <h5>{rec['title']}</h5>
                         <p>{rec['description']}</p>
@@ -121,21 +119,20 @@ with recsys_area:
                 if "url" in rec and rec["url"]:
                     st.markdown(
                         f"""
-                        <a href="{rec['url']}" target="_blank" 
-                           style="text-decoration: none;">
-                            <button style="background-color: #4CAF50; color: white; 
-                                           border: none; padding: 10px 20px; 
-                                           text-align: center; text-decoration: none; 
-                                           display: inline-block; font-size: 14px; 
-                                           margin-top: 10px; cursor: pointer; 
-                                           border-radius: 5px;">
-                                See in GitHub
-                            </button>
-                        </a>
+                        <div style="display: flex; justify-content: center; margin-top: 10px;">
+                            <a href="{rec['url']}" target="_blank" 
+                               style="text-decoration: none;">
+                                <button style="background-color: #333; color: white; 
+                                               border: none; padding: 10px 20px; 
+                                               text-align: center; text-decoration: none; 
+                                               font-size: 14px; cursor: pointer; 
+                                               border-radius: 5px;">
+                                    See in GitHub
+                                </button>
+                            </a>
+                        </div>
                         """, unsafe_allow_html=True
                     )
-
-
 
 
 # 
