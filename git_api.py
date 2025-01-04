@@ -61,8 +61,8 @@ def get_repo_metadata(repo_owner, repo_name, username=None, token=None):
         return None
 
 #
-projects_metadata=[get_repo_metadata(REPO_OWNER,some_repo) for some_repo in REPOS_IN_PORTFOLIO]
-projects_metadata
+repos_metadata=[get_repo_metadata(REPO_OWNER,some_repo) for some_repo in REPOS_IN_PORTFOLIO]
+repos_metadata
 
 #
 # 1.
