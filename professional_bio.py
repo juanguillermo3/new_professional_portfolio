@@ -24,26 +24,35 @@ class ProfessionalBio:
             unsafe_allow_html=True
         )
 
-        # Layout with picture and bio content side by side
+        # Layout with two columns: one for the picture, the other for the bio content
         col1, col2 = st.columns([1, 2])
         
         with col1:
-            # Apply custom CSS for rounded image and center it
+            # Apply custom CSS to center the image vertically and horizontally with rounded borders
             st.markdown(
-                f"""
+                """
                 <style>
-                .profile-img {{
-                    width: 100%;
-                    max-width: 200px;
+                .centered-image {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100%;
+                }
+                .rounded-image img {
                     border-radius: 50%;
-                    display: block;
-                    margin: 0 auto;
-                }}
+                    width: 200px;  /* Adjust image size */
+                    height: 200px; /* Ensure the image remains a circle */
+                    object-fit: cover; /* Ensures the image is properly cropped */
+                }
                 </style>
-                """, unsafe_allow_html=True)
-            st.image(self.picture_url, caption="Profile Picture", use_container_width=True)
+                """, unsafe_allow_html=True
+            )
+            st.markdown('<div class="centered-image rounded-image">', unsafe_allow_html=True)
+            st.image(self.picture_url, caption="Profile Picture", use_container_width=False)
+            st.markdown('</div>', unsafe_allow_html=True)
 
         with col2:
+            # Render the bio content
             for section in bio_sections:
                 st.markdown(section)
 
@@ -58,5 +67,6 @@ bio = {
 # Initialize ProfessionalBio object
 bio_component = ProfessionalBio(bio_pic="jg_pick.jpg", bio=bio, skills=[])
 bio_component.render_layout()
+
 
 
