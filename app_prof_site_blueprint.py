@@ -311,23 +311,28 @@ class SocialMediaButtons:
         color = self.platform_colors.get(platform, "#000000")  # Default to black if not found
         return f"""
             <a href="{url}" target="_blank">
-                <button style="background-color:{color}; color:white; border-radius:10px; padding:10px 20px; font-size:16px; border:none; margin: 0 10px;">
+                <button style="background-color:{color}; color:white; border-radius:10px; 
+                               padding:10px 20px; font-size:16px; border:none; margin: 5px;">
                     {platform}
                 </button>
             </a>
         """
-        
+
     def render_buttons(self):
-        # Use a flex container for layout
-        st.markdown('<div style="display: flex; justify-content: center; align-items: center; gap: 15px;">', unsafe_allow_html=True)
+        # Create a container for the social media buttons
+        buttons_area = st.container()
 
-        # Render each button in the cycle, one at a time
-        for platform, url in self.links.items():
-            button_html = self.create_button(platform, url)
-            st.markdown(button_html, unsafe_allow_html=True)
+        with buttons_area:
+            # Use a flex container for layout and keep the buttons well-spaced
+            st.markdown('<div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 10px;">', unsafe_allow_html=True)
 
-        # Close the div after rendering all buttons
-        st.markdown('</div>', unsafe_allow_html=True)
+            # Render each button for each platform
+            for platform, url in self.links.items():
+                button_html = self.create_button(platform, url)
+                st.markdown(button_html, unsafe_allow_html=True)
+
+            # Close the flex container
+            st.markdown('</div>', unsafe_allow_html=True)
 
 # Example usage:
 social_links = {
@@ -340,7 +345,6 @@ social_links = {
 # Create an instance of the SocialMediaButtons class and render the buttons
 social_buttons = SocialMediaButtons(social_links)
 social_buttons.render_buttons()
-
 
 
 
