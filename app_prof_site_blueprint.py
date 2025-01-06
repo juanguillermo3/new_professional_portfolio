@@ -236,7 +236,7 @@ class SocialMediaButtons:
         
     def render_buttons(self):
         # Use a flex container for layout
-        st.markdown('<div style="display: flex; justify-content: space-evenly; flex-wrap: wrap;">', unsafe_allow_html=True)
+        st.markdown('<div style="display: flex; justify-content: center; align-items: center; gap: 15px;">', unsafe_allow_html=True)
 
         # Render each button in the cycle, one at a time
         for platform, url in self.links.items():
@@ -257,6 +257,7 @@ social_links = {
 # Create an instance of the SocialMediaButtons class and render the buttons
 social_buttons = SocialMediaButtons(social_links)
 social_buttons.render_buttons()
+
 
 
 
