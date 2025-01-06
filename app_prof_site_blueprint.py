@@ -154,7 +154,7 @@ st.markdown("<br>", unsafe_allow_html=True)
 st.markdown("<br>", unsafe_allow_html=True)
 
 # **Services Section**
-st.subheader("Services I Offer 🛠️")
+st.subheader("Services Lines 🛠️")
 st.markdown("---")
 st.markdown('<p style="color: gray;">Here are the key services I provide to my clients. Hover over the titles for more information.</p>', unsafe_allow_html=True)
 
