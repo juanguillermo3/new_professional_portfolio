@@ -211,22 +211,48 @@ st.markdown("---")
 st.markdown('<p style="color: gray;">Feel free to connect with me via social media or WhatsApp.</p>', unsafe_allow_html=True)
 
 
+import streamlit as st
+
+class SocialMediaButtons:
+    def __init__(self, links: dict):
+        self.links = links
+        # Define colors for each platform
+        self.platform_colors = {
+            "WhatsApp": "#25D366",
+            "LinkedIn": "#0077B5",
+            "GitHub": "#333333",
+            "Facebook": "#3b5998"
+        }
+
+    def create_button(self, platform, url):
+        color = self.platform_colors.get(platform, "#000000")  # Default to black if not found
+        return f"""
+            <a href="{url}" target="_blank">
+                <button style="background-color:{color}; color:white; border-radius:10px; padding:10px 20px; font-size:16px; border:none; margin: 0 10px;">
+                    {platform}
+                </button>
+            </a>
+        """
+        
+    def render_buttons(self):
+        # Create buttons for each platform and store them
+        buttons_html = ''.join([self.create_button(platform, url) for platform, url in self.links.items()])
+        # Render buttons in a horizontal row
+        st.markdown(f'<div style="display: flex; justify-content: space-evenly;">{buttons_html}</div>', unsafe_allow_html=True)
+
+# Example usage:
+# Use a secrets module or a dictionary of links for social media platforms
 social_links = {
     "LinkedIn": "https://www.linkedin.com/in/your-profile/",
-    "Twitter": "https://twitter.com/your-profile/",
     "GitHub": "https://github.com/your-profile/",
+    "WhatsApp": "https://wa.me/your-phone-number?text=Hello! I'd like to connect with you.",
+    "Facebook": "https://www.facebook.com/your-profile/"
 }
-for platform, url in social_links.items():
-    st.markdown(f"[{platform}]({url})")
 
-whatsapp_url = f"https://wa.me/{whatsapp_number}?text=Hello! I'd like to connect with you."
-st.markdown(f"""
-    <a href="{whatsapp_url}" target="_blank">
-        <button style="background-color:#25D366; color:white; border-radius:10px; padding:10px 20px; font-size:16px; border:none;">
-            WhatsApp Me
-        </button>
-    </a>
-""", unsafe_allow_html=True)
+# Create an instance of the SocialMediaButtons class and render the buttons
+social_buttons = SocialMediaButtons(social_links)
+social_buttons.render_buttons()
+
 
 # 
 st.markdown("<br>", unsafe_allow_html=True)
