@@ -13,17 +13,16 @@ st.set_page_config(page_title="Welcome to My Professional Portfolio", layout="ce
 # **Title Section**
 st.markdown("""
     <style>
-    .header {
-        background: linear-gradient(45deg, #6a11cb, #2575fc); 
-        padding: 40px;
-        text-align: center;
-        color: white;
-        border-radius: 10px;
+    h1 {
+        font-size: 4em;
+        font-weight: bold;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        color: #333;
     }
     </style>
 """, unsafe_allow_html=True)
 
-st.markdown('<div class="header"><h1>Welcome to My Professional Portfolio</h1></div>', unsafe_allow_html=True)
+st.title("Welcome to My Professional Portfolio")
 
 # 
 st.markdown("<br>", unsafe_allow_html=True)
