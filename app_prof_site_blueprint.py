@@ -12,8 +12,6 @@ whatsapp_number = os.getenv("WHATSAPP_NUMBER", "+57 3053658650")
 st.set_page_config(page_title="Welcome to My Professional Portfolio", layout="centered")
 
 
-
-
 st.title("Welcome to My Professional Portfolio")
 
 # **Title Section**
@@ -27,8 +25,6 @@ st.markdown("""
     }
     </style>
 """, unsafe_allow_html=True)
-
-#bio_component.render_layout()
 
 
 # 
@@ -192,6 +188,7 @@ st.subheader("About Me 🧑‍💻")
 st.markdown("---")
 st.markdown('<p style="color: gray;">Learn more about my professional background and expertise. Below are key differentiators in my professional offering.</p>', unsafe_allow_html=True)
 
+bio_component.render_layout()
 
 key_differentials = [
     "Expertise in data-driven decision-making.",
