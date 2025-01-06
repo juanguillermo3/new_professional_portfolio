@@ -3,7 +3,7 @@ import random
 import os
 import re
 from git_api import repos_metadata, metadata_list
-from professional_bio import bio_component 
+from professional_bio import *
 
 # Default WhatsApp number, which can be overridden by the .env file
 whatsapp_number = os.getenv("WHATSAPP_NUMBER", "+57 3053658650")
@@ -42,6 +42,7 @@ st.markdown('<div class="card"><h2>About Me</h2><p>Learn more about my professio
 
 
 
+bio_component = ProfessionalBio(bio_pic="jg_pick.jpg", bio=bio, skills=[])
 bio_component.render_layout()
 
 
