@@ -26,9 +26,15 @@ class ProfessionalBio:
 
         # Picture section (Instagram-like circular photo)
         col1, col2 = st.columns([1, 2])
-        
+
         with col1:
-            st.image(self.picture_url, caption="Profile Picture", use_container_width=True, width=200)
+            # Render circular image by using markdown and custom CSS styling
+            st.markdown(
+                f'<div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden; display: flex; justify-content: center; align-items: center;">'
+                f'<img src="{self.picture_url}" style="width: 100%; height: 100%; object-fit: cover;" />'
+                f'</div>',
+                unsafe_allow_html=True
+            )
         
         with col2:
             for section in bio_sections:
@@ -43,4 +49,6 @@ bio = {
 }
 
 # Initialize ProfessionalBio object
-bio_component = ProfessionalBio(bio_pic="jg_pick.jpg", bio=bio, skills=[])
+bio_component = ProfessionalBio(bio_pic="profile.png", bio=bio, skills=[])
+bio_component.render_layout()
+
