@@ -30,23 +30,6 @@ linkedin_profile = os.getenv("LINKEDIN_PROFILE")
 whatsapp_number = os.getenv("WHATSAPP_NUMBER", "+57 3053658650")
 
 
-# **Title Section**
-st.markdown("""
-    <style>
-    h1 {
-        font-size: 4em;
-        font-weight: bold;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-        color: #333;
-    }
-    </style>
-""", unsafe_allow_html=True)
-#
-st.title("Welcome to My Professional Portfolio")
-
-# Get the LinkedIn profile URL from the environment
-linkedin_profile = os.getenv("LINKEDIN_PROFILE")
-
 # Ensure the profile is available
 if linkedin_profile:
     portfolio_content = f"""
@@ -65,9 +48,19 @@ if linkedin_profile:
     .emoji {{
         font-size: 1.2em;
     }}
+    .message {{
+        font-size: 0.95em;  /* Smaller font size */
+        line-height: 1.6;
+        color: #333;
+        text-align: justify;  /* Justified text */
+        margin-top: 15px;
+        margin-left: 2em;  /* Indentation */
+    }}
     .emoji-line {{
         font-size: 1.2em;
-        text-align: left;
+        margin-top: 5px;
+        margin-left: 2em;
+        text-align: justify;
     }}
     </style>
 
@@ -77,12 +70,12 @@ if linkedin_profile:
         through techniques such as <span class="highlight">Recommendation Systems (RecSys)</span> and <span class="highlight">LLM-powered applications (LLM apps)</span>.
     </div>
     
-    <div class="emoji-line">
+    <div class="message">
         <span class="emoji">🔨</span> This portfolio is under development, and you can read the related research in my LinkedIn profile 
         <a href="{linkedin_profile}" target="_blank">here</a>.
     </div>
     
-    <div class="emoji-line">
+    <div class="message">
         <span class="emoji">⚠️</span> Some of the content in this portfolio is mocked-up by AI. I hope you can hear my authentic voice in the whole message.
     </div>
     """
