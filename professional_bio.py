@@ -84,8 +84,6 @@ bio = {
     """
 }
 
-# Adding skills to the professional bio
-skills = ["Python", "Machine Learning", "Data Analysis", "Software Engineering", "Statistical Modeling"]
 
 # Initialize ProfessionalBio object
 bio_component = ProfessionalBio(bio_pic="jg_pick.jpg", bio=bio, skills=skills)
