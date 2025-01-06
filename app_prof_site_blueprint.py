@@ -1,3 +1,13 @@
+"""
+project: new_professional_portfolio
+title: Web Application for a New Professional Portfolio
+description: Streamlit based Front End for my professional portfolio. 
+Author: Juan Guillermo
+field: something
+Include in Portfolio: True
+"""
+
+
 import streamlit as st
 import random
 import os
