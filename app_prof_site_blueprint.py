@@ -35,6 +35,31 @@ st.markdown("""
 #
 st.title("Welcome to My Professional Portfolio")
 
+#
+# **Main Presentation Paragraph Section**
+st.markdown("""
+    <style>
+    .intro-text {
+        font-size: 1.25em;
+        color: #555;
+        line-height: 1.8;
+        text-align: center;
+        font-family: 'Arial', sans-serif;
+        margin-top: 20px;
+        background-color: #f4f4f4;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    </style>
+    <div class="intro-text">
+        Welcome to my professional portfolio, a showcase of my diverse experiences and expertise. 
+        As a passionate professional in the fields of data science, software development, and consulting, 
+        I am committed to delivering innovative solutions and impactful results. 
+        Explore the projects, services, and insights I offer, and feel free to connect with me for collaboration opportunities.
+    </div>
+""", unsafe_allow_html=True)
+
 # 
 st.markdown("<br>", unsafe_allow_html=True)
 st.markdown("<br>", unsafe_allow_html=True)
