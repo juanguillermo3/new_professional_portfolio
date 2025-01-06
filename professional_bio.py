@@ -26,7 +26,7 @@ class ProfessionalBio:
 
         # Layout with two columns: one for the picture, the other for the bio content
         col1, col2 = st.columns([1, 2])
-        
+
         with col1:
             # Apply custom CSS to center the image vertically and horizontally with rounded borders
             st.markdown(
@@ -44,15 +44,24 @@ class ProfessionalBio:
                     height: 200px; /* Ensure the image remains a circle */
                     object-fit: cover; /* Ensures the image is properly cropped */
                 }
+                .bio-container {
+                    border-radius: 20px; /* Rounded corners for the container */
+                    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+                    padding: 20px;
+                    background-color: #ffffff;
+                }
                 </style>
                 """, unsafe_allow_html=True
             )
+            # Apply container with shadow and rounded borders
+            st.markdown('<div class="bio-container">', unsafe_allow_html=True)
             st.markdown('<div class="centered-image rounded-image">', unsafe_allow_html=True)
             st.image(self.picture_url, caption="Profile Picture", use_container_width=False)
             st.markdown('</div>', unsafe_allow_html=True)
+            st.markdown('</div>', unsafe_allow_html=True)
 
         with col2:
-            # Render the bio content
+            # Render the bio content inside the container
             for section in bio_sections:
                 st.markdown(section)
 
