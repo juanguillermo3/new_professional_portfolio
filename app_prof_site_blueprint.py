@@ -11,8 +11,19 @@ whatsapp_number = os.getenv("WHATSAPP_NUMBER", "+57 3053658650")
 st.set_page_config(page_title="Welcome to My Professional Portfolio", layout="centered")
 
 # **Title Section**
-st.title("Welcome to My Professional Portfolio")
-st.markdown('<p style="color: gray;">Explore the recommendations and learn more about my professional background.</p>', unsafe_allow_html=True)
+st.markdown("""
+    <style>
+    .header {
+        background: linear-gradient(45deg, #6a11cb, #2575fc); 
+        padding: 40px;
+        text-align: center;
+        color: white;
+        border-radius: 10px;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+st.markdown('<div class="header"><h1>Welcome to My Professional Portfolio</h1></div>', unsafe_allow_html=True)
 
 # 
 st.markdown("<br>", unsafe_allow_html=True)
