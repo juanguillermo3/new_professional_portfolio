@@ -8,11 +8,8 @@ from professional_bio import bio_component
 # Default WhatsApp number, which can be overridden by the .env file
 whatsapp_number = os.getenv("WHATSAPP_NUMBER", "+57 3053658650")
 
-# Set the title of the app
-st.set_page_config(page_title="Welcome to My Professional Portfolio", layout="centered")
 
 
-st.title("Welcome to My Professional Portfolio")
 
 # **Title Section**
 st.markdown("""
@@ -25,7 +22,8 @@ st.markdown("""
     }
     </style>
 """, unsafe_allow_html=True)
-
+#
+st.title("Welcome to My Professional Portfolio")
 
 # 
 st.markdown("<br>", unsafe_allow_html=True)
