@@ -15,6 +15,52 @@ import re
 from git_api import repos_metadata, metadata_list
 from professional_bio import bio_component
 
+
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Get the LinkedIn profile URL from the environment
+linkedin_profile = os.getenv("LINKEDIN_PROFILE")
+
+# Ensure the profile is available
+if linkedin_profile:
+    portfolio_content = f"""
+    <style>
+    .intro-text {{
+        font-size: 1.2em;
+        line-height: 1.6;
+        color: #333;
+        margin-top: 30px;
+    }}
+    .highlight {{
+        font-weight: bold;
+        color: #2E8B57;  /* Dark green for emphasis */
+    }}
+    .emoji {{
+        font-size: 1.5em;
+    }}
+    </style>
+
+    <div class="intro-text">
+        In this professional portfolio, I conduct and apply research to implement practical solutions to common struggles of the working class 
+        in their participation in the labor market. By providing a ranked, summarized view of a high-profile professional portfolio 
+        through techniques such as <span class="highlight">Recommendation Systems (RecSys)</span> and <span class="highlight">LLM-powered applications (LLM apps)</span>. 
+        <span class="emoji">🔨</span> This portfolio is under development, and you can read the related research in my LinkedIn profile 
+        <a href="{linkedin_profile}" target="_blank">here</a>. 
+        <span class="emoji">⚠️</span> Some of the content in this portfolio is mocked-up by AI. I hope you can hear my authentic voice in the whole message.
+    </div>
+    """
+else:
+    portfolio_content = "LinkedIn profile not found."
+
+# Render the portfolio content
+st.markdown(portfolio_content, unsafe_allow_html=True)
+
+
+
 # Default WhatsApp number, which can be overridden by the .env file
 whatsapp_number = os.getenv("WHATSAPP_NUMBER", "+57 3053658650")
 
