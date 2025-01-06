@@ -24,6 +24,23 @@ st.markdown("""
 
 st.title("Welcome to My Professional Portfolio")
 
+#
+st.markdown("""
+    <style>
+    .card {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-bottom: 30px;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+st.markdown('<div class="card"><h2>About Me</h2><p>Learn more about my professional background and expertise...</p></div>', unsafe_allow_html=True)
+
+
+
 # 
 st.markdown("<br>", unsafe_allow_html=True)
 st.markdown("<br>", unsafe_allow_html=True)
