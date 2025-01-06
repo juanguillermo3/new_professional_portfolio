@@ -30,6 +30,24 @@ linkedin_profile = os.getenv("LINKEDIN_PROFILE")
 whatsapp_number = os.getenv("WHATSAPP_NUMBER", "+57 3053658650")
 
 
+
+# **Title Section**
+st.markdown("""
+    <style>
+    h1 {
+        font-size: 4em;
+        font-weight: bold;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        color: #333;
+    }
+    </style>
+""", unsafe_allow_html=True)
+#
+st.title("Welcome to My Professional Portfolio")
+# Get the LinkedIn profile URL from the environment
+linkedin_profile = os.getenv("LINKEDIN_PROFILE")
+
+
 # Ensure the profile is available
 if linkedin_profile:
     portfolio_content = f"""
