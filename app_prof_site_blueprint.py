@@ -16,6 +16,17 @@ st.set_page_config(page_title="Welcome to My Professional Portfolio", layout="ce
 
 st.title("Welcome to My Professional Portfolio")
 
+# **Title Section**
+st.markdown("""
+    <style>
+    h1 {
+        font-size: 4em;
+        font-weight: bold;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        color: #333;
+    }
+    </style>
+""", unsafe_allow_html=True)
 
 #bio_component.render_layout()
 
