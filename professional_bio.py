@@ -20,7 +20,7 @@ class ProfessionalBio:
 
         # Layout with warning message, picture, and bio content
         st.markdown(
-            "⚠️ This is a mock professional bio. The data shown here is for development purposes only.",
+            "",
             unsafe_allow_html=True
         )
 
