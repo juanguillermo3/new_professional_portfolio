@@ -211,7 +211,7 @@ st.markdown("---")
 st.markdown('<p style="color: gray;">Feel free to connect with me via social media or WhatsApp.</p>', unsafe_allow_html=True)
 
 
-import streamlit as st
+#import streamlit as st
 
 class SocialMediaButtons:
     def __init__(self, links: dict):
@@ -235,24 +235,18 @@ class SocialMediaButtons:
         """
         
     def render_buttons(self):
-        # Create buttons for each platform and store them
-        buttons_html = ''.join([self.create_button(platform, url) for platform, url in self.links.items()])
-        # Ensure buttons are wrapped in a div with flex layout for horizontal display
-        full_html = f'<div style="display: flex; justify-content: space-evenly; flex-wrap: wrap;">{buttons_html}</div>'
-        # Render buttons in a single call to st.markdown
-        st.markdown(full_html, unsafe_allow_html=True)
+        # Use a flex container for layout
+        st.markdown('<div style="display: flex; justify-content: space-evenly; flex-wrap: wrap;">', unsafe_allow_html=True)
+
+        # Render each button in the cycle, one at a time
+        for platform, url in self.links.items():
+            button_html = self.create_button(platform, url)
+            st.markdown(button_html, unsafe_allow_html=True)
+
+        # Close the div after rendering all buttons
+        st.markdown('</div>', unsafe_allow_html=True)
 
 # Example usage:
-# Use a secrets module or a dictionary of links for social media platforms
-social_links = {
-    "LinkedIn": "https://www.linkedin.com/in/your-profile/",
-    "GitHub": "https://github.com/your-profile/",
-    "WhatsApp": "https://wa.me/your-phone-number?text=Hello! I'd like to connect with you.",
-    "Facebook": "https://www.facebook.com/your-profile/"
-}
-
-# Example usage:
-# Use a secrets module or a dictionary of links for social media platforms
 social_links = {
     "LinkedIn": "https://www.linkedin.com/in/your-profile/",
     "GitHub": "https://github.com/your-profile/",
@@ -263,6 +257,7 @@ social_links = {
 # Create an instance of the SocialMediaButtons class and render the buttons
 social_buttons = SocialMediaButtons(social_links)
 social_buttons.render_buttons()
+
 
 
 # 
