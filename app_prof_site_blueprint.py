@@ -62,7 +62,7 @@ def generate_recommendations():
 st.subheader("Recommendation System 🎯")
 st.markdown("---")
 st.markdown('<p style="color: gray;">Discover content tailored to your needs. Use the search bar to find recommendations and filter by project category.</p>', unsafe_allow_html=True)
-
+st.markdown("<br>", unsafe_allow_html=True)
 
 # Query Input
 query = st.text_input(
@@ -167,6 +167,7 @@ st.markdown("<br>", unsafe_allow_html=True)
 st.subheader("Services Lines 🛠️")
 st.markdown("---")
 st.markdown('<p style="color: gray;">Here are the key services I provide to my clients. Hover over the titles for more information.</p>', unsafe_allow_html=True)
+st.markdown("<br>", unsafe_allow_html=True)
 
 services_area = st.container()
 with services_area:
@@ -195,6 +196,7 @@ st.markdown("<br>", unsafe_allow_html=True)
 st.subheader("About Me 🧑‍💻")
 st.markdown("---")
 st.markdown('<p style="color: gray;">Learn more about my professional background and expertise. Below are key differentiators in my professional offering.</p>', unsafe_allow_html=True)
+st.markdown("<br>", unsafe_allow_html=True)
 
 bio_component.render_layout()
 
@@ -219,6 +221,7 @@ st.markdown("<br>", unsafe_allow_html=True)
 st.subheader("Connect with Me 🤝")
 st.markdown("---")
 st.markdown('<p style="color: gray;">Feel free to connect with me via social media or WhatsApp.</p>', unsafe_allow_html=True)
+st.markdown("<br>", unsafe_allow_html=True)
 
 
 #import streamlit as st
