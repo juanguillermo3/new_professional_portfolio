@@ -336,7 +336,7 @@ class SocialMediaButtons:
 
 # Example usage:
 social_links = {
-    "LinkedIn": "https://www.linkedin.com/in/juan-guillermo-osio/,
+    "LinkedIn": "https://www.linkedin.com/in/juan-guillermo-osio/",
     "GitHub": "https://github.com/juanguillermo3/",
     "WhatsApp": "https://wa.me/573053658650",
     "Facebook": "https://www.facebook.com/juan.jaramillo.96"
