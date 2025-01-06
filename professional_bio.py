@@ -86,4 +86,4 @@ bio = {
 
 # Initialize ProfessionalBio object
 bio_component = ProfessionalBio(bio_pic="jg_pick.jpg", bio=bio, skills=[])
-bio_component.render_layout()
+#bio_component.render_layout()
