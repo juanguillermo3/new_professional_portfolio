@@ -24,12 +24,25 @@ class ProfessionalBio:
             unsafe_allow_html=True
         )
 
-        # Picture section (Instagram-like circular photo)
+        # Layout with picture and bio content side by side
         col1, col2 = st.columns([1, 2])
         
         with col1:
-            st.image(self.picture_url, caption="Profile Picture", use_container_width=True, width=200)
-        
+            # Apply custom CSS for rounded image and center it
+            st.markdown(
+                f"""
+                <style>
+                .profile-img {{
+                    width: 100%;
+                    max-width: 200px;
+                    border-radius: 50%;
+                    display: block;
+                    margin: 0 auto;
+                }}
+                </style>
+                """, unsafe_allow_html=True)
+            st.image(self.picture_url, caption="Profile Picture", use_container_width=True)
+
         with col2:
             for section in bio_sections:
                 st.markdown(section)
