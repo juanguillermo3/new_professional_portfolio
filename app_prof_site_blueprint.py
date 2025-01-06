@@ -336,10 +336,10 @@ class SocialMediaButtons:
 
 # Example usage:
 social_links = {
-    "LinkedIn": "https://www.linkedin.com/in/your-profile/",
-    "GitHub": "https://github.com/your-profile/",
-    "WhatsApp": "https://wa.me/your-phone-number?text=Hello! I'd like to connect with you.",
-    "Facebook": "https://www.facebook.com/your-profile/"
+    "LinkedIn": "https://www.linkedin.com/in/juan-guillermo-osio/,
+    "GitHub": "https://github.com/juanguillermo3/",
+    "WhatsApp": "https://wa.me/573053658650",
+    "Facebook": "https://www.facebook.com/juan.jaramillo.96"
 }
 
 # Create an instance of the SocialMediaButtons class and render the buttons
