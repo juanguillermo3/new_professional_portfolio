@@ -45,7 +45,7 @@ import streamlit as st
 class ProfessionalBio:
     def __init__(self, bio_pic, bio, skills):
         """
-        :param bio_pic: The ID for the picture to be referenced from the assets folder.
+        :param bio_pic: The file name of the picture to be referenced from the assets folder (e.g., 'profile.png').
         :param bio: A dictionary where keys are headers and values are markdown formatted strings.
         :param skills: A list of key differentiators and technical skills (not displayed currently).
         """
@@ -70,7 +70,7 @@ class ProfessionalBio:
         col1, col2 = st.columns([1, 2])
         
         with col1:
-            st.image(self.picture_url, use_column_width=True, caption="Profile Picture", width=200)
+            st.image(self.picture_url, caption="Profile Picture", use_container_width=True, width=200)
         
         with col2:
             for section in bio_sections:
