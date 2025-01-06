@@ -44,40 +44,18 @@ st.markdown("""
 #
 st.title("Welcome to My Professional Portfolio")
 
-#
-# **Main Presentation Paragraph Section**
-st.markdown("""
-    <style>
-    .intro-text {
-        font-size: 1.25em;
-        color: #555;
-        line-height: 1.8;
-        text-align: center;
-        font-family: 'Arial', sans-serif;
-        margin-top: 20px;
-        background-color: #f4f4f4;
-        border-radius: 10px;
-        padding: 20px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    }
-    </style>
-    <div class="intro-text">
-        Welcome to my professional portfolio, a showcase of my diverse experiences and expertise. 
-        As a passionate professional in the fields of data science, software development, and consulting, 
-        I am committed to delivering innovative solutions and impactful results. 
-        Explore the projects, services, and insights I offer, and feel free to connect with me for collaboration opportunities.
-    </div>
-""", unsafe_allow_html=True)
-
+# Get the LinkedIn profile URL from the environment
+linkedin_profile = os.getenv("LINKEDIN_PROFILE")
 
 # Ensure the profile is available
 if linkedin_profile:
     portfolio_content = f"""
     <style>
     .intro-text {{
-        font-size: 1.2em;
+        font-size: 0.95em;  /* Smaller font size */
         line-height: 1.6;
         color: #333;
+        text-align: justify;  /* Justified text */
         margin-top: 30px;
     }}
     .highlight {{
@@ -85,16 +63,26 @@ if linkedin_profile:
         color: #2E8B57;  /* Dark green for emphasis */
     }}
     .emoji {{
-        font-size: 1.5em;
+        font-size: 1.2em;
+    }}
+    .emoji-line {{
+        font-size: 1.2em;
+        text-align: left;
     }}
     </style>
 
     <div class="intro-text">
         In this professional portfolio, I conduct and apply research to implement practical solutions to common struggles of the working class 
         in their participation in the labor market. By providing a ranked, summarized view of a high-profile professional portfolio 
-        through techniques such as <span class="highlight">Recommendation Systems (RecSys)</span> and <span class="highlight">LLM-powered applications (LLM apps)</span>. 
+        through techniques such as <span class="highlight">Recommendation Systems (RecSys)</span> and <span class="highlight">LLM-powered applications (LLM apps)</span>.
+    </div>
+    
+    <div class="emoji-line">
         <span class="emoji">🔨</span> This portfolio is under development, and you can read the related research in my LinkedIn profile 
-        <a href="{linkedin_profile}" target="_blank">here</a>. 
+        <a href="{linkedin_profile}" target="_blank">here</a>.
+    </div>
+    
+    <div class="emoji-line">
         <span class="emoji">⚠️</span> Some of the content in this portfolio is mocked-up by AI. I hope you can hear my authentic voice in the whole message.
     </div>
     """
