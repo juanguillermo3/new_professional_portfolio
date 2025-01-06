@@ -26,7 +26,7 @@ st.markdown("""
 st.title("Welcome to My Professional Portfolio")
 
 
-bio_component.render_layout()
+#bio_component.render_layout()
 
 
 
