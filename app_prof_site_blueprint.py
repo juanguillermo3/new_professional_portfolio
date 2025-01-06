@@ -40,6 +40,26 @@ st.markdown("""
 st.markdown('<div class="card"><h2>About Me</h2><p>Learn more about my professional background and expertise...</p></div>', unsafe_allow_html=True)
 
 
+st.markdown("""
+    <style>
+    .button {
+        background-color: #2575fc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 14px;
+        transition: background-color 0.3s;
+    }
+    .button:hover {
+        background-color: #1a58d9;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+st.markdown('<a href="https://github.com/your-profile" class="button">See in GitHub</a>', unsafe_allow_html=True)
+
+
 
 # 
 st.markdown("<br>", unsafe_allow_html=True)
