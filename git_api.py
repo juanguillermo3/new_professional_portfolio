@@ -5,6 +5,7 @@ import logging
 import requests
 from requests.auth import HTTPBasicAuth
 
+
 try:
     from dotenv import load_dotenv
 except ImportError:
