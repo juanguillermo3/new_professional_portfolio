@@ -64,7 +64,26 @@ bio = {
     "Hobbies": "Cycling, Reading, Traveling"
 }
 
+# Example usage
+bio = {
+    "Name": "John Doe",
+    "Profession": "Software Engineer",
+    "Experience": "Over 10 years of experience in web development and data science.",
+    "Hobbies": "Cycling, Reading, Traveling",
+    "Professional Overview": """
+        I am a Colombian Economist with a professional background as a research assistant, 
+        remote data analyst, and also as a freelance consultant in the development of Machine Learning technologies. 
+        The focus of my current professional offering is on Machine Learning Engineering.
+    """,
+    "Lines of Service": """
+        I excel at statistical analysis and working with data and information more generally. 
+        My services include explanatory, counterfactual, predictive, and prescriptive analytics. 
+        I can combine applied statistical modeling with algorithm and application development within the Python development ecosystem 
+        to transform statistical inference into fully operational software with corporate value - i.e. I create data analysis/machine learning applications. 
+        The gist of my professional offering is implementing data analytics and software engineering in a unified framework.
+    """
+}
+
 # Initialize ProfessionalBio object
 bio_component = ProfessionalBio(bio_pic="jg_pick.jpg", bio=bio, skills=[])
 bio_component.render_layout()
-
