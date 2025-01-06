@@ -66,10 +66,6 @@ bio = {
 
 # Example usage
 bio = {
-    "Name": "John Doe",
-    "Profession": "Software Engineer",
-    "Experience": "Over 10 years of experience in web development and data science.",
-    "Hobbies": "Cycling, Reading, Traveling",
     "Professional Overview": """
         I am a Colombian Economist with a professional background as a research assistant, 
         remote data analyst, and also as a freelance consultant in the development of Machine Learning technologies. 
