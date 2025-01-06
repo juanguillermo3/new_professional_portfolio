@@ -3,7 +3,7 @@ import random
 import os
 import re
 from git_api import repos_metadata, metadata_list
-#from professional_bio import *
+from professional_bio import bio_component
 
 # Default WhatsApp number, which can be overridden by the .env file
 whatsapp_number = os.getenv("WHATSAPP_NUMBER", "+57 3053658650")
