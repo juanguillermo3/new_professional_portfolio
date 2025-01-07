@@ -5,13 +5,12 @@ import logging
 import requests
 from requests.auth import HTTPBasicAuth
 
-
 try:
     from dotenv import load_dotenv
 except ImportError:
     os.system("pip install python-dotenv")
     from dotenv import load_dotenv
- 
+
 #
 from dotenv import load_dotenv
 load_dotenv()
@@ -25,7 +24,7 @@ REPO_OWNER
 REPOS_IN_PORTFOLIO
 
 #
-# (0)
+# 0.
 #
 def get_repo_metadata(repo_owner, repo_name, username=None, token=None):
     """
@@ -38,8 +37,8 @@ def get_repo_metadata(repo_owner, repo_name, username=None, token=None):
         token (str, optional): GitHub token for authentication.
 
     Returns:
-        dict: A dictionary containing the repository's title, description, image URL, and repo URL.
-              Returns None if the request fails.
+        tuple: A tuple containing the repository's title, description, and image URL. 
+               Returns (None, None, None) if the request fails.
     """
     url = f"https://api.github.com/repos/{repo_owner}/{repo_name}"
     
@@ -52,18 +51,15 @@ def get_repo_metadata(repo_owner, repo_name, username=None, token=None):
     
     if response.status_code == 200:
         repo_data = response.json()
-        return {
-            "title": repo_data.get('name'),
-            "description": repo_data.get('description'),
-            "image": f"https://raw.githubusercontent.com/{repo_owner}/{repo_name}/main/project_image.png",  # Adjust path if necessary
-            "url": repo_data.get('html_url')
-        }
+        title = repo_data.get('name')
+        description = repo_data.get('description')
+        image_url = f"https://raw.githubusercontent.com/{repo_owner}/{repo_name}/main/project_image.png"  # Adjust path if necessary
+        return title, description, image_url
     else:
-        return None
+        return None, None, None
 
 #
-repos_metadata=[get_repo_metadata(REPO_OWNER,some_repo) for some_repo in REPOS_IN_PORTFOLIO]
-repos_metadata
+#[get_repo_metadata(REPO_OWNER,some_repo) for some_repo in REPOS_IN_PORTFOLIO]
 
 #
 # 1.
@@ -207,10 +203,6 @@ def extract_metadata_from_all_files(all_code_files, repo_owner, username=None, t
                 # Flatten: Add 'file_path' and 'repo_name' directly to the metadata
                 metadata["file_path"] = file_path
                 metadata["repo_name"] = repo_name
-
-                # Add GitHub URL for the file
-                github_url = f"https://github.com/{repo_owner}/{repo_name}/blob/main/{file_path}"
-                metadata["url"] = github_url
 
                 # Convert all keys to lowercase for standardization
                 metadata = {key.lower(): value for key, value in metadata.items()}
