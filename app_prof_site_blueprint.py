@@ -14,14 +14,17 @@ import os
 import re
 from git_api import repos_metadata, metadata_list, REPOS_IN_PORTFOLIO
 from professional_bio import bio_component
-
-
-import os
 from dotenv import load_dotenv
 
 
 # Load environment variables from .env file
 load_dotenv()
+
+#
+ENVIRONMENT = os.getenv("ENVIRONMENT")
+REPO_OWNER= os.getenv("REPO_OWNER")
+REPOS_IN_PORTFOLIO=os.getenv("REPOS_IN_PORTFOLIO").split(",") 
+
 
 # Get the LinkedIn profile URL from the environment
 linkedin_profile = os.getenv("LINKEDIN_PROFILE")
