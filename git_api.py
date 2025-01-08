@@ -12,21 +12,28 @@ except ImportError:
     from dotenv import load_dotenv
 
 #
-from dotenv import load_dotenv
-#load_dotenv()
-# Force load the .env file
-def load_env_file():
-    # Clear existing environment variables set by .env
-    env_keys = [key for key in os.environ.keys()]
-    for key in env_keys:
-        if key.startswith('MY_APP_'):  # Adjust based on your variable naming pattern
+from dotenv import load_dotenv, dotenv_values
+
+def reload_env(dotenv_path=".env"):
+    """
+    Reloads the .env file, ensuring all variables are updated.
+
+    Args:
+        dotenv_path (str): Path to the .env file.
+    """
+    # Parse current .env values without loading them into os.environ
+    current_env = dotenv_values(dotenv_path)
+
+    # Remove any keys from os.environ that exist in the .env file
+    for key in current_env.keys():
+        if key in os.environ:
             del os.environ[key]
 
-    # Reload the .env file
-    load_dotenv()
+    # Reload .env file into os.environ
+    load_dotenv(dotenv_path, override=True)
 
-# Call the function
-load_env_file()
+# Call this at the top of your Streamlit script
+reload_env()
 
 #
 ENVIRONMENT = os.getenv("ENVIRONMENT")
