@@ -13,7 +13,21 @@ except ImportError:
 
 #
 from dotenv import load_dotenv
-load_dotenv()
+#load_dotenv()
+# Force load the .env file
+def load_env_file():
+    # Clear existing environment variables set by .env
+    env_keys = [key for key in os.environ.keys()]
+    for key in env_keys:
+        if key.startswith('MY_APP_'):  # Adjust based on your variable naming pattern
+            del os.environ[key]
+
+    # Reload the .env file
+    load_dotenv()
+
+# Call the function
+load_env_file()
+
 #
 ENVIRONMENT = os.getenv("ENVIRONMENT")
 REPO_OWNER= os.getenv("REPO_OWNER")
