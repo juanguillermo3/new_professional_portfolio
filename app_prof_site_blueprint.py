@@ -142,7 +142,7 @@ query = st.text_input(
 
 # Radial Button for Project Filter
 recommendations = metadata_list
-projects = ["All Projects"] + REPOS_IN_PORTFOLIO )
+projects = ["All Projects"] + REPOS_IN_PORTFOLIO 
 selected_project = st.selectbox("Filter recommendations by project:", projects)
 
 
