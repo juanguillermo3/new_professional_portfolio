@@ -142,7 +142,7 @@ query = st.text_input(
 
 # Radial Button for Project Filter
 recommendations = metadata_list
-projects = ["All Projects"] + list({rec["project"] for rec in recommendations })
+projects = ["All Projects"] + list({rec["repo_name"] for rec in recommendations })
 selected_project = st.selectbox("Filter recommendations by project:", projects)
 
 
