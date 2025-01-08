@@ -16,9 +16,28 @@ from git_api import repos_metadata, metadata_list, REPOS_IN_PORTFOLIO
 from professional_bio import bio_component
 from dotenv import load_dotenv
 
+from dotenv import load_dotenv, dotenv_values
+#
+def reload_env(dotenv_path=".env"):
+    """
+    Reloads the .env file, ensuring all variables are updated.
 
-# Load environment variables from .env file
-load_dotenv()
+    Args:
+        dotenv_path (str): Path to the .env file.
+    """
+    # Parse current .env values without loading them into os.environ
+    current_env = dotenv_values(dotenv_path)
+
+    # Remove any keys from os.environ that exist in the .env file
+    for key in current_env.keys():
+        if key in os.environ:
+            del os.environ[key]
+
+    # Reload .env file into os.environ
+    load_dotenv(dotenv_path, override=True)
+
+# Call this at the top of your Streamlit script
+reload_env()
 
 #
 ENVIRONMENT = os.getenv("ENVIRONMENT")
