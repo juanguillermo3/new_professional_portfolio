@@ -219,6 +219,12 @@ def extract_metadata_from_all_files(all_code_files, repo_owner, username=None, t
 #
 # main pipeline
 #
+
+#
+repos_metadata=[get_repo_metadata(REPO_OWNER,some_repo) for some_repo in REPOS_IN_PORTFOLIO]
+repos_metadata
+
+#
 all_code_files=[]
 for some_repo in REPOS_IN_PORTFOLIO:
     for file_data in list_repo_files(REPO_OWNER,some_repo):
