@@ -12,7 +12,7 @@ import streamlit as st
 import random
 import os
 import re
-from git_api import repos_metadata, metadata_list
+from git_api import repos_metadata, metadata_list, REPOS_IN_PORTFOLIO
 from professional_bio import bio_component
 
 
@@ -142,7 +142,7 @@ query = st.text_input(
 
 # Radial Button for Project Filter
 recommendations = metadata_list
-projects = ["All Projects"] + list({rec["repo_name"] for rec in recommendations })
+projects = ["All Projects"] + REPOS_IN_PORTFOLIO )
 selected_project = st.selectbox("Filter recommendations by project:", projects)
 
 
@@ -150,6 +150,9 @@ selected_project = st.selectbox("Filter recommendations by project:", projects)
 recsys_area = st.container()
 
 with recsys_area:
+
+    recommendations = metadata_list
+    
     # Check if the selected project exists in repos_metadata
     project_metadata = None
     if selected_project != "All Projects":
