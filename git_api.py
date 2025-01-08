@@ -189,7 +189,6 @@ def get_file_type(file_path):
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 # Extract metadata from all code files
-# Extract metadata from all code files
 def extract_metadata_from_all_files(all_code_files, repo_owner, username=None, token=None):
     metadata_list = []
 
@@ -205,6 +204,10 @@ def extract_metadata_from_all_files(all_code_files, repo_owner, username=None, t
                 # Flatten: Add 'file_path' and 'repo_name' directly to the metadata
                 metadata["file_path"] = file_path
                 metadata["repo_name"] = repo_name
+
+                # Add GitHub URL for the file
+                github_url = f"https://github.com/{repo_owner}/{repo_name}/blob/main/{file_path}"
+                metadata["url"] = github_url
 
                 # Convert all keys to lowercase for standardization
                 metadata = {key.lower(): value for key, value in metadata.items()}
