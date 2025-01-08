@@ -37,8 +37,8 @@ def get_repo_metadata(repo_owner, repo_name, username=None, token=None):
         token (str, optional): GitHub token for authentication.
 
     Returns:
-        tuple: A tuple containing the repository's title, description, and image URL. 
-               Returns (None, None, None) if the request fails.
+        dict: A dictionary containing the repository's title, description, image URL, and repo URL.
+              Returns None if the request fails.
     """
     url = f"https://api.github.com/repos/{repo_owner}/{repo_name}"
     
@@ -51,12 +51,14 @@ def get_repo_metadata(repo_owner, repo_name, username=None, token=None):
     
     if response.status_code == 200:
         repo_data = response.json()
-        title = repo_data.get('name')
-        description = repo_data.get('description')
-        image_url = f"https://raw.githubusercontent.com/{repo_owner}/{repo_name}/main/project_image.png"  # Adjust path if necessary
-        return title, description, image_url
+        return {
+            "title": repo_data.get('name'),
+            "description": repo_data.get('description'),
+            "image": f"https://raw.githubusercontent.com/{repo_owner}/{repo_name}/main/project_image.png",  # Adjust path if necessary
+            "url": repo_data.get('html_url')
+        }
     else:
-        return None, None, None
+        return None
 
 #
 #[get_repo_metadata(REPO_OWNER,some_repo) for some_repo in REPOS_IN_PORTFOLIO]
