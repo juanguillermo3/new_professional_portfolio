@@ -24,6 +24,9 @@ REPO_OWNER
 REPOS_IN_PORTFOLIO
 
 #
+st.text(REPOS_IN_PORTFOLIO)
+
+#
 # 0.
 #
 def get_repo_metadata(repo_owner, repo_name, username=None, token=None):
