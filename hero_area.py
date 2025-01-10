@@ -57,18 +57,22 @@ class HeroArea:
                 <style>
                 .colab-grid {
                     display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                    gap: 15px;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 20px;
+                    padding: 10px;
                 }
                 .colab-button {
                     background-color: #F4B400;
                     color: white;
-                    padding: 10px;
+                    padding: 15px;
                     text-decoration: none;
+                    border: 2px solid white;
                     border-radius: 5px;
-                    font-weight: bold;
                     text-align: center;
-                    display: block;
+                    font-size: 16px;
+                }
+                .colab-button:hover {
+                    background-color: #E2A800;
                 }
                 </style>
                 """,
@@ -88,7 +92,6 @@ class HeroArea:
 
         # Add some spacing and style adjustments
         st.markdown("<br>", unsafe_allow_html=True)
-
         
 # Example usage of HeroArea
 
