@@ -16,7 +16,7 @@ from professional_bio import bio_component
 from dotenv import load_dotenv, dotenv_values
 
 from hero_area import hero
-from rec_sys import RecSys
+from rec_sys import recsys
 
 #st.text(REPOS_IN_PORTFOLIO)
 #st.text(metadata_list)
@@ -240,8 +240,7 @@ with recsys_area:
                         """, unsafe_allow_html=True
                     )
 
-
-
+recsys.render()
 
 # 
 st.markdown("<br>", unsafe_allow_html=True)
