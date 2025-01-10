@@ -245,6 +245,7 @@ def parse_module_docstring(docstring):
 def get_module_metadata(repo_owner, repo_name, file_path, file_type, username=None, token=None):
     """
     Fetches a file from GitHub, extracts its docstring, and parses metadata.
+    Enriches the metadata with the GitHub URL.
     """
     # Fetch the file content
     file_content = fetch_file_content(repo_owner, repo_name, file_path, username, token)
@@ -257,7 +258,14 @@ def get_module_metadata(repo_owner, repo_name, file_path, file_type, username=No
         return None
 
     # Parse key-value pairs from the docstring
-    return parse_module_docstring(docstring)
+    metadata = parse_module_docstring(docstring)
+    
+    # Enrich the metadata with the GitHub URL
+    if metadata is not None:
+        metadata['url'] = f'https://github.com/{repo_owner}/{repo_name}/blob/main/{file_path}'
+
+    return metadata
+
 
 
 # Define a function to determine file type based on file extension (case-insensitive)
