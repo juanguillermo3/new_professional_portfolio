@@ -33,13 +33,11 @@ class HeroArea:
                 padding: 20px;
             }}
             .hero-quote {{
-                font-family: 'Georgia', serif;
                 font-style: italic;
                 font-size: 1.5em;
                 line-height: 1.8;
                 margin: 0 auto;
                 max-width: 800px;
-                color: rgba(255, 255, 255, 0.9);
             }}
             .hero-author {{
                 font-size: 1em;
@@ -53,14 +51,12 @@ class HeroArea:
             st.markdown("""
             <style>
             .hero-quote {{
-                font-family: 'Georgia', serif;
                 font-style: italic;
                 font-size: 1.5em;
                 line-height: 1.8;
                 margin: 0 auto;
                 max-width: 800px;
                 text-align: center;
-                color: rgba(0, 0, 0, 0.8);
             }}
             .hero-author {{
                 font-size: 1em;
@@ -81,6 +77,22 @@ class HeroArea:
             st.markdown(f'<p class="hero-author">— {self.author}</p>', unsafe_allow_html=True)
 
         st.markdown('</div>', unsafe_allow_html=True)
+
+
+# Example usage of HeroArea
+if __name__ == "__main__":
+    hero = HeroArea(
+        quote=(
+            "Modern data analysis requires engaging with, sometimes developing software applications, "
+            "such as data gathering and processing services. Moreover, software automation is key to "
+            "distributing inferences from statistical analysis. Bottom line, I recognize the tight "
+            "dependencies between data analysis and application development, hence my effort to offer "
+            "data analysis and software analysis within a unified framework."
+        ),
+        author="",
+        background_image="https://example.com/subtle-bg.jpg"  # Optional background image
+    )
+    hero.render()
 
 
 # Example usage of HeroArea
