@@ -1,5 +1,10 @@
-import streamlit as st
+"""
+title: Hero section for a professional portfolio.
+description: Low key hero section for a professional porftolio. Styled as a quote from a book with a biopick.
+Author: Juan Guillermo
+"""
 
+import streamlit as st
 
 class HeroArea:
     def __init__(self, quote, avatar_image: str = None, avatar_caption: str = ""):
