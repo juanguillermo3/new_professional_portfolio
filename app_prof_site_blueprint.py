@@ -16,7 +16,7 @@ from professional_bio import bio_component
 from dotenv import load_dotenv, dotenv_values
 
 from hero_area import hero
-from rec_sys import recsys
+#from rec_sys import recsys
 
 
 #
