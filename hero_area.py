@@ -2,16 +2,18 @@ import streamlit as st
 
 
 class HeroArea:
-    def __init__(self, quote: str, author: str = "", avatar_image: str = None):
+    def __init__(self, quote: str, author: str = "", avatar_image: str = None, avatar_caption: str = ""):
         """
         Initialize the HeroArea class with a focus on a subtle, quote-styled main statement.
         :param quote: Main statement or quote to display.
         :param author: Attribution for the quote.
         :param avatar_image: File name of the avatar image to display.
+        :param avatar_caption: Caption for the avatar image.
         """
         self.quote = quote
         self.author = author
         self.avatar_image = avatar_image
+        self.avatar_caption = avatar_caption
 
     def render(self):
         """
@@ -46,23 +48,25 @@ class HeroArea:
             if self.author:
                 st.markdown(f'<p class="hero-author">— {self.author}</p>', unsafe_allow_html=True)
 
-        # Render the avatar
+        # Render the avatar with caption
         if self.avatar_image:
             with col2:
-                st.image(f"assets/{self.avatar_image}", caption="Profile Picture", use_container_width=True)
+                st.image(f"assets/{self.avatar_image}", caption=self.avatar_caption, use_container_width=True)
 
 
 class ProfessionalBio:
-    def __init__(self, bio_pic, bio, skills):
+    def __init__(self, bio_pic, bio, skills, avatar_caption: str = ""):
         """
         Initialize the ProfessionalBio class.
         :param bio_pic: The file name of the picture to be referenced from the assets folder (e.g., 'profile.png').
         :param bio: A dictionary where keys are headers and values are markdown formatted strings.
         :param skills: A list of key differentiators and technical skills.
+        :param avatar_caption: Caption for the bio picture.
         """
         self.picture_url = f'assets/{bio_pic}'  # Reference image from the assets folder
         self.bio = bio
-        self.skills = skills  # Skills are kept in the signature but not used in layout for now
+        self.skills = skills
+        self.avatar_caption = avatar_caption
 
     def render_layout(self):
         """
@@ -83,7 +87,7 @@ class ProfessionalBio:
                 </style>
                 """, unsafe_allow_html=True
             )
-            st.image(self.picture_url, caption="Profile Picture", use_container_width=False)
+            st.image(self.picture_url, caption=self.avatar_caption, use_container_width=False)
 
         with col2:
             for header, content in self.bio.items():
@@ -104,16 +108,11 @@ quote = (
     "data analysis and software analysis within a unified framework."
 )
 
-bio = {
-    "Professional Overview": """
-        I am a Colombian Economist with a professional background as a research assistant, 
-        remote data analyst, and also as a freelance consultant in the development of Machine Learning technologies. 
-        The focus of my current professional offering is on Machine Learning Engineering.
-    """
-}
+
+# Example captions
+hero_caption = "God told me I could either be good-looking or an excellent worker. Guess which one I chose?"
 
 # Instantiate components
-hero = HeroArea(quote=quote, avatar_image="jg_pick.jpg")
-
+hero = HeroArea(quote=quote, avatar_image="jg_pick.jpg", avatar_caption=hero_caption)
 
 
