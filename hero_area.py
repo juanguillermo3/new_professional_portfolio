@@ -80,19 +80,17 @@ class HeroArea:
 
 
 # Example usage of HeroArea
-if __name__ == "__main__":
-    hero = HeroArea(
-        quote=(
-            "Modern data analysis requires engaging with, sometimes developing software applications, "
-            "such as data gathering and processing services. Moreover, software automation is key to "
-            "distributing inferences from statistical analysis. Bottom line, I recognize the tight "
-            "dependencies between data analysis and application development, hence my effort to offer "
-            "data analysis and software analysis within a unified framework."
-        ),
-        author="",
-        background_image="https://example.com/subtle-bg.jpg"  # Optional background image
-    )
-    hero.render()
+hero = HeroArea(
+    quote=(
+        "Modern data analysis requires engaging with, sometimes developing software applications, "
+        "such as data gathering and processing services. Moreover, software automation is key to "
+        "distributing inferences from statistical analysis. Bottom line, I recognize the tight "
+        "dependencies between data analysis and application development, hence my effort to offer "
+        "data analysis and software analysis within a unified framework."
+    ),
+    author="",
+    background_image="https://example.com/subtle-bg.jpg"  # Optional background image
+)
 
 
 
