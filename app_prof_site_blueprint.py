@@ -240,7 +240,7 @@ with recsys_area:
                         """, unsafe_allow_html=True
                     )
 
-recsys.render()
+#recsys.render()
 
 # 
 st.markdown("<br>", unsafe_allow_html=True)
