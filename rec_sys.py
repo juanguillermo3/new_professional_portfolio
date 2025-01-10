@@ -1,6 +1,6 @@
 import streamlit as st
 import re
-from git_api import repos_metadata, metadata_list, REPOS_IN_PORTFOLIO
+#from git_api import repos_metadata, metadata_list, REPOS_IN_PORTFOLIO
 from dotenv import load_dotenv, dotenv_values
 import os
 
