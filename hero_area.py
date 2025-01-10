@@ -1,9 +1,6 @@
 import streamlit as st
 
 
-import streamlit as st
-
-
 class HeroArea:
     def __init__(self, quote, avatar_image: str = None, avatar_caption: str = ""):
         """
@@ -38,6 +35,13 @@ class HeroArea:
                 text-align: justify;
                 padding-bottom: 20px;  /* Add space between paragraphs */
             }
+
+            .hero-avatar-container {
+                display: flex;
+                justify-content: center; /* Center horizontally */
+                align-items: center; /* Center vertically */
+                height: 100%;  /* Ensure the container takes the full height of the column */
+            }
             </style>
             """, unsafe_allow_html=True)
 
@@ -48,7 +52,9 @@ class HeroArea:
         # Render the avatar with caption
         if self.avatar_image:
             with col2:
+                st.markdown('<div class="hero-avatar-container">', unsafe_allow_html=True)
                 st.image(f"assets/{self.avatar_image}", caption=self.avatar_caption, use_container_width=True)
+                st.markdown('</div>', unsafe_allow_html=True)
 
 
 # Example data for HeroArea with multiple paragraphs in the quote
@@ -69,6 +75,8 @@ hero_caption = "God told me I could either be good-looking or an excellent worke
 
 # Instantiate and render HeroArea
 hero = HeroArea(quote=quote, avatar_image="jg_pick.jpg", avatar_caption=hero_caption)
+
+
 
 
 
