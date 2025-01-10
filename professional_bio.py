@@ -81,4 +81,4 @@ bio = {
 bio_component = ProfessionalBio(bio_pic="https://via.placeholder.com/200", bio=bio, skills=[])
 
 # Render the layout
-bio_component.render_layout()
+#bio_component.render_layout()
