@@ -3,11 +3,11 @@ import streamlit as st
 class ProfessionalBio:
     def __init__(self, bio_pic, bio, skills):
         """
-        :param bio_pic: The file name of the picture to be referenced from the assets folder (e.g., 'profile.png').
+        :param bio_pic: The file name of the picture to be referenced from the assets folder (e.g., 'profile.png') or a URL for an online image.
         :param bio: A dictionary where keys are headers and values are markdown formatted strings.
         :param skills: A list of key differentiators and technical skills (not displayed currently).
         """
-        self.picture_url = f'assets/{bio_pic}'  # Reference image from the assets folder
+        self.picture_url = bio_pic  # This could either be a local file or an online URL
         self.bio = bio
         self.skills = skills  # Skills are kept in the signature but not used in layout for now
 
@@ -68,7 +68,7 @@ class ProfessionalBio:
                 st.subheader("Skills")
                 st.markdown("\n".join([f"- {skill}" for skill in self.skills]))
 
-# Example usage
+# Example usage with placeholder image (using a free placeholder from Placeholder.com)
 bio = {
     "Professional Overview": """
         I am a Colombian Economist with a professional background as a research assistant, 
@@ -77,6 +77,8 @@ bio = {
     """
 }
 
+# Initialize ProfessionalBio object with a placeholder image
+bio_component = ProfessionalBio(bio_pic="https://via.placeholder.com/200", bio=bio, skills=[])
 
-# Initialize ProfessionalBio object
-bio_component = ProfessionalBio(bio=bio, skills=[])
+# Render the layout
+bio_component.render_layout()
