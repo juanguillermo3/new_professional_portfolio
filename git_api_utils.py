@@ -4,37 +4,12 @@ import ast
 import logging
 import requests
 from requests.auth import HTTPBasicAuth
+import json
 
-try:
-    from dotenv import load_dotenv
-except ImportError:
-    os.system("pip install python-dotenv")
-    from dotenv import load_dotenv
 
 #
-from dotenv import load_dotenv, dotenv_values
-
-def reload_env(dotenv_path=".env"):
-    """
-    Reloads the .env file, ensuring all variables are updated.
-
-    Args:
-        dotenv_path (str): Path to the .env file.
-    """
-    # Parse current .env values without loading them into os.environ
-    current_env = dotenv_values(dotenv_path)
-
-    # Remove any keys from os.environ that exist in the .env file
-    for key in current_env.keys():
-        if key in os.environ:
-            del os.environ[key]
-
-    # Reload .env file into os.environ
-    load_dotenv(dotenv_path, override=True)
-
-# Call this at the top of your Streamlit script
-reload_env()
-
+REPOS_METADATA_FILE = "repos_metadata.json"
+MODULES_METADATA_FILE = "modules_metadata.json"
 #
 ENVIRONMENT = os.getenv("ENVIRONMENT")
 REPO_OWNER= os.getenv("REPO_OWNER")
@@ -43,8 +18,6 @@ REPOS_IN_PORTFOLIO=os.getenv("REPOS_IN_PORTFOLIO").split(",")
 ENVIRONMENT
 REPO_OWNER
 REPOS_IN_PORTFOLIO
-
-
 
 
 #
@@ -314,26 +287,85 @@ def extract_metadata_from_all_files(all_code_files, repo_owner, username=None, t
 
 
 
-#
-# main pipeline
-#
+# Set up logging
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
-#
-repos_metadata=[get_repo_metadata(REPO_OWNER,some_repo) for some_repo in REPOS_IN_PORTFOLIO]
-repos_metadata
+# Function to export data to JSON file
+def export_to_json(data, file_path):
+    """
+    Exports the provided data to a JSON file.
 
-#
-all_code_files=[]
-for some_repo in REPOS_IN_PORTFOLIO:
-    for file_data in list_repo_files(REPO_OWNER,some_repo):
-        file_data.update({"repo_name": some_repo })
-        all_code_files.append(file_data)
-#
-all_code_files
-# 
-metadata_list = extract_metadata_from_all_files(
-    all_code_files,
-    repo_owner=REPO_OWNER,
-    #username="your_username",
-    #token="your_token"
-)
+    Args:
+        data (dict or list): Data to export.
+        file_path (str): The file path to save the data to.
+    """
+    with open(file_path, 'w', encoding='utf-8') as json_file:
+        json.dump(data, json_file, ensure_ascii=False, indent=4)
+    logging.info(f"Data exported to {file_path}")
+    
+
+def load_metadata_from_file(metadata_type):
+    """
+    This function loads metadata from JSON files if they exist.
+    
+    :param metadata_type: 'repos' or 'modules' to specify the type of metadata to load.
+    :return: The metadata as a dictionary, or None if the file doesn't exist.
+    """
+    if metadata_type == 'repos':
+        metadata_path = REPOS_METADATA_FILE
+    elif metadata_type == 'modules':
+        metadata_path = MODULES_METADATA_FILE
+    else:
+        raise ValueError("Invalid metadata type. Choose 'repos' or 'modules'.")
+
+    # Check if the metadata file exists
+    if os.path.exists(metadata_path):
+        # If the file exists, read and return the data
+        with open(metadata_path, 'r') as file:
+            print(f"Loading {metadata_type} metadata from {metadata_path}")
+            return json.load(file)
+    else:
+        # If the file doesn't exist, log a message and return None
+        print(f"{metadata_type} metadata file not found at {metadata_path}.")
+        return None
+
+# Function to load repos metadata
+def load_repos_metadata():
+    return load_metadata_from_file('repos')
+
+# Function to load modules metadata
+def load_modules_metadata():
+    return load_metadata_from_file('modules')
+
+
+
+# Main loop for extracting metadata
+def main():
+    # Fetch repo metadata
+    logging.info("Fetching repo metadata...")
+    repos_metadata = [get_repo_metadata(REPO_OWNER, some_repo) for some_repo in REPOS_IN_PORTFOLIO]
+    # Filter out any None values in case some repos failed to fetch metadata
+    repos_metadata = [repo for repo in repos_metadata if repo]
+
+    # Export repo metadata to JSON file
+    export_to_json(repos_metadata, REPOS_METADATA_FILE)
+
+    # Collect all code files from repos
+    all_code_files = []
+    for some_repo in REPOS_IN_PORTFOLIO:
+        for file_data in list_repo_files(REPO_OWNER, some_repo):
+            file_data.update({"repo_name": some_repo})
+            all_code_files.append(file_data)
+
+    # Extract metadata for all code files
+    logging.info("Extracting module metadata...")
+    metadata_list = extract_metadata_from_all_files(all_code_files, REPO_OWNER)
+
+    # Export module metadata to JSON file
+    export_to_json(metadata_list, MODULES_METADATA_FILE)
+
+    logging.info("Metadata extraction and export completed.")
+
+# Run the main loop
+if __name__ == "__main__":
+    main()
