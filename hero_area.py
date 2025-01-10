@@ -18,7 +18,7 @@ class HeroArea:
 
     def render(self):
         """
-        Renders the Hero area in Streamlit, including text, CTA, visual elements, and Colab portfolio buttons.
+        Renders the Hero area in Streamlit, including text, CTA, visual elements, and Colab portfolio grid.
         """
         # Set the background if provided using st.markdown for custom HTML and CSS
         if self.background_image:
@@ -50,32 +50,46 @@ class HeroArea:
         if self.cta_text and self.cta_link:
             st.markdown(f"[{self.cta_text}]({self.cta_link})", unsafe_allow_html=True)
 
-        # Render Colab portfolio buttons
+        # Render Colab portfolio grid
         if self.colab_portfolio:
-            st.markdown("<div style='display: flex; gap: 10px;'>", unsafe_allow_html=True)
+            st.markdown(
+                """
+                <style>
+                .colab-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                    gap: 15px;
+                }
+                .colab-button {
+                    background-color: #F4B400;
+                    color: white;
+                    padding: 10px;
+                    text-decoration: none;
+                    border-radius: 5px;
+                    font-weight: bold;
+                    text-align: center;
+                    display: block;
+                }
+                </style>
+                """,
+                unsafe_allow_html=True,
+            )
+            st.markdown('<div class="colab-grid">', unsafe_allow_html=True)
             for project in self.colab_portfolio:
                 title = project.get("title", "View Project")
                 url = project.get("url", "#")
                 st.markdown(
                     f"""
-                    <a href="{url}" target="_blank" style="
-                        background-color: #F4B400;
-                        color: white;
-                        padding: 10px 15px;
-                        text-decoration: none;
-                        border-radius: 5px;
-                        font-weight: bold;
-                        display: inline-block;
-                        text-align: center;
-                    ">{title}</a>
+                    <a href="{url}" target="_blank" class="colab-button">{title}</a>
                     """,
-                    unsafe_allow_html=True
+                    unsafe_allow_html=True,
                 )
-            st.markdown("</div>", unsafe_allow_html=True)
+            st.markdown('</div>', unsafe_allow_html=True)
 
         # Add some spacing and style adjustments
         st.markdown("<br>", unsafe_allow_html=True)
 
+        
 # Example usage of HeroArea
 
 colab_projects = [
