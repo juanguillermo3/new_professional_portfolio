@@ -165,7 +165,7 @@ with recsys_area:
 
     # Filter recommendations by selected project
     if selected_project != "All Projects":
-        recommendations = [rec for rec in recommendations if rec["project"] == selected_project]
+        recommendations = [rec for rec in recommendations if rec["repo_name"] == selected_project]
     
     # Filter recommendations by search query
     if query:
