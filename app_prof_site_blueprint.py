@@ -74,7 +74,7 @@ st.title("Welcome to My Professional Portfolio")
 linkedin_profile = os.getenv("LINKEDIN_PROFILE")
 
 
-hero.render()
+#hero.render()
 
 # Ensure the profile is available
 if linkedin_profile:
