@@ -79,6 +79,7 @@ hero.render()
 # Ensure the profile is available
 if linkedin_profile:
     portfolio_content = f"""
+    <style>
     .emoji {{
         font-size: 1.2em;
     }}
