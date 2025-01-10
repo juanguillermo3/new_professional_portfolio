@@ -51,6 +51,8 @@ linkedin_profile = os.getenv("LINKEDIN_PROFILE")
 whatsapp_number = os.getenv("WHATSAPP_NUMBER", "+57 3053658650")
 
 st.text(REPOS_IN_PORTFOLIO)
+st.text(metadata_list)
+
 
 # **Title Section**
 st.markdown("""
