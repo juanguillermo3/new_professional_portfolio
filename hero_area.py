@@ -2,14 +2,15 @@ import streamlit as st
 
 
 class HeroArea:
-    def __init__(self, quote: str, avatar_image: str = None, avatar_caption: str = ""):
+    def __init__(self, quote, avatar_image: str = None, avatar_caption: str = ""):
         """
         Initialize the HeroArea class with a focus on a quote-styled main statement.
-        :param quote: Main statement or quote to display as a single paragraph.
+        :param quote: Main statement or quote to display as a single string or list of strings (paragraphs).
         :param avatar_image: File name of the avatar image to display.
         :param avatar_caption: Caption for the avatar image.
         """
-        self.quote = quote
+        # Ensure the quote is a list of paragraphs
+        self.quote = quote if isinstance(quote, list) else [quote]  # Convert to list if a single string
         self.avatar_image = avatar_image
         self.avatar_caption = avatar_caption
 
@@ -34,8 +35,9 @@ class HeroArea:
             </style>
             """, unsafe_allow_html=True)
 
-            # Render the quote as a single justified paragraph
-            st.markdown(f'<p class="hero-quote">{self.quote}</p>', unsafe_allow_html=True)
+            # Render each paragraph separately in the quote
+            for paragraph in self.quote:
+                st.markdown(f'<p class="hero-quote">{paragraph}</p>', unsafe_allow_html=True)
 
         # Render the avatar with caption
         if self.avatar_image:
@@ -43,20 +45,24 @@ class HeroArea:
                 st.image(f"assets/{self.avatar_image}", caption=self.avatar_caption, use_container_width=True)
 
 
-# Example data for HeroArea
-quote = (
+# Example data for HeroArea with multiple paragraphs in the quote
+quote = [
     "Modern data analysis requires engaging with, sometimes developing software applications, "
     "such as data gathering and processing services. "
     "Moreover, software automation is key to distributing inferences from statistical analysis. "
     "Bottom line, I recognize the tight dependencies between data analysis and application development, "
-    "hence my effort to offer data analysis and software analysis within a unified framework."
-)
+    "hence my effort to offer data analysis and software analysis within a unified framework.",
+    
+    "I am, and always wanted to be, a professional economist. I had made a living of developing data analysis, "
+    "machine learning and application development scripts. My larger professional project aims from a holistic vision "
+    "interconnecting all the modern tooling for data analysis, including statistical models, algorithms, workflows, "
+    "and information tools."
+]
 
-# Example caption
-hero_caption = "God told me I could either be good-looking or an excellent worker. "
+# Example caption for the avatar
+hero_caption = "God told me I could either be good-looking or an excellent worker."
 
 # Instantiate and render HeroArea
 hero = HeroArea(quote=quote, avatar_image="jg_pick.jpg", avatar_caption=hero_caption)
-
 
 
