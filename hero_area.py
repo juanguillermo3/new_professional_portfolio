@@ -1,56 +1,119 @@
 import streamlit as st
 
+
 class HeroArea:
-    def __init__(self, quote: str, author: str = ""):
+    def __init__(self, quote: str, author: str = "", avatar_image: str = None):
         """
         Initialize the HeroArea class with a focus on a subtle, quote-styled main statement.
+        :param quote: Main statement or quote to display.
+        :param author: Attribution for the quote.
+        :param avatar_image: File name of the avatar image to display.
         """
         self.quote = quote
         self.author = author
+        self.avatar_image = avatar_image
 
     def render(self):
         """
-        Render the subtle Hero area as a quote.
+        Render the Hero area in Streamlit.
         """
-        st.markdown("""
-        <style>
-        .hero-quote {
-            font-style: italic;
-            font-size: 1.5em;
-            line-height: 1.8;
-            margin: 0 auto;
-            max-width: 800px;
-            text-align: center;
-            color: #333333;
-        }
-        .hero-author {
-            font-size: 1em;
-            margin-top: 10px;
-            text-align: center;
-            color: gray;
-        }
-        </style>
-        """, unsafe_allow_html=True)
+        # Two-column layout for quote and avatar
+        col1, col2 = st.columns([2, 1])
 
         # Render the quote
-        st.markdown(f'<p class="hero-quote">"{self.quote}"</p>', unsafe_allow_html=True)
+        with col1:
+            st.markdown("""
+            <style>
+            .hero-quote {
+                font-style: italic;
+                font-size: 1.5em;
+                line-height: 1.8;
+                margin: 0 auto;
+                max-width: 800px;
+                text-align: left;
+                color: #333333;
+            }
+            .hero-author {
+                font-size: 1em;
+                margin-top: 10px;
+                text-align: left;
+                color: gray;
+            }
+            </style>
+            """, unsafe_allow_html=True)
 
-        # Render the author if provided
-        if self.author:
-            st.markdown(f'<p class="hero-author">— {self.author}</p>', unsafe_allow_html=True)
+            st.markdown(f'<p class="hero-quote">"{self.quote}"</p>', unsafe_allow_html=True)
+            if self.author:
+                st.markdown(f'<p class="hero-author">— {self.author}</p>', unsafe_allow_html=True)
 
-# Example usage of HeroArea
+        # Render the avatar
+        if self.avatar_image:
+            with col2:
+                st.image(f"assets/{self.avatar_image}", caption="Profile Picture", use_container_width=True)
 
-hero = HeroArea(
-    quote=(
-        "Modern data analysis requires engaging with, sometimes developing software applications, "
-        "such as data gathering and processing services. Moreover, software automation is key to "
-        "distributing inferences from statistical analysis. Bottom line, I recognize the tight "
-        "dependencies between data analysis and application development, hence my effort to offer "
-        "data analysis and software analysis within a unified framework."
-    ),
-    author=""
+
+class ProfessionalBio:
+    def __init__(self, bio_pic, bio, skills):
+        """
+        Initialize the ProfessionalBio class.
+        :param bio_pic: The file name of the picture to be referenced from the assets folder (e.g., 'profile.png').
+        :param bio: A dictionary where keys are headers and values are markdown formatted strings.
+        :param skills: A list of key differentiators and technical skills.
+        """
+        self.picture_url = f'assets/{bio_pic}'  # Reference image from the assets folder
+        self.bio = bio
+        self.skills = skills  # Skills are kept in the signature but not used in layout for now
+
+    def render_layout(self):
+        """
+        Render the professional bio layout with a picture and bio sections.
+        """
+        col1, col2 = st.columns([1, 2])
+
+        with col1:
+            st.markdown(
+                """
+                <style>
+                .rounded-image img {
+                    border-radius: 50%;
+                    width: 200px;
+                    height: 200px;
+                    object-fit: cover;
+                }
+                </style>
+                """, unsafe_allow_html=True
+            )
+            st.image(self.picture_url, caption="Profile Picture", use_container_width=False)
+
+        with col2:
+            for header, content in self.bio.items():
+                st.subheader(header)
+                st.markdown(content, unsafe_allow_html=True)
+
+            if self.skills:
+                st.subheader("Skills")
+                st.markdown("\n".join([f"- {skill}" for skill in self.skills]))
+
+
+# Example data for HeroArea and ProfessionalBio
+quote = (
+    "Modern data analysis requires engaging with, sometimes developing software applications, "
+    "such as data gathering and processing services. Moreover, software automation is key to "
+    "distributing inferences from statistical analysis. Bottom line, I recognize the tight "
+    "dependencies between data analysis and application development, hence my effort to offer "
+    "data analysis and software analysis within a unified framework."
 )
+
+bio = {
+    "Professional Overview": """
+        I am a Colombian Economist with a professional background as a research assistant, 
+        remote data analyst, and also as a freelance consultant in the development of Machine Learning technologies. 
+        The focus of my current professional offering is on Machine Learning Engineering.
+    """
+}
+
+# Instantiate components
+hero = HeroArea(quote=quote, avatar_image="jg_pick.jpg")
 
 
 
