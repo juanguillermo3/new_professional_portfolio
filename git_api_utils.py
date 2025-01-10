@@ -5,7 +5,7 @@ import logging
 import requests
 from requests.auth import HTTPBasicAuth
 import json
-
+load_dotenv()
 
 #
 REPOS_METADATA_FILE = "repos_metadata.json"
