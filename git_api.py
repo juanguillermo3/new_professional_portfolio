@@ -309,6 +309,12 @@ def extract_metadata_from_all_files(all_code_files, repo_owner, username=None, t
 #
 # main pipeline
 #
+
+#
+projects_metadata=[get_repo_metadata(REPO_OWNER,some_repo) for some_repo in REPOS_IN_PORTFOLIO]
+projects_metadata
+
+#
 all_code_files=[]
 for some_repo in REPOS_IN_PORTFOLIO:
     for file_data in list_repo_files(REPO_OWNER,some_repo):
@@ -317,7 +323,7 @@ for some_repo in REPOS_IN_PORTFOLIO:
 #
 all_code_files
 # 
-repos_metadata = extract_metadata_from_all_files(
+metadata_list = extract_metadata_from_all_files(
     all_code_files,
     repo_owner=REPO_OWNER,
     #username="your_username",
@@ -325,4 +331,4 @@ repos_metadata = extract_metadata_from_all_files(
 )
 
 # Print or process the extracted metadata
-repos_metadata
+metadata_list
