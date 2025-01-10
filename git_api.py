@@ -60,8 +60,8 @@ def get_repo_metadata(repo_owner, repo_name, username=None, token=None):
         token (str, optional): GitHub token for authentication.
 
     Returns:
-        dict: A dictionary containing the repository's title, description, image URL, and repo URL.
-              Returns None if the request fails.
+        tuple: A tuple containing the repository's title, description, and image URL. 
+               Returns (None, None, None) if the request fails.
     """
     url = f"https://api.github.com/repos/{repo_owner}/{repo_name}"
     
@@ -74,17 +74,78 @@ def get_repo_metadata(repo_owner, repo_name, username=None, token=None):
     
     if response.status_code == 200:
         repo_data = response.json()
-        return {
-            "title": repo_data.get('name'),
-            "description": repo_data.get('description'),
-            "image": f"https://raw.githubusercontent.com/{repo_owner}/{repo_name}/main/project_image.png",  # Adjust path if necessary
-            "url": repo_data.get('html_url')
-        }
+        title = repo_data.get('name')
+        description = repo_data.get('description')
+        image_url = f"https://raw.githubusercontent.com/{repo_owner}/{repo_name}/main/project_image.png"  # Adjust path if necessary
+        return title, description, image_url
     else:
-        return None
+        return None, None, None
 
 #
 #[get_repo_metadata(REPO_OWNER,some_repo) for some_repo in REPOS_IN_PORTFOLIO]
+
+
+def get_file_metadata(repo_owner, repo_name, file_path, username=None, token=None):
+    """
+    Retrieve metadata for a specific file in a GitHub repository, including the date of the last update.
+
+    Args:
+        repo_owner (str): Owner of the GitHub repository.
+        repo_name (str): Name of the GitHub repository.
+        file_path (str): Path to the file within the repository.
+        username (str, optional): GitHub username for authentication.
+        token (str, optional): GitHub token for authentication.
+
+    Returns:
+        dict: A dictionary containing the file's metadata such as name, path, size, SHA, type, 
+              download URL, last commit date, and more. Returns None if the request fails.
+    """
+    url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/contents/{file_path}"
+    headers = {"Accept": "application/vnd.github.v3+json"}
+
+    # Use authentication if provided
+    if username and token:
+        response = requests.get(url, headers=headers, auth=HTTPBasicAuth(username, token))
+    else:
+        response = requests.get(url, headers=headers)  # No auth needed for public repos
+
+    if response.status_code == 200:
+        file_data = response.json()
+
+        # Extract key metadata
+        metadata = {
+            "name": file_data.get("name"),
+            "path": file_data.get("path"),
+            "size": file_data.get("size"),
+            "type": file_data.get("type"),
+            "sha": file_data.get("sha"),
+            "download_url": file_data.get("download_url"),
+            "html_url": file_data.get("html_url"),
+        }
+
+        # Fetch last commit date for the file
+        commits_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/commits"
+        params = {"path": file_path, "per_page": 1}  # Get the latest commit affecting this file
+
+        # Fetch the latest commit for the file
+        commit_response = requests.get(commits_url, headers=headers, params=params, auth=HTTPBasicAuth(username, token) if username and token else None)
+        
+        if commit_response.status_code == 200:
+            commit_data = commit_response.json()
+            if commit_data:
+                last_commit_date = commit_data[0]["commit"]["committer"]["date"]
+                metadata["last_update"] = last_commit_date
+            else:
+                metadata["last_update"] = "No commits found for this file"
+        else:
+            metadata["last_update"] = "Failed to fetch commit data"
+
+        return metadata
+    else:
+        logging.warning(f"Failed to fetch file metadata for {file_path} (HTTP {response.status_code})")
+        return None
+
+
 
 #
 # 1.
@@ -212,6 +273,7 @@ def get_file_type(file_path):
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 # Extract metadata from all code files
+# Extract metadata from all code files
 def extract_metadata_from_all_files(all_code_files, repo_owner, username=None, token=None):
     metadata_list = []
 
@@ -222,15 +284,14 @@ def extract_metadata_from_all_files(all_code_files, repo_owner, username=None, t
 
         if file_type:
             logging.info(f"Processing file: {file_path} (Type: {file_type})")
-            metadata = get_module_metadata(repo_owner, repo_name, file_path, file_type, username, token)
+            
+            # Fetch detailed metadata for the file
+            metadata = get_file_metadata(repo_owner, repo_name, file_path, username, token)
+            
             if metadata:
                 # Flatten: Add 'file_path' and 'repo_name' directly to the metadata
                 metadata["file_path"] = file_path
                 metadata["repo_name"] = repo_name
-
-                # Add GitHub URL for the file
-                github_url = f"https://github.com/{repo_owner}/{repo_name}/blob/main/{file_path}"
-                metadata["url"] = github_url
 
                 # Convert all keys to lowercase for standardization
                 metadata = {key.lower(): value for key, value in metadata.items()}
@@ -244,14 +305,9 @@ def extract_metadata_from_all_files(all_code_files, repo_owner, username=None, t
 
     return metadata_list
 
+
 #
 # main pipeline
-#
-
-#
-repos_metadata=[get_repo_metadata(REPO_OWNER,some_repo) for some_repo in REPOS_IN_PORTFOLIO]
-repos_metadata
-
 #
 all_code_files=[]
 for some_repo in REPOS_IN_PORTFOLIO:
