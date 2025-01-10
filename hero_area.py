@@ -52,18 +52,16 @@ class HeroArea:
         
         # Optionally, you could add other components like social media links or contact buttons here
 
-# Example usage of HeroArea
-if __name__ == "__main__":
-    # Example hero area
-    hero = HeroArea(
-        headline="Empowering Businesses with Data-Driven Insights",
-        subheading="Turning complex data into actionable strategies and building applications for real-world challenges.",
-        cta_text="View My Projects",
-        cta_link="https://yourportfolio.com/projects",
-        background_image="https://example.com/hero-bg.jpg",  # Optional background image URL
-        avatar_image="https://example.com/your-avatar.jpg",  # Optional profile image URL
-        layout="center"  # You can change layout to "left", "right", or "full"
-    )
-    
-    # Render the Hero Area
-    hero.render()
+# Example hero area
+hero = HeroArea(
+    headline="Empowering Businesses with Data-Driven Insights",
+    subheading="Turning complex data into actionable strategies and building applications for real-world challenges.",
+    cta_text="View My Projects",
+    cta_link="https://yourportfolio.com/projects",
+    background_image="https://example.com/hero-bg.jpg",  # Optional background image URL
+    avatar_image="https://example.com/your-avatar.jpg",  # Optional profile image URL
+    layout="center"  # You can change layout to "left", "right", or "full"
+)
+
+# Render the Hero Area
+hero.render()
