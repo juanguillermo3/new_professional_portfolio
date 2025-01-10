@@ -150,3 +150,8 @@ class RecSys:
                             """, unsafe_allow_html=True
                         )
 
+# Initialize RecSys
+recsys = RecSys()
+
+# Call the render method to display the recommendations
+#recsys.render()
