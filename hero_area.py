@@ -1,6 +1,9 @@
 import streamlit as st
 
 
+import streamlit as st
+
+
 class HeroArea:
     def __init__(self, quote, avatar_image: str = None, avatar_caption: str = ""):
         """
@@ -26,11 +29,14 @@ class HeroArea:
             st.markdown("""
             <style>
             .hero-quote {
-                font-size: 1.2em;
+                font-style: italic;
+                font-size: 1.5em;
                 line-height: 1.8;
                 margin: 0 auto;
-                text-align: justify;
+                max-width: 800px;
                 color: #333333;
+                text-align: justify;
+                padding-bottom: 20px;  /* Add space between paragraphs */
             }
             </style>
             """, unsafe_allow_html=True)
@@ -64,5 +70,7 @@ hero_caption = "God told me I could either be good-looking or an excellent worke
 
 # Instantiate and render HeroArea
 hero = HeroArea(quote=quote, avatar_image="jg_pick.jpg", avatar_caption=hero_caption)
+
+
 
 
