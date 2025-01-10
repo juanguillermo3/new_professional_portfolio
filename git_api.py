@@ -317,7 +317,7 @@ for some_repo in REPOS_IN_PORTFOLIO:
 #
 all_code_files
 # 
-metadata_list = extract_metadata_from_all_files(
+repos_metadata = extract_metadata_from_all_files(
     all_code_files,
     repo_owner=REPO_OWNER,
     #username="your_username",
@@ -325,4 +325,4 @@ metadata_list = extract_metadata_from_all_files(
 )
 
 # Print or process the extracted metadata
-metadata_list
+repos_metadata
