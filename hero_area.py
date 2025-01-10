@@ -53,11 +53,10 @@ class HeroArea:
 
 # Example data for HeroArea with multiple paragraphs in the quote
 quote = [
-    "Modern data analysis requires engaging with, sometimes developing software applications, "
-    "such as data gathering and processing services. "
+    "Modern data analysis requires engaging with, sometimes developing information gathering and processing applications, "
     "Moreover, software automation is key to distributing inferences from statistical analysis. "
-    "Bottom line, I recognize the tight dependencies between data analysis and application development, "
-    "hence my effort to offer data analysis and software analysis within a unified framework.",
+    "Bottom line, I recognize the tight dependencies between data analysis and software development, "
+    "hence my effort to serve both within a unified framework.",
     
     "I am, and always wanted to be, a professional economist. I had made a living of developing data analysis, "
     "machine learning and application development scripts. My larger professional project aims from a holistic vision "
