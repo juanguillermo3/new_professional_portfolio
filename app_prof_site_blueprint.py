@@ -13,9 +13,12 @@ import os
 import re
 from git_api import repos_metadata, metadata_list,  REPOS_IN_PORTFOLIO
 from professional_bio import bio_component
-from dotenv import load_dotenv
-
 from dotenv import load_dotenv, dotenv_values
+
+st.text(REPOS_IN_PORTFOLIO)
+st.text(metadata_list)
+
+
 #
 def reload_env(dotenv_path=".env"):
     """
@@ -49,9 +52,6 @@ linkedin_profile = os.getenv("LINKEDIN_PROFILE")
 
 # Default WhatsApp number, which can be overridden by the .env file
 whatsapp_number = os.getenv("WHATSAPP_NUMBER", "+57 3053658650")
-
-st.text(REPOS_IN_PORTFOLIO)
-st.text(metadata_list)
 
 
 # **Title Section**
