@@ -2,16 +2,14 @@ import streamlit as st
 
 
 class HeroArea:
-    def __init__(self, quote: str, author: str = "", avatar_image: str = None, avatar_caption: str = ""):
+    def __init__(self, quote: str, avatar_image: str = None, avatar_caption: str = ""):
         """
-        Initialize the HeroArea class with a focus on a subtle, quote-styled main statement.
-        :param quote: Main statement or quote to display.
-        :param author: Attribution for the quote.
+        Initialize the HeroArea class with a focus on a quote-styled main statement.
+        :param quote: Main statement or quote to display as a single paragraph.
         :param avatar_image: File name of the avatar image to display.
         :param avatar_caption: Caption for the avatar image.
         """
         self.quote = quote
-        self.author = author
         self.avatar_image = avatar_image
         self.avatar_caption = avatar_caption
 
@@ -27,26 +25,17 @@ class HeroArea:
             st.markdown("""
             <style>
             .hero-quote {
-                font-style: italic;
-                font-size: 1.5em;
+                font-size: 1.2em;
                 line-height: 1.8;
                 margin: 0 auto;
-                max-width: 800px;
-                text-align: left;
+                text-align: justify;
                 color: #333333;
-            }
-            .hero-author {
-                font-size: 1em;
-                margin-top: 10px;
-                text-align: left;
-                color: gray;
             }
             </style>
             """, unsafe_allow_html=True)
 
-            st.markdown(f'<p class="hero-quote">"{self.quote}"</p>', unsafe_allow_html=True)
-            if self.author:
-                st.markdown(f'<p class="hero-author">— {self.author}</p>', unsafe_allow_html=True)
+            # Render the quote as a single justified paragraph
+            st.markdown(f'<p class="hero-quote">{self.quote}</p>', unsafe_allow_html=True)
 
         # Render the avatar with caption
         if self.avatar_image:
@@ -102,10 +91,10 @@ class ProfessionalBio:
 # Example data for HeroArea and ProfessionalBio
 quote = (
     "Modern data analysis requires engaging with, sometimes developing software applications, "
-    "such as data gathering and processing services. Moreover, software automation is key to "
-    "distributing inferences from statistical analysis. Bottom line, I recognize the tight "
-    "dependencies between data analysis and application development, hence my effort to offer "
-    "data analysis and software analysis within a unified framework."
+    "such as data gathering and processing services. "
+    "Moreover, software automation is key to distributing inferences from statistical analysis. "
+    "Bottom line, I recognize the tight dependencies between data analysis and application development, "
+    "hence my effort to offer data analysis and software analysis within a unified framework."
 )
 
 
