@@ -286,31 +286,19 @@ def extract_metadata_from_all_files(all_code_files, repo_owner, username=None, t
 
         if file_type:
             logging.info(f"Processing file: {file_path} (Type: {file_type})")
-            
-            # Fetch metadata from the docstring (file-specific logic)
             metadata = get_module_metadata(repo_owner, repo_name, file_path, file_type, username, token)
-            
             if metadata:
-                # Fetch detailed metadata from GitHub (e.g., last update)
-                file_metadata = get_file_metadata(repo_owner, repo_name, file_path, username, token)
-                
-                if file_metadata:
-                    # Merge the docstring metadata with GitHub file metadata
-                    metadata.update(file_metadata)  # This will add/update keys with GitHub data
-                    
-                    # Flatten: Add 'file_path' and 'repo_name' directly to the metadata
-                    metadata["file_path"] = file_path
-                    metadata["repo_name"] = repo_name
+                # Flatten: Add 'file_path' and 'repo_name' directly to the metadata
+                metadata["file_path"] = file_path
+                metadata["repo_name"] = repo_name
 
-                    # Convert all keys to lowercase for standardization
-                    metadata = {key.lower(): value for key, value in metadata.items()}
+                # Convert all keys to lowercase for standardization
+                metadata = {key.lower(): value for key, value in metadata.items()}
 
-                    logging.info(f"Metadata extracted successfully for file: {file_path}")
-                    metadata_list.append(metadata)
-                else:
-                    logging.warning(f"No GitHub metadata found for file: {file_path}")
+                logging.info(f"Metadata extracted successfully for file: {file_path}")
+                metadata_list.append(metadata)
             else:
-                logging.warning(f"No docstring metadata found for file: {file_path}")
+                logging.warning(f"No metadata found in file: {file_path}")
         else:
             logging.warning(f"Unsupported file type for file: {file_path}")
 
