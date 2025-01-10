@@ -18,7 +18,7 @@ class HeroArea:
         """
         Renders the Hero area in Streamlit, including text, CTA, and visual elements.
         """
-        # Set the background if provided
+        # Set the background if provided using st.markdown for custom HTML and CSS
         if self.background_image:
             st.markdown(f"""
             <style>
@@ -31,26 +31,27 @@ class HeroArea:
                 align-items: center;
                 justify-content: {self.layout};
                 color: white;
+                padding: 20px;
             }}
             </style>
             """, unsafe_allow_html=True)
         
-        # Render the headline and subheading
+        # Render the headline and subheading using st.markdown
         st.markdown(f"## {self.headline}")
         st.markdown(f"### {self.subheading}")
         
-        # Optionally, render an avatar or image if provided
+        # Optionally, render an avatar or image if provided using st.image
         if self.avatar_image:
-            st.image(self.avatar_image, width=120, use_column_width=False)
+            st.image(self.avatar_image, width=120, use_container_width=True)  # Updated to use_container_width
 
-        # Call to action (CTA)
+        # Call to action (CTA) as a clickable link
         if self.cta_text and self.cta_link:
             st.markdown(f"[{self.cta_text}]({self.cta_link})", unsafe_allow_html=True)
 
         # Add some spacing and style adjustments
         st.markdown("<br>", unsafe_allow_html=True)
-        
-        # Optionally, you could add other components like social media links or contact buttons here
+
+        # Optional: You can add additional components like social media links here
 
 # Example hero area
 hero = HeroArea(
