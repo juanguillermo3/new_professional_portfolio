@@ -341,6 +341,3 @@ metadata_list = extract_metadata_from_all_files(
     #username="your_username",
     #token="your_token"
 )
-
-# Print or process the extracted metadata
-metadata_list
