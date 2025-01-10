@@ -46,14 +46,14 @@ class HeroArea:
 # Example data for HeroArea
 quote = (
     "Modern data analysis requires engaging with, sometimes developing software, "
-    "such as data gathering and processing applications"
+    "such as data gathering and processing applications. "
     "Moreover, software automation is key to distributing inferences from statistical analysis, such as insights/predictions. "
     "Bottom line, I recognize the tight dependencies between modern data analysis and application development, "
     "hence my effort to serve both of them unified framework."
 )
 
 # Example caption
-hero_caption = "God told me I could either be good-looking or an excellent worker.?"
+hero_caption = "God told me I could either be good-looking or an excellent worker."
 
 # Instantiate and render HeroArea
 hero = HeroArea(quote=quote, avatar_image="jg_pick.jpg", avatar_caption=hero_caption)
