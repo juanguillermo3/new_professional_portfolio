@@ -56,7 +56,6 @@ linkedin_profile = os.getenv("LINKEDIN_PROFILE")
 whatsapp_number = os.getenv("WHATSAPP_NUMBER", "+57 3053658650")
 
 
-hero.render()
 
 # **Title Section**
 st.markdown("""
@@ -74,6 +73,8 @@ st.title("Welcome to My Professional Portfolio")
 # Get the LinkedIn profile URL from the environment
 linkedin_profile = os.getenv("LINKEDIN_PROFILE")
 
+
+hero.render()
 
 # Ensure the profile is available
 if linkedin_profile:
