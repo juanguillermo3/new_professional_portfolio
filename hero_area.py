@@ -57,22 +57,18 @@ class HeroArea:
                 <style>
                 .colab-grid {
                     display: grid;
-                    grid-template-columns: 1fr 1fr;
-                    gap: 20px;
-                    padding: 10px;
+                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                    gap: 15px;
                 }
                 .colab-button {
                     background-color: #F4B400;
                     color: white;
-                    padding: 15px;
+                    padding: 10px;
                     text-decoration: none;
-                    border: 2px solid white;
                     border-radius: 5px;
+                    font-weight: bold;
                     text-align: center;
-                    font-size: 16px;
-                }
-                .colab-button:hover {
-                    background-color: #E2A800;
+                    display: block;
                 }
                 </style>
                 """,
@@ -92,28 +88,3 @@ class HeroArea:
 
         # Add some spacing and style adjustments
         st.markdown("<br>", unsafe_allow_html=True)
-        
-# Example usage of HeroArea
-
-colab_projects = [
-    {
-        "title": "Development of Genetic Artificial Intelligence Forecast for BI case",
-        "url": "https://colab.research.google.com/drive/1QKFY5zfiRkUUPrnhlsOrtRlqGJ14oFf3#scrollTo=cDQyTxpPF13S"
-    },
-    {
-        "title": "Development of Ensemble Learning for HR case",
-        "url": "https://colab.research.google.com/drive/1sPdB-uoOEdw2xIKPQCx1aGp5QUuu1ooK#scrollTo=5SFN1ElIXB4D"
-    }
-]
-
-hero = HeroArea(
-    headline="Empowering Businesses with Data-Driven Insights",
-    subheading="Turning complex data into actionable strategies and building applications for real-world challenges.",
-    cta_text="View My Projects",
-    cta_link="https://yourportfolio.com/projects",
-    background_image="https://example.com/hero-bg.jpg",  # Optional background image URL
-    avatar_image="https://example.com/your-avatar.jpg",  # Optional profile image URL
-    layout="center",  # Layout for center alignment
-    colab_portfolio=colab_projects  # Adding Colab portfolio projects
-)
-
