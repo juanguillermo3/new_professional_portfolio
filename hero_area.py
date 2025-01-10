@@ -64,5 +64,3 @@ hero = HeroArea(
     layout="center"  # You can change layout to "left", "right", or "full"
 )
 
-# Render the Hero Area
-hero.render()
