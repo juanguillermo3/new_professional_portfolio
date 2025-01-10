@@ -18,9 +18,6 @@ from dotenv import load_dotenv, dotenv_values
 from hero_area import hero
 from rec_sys import recsys
 
-#st.text(REPOS_IN_PORTFOLIO)
-#st.text(metadata_list)
-
 
 #
 def reload_env(dotenv_path=".env"):
@@ -155,6 +152,8 @@ query = st.text_input(
 
 repos_metadata=load_repos_metadata()
 metadata_list=load_modules_metadata()
+#st.text(REPOS_IN_PORTFOLIO)
+#st.text(metadata_list)
 
 
 # Radial Button for Project Filter
