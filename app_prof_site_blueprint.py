@@ -44,7 +44,7 @@ reload_env()
 #
 ENVIRONMENT = os.getenv("ENVIRONMENT")
 REPO_OWNER= os.getenv("REPO_OWNER")
-REPOS_IN_PORTFOLIO=os.getenv("REPOS_IN_PORTFOLIO").split(",") 
+REPOS_IN_PORTFOLIO=os.getenv("REPOS_IN_PORTFOLIO", "lab_market_trends,monkey_research,new_professional_portfolio").split(",") 
 
 
 # Get the LinkedIn profile URL from the environment
