@@ -1,113 +1,62 @@
 import streamlit as st
 
+
 class HeroArea:
-    def __init__(self, quote, author: str = "", background_image: str = None):
+    def __init__(self, quote: str, avatar_image: str = None, avatar_caption: str = ""):
         """
-        Initialize the HeroArea class with a focus on a subtle, quote-styled main statement.
-        :param quote: Single string or list of strings (each interpreted as a paragraph).
-        :param author: Optional author name for the quote.
-        :param background_image: Optional background image for styling.
+        Initialize the HeroArea class with a focus on a quote-styled main statement.
+        :param quote: Main statement or quote to display as a single paragraph.
+        :param avatar_image: File name of the avatar image to display.
+        :param avatar_caption: Caption for the avatar image.
         """
-        self.quote = quote if isinstance(quote, list) else [quote]  # Ensure it's a list, even if passed as a single string
-        self.author = author
-        self.background_image = background_image  # Optional background image for styling
+        self.quote = quote
+        self.avatar_image = avatar_image
+        self.avatar_caption = avatar_caption
 
     def render(self):
         """
-        Render the subtle Hero area as a quote with optional background.
+        Render the Hero area in Streamlit.
         """
-        # Apply background styling if a background image is provided
-        if self.background_image:
-            st.markdown(f"""
-            <style>
-            .hero-background {{
-                background-image: url({self.background_image});
-                background-size: cover;
-                background-position: center;
-                height: 50vh;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                color: white;
-                text-align: center;
-                padding: 20px;
-            }}
-            .hero-quote {{
-                font-style: italic;
-                font-size: 1.5em;
-                line-height: 1.8;
-                margin: 0 auto;
-                max-width: 800px;
-            }}
-            .hero-author {{
-                font-size: 1em;
-                margin-top: 10px;
-                color: rgba(255, 255, 255, 0.8);
-            }}
-            </style>
-            """, unsafe_allow_html=True)
-            st.markdown('<div class="hero-background">', unsafe_allow_html=True)
-        else:
+        # Two-column layout for quote and avatar
+        col1, col2 = st.columns([2, 1])
+
+        # Render the quote
+        with col1:
             st.markdown("""
             <style>
-            .hero-quote {{
-                font-style: italic;
-                font-size: 1.5em;
+            .hero-quote {
+                font-size: 1.2em;
                 line-height: 1.8;
                 margin: 0 auto;
-                max-width: 800px;
-                text-align: center;
-            }}
-            .hero-author {{
-                font-size: 1em;
-                margin-top: 10px;
-                text-align: center;
-                color: gray;
-            }}
+                text-align: justify;
+                color: #333333;
+            }
             </style>
             """, unsafe_allow_html=True)
-            st.markdown('<div>', unsafe_allow_html=True)
 
-        # Render the quote (each paragraph will be a separate <p> tag)
-        for paragraph in self.quote:
-            st.markdown(f'<p class="hero-quote">"{paragraph}"</p>', unsafe_allow_html=True)
+            # Render the quote as a single justified paragraph
+            st.markdown(f'<p class="hero-quote">{self.quote}</p>', unsafe_allow_html=True)
 
-        # Render the author if provided
-        if self.author:
-            st.markdown(f'<p class="hero-author">— {self.author}</p>', unsafe_allow_html=True)
-
-        st.markdown('</div>', unsafe_allow_html=True)
+        # Render the avatar with caption
+        if self.avatar_image:
+            with col2:
+                st.image(f"assets/{self.avatar_image}", caption=self.avatar_caption, use_container_width=True)
 
 
-# Example usage of HeroArea
-if __name__ == "__main__":
-    hero = HeroArea(
-        quote=(
-            "Modern data analysis requires engaging with, sometimes developing software applications, "
-            "such as data gathering and processing services. Moreover, software automation is key to "
-            "distributing inferences from statistical analysis. Bottom line, I recognize the tight "
-            "dependencies between data analysis and application development, hence my effort to offer "
-            "data analysis and software analysis within a unified framework."
-        ),
-        author="",
-        background_image="https://example.com/subtle-bg.jpg"  # Optional background image
-    )
-    hero.render()
-
-
-# Example usage of HeroArea
-#if __name__ == "__main__":
-hero = HeroArea(
-    quote=(
-        "Modern data analysis requires engaging with, sometimes developing software applications, "
-        "such as data gathering and processing services. Moreover, software automation is key to "
-        "distributing inferences from statistical analysis. Bottom line, I recognize the tight "
-        "dependencies between data analysis and application development, hence my effort to offer "
-        "data analysis and software analysis within a unified framework."
-    ),
-    author="",
-    background_image="jg_pick.jpg" # Optional background image
+# Example data for HeroArea
+quote = (
+    "Modern data analysis requires engaging with, sometimes developing software applications, "
+    "such as data gathering and processing services. "
+    "Moreover, software automation is key to distributing inferences from statistical analysis. "
+    "Bottom line, I recognize the tight dependencies between data analysis and application development, "
+    "hence my effort to offer data analysis and software analysis within a unified framework."
 )
-hero.render()
+
+# Example caption
+hero_caption = "God told me I could either be good-looking or an excellent worker. "
+
+# Instantiate and render HeroArea
+hero = HeroArea(quote=quote, avatar_image="jg_pick.jpg", avatar_caption=hero_caption)
+
 
 
