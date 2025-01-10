@@ -1,23 +1,21 @@
-"""
-title: Hero section for a professional portfolio.
-description: Low key hero section for a professional porftolio. Styled as a quote from a book with a biopick.
-Author: Juan Guillermo
-"""
-
 import streamlit as st
 
 class HeroArea:
-    def __init__(self, quote, avatar_image: str = None, avatar_caption: str = ""):
+    def __init__(self, quote, avatar_image: str = None, avatar_caption: str = "", code_samples: list = None):
         """
         Initialize the HeroArea class with a focus on a quote-styled main statement.
         :param quote: Main statement or quote to display as a single string or list of strings (paragraphs).
         :param avatar_image: File name of the avatar image to display.
         :param avatar_caption: Caption for the avatar image.
+        :param code_samples: List of dictionaries with 'title' and 'url' for code sample links.
         """
-        # Ensure the quote is a list of paragraphs
-        self.quote = quote if isinstance(quote, list) else [quote]  # Convert to list if a single string
+        self.quote = quote if isinstance(quote, list) else [quote]
         self.avatar_image = avatar_image
         self.avatar_caption = avatar_caption
+        self.code_samples = code_samples if code_samples is not None else [
+            {"title": "Sample 1", "url": "https://colab.research.google.com/drive/1QKFY5zfiRkUUPrnhlsOrtRlqGJ14oFf3#scrollTo=sxBOaWZ9uabz"},
+            {"title": "Sample 2", "url": "https://colab.research.google.com/drive/1sPdB-uoOEdw2xIKPQCx1aGp5QUuu1ooK#scrollTo=_Ycax1ucXvAO"}
+        ]
 
     def render(self):
         """
@@ -61,8 +59,37 @@ class HeroArea:
                 st.image(f"assets/{self.avatar_image}", caption=self.avatar_caption, use_container_width=True)
                 st.markdown('</div>', unsafe_allow_html=True)
 
+        # Render the code samples (buttons)
+        self.render_code_samples()
 
-# Example data for HeroArea with multiple paragraphs in the quote
+    def render_code_samples(self):
+        """
+        Render code sample buttons as GitHub-styled buttons with white text and borders.
+        """
+        # Create a grid layout for the buttons
+        st.markdown("<div style='display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px;'>", unsafe_allow_html=True)
+        
+        for sample in self.code_samples:
+            # Create GitHub-styled button for each code sample
+            st.markdown(f"""
+            <a href="{sample['url']}" target="_blank">
+                <button style="
+                    background-color: #24292f; 
+                    color: white; 
+                    border: 1px solid white; 
+                    padding: 10px 20px; 
+                    font-size: 14px; 
+                    border-radius: 5px;
+                    text-align: center;
+                    width: 100%;
+                ">{sample['title']}</button>
+            </a>
+            """, unsafe_allow_html=True)
+        
+        st.markdown("</div>", unsafe_allow_html=True)
+
+
+# Example data for HeroArea with multiple paragraphs in the quote and code sample links
 quote = [
     "Modern data analysis requires engaging with, sometimes developing information gathering and processing applications, "
     "Moreover, software automation is key to distributing inferences from statistical analysis. "
@@ -75,12 +102,11 @@ quote = [
     "and information tools."
 ]
 
-# Example caption for the avatar
 hero_caption = "God told me I could either be good-looking or an excellent worker."
 
-# Instantiate and render HeroArea
+# Instantiate and render HeroArea with code samples
 hero = HeroArea(quote=quote, avatar_image="jg_pick.jpg", avatar_caption=hero_caption)
-
+#hero.render()
 
 
 
