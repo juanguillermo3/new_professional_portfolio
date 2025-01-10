@@ -15,8 +15,8 @@ from git_api import repos_metadata, metadata_list,  REPOS_IN_PORTFOLIO
 from professional_bio import bio_component
 from dotenv import load_dotenv, dotenv_values
 
-st.text(REPOS_IN_PORTFOLIO)
-st.text(metadata_list)
+#st.text(REPOS_IN_PORTFOLIO)
+#st.text(metadata_list)
 
 
 #
