@@ -11,7 +11,7 @@ import streamlit as st
 import random
 import os
 import re
-from git_api import repos_metadata, metadata_list,  REPOS_IN_PORTFOLIO
+from git_api_utils import load_repos_metadata, load_modules_metadata, REPOS_IN_PORTFOLIO
 from professional_bio import bio_component
 from dotenv import load_dotenv, dotenv_values
 
@@ -141,6 +141,7 @@ def generate_recommendations():
     ] + metadata_list
     
 # **Recommendation System Section**
+
 st.subheader("Recommendation System 🎯")
 st.markdown("---")
 st.markdown('<p style="color: gray;">Discover content tailored to your needs. Use the search bar to find recommendations and filter by project category.</p>', unsafe_allow_html=True)
@@ -151,6 +152,10 @@ query = st.text_input(
     "Search for recommendations by keyword (e.g., Python, R):", 
     placeholder="Type a keyword and press Enter"
 )
+
+repos_metadata=load_repos_metadata()
+metadata_list=load_modules_metadata()
+
 
 # Radial Button for Project Filter
 recommendations = metadata_list
