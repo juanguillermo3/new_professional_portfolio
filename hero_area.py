@@ -85,6 +85,6 @@ hero = HeroArea(
         "data analysis and software analysis within a unified framework."
     ),
     author="",
-    background_image="https://example.com/subtle-bg.jpg"  # Optional background image
+    #background_image="https://example.com/subtle-bg.jpg"  # Optional background image
 )
 
