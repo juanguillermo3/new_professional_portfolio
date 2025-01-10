@@ -50,7 +50,7 @@ linkedin_profile = os.getenv("LINKEDIN_PROFILE")
 # Default WhatsApp number, which can be overridden by the .env file
 whatsapp_number = os.getenv("WHATSAPP_NUMBER", "+57 3053658650")
 
-#st.text(REPOS_IN_PORTFOLIO)
+st.text(REPOS_IN_PORTFOLIO)
 
 # **Title Section**
 st.markdown("""
