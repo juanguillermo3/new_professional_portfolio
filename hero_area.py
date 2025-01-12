@@ -91,16 +91,16 @@ class HeroArea:
 
 # Example data for HeroArea with multiple paragraphs in the quote and code sample links
 quote = [
-    "Modern data analysis requires engaging with, sometimes developing information gathering and processing applications, "
-    "Moreover, software automation is key to distributing inferences from statistical analysis. "
-    "Bottom line, I recognize the tight dependencies between data analysis and software development, "
-    "hence my effort to serve both within a unified framework.",
-    
-    "I am, and always wanted to be, a professional economist. I had made a living of developing data analysis, "
-    "machine learning and application development scripts. My larger professional project aims from a holistic vision "
-    "interconnecting all the modern tooling for data analysis, including statistical models, algorithms, workflows, "
-    "and information tools."
+    "Modern data analysis requires engaging with substantial software, such as data gathering and information processing applications. "
+    "Moreover, software automation is key to distributing inferences from statistical analysis, such as insights from econometric analysis "
+    "or predictions from machine learning models. Bottom line, I recognize the tight dependencies between data analysis and software development, "
+    "hence my effort to serve both within a unified framework."
+    "",
+    "I am Juan Guillermo. I have always wanted to be a professional economist. I have made a living developing data analysis and application "
+    "development scripts. My larger professional project aims for a holistic vision, interconnecting all the tooling for modern data analysis, "
+    "comprising data mining and artificial intelligence models, algorithms, workflows, and information tools."
 ]
+
 
 hero_caption = "God told me I could either be good-looking or an excellent worker."
 
