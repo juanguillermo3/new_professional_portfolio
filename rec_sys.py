@@ -165,42 +165,35 @@ class RecommendationSystem:
         self.section_header = section_header
         self.section_description = section_description
 
-    def render(self, section_header=None, section_description=None):
-        """
-        Render the recommendation system based on the configuration.
-        The section header and description can be customized via parameters.
-        """
-        # Use provided parameters or fallback to instance attributes
-        section_header = section_header or self.section_header
-        section_description = section_description or self.section_description
+import os
+import streamlit as st
 
-        st.subheader(section_header)
-        st.markdown("---")
-        st.markdown(
-            f'<p style="color: gray;">{section_description}</p>',
-            unsafe_allow_html=True,
-        )
-        st.markdown("<br>", unsafe_allow_html=True)
+class RecommendationSystem:
+    def __init__(self, num_recommended_items=6, num_columns=3, section_header="Recommendation System 🎯", section_description="Discover content tailored to your needs. Use the search bar to find recommendations and filter by project category."):
+        self.num_recommended_items = num_recommended_items
+        self.num_columns = num_columns
+        self.section_header = section_header
+        self.section_description = section_description
+
+    def render(self):
+        st.subheader(self.section_header)
+        st.markdown(f'<p style="color: gray;">{self.section_description}</p>', unsafe_allow_html=True)
 
         # Query Input
-        query = st.text_input(
-            "Search for recommendations by keyword (e.g., Python, R):",
-            placeholder="Type a keyword and press Enter",
-        )
+        query = st.text_input("Search for recommendations by keyword (e.g., Python, R):", placeholder="Type a keyword and press Enter")
 
-        repos_metadata = load_repos_metadata()
-        metadata_list = load_modules_metadata()
+        repos_metadata = load_repos_metadata()  # Placeholder for your repo metadata
+        metadata_list = load_modules_metadata()  # Placeholder for module metadata
 
         # Radial Button for Project Filter
-        recommendations = metadata_list
-        projects = ["All Projects"] + REPOS_IN_PORTFOLIO
+        projects = ["All Projects"] + REPOS_IN_PORTFOLIO  # Placeholder for your repo projects
         selected_project = st.selectbox("Filter recommendations by project:", projects)
 
         # Container for Recommendations
         recsys_area = st.container()
 
         with recsys_area:
-            recommendations = metadata_list
+            recommendations = metadata_list  # Placeholder for the list of recommendations
 
             # Check if the selected project exists in repos_metadata
             project_metadata = None
@@ -238,25 +231,22 @@ class RecommendationSystem:
                     "description": project_metadata["description"],
                     "url": project_metadata.get("url", None),
                     "is_project": True,
-                    "video_url": project_metadata.get("video_url", None),  # Added video URL field
                 }
-
-                # Render the project view as a full-width row
-                st.markdown(
-                    f"""
-                    <div style="background-color: #fff5e6; border-radius: 10px; padding: 20px; text-align: center;">
-                        <h3>{project_card['title']}</h3>
-                        <p>{project_card['description']}</p>
-                        {"<video width='100%' height='auto' controls><source src='" + project_card['video_url'] + "' type='video/mp4'></video>" if project_card['video_url'] else ''}
-                    </div>
-                    """,
-                    unsafe_allow_html=True,
-                )
-
-                # Insert the project card as the first element in the recommendations list
                 recommendations.insert(0, project_card)
 
-            # Render recommendations in a grid
+            # If project metadata is available, display it as a full-width row
+            if project_metadata:
+                # Generate the video filename based on the project title
+                video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
+                video_path = os.path.join('assets', video_filename)  # Path to the local MP4 file
+
+                # Check if the video file exists in the assets folder
+                if os.path.exists(video_path):
+                    st.video(video_path)  # Display the video as full-width
+                else:
+                    st.warning(f"Video for {project_metadata['title']} not found.")
+
+            # Render recommendations in a grid for the other items
             for i in range(0, len(recommendations), self.num_columns):
                 cols = st.columns(self.num_columns)
                 for col, rec in zip(cols, recommendations[i : i + self.num_columns]):
@@ -303,6 +293,7 @@ class RecommendationSystem:
                                 """,
                                 unsafe_allow_html=True,
                             )
+
 
 
 # Example usage
