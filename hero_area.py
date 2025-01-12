@@ -118,7 +118,7 @@ quote = [
 hero_caption = "God told me I could either be good-looking or an excellent worker."
 
 # Instantiate and render HeroArea with code samples
-hero = HeroArea(quote=quote, avatar_image="jg_pick.jpg", avatar_caption=hero_caption,  code_samples_intro: str = "Explore the code samples below:")
+hero = HeroArea(quote=quote, avatar_image="jg_pick.jpg", avatar_caption=hero_caption,  code_samples_intro="Explore the code samples below:")
 #hero.render()
 
 
