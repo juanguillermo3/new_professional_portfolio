@@ -1,13 +1,14 @@
 import streamlit as st
 
 class HeroArea:
-    def __init__(self, quote, avatar_image: str = None, avatar_caption: str = "", code_samples: list = None):
+    def __init__(self, quote, avatar_image: str = None, avatar_caption: str = "", code_samples: list = None, code_samples_intro: str = "Explore the code samples below:"):
         """
         Initialize the HeroArea class with a focus on a quote-styled main statement.
         :param quote: Main statement or quote to display as a single string or list of strings (paragraphs).
         :param avatar_image: File name of the avatar image to display.
         :param avatar_caption: Caption for the avatar image.
         :param code_samples: List of dictionaries with 'title' and 'url' for code sample links.
+        :param code_samples_intro: Introductory text to display above the code samples.
         """
         self.quote = quote if isinstance(quote, list) else [quote]
         self.avatar_image = avatar_image
@@ -16,6 +17,7 @@ class HeroArea:
             {"title": "Sample 1", "url": "https://colab.research.google.com/drive/1QKFY5zfiRkUUPrnhlsOrtRlqGJ14oFf3#scrollTo=sxBOaWZ9uabz"},
             {"title": "Sample 2", "url": "https://colab.research.google.com/drive/1sPdB-uoOEdw2xIKPQCx1aGp5QUuu1ooK#scrollTo=_Ycax1ucXvAO"}
         ]
+        self.code_samples_intro = code_samples_intro
 
     def render(self):
         """
@@ -45,6 +47,13 @@ class HeroArea:
                 align-items: center; /* Center vertically */
                 height: 100%;  /* Ensure the container takes the full height of the column */
             }
+
+            .code-samples-intro {
+                font-size: 1em;
+                color: #555555;
+                text-align: center;
+                margin-bottom: 20px;
+            }
             </style>
             """, unsafe_allow_html=True)
 
@@ -59,13 +68,16 @@ class HeroArea:
                 st.image(f"assets/{self.avatar_image}", caption=self.avatar_caption, use_container_width=True)
                 st.markdown('</div>', unsafe_allow_html=True)
 
-        # Render the code samples (buttons)
+        # Render the code samples (buttons) with intro
         self.render_code_samples()
 
     def render_code_samples(self):
         """
-        Render code sample buttons as GitHub-styled buttons with white text and borders.
+        Render code sample buttons as GitHub-styled buttons with an introductory text.
         """
+        # Display the introductory text
+        st.markdown(f'<p class="code-samples-intro">{self.code_samples_intro}</p>', unsafe_allow_html=True)
+        
         # Create a grid layout for the buttons
         st.markdown("<div style='display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px;'>", unsafe_allow_html=True)
         
@@ -89,6 +101,7 @@ class HeroArea:
         st.markdown("</div>", unsafe_allow_html=True)
 
 
+
 # Example data for HeroArea with multiple paragraphs in the quote and code sample links
 quote = [
     "Modern data analysis requires engaging with substantial software, such as data gathering and information processing applications. "
@@ -105,7 +118,7 @@ quote = [
 hero_caption = "God told me I could either be good-looking or an excellent worker."
 
 # Instantiate and render HeroArea with code samples
-hero = HeroArea(quote=quote, avatar_image="jg_pick.jpg", avatar_caption=hero_caption)
+hero = HeroArea(quote=quote, avatar_image="jg_pick.jpg", avatar_caption=hero_caption,  code_samples_intro: str = "Explore the code samples below:")
 #hero.render()
 
 
