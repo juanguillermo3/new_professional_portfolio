@@ -104,6 +104,7 @@ class HeroArea:
 
 
 
+
 # Example data for HeroArea with multiple paragraphs in the quote and code sample links
 quote = [
     "Modern data analysis requires engaging with substantial software, such as data gathering and information processing applications. "
