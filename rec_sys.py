@@ -74,17 +74,10 @@ class RecommendationSystem:
                 # Generate the video filename based on the project title
                 video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
                 video_path = os.path.join('assets', video_filename)  # Path to the local MP4 file
-            
+
                 # Check if the video file exists in the assets folder
                 if os.path.exists(video_path):
-                    # HTML embedding with autoplay and no controls
-                    video_html = f"""
-                    <video autoplay muted loop style="width: 100%; height: auto;">
-                        <source src="{video_path}" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    """
-                    st.markdown(video_html, unsafe_allow_html=True)
+                    st.video(video_path, loop=True, autoplay=True, muted=True)  # Display the video as full-width
                 else:
                     st.warning(f"Video for {project_metadata['title']} not found.")
 
