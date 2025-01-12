@@ -8,22 +8,30 @@ NUM_RECOMMENDED_ITEMS = int(os.getenv('NUM_RECOMMENDED_ITEMS', 6))  # Default to
 NUM_COLUMNS = int(os.getenv('NUM_COLUMNS', 3))  # Default to 3 if not set
 
 class RecommendationSystem:
-    def __init__(self):
+    def __init__(self, section_header="Recommendation System 🎯", section_description="Discover content tailored to your needs. Use the search bar to find recommendations and filter by project category."):
         """
         Initialize the RecommendationSystem class.
         The configuration (number of recommended items and columns) is loaded from the environment variables.
+        Default section header and description can be overridden at instantiation.
         """
         self.num_recommended_items = NUM_RECOMMENDED_ITEMS
         self.num_columns = NUM_COLUMNS
+        self.section_header = section_header
+        self.section_description = section_description
 
-    def render(self):
+    def render(self, section_header=None, section_description=None):
         """
         Render the recommendation system based on the configuration.
+        The section header and description can be customized via parameters.
         """
-        st.subheader("Recommendation System 🎯")
+        # Use provided parameters or fallback to instance attributes
+        section_header = section_header or self.section_header
+        section_description = section_description or self.section_description
+
+        st.subheader(section_header)
         st.markdown("---")
         st.markdown(
-            '<p style="color: gray;">Discover content tailored to your needs. Use the search bar to find recommendations and filter by project category.</p>',
+            f'<p style="color: gray;">{section_description}</p>',
             unsafe_allow_html=True,
         )
         st.markdown("<br>", unsafe_allow_html=True)
@@ -135,9 +143,10 @@ class RecommendationSystem:
                                 unsafe_allow_html=True,
                             )
 
+# Example usage
+# Initialize RecSys with custom header and description
+recsys = RecommendationSystem(
+    #section_header="Customized Recommendations 🔍", 
+    section_description="My research RecSys to make my portfolio discoverable. The current version of the RecSys uses exact pattern on item titles/descriptions."
+)
 
-# Initialize RecSys
-recsys = RecommendationSystem()
-
-# Call the render method to display the recommendations
-#recsys.render()
