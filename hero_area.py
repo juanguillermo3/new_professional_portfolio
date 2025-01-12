@@ -86,8 +86,8 @@ class HeroArea:
             st.markdown(f"""
             <a href="{sample['url']}" target="_blank">
                 <button style="
-                    background-color: #f4b400; 
-                    color: black; 
+                    background-color: #24292f; 
+                    color: white; 
                     border: 1px solid white; 
                     padding: 10px 20px; 
                     font-size: 14px; 
@@ -97,9 +97,6 @@ class HeroArea:
                 ">{sample['title']}</button>
             </a>
             """, unsafe_allow_html=True)
-
-
-
 
 
 
