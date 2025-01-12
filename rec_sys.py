@@ -137,7 +137,7 @@ class RecommendationSystem:
 
 
 # Initialize RecSys
-RecommendationSystem = RecommendationSystem()
+recsys = RecommendationSystem()
 
 # Call the render method to display the recommendations
 #recsys.render()
