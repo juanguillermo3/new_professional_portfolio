@@ -14,8 +14,8 @@ class HeroArea:
         self.avatar_image = avatar_image
         self.avatar_caption = avatar_caption
         self.code_samples = code_samples if code_samples is not None else [
-            {"title": "Sample 1", "url": "https://colab.research.google.com/drive/1QKFY5zfiRkUUPrnhlsOrtRlqGJ14oFf3#scrollTo=sxBOaWZ9uabz"},
-            {"title": "Sample 2", "url": "https://colab.research.google.com/drive/1sPdB-uoOEdw2xIKPQCx1aGp5QUuu1ooK#scrollTo=_Ycax1ucXvAO"}
+            {"title": "Genetic Algorithms for forecasting app sales", "url": "https://colab.research.google.com/drive/1QKFY5zfiRkUUPrnhlsOrtRlqGJ14oFf3#scrollTo=sxBOaWZ9uabz"},
+            {"title": "Ensemble models to automate hirings from Human Resources", "url": "https://colab.research.google.com/drive/1sPdB-uoOEdw2xIKPQCx1aGp5QUuu1ooK#scrollTo=_Ycax1ucXvAO"}
         ]
         self.code_samples_intro = code_samples_intro
 
