@@ -94,18 +94,12 @@ class HeroArea:
                     border-radius: 5px;
                     text-align: center;
                     width: 100%;
-                    font-weight: bold;
-                    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-                    transition: background-color 0.3s ease, transform 0.2s ease;
-                " 
-                onmouseover="this.style.backgroundColor='#e6a800'; this.style.transform='scale(1.02)';" 
-                onmouseout="this.style.backgroundColor='#f4b400'; this.style.transform='scale(1.0)';">
-                    {sample['title']}
-                </button>
+                ">{sample['title']}</button>
             </a>
             """, unsafe_allow_html=True)
         
         st.markdown("</div>", unsafe_allow_html=True)
+
 
 
 
