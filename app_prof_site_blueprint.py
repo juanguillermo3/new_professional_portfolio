@@ -54,8 +54,9 @@ linkedin_profile = os.getenv("LINKEDIN_PROFILE")
 whatsapp_number = os.getenv("WHATSAPP_NUMBER", "+57 3053658650")
 
 
-
+#
 # **Title Section**
+#
 st.markdown("""
     <style>
     h1 {
@@ -71,10 +72,14 @@ st.title("Welcome to My Professional Portfolio")
 # Get the LinkedIn profile URL from the environment
 linkedin_profile = os.getenv("LINKEDIN_PROFILE")
 
-
+#
+# **Hero Section**
+#
 hero.render()
 
-# Ensure the profile is available
+#
+# **System messages/house keepin**
+#
 if linkedin_profile:
     portfolio_content = f"""
     <style>
@@ -117,10 +122,10 @@ st.markdown("<br>", unsafe_allow_html=True)
 st.markdown("<br>", unsafe_allow_html=True)
 st.markdown("<br>", unsafe_allow_html=True)
 
-
+#
+# **RecSys**
+#
     
-# **Recommendation System Section**
-
 # Number of recommended items and columns
 NUM_RECOMMENDED_ITEMS = 6
 NUM_COLUMNS = 3
