@@ -147,6 +147,6 @@ class RecommendationSystem:
 # Initialize RecSys with custom header and description
 recsys = RecommendationSystem(
     #section_header="Customized Recommendations 🔍", 
-    section_description="My research RecSys to make my portfolio discoverable. The current version of the RecSys uses exact pattern on item titles/descriptions."
+    section_description="My research RecSys to make my portfolio discoverable. This RecSys versions uses exact pattern on item titles/descriptions, while more flexible, NLP type of matching is under development."
 )
 
