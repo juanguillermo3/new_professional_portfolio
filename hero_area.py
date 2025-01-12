@@ -87,7 +87,7 @@ class HeroArea:
             <a href="{sample['url']}" target="_blank">
                 <button style="
                     background-color: #f4b400; 
-                    color: white; 
+                    color: black; 
                     border: 1px solid white; 
                     padding: 10px 20px; 
                     font-size: 14px; 
