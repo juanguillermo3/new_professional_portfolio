@@ -16,5 +16,11 @@
         "description": "to experiment new ideas to serve a professional portfolio",
         "image": "https://raw.githubusercontent.com/juanguillermo3/new_professional_portfolio/main/project_image.png",
         "url": "https://github.com/juanguillermo3/new_professional_portfolio"
+    },
+    {
+        "title": "predictive_analytics",
+        "description": "A house specialty, the series of predictive analytics groups several consultancies focused on the development of high-performance ML systems, with a component of research and development on algorithms to boost performance through maximum hyperparameter configuration.",
+        "image": "https://raw.githubusercontent.com/juanguillermo3/predictive_analytics/main/project_image.png",
+        "url": "https://github.com/juanguillermo3/predictive_analytics"
     }
 ]
