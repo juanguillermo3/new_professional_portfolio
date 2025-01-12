@@ -73,7 +73,7 @@ class HeroArea:
 
     def render_code_samples(self):
         """
-        Render code sample buttons with a color palette similar to Google Colab's branding.
+        Render code sample buttons as GitHub-styled buttons with an introductory text.
         """
         # Display the introductory text
         st.markdown(f'<p class="code-samples-intro">{self.code_samples_intro}</p>', unsafe_allow_html=True)
@@ -82,30 +82,21 @@ class HeroArea:
         st.markdown("<div style='display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px;'>", unsafe_allow_html=True)
         
         for sample in self.code_samples:
-            # Create a button styled similarly to Google Colab's theme
+            # Create GitHub-styled button for each code sample
             st.markdown(f"""
             <a href="{sample['url']}" target="_blank">
                 <button style="
-                    background-color: #f4b400; /* Google Colab yellow */
+                    background-color: #24292f; 
                     color: white; 
-                    border: 1px solid #d3a500; /* Slightly darker yellow border */
+                    border: 1px solid white; 
                     padding: 10px 20px; 
                     font-size: 14px; 
                     border-radius: 5px;
                     text-align: center;
                     width: 100%;
-                    font-weight: bold;
-                    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-                    transition: background-color 0.3s ease, transform 0.2s ease;
-                " 
-                onmouseover="this.style.backgroundColor='#e6a800'; this.style.transform='scale(1.02)';" 
-                onmouseout="this.style.backgroundColor='#f4b400'; this.style.transform='scale(1.0)';">
-                    {sample['title']}
-                </button>
+                ">{sample['title']}</button>
             </a>
             """, unsafe_allow_html=True)
-        
-        st.markdown("</div>", unsafe_allow_html=True)
 
 
 
