@@ -52,7 +52,7 @@ class HeroArea:
                 font-size: 1em;
                 color: #555555;
                 text-align: center;
-                margin-bottom: 20px;
+                margin-bottom: 10px;
             }
             </style>
             """, unsafe_allow_html=True)
@@ -118,7 +118,7 @@ quote = [
 hero_caption = "God told me I could either be good-looking or an excellent worker."
 
 # Instantiate and render HeroArea with code samples
-hero = HeroArea(quote=quote, avatar_image="jg_pick.jpg", avatar_caption=hero_caption,  code_samples_intro="Explore the code samples below:")
+hero = HeroArea(quote=quote, avatar_image="jg_pick.jpg", avatar_caption=hero_caption,  code_samples_intro="As an easy entry-point to my work, you can check these selected code samples from my ML consultancies:")
 #hero.render()
 
 
