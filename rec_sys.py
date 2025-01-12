@@ -363,7 +363,7 @@ class RecommendationSystem:
                 }
                 recommendations.insert(0, project_card)
 
-            # If project metadata is available, display it as a full-width row
+            # If project metadata is available, display it as a full-width row with video
             if project_metadata:
                 # Generate the video filename based on the project title
                 video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
@@ -371,7 +371,15 @@ class RecommendationSystem:
 
                 # Check if the video file exists in the assets folder
                 if os.path.exists(video_path):
-                    st.video(video_path)  # Display the video as full-width
+                    st.markdown(
+                        f"""
+                        <video width="100%" autoplay loop muted playsinline>
+                            <source src="file://{video_path}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        """,
+                        unsafe_allow_html=True,
+                    )
                 else:
                     st.warning(f"Video for {project_metadata['title']} not found.")
 
