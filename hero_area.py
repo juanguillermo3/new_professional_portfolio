@@ -110,7 +110,7 @@ quote = [
     "hence my effort to serve both within a unified framework."
     "",
     "I am Juan Guillermo. I am a professional economist. I have made a living developing data analysis and application "
-    "development scripts. My larger professional project aims for a holistic vision, interconnecting all the tooling for modern data analysis, "
+    "development scripts. My larger professional project aims for a holistic vision, interconnecting all the technology for modern data analysis, "
     "comprising data mining and artificial intelligence models, algorithms, workflows, and information tools."
 ]
 
