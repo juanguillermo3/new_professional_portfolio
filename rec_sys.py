@@ -12,6 +12,7 @@ class RecommendationSystem:
 
     def render(self):
         st.subheader(self.section_header)
+        st.markdown("---")
         st.markdown(f'<p style="color: gray;">{self.section_description}</p>', unsafe_allow_html=True)
 
         # Query Input
