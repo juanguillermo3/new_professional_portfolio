@@ -53,14 +53,24 @@ st.title("Welcome to My Professional Portfolio")
 # Get the LinkedIn profile URL from the environment
 linkedin_profile = os.getenv("LINKEDIN_PROFILE")
 
+
 #
 # **Hero Section**
+
 #
 hero.render()
+# 
+render_section_separator()
+
+#
+# **About this portfolio*
+#
 
 #
 # **System messages/house keeping**
 #
+
+
 if linkedin_profile:
     portfolio_content = f"""
     <style>
