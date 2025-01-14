@@ -14,7 +14,7 @@ import re
 from git_api_utils import load_repos_metadata, load_modules_metadata, REPOS_IN_PORTFOLIO
 from professional_bio import bio_component
 from dotenv import load_dotenv, dotenv_values
-
+from front_end_utils import render_section_separator
 from hero_area import hero
 from rec_sys import recsys
 
@@ -99,9 +99,7 @@ else:
 st.markdown(portfolio_content, unsafe_allow_html=True)
 
 # 
-st.markdown("<br>", unsafe_allow_html=True)
-st.markdown("<br>", unsafe_allow_html=True)
-st.markdown("<br>", unsafe_allow_html=True)
+render_section_separator()
 
 #
 # **RecSys**
