@@ -137,7 +137,8 @@ if linkedin_profile:
         <span class="emoji">🔨</span> This portfolio is under development, and you can read the related research in my LinkedIn profile 
         <a href="{linkedin_profile}" target="_blank">here</a>.
     </div>
-    
+"""
+
 else:
     portfolio_content = "LinkedIn profile not found."
 
