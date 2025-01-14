@@ -1,7 +1,7 @@
 """
 project: new_professional_portfolio
-title: Web Application for a New Professional Portfolio
-description: Streamlit based Front End for my professional portfolio. 
+title: Web Application
+description: Streamlit based Front-End application for my professional portfolio. 
 Author: Juan Guillermo
 field: something
 
@@ -20,26 +20,7 @@ from rec_sys import recsys
 
 
 #
-def reload_env(dotenv_path=".env"):
-    """
-    Reloads the .env file, ensuring all variables are updated.
-
-    Args:
-        dotenv_path (str): Path to the .env file.
-    """
-    # Parse current .env values without loading them into os.environ
-    current_env = dotenv_values(dotenv_path)
-
-    # Remove any keys from os.environ that exist in the .env file
-    for key in current_env.keys():
-        if key in os.environ:
-            del os.environ[key]
-
-    # Reload .env file into os.environ
-    load_dotenv(dotenv_path, override=True)
-
-# Call this at the top of your Streamlit script
-reload_env()
+load_dotenv(override=True)
 
 #
 ENVIRONMENT = os.getenv("ENVIRONMENT")
@@ -78,7 +59,7 @@ linkedin_profile = os.getenv("LINKEDIN_PROFILE")
 hero.render()
 
 #
-# **System messages/house keepin**
+# **System messages/house keeping**
 #
 if linkedin_profile:
     portfolio_content = f"""
@@ -108,7 +89,7 @@ if linkedin_profile:
     </div>
     
     <div class="message">
-        <span class="emoji">⚠️</span> Some of the content in this portfolio is mocked-up by AI. I hope you can hear my authentic voice in the whole message.
+        <span class="emoji">⚠️</span> Some of the content in this portfolio is mocked-up by AI.
     </div>
     """
 else:
