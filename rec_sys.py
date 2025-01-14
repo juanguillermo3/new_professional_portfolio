@@ -159,7 +159,7 @@ class RecommendationSystem:
             <div style="background-color: {background_color}; border: {border_style}; 
                         border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
                         padding: 10px; text-align: center;">
-                <img src="https://via.placeholder.com/150" alt={ rec['image_theme'] if 'image_theme' in rec else '' }>
+                <img src="https://via.placeholder.com/150" >
                      style="border-radius: 10px; width: 100%; height: auto;">
                 <h5>{self.prettify_title(rec['title'])}</h5>
                 <p style="text-align: justify;">{rec['description']}</p>
