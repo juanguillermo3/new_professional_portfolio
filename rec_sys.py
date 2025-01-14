@@ -246,7 +246,7 @@ class RecommendationSystem:
                     "url": project_metadata.get("url", None),
                     "is_project": True,
                 }
-                recommendations.insert(0, project_card)
+                #recommendations.insert(0, project_card)
 
             # If project metadata is available, display it with the video area
             if project_metadata:
