@@ -1,3 +1,8 @@
+import os
+import streamlit as st
+import re
+from git_api_utils import load_repos_metadata, load_modules_metadata, REPOS_IN_PORTFOLIO
+
 class RecommendationSystem:
     def __init__(self, num_recommended_items=6, num_columns=3, section_header="Recommendation System 🎯", section_description="Discover content tailored to your needs. Use the search bar to find recommendations and filter by project category."):
         self.num_recommended_items = num_recommended_items
