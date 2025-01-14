@@ -34,8 +34,8 @@
     },
     {
         "project": "new_professional_portfolio",
-        "title": "Web Application for a New Professional Portfolio",
-        "description": "Streamlit based Front End for my professional portfolio.",
+        "title": "Web Application",
+        "description": "Streamlit based Front-End application for my professional portfolio.",
         "author": "Juan Guillermo",
         "field": "something",
         "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/app_prof_site_blueprint.py",
@@ -43,11 +43,12 @@
         "repo_name": "new_professional_portfolio"
     },
     {
-        "title": "Hero section for a professional portfolio.",
-        "description": "Low key hero section for a professional porftolio. Styled as a quote from a book with a biopick.",
+        "title": "PSM for program evaluation on job intermediation program",
         "author": "Juan Guillermo",
-        "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/hero_area.py",
-        "file_path": "hero_area.py",
-        "repo_name": "new_professional_portfolio"
+        "date": "2025-01-14",
+        "description": "Performs propensity score matching to evaluate job intermediation program.",
+        "url": "https://github.com/juanguillermo3/evaluation_job_program/blob/main/emparejar_validar_evaluar_vf.do",
+        "file_path": "emparejar_validar_evaluar_vf.do",
+        "repo_name": "evaluation_job_program"
     }
 ]
