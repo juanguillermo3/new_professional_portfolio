@@ -268,9 +268,9 @@ class RecommendationSystem:
                     </div>
                     '''
                 
-                    st.markdown(video_html, unsafe_allow_html=True)
-                                else:
-                    st.warning(f"Video for {project_metadata['title']} not found.")
+            st.markdown(video_html, unsafe_allow_html=True)
+                        else:
+            st.warning(f"Video for {project_metadata['title']} not found.")
 
             # Render recommendations in a grid for the other items
             for i in range(0, len(recommendations), self.num_columns):
