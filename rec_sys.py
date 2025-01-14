@@ -248,7 +248,7 @@ class RecommendationSystem:
             if project_metadata:
                 # Generate the video filename based on the project title
                 video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
-                video_path = os.path.join('assets', video_filename)  # Path to the local MP4 file
+                video_path = os.path.join(video_filename)  # Path to the local MP4 file
 
                 # Check if the video file exists in the assets folder
                 if os.path.exists(video_path):
