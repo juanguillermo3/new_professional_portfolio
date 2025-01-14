@@ -248,26 +248,28 @@ class RecommendationSystem:
             if project_metadata:
                 # Generate the video filename based on the project title
                 video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
-                video_path = os.path.join(video_filename)  # Path to the local MP4 file
+                video_path = os.path.join("assets", video_filename)  # Path to the local MP4 file
 
                 # Check if the video file exists in the assets folder
                 if os.path.exists(video_path):
                     # Video component with overlay and blurred background
-                    st.markdown(
-                        f"""
-                        <div style="position: relative; width: 100%; height: auto;">
-                            <video src="{video_path}" style="width: 100%; height: auto;" autoplay muted loop></video>
-                            <div style="position: absolute; bottom: 0; left: 0; width: 100%; 
-                                        background: rgba(0, 0, 0, 0.6); padding: 20px; 
-                                        color: white; border-radius: 0 0 10px 10px;">
-                                <h2>{self.prettify_title(project_metadata['title'])}</h2>
-                                <p>{project_metadata['description']}</p>
-                            </div>
+                    video_html = f'''
+                    <div style="position: relative; width: 100%; height: auto;">
+                        <video width="100%" height="auto" autoplay muted loop>
+                            <source src="{video_path}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div style="position: absolute; bottom: 0; left: 0; width: 100%; 
+                                    background: rgba(0, 0, 0, 0.6); padding: 20px; 
+                                    color: white; border-radius: 0 0 10px 10px;">
+                            <h2>{self.prettify_title(project_metadata['title'])}</h2>
+                            <p>{project_metadata['description']}</p>
                         </div>
-                        """,
-                        unsafe_allow_html=True,
-                    )
-                else:
+                    </div>
+                    '''
+                
+                    st.markdown(video_html, unsafe_allow_html=True)
+                                else:
                     st.warning(f"Video for {project_metadata['title']} not found.")
 
             # Render recommendations in a grid for the other items
