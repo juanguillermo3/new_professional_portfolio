@@ -1,14 +1,52 @@
-import os
-import streamlit as st
-import re
-from git_api_utils import load_repos_metadata, load_modules_metadata, REPOS_IN_PORTFOLIO
-
 class RecommendationSystem:
     def __init__(self, num_recommended_items=6, num_columns=3, section_header="Recommendation System 🎯", section_description="Discover content tailored to your needs. Use the search bar to find recommendations and filter by project category."):
         self.num_recommended_items = num_recommended_items
         self.num_columns = num_columns
         self.section_header = section_header
         self.section_description = section_description
+
+    def prettify_title(self, title):
+        """Prettify the title by removing underscores and capitalizing words."""
+        return " ".join(word.capitalize() for word in title.replace("_", " ").split())
+
+    def render_card(self, rec, is_project=False):
+        """Render a single recommendation card."""
+        background_color = "#fff5e6" if is_project else "white"
+        border_style = "2px solid gold" if is_project else "1px solid #ddd"
+
+        st.markdown(
+            f"""
+            <div style="background-color: {background_color}; border: {border_style}; 
+                        border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+                        padding: 10px; text-align: center;">
+                <img src="https://via.placeholder.com/150" alt="{rec['title']}" 
+                     style="border-radius: 10px; width: 100%; height: auto;">
+                <h5>{self.prettify_title(rec['title'])}</h5>
+                <p style="text-align: justify;">{rec['description']}</p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+        # Add "See in GitHub" button if URL is present
+        if "url" in rec and rec["url"]:
+            st.markdown(
+                f"""
+                <div style="display: flex; justify-content: center; margin-top: 10px;">
+                    <a href="{rec['url']}" target="_blank" 
+                       style="text-decoration: none;">
+                        <button style="background-color: #333; color: white; 
+                                       border: none; padding: 10px 20px; 
+                                       text-align: center; text-decoration: none; 
+                                       font-size: 14px; cursor: pointer; 
+                                       border-radius: 5px;">
+                            See in GitHub
+                        </button>
+                    </a>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
 
     def render(self):
         st.subheader(self.section_header)
@@ -87,48 +125,8 @@ class RecommendationSystem:
                 cols = st.columns(self.num_columns)
                 for col, rec in zip(cols, recommendations[i : i + self.num_columns]):
                     with col:
-                        # Style the project card distinctly
-                        background_color = (
-                            "#fff5e6" if rec.get("is_project") else "white"
-                        )
-                        border_style = (
-                            "2px solid gold" if rec.get("is_project") else "1px solid #ddd"
-                        )
+                        self.render_card(rec, is_project=rec.get("is_project", False))
 
-                        # Render the card
-                        st.markdown(
-                            f"""
-                            <div style="background-color: {background_color}; border: {border_style}; 
-                                        border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
-                                        padding: 10px; text-align: center;">
-                                <img src="https://via.placeholder.com/150" alt="{rec['title']}" 
-                                     style="border-radius: 10px; width: 100%; height: auto;">
-                                <h5>{rec['title']}</h5>
-                                <p>{rec['description']}</p>
-                            </div>
-                            """,
-                            unsafe_allow_html=True,
-                        )
-
-                        # Add "See in GitHub" button if URL is present
-                        if "url" in rec and rec["url"]:
-                            st.markdown(
-                                f"""
-                                <div style="display: flex; justify-content: center; margin-top: 10px;">
-                                    <a href="{rec['url']}" target="_blank" 
-                                       style="text-decoration: none;">
-                                        <button style="background-color: #333; color: white; 
-                                                       border: none; padding: 10px 20px; 
-                                                       text-align: center; text-decoration: none; 
-                                                       font-size: 14px; cursor: pointer; 
-                                                       border-radius: 5px;">
-                                            See in GitHub
-                                        </button>
-                                    </a>
-                                </div>
-                                """,
-                                unsafe_allow_html=True,
-                            )
 
 
 
