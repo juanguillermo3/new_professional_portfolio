@@ -77,45 +77,76 @@ st.markdown(f'<p style="color: gray;">{
 #
 
 
+st.subheader("About this portfolio")
+st.markdown("---")
+st.markdown(f'<p style="color: gray;">{ "In addition to holding the new version of my professional portfolio, this project showcases development in a project to apply emergent technologies to create practical solutions to workers' struggles in the labor market." }</p>', unsafe_allow_html=True)
+
+# **System messages/house keeping**
 if linkedin_profile:
     portfolio_content = f"""
     <style>
     .emoji {{
-        font-size: 1.2em;
+        font-size: 1.5em;
+        margin-right: 10px;
     }}
     .message {{
-        font-size: 0.95em;  /* Smaller font size */
+        font-size: 1em;  
         line-height: 1.6;
         color: #333;
-        text-align: justify;  /* Justified text */
+        text-align: justify;
         margin-top: 15px;
-        margin-left: 2em;  /* Indentation */
+        margin-left: 2em;
+        background-color: #f9f9f9;
+        border-left: 5px solid #4CAF50;
+        padding: 10px 15px;
+        border-radius: 8px;
+    }}
+    .message p {{
+        margin: 0;
     }}
     .emoji-line {{
-        font-size: 1.2em;
-        margin-top: 5px;
+        font-size: 1.3em;
+        margin-top: 15px;
         margin-left: 2em;
-        text-align: justify;
+        display: flex;
+        align-items: center;
+        color: #3f3f3f;
+    }}
+    .message a {{
+        color: #0073e6;
+        text-decoration: none;
+    }}
+    .message a:hover {{
+        text-decoration: underline;
     }}
     </style>
+    
+    <div class="message">
+        <span class="emoji">🔎</span> We explore applications of Recommendation Systems and LLM-powered creations to build a discoverable professional portfolio.
+    </div>
+    
+    <div class="message emoji-line">
+        <span class="emoji">⚙️</span> This portfolio is in an early development stage.
+    </div>
+    
+    <div class="message emoji-line">
+        <span class="emoji">🤖</span> Some of the content presented is mocked up by AI for developmental purposes.
+    </div>
     
     <div class="message">
         <span class="emoji">🔨</span> This portfolio is under development, and you can read the related research in my LinkedIn profile 
         <a href="{linkedin_profile}" target="_blank">here</a>.
     </div>
     
-    <div class="message">
-        <span class="emoji">⚠️</span> Some of the content in this portfolio is mocked-up by AI.
-    </div>
-    """
 else:
     portfolio_content = "LinkedIn profile not found."
 
 # Render the portfolio content
 st.markdown(portfolio_content, unsafe_allow_html=True)
 
-# 
+# Render section separator
 render_section_separator()
+
 
 #
 # **RecSys**
