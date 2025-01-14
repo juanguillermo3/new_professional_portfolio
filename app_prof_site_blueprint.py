@@ -68,56 +68,28 @@ render_section_separator()
 
 st.subheader("About this portfolio")
 st.markdown("---")
-st.markdown(f'<p style="color: gray;">{
-    "In addition of holding the new version of my professional portfolio, this project showcases development in a project to apply emergent tecnologies to create practical solutions to workers struggles in the laboral market."
-    }</p>', unsafe_allow_html=True)
+st.markdown(f'<p style="color: gray;">{ "In addition to holding the new version of my professional portfolio, this project showcases development aimed at applying emerging technologies to create practical solutions for workers' struggles in the labor market." }</p>', unsafe_allow_html=True)
 
-#
-# **System messages/house keeping**
-#
-
-
-st.subheader("About this portfolio")
-st.markdown("---")
-st.markdown(f'<p style="color: gray;">{ "In addition to holding the new version of my professional portfolio, this project showcases development in a project to apply emergent technologies to create practical solutions to workers' struggles in the labor market." }</p>', unsafe_allow_html=True)
-
-# **System messages/house keeping**
+# **System messages/housekeeping**
 if linkedin_profile:
     portfolio_content = f"""
     <style>
     .emoji {{
-        font-size: 1.5em;
-        margin-right: 10px;
+        font-size: 1.2em;
     }}
     .message {{
-        font-size: 1em;  
+        font-size: 0.95em;  /* Smaller font size */
         line-height: 1.6;
         color: #333;
-        text-align: justify;
+        text-align: justify;  /* Justified text */
         margin-top: 15px;
-        margin-left: 2em;
-        background-color: #f9f9f9;
-        border-left: 5px solid #4CAF50;
-        padding: 10px 15px;
-        border-radius: 8px;
-    }}
-    .message p {{
-        margin: 0;
+        margin-left: 2em;  /* Indentation */
     }}
     .emoji-line {{
-        font-size: 1.3em;
-        margin-top: 15px;
+        font-size: 1.2em;
+        margin-top: 5px;
         margin-left: 2em;
-        display: flex;
-        align-items: center;
-        color: #3f3f3f;
-    }}
-    .message a {{
-        color: #0073e6;
-        text-decoration: none;
-    }}
-    .message a:hover {{
-        text-decoration: underline;
+        text-align: justify;
     }}
     </style>
     
@@ -126,7 +98,7 @@ if linkedin_profile:
     </div>
     
     <div class="message emoji-line">
-        <span class="emoji">⚙️</span> This portfolio is in an early development stage.
+        <span class="emoji">⚙️</span> This portfolio is in the early stages of development.
     </div>
     
     <div class="message emoji-line">
@@ -147,6 +119,7 @@ st.markdown(portfolio_content, unsafe_allow_html=True)
 
 # Render section separator
 render_section_separator()
+
 
 
 #
