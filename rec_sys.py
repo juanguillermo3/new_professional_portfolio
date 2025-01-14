@@ -123,15 +123,16 @@ class RecommendationSystem:
             
                 # Check if the video file exists in the assets folder
                 if os.path.exists(video_path):
-                    # Use HTML to embed the video with no controls
+                    # Make sure to use the correct path and allow Streamlit to access it
                     video_html = f"""
                     <video width="100%" height="auto" autoplay loop muted>
                         <source src="{video_path}" type="video/mp4">
+                        Your browser does not support the video tag.
                     </video>
                     """
                     st.markdown(video_html, unsafe_allow_html=True)  # Embed video without controls
                 else:
-                    st.warning(f"Video for {project_metadata['title']} not found.")
+                    st.warning(f"Video for {project_metadata['title']} not found at {video_path}")
             else:
                 st.warning("Project metadata is not available.")
 
