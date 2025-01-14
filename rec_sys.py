@@ -255,7 +255,7 @@ class RecommendationSystem:
                     # Video component with overlay and blurred background
                     video_html = f'''
                     <div style="position: relative; width: 100%; height: auto;">
-                        <video width="600" controls>
+                        <video width="600" autoplay>
                             <source src="{video_path}" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
