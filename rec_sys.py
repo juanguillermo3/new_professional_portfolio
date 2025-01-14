@@ -249,7 +249,7 @@ class RecommendationSystem:
                 # Generate the video filename based on the project title
                 video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
                 video_path = os.path.join("assets", video_filename)  # Path to the local MP4 file
-
+            
                 # Check if the video file exists in the assets folder
                 if os.path.exists(video_path):
                     # Video component with overlay and blurred background
@@ -267,10 +267,9 @@ class RecommendationSystem:
                         </div>
                     </div>
                     '''
-                
-            st.markdown(video_html, unsafe_allow_html=True)
-                        else:
-            st.warning(f"Video for {project_metadata['title']} not found.")
+                    st.markdown(video_html, unsafe_allow_html=True)
+                else:
+                    st.warning(f"Video for {project_metadata['title']} not found.")
 
             # Render recommendations in a grid for the other items
             for i in range(0, len(recommendations), self.num_columns):
