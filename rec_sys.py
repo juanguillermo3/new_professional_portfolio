@@ -115,26 +115,17 @@ class RecommendationSystem:
 
             # If project metadata is available, display it as a full-width row
             
-            # Ensure project_metadata exists
+           # If project metadata is available, display it as a full-width row
             if project_metadata:
                 # Generate the video filename based on the project title
                 video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
                 video_path = os.path.join('assets', video_filename)  # Path to the local MP4 file
-            
+
                 # Check if the video file exists in the assets folder
                 if os.path.exists(video_path):
-                    # Make sure to use the correct path and allow Streamlit to access it
-                    video_html = f"""
-                    <video width="100%" height="auto" autoplay loop muted>
-                        <source src="{video_path}" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    """
-                    st.markdown(video_html, unsafe_allow_html=True)  # Embed video without controls
+                    st.video(video_path, loop=True, autoplay=True, muted=True)  # Display the video as full-width
                 else:
-                    st.warning(f"Video for {project_metadata['title']} not found at {video_path}")
-            else:
-                st.warning("Project metadata is not available.")
+                    st.warning(f"Video for {project_metadata['title']} not found.")
 
             # Render recommendations in a grid for the other items
             for i in range(0, len(recommendations), self.num_columns):
