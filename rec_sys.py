@@ -19,13 +19,20 @@ class RecommendationSystem:
         background_color = "#fff5e6" if is_project else "white"
         border_style = "2px solid gold" if is_project else "1px solid #ddd"
 
+        # Determine the image URL or placeholder
+        if not is_project and "theme_image" in rec and rec["theme_image"]:
+            image_url = rec["theme_image"]
+        elif not is_project:
+            image_url = "https://via.placeholder.com/150"
+        else:
+            image_url = None  # No image for project cards
+
         st.markdown(
             f"""
             <div style="background-color: {background_color}; border: {border_style}; 
                         border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
                         padding: 10px; text-align: center;">
-                <img src="https://via.placeholder.com/150" alt="{rec['title']}" 
-                     style="border-radius: 10px; width: 100%; height: auto;">
+                {f'<img src="{image_url}" alt="{rec["title"]}" style="border-radius: 10px; width: 100%; height: auto;">' if image_url else ''}
                 <h5>{self.prettify_title(rec['title'])}</h5>
                 <p style="text-align: justify;">{rec['description']}</p>
             </div>
