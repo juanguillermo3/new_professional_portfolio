@@ -63,8 +63,14 @@ hero.render()
 render_section_separator()
 
 #
-# **About this portfolio*
+# **About this portfolio**
 #
+
+st.subheader(About this portfolio
+st.markdown("---")
+st.markdown(f'<p style="color: gray;">{
+    In addition of holding the new version of my professional portfolio, this project showcases development in a project to apply emergent tecnologies to create practical solutions to workers struggles in the laboral market.
+    }</p>', unsafe_allow_html=True)
 
 #
 # **System messages/house keeping**
