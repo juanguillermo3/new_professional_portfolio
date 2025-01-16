@@ -22,6 +22,13 @@
         "repo_name": "monkey_research"
     },
     {
+        "title": "Home range sizes trough CPE",
+        "description": "Implements a the Minimum Convex Polygon Estimator to compute the home range sizes for each of 4 monkey groups under study",
+        "url": "https://github.com/juanguillermo3/monkey_research/blob/main/home_ranges.R",
+        "file_path": "home_ranges.R",
+        "repo_name": "monkey_research"
+    },
+    {
         "title": "Computation of Morisita Index",
         "description": "Computes the Morisita Index for spatial dispersion for the home range of each monkey species",
         "portfolio": "True",
@@ -31,24 +38,5 @@
         "url": "https://github.com/juanguillermo3/monkey_research/blob/main/morisita_index.R",
         "file_path": "morisita_index.R",
         "repo_name": "monkey_research"
-    },
-    {
-        "project": "new_professional_portfolio",
-        "title": "Web Application",
-        "description": "Streamlit based Front-End application for my professional portfolio.",
-        "author": "Juan Guillermo",
-        "field": "something",
-        "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/app_prof_site_blueprint.py",
-        "file_path": "app_prof_site_blueprint.py",
-        "repo_name": "new_professional_portfolio"
-    },
-    {
-        "title": "PSM for program evaluation on job intermediation program",
-        "author": "Juan Guillermo",
-        "date": "2025-01-14",
-        "description": "Performs propensity score matching to evaluate job intermediation program.",
-        "url": "https://github.com/juanguillermo3/evaluation_job_program/blob/main/emparejar_validar_evaluar_vf.do",
-        "file_path": "emparejar_validar_evaluar_vf.do",
-        "repo_name": "evaluation_job_program"
     }
 ]
