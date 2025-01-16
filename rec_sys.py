@@ -16,7 +16,7 @@ class RecommendationSystem:
 
     def render_card(self, rec, is_project=False):
         """Render a single recommendation card."""
-        background_color = "#fff5e6" if is_project else "white"
+        background_color = "#f4f4f4" if not is_project else "#fff5e6"  # Silver background for non-project items
         border_style = "2px solid gold" if is_project else "1px solid #ddd"
 
         st.markdown(
