@@ -52,6 +52,26 @@ class RecommendationSystem:
                 """,
                 unsafe_allow_html=True,
             )
+            
+    # Add "See Report" button if report_url is present
+    if "report_url" in rec and rec["report_url"]:
+        st.markdown(
+            f"""
+            <div style="display: flex; justify-content: center; margin-top: 10px;">
+                <a href="{rec['report_url']}" target="_blank" 
+                   style="text-decoration: none;">
+                    <button style="background-color: #34A853; color: white; 
+                                   border: none; padding: 10px 20px; 
+                                   text-align: center; text-decoration: none; 
+                                   font-size: 14px; cursor: pointer; 
+                                   border-radius: 5px;">
+                        See Report
+                    </button>
+                </a>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
     def render(self):
         st.subheader(self.section_header)
