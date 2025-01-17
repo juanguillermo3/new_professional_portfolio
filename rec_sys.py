@@ -279,7 +279,7 @@ class RecommendationSystem:
         border_style = "2px solid gold" if is_project else "1px solid #ddd"
         
         # Fixed height for the card and allow vertical scrolling
-        card_height = "300px"  # You can adjust this value to set the desired height
+        card_height = "150px"  # You can adjust this value to set the desired height
         overflow_style = "overflow-y: auto;"  # Enables vertical scrolling for overflowing content
     
         st.markdown(
