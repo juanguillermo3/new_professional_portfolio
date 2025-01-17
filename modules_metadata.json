@@ -13,7 +13,6 @@
     {
         "title": "Generate Comprehensive Excel Reports",
         "description": "A flexible function to create Excel reports with dataframes, ggplots, leaflet maps, and nested lists of content.",
-        "report_url": "Generates structured Excel reports with support for mixed content types.",
         "url": "https://github.com/juanguillermo3/monkey_research/blob/main/flexible_excel_reports.R",
         "file_path": "flexible_excel_reports.R",
         "repo_name": "monkey_research"
@@ -21,7 +20,6 @@
     {
         "title": "Flexible Comparison Across Groups",
         "description": "Performs statistical tests to compare measurements of a dependent variable across groups defined by an independent variable. Supports multiple behaviors for ecological studies.",
-        "report_url": "Statistical tests summary and post hoc analysis for group comparisons in ecological studies.",
         "url": "https://github.com/juanguillermo3/monkey_research/blob/main/flexible_test_across_groups.R",
         "file_path": "flexible_test_across_groups.R",
         "repo_name": "monkey_research"
@@ -35,14 +33,6 @@
         "date": "2025-01-02",
         "url": "https://github.com/juanguillermo3/monkey_research/blob/main/food_availability_index_over_transect_data.R",
         "file_path": "food_availability_index_over_transect_data.R",
-        "repo_name": "monkey_research"
-    },
-    {
-        "title": "Home range sizes trough CPE",
-        "description": "Implements a the Minimum Convex Polygon Estimator to compute the home range sizes for each of 4 monkey groups under study",
-        "report_url": "https://docs.google.com/spreadsheets/d/1Dr48Q6WI18ldeaSUnL_C2OpaVQPiSNGv/edit?gid=1820260740#gid=1820260740",
-        "url": "https://github.com/juanguillermo3/monkey_research/blob/main/home ranges.R",
-        "file_path": "home ranges.R",
         "repo_name": "monkey_research"
     },
     {
