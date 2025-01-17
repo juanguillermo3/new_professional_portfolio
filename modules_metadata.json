@@ -59,19 +59,18 @@
     {
         "title": "Recommendation System",
         "description": "Current implementation of the RecSys, featuring a vanilla ranking that sorts items by the most recently updated, filters by query (exact matching), and allows filtering by project.",
-        "last_updated": "2025-01-17T07:02:08Z",
+        "last_updated": "2025-01-17T07:34:14Z",
         "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/rec_sys.py",
         "file_path": "rec_sys.py",
         "repo_name": "new_professional_portfolio"
     },
     {
-        "title": "PSM for program evaluation on job intermediation program",
-        "author": "Juan Guillermo",
+        "title": "Example Jupyter Notebook",
+        "author": "Taylor White",
         "date": "2025-01-14",
-        "description": "Performs propensity score matching to evaluate job intermediation program.",
-        "last_updated": "2025-01-14T06:35:10Z",
-        "url": "https://github.com/juanguillermo3/evaluation_job_program/blob/main/emparejar_validar_evaluar_vf.do",
-        "file_path": "emparejar_validar_evaluar_vf.do",
-        "repo_name": "evaluation_job_program"
+        "description": "This notebook demonstrates extracting metadata for Jupyter.",
+        "url": "https://github.com/juanguillermo3/predictive_analytics/blob/main/ensemble_learning.ipynb",
+        "file_path": "ensemble_learning.ipynb",
+        "repo_name": "predictive_analytics"
     }
 ]
