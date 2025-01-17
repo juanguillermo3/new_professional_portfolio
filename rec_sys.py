@@ -165,6 +165,131 @@ class RecommendationSystem:
                     with col:
                         self.render_card(rec, is_project=rec.get("is_project", False))
 
+import streamlit as st
+import re
+from git_api_utils import load_repos_metadata, load_modules_metadata
+from datetime import datetime
+
+class RecommendationSystem:
+    def __init__(self, num_recommended_items=6, num_columns=3, section_header="Recommendation System 🎯", section_description="Discover content tailored to your needs. Use the search bar to find recommendations and filter by project category."):
+        self.num_recommended_items = num_recommended_items
+        self.num_columns = num_columns
+        self.section_header = section_header
+        self.section_description = section_description
+        
+        # Cache the metadata
+        self.repos_metadata = load_repos_metadata()  
+        self.metadata_list = load_modules_metadata()  
+
+    def rank_items(self, query=None, selected_project=None):
+        """Rank the items by the last updated date and apply filters."""
+        # Step 1: Sort items by 'last_updated' from newest to oldest
+        ranked_items = sorted(self.metadata_list, key=lambda x: datetime.strptime(x['last_updated'], "%Y-%m-%dT%H:%M:%SZ"), reverse=True)
+
+        # Step 2: Filter by project selection
+        if selected_project and selected_project != "All Projects":
+            ranked_items = [
+                item for item in ranked_items if item['repo_name'].lower() == selected_project.lower()
+            ]
+
+        # Step 3: Filter by search query
+        if query:
+            query_pattern = re.compile(re.escape(query), re.IGNORECASE)
+            ranked_items = [
+                item for item in ranked_items
+                if query_pattern.search(item["title"]) or query_pattern.search(item["description"])
+            ]
+
+        # Step 4: Return the top 'num_recommended_items' recommendations
+        return ranked_items[:self.num_recommended_items]
+
+    def prettify_title(self, title):
+        """Prettify the title by removing underscores and capitalizing words."""
+        return " ".join(word.capitalize() for word in title.replace("_", " ").split())
+
+    def render_card(self, rec, is_project=False):
+        """Render a single recommendation card."""
+        background_color = "#f4f4f4" if not is_project else "#fff5e6"  # Silver background for non-project items
+        border_style = "2px solid gold" if is_project else "1px solid #ddd"
+
+        st.markdown(
+            f"""
+            <div style="background-color: {background_color}; border: {border_style}; 
+                        border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+                        padding: 10px; text-align: center;">
+                <img src="https://via.placeholder.com/150"
+                     style="border-radius: 10px; width: 100%; height: auto;">
+                <h5>{self.prettify_title(rec['title'])}</h5>
+                <p style="text-align: justify;">{rec['description']}</p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+        # Add "See in GitHub" button if URL is present
+        if "url" in rec and rec["url"]:
+            st.markdown(
+                f"""
+                <div style="display: flex; justify-content: center; margin-top: 10px;">
+                    <a href="{rec['url']}" target="_blank" 
+                       style="text-decoration: none;">
+                        <button style="background-color: #333; color: white; 
+                                       border: none; padding: 10px 20px; 
+                                       text-align: center; text-decoration: none; 
+                                       font-size: 14px; cursor: pointer; 
+                                       border-radius: 5px;">
+                            See in GitHub
+                        </button>
+                    </a>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+            
+        # Add "See Report" button if report_url is present
+        if "report_url" in rec and rec["report_url"]:
+            st.markdown(
+                f"""
+                <div style="display: flex; justify-content: center; margin-top: 10px;">
+                    <a href="{rec['report_url']}" target="_blank" 
+                       style="text-decoration: none;">
+                        <button style="background-color: #34A853; color: white; 
+                                       border: none; padding: 10px 20px; 
+                                       text-align: center; text-decoration: none; 
+                                       font-size: 14px; cursor: pointer; 
+                                       border-radius: 5px;">
+                            See Report
+                        </button>
+                    </a>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+    def render(self):
+        st.subheader(self.section_header)
+        st.markdown("---")
+        st.markdown(f'<p style="color: gray;">{self.section_description}</p>', unsafe_allow_html=True)
+
+        # Query Input
+        query = st.text_input("Search for recommendations by keyword (e.g., Python, R):", placeholder="Type a keyword and press Enter")
+
+        # Radial Button for Project Filter
+        projects = ["All Projects"] + [repo["title"] for repo in self.repos_metadata]
+        selected_project = st.selectbox("Filter recommendations by project:", projects)
+
+        # Call rank_items to get the ranked and filtered recommendations
+        recommendations = self.rank_items(query, selected_project)
+
+        # Render recommendations in a grid
+        for i in range(0, len(recommendations), self.num_columns):
+            cols = st.columns(self.num_columns)
+            for col, rec in zip(cols, recommendations[i : i + self.num_columns]):
+                with col:
+                    self.render_card(rec, is_project=rec.get("is_project", False))
+
+
+
 # Example usage
 # Initialize RecSys with custom header and description
 recsys = RecommendationSystem(
