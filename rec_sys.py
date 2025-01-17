@@ -288,6 +288,39 @@ class RecommendationSystem:
         # Call rank_items to get the ranked and filtered recommendations
         recommendations = self.rank_items(query, selected_project)
 
+        # Check if there is project metadata and show video
+        project_metadata = None
+        if selected_project != "All Projects":
+            for repo in self.repos_metadata:
+                if repo["title"].lower() == selected_project.lower():
+                    project_metadata = repo
+                    break
+
+        # If project metadata is available, display it with the video area
+        if project_metadata:
+            # Generate the video filename based on the project title
+            video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
+            video_path = os.path.join('assets', video_filename)  # Path to the local MP4 file
+
+            # Render the title and description centered with some margins for the project
+            st.markdown(
+                f"""
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <h3>{self.prettify_title(project_metadata['title'])}</h3>
+                </div>
+                <div style="text-align: justify; margin-left: 10%; margin-right: 10%; margin-bottom: 20px;">
+                    <p>{project_metadata['description']}</p>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+            # Check if the video file exists in the assets folder
+            if os.path.exists(video_path):
+                st.video(video_path, loop=True, autoplay=True, muted=True)  # Display the video as full-width
+            else:
+                st.warning(f"Video for {project_metadata['title']} not found.")
+
         # Render recommendations in a grid
         for i in range(0, len(recommendations), self.num_columns):
             cols = st.columns(self.num_columns)
