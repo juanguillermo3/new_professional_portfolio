@@ -6,6 +6,7 @@
         "author": "Juan Guillermo",
         "field": "something",
         "portfolio": "True",
+        "last_updated": "2025-01-04T07:12:43Z",
         "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/job_listing_scrapper_1.2.py",
         "file_path": "job_listing_scrapper_1.2.py",
         "repo_name": "lab_market_trends"
@@ -13,6 +14,7 @@
     {
         "title": "Generate Comprehensive Excel Reports",
         "description": "A flexible function to create Excel reports with dataframes, ggplots, leaflet maps, and nested lists of content.",
+        "last_updated": "2025-01-17T06:10:14Z",
         "url": "https://github.com/juanguillermo3/monkey_research/blob/main/flexible_excel_reports.R",
         "file_path": "flexible_excel_reports.R",
         "repo_name": "monkey_research"
@@ -20,6 +22,7 @@
     {
         "title": "Flexible Comparison Across Groups",
         "description": "Performs statistical tests to compare measurements of a dependent variable across groups defined by an independent variable. Supports multiple behaviors for ecological studies.",
+        "last_updated": "2025-01-17T06:10:34Z",
         "url": "https://github.com/juanguillermo3/monkey_research/blob/main/flexible_test_across_groups.R",
         "file_path": "flexible_test_across_groups.R",
         "repo_name": "monkey_research"
@@ -27,10 +30,7 @@
     {
         "title": "Food Index over Transect Data",
         "description": "This scripts performs the computation and vizualization of the food availability data over the vegetation records (transect data) for all the home ranges of the monkey species",
-        "portfolio": "True",
-        "project": "monkey_research",
-        "version": "2.1.0",
-        "date": "2025-01-02",
+        "last_updated": "2025-01-17T06:13:28Z",
         "url": "https://github.com/juanguillermo3/monkey_research/blob/main/food_availability_index_over_transect_data.R",
         "file_path": "food_availability_index_over_transect_data.R",
         "repo_name": "monkey_research"
@@ -42,25 +42,5 @@
         "url": "https://github.com/juanguillermo3/monkey_research/blob/main/home_ranges.R",
         "file_path": "home_ranges.R",
         "repo_name": "monkey_research"
-    },
-    {
-        "title": "Computation of Morisita Index",
-        "description": "Computes the Morisita Index for spatial dispersion for the home range of each monkey species",
-        "portfolio": "True",
-        "project": "monkey_research",
-        "version": "2.1.0",
-        "date": "2025-01-02",
-        "url": "https://github.com/juanguillermo3/monkey_research/blob/main/morisita_index.R",
-        "file_path": "morisita_index.R",
-        "repo_name": "monkey_research"
-    },
-    {
-        "title": "PSM for program evaluation on job intermediation program",
-        "author": "Juan Guillermo",
-        "date": "2025-01-14",
-        "description": "Performs propensity score matching to evaluate job intermediation program.",
-        "url": "https://github.com/juanguillermo3/evaluation_job_program/blob/main/emparejar_validar_evaluar_vf.do",
-        "file_path": "emparejar_validar_evaluar_vf.do",
-        "repo_name": "evaluation_job_program"
     }
 ]
