@@ -183,15 +183,16 @@ class RecommendationSystem:
 
     def rank_items(self, query=None, selected_project=None):
         """Rank the items by the last updated date and apply filters."""
-        # Step 1: Sort items by 'last_updated' from newest to oldest
-        ranked_items = sorted(self.metadata_list, key=lambda x: datetime.strptime(x['last_updated'], "%Y-%m-%dT%H:%M:%SZ"), reverse=True)
-
+        # Step 1: Sort items by 'last_updated' from newest to oldest,
+        # Treat items without 'last_updated' as if they are the oldest.
+        ranked_items = sorted(self.metadata_list, key=lambda x: datetime.strptime(x.get('last_updated', '1970-01-01T00:00:00Z'), "%Y-%m-%dT%H:%M:%SZ"), reverse=True)
+    
         # Step 2: Filter by project selection
         if selected_project and selected_project != "All Projects":
             ranked_items = [
                 item for item in ranked_items if item['repo_name'].lower() == selected_project.lower()
             ]
-
+    
         # Step 3: Filter by search query
         if query:
             query_pattern = re.compile(re.escape(query), re.IGNORECASE)
@@ -199,9 +200,10 @@ class RecommendationSystem:
                 item for item in ranked_items
                 if query_pattern.search(item["title"]) or query_pattern.search(item["description"])
             ]
-
+    
         # Step 4: Return the top 'num_recommended_items' recommendations
         return ranked_items[:self.num_recommended_items]
+
 
     def prettify_title(self, title):
         """Prettify the title by removing underscores and capitalizing words."""
