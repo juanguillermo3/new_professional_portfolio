@@ -1,3 +1,8 @@
+"""
+title: Recommendation System
+description: Current implementation of the RecSys, featuring a vanilla ranking that sorts items by the most recently updated, filters by query (exact matching), and allows filtering by project.
+"""
+
 import os
 import streamlit as st
 import re
