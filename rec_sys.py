@@ -273,6 +273,70 @@ class RecommendationSystem:
                 unsafe_allow_html=True,
             )
 
+    def render_card(self, rec, is_project=False):
+        """Render a single recommendation card with fixed height and scrollable content."""
+        background_color = "#f4f4f4" if not is_project else "#fff5e6"  # Silver background for non-project items
+        border_style = "2px solid gold" if is_project else "1px solid #ddd"
+        
+        # Fixed height for the card and allow vertical scrolling
+        card_height = "300px"  # You can adjust this value to set the desired height
+        overflow_style = "overflow-y: auto;"  # Enables vertical scrolling for overflowing content
+    
+        st.markdown(
+            f"""
+            <div style="background-color: {background_color}; border: {border_style}; 
+                        border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+                        padding: 10px; text-align: center; height: {card_height}; {overflow_style}">
+                <img src="https://via.placeholder.com/150"
+                     style="border-radius: 10px; width: 100%; height: auto;">
+                <h5>{self.prettify_title(rec['title'])}</h5>
+                <p style="text-align: justify; height: 100%; overflow-y: auto;">{rec['description']}</p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    
+        # Add "See in GitHub" button if URL is present
+        if "url" in rec and rec["url"]:
+            st.markdown(
+                f"""
+                <div style="display: flex; justify-content: center; margin-top: 10px;">
+                    <a href="{rec['url']}" target="_blank" 
+                       style="text-decoration: none;">
+                        <button style="background-color: #333; color: white; 
+                                       border: none; padding: 10px 20px; 
+                                       text-align: center; text-decoration: none; 
+                                       font-size: 14px; cursor: pointer; 
+                                       border-radius: 5px;">
+                            See in GitHub
+                        </button>
+                    </a>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+    
+        # Add "See Report" button if report_url is present
+        if "report_url" in rec and rec["report_url"]:
+            st.markdown(
+                f"""
+                <div style="display: flex; justify-content: center; margin-top: 10px;">
+                    <a href="{rec['report_url']}" target="_blank" 
+                       style="text-decoration: none;">
+                        <button style="background-color: #34A853; color: white; 
+                                       border: none; padding: 10px 20px; 
+                                       text-align: center; text-decoration: none; 
+                                       font-size: 14px; cursor: pointer; 
+                                       border-radius: 5px;">
+                            See Report
+                        </button>
+                    </a>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+
     def render(self):
         st.subheader(self.section_header)
         st.markdown("---")
