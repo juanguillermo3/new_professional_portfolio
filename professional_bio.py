@@ -1,7 +1,5 @@
 import streamlit as st
 
-import streamlit as st
-
 class CurriculumVitae:
     def __init__(self, section_description, statement, work_experience, education):
         """
@@ -35,10 +33,12 @@ class CurriculumVitae:
             st.markdown(f"{experience['company']}", unsafe_allow_html=True)
             description = experience['description']
             if len(description) > 150:
-                truncated_description = description[:150].rsplit(' ', 1)[0] + "..."
-                if st.button(f"See more {experience['title']}"):
-                    truncated_description = description
-                st.markdown(truncated_description, unsafe_allow_html=True)
+                truncated_description = description[:150].rsplit(' ', 1)[0] + "... "
+                expanded_key = f"expanded_{i}"
+                if st.session_state.get(expanded_key, False):
+                    st.markdown(f"{description} <a style='color: blue; text-decoration: underline;' href='javascript:;' onclick='window.sessionStorage.setItem(\"{expanded_key}\", \"false\")'>See less</a>", unsafe_allow_html=True)
+                else:
+                    st.markdown(f"{truncated_description}<a style='color: blue; text-decoration: underline;' href='javascript:;' onclick='window.sessionStorage.setItem(\"{expanded_key}\", \"true\")'>See more</a>", unsafe_allow_html=True)
             else:
                 st.markdown(description, unsafe_allow_html=True)
             st.markdown(f"<p style='font-style: italic;'>{experience['date_range']}</p>", unsafe_allow_html=True)
@@ -87,6 +87,7 @@ education = [
 ]
 
 cv = CurriculumVitae(section_description, statement, work_experience, education)
+#cv.render()
 
 
 
