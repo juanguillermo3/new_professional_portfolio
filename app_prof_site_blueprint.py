@@ -12,7 +12,7 @@ import random
 import os
 import re
 from git_api_utils import load_repos_metadata, load_modules_metadata, REPOS_IN_PORTFOLIO
-from professional_bio import bio_component, cv
+from professional_bio import cv
 from dotenv import load_dotenv, dotenv_values
 from front_end_utils import render_section_separator
 from hero_area import hero
@@ -125,13 +125,11 @@ render_section_separator()
 #
 # **RecSys**
 #
-    
-recsys.render()
 
+#
+recsys.render()
 # 
-st.markdown("<br>", unsafe_allow_html=True)
-st.markdown("<br>", unsafe_allow_html=True)
-st.markdown("<br>", unsafe_allow_html=True)
+render_section_separator()
 
 # **Services Section**
 st.subheader("Services Lines 🛠️")
@@ -158,13 +156,12 @@ with services_area:
             """, unsafe_allow_html=True)
 
 # 
-st.markdown("<br>", unsafe_allow_html=True)
-st.markdown("<br>", unsafe_allow_html=True)
-st.markdown("<br>", unsafe_allow_html=True)
+render_section_separator()
 
 # **About Me Section**
 
 cv.render()
+render_section_separator()
 
 # **Connect with Me Section**
 st.subheader("Connect with Me 🤝")
