@@ -12,7 +12,7 @@ import random
 import os
 import re
 from git_api_utils import load_repos_metadata, load_modules_metadata, REPOS_IN_PORTFOLIO
-from professional_bio import bio_component
+from professional_bio import bio_component, cv
 from dotenv import load_dotenv, dotenv_values
 from front_end_utils import render_section_separator
 from hero_area import hero
@@ -163,29 +163,8 @@ st.markdown("<br>", unsafe_allow_html=True)
 st.markdown("<br>", unsafe_allow_html=True)
 
 # **About Me Section**
-st.subheader("About Me 🧑‍💻")
-st.markdown("---")
-st.markdown('<p style="color: gray;">Learn more about my professional background and expertise. Below are key differentiators in my professional offering.</p>', unsafe_allow_html=True)
-st.markdown("<br>", unsafe_allow_html=True)
 
-bio_component.render_layout()
-
-key_differentials = [
-    "Expertise in data-driven decision-making.",
-    "Passion for delivering scalable and efficient software solutions.",
-    "Proven track record in consulting across diverse industries.",
-    "Strong background in research and development.",
-    "Dedicated to continuous learning and skill enhancement.",
-]
-st.markdown("<ol>", unsafe_allow_html=True)
-for item in key_differentials:
-    st.markdown(f"<li>{item}</li>", unsafe_allow_html=True)
-st.markdown("</ol>", unsafe_allow_html=True)
-
-# 
-st.markdown("<br>", unsafe_allow_html=True)
-st.markdown("<br>", unsafe_allow_html=True)
-st.markdown("<br>", unsafe_allow_html=True)
+cv.render()
 
 # **Connect with Me Section**
 st.subheader("Connect with Me 🤝")
