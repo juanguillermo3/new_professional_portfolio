@@ -83,8 +83,6 @@ bio_component = ProfessionalBio(bio_pic="https://via.placeholder.com/200", bio=b
 # Render the layout
 #bio_component.render_layout()
 
-import streamlit as st
-
 class CurriculumVitae:
     def __init__(self, statement, work_experience, education):
         """
