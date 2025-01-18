@@ -50,6 +50,37 @@ class CurriculumVitae:
             )
 
 
+# Example usage
+section_description = "This section provides a comprehensive overview of my professional background, including my main statement, work experience, and education."
+statement = (
+    "I am a Colombian Economist with a professional background as a research assistant, "
+    "remote data analyst, and also as a freelance consultant in the development of Machine Learning technologies. "
+    "The focus of my current professional offering is on Machine Learning Engineering."
+)
+work_experience = [
+    {
+        "title": "Machine Learning Engineer",
+        "company": "TechCorp",
+        "description": "Developed and deployed machine learning models for predictive analytics in a cloud environment. Collaborated with cross-functional teams to improve data pipelines and model performance.",
+        "date_range": "2020 - Present"
+    },
+    {
+        "title": "Data Analyst",
+        "company": "DataWorks",
+        "description": "Analyzed complex datasets to provide actionable insights for clients. Created interactive dashboards and reports to visualize key performance indicators.",
+        "date_range": "2018 - 2020"
+    }
+]
+
+
+education = [
+    {
+        "institution": "University of Colombia",
+        "degree": "Bachelor's in Economics",
+        "date_range": "2014 - 2018"
+    }
+]
+
 cv = CurriculumVitae(section_description, statement, work_experience, education)
 #cv.render()
 
