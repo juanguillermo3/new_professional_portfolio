@@ -1,6 +1,4 @@
 import streamlit as st
-
-import streamlit as st
 import os
 from dotenv import load_dotenv
 
@@ -10,7 +8,7 @@ load_dotenv()
 class HeroArea:
     def __init__(self, quote, avatar_image: str = None, avatar_caption: str = "", 
                  code_samples: list = None, code_samples_intro: str = "Explore the code samples below:",
-                 whatsapp_number: str = None):
+                 whatsapp_number: str = None, contact_button_intro: str = "Let's work together. Connect to talk about your specific requirements. I can start working for you almost instantly"):
         """
         Initialize the HeroArea class with a focus on a quote-styled main statement.
         :param quote: Main statement or quote to display as a single string or list of strings (paragraphs).
@@ -19,6 +17,7 @@ class HeroArea:
         :param code_samples: List of dictionaries with 'title' and 'url' for code sample links.
         :param code_samples_intro: Introductory text to display above the code samples.
         :param whatsapp_number: WhatsApp number for contact (optional). If None, it will be fetched from .env.
+        :param contact_button_intro: Introductory text to display above the WhatsApp contact button.
         """
         self.quote = quote if isinstance(quote, list) else [quote]
         self.avatar_image = avatar_image
@@ -29,6 +28,7 @@ class HeroArea:
         ]
         self.code_samples_intro = code_samples_intro
         self.whatsapp_number = whatsapp_number or os.getenv("WHATSAPP_NUMBER")
+        self.contact_button_intro = contact_button_intro
 
     def render(self):
         """
@@ -61,6 +61,12 @@ class HeroArea:
                 color: #555555;
                 text-align: center;
                 margin-bottom: 10px;
+            }
+            .contact-button-intro {
+                font-size: 1em;
+                color: #555555;
+                text-align: center;
+                margin-bottom: 20px;
             }
             </style>""", unsafe_allow_html=True)
 
@@ -108,9 +114,12 @@ class HeroArea:
         if not self.whatsapp_number:
             st.warning("WhatsApp number is not available.")
             return
+
+        # Display contact button intro
+        st.markdown(f'<p class="contact-button-intro">{self.contact_button_intro}</p>', unsafe_allow_html=True)
         
         # WhatsApp button styled similarly to code sample buttons
-        button_url = f"https://wa.me/{self.whatsapp_number}?text=Hi,%20I'd%20like%20to%20get%20in%20touch!"
+        button_url = f"https://wa.me/{self.whatsapp_number}?text=Hi,%20I%27d%20like%20to%20get%20in%20touch!"
         
         st.markdown(f"""
         <a href="{button_url}" target="_blank">
