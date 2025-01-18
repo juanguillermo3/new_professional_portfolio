@@ -17,7 +17,7 @@ class CurriculumVitae:
         # Curriculum Vitae Header
         st.subheader("Curriculum Vitae")
         st.markdown("---")
-        st.markdown(f"<p style='text-align: justify;'>{self.statement}</p>", unsafe_allow_html=True)
+        st.markdown(f'<p style="color: gray;">{self.statement}</p>', unsafe_allow_html=True)
 
         # Work Experience Section
         st.markdown("#### Work Experience")
