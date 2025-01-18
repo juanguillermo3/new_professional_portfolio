@@ -1,5 +1,7 @@
 import streamlit as st
 
+import streamlit as st
+
 class CurriculumVitae:
     def __init__(self, section_description, statement, work_experience, education):
         """
@@ -20,29 +22,37 @@ class CurriculumVitae:
         st.markdown(f'<p style="color: gray;">{self.section_description}</p>', unsafe_allow_html=True)
 
         # Main Professional Statement
-        st.header("Professional Statement")
+        st.markdown("#### Professional Statement")
         st.markdown(f"<p style='text-align: justify;'>{self.statement}</p>", unsafe_allow_html=True)
 
         # Work Experience Section
-        st.header("Work Experience")
+        st.markdown("#### Work Experience")
 
         for i, experience in enumerate(sorted(self.work_experience, key=lambda x: x['date_range'], reverse=True)):
             color = "black" if i % 2 == 0 else "gray"
-            st.markdown(f"<div style='color: {color}; margin-bottom: 1rem;'>", unsafe_allow_html=True)
-            st.markdown(f"**{experience['title']}**, {experience['company']} ({experience['date_range']})", unsafe_allow_html=True)
+            st.markdown(f"<div style='color: {color}; margin-left: 20px; margin-bottom: 1rem;'>", unsafe_allow_html=True)
+            st.markdown(f"**{experience['title']}**", unsafe_allow_html=True)
+            st.markdown(f"{experience['company']}", unsafe_allow_html=True)
             description = experience['description']
-            if len(description) > 300:
-                truncated_description = description[:300].rsplit(' ', 1)[0] + "..."
-                st.markdown(f"{truncated_description} <a href='#' style='color: blue;'>Read more</a>", unsafe_allow_html=True)
+            if len(description) > 150:
+                truncated_description = description[:150].rsplit(' ', 1)[0] + "..."
+                if st.button(f"See more {experience['title']}"):
+                    truncated_description = description
+                st.markdown(truncated_description, unsafe_allow_html=True)
             else:
                 st.markdown(description, unsafe_allow_html=True)
+            st.markdown(f"<p style='font-style: italic;'>{experience['date_range']}</p>", unsafe_allow_html=True)
             st.markdown("</div>", unsafe_allow_html=True)
 
         # Education Section
-        st.header("Education")
+        st.markdown("#### Education")
 
         for edu in self.education:
-            st.markdown(f"**{edu['degree']}**, {edu['institution']} ({edu['date_range']})", unsafe_allow_html=True)
+            st.markdown(f"<div style='margin-left: 20px;'>", unsafe_allow_html=True)
+            st.markdown(f"**{edu['degree']}**", unsafe_allow_html=True)
+            st.markdown(f"{edu['institution']}", unsafe_allow_html=True)
+            st.markdown(f"<p style='font-style: italic;'>{edu['date_range']}</p>", unsafe_allow_html=True)
+            st.markdown("</div>", unsafe_allow_html=True)
 
 # Example usage
 section_description = "This section provides a comprehensive overview of my professional background, including my main statement, work experience, and education."
@@ -77,6 +87,7 @@ education = [
 ]
 
 cv = CurriculumVitae(section_description, statement, work_experience, education)
-#cv.render()
+
+
 
 
