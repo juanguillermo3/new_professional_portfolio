@@ -65,84 +65,84 @@ class CurriculumVitae:
 
             st.markdown("</div>", unsafe_allow_html=True)
 
-def render(self):
-    # Curriculum Vitae Header
-    st.subheader("Curriculum Vitae")
-    st.markdown("---")
-    st.markdown(f'<p style="color: gray;">{self.statement}</p>', unsafe_allow_html=True)
-
-    # Work Experience Section
-    st.markdown("#### Work Experience")
-
-    for i, experience in enumerate(sorted(self.work_experience, key=lambda x: x['date_range'], reverse=True)):
-        # Determine the color for the circle (alternating colors for visual effect)
-        circle_color = "#1c7bba" if i % 2 == 0 else "#5c9cc2"  # You can customize the colors
-        shadow_color = "rgba(28, 123, 186, 0.2)" if i % 2 == 0 else "rgba(92, 156, 194, 0.2)"
-        
-        # Create the work experience container with a circle effect
-        st.markdown(f"""
-        <div style='color: {"black" if i % 2 == 0 else "gray"}; margin-bottom: 0.5rem; display: flex; align-items: center;'>
-            <div style='
-                width: 20px; height: 20px; 
-                border: 5px solid {circle_color}; 
-                border-radius: 50%; 
-                box-shadow: 0 0 0 5px {shadow_color}; 
-                position: relative; 
-                margin-right: 10px;
-            '></div>
-            <div>
-                <strong>{experience['title']}</strong><br>
-                <em>{experience['company']}</em><br>
-        """, unsafe_allow_html=True)
-
-        description = experience['description']
-        truncated_description = description[:150].rsplit(' ', 1)[0] + "... "
-        expanded_key = f"expanded_{i}"
-
-        if expanded_key not in st.session_state:
-            st.session_state[expanded_key] = False
-
-        if st.session_state[expanded_key]:
-            st.markdown(
-                f"{description} <a style='color: blue; text-decoration: underline; cursor: pointer;' "
-                f"onclick=\"window.sessionStorage.setItem('{expanded_key}', 'false');\">See less</a>",
-                unsafe_allow_html=True
-            )
-        else:
-            st.markdown(
-                f"{truncated_description}<a style='color: blue; text-decoration: underline; cursor: pointer;' "
-                f"onclick=\"window.sessionStorage.setItem('{expanded_key}', 'true');\">See more</a>",
-                unsafe_allow_html=True
-            )
-
-        st.markdown(f"<p style='font-style: italic;'>{experience['date_range']}</p>", unsafe_allow_html=True)
-        st.markdown("</div></div>", unsafe_allow_html=True)  # Closing the work experience container
-
-    # Education Section (now with circular design as well)
-    st.markdown("#### Education")
-    for i, edu in enumerate(self.education):
-        # Determine the color for the circle (alternating colors for visual effect)
-        circle_color = "#1c7bba" if i % 2 == 0 else "#5c9cc2"  # You can customize the colors
-        shadow_color = "rgba(28, 123, 186, 0.2)" if i % 2 == 0 else "rgba(92, 156, 194, 0.2)"
-        
-        # Create the education item container with a circle effect
-        st.markdown(f"""
-        <div style='color: {"black" if i % 2 == 0 else "gray"}; margin-bottom: 0.5rem; display: flex; align-items: center;'>
-            <div style='
-                width: 20px; height: 20px; 
-                border: 5px solid {circle_color}; 
-                border-radius: 50%; 
-                box-shadow: 0 0 0 5px {shadow_color}; 
-                position: relative; 
-                margin-right: 10px;
-            '></div>
-            <div>
-                <strong>{edu['degree']}</strong><br>
-                <em>{edu['institution']}</em><br>
-                <p style='font-style: italic;'>{edu['date_range']}</p>
+    def render(self):
+        # Curriculum Vitae Header
+        st.subheader("Curriculum Vitae")
+        st.markdown("---")
+        st.markdown(f'<p style="color: gray;">{self.statement}</p>', unsafe_allow_html=True)
+    
+        # Work Experience Section
+        st.markdown("#### Work Experience")
+    
+        for i, experience in enumerate(sorted(self.work_experience, key=lambda x: x['date_range'], reverse=True)):
+            # Determine the color for the circle (alternating colors for visual effect)
+            circle_color = "#1c7bba" if i % 2 == 0 else "#5c9cc2"  # You can customize the colors
+            shadow_color = "rgba(28, 123, 186, 0.2)" if i % 2 == 0 else "rgba(92, 156, 194, 0.2)"
+            
+            # Create the work experience container with a circle effect
+            st.markdown(f"""
+            <div style='color: {"black" if i % 2 == 0 else "gray"}; margin-bottom: 0.5rem; display: flex; align-items: center;'>
+                <div style='
+                    width: 20px; height: 20px; 
+                    border: 5px solid {circle_color}; 
+                    border-radius: 50%; 
+                    box-shadow: 0 0 0 5px {shadow_color}; 
+                    position: relative; 
+                    margin-right: 10px;
+                '></div>
+                <div>
+                    <strong>{experience['title']}</strong><br>
+                    <em>{experience['company']}</em><br>
+            """, unsafe_allow_html=True)
+    
+            description = experience['description']
+            truncated_description = description[:150].rsplit(' ', 1)[0] + "... "
+            expanded_key = f"expanded_{i}"
+    
+            if expanded_key not in st.session_state:
+                st.session_state[expanded_key] = False
+    
+            if st.session_state[expanded_key]:
+                st.markdown(
+                    f"{description} <a style='color: blue; text-decoration: underline; cursor: pointer;' "
+                    f"onclick=\"window.sessionStorage.setItem('{expanded_key}', 'false');\">See less</a>",
+                    unsafe_allow_html=True
+                )
+            else:
+                st.markdown(
+                    f"{truncated_description}<a style='color: blue; text-decoration: underline; cursor: pointer;' "
+                    f"onclick=\"window.sessionStorage.setItem('{expanded_key}', 'true');\">See more</a>",
+                    unsafe_allow_html=True
+                )
+    
+            st.markdown(f"<p style='font-style: italic;'>{experience['date_range']}</p>", unsafe_allow_html=True)
+            st.markdown("</div></div>", unsafe_allow_html=True)  # Closing the work experience container
+    
+        # Education Section (now with circular design as well)
+        st.markdown("#### Education")
+        for i, edu in enumerate(self.education):
+            # Determine the color for the circle (alternating colors for visual effect)
+            circle_color = "#1c7bba" if i % 2 == 0 else "#5c9cc2"  # You can customize the colors
+            shadow_color = "rgba(28, 123, 186, 0.2)" if i % 2 == 0 else "rgba(92, 156, 194, 0.2)"
+            
+            # Create the education item container with a circle effect
+            st.markdown(f"""
+            <div style='color: {"black" if i % 2 == 0 else "gray"}; margin-bottom: 0.5rem; display: flex; align-items: center;'>
+                <div style='
+                    width: 20px; height: 20px; 
+                    border: 5px solid {circle_color}; 
+                    border-radius: 50%; 
+                    box-shadow: 0 0 0 5px {shadow_color}; 
+                    position: relative; 
+                    margin-right: 10px;
+                '></div>
+                <div>
+                    <strong>{edu['degree']}</strong><br>
+                    <em>{edu['institution']}</em><br>
+                    <p style='font-style: italic;'>{edu['date_range']}</p>
+                </div>
             </div>
-        </div>
-        """, unsafe_allow_html=True)
+            """, unsafe_allow_html=True)
 
 
 
