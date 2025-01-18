@@ -1,108 +1,30 @@
 import streamlit as st
 
-class ProfessionalBio:
-    def __init__(self, bio_pic, bio, skills):
-        """
-        :param bio_pic: The file name of the picture to be referenced from the assets folder (e.g., 'profile.png') or a URL for an online image.
-        :param bio: A dictionary where keys are headers and values are markdown formatted strings.
-        :param skills: A list of key differentiators and technical skills (not displayed currently).
-        """
-        self.picture_url = bio_pic  # This could either be a local file or an online URL
-        self.bio = bio
-        self.skills = skills  # Skills are kept in the signature but not used in layout for now
-
-    def render_layout(self):
-        # Bio sections using markdown
-        bio_sections = []
-        for header, content in self.bio.items():
-            bio_sections.append(f"**{header}**")
-            bio_sections.append(content)
-
-        # Layout with warning message, picture, and bio content
-        st.markdown(
-            "",
-            unsafe_allow_html=True
-        )
-
-        # Layout with two columns: one for the picture, the other for the bio content
-        col1, col2 = st.columns([1, 2])
-
-        with col1:
-            # Apply custom CSS to center the image vertically and horizontally with rounded borders
-            st.markdown(
-                """
-                <style>
-                .centered-image {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    height: 100%;
-                }
-                .rounded-image img {
-                    border-radius: 50%;
-                    width: 200px;  /* Adjust image size */
-                    height: 200px; /* Ensure the image remains a circle */
-                    object-fit: cover; /* Ensures the image is properly cropped */
-                }
-                .bio-content {
-                    max-height: 500px;  /* Set the max height for the bio section */
-                    overflow-y: auto;  /* Enable vertical scroll if content exceeds max-height */
-                }
-                </style>
-                """, unsafe_allow_html=True
-            )
-            st.markdown('<div class="centered-image rounded-image">', unsafe_allow_html=True)
-            st.image(self.picture_url, caption="Profile Picture", use_container_width=False)
-            st.markdown('</div>', unsafe_allow_html=True)
-
-        with col2:
-            # Bio content section with scrolling if overflow occurs
-            st.markdown('<div class="bio-content">', unsafe_allow_html=True)
-            # Render the bio content
-            for section in bio_sections:
-                st.markdown(section)
-            st.markdown('</div>', unsafe_allow_html=True)
-
-            # Display skills (if any)
-            if self.skills:
-                st.subheader("Skills")
-                st.markdown("\n".join([f"- {skill}" for skill in self.skills]))
-
-# Example usage with placeholder image (using a free placeholder from Placeholder.com)
-bio = {
-    "Professional Overview": """
-        I am a Colombian Economist with a professional background as a research assistant, 
-        remote data analyst, and also as a freelance consultant in the development of Machine Learning technologies. 
-        The focus of my current professional offering is on Machine Learning Engineering.
-    """
-}
-
-# Initialize ProfessionalBio object with a placeholder image
-bio_component = ProfessionalBio(bio_pic="https://via.placeholder.com/200", bio=bio, skills=[])
-
-# Render the layout
-#bio_component.render_layout()
-
 class CurriculumVitae:
-    def __init__(self, statement, work_experience, education):
+    def __init__(self, section_description, statement, work_experience, education):
         """
+        :param section_description: A string representing the description for the Curriculum Vitae section.
         :param statement: A string representing the main professional statement.
         :param work_experience: A list of dictionaries with keys: title, company, description, and date_range.
         :param education: A list of dictionaries with keys: institution, degree, and date_range.
         """
+        self.section_description = section_description
         self.statement = statement
         self.work_experience = work_experience
         self.education = education
 
     def render(self):
-        # Main Professional Statement
-        st.subheader("Professional Statement (Mock Data)")
+        # Curriculum Vitae Header
+        st.subheader("Curriculum Vitae")
         st.markdown("---")
+        st.markdown(f'<p style="color: gray;">{self.section_description}</p>', unsafe_allow_html=True)
+
+        # Main Professional Statement
+        st.header("Professional Statement")
         st.markdown(f"<p style='text-align: justify;'>{self.statement}</p>", unsafe_allow_html=True)
 
         # Work Experience Section
-        st.subheader("Work Experience (Mock Data)")
-        st.markdown("---")
+        st.header("Work Experience")
 
         for i, experience in enumerate(sorted(self.work_experience, key=lambda x: x['date_range'], reverse=True)):
             color = "black" if i % 2 == 0 else "gray"
@@ -117,13 +39,14 @@ class CurriculumVitae:
             st.markdown("</div>", unsafe_allow_html=True)
 
         # Education Section
-        st.subheader("Education (Mock Data)")
-        st.markdown("---")
+        st.header("Education")
 
         for edu in self.education:
             st.markdown(f"**{edu['degree']}**, {edu['institution']} ({edu['date_range']})", unsafe_allow_html=True)
 
 # Example usage
+section_description = "This section provides a comprehensive overview of my professional background, including my main statement, work experience, and education."
+
 statement = (
     "I am a Colombian Economist with a professional background as a research assistant, "
     "remote data analyst, and also as a freelance consultant in the development of Machine Learning technologies. "
@@ -153,6 +76,7 @@ education = [
     }
 ]
 
-cv = CurriculumVitae(statement, work_experience, education)
+cv = CurriculumVitae(section_description, statement, work_experience, education)
 #cv.render()
+
 
