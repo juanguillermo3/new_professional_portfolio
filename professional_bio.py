@@ -17,7 +17,7 @@ class CurriculumVitae:
         # Curriculum Vitae Header
         st.subheader("Curriculum Vitae")
         st.markdown("---")
-        st.markdown(f'<p style="color: gray;">{self.statement}</p>', unsafe_allow_html=True)
+        st.markdown(f'<p style="color: gray; margin-bottom: 0;">{self.statement}</p>', unsafe_allow_html=True)
 
         # Work Experience Section
         st.markdown("#### Work Experience")
@@ -26,10 +26,12 @@ class CurriculumVitae:
             color = "black" if i % 2 == 0 else "gray"
             st.markdown(f"<div style='color: {color}; margin-bottom: 0.5rem;'>", unsafe_allow_html=True)
 
+            # Removing padding/margins for tighter item spacing
+            st.markdown(f"<div style='margin: 0;'>", unsafe_allow_html=True)
             st.markdown(f"{experience['title']}", unsafe_allow_html=True)
             st.markdown(f"{experience['company']}", unsafe_allow_html=True)
-            
             description = experience['description']
+            
             truncated_description = description[:150].rsplit(' ', 1)[0] + "... "
             expanded_key = f"expanded_{i}"
 
@@ -49,7 +51,7 @@ class CurriculumVitae:
                     unsafe_allow_html=True
                 )
 
-            st.markdown(f"<p style='font-style: italic;'>{experience['date_range']}</p>", unsafe_allow_html=True)
+            st.markdown(f"<p style='font-style: italic; margin: 0;'>{experience['date_range']}</p>", unsafe_allow_html=True)
             st.markdown("</div>", unsafe_allow_html=True)
 
         # Education Section
@@ -59,11 +61,14 @@ class CurriculumVitae:
             color = "black" if self.education.index(edu) % 2 == 0 else "gray"
             st.markdown(f"<div style='color: {color}; margin-bottom: 0.5rem;'>", unsafe_allow_html=True)
             
+            # Removing padding/margins for tighter item spacing
+            st.markdown(f"<div style='margin: 0;'>", unsafe_allow_html=True)
             st.markdown(f"{edu['degree']}", unsafe_allow_html=True)
             st.markdown(f"{edu['institution']}", unsafe_allow_html=True)
-            st.markdown(f"<p style='font-style: italic;'>{edu['date_range']}</p>", unsafe_allow_html=True)
+            st.markdown(f"<p style='font-style: italic; margin: 0;'>{edu['date_range']}</p>", unsafe_allow_html=True)
 
             st.markdown("</div>", unsafe_allow_html=True)
+
 
 
 # Example usage
