@@ -1,3 +1,8 @@
+"""
+title: Curriculum Vitae
+description: CV area for a modern proffesional portfolio. The gist of it is serving an elegant front end representation of a couple of unordered lists: work items, experience items. Its design is inspired by modern job intermediation sites.
+"""
+
 import streamlit as st
 
 class CurriculumVitae:
