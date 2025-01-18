@@ -17,10 +17,6 @@ class CurriculumVitae:
         # Curriculum Vitae Header
         st.subheader("Curriculum Vitae")
         st.markdown("---")
-        st.markdown(f'<p style="color: gray;">{self.section_description}</p>', unsafe_allow_html=True)
-
-        # Main Professional Statement
-        st.markdown("#### Professional Statement")
         st.markdown(f"<p style='text-align: justify;'>{self.statement}</p>", unsafe_allow_html=True)
 
         # Work Experience Section
@@ -32,15 +28,26 @@ class CurriculumVitae:
             st.markdown(f"**{experience['title']}**", unsafe_allow_html=True)
             st.markdown(f"{experience['company']}", unsafe_allow_html=True)
             description = experience['description']
-            if len(description) > 150:
-                truncated_description = description[:150].rsplit(' ', 1)[0] + "... "
-                expanded_key = f"expanded_{i}"
-                if st.session_state.get(expanded_key, False):
-                    st.markdown(f"{description} <a style='color: blue; text-decoration: underline;' href='javascript:;' onclick='window.sessionStorage.setItem(\"{expanded_key}\", \"false\")'>See less</a>", unsafe_allow_html=True)
-                else:
-                    st.markdown(f"{truncated_description}<a style='color: blue; text-decoration: underline;' href='javascript:;' onclick='window.sessionStorage.setItem(\"{expanded_key}\", \"true\")'>See more</a>", unsafe_allow_html=True)
+            
+            truncated_description = description[:150].rsplit(' ', 1)[0] + "... "
+            expanded_key = f"expanded_{i}"
+
+            if expanded_key not in st.session_state:
+                st.session_state[expanded_key] = False
+
+            if st.session_state[expanded_key]:
+                st.markdown(
+                    f"{description} <a style='color: blue; text-decoration: underline; cursor: pointer;' "
+                    f"onclick=\"window.sessionStorage.setItem('{expanded_key}', 'false');\">See less</a>",
+                    unsafe_allow_html=True
+                )
             else:
-                st.markdown(description, unsafe_allow_html=True)
+                st.markdown(
+                    f"{truncated_description}<a style='color: blue; text-decoration: underline; cursor: pointer;' "
+                    f"onclick=\"window.sessionStorage.setItem('{expanded_key}', 'true');\">See more</a>",
+                    unsafe_allow_html=True
+                )
+
             st.markdown(f"<p style='font-style: italic;'>{experience['date_range']}</p>", unsafe_allow_html=True)
             st.markdown("</div>", unsafe_allow_html=True)
 
@@ -55,12 +62,12 @@ class CurriculumVitae:
             st.markdown("</div>", unsafe_allow_html=True)
 
 # Example usage
-section_description = "This section provides a comprehensive overview of my professional background, including my main statement, work experience, and education."
-statement = (
+section_description = (
     "I am a Colombian Economist with a professional background as a research assistant, "
     "remote data analyst, and also as a freelance consultant in the development of Machine Learning technologies. "
     "The focus of my current professional offering is on Machine Learning Engineering."
 )
+
 work_experience = [
     {
         "title": "Machine Learning Engineer",
@@ -76,7 +83,6 @@ work_experience = [
     }
 ]
 
-
 education = [
     {
         "institution": "University of Colombia",
@@ -85,9 +91,6 @@ education = [
     }
 ]
 
-cv = CurriculumVitae(section_description, statement, work_experience, education)
-#cv.render()
-
-
+cv = CurriculumVitae(section_description, section_description, work_experience, education)
 
 
