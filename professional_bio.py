@@ -1,54 +1,58 @@
 import streamlit as st
-from textwrap import shorten
 
 class CurriculumVitae:
-    def __init__(self, professional_statement, work_experience, education):
+    def __init__(self, section_description, statement, work_experience, education):
         """
-        :param professional_statement: A single string representing the main professional statement.
-        :param work_experience: A list of dictionaries, each containing "title", "company", "description", and "date_range".
-        :param education: A list of dictionaries, each containing "degree", "institution", and "date_range".
+        :param section_description: A string representing the description for the Curriculum Vitae section.
+        :param statement: A string representing the main professional statement.
+        :param work_experience: A list of dictionaries with keys: title, company, description, and date_range.
+        :param education: A list of dictionaries with keys: institution, degree, and date_range.
         """
-        self.professional_statement = professional_statement
+        self.section_description = section_description
+        self.statement = statement
         self.work_experience = work_experience
         self.education = education
 
     def render(self):
+        # Curriculum Vitae Header
         st.subheader("Curriculum Vitae")
         st.markdown("---")
-        st.markdown(f'<p style="color: gray;">{self.professional_statement}</p>', unsafe_allow_html=True)
+        st.markdown(f'<p style="color: gray;">{self.section_description}</p>', unsafe_allow_html=True)
+
+        # Main Professional Statement
+        st.markdown("#### Professional Statement")
+        st.markdown(f"<p style='text-align: justify;'>{self.statement}</p>", unsafe_allow_html=True)
 
         # Work Experience Section
-        st.markdown("### Work Experience")
-        for index, experience in enumerate(reversed(self.work_experience)):
-            color = "black" if index % 2 == 0 else "gray"
-            st.markdown(
-                f'<ul style="list-style-position: inside; margin-left: 20px;">
-                    <li style="margin-bottom: 20px;">
-                        <p style="color: {color}; font-weight: bold;">{experience["title"]}</p>
-                        <p style="color: {color};">{experience["company"]}</p>
-                        <p style="color: {color};">
-                            {shorten(experience["description"], width=150, placeholder="... ")}
-                            <a href="#" style="color: {color}; text-decoration: underline;">See more</a>
-                        </p>
-                        <p style="color: {color}; font-style: italic;">{experience["date_range"]}</p>
-                    </li>
-                </ul>', unsafe_allow_html=True
-            )
+        st.markdown("#### Work Experience")
+
+        for i, experience in enumerate(sorted(self.work_experience, key=lambda x: x['date_range'], reverse=True)):
+            color = "black" if i % 2 == 0 else "gray"
+            st.markdown(f"<div style='color: {color}; margin-left: 20px; margin-bottom: 1rem;'>", unsafe_allow_html=True)
+            st.markdown(f"**{experience['title']}**", unsafe_allow_html=True)
+            st.markdown(f"{experience['company']}", unsafe_allow_html=True)
+            description = experience['description']
+            if len(description) > 150:
+                truncated_description = description[:150].rsplit(' ', 1)[0] + "... "
+                expanded_key = f"expanded_{i}"
+                if st.session_state.get(expanded_key, False):
+                    st.markdown(f"{description} <a style='color: blue; text-decoration: underline;' href='javascript:;' onclick='window.sessionStorage.setItem(\"{expanded_key}\", \"false\")'>See less</a>", unsafe_allow_html=True)
+                else:
+                    st.markdown(f"{truncated_description}<a style='color: blue; text-decoration: underline;' href='javascript:;' onclick='window.sessionStorage.setItem(\"{expanded_key}\", \"true\")'>See more</a>", unsafe_allow_html=True)
+            else:
+                st.markdown(description, unsafe_allow_html=True)
+            st.markdown(f"<p style='font-style: italic;'>{experience['date_range']}</p>", unsafe_allow_html=True)
+            st.markdown("</div>", unsafe_allow_html=True)
 
         # Education Section
-        st.markdown("### Education")
-        for index, edu in enumerate(reversed(self.education)):
-            color = "black" if index % 2 == 0 else "gray"
-            st.markdown(
-                f'<ul style="list-style-position: inside; margin-left: 20px;">
-                    <li style="margin-bottom: 20px;">
-                        <p style="color: {color}; font-weight: bold;">{edu["degree"]}</p>
-                        <p style="color: {color};">{edu["institution"]}</p>
-                        <p style="color: {color}; font-style: italic;">{edu["date_range"]}</p>
-                    </li>
-                </ul>', unsafe_allow_html=True
-            )
+        st.markdown("#### Education")
 
+        for edu in self.education:
+            st.markdown(f"<div style='margin-left: 20px;'>", unsafe_allow_html=True)
+            st.markdown(f"**{edu['degree']}**", unsafe_allow_html=True)
+            st.markdown(f"{edu['institution']}", unsafe_allow_html=True)
+            st.markdown(f"<p style='font-style: italic;'>{edu['date_range']}</p>", unsafe_allow_html=True)
+            st.markdown("</div>", unsafe_allow_html=True)
 
 # Example usage
 section_description = "This section provides a comprehensive overview of my professional background, including my main statement, work experience, and education."
