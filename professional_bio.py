@@ -24,11 +24,12 @@ class CurriculumVitae:
 
         for i, experience in enumerate(sorted(self.work_experience, key=lambda x: x['date_range'], reverse=True)):
             color = "black" if i % 2 == 0 else "gray"
-            st.markdown(f"<div style='color: {color}; margin-left: 20px; margin-bottom: 1rem;'>", unsafe_allow_html=True)
-            st.markdown(f"**{experience['title']}**", unsafe_allow_html=True)
+            st.markdown(f"<div style='color: {color}; margin-bottom: 0.5rem;'>", unsafe_allow_html=True)
+
+            st.markdown(f"{experience['title']}", unsafe_allow_html=True)
             st.markdown(f"{experience['company']}", unsafe_allow_html=True)
-            description = experience['description']
             
+            description = experience['description']
             truncated_description = description[:150].rsplit(' ', 1)[0] + "... "
             expanded_key = f"expanded_{i}"
 
@@ -55,11 +56,15 @@ class CurriculumVitae:
         st.markdown("#### Education")
 
         for edu in self.education:
-            st.markdown(f"<div style='margin-left: 20px;'>", unsafe_allow_html=True)
-            st.markdown(f"**{edu['degree']}**", unsafe_allow_html=True)
+            color = "black" if self.education.index(edu) % 2 == 0 else "gray"
+            st.markdown(f"<div style='color: {color}; margin-bottom: 0.5rem;'>", unsafe_allow_html=True)
+            
+            st.markdown(f"{edu['degree']}", unsafe_allow_html=True)
             st.markdown(f"{edu['institution']}", unsafe_allow_html=True)
             st.markdown(f"<p style='font-style: italic;'>{edu['date_range']}</p>", unsafe_allow_html=True)
+
             st.markdown("</div>", unsafe_allow_html=True)
+
 
 # Example usage
 section_description = (
