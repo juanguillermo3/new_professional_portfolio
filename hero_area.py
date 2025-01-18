@@ -1,7 +1,16 @@
 import streamlit as st
 
+import streamlit as st
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from the .env file
+load_dotenv()
+
 class HeroArea:
-    def __init__(self, quote, avatar_image: str = None, avatar_caption: str = "", code_samples: list = None, code_samples_intro: str = "Explore the code samples below:"):
+    def __init__(self, quote, avatar_image: str = None, avatar_caption: str = "", 
+                 code_samples: list = None, code_samples_intro: str = "Explore the code samples below:",
+                 whatsapp_number: str = None):
         """
         Initialize the HeroArea class with a focus on a quote-styled main statement.
         :param quote: Main statement or quote to display as a single string or list of strings (paragraphs).
@@ -9,6 +18,7 @@ class HeroArea:
         :param avatar_caption: Caption for the avatar image.
         :param code_samples: List of dictionaries with 'title' and 'url' for code sample links.
         :param code_samples_intro: Introductory text to display above the code samples.
+        :param whatsapp_number: WhatsApp number for contact (optional). If None, it will be fetched from .env.
         """
         self.quote = quote if isinstance(quote, list) else [quote]
         self.avatar_image = avatar_image
@@ -18,6 +28,7 @@ class HeroArea:
             {"title": "Ensemble models to automate hirings from Human Resources", "url": "https://colab.research.google.com/drive/1sPdB-uoOEdw2xIKPQCx1aGp5QUuu1ooK#scrollTo=_Ycax1ucXvAO"}
         ]
         self.code_samples_intro = code_samples_intro
+        self.whatsapp_number = whatsapp_number or os.getenv("WHATSAPP_NUMBER")
 
     def render(self):
         """
@@ -28,8 +39,7 @@ class HeroArea:
 
         # Render the quote
         with col1:
-            st.markdown("""
-            <style>
+            st.markdown("""<style>
             .hero-quote {
                 font-style: italic;
                 font-size: 1.5em;
@@ -38,24 +48,21 @@ class HeroArea:
                 max-width: 800px;
                 color: #333333;
                 text-align: justify;
-                padding-bottom: 20px;  /* Add space between paragraphs */
+                padding-bottom: 20px;
             }
-
             .hero-avatar-container {
                 display: flex;
-                justify-content: center; /* Center horizontally */
-                align-items: center; /* Center vertically */
-                height: 100%;  /* Ensure the container takes the full height of the column */
+                justify-content: center;
+                align-items: center;
+                height: 100%;
             }
-
             .code-samples-intro {
                 font-size: 1em;
                 color: #555555;
                 text-align: center;
                 margin-bottom: 10px;
             }
-            </style>
-            """, unsafe_allow_html=True)
+            </style>""", unsafe_allow_html=True)
 
             # Render each paragraph separately in the quote
             for paragraph in self.quote:
@@ -68,35 +75,51 @@ class HeroArea:
                 st.image(f"assets/{self.avatar_image}", caption=self.avatar_caption, use_container_width=True)
                 st.markdown('</div>', unsafe_allow_html=True)
 
-        # Render the code samples (buttons) with intro
+        # Render the code samples (buttons)
         self.render_code_samples()
+
+        # Render the contact button (WhatsApp)
+        self.render_contact_button()
 
     def render_code_samples(self):
         """
         Render code sample buttons as GitHub-styled buttons with an introductory text.
         """
-        # Display the introductory text
         st.markdown(f'<p class="code-samples-intro">{self.code_samples_intro}</p>', unsafe_allow_html=True)
         
         # Create a grid layout for the buttons
         st.markdown("<div style='display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px;'>", unsafe_allow_html=True)
         
         for sample in self.code_samples:
-            # Create GitHub-styled button for each code sample
             st.markdown(f"""
             <a href="{sample['url']}" target="_blank">
-                <button style="
-                    background-color: #24292f; 
-                    color: white; 
-                    border: 1px solid white; 
-                    padding: 10px 20px; 
-                    font-size: 14px; 
-                    border-radius: 5px;
-                    text-align: center;
-                    width: 100%;
-                ">{sample['title']}</button>
+                <button style="background-color: #24292f; color: white; border: 1px solid white; padding: 10px 20px; font-size: 14px; border-radius: 5px; text-align: center; width: 100%;">
+                    {sample['title']}
+                </button>
             </a>
             """, unsafe_allow_html=True)
+
+        st.markdown("</div>", unsafe_allow_html=True)
+
+    def render_contact_button(self):
+        """
+        Render a single WhatsApp contact button to facilitate first contact via WhatsApp.
+        """
+        if not self.whatsapp_number:
+            st.warning("WhatsApp number is not available.")
+            return
+        
+        # WhatsApp button styled similarly to code sample buttons
+        button_url = f"https://wa.me/{self.whatsapp_number}?text=Hi,%20I'd%20like%20to%20get%20in%20touch!"
+        
+        st.markdown(f"""
+        <a href="{button_url}" target="_blank">
+            <button style="background-color: #25d366; color: white; border: 1px solid white; padding: 10px 20px; font-size: 14px; border-radius: 5px; text-align: center; width: 100%;">
+                Contact Me on WhatsApp
+            </button>
+        </a>
+        """, unsafe_allow_html=True)
+
 
 
 
@@ -116,7 +139,7 @@ quote = [
 hero_caption = "God told me I could either be good-looking or an excellent worker."
 
 # Instantiate and render HeroArea with code samples
-hero = HeroArea(quote=quote, avatar_image="jg_pick.jpg", avatar_caption=hero_caption,  code_samples_intro="As an easy entry-point to my work, you can check these selected code samples from my ML consultancies:")
+hero = HeroArea(quote=quote, avatar_image="jg_pick.jpg", avatar_caption=hero_caption,  code_samples_intro="As an easy entry-point to my work, you can check these selected code samples from my ML consultancies:",  whatsapp_number: 573053658650)
 #hero.render()
 
 
