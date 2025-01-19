@@ -72,7 +72,6 @@ st.markdown(
     f"""
     <p style="color: gray;">
         This portfolio showcases code samples I developed over more than five years as a Data Analyst and Data Mining Engineer. 
-        It reflects my diverse experience, as I am not focused on a single industry but enjoy working on a variety of workflows. 
         In addition to highlighting key examples of my past and current projects, this portfolio represents ongoing research aimed 
         at leveraging emerging technologies like Recommendation Systems (RecSys) and LLM-powered applications (LLM apps) to create 
         practical software solutions that address common struggles faced by the working class when offering their labor in the 
