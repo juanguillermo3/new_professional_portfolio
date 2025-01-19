@@ -175,17 +175,21 @@ class RecommendationSystem:
         st.subheader(self.section_header)
         st.markdown("---")
         st.markdown(f'<p style="color: gray;">{self.section_description}</p>', unsafe_allow_html=True)
-
+    
         # Query Input
         query = st.text_input("Search for recommendations by keyword (e.g., Python, R):", placeholder="Type a keyword and press Enter")
-
-        # Radial Button for Project Filter
-        projects = ["All Projects"] + [repo["title"] for repo in self.repos_metadata]
-        selected_project = st.selectbox("Filter recommendations by project:", projects)
-
+    
+        # Radial Button for Project Filter with prettified titles
+        original_titles = ["All Projects"] + [repo["title"] for repo in self.repos_metadata]
+        prettified_titles = [self.prettify_title(title) for title in original_titles]
+        title_mapping = dict(zip(prettified_titles, original_titles))
+    
+        selected_pretty_project = st.selectbox("Filter recommendations by project:", prettified_titles)
+        selected_project = title_mapping[selected_pretty_project]
+    
         # Call rank_items to get the ranked and filtered recommendations
         recommendations = self.rank_items(query, selected_project)
-
+    
         # Check if there is project metadata and show video
         project_metadata = None
         if selected_project != "All Projects":
@@ -193,13 +197,13 @@ class RecommendationSystem:
                 if repo["title"].lower() == selected_project.lower():
                     project_metadata = repo
                     break
-
+    
         # If project metadata is available, display it with the video area
         if project_metadata:
             # Generate the video filename based on the project title
             video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
             video_path = os.path.join('assets', video_filename)  # Path to the local MP4 file
-
+    
             # Render the title and description centered with some margins for the project
             st.markdown(
                 f"""
@@ -212,19 +216,20 @@ class RecommendationSystem:
                 """,
                 unsafe_allow_html=True,
             )
-
+    
             # Check if the video file exists in the assets folder
             if os.path.exists(video_path):
                 st.video(video_path, loop=True, autoplay=True, muted=True)  # Display the video as full-width
             else:
                 st.warning(f"Video for {project_metadata['title']} not found.")
-
+    
         # Render recommendations in a grid
         for i in range(0, len(recommendations), self.num_columns):
             cols = st.columns(self.num_columns)
             for col, rec in zip(cols, recommendations[i : i + self.num_columns]):
                 with col:
                     self.render_card(rec, is_project=rec.get("is_project", False))
+
 
 
 
