@@ -51,7 +51,7 @@ st.markdown("""
 #
 st.title("Welcome to My Professional Portfolio")
 # Get the LinkedIn profile URL from the environment
-linkedin_profile = os.getenv("LINKEDIN_PROFILE")
+LINKEDIN_PROFILE = os.getenv("LINKEDIN_PROFILE")
 
 
 #
@@ -68,51 +68,24 @@ render_section_separator()
 
 st.subheader("About this portfolio")
 st.markdown("---")
-st.markdown(f'<p style="color: gray;">{ "In addition to holding the new version of my professional portfolio, this project showcases development aimed at applying emerging technologies to create practical solutions for workers' struggles in the labor market." }</p>', unsafe_allow_html=True)
+st.markdown(
+    f"""
+    <p style="color: gray;">
+    This portfolio showcases code samples I developed over more than five years as a Data Analyst and Data Mining Engineer. 
+    It reflects my diverse experience, as I am not focused on a single industry but enjoy working on a variety of workflows. 
+    In addition to highlighting key examples of my past and current projects, this portfolio represents ongoing research aimed at 
+    leveraging emerging technologies like Recommendation Systems (RecSys) and LLM-powered applications (LLM apps) to create practical 
+    software solutions addressing common workplace challenges. The goal is to make the portfolio easily accessible by providing a ranked 
+    and summarized view of its content, allowing potential clients or employers to explore efficiently. Features like the RecSys are 
+    still under development, and related research can be found on my 
+    <a href="{LINKEDIN_PROFILE}" target="_blank" style="color: blue; text-decoration: underline;">
+    LinkedIn profile</a>. Some content is AI-generated for developmental purposes.
+    </p>
+    """,
+    unsafe_allow_html=True
+)
 
-# **System messages/housekeeping**
-if linkedin_profile:
-    portfolio_content = f"""
-    <style>
-    .emoji {{
-        font-size: 1.2em;
-    }}
-    .message {{
-        font-size: 0.95em;  /* Smaller font size */
-        line-height: 1.6;
-        color: #333;
-        text-align: justify;  /* Justified text */
-        margin-top: 15px;
-        margin-left: 2em;  /* Indentation */
-    }}
-    .emoji-line {{
-        font-size: 1.2em;
-        margin-top: 5px;
-        margin-left: 2em;
-        text-align: justify;
-    }}
-    </style>
-    
-    <div class="message">
-        <span class="emoji">🔎</span> We explore applications of Recommendation Systems and LLM-powered creations to build a discoverable professional portfolio.
-    </div>
-    
-    <div class="message emoji-line">
-        <span class="emoji">⚙️</span> This portfolio is in the early stages of development.
-    </div>
-    
-    <div class="message emoji-line">
-        <span class="emoji">🤖</span> Some of the content presented is mocked up by AI for developmental purposes.
-    </div>
-    
-    <div class="message">
-        <span class="emoji">🔨</span> This portfolio is under development, and you can read the related research in my LinkedIn profile 
-        <a href="{linkedin_profile}" target="_blank">here</a>.
-    </div>
-"""
 
-else:
-    portfolio_content = "LinkedIn profile not found."
 
 # Render the portfolio content
 st.markdown(portfolio_content, unsafe_allow_html=True)
