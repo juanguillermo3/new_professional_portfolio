@@ -86,10 +86,6 @@ st.markdown(
 )
 
 
-
-# Render the portfolio content
-st.markdown(portfolio_content, unsafe_allow_html=True)
-
 # Render section separator
 render_section_separator()
 
