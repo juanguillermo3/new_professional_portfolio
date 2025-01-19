@@ -354,73 +354,73 @@ class RecommendationSystem:
                 unsafe_allow_html=True,
             )
 
-def render(self):
-    st.subheader(self.section_header)
-    st.markdown("---")
-    st.markdown(f'<p style="color: gray;">{self.section_description}</p>', unsafe_allow_html=True)
-
-    # Query Input
-    query = st.text_input("Search for recommendations by keyword (e.g., Python, R):", placeholder="Type a keyword and press Enter")
-
-    # Rank and filter projects based on the number of items in metadata_list that match repo_name
-    project_counts = {}
-    for item in self.metadata_list:
-        repo_name = item.get('repo_name', '').lower()
-        project_counts[repo_name] = project_counts.get(repo_name, 0) + 1
+    def render(self):
+        st.subheader(self.section_header)
+        st.markdown("---")
+        st.markdown(f'<p style="color: gray;">{self.section_description}</p>', unsafe_allow_html=True)
     
-    # Sort the projects by the number of matching items in metadata_list
-    sorted_projects = sorted(self.repos_metadata, key=lambda repo: project_counts.get(repo['title'].lower(), 0), reverse=True)
-
-    # Radial Button for Project Filter with prettified titles, now without 'All Projects'
-    prettified_titles = [self.prettify_title(repo["title"]) for repo in sorted_projects]
-    title_mapping = {self.prettify_title(repo["title"]): repo["title"] for repo in sorted_projects}
-
-    # Set the first project as the default
-    selected_pretty_project = st.selectbox("Filter recommendations by project:", prettified_titles, index=0)
-    selected_project = title_mapping[selected_pretty_project]
-
-    # Call rank_items to get the ranked and filtered recommendations
-    recommendations = self.rank_items(query, selected_project)
-
-    # Check if there is project metadata and show video
-    project_metadata = None
-    if selected_project != "All Projects":
-        for repo in self.repos_metadata:
-            if repo["title"].lower() == selected_project.lower():
-                project_metadata = repo
-                break
-
-    # If project metadata is available, display it with the video area
-    if project_metadata:
-        # Generate the video filename based on the project title
-        video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
-        video_path = os.path.join('assets', video_filename)  # Path to the local MP4 file
-
-        # Render the title and description centered with some margins for the project
-        st.markdown(
-            f"""
-            <div style="text-align: center; margin-bottom: 20px;">
-                <h3>{self.prettify_title(project_metadata['title'])}</h3>
-            </div>
-            <div style="text-align: justify; margin-left: 10%; margin-right: 10%; margin-bottom: 20px;">
-                <p>{project_metadata['description']}</p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-        # Check if the video file exists in the assets folder
-        if os.path.exists(video_path):
-            st.video(video_path, loop=True, autoplay=True, muted=True)  # Display the video as full-width
-        else:
-            st.warning(f"Video for {project_metadata['title']} not found.")
-
-    # Render recommendations in a grid
-    for i in range(0, len(recommendations), self.num_columns):
-        cols = st.columns(self.num_columns)
-        for col, rec in zip(cols, recommendations[i: i + self.num_columns]):
-            with col:
-                self.render_card(rec, is_project=rec.get("is_project", False))
+        # Query Input
+        query = st.text_input("Search for recommendations by keyword (e.g., Python, R):", placeholder="Type a keyword and press Enter")
+    
+        # Rank and filter projects based on the number of items in metadata_list that match repo_name
+        project_counts = {}
+        for item in self.metadata_list:
+            repo_name = item.get('repo_name', '').lower()
+            project_counts[repo_name] = project_counts.get(repo_name, 0) + 1
+        
+        # Sort the projects by the number of matching items in metadata_list
+        sorted_projects = sorted(self.repos_metadata, key=lambda repo: project_counts.get(repo['title'].lower(), 0), reverse=True)
+    
+        # Radial Button for Project Filter with prettified titles, now without 'All Projects'
+        prettified_titles = [self.prettify_title(repo["title"]) for repo in sorted_projects]
+        title_mapping = {self.prettify_title(repo["title"]): repo["title"] for repo in sorted_projects}
+    
+        # Set the first project as the default
+        selected_pretty_project = st.selectbox("Filter recommendations by project:", prettified_titles, index=0)
+        selected_project = title_mapping[selected_pretty_project]
+    
+        # Call rank_items to get the ranked and filtered recommendations
+        recommendations = self.rank_items(query, selected_project)
+    
+        # Check if there is project metadata and show video
+        project_metadata = None
+        if selected_project != "All Projects":
+            for repo in self.repos_metadata:
+                if repo["title"].lower() == selected_project.lower():
+                    project_metadata = repo
+                    break
+    
+        # If project metadata is available, display it with the video area
+        if project_metadata:
+            # Generate the video filename based on the project title
+            video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
+            video_path = os.path.join('assets', video_filename)  # Path to the local MP4 file
+    
+            # Render the title and description centered with some margins for the project
+            st.markdown(
+                f"""
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <h3>{self.prettify_title(project_metadata['title'])}</h3>
+                </div>
+                <div style="text-align: justify; margin-left: 10%; margin-right: 10%; margin-bottom: 20px;">
+                    <p>{project_metadata['description']}</p>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+    
+            # Check if the video file exists in the assets folder
+            if os.path.exists(video_path):
+                st.video(video_path, loop=True, autoplay=True, muted=True)  # Display the video as full-width
+            else:
+                st.warning(f"Video for {project_metadata['title']} not found.")
+    
+        # Render recommendations in a grid
+        for i in range(0, len(recommendations), self.num_columns):
+            cols = st.columns(self.num_columns)
+            for col, rec in zip(cols, recommendations[i: i + self.num_columns]):
+                with col:
+                    self.render_card(rec, is_project=rec.get("is_project", False))
 
 
 
