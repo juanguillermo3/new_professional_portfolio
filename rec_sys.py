@@ -3,8 +3,9 @@ title: Recommendation System
 description: Current implementation of the RecSys, featuring a vanilla ranking that sorts items by the most recently updated, filters by query (exact matching), and allows filtering by project.
 """
 
-import streamlit as st
+import os
 import re
+import streamlit as st
 from git_api_utils import load_repos_metadata, load_modules_metadata
 from datetime import datetime
 
