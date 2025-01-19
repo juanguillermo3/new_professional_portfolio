@@ -71,18 +71,19 @@ st.markdown("---")
 st.markdown(
     f"""
     <p style="color: gray;">
-    This portfolio showcases code samples I developed over more than five years as a Data Analyst and Data Mining Engineer. 
-    It reflects my diverse experience, as I am not focused on a single industry but enjoy working on a variety of workflows. 
-    In addition to highlighting key examples of my past and current projects, this portfolio represents ongoing research aimed at 
-    leveraging emerging technologies like Recommendation Systems (RecSys) and LLM-powered applications (LLM apps) to create practical 
-    software solutions addressing common workplace challenges. The goal is to make the portfolio easily accessible by providing a ranked 
-    and summarized view of its content, allowing potential clients or employers to explore efficiently. Features like the RecSys are 
-    still under development, and related research can be found on my 
-    <a href="{LINKEDIN_PROFILE}" target="_blank" style="color: blue; text-decoration: underline;">
-    LinkedIn profile</a>. Some content is AI-generated for developmental purposes.
+        This portfolio showcases code samples I developed over more than five years as a Data Analyst and Data Mining Engineer. 
+        It reflects my diverse experience, as I am not focused on a single industry but enjoy working on a variety of workflows. 
+        In addition to highlighting key examples of my past and current projects, this portfolio represents ongoing research aimed 
+        at leveraging emerging technologies like Recommendation Systems (RecSys) and LLM-powered applications (LLM apps) to create 
+        practical software solutions that address common struggles faced by the working class when offering their labor in the 
+        labor market. The goal is to make the portfolio easily accessible by providing a ranked and summarized view of its content, 
+        allowing potential clients or employers to explore efficiently. Features like the RecSys are still under development, and 
+        related research can be found on my 
+        <a href="{LINKEDIN_PROFILE}" target="_blank" style="color: #1f77b4; text-decoration: none;">LinkedIn profile</a>. 
+        Some content is AI-generated for developmental purposes.
     </p>
     """,
-    unsafe_allow_html=True
+    unsafe_allow_html=True,
 )
 
 
