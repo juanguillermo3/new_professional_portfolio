@@ -96,5 +96,11 @@ def professional_statement():
     Fetches or generates the professional statement.
     Can be extended to fetch from a file, API, or database.
     """
-    return "Experienced software developer and data scientist with a passion for solving complex problems using data-driven solutions. Adept at both collaborative and independent work in fast-paced environments."
-
+    return (
+        "I excel at <em>statistical analysis</em> and working with data and information more generally. "
+        "My services include <em>explanatory</em>, <em>counterfactual</em>, <em>predictive</em>, and "
+        "<em>prescriptive analytics</em>. I can combine applied <em>statistical modeling</em> with <em>algorithm</em> "
+        "and <em>application development</em> within the Python development ecosystem to transform "
+        "<em>statistical inference</em> into fully operational software with corporate value - i.e. I create data analysis "
+        "/machine learning applications."
+    )
