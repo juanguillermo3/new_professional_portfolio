@@ -4,20 +4,18 @@ description: CV area for a modern proffesional portfolio. The gist of it is serv
 """
 
 import streamlit as st
+from cv_data_loader import experience_items, education_items
 
-        
 class CurriculumVitae:
-    def __init__(self, section_description, statement, work_experience, education):
+    def __init__(self, section_description, statement):
         """
         :param section_description: A string representing the description for the Curriculum Vitae section.
         :param statement: A string representing the main professional statement.
-        :param work_experience: A list of dictionaries with keys: title, company, description, and date_range.
-        :param education: A list of dictionaries with keys: title, institution, description, and date_range.
         """
         self.section_description = section_description
         self.statement = statement
-        self.work_experience = work_experience
-        self.education = education
+        self.work_experience = experience_items()  # Fetch work experience data
+        self.education = education_items()  # Fetch education data
 
     def render(self):
         # Curriculum Vitae Header
