@@ -4,7 +4,7 @@ description: CV area for a modern proffesional portfolio. The gist of it is serv
 """
 
 import streamlit as st
-from cv_data_loader import experience_items, education_items, professional_statement
+from cv_data_loader import load_experience_items, load_education_items, professional_statement
 
 class CurriculumVitae:
     def __init__(self, section_description):
@@ -13,8 +13,8 @@ class CurriculumVitae:
         """
         self.section_description = section_description
         self.statement = professional_statement()  # Fetch professional statement
-        self.work_experience = experience_items()  # Fetch work experience data
-        self.education = education_items()  # Fetch education data
+        self.work_experience = load_experience_items()  # Fetch work experience data
+        self.education = load_education_items()  # Fetch education data
 
     def render(self):
         # Curriculum Vitae Header
