@@ -261,11 +261,13 @@ work_experience = [
 
 education = [
     {
+        "title": "Bachelor's in Economics",  # This is now 'title', matching the work experience schema
         "institution": "University of Colombia",
-        "degree": "Bachelor's in Economics",
+        "description": "A comprehensive study of economics, covering both macroeconomics and microeconomics, along with practical applications in financial systems, economic theory, and policy analysis.",
         "date_range": "2014 - 2018"
     }
 ]
+
 
 cv = CurriculumVitae(section_description, section_description, work_experience, education)
 
