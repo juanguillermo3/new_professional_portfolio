@@ -36,34 +36,36 @@ LINKEDIN_PROFILE = os.getenv("LINKEDIN_PROFILE")
 WHATSAPP_NUMBER= os.getenv("WHATSAPP_NUMBER")
 
 #
-# Fixed Navigation Bar
-#
 # Fixed Navigation Buttons (Top Banner)
+#
+
 st.markdown("""
     <style>
+    /* Navigation bar styles */
     .top-nav {
         position: fixed;
         top: 0;
         width: 100%;
-        background-color: #f8f9fa;
+        background-color: #ffffff; /* White background for visibility */
         z-index: 1000;
-        padding: 0.5em 1em;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        padding: 10px 0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
         display: flex;
-        justify-content: space-around;
-        font-family: Arial, sans-serif;
+        justify-content: center;
+        gap: 20px; /* Spacing between buttons */
     }
     .top-nav a {
         text-decoration: none;
-        color: #007BFF;
-        font-weight: bold;
-        padding: 0.5em 1em;
-        border-radius: 5px;
-        transition: background-color 0.3s, color 0.3s;
+        color: #007BFF; /* Blue text color */
+        font-size: 16px;
+        font-weight: 600; /* Semi-bold text */
+        padding: 8px 16px;
+        border-radius: 5px; /* Rounded corners */
+        transition: all 0.3s ease;
     }
     .top-nav a:hover {
-        background-color: #007BFF;
-        color: white;
+        background-color: #007BFF; /* Blue background on hover */
+        color: white; /* White text on hover */
     }
     </style>
     <div class="top-nav">
@@ -74,7 +76,7 @@ st.markdown("""
         <a href="#connect-section">Connect</a>
         <a href="#about-me-section">About Me</a>
     </div>
-    <div style="margin-top: 4em;"></div>
+    <div style="margin-top: 60px;"></div> <!-- Offset to avoid overlap -->
 """, unsafe_allow_html=True)
 
 #
