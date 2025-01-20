@@ -31,10 +31,9 @@ REPOS_IN_PORTFOLIO=os.getenv("REPOS_IN_PORTFOLIO", "lab_market_trends,monkey_res
 
 
 # Get the LinkedIn profile URL from the environment
-linkedin_profile = os.getenv("LINKEDIN_PROFILE")
-
+LINKEDIN_PROFILE = os.getenv("LINKEDIN_PROFILE")
 # Default WhatsApp number, which can be overridden by the .env file
-whatsapp_number = os.getenv("WHATSAPP_NUMBER", "+57 3053658650")
+WHATSAPP_NUMBER= os.getenv("WHATSAPP_NUMBER")
 
 
 #
@@ -104,11 +103,5 @@ render_section_separator()
 #
 
 socials.render()
-
-
-
-# 
-st.markdown("<br>", unsafe_allow_html=True)
-st.markdown("<br>", unsafe_allow_html=True)
-st.markdown("<br>", unsafe_allow_html=True)
-
+#
+render_section_separator()
