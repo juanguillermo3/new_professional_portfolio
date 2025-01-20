@@ -126,7 +126,6 @@ class CurriculumVitae:
             
 cv = CurriculumVitae(
     section_description="This is a description of the Curriculum Vitae section.",
-    statement="An experienced professional with a background in software development, data science, and project management."
 )
 
 #cv.render()
