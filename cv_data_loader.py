@@ -26,7 +26,7 @@ def load_experience_items():
                 "for guidance on combining them into a superior predictive system. I created a configurable ensemble "
                 "module to merge predictions from multiple classifiers and found that many non-singleton ensembles "
                 "outperformed individual models in terms of F1 score. Code sample available at: "
-                "https://colab.research.google.com/drive/1sPdB-uoOEdw2xIKPQCx1aGp5QUuu1ooK#scrollTo=_Ycax1ucXvA"
+                "<a href='https://colab.research.google.com/drive/1sPdB-uoOEdw2xIKPQCx1aGp5QUuu1ooK#scrollTo=_Ycax1ucXvA' target='_blank'>Google Colab</a>"
             ),
             "date_range": "Enero 2024 - Julio 2024"
         },
@@ -50,7 +50,7 @@ def load_experience_items():
                 "targeting 1-month-ahead hourly forecasts. In Stage 1, I delivered traditional (ARIMA, Exponential Smoothing) "
                 "and Deep Learning (DNN, RNN, LSTM) algorithms. In Stage 2, I implemented a custom Genetic Optimization Algorithm "
                 "to find near-optimal Neural Network architectures. Code sample available at: "
-                "https://colab.research.google.com/drive/1QKFY5zfiRkUUPrnhlsOrtRlqGJ14oFf3#scrollTo=sxBOaWZ9uabz"
+                "<a href='https://colab.research.google.com/drive/1QKFY5zfiRkUUPrnhlsOrtRlqGJ14oFf3#scrollTo=sxBOaWZ9uabz' target='_blank'>Google Colab</a>"
             ),
             "date_range": "Enero 2023 - Julio 2023"
         },
