@@ -116,7 +116,7 @@ class CurriculumVitae:
         shadow_color = "rgba(28, 123, 186, 0.2)"  # Fixed shadow color
 
         for experience in self.work_experience:
-            st.markdown(f"""<div style='margin-bottom: 0.5rem; display: flex; align-items: center;'> 
+            st.markdown(f"""<div style='margin-bottom: 0.5rem; display: flex; align-items: flex-start;'> 
                 <div style='
                     width: 20px; height: 20px; 
                     border: 5px solid {circle_color}; 
@@ -124,6 +124,7 @@ class CurriculumVitae:
                     box-shadow: 0 0 0 5px {shadow_color}; 
                     position: relative; 
                     margin-right: 10px; 
+                    margin-top: 4px;  # Align the circle with the top of the title
                 '></div> 
                 <div> 
                     <strong>{experience['title']}</strong><br> 
@@ -138,7 +139,7 @@ class CurriculumVitae:
         
         # Fixed circle color for all education items
         for edu in self.education:
-            st.markdown(f"""<div style='margin-bottom: 0.5rem; display: flex; align-items: center;'> 
+            st.markdown(f"""<div style='margin-bottom: 0.5rem; display: flex; align-items: flex-start;'> 
                 <div style='
                     width: 20px; height: 20px; 
                     border: 5px solid {circle_color}; 
@@ -146,6 +147,7 @@ class CurriculumVitae:
                     box-shadow: 0 0 0 5px {shadow_color}; 
                     position: relative; 
                     margin-right: 10px; 
+                    margin-top: 4px;  # Align the circle with the top of the title
                 '></div> 
                 <div> 
                     <strong>{edu['degree']}</strong><br> 
