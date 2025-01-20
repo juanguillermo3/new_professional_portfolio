@@ -7,7 +7,7 @@ def load_experience_items():
     experience_items = [
         {
             "title": "Freelance Data Analyst & R Developer",
-            "client": "Private Client",
+            "company": "Private Client",
             "description": (
                 "A biology Ph.D. aspirant conducted ethology research on monkey behavior in the "
                 "Australian jungle, gathering data on four species, covering behaviors, diet, "
@@ -20,7 +20,7 @@ def load_experience_items():
         },
         {
             "title": "Freelance ML Consultant/Developer (Ensemble Learning)",
-            "client": "Private Client",
+            "company": "Private Client",
             "description": (
                 "The client had a set of ML classifiers to automate an HR department's hiring process and asked "
                 "for guidance on combining them into a superior predictive system. I created a configurable ensemble "
@@ -32,7 +32,7 @@ def load_experience_items():
         },
         {
             "title": "Python Developer",
-            "client": "Algotrading",
+            "company": "Algotrading",
             "description": (
                 "I was hired as a data analyst and developer by an international start-up focused on real-time trading "
                 "using NLP signals. I maintained mission-critical code for real-time feature engineering of trade signals, "
@@ -44,7 +44,7 @@ def load_experience_items():
         },
         {
             "title": "Freelance ML Consultant/Developer (AI and Genetic Algorithms)",
-            "client": "Private Client",
+            "company": "Private Client",
             "description": (
                 "This consultancy focused on developing a high-performance forecasting system for Business Intelligence, "
                 "targeting 1-month-ahead hourly forecasts. In Stage 1, I delivered traditional (ARIMA, Exponential Smoothing) "
@@ -56,7 +56,7 @@ def load_experience_items():
         },
         {
             "title": "Data Analyst, Public Policy Research Assistant",
-            "client": "Corewoman",
+            "company": "Corewoman",
             "description": (
                 "In this role, I enabled empirical research on the impact of gender in the Colombian labor market for public policy. "
                 "I engaged with complex, multi-source environments, utilizing both structured and unstructured data. I delivered data "
@@ -72,7 +72,7 @@ def load_experience_items():
 def load_education_items():
     education_items = [
         {
-            "degree": "Economics",
+            "title": "Economics",
             "institution": "Universidad de los Andes",
             "description": (
                 "I hold a degree in Economics from Universidad de los Andes. In a few words, college educated me on social and "
