@@ -5,15 +5,13 @@ description: CV area for a modern proffesional portfolio. The gist of it is serv
 
 import streamlit as st
 
-import streamlit as st
-
 class CurriculumVitae:
     def __init__(self, section_description, statement, work_experience, education):
         """
         :param section_description: A string representing the description for the Curriculum Vitae section.
         :param statement: A string representing the main professional statement.
         :param work_experience: A list of dictionaries with keys: title, company, description, and date_range.
-        :param education: A list of dictionaries with keys: degree, institution, description, and date_range.
+        :param education: A list of dictionaries with keys: institution, degree, and date_range.
         """
         self.section_description = section_description
         self.statement = statement
@@ -28,31 +26,29 @@ class CurriculumVitae:
 
         # Work Experience Section
         st.markdown("#### Work Experience")
+        
+        # Fixed circle color for all work experience items
+        circle_color = "#1c7bba"  # Fixed color
+        shadow_color = "rgba(28, 123, 186, 0.2)"  # Fixed shadow color
 
-        for i, experience in enumerate(sorted(self.work_experience, key=lambda x: x['date_range'], reverse=True)):
-            circle_color = "#1c7bba" if i % 2 == 0 else "#5c9cc2"  # Circle color alternation
-            shadow_color = "rgba(28, 123, 186, 0.2)" if i % 2 == 0 else "rgba(92, 156, 194, 0.2)"
-
-            # Create the work experience container with a circle effect
-            st.markdown(f"""
-                <div style='color: {"black" if i % 2 == 0 else "gray"}; margin-bottom: 0.5rem; display: flex; align-items: center;'>
-                    <div style='
-                        width: 20px; height: 20px;
-                        border: 5px solid {circle_color};
-                        border-radius: 50%;
-                        box-shadow: 0 0 0 5px {shadow_color};
-                        position: relative;
-                        margin-right: 10px;
-                    '></div>
-                    <div>
-                        <strong>{experience['title']}</strong><br>
-                        <em>{experience['company']}</em><br>
-            """, unsafe_allow_html=True)
+        for experience in self.work_experience:
+            st.markdown(f"""<div style='margin-bottom: 0.5rem; display: flex; align-items: center;'> 
+                <div style='
+                    width: 20px; height: 20px; 
+                    border: 5px solid {circle_color}; 
+                    border-radius: 50%; 
+                    box-shadow: 0 0 0 5px {shadow_color}; 
+                    position: relative; 
+                    margin-right: 10px; 
+                '></div> 
+                <div> 
+                    <strong>{experience['title']}</strong><br> 
+                    <em>{experience['company']}</em><br>""", unsafe_allow_html=True)
 
             description = experience['description']
             truncated_description = description[:150].rsplit(' ', 1)[0] + "... "
-            expanded_key = f"expanded_{i}"
-
+            expanded_key = f"expanded_{experience['title']}"
+            
             if expanded_key not in st.session_state:
                 st.session_state[expanded_key] = False
 
@@ -70,33 +66,29 @@ class CurriculumVitae:
                 )
 
             st.markdown(f"<p style='font-style: italic;'>{experience['date_range']}</p>", unsafe_allow_html=True)
-            st.markdown("</div></div>", unsafe_allow_html=True)  # Closing the work experience container
+            st.markdown("</div></div>", unsafe_allow_html=True)
 
-        # Education Section
+        # Education Section (with fixed circle color as well)
         st.markdown("#### Education")
-
-        for i, edu in enumerate(self.education):
-            circle_color = "#1c7bba" if i % 2 == 0 else "#5c9cc2"  # Circle color alternation
-            shadow_color = "rgba(28, 123, 186, 0.2)" if i % 2 == 0 else "rgba(92, 156, 194, 0.2)"
-
-            # Create the education item container with a circle effect
-            st.markdown(f"""
-                <div style='color: {"black" if i % 2 == 0 else "gray"}; margin-bottom: 0.5rem; display: flex; align-items: center;'>
-                    <div style='
-                        width: 20px; height: 20px;
-                        border: 5px solid {circle_color};
-                        border-radius: 50%;
-                        box-shadow: 0 0 0 5px {shadow_color};
-                        position: relative;
-                        margin-right: 10px;
-                    '></div>
-                    <div>
-                        <strong>{edu['degree']}</strong><br>
-                        <em>{edu['institution']}</em><br>
-                        <p style='font-style: italic;'>{edu['date_range']}</p>
-                    </div>
+        
+        # Fixed circle color for all education items
+        for edu in self.education:
+            st.markdown(f"""<div style='margin-bottom: 0.5rem; display: flex; align-items: center;'> 
+                <div style='
+                    width: 20px; height: 20px; 
+                    border: 5px solid {circle_color}; 
+                    border-radius: 50%; 
+                    box-shadow: 0 0 0 5px {shadow_color}; 
+                    position: relative; 
+                    margin-right: 10px; 
+                '></div> 
+                <div> 
+                    <strong>{edu['degree']}</strong><br> 
+                    <em>{edu['institution']}</em><br> 
+                    <p style='font-style: italic;'>{edu['date_range']}</p>
                 </div>
-            """, unsafe_allow_html=True)
+            </div>""", unsafe_allow_html=True)
+
 
 
 
