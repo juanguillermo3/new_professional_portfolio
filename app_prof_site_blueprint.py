@@ -19,7 +19,7 @@ from hero_area import hero
 from rec_sys import recsys
 from about_section import about
 from services_section import services
-from socials import socials
+from socials_section import socials
 
 #
 load_dotenv(override=True)
