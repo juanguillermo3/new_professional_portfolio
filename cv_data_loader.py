@@ -40,3 +40,11 @@ def education_items():
             'date_range': 'September 2018 - June 2020'
         }
     ]
+
+def professional_statement():
+    """
+    Fetches or generates the professional statement.
+    Can be extended to fetch from a file, API, or database.
+    """
+    return "Experienced software developer and data scientist with a passion for solving complex problems using data-driven solutions. Adept at both collaborative and independent work in fast-paced environments."
+
