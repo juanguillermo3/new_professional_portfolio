@@ -19,7 +19,7 @@ from hero_area import hero
 from rec_sys import recsys
 from about_section import about
 from services_section import services
-from ssocials_section import social_buttons
+from socials import socials
 
 #
 load_dotenv(override=True)
@@ -83,96 +83,27 @@ recsys.render()
 # 
 render_section_separator()
 
+#
 # **Services Section**
-st.subheader("Services Lines 🛠️")
-st.markdown("---")
-st.markdown('<p style="color: gray;">Here are the key services I provide to my clients. Hover over the titles for more information.</p>', unsafe_allow_html=True)
-st.markdown("<br>", unsafe_allow_html=True)
+#
 
-services_area = st.container()
-with services_area:
-    service_cols = st.columns(3)
-    services = [
-        {"image": "https://via.placeholder.com/150", "title": "Consulting", "description": "Expert advice to help you grow your business."},
-        {"image": "https://via.placeholder.com/150", "title": "Data Analysis", "description": "In-depth analysis of your business data to drive decisions."},
-        {"image": "https://via.placeholder.com/150", "title": "Software Development", "description": "Building robust and scalable software solutions."},
-    ]
-    for i, service in enumerate(services):
-        with service_cols[i % 3]:
-            st.markdown(f"""
-                <div style="border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); padding: 10px; text-align: center;">
-                    <img src="{service['image']}" alt="{service['title']}" style="border-radius: 10px; width: 100%; height: auto;">
-                    <h5>{service['title']}</h5>
-                    <p>{service['description']}</p>
-                </div>
-            """, unsafe_allow_html=True)
-
+#
+services.render()
 # 
 render_section_separator()
 
 # **About Me Section**
 
+#
 cv.render()
+#
 render_section_separator()
 
+#
 # **Connect with Me Section**
-st.subheader("Connect with Me 🤝")
-st.markdown("---")
-st.markdown('<p style="color: gray;">Feel free to connect with me via social media or WhatsApp.</p>', unsafe_allow_html=True)
-st.markdown("<br>", unsafe_allow_html=True)
+#
 
-
-#import streamlit as st
-
-class SocialMediaButtons:
-    def __init__(self, links: dict):
-        self.links = links
-        # Define colors for each platform
-        self.platform_colors = {
-            "WhatsApp": "#25D366",
-            "LinkedIn": "#0077B5",
-            "GitHub": "#333333",
-            "Facebook": "#3b5998"
-        }
-
-    def create_button(self, platform, url):
-        color = self.platform_colors.get(platform, "#000000")  # Default to black if not found
-        return f"""
-            <a href="{url}" target="_blank">
-                <button style="background-color:{color}; color:white; border-radius:10px; 
-                               padding:10px 20px; font-size:16px; border:none; margin: 5px;">
-                    {platform}
-                </button>
-            </a>
-        """
-
-    def render_buttons(self):
-        # Create a container for the social media buttons
-        buttons_area = st.container()
-
-        with buttons_area:
-            # Use a flex container for layout and keep the buttons well-spaced
-            st.markdown('<div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 10px;">', unsafe_allow_html=True)
-
-            # Render each button for each platform
-            for platform, url in self.links.items():
-                button_html = self.create_button(platform, url)
-                st.markdown(button_html, unsafe_allow_html=True)
-
-            # Close the flex container
-            st.markdown('</div>', unsafe_allow_html=True)
-
-# Example usage:
-social_links = {
-    "LinkedIn": "https://www.linkedin.com/in/juan-guillermo-osio/",
-    "GitHub": "https://github.com/juanguillermo3/",
-    "WhatsApp": "https://wa.me/573053658650",
-    "Facebook": "https://www.facebook.com/juan.jaramillo.96"
-}
-
-# Create an instance of the SocialMediaButtons class and render the buttons
-social_buttons = SocialMediaButtons(social_links)
-social_buttons.render_buttons()
+socials.render()
 
 
 
