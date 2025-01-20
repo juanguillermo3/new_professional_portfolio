@@ -17,7 +17,7 @@ from dotenv import load_dotenv, dotenv_values
 from front_end_utils import render_section_separator
 from hero_area import hero
 from rec_sys import recsys
-from about_section import about_section
+from about_section import about
 
 #
 load_dotenv(override=True)
