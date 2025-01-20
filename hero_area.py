@@ -177,6 +177,7 @@ class HeroArea:
             # Render the contact button (hidden by default)
             self.render_contact_button()
 
+    
 
 class HeroArea:
     def __init__(self, quote, avatar_image: str = None, avatar_caption: str = "", 
@@ -257,6 +258,47 @@ class HeroArea:
             # Render the contact button (hidden by default)
             self.render_contact_button()
 
+    def render_code_samples(self):
+        """
+        Render code sample buttons as GitHub-styled buttons with an introductory text.
+        """
+        st.markdown(f'<p class="code-samples-intro">{self.code_samples_intro}</p>', unsafe_allow_html=True)
+        
+        # Create a grid layout for the buttons
+        st.markdown("<div style='display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px;'>", unsafe_allow_html=True)
+        
+        for sample in self.code_samples:
+            st.markdown(f"""
+            <a href="{sample['url']}" target="_blank">
+                <button style="background-color: #24292f; color: white; border: 1px solid white; padding: 10px 20px; font-size: 14px; border-radius: 5px; text-align: center; width: 100%;">
+                    {sample['title']}
+                </button>
+            </a>
+            """, unsafe_allow_html=True)
+
+        st.markdown("</div>", unsafe_allow_html=True)
+
+    def render_contact_button(self):
+        """
+        Render a single WhatsApp contact button to facilitate first contact via WhatsApp.
+        """
+        if not self.whatsapp_number:
+            st.warning("WhatsApp number is not available.")
+            return
+
+        # Display contact button intro
+        st.markdown(f'<p class="contact-button-intro">{self.contact_button_intro}</p>', unsafe_allow_html=True)
+        
+        # WhatsApp button styled similarly to code sample buttons
+        button_url = f"https://wa.me/{self.whatsapp_number}?text=Hi,%20I%27d%20like%20to%20get%20in%20touch!"
+        
+        st.markdown(f"""
+        <a href="{button_url}" target="_blank">
+            <button style="background-color: #25d366; color: white; border: 1px solid white; padding: 10px 20px; font-size: 14px; border-radius: 5px; text-align: center; width: 100%;">
+                Contact Me on WhatsApp
+            </button>
+        </a>
+        """, unsafe_allow_html=True)
 
 # Example data for HeroArea with multiple paragraphs in the quote and code sample links
 quote = [
