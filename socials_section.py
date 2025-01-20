@@ -38,7 +38,7 @@ class SocialMediaButtons:
             st.markdown('</div>', unsafe_allow_html=True)
 
 # Instantiation
-social_buttons = SocialMediaButtons(
+socials = SocialMediaButtons(
     links={
         "LinkedIn": "https://www.linkedin.com/in/juan-guillermo-osio/",
         "GitHub": "https://github.com/juanguillermo3/",
