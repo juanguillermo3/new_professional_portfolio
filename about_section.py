@@ -22,4 +22,4 @@ class AboutSection:
         )
 
 # Instantiation
-about_section = AboutSection(linkedin_profile="https://www.linkedin.com/in/juan-guillermo-osio/")
+about = AboutSection(linkedin_profile="https://www.linkedin.com/in/juan-guillermo-osio/")
