@@ -22,6 +22,13 @@ class SocialMediaButtons:
         """
 
     def render(self):
+        # Header and Description
+        st.subheader("Connect with Me 🤝")
+        st.markdown("---")
+        st.markdown('<p style="color: gray;">Feel free to connect with me via social media or WhatsApp.</p>', unsafe_allow_html=True)
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        # Buttons Area
         buttons_area = st.container()
         with buttons_area:
             st.markdown('<div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 10px;">', unsafe_allow_html=True)
@@ -31,7 +38,7 @@ class SocialMediaButtons:
             st.markdown('</div>', unsafe_allow_html=True)
 
 # Instantiation
-socials = SocialMediaButtons(
+social_buttons = SocialMediaButtons(
     links={
         "LinkedIn": "https://www.linkedin.com/in/juan-guillermo-osio/",
         "GitHub": "https://github.com/juanguillermo3/",
@@ -39,3 +46,4 @@ socials = SocialMediaButtons(
         "Facebook": "https://www.facebook.com/juan.jaramillo.96",
     }
 )
+
