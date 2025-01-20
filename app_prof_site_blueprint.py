@@ -17,7 +17,7 @@ from dotenv import load_dotenv, dotenv_values
 from front_end_utils import render_section_separator
 from hero_area import hero
 from rec_sys import recsys
-
+from about_section import about_section
 
 #
 load_dotenv(override=True)
@@ -66,21 +66,10 @@ render_section_separator()
 # **About this portfolio**
 #
 
-st.subheader("About this portfolio 💡")
-st.markdown("---")
-st.markdown(
-    f"""
-    <p style="color: gray;">
-This portfolio showcases code samples I developed over more than five years as a Data Analyst and Data Mining Engineer across several projects. It is quite eclectic as I am not focused on a single vertical but I  hope it's representative of some core workflows I enjoy working in. Moreover ongoing research aims at leveraging emerging technologies like Recommendation Systems (RecSys) and LLM-powered applications (LLM apps) to create practical software solutions to practical problem of workers at the laboral marketing, such as efficiently displaying content to an audience of potential clients or employers.Features like the RecSys are still under development, and related research can be found on my <a href="{LINKEDIN_PROFILE}" target="_blank" style="color: #1f77b4; text-decoration: none;">LinkedIn profile</a>. Some content is AI-generated for developmental purposes.
-    </p>
-    """,
-    unsafe_allow_html=True,
-)
-
-
-# Render section separator
+#
+about.render()
+# 
 render_section_separator()
-
 
 
 #
