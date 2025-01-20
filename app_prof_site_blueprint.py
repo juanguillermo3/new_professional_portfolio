@@ -38,6 +38,7 @@ WHATSAPP_NUMBER= os.getenv("WHATSAPP_NUMBER")
 #
 # Fixed Navigation Bar
 #
+# Fixed Navigation Buttons (Top Banner)
 st.markdown("""
     <style>
     .top-nav {
@@ -50,23 +51,28 @@ st.markdown("""
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         display: flex;
         justify-content: space-around;
+        font-family: Arial, sans-serif;
     }
     .top-nav a {
         text-decoration: none;
         color: #007BFF;
         font-weight: bold;
-        padding: 0.5em;
+        padding: 0.5em 1em;
+        border-radius: 5px;
+        transition: background-color 0.3s, color 0.3s;
     }
     .top-nav a:hover {
-        color: #0056b3;
+        background-color: #007BFF;
+        color: white;
     }
     </style>
     <div class="top-nav">
-        <a href="#hero-section">Home</a>
+        <a href="#hero-section">Hero</a>
         <a href="#about-section">About</a>
         <a href="#recsys-section">Recommendations</a>
         <a href="#services-section">Services</a>
         <a href="#connect-section">Connect</a>
+        <a href="#about-me-section">About Me</a>
     </div>
     <div style="margin-top: 4em;"></div>
 """, unsafe_allow_html=True)
