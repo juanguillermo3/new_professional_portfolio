@@ -18,6 +18,8 @@ from front_end_utils import render_section_separator
 from hero_area import hero
 from rec_sys import recsys
 from about_section import about
+from services_section import services
+from ssocials_section import social_buttons
 
 #
 load_dotenv(override=True)
