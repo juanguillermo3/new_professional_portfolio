@@ -165,44 +165,33 @@ class CurriculumVitae:
 
     def _render_item(self, title, entity, description, date_range, index, color_odd, color_even):
         """Render a single item (work or education) with alternating colors and a circular design."""
+        # Set circle and shadow colors based on alternating colors
         circle_color = color_even if index % 2 == 0 else color_odd
         shadow_color = "rgba(28, 123, 186, 0.2)" if index % 2 == 0 else "rgba(92, 156, 194, 0.2)"
+    
+        # Truncate description to a reasonable length (optional)
         truncated_description = description[:150].rsplit(' ', 1)[0] + "... "
-        expanded_key = f"expanded_{index}"
-
-        if expanded_key not in st.session_state:
-            st.session_state[expanded_key] = False
-
+    
+        # Render the item as a single component
         st.markdown(f"""
-        <div style='color: {"black" if index % 2 == 0 else "gray"}; margin-bottom: 1rem; display: flex; align-items: center;'>
-            <div style='
-                width: 20px; height: 20px;
-                border: 5px solid {circle_color};
-                border-radius: 50%;
-                box-shadow: 0 0 0 5px {shadow_color};
-                position: relative;
-                margin-right: 10px;
-            '></div>
-            <div>
-                <strong>{title}</strong><br>
-                <em>{entity}</em><br>
+            <div style='color: {"black" if index % 2 == 0 else "gray"}; margin-bottom: 1rem; display: flex; align-items: center;'>
+                <div style='
+                    width: 20px; height: 20px;
+                    border: 5px solid {circle_color};
+                    border-radius: 50%;
+                    box-shadow: 0 0 0 5px {shadow_color};
+                    position: relative;
+                    margin-right: 10px;
+                '></div>
+                <div>
+                    <strong>{title}</strong><br>
+                    <em>{entity}</em><br>
+                    <p>{description}</p><br>  <!-- Full description here -->
+                    <p style='font-style: italic;'>{date_range}</p>
+                </div>
+            </div>
         """, unsafe_allow_html=True)
 
-        if st.session_state[expanded_key]:
-            st.markdown(
-                f"{description} <a style='color: blue; text-decoration: underline; cursor: pointer;' "
-                f"onclick=\"window.sessionStorage.setItem('{expanded_key}', 'false');\">See less</a>",
-                unsafe_allow_html=True
-            )
-        else:
-            st.markdown(
-                f"{truncated_description}<a style='color: blue; text-decoration: underline; cursor: pointer;' "
-                f"onclick=\"window.sessionStorage.setItem('{expanded_key}', 'true');\">See more</a>",
-                unsafe_allow_html=True
-            )
-
-        st.markdown(f"<p style='font-style: italic;'>{date_range}</p>", unsafe_allow_html=True)
-        st.markdown("</div></div>", unsafe_allow_html=True)
 
     def render(self):
         # Curriculum Vitae Header
