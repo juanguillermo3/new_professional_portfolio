@@ -46,7 +46,7 @@ st.markdown("""
         position: fixed;
         top: 0;
         width: 100%;
-        background-color: #ffffff; /* White background for visibility */
+        background-color: #222; /* Dark gray background */
         z-index: 1000;
         padding: 10px 0;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
@@ -56,16 +56,17 @@ st.markdown("""
     }
     .top-nav a {
         text-decoration: none;
-        color: #007BFF; /* Blue text color */
+        color: #ffffff; /* White text */
         font-size: 16px;
         font-weight: 600; /* Semi-bold text */
         padding: 8px 16px;
         border-radius: 5px; /* Rounded corners */
+        background-color: #007BFF; /* Blue button background */
         transition: all 0.3s ease;
     }
     .top-nav a:hover {
-        background-color: #007BFF; /* Blue background on hover */
-        color: white; /* White text on hover */
+        background-color: #0056b3; /* Darker blue background on hover */
+        color: #ffffff; /* Keep white text on hover */
     }
     </style>
     <div class="top-nav">
@@ -78,6 +79,7 @@ st.markdown("""
     </div>
     <div style="margin-top: 60px;"></div> <!-- Offset to avoid overlap -->
 """, unsafe_allow_html=True)
+
 
 #
 # **Title Section**
