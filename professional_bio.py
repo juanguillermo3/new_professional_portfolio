@@ -366,7 +366,7 @@ class CurriculumVitae:
                     <strong>{item['title']}</strong><br> 
                     <em>{item['company_or_institution']}</em><br> 
                     <p>{item['description']}</p>
-                    <p style='font-style: italic;'>{item['date_range']}</p>
+                    <p style='font-style: italic; margin-top: 0.5rem; color: gray;'>{item['date_range']}</p> <!-- Adjusted date styling -->
                 </div>
             </div>""", unsafe_allow_html=True)
 
@@ -398,3 +398,4 @@ cv = CurriculumVitae(
 )
 
 #cv.render()
+
