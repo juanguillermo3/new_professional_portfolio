@@ -190,8 +190,8 @@ class HeroArea:
             # Render the code samples (hidden by default)
             self.render_code_samples()
     
-            # Render the contact button (hidden by default)
-            self.render_contact_button()
+        # Render the contact button (hidden by default)
+        self.render_contact_button()
 
 
 # Example data for HeroArea with multiple paragraphs in the quote and code sample links
