@@ -16,7 +16,7 @@ def load_experience_items():
                 "covariates (sex, groups) influence this. Data processing, visualization, and statistical tests "
                 "(Kruskal-Wallis, Dunn test) were automated for streamlined reporting."
             ),
-            "dates": "Julio 2022 - Actualmente"
+            "date_range": "Julio 2022 - Actualmente"
         },
         {
             "title": "Freelance ML Consultant/Developer (Ensemble Learning)",
@@ -28,7 +28,7 @@ def load_experience_items():
                 "outperformed individual models in terms of F1 score. Code sample available at: "
                 "https://colab.research.google.com/drive/1sPdB-uoOEdw2xIKPQCx1aGp5QUuu1ooK#scrollTo=_Ycax1ucXvA"
             ),
-            "dates": "Enero 2024 - Julio 2024"
+            "date_range": "Enero 2024 - Julio 2024"
         },
         {
             "title": "Python Developer",
@@ -40,7 +40,7 @@ def load_experience_items():
                 "with AWS Watchtower. Through on-the-job training, I honed my skills as a low-code developer, assimilating "
                 "a tech stack involving GPT and Copilot to enhance workflow efficiency."
             ),
-            "dates": "Junio 2023 - Diciembre 2023"
+            "date_range": "Junio 2023 - Diciembre 2023"
         },
         {
             "title": "Freelance ML Consultant/Developer (AI and Genetic Algorithms)",
@@ -52,7 +52,7 @@ def load_experience_items():
                 "to find near-optimal Neural Network architectures. Code sample available at: "
                 "https://colab.research.google.com/drive/1QKFY5zfiRkUUPrnhlsOrtRlqGJ14oFf3#scrollTo=sxBOaWZ9uabz"
             ),
-            "dates": "Enero 2023 - Julio 2023"
+            "date_range": "Enero 2023 - Julio 2023"
         },
         {
             "title": "Data Analyst, Public Policy Research Assistant",
@@ -63,7 +63,7 @@ def load_experience_items():
                 "gathering and transformation pipelines using Stata, R, and Python. Additionally, I provided inferential statistics, "
                 "regression analysis, and program evaluation techniques, including propensity score matching (PSM)."
             ),
-            "dates": "Julio 2019 - Julio 2022"
+            "date_range": "Julio 2019 - Julio 2022"
         }
     ]
     
@@ -84,7 +84,7 @@ def load_education_items():
                 "analysis and techniques available through non-mandatory master level college courses, comprehending artificial intelligence, "
                 "advanced econometrics, data mining (machine learning), forecasting, and big data, for which I hold their respective certifications."
             ),
-            "dates": "Enero 2012 - Junio 2019"
+            "date_range": "Enero 2012 - Junio 2019"
         }
     ]
     
