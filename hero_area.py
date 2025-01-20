@@ -126,6 +126,74 @@ class HeroArea:
         </a>
         """, unsafe_allow_html=True)
 
+    def render(self):
+        """
+        Render the Hero area in Streamlit with the main content always visible
+        and the code samples + contact button inside expandable content.
+        """
+        # Two-column layout for quote and avatar
+        col1, col2 = st.columns([2, 1])
+    
+        # Render the quote (always visible)
+        with col1:
+            st.markdown("""<style>
+            .hero-quote {
+                font-style: italic;
+                font-size: 1.5em;
+                line-height: 1.8;
+                margin: 0 auto;
+                max-width: 800px;
+                color: #333333;
+                text-align: justify;
+                padding-bottom: 20px;
+            }
+            .hero-avatar-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+            }
+            </style>""", unsafe_allow_html=True)
+    
+            # Render each paragraph separately in the quote
+            for paragraph in self.quote:
+                st.markdown(f'<p class="hero-quote">{paragraph}</p>', unsafe_allow_html=True)
+    
+        # Render the avatar with caption (always visible)
+        if self.avatar_image:
+            with col2:
+                st.markdown('<div class="hero-avatar-container">', unsafe_allow_html=True)
+                st.image(f"assets/{self.avatar_image}", caption=self.avatar_caption, use_container_width=True)
+                st.markdown('</div>', unsafe_allow_html=True)
+    
+        # Render the code samples and WhatsApp button inside an expander
+        with st.expander("Explore more"):
+            # Render the 5+1 key differentials section
+            st.markdown("### (5+1) Key Differentials of My Professional Offering")
+            st.markdown("""
+            - **High-Performance Predictive Analytics**: I research and implement techniques for regression, classification, and forecasting use cases, 
+              with applications ranging from macroeconomic and financial forecasting to microdata predictions in various systems.
+            - **Software for Inference Distribution**: I develop applications (batch scripts, APIs, dashboards, web applications) to distribute insights 
+              and predictions across corporate environments.
+            - **Data Transformation Expertise**: As my former boss Susana Martinez Restrepo said, "I can perform data miracles." This refers to my 
+              ability to clean and organize datasets from complex, multi-source environments for research and model development.
+            - **Holistic Understanding of Modern Tooling**: I integrate tools and technologies for modern data analysis, committing to research the 
+              unique purposes of each tool and efficiently write workflows around them using GPT.
+            - **Skill Proficiency Classification**:
+                - *Excellence Tier*: Python, R Studio, Stata, GPT.
+                - *Proficiency Tier*: Airflow, SQL, Spark, Bash scripting.
+                - *Willing to Learn*: Docker, Kubernetes, GitHub, Big Data Cloud tools, SQLAlchemy, Django.
+            - **Bonus: Rigorous Economic Mindset**: As an economist, I approach data analysis with a focus on causal reasoning, marginal effects, and 
+              counterfactual analysis.
+            """)
+            
+            # Render the code samples (hidden by default)
+            self.render_code_samples()
+    
+            # Render the contact button (hidden by default)
+            self.render_contact_button()
+
+
 # Example data for HeroArea with multiple paragraphs in the quote and code sample links
 quote = [
     "Modern data analysis requires engaging with substantial software, such as data gathering and information processing applications. "
