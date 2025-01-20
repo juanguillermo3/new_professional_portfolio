@@ -150,6 +150,91 @@ class CurriculumVitae:
             """, unsafe_allow_html=True)
 
 
+class CurriculumVitae:
+    def __init__(self, section_description, statement, work_experience, education):
+        """
+        :param section_description: A string representing the description for the Curriculum Vitae section.
+        :param statement: A string representing the main professional statement.
+        :param work_experience: A list of dictionaries with keys: title, company, description, and date_range.
+        :param education: A list of dictionaries with keys: title, institution, description, and date_range.
+        """
+        self.section_description = section_description
+        self.statement = statement
+        self.work_experience = work_experience
+        self.education = education
+
+    def _render_item(self, title, entity, description, date_range, index, color_odd, color_even):
+        """Render a single item (work or education) with alternating colors and a circular design."""
+        circle_color = color_even if index % 2 == 0 else color_odd
+        shadow_color = "rgba(28, 123, 186, 0.2)" if index % 2 == 0 else "rgba(92, 156, 194, 0.2)"
+        truncated_description = description[:150].rsplit(' ', 1)[0] + "... "
+        expanded_key = f"expanded_{index}"
+
+        if expanded_key not in st.session_state:
+            st.session_state[expanded_key] = False
+
+        st.markdown(f"""
+        <div style='color: {"black" if index % 2 == 0 else "gray"}; margin-bottom: 1rem; display: flex; align-items: center;'>
+            <div style='
+                width: 20px; height: 20px;
+                border: 5px solid {circle_color};
+                border-radius: 50%;
+                box-shadow: 0 0 0 5px {shadow_color};
+                position: relative;
+                margin-right: 10px;
+            '></div>
+            <div>
+                <strong>{title}</strong><br>
+                <em>{entity}</em><br>
+        """, unsafe_allow_html=True)
+
+        if st.session_state[expanded_key]:
+            st.markdown(
+                f"{description} <a style='color: blue; text-decoration: underline; cursor: pointer;' "
+                f"onclick=\"window.sessionStorage.setItem('{expanded_key}', 'false');\">See less</a>",
+                unsafe_allow_html=True
+            )
+        else:
+            st.markdown(
+                f"{truncated_description}<a style='color: blue; text-decoration: underline; cursor: pointer;' "
+                f"onclick=\"window.sessionStorage.setItem('{expanded_key}', 'true');\">See more</a>",
+                unsafe_allow_html=True
+            )
+
+        st.markdown(f"<p style='font-style: italic;'>{date_range}</p>", unsafe_allow_html=True)
+        st.markdown("</div></div>", unsafe_allow_html=True)
+
+    def render(self):
+        # Curriculum Vitae Header
+        st.subheader("Curriculum Vitae 📜")
+        st.markdown("---")
+        st.markdown(f'<p style="color: gray;">{self.statement}</p>', unsafe_allow_html=True)
+
+        # Work Experience Section
+        st.markdown("#### Work Experience")
+        for i, experience in enumerate(sorted(self.work_experience, key=lambda x: x['date_range'], reverse=True)):
+            self._render_item(
+                experience['title'],
+                experience['company'],
+                experience['description'],
+                experience['date_range'],
+                i,
+                "#1c7bba",
+                "#5c9cc2"
+            )
+
+        # Education Section
+        st.markdown("#### Education")
+        for i, edu in enumerate(sorted(self.education, key=lambda x: x['date_range'], reverse=True)):
+            self._render_item(
+                edu['title'],
+                edu['institution'],
+                edu['description'],
+                edu['date_range'],
+                i,
+                "#1c7bba",
+                "#5c9cc2"
+            )
 
 
 # Example usage
