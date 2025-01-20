@@ -35,51 +35,6 @@ LINKEDIN_PROFILE = os.getenv("LINKEDIN_PROFILE")
 # Default WhatsApp number, which can be overridden by the .env file
 WHATSAPP_NUMBER= os.getenv("WHATSAPP_NUMBER")
 
-#
-# Fixed Navigation Buttons (Top Banner)
-#
-
-st.markdown("""
-    <style>
-    /* Navigation bar styles */
-    .top-nav {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        background-color: #222; /* Dark gray background */
-        z-index: 1000;
-        padding: 10px 0;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-        display: flex;
-        justify-content: center;
-        gap: 20px; /* Spacing between buttons */
-    }
-    .top-nav a {
-        text-decoration: none;
-        color: #ffffff; /* White text */
-        font-size: 16px;
-        font-weight: 600; /* Semi-bold text */
-        padding: 8px 16px;
-        border-radius: 5px; /* Rounded corners */
-        background-color: #007BFF; /* Blue button background */
-        transition: all 0.3s ease;
-    }
-    .top-nav a:hover {
-        background-color: #0056b3; /* Darker blue background on hover */
-        color: #ffffff; /* Keep white text on hover */
-    }
-    </style>
-    <div class="top-nav">
-        <a href="#hero-section">Hero</a>
-        <a href="#about-section">About</a>
-        <a href="#recsys-section">Recommendations</a>
-        <a href="#services-section">Services</a>
-        <a href="#connect-section">Connect</a>
-        <a href="#about-me-section">About Me</a>
-    </div>
-    <div style="margin-top: 60px;"></div> <!-- Offset to avoid overlap -->
-""", unsafe_allow_html=True)
-
 
 #
 # **Title Section**
