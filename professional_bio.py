@@ -330,3 +330,71 @@ cv = CurriculumVitae(
 
 # Render the Curriculum Vitae
 #cv.render()
+
+
+class CurriculumVitae:
+    def __init__(self, section_description, statement, experience_data):
+        """
+        :param section_description: A string representing the description for the Curriculum Vitae section.
+        :param statement: A string representing the main professional statement.
+        :param experience_data: A list of dictionaries with keys: title, company_or_institution, description, and date_range.
+        """
+        self.section_description = section_description
+        self.statement = statement
+        self.experience_data = experience_data
+
+    def render(self):
+        # Curriculum Vitae Header
+        st.subheader("Curriculum Vitae 📜")
+        st.markdown("---")
+        st.markdown(f'<p style="color: gray;">{self.statement}</p>', unsafe_allow_html=True)
+
+        # Work Experience and Education Sections (same layout)
+        for item in self.experience_data:
+            # Use the same layout for both work and education
+            st.markdown(f"""<div style='margin-bottom: 0.5rem; display: flex; align-items: flex-start;'>
+                <div style='
+                    width: 20px; height: 20px; 
+                    border: 5px solid #1c7bba; 
+                    border-radius: 50%; 
+                    box-shadow: 0 0 0 5px rgba(28, 123, 186, 0.2); 
+                    position: relative; 
+                    margin-right: 10px; 
+                    margin-top: 2px;  /* Align the circle with the top of the title */
+                '></div> 
+                <div style="max-width: 500px;">  <!-- Fixed width for descriptions -->
+                    <strong>{item['title']}</strong><br> 
+                    <em>{item['company_or_institution']}</em><br> 
+                    <p>{item['description']}</p>
+                    <p style='font-style: italic;'>{item['date_range']}</p>
+                </div>
+            </div>""", unsafe_allow_html=True)
+
+
+# Mock example
+cv = CurriculumVitae(
+    section_description="This is a description of the Curriculum Vitae section.",
+    statement="An experienced professional with a background in software development, data science, and project management.",
+    experience_data=[
+        {
+            'title': 'Software Developer',
+            'company_or_institution': 'Tech Solutions Inc.',
+            'description': 'Developed and maintained software solutions for various clients, focusing on full-stack development and optimization.',
+            'date_range': 'January 2020 - Present'
+        },
+        {
+            'title': 'Data Scientist',
+            'company_or_institution': 'Data Insights Ltd.',
+            'description': 'Applied machine learning techniques to predict consumer behavior, significantly increasing forecast accuracy.',
+            'date_range': 'June 2018 - December 2019'
+        },
+        {
+            'title': 'B.Sc. Computer Science',
+            'company_or_institution': 'University of Techville',
+            'description': 'Graduated with honors in Computer Science, with a focus on artificial intelligence and software engineering.',
+            'date_range': 'September 2014 - June 2018'
+        }
+    ]
+)
+
+#cv.render()
