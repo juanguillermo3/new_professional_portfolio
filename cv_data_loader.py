@@ -97,11 +97,11 @@ def professional_statement():
     Can be extended to fetch from a file, API, or database.
     """
     return (
-        "I am a Colombian economist with a professional background as a <em>quantitative research assistant</em>, "
-        "<em>remote data analyst</em>, <em>remote Python developer</em>, and <em>freelance consultant</em> in the development of "
-        "<em>machine learning technologies</em>. With over 5 years of experience delivering data analysis services—mostly "
-        "acquired in start-ups and freelance contexts—I specialize in making data analysis actionable through software automation. "
-        "My current professional focus is on <em>Data Analysis</em> and <em>Machine Learning engineering</em>, "
-        "delivering solutions that bridge data insights and operational impact."
+        "I am a Colombian economist with a professional background as a quantitative research assistant, remote data analyst, "
+        "remote Python developer, and freelance consultant in the development of machine learning technologies, with over 5 years "
+        "of experience delivering data analysis services (mostly acquired in start-ups and freelance contexts). The focus of my "
+        "current professional offering is on Data Analysis and Machine Learning engineering—making data analysis actionable through "
+        "software automation."
     )
+
 
