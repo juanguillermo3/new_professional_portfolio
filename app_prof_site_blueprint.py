@@ -66,7 +66,7 @@ render_section_separator()
 # **About this portfolio**
 #
 
-st.subheader("About this portfolio")
+st.subheader("About this portfolio 💡")
 st.markdown("---")
 st.markdown(
     f"""
