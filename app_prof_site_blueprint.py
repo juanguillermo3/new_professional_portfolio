@@ -35,6 +35,41 @@ LINKEDIN_PROFILE = os.getenv("LINKEDIN_PROFILE")
 # Default WhatsApp number, which can be overridden by the .env file
 WHATSAPP_NUMBER= os.getenv("WHATSAPP_NUMBER")
 
+#
+# Fixed Navigation Bar
+#
+st.markdown("""
+    <style>
+    .top-nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background-color: #f8f9fa;
+        z-index: 1000;
+        padding: 0.5em 1em;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-around;
+    }
+    .top-nav a {
+        text-decoration: none;
+        color: #007BFF;
+        font-weight: bold;
+        padding: 0.5em;
+    }
+    .top-nav a:hover {
+        color: #0056b3;
+    }
+    </style>
+    <div class="top-nav">
+        <a href="#hero-section">Home</a>
+        <a href="#about-section">About</a>
+        <a href="#recsys-section">Recommendations</a>
+        <a href="#services-section">Services</a>
+        <a href="#connect-section">Connect</a>
+    </div>
+    <div style="margin-top: 4em;"></div>
+""", unsafe_allow_html=True)
 
 #
 # **Title Section**
