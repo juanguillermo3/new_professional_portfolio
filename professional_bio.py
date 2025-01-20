@@ -169,10 +169,7 @@ class CurriculumVitae:
         circle_color = color_even if index % 2 == 0 else color_odd
         shadow_color = "rgba(28, 123, 186, 0.2)" if index % 2 == 0 else "rgba(92, 156, 194, 0.2)"
     
-        # Truncate description to a reasonable length (optional)
-        truncated_description = description[:150].rsplit(' ', 1)[0] + "... "
-    
-        # Render the item as a single component
+        # Render the item as a single component with the circle before the content
         st.markdown(f"""
             <div style='color: {"black" if index % 2 == 0 else "gray"}; margin-bottom: 1rem; display: flex; align-items: center;'>
                 <div style='
