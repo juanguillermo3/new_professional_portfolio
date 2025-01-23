@@ -12,6 +12,14 @@
         "repo_name": "lab_market_trends"
     },
     {
+        "title": "single provider for the job listings RDD",
+        "description": "A single source of truth for an RDD with job listings. Implements dependency injection to stack several services, such as ingestion and deduplication.",
+        "last_updated": "2025-01-23T09:28:00Z",
+        "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/main_provider_curated_job_listings_rdd.py",
+        "file_path": "main_provider_curated_job_listings_rdd.py",
+        "repo_name": "lab_market_trends"
+    },
+    {
         "title": "Generate Comprehensive Excel Reports",
         "description": "A flexible function to create Excel reports with dataframes, ggplots, leaflet maps, and nested lists of content.",
         "last_updated": "2025-01-17T06:10:14Z",
@@ -78,9 +86,19 @@
     {
         "title": "Recommendation System",
         "description": "Current implementation of the RecSys, featuring a vanilla ranking that sorts items by the most recently updated, filters by query (exact matching), and allows filtering by project.",
-        "last_updated": "2025-01-19T21:52:47Z",
+        "last_updated": "2025-01-20T05:48:54Z",
         "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/rec_sys.py",
         "file_path": "rec_sys.py",
         "repo_name": "new_professional_portfolio"
+    },
+    {
+        "title": "Example Jupyter Notebook",
+        "author": "Taylor White",
+        "date": "2025-01-14",
+        "description": "This notebook demonstrates extracting metadata for Jupyter.",
+        "last_updated": "2025-01-20T04:27:03Z",
+        "url": "https://github.com/juanguillermo3/predictive_analytics/blob/main/ensemble_learning.ipynb",
+        "file_path": "ensemble_learning.ipynb",
+        "repo_name": "predictive_analytics"
     }
 ]
