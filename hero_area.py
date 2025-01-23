@@ -209,7 +209,7 @@ detailed_offering="""
                 - *Excellence Tier* (I know the code line by heart): Python, R Studio, Stata, GPT.
                 - *Proficiency Tier*: Airflow, SQL, Spark, Bash scripting.
                 - *Currently Learning*: Docker, Kubernetes, GitHub, Big Data Cloud tools, SQLAlchemy, Django.
-            -**AI & LLM Disruption in Software Development**: I prepare myself by means of self-learning for the disruption of Artificial Intelligence in software development and the rise of LLM-powered applications.
+            - **AI & LLM Disruption in Software Development**: I prepare myself by means of self-learning for the disruption of Artificial Intelligence in software development and the rise of LLM-powered applications.
             - **Bonus: Rigorous Economic Mindset**: As an economist, I approach data analysis with a focus on causal reasoning, marginal effects, and 
               counterfactual analysis.
               """
