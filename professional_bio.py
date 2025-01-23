@@ -77,7 +77,7 @@ class CurriculumVitae:
         st.markdown(f'<p style="color: gray;">{self.statement}</p>', unsafe_allow_html=True)
 
         # Work Experience Section
-        st.markdown("#### Work Experience")
+        st.markdown("#### Work Experience 🔧")
         
         circle_color = "#1c7bba"  # Fixed circle color
         shadow_color = "rgba(28, 123, 186, 0.2)"  # Fixed shadow color
@@ -102,7 +102,7 @@ class CurriculumVitae:
             </div>""", unsafe_allow_html=True)
 
         # Education Section
-        st.markdown("#### Education")
+        st.markdown("#### Education 🎓")
         
         for edu in self.education:
             st.markdown(f"""<div style='margin-bottom: 0.5rem; display: flex; align-items: flex-start;'>
