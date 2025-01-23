@@ -55,19 +55,19 @@ class RecommendationSystem:
             related_items_count = sum(1 for item in self.metadata_list if item['repo_name'].lower() == repo_name)
             project_item_counts[repo_name] = related_items_count
 
-        # Sort repos by status (ongoing first), then by item count
-        self.repos_metadata.sort(
-            key=lambda x: (
-                x.get("status", "").lower() != "ongoing",  # False for ongoing, True for finished
-                -project_item_counts.get(x["title"].lower(), 0)  # Descending by item count
+            # Sort repos by ongoing status (True for ongoing first), then by item count
+            self.repos_metadata.sort(
+                key=lambda x: (
+                    not x.get("ongoing", False),  # False for ongoing (sorts first), True otherwise
+                    -project_item_counts.get(x["title"].lower(), 0)  # Descending by item count
+                )
             )
-        )
-
-        # Prepare titles for the selector with "(Ongoing)" appended if applicable
-        self.project_titles = [
-            f"{repo['title']} (Ongoing)" if repo.get("status", "").lower() == "ongoing" else repo["title"]
-            for repo in self.repos_metadata
-        ]
+            
+            # Prepare titles for the selector with "(Ongoing)" appended if applicable
+            self.project_titles = [
+                f"{repo['title']} (Ongoing)" if repo.get("ongoing", False) else repo["title"]
+                for repo in self.repos_metadata
+            ]
 
         # Map prettified titles to actual titles
         self.title_mapping = {
