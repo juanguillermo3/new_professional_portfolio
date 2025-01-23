@@ -19,14 +19,13 @@ def combine_metadata():
     # Convert app metadata to a dictionary for fast lookup
     app_metadata_dict = {item["title"]: item for item in app_metadata}
 
-    # Update GitHub metadata with app metadata, keeping only intersecting projects
+    # Perform a left join: update GitHub metadata with matching app metadata
     combined_metadata = []
     for project in github_metadata:
         title = project["title"]
-        if title in app_metadata_dict:
-            # Update the project with additional metadata
-            updated_project = {**project, **app_metadata_dict[title]}
-            combined_metadata.append(updated_project)
+        # Update GitHub metadata with app metadata if available
+        updated_project = {**project, **app_metadata_dict.get(title, {})}
+        combined_metadata.append(updated_project)
 
     return combined_metadata
 
