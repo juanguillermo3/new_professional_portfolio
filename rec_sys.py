@@ -7,6 +7,7 @@ import os
 import re
 import streamlit as st
 from datetime import datetime
+from git_api_utils import load_modules_metadata()  
 from git_api_utils import load_repos_metadata as load_github_metadata
 from app_end_metadata import load_repos_metadata as load_app_metadata
 
