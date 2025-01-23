@@ -63,11 +63,12 @@ class RecommendationSystem:
                 )
             )
             
-            # Prepare titles for the selector with "(Ongoing)" appended if applicable
-            self.project_titles = [
-                f"{repo['title']} (Ongoing)" if repo.get("ongoing", True) else repo["title"]
-                for repo in self.repos_metadata
-            ]
+        # Prepare titles for the selector with "(Ongoing)" appended if applicable
+        self.project_titles = [
+            repo["title"] if not repo.get("ongoing", True) 
+            else f"{repo['title']} (Ongoing)"
+            for repo in self.repos_metadata
+        ]
 
         # Map prettified titles to actual titles
         self.title_mapping = {
