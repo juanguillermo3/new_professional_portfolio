@@ -8,7 +8,7 @@ def load_repos_metadata():
         },
         {
             "title": "monkey_research",
-            "ongoing": False,
+            "ongoing": True,
             "tags": ["ethology", "monkeys", "behavior"]
         },
         {
