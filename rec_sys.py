@@ -48,11 +48,32 @@ class RecommendationSystem:
             related_items_count = sum(1 for item in self.metadata_list if item['repo_name'].lower() == repo_name)
             project_item_counts[repo_name] = related_items_count
 
-        # Sort repos based on the count of related items (in descending order)
-        self.repos_metadata.sort(key=lambda x: project_item_counts.get(x["title"].lower(), 0), reverse=True)
+        # Calculate project-related item counts and status
+        project_item_counts = {}
+        for repo in self.repos_metadata:
+            repo_name = repo["title"].lower()
+            related_items_count = sum(1 for item in self.metadata_list if item['repo_name'].lower() == repo_name)
+            project_item_counts[repo_name] = related_items_count
 
-        # Remove "All Projects" from the project filter
-        self.project_titles = [repo["title"] for repo in self.repos_metadata]
+        # Sort repos by status (ongoing first), then by item count
+        self.repos_metadata.sort(
+            key=lambda x: (
+                x.get("status", "").lower() != "ongoing",  # False for ongoing, True for finished
+                -project_item_counts.get(x["title"].lower(), 0)  # Descending by item count
+            )
+        )
+
+        # Prepare titles for the selector with "(Ongoing)" appended if applicable
+        self.project_titles = [
+            f"{repo['title']} (Ongoing)" if repo.get("status", "").lower() == "ongoing" else repo["title"]
+            for repo in self.repos_metadata
+        ]
+
+        # Map prettified titles to actual titles
+        self.title_mapping = {
+            self.prettify_title(title): repo["title"]
+            for title, repo in zip(self.project_titles, self.repos_metadata)
+        }
         
         # Set default to the project with the highest number of items
         self.default_project = self.repos_metadata[0]["title"] if self.repos_metadata else "No Projects"
