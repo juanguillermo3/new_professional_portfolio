@@ -7,7 +7,31 @@ import os
 import re
 import streamlit as st
 from git_api_utils import load_repos_metadata, load_modules_metadata
+from app_end_metadata import load_repos_metadata as load_app_metadata
 from datetime import datetime
+
+from github_metadata import load_repos_metadata as load_github_metadata
+from app_end_metadata import load_repos_metadata as load_app_metadata
+
+def combine_metadata():
+    # Load both sets of metadata
+    github_metadata = load_github_metadata()
+    app_metadata = load_app_metadata()
+
+    # Convert app metadata to a dictionary for fast lookup
+    app_metadata_dict = {item["title"]: item for item in app_metadata}
+
+    # Update GitHub metadata with app metadata, keeping only intersecting projects
+    combined_metadata = []
+    for project in github_metadata:
+        title = project["title"]
+        if title in app_metadata_dict:
+            # Update the project with additional metadata
+            updated_project = {**project, **app_metadata_dict[title]}
+            combined_metadata.append(updated_project)
+
+    return combined_metadata
+
 
 class RecommendationSystem:
     def __init__(self, num_recommended_items=6, num_columns=3, section_header="Recommendation System 🎯", section_description="Discover content tailored to your needs. Use the search bar to find recommendations and filter by project category."):
@@ -17,7 +41,7 @@ class RecommendationSystem:
         self.section_description = section_description
         
         # Cache the metadata
-        self.repos_metadata = load_repos_metadata()  
+        self.repos_metadata = combine_metadata()  
         self.metadata_list = load_modules_metadata()  
 
         # Sort the projects by the number of related items in metadata_list
