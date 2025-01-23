@@ -223,18 +223,18 @@ class RecommendationSystem:
                 with col:
                     self.render_card(rec, is_project=rec.get("is_project", False))
     def render_title_and_description(self, project_metadata):
-    """Renders the title and description of a project, centered and with margins."""
-    st.markdown(
-        f"""
-        <div style="text-align: center; margin-bottom: 20px;">
-            <h3>{self.prettify_title(project_metadata['title'])}</h3>
-        </div>
-        <div style="text-align: justify; margin-left: 10%; margin-right: 10%; margin-bottom: 20px;">
-            <p>{project_metadata['description']}</p>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+        """Renders the title and description of a project, centered and with margins."""
+        st.markdown(
+            f"""
+            <div style="text-align: center; margin-bottom: 20px;">
+                <h3>{self.prettify_title(project_metadata['title'])}</h3>
+            </div>
+            <div style="text-align: justify; margin-left: 10%; margin-right: 10%; margin-bottom: 20px;">
+                <p>{project_metadata['description']}</p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
     def render(self):
         st.subheader(self.section_header)
