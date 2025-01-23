@@ -176,22 +176,9 @@ class RecommendationSystem:
         # Query Input
         query = st.text_input("Search for recommendations by keyword (e.g., Python, R):", placeholder="Type a keyword and press Enter")
     
-        # Rank and filter projects based on the number of items in metadata_list that match repo_name
-        project_counts = {}
-        for item in self.metadata_list:
-            repo_name = item.get('repo_name', '').lower()
-            project_counts[repo_name] = project_counts.get(repo_name, 0) + 1
-        
-        # Sort the projects by the number of matching items in metadata_list
-        sorted_projects = sorted(self.repos_metadata, key=lambda repo: project_counts.get(repo['title'].lower(), 0), reverse=True)
-    
-        # Radial Button for Project Filter with prettified titles, now without 'All Projects'
-        prettified_titles = [self.prettify_title(repo["title"]) for repo in sorted_projects]
-        title_mapping = {self.prettify_title(repo["title"]): repo["title"] for repo in sorted_projects}
-    
-        # Set the first project as the default
+        prettified_titles = [self.prettify_title(title) for title in self.project_titles]
         selected_pretty_project = st.selectbox("Filter recommendations by project:", prettified_titles, index=0)
-        selected_project = title_mapping[selected_pretty_project]
+        selected_project = self.title_mapping[selected_pretty_project]
     
         # Call rank_items to get the ranked and filtered recommendations
         recommendations = self.rank_items(query, selected_project)
