@@ -6,11 +6,8 @@ description: Current implementation of the RecSys, featuring a vanilla ranking t
 import os
 import re
 import streamlit as st
-from git_api_utils import load_repos_metadata, load_modules_metadata
-from app_end_metadata import load_repos_metadata as load_app_metadata
 from datetime import datetime
-
-from github_metadata import load_repos_metadata as load_github_metadata
+from git_api_utils import load_repos_metadata as load_github_metadata
 from app_end_metadata import load_repos_metadata as load_app_metadata
 
 def combine_metadata():
