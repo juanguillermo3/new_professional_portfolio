@@ -9,7 +9,9 @@ class HeroArea:
     def __init__(self, quote, avatar_image: str = None, avatar_caption: str = "", 
                  code_samples: list = None, code_samples_intro: str = "Explore the code samples below:",
                  whatsapp_number: str = None, contact_button_intro: str = "Let's work together. Connect to talk about your specific requirements. I can start working for you almost instantly",
-                 professional_offering: str = "Simply put, I can develop application code for analytics applications at any stage of the ML/Data Analysis development workflow. I offer several key differentiators compared to typical data analysts: expertise in developing high-performance predictive analytics (Artificial Intelligence, Machine Learning, Genetic Optimization, Ensemble Models, Forecasting models); full commitment to research modern information tools for data analytics (Python, R, Stata, Airflow, Spark, SQL, Bash scripting, Cloud computing, GPT, SQLAlchemy, APIs, development frameworks, Git, and more); strong automation capabilities in complex empirical environments with multiple sources, schemas, data types, and mixes of structured/unstructured data; robust algorithm and application development skills in Python, including libraries like Requests, Selenium, Airflow, Pandas, Scikit-Learn, TensorFlow, Plotly, Flask, and Dash, as well as logging systems and object-oriented programming; knowledge of formal software development topics (architectural and design patterns, development methodologies, distributed systems, computing resources); and a very efficient development workflow supported by technologies like GPT."):
+                 professional_offering: str = "Simply put, I can develop application code for analytics applications at any stage of the ML/Data Analysis development workflow. I offer several key differentiators compared to typical data analysts: expertise in developing high-performance predictive analytics (Artificial Intelligence, Machine Learning, Genetic Optimization, Ensemble Models, Forecasting models); full commitment to research modern information tools for data analytics (Python, R, Stata, Airflow, Spark, SQL, Bash scripting, Cloud computing, GPT, SQLAlchemy, APIs, development frameworks, Git, and more); strong automation capabilities in complex empirical environments with multiple sources, schemas, data types, and mixes of structured/unstructured data; robust algorithm and application development skills in Python, including libraries like Requests, Selenium, Airflow, Pandas, Scikit-Learn, TensorFlow, Plotly, Flask, and Dash, as well as logging systems and object-oriented programming; knowledge of formal software development topics (architectural and design patterns, development methodologies, distributed systems, computing resources); and a very efficient development workflow supported by technologies like GPT.",
+                 detailed_offering: str ="This is amore detailed offering"
+                ):
         """
         Initialize the HeroArea class with a focus on a quote-styled main statement.
         :param quote: Main statement or quote to display as a single string or list of strings (paragraphs).
@@ -32,6 +34,7 @@ class HeroArea:
         self.whatsapp_number = whatsapp_number or os.getenv("WHATSAPP_NUMBER")
         self.contact_button_intro = contact_button_intro
         self.professional_offering = professional_offering
+        self.detailed_offering=detailed_offering
 
     def render(self):
         """
@@ -169,23 +172,7 @@ class HeroArea:
         # Render the code samples and WhatsApp button inside an expander
         with st.expander("Explore more"):
             # Render the 5+1 key differentials section
-            st.markdown("### (5+1) Key Differentials of My Professional Offering")
-            st.markdown("""
-            - **High-Performance Predictive Analytics**: I research and implement techniques for regression, classification, and forecasting use cases, 
-              with applications ranging from macroeconomic and financial forecasting to microdata predictions in various systems.
-            - **Software for Inference Distribution**: I develop applications (batch scripts, APIs, dashboards, web applications) to distribute insights 
-              and predictions across corporate environments.
-            - **Data Transformation Expertise**: As my former boss Susana Martinez Restrepo said, "I can perform data miracles." This refers to my 
-              ability to clean and organize datasets from complex, multi-source environments for research and model development.
-            - **Holistic Understanding of Modern Tooling**: I integrate tools and technologies for modern data analysis, committing to research the 
-              unique purposes of each tool and efficiently write workflows around them using GPT.
-            - **Skill Proficiency Classification**:
-                - *Excellence Tier*: Python, R Studio, Stata, GPT.
-                - *Proficiency Tier*: Airflow, SQL, Spark, Bash scripting.
-                - *Willing to Learn*: Docker, Kubernetes, GitHub, Big Data Cloud tools, SQLAlchemy, Django.
-            - **Bonus: Rigorous Economic Mindset**: As an economist, I approach data analysis with a focus on causal reasoning, marginal effects, and 
-              counterfactual analysis.
-            """)
+            st.markdown(self.detailed_offering)
             
             # Render the code samples (hidden by default)
             self.render_code_samples()
@@ -206,11 +193,37 @@ quote = [
     "comprising data mining and artificial intelligence models, algorithms, workflows, and information tools."
 ]
 
-
 hero_caption = "God told me I could either be good-looking or an excellent worker."
 
+detailed_offering="""
+              ### (5+1) Key Differentials of My Professional Offering
+            
+            - **High-Performance Predictive Analytics**: I research and implement techniques for regression, classification, and forecasting use cases, 
+              with applications ranging from macroeconomic and financial forecasting to microdata predictions in various systems.
+            - **Software for Inference Distribution**: I develop applications (batch scripts, APIs, dashboards, web applications) to distribute insights 
+              and predictions across corporate environments.
+            - **Data Transformation Expertise**: As my former boss Susana Martinez Restrepo said, "I can perform data miracles." This refers to my 
+              ability to clean and organize datasets from complex, multi-source environments for research and model development.
+            - **Holistic Understanding of Modern Tooling**: I integrate tools and technologies for modern data analysis, committing to research the 
+              unique purposes of each tool and efficiently write workflows around them using GPT.
+            - **Skill Proficiency Classification**:
+                - *Excellence Tier*: Python, R Studio, Stata, GPT.
+                - *Proficiency Tier*: Airflow, SQL, Spark, Bash scripting.
+                - *Willing to Learn*: Docker, Kubernetes, GitHub, Big Data Cloud tools, SQLAlchemy, Django.
+            - **Bonus: Rigorous Economic Mindset**: As an economist, I approach data analysis with a focus on causal reasoning, marginal effects, and 
+              counterfactual analysis.
+              """
+            
+
 # Instantiate and render HeroArea with code samples
-hero = HeroArea(quote=quote, avatar_image="jg_pick.jpg", avatar_caption=hero_caption,  code_samples_intro="As an easy entry-point to my work, you can check these selected code samples from my ML consultancies:",  whatsapp_number="573053658650")
+hero = HeroArea(
+quote=quote, 
+avatar_image="jg_pick.jpg", 
+avatar_caption=hero_caption,  
+code_samples_intro="As an easy entry-point to my work, you can check these selected code samples from my ML consultancies:",
+whatsapp_number="573053658650",
+detailed_offering=detailed_offering
+)
 #hero.render()
 
 
