@@ -206,10 +206,10 @@ detailed_offering="""
               ability to clean and organize datasets from complex, multi-source environments for research and model development.
             - **Holistic Understanding of Modern Tooling**: I integrate tools and technologies for modern data analysis, committing to research the 
               unique purposes of each tool and efficiently write workflows around them using GPT.
-            - **Skill Proficiency Classification**:
-                - *Excellence Tier*: Python, R Studio, Stata, GPT.
+                - *Excellence Tier* (I know the code line by heart): Python, R Studio, Stata, GPT.
                 - *Proficiency Tier*: Airflow, SQL, Spark, Bash scripting.
-                - *Willing to Learn*: Docker, Kubernetes, GitHub, Big Data Cloud tools, SQLAlchemy, Django.
+                - *Currently Learning*: Docker, Kubernetes, GitHub, Big Data Cloud tools, SQLAlchemy, Django.
+            -**AI & LLM Disruption in Software Development**: I prepare myself by means of self-learning for the disruption of Artificial Intelligence in software development and the rise of LLM-powered applications.
             - **Bonus: Rigorous Economic Mindset**: As an economist, I approach data analysis with a focus on causal reasoning, marginal effects, and 
               counterfactual analysis.
               """
