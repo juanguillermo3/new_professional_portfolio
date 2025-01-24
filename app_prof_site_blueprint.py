@@ -50,7 +50,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 #
-st.title("Welcome to My Professional Portfolio")
+st.title("Welcome to My Professional Site")
 # Get the LinkedIn profile URL from the environment
 LINKEDIN_PROFILE = os.getenv("LINKEDIN_PROFILE")
 
