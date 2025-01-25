@@ -299,15 +299,20 @@ class RecommendationSystem:
             # Generate the video filename based on the project title
             video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
             video_path = os.path.join('assets', video_filename)  # Path to the local MP4 file
-    
-            # Call the render_title_and_description method
+
+            # Render the title and description
             self.render_title_and_description(project_metadata)
-    
+            
+            # Create a placeholder for the video area
+            self.video_placeholder = st.empty()
+        
             # Check if the video file exists in the assets folder
             if os.path.exists(video_path):
-                st.video(video_path, loop=True, autoplay=True, muted=True)  # Display the video as full-width
+                # Display the video in the placeholder
+                self.video_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
             else:
-                st.warning(f"Video for {project_metadata['title']} not found.")
+                # Show a warning if the video is not found
+                self.video_placeholder.warning(f"Video for {project_metadata['title']} not found.")
     
         # Render recommendations in a grid
         for i in range(0, len(recommendations), self.num_columns):
