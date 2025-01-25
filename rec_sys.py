@@ -286,13 +286,11 @@ class RecommendationSystem:
             """,
             unsafe_allow_html=True,
         )
-    
-        # Create a placeholder for the video area
-        self.video_placeholder = st.empty()
+
     
         # Conditionally render the "See Galleria" button if 'galleria' attribute is present
         if galleria_present:
-            # Create the button with a fixed label and style
+            # Create the button with a fixed label and style, using an id for unique identification
             button_id = f"galleria_button_{rec['title']}"
             st.markdown(
                 f"""
@@ -308,11 +306,14 @@ class RecommendationSystem:
                 """,
                 unsafe_allow_html=True,
             )
-            
-            # Register callback by checking if the button was clicked
-            button_clicked = st.button(f"See Galleria for {rec['title']}", key=button_id)
-            if button_clicked:
-                # Callback logic writes to the video placeholder
+    
+            # Button trigger logic for the "See Galleria" button
+            # Streamlit button relies on a unique key to detect button press
+            button_trigger = st.button(f"Trigger Galleria for {rec['title']}", key=f"trigger_{button_id}")
+    
+            # Conditionally render content based on the button trigger
+            if button_trigger:
+                # Update the video placeholder or trigger any desired action here
                 with self.video_placeholder:
                     st.write(f"Galleria content for project: {rec['title']}")
                     st.image("https://via.placeholder.com/600", caption="Sample Galleria Image", use_container_width=True)
