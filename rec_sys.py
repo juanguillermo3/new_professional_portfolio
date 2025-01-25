@@ -264,7 +264,7 @@ class RecommendationSystem:
         # Fixed height for the card and allow vertical scrolling
         card_height = "200px"  # You can adjust this value to set the desired height
         overflow_style = "overflow-y: auto;"  # Enables vertical scrolling for overflowing content
-        
+    
         # Check if 'galleria' is present in the card
         galleria_present = "galleria" in rec
         
@@ -272,7 +272,7 @@ class RecommendationSystem:
         title = self.prettify_title(rec['title'])
         if galleria_present:
             title = f"⭐ {title}"
-        
+    
         st.markdown(
             f"""
             <div style="background-color: {background_color}; border: {border_style}; 
@@ -286,44 +286,19 @@ class RecommendationSystem:
             """,
             unsafe_allow_html=True,
         )
-        
+    
+        # Create a placeholder for the video area
+        self.video_placeholder = st.empty()
+    
         # Conditionally render the "See Galleria" button if 'galleria' attribute is present
         if galleria_present:
-            # Create the button
-            galleria_button_clicked = st.button(
-                label=f"View Galleria for {rec['title']}",
-                key=f"galleria_button_{rec['title']}"
-            )
+            button_clicked = st.button(f"See Galleria for {rec['title']}", key=f"galleria_button_{rec['title']}")
+            if button_clicked:
+                # Callback logic writes to the video placeholder
+                with self.video_placeholder:
+                    st.write(f"Galleria content for project: {rec['title']}")
+                    st.image("https://via.placeholder.com/600", caption="Sample Galleria Image", use_container_width=True)
     
-            # Style the button
-            st.markdown(
-                """
-                <style>
-                div.stButton > button {
-                    background-color: gold;
-                    color: white;
-                    border: none;
-                    padding: 10px 20px;
-                    font-size: 14px;
-                    border-radius: 5px;
-                    cursor: pointer;
-                }
-                div.stButton > button:hover {
-                    background-color: darkorange;
-                }
-                </style>
-                """,
-                unsafe_allow_html=True,
-            )
-    
-            # Callback logic for the button
-            if galleria_button_clicked:
-                # Simulate transition by first hiding the video area and showing the galleria
-                self.video_placeholder.empty()  # Clear the video
-                self.video_placeholder.write("Loading Galleria...")  # Placeholder before showing content
-                st.image("https://via.placeholder.com/600", caption="Sample Galleria Image", use_container_width=True)
-                st.write(f"Galleria content for project: {rec['title']}")
-        
         # Add "See in GitHub" button if URL is present
         if "url" in rec and rec["url"]:
             st.markdown(
@@ -343,7 +318,7 @@ class RecommendationSystem:
                 """,
                 unsafe_allow_html=True,
             )
-        
+    
         # Add "See Report" button if report_url is present
         if "report_url" in rec and rec["report_url"]:
             st.markdown(
@@ -363,7 +338,6 @@ class RecommendationSystem:
                 """,
                 unsafe_allow_html=True,
             )
-
 
            
     def render_title_and_description(self, project_metadata):
