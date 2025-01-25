@@ -294,9 +294,11 @@ class RecommendationSystem:
                 # Use self.video_placeholder to dynamically load content
                 self.video_placeholder.empty()  # Clear any existing content
                 self.video_placeholder.write("Loading Galleria...")  # Placeholder while loading
-                self.video_placeholder.image("https://via.placeholder.com/600", 
-                                             caption=f"Galleria content for project: {rec['title']}",
-                                             use_column_width=True)
+                self.video_placeholder.image(
+                    "https://via.placeholder.com/600", 
+                    caption=f"Galleria content for project: {rec['title']}",
+                    use_container_width=True,  # Updated parameter
+                )
     
         # Render the "See in GitHub" button if a URL is provided
         if "url" in rec and rec["url"]:
@@ -337,6 +339,7 @@ class RecommendationSystem:
                 """,
                 unsafe_allow_html=True,
             )
+
            
     def render_title_and_description(self, project_metadata):
         """Renders the title and description of a project, centered and with margins."""
