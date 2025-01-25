@@ -292,12 +292,31 @@ class RecommendationSystem:
     
         # Conditionally render the "See Galleria" button if 'galleria' attribute is present
         if galleria_present:
-            button_clicked = st.button(f"See Galleria for {rec['title']}", key=f"galleria_button_{rec['title']}")
+            # Create the button with a fixed label and style
+            button_id = f"galleria_button_{rec['title']}"
+            st.markdown(
+                f"""
+                <div style="display: flex; justify-content: center; margin-top: 10px;">
+                    <button id="{button_id}" style="background-color: gold; color: white; 
+                                                   border: none; padding: 10px 20px; 
+                                                   text-align: center; text-decoration: none; 
+                                                   font-size: 14px; cursor: pointer; 
+                                                   border-radius: 5px;">
+                        See Galleria
+                    </button>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+            
+            # Register callback by checking if the button was clicked
+            button_clicked = st.button(f"See Galleria for {rec['title']}", key=button_id)
             if button_clicked:
                 # Callback logic writes to the video placeholder
                 with self.video_placeholder:
                     st.write(f"Galleria content for project: {rec['title']}")
                     st.image("https://via.placeholder.com/600", caption="Sample Galleria Image", use_container_width=True)
+
     
         # Add "See in GitHub" button if URL is present
         if "url" in rec and rec["url"]:
