@@ -1,5 +1,21 @@
 [
     {
+        "title": "deduplication service for the job listings",
+        "description": "Provides a brute_force_deduplication to deduplicate an RDD with the job listings, by implementing a reduceByKey op which only keep the first text per vancancy code.",
+        "last_updated": "2025-01-23T09:51:54Z",
+        "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/deduplication.py",
+        "file_path": "deduplication.py",
+        "repo_name": "lab_market_trends"
+    },
+    {
+        "title": "ingestions service for the job listings",
+        "description": "Reads job listings from a disk folder where scrapped data is located. Discard files that dont follow the expected structure.",
+        "last_updated": "2025-01-23T09:52:15Z",
+        "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/ingestion_of_job_listings.py",
+        "file_path": "ingestion_of_job_listings.py",
+        "repo_name": "lab_market_trends"
+    },
+    {
         "project": "lab_market_trends",
         "title": "Jobs Vacancies scrapper",
         "description": "This modules performs scrapping of job listings",
@@ -18,6 +34,15 @@
         "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/main_provider_curated_job_listings_rdd.py",
         "file_path": "main_provider_curated_job_listings_rdd.py",
         "repo_name": "lab_market_trends"
+    },
+    {
+        "title": "Spatial correlation analysis",
+        "description": "Computes correlation between home ranges sizes and habitat parameters",
+        "report_url": "https://docs.google.com/spreadsheets/d/1KMhoqoPNrcP8Gp5eimwHmUeiFZZhKekL/edit?gid=521562748#gid=521562748",
+        "last_updated": "2025-01-25T03:55:16Z",
+        "url": "https://github.com/juanguillermo3/monkey_research/blob/main/correlation_patterns.R",
+        "file_path": "correlation_patterns.R",
+        "repo_name": "monkey_research"
     },
     {
         "title": "Generate Comprehensive Excel Reports",
@@ -70,7 +95,7 @@
         "description": "Streamlit based Front-End application for my professional portfolio.",
         "author": "Juan Guillermo",
         "field": "something",
-        "last_updated": "2025-01-20T05:14:27Z",
+        "last_updated": "2025-01-24T18:48:32Z",
         "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/app_prof_site_blueprint.py",
         "file_path": "app_prof_site_blueprint.py",
         "repo_name": "new_professional_portfolio"
@@ -78,7 +103,7 @@
     {
         "title": "Curriculum Vitae",
         "description": "CV area for a modern proffesional portfolio. The gist of it is serving an elegant front end representation of a couple of unordered lists: work items, experience items. Its design is inspired by modern job intermediation sites.",
-        "last_updated": "2025-01-20T03:11:08Z",
+        "last_updated": "2025-01-23T11:33:28Z",
         "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/professional_bio.py",
         "file_path": "professional_bio.py",
         "repo_name": "new_professional_portfolio"
@@ -86,7 +111,7 @@
     {
         "title": "Recommendation System",
         "description": "Current implementation of the RecSys, featuring a vanilla ranking that sorts items by the most recently updated, filters by query (exact matching), and allows filtering by project.",
-        "last_updated": "2025-01-20T05:48:54Z",
+        "last_updated": "2025-01-23T22:11:04Z",
         "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/rec_sys.py",
         "file_path": "rec_sys.py",
         "repo_name": "new_professional_portfolio"
