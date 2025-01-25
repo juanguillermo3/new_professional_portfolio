@@ -260,20 +260,19 @@ class RecommendationSystem:
         """Render a single recommendation card with fixed height and scrollable content."""
         background_color = "#f4f4f4" if not is_project else "#fff5e6"  # Silver background for non-project items
         border_style = "2px solid gold" if is_project else "1px solid #ddd"
-    
-        # Fixed height for the card and enable vertical scrolling
-        card_height = "200px"  # Adjustable height for the card
+        
+        # Fixed height for the card and allow vertical scrolling
+        card_height = "200px"  # You can adjust this value to set the desired height
         overflow_style = "overflow-y: auto;"  # Enables vertical scrolling for overflowing content
-    
+        
         # Check if 'galleria' is present in the card
         galleria_present = "galleria" in rec
-    
+        
         # Modify the title to include a star if 'galleria' is present
         title = self.prettify_title(rec['title'])
         if galleria_present:
             title = f"⭐ {title}"
-    
-        # Render the card layout
+        
         st.markdown(
             f"""
             <div style="background-color: {background_color}; border: {border_style}; 
@@ -287,20 +286,45 @@ class RecommendationSystem:
             """,
             unsafe_allow_html=True,
         )
-    
-        # Render the "View Galleria" button and connect it to self.video_placeholder
+        
+        # Conditionally render the "See Galleria" button if 'galleria' attribute is present
         if galleria_present:
-            if st.button(f"View Galleria for {rec['title']}", key=f"galleria_button_{rec['title']}"):
-                # Use self.video_placeholder to dynamically load content
-                self.video_placeholder.empty()  # Clear any existing content
-                self.video_placeholder.write("Loading Galleria...")  # Placeholder while loading
-                self.video_placeholder.image(
-                    "https://via.placeholder.com/600", 
-                    caption=f"Galleria content for project: {rec['title']}",
-                    use_container_width=True,  # Updated parameter
-                )
+            # Create the button
+            galleria_button_clicked = st.button(
+                label=f"View Galleria for {rec['title']}",
+                key=f"galleria_button_{rec['title']}"
+            )
     
-        # Render the "See in GitHub" button if a URL is provided
+            # Style the button
+            st.markdown(
+                """
+                <style>
+                div.stButton > button {
+                    background-color: gold;
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    font-size: 14px;
+                    border-radius: 5px;
+                    cursor: pointer;
+                }
+                div.stButton > button:hover {
+                    background-color: darkorange;
+                }
+                </style>
+                """,
+                unsafe_allow_html=True,
+            )
+    
+            # Callback logic for the button
+            if galleria_button_clicked:
+                # Simulate transition by first hiding the video area and showing the galleria
+                self.video_placeholder.empty()  # Clear the video
+                self.video_placeholder.write("Loading Galleria...")  # Placeholder before showing content
+                st.image("https://via.placeholder.com/600", caption="Sample Galleria Image", use_container_width=True)
+                st.write(f"Galleria content for project: {rec['title']}")
+        
+        # Add "See in GitHub" button if URL is present
         if "url" in rec and rec["url"]:
             st.markdown(
                 f"""
@@ -319,8 +343,8 @@ class RecommendationSystem:
                 """,
                 unsafe_allow_html=True,
             )
-    
-        # Render the "See Report" button if a report_url is provided
+        
+        # Add "See Report" button if report_url is present
         if "report_url" in rec and rec["report_url"]:
             st.markdown(
                 f"""
@@ -339,6 +363,7 @@ class RecommendationSystem:
                 """,
                 unsafe_allow_html=True,
             )
+
 
            
     def render_title_and_description(self, project_metadata):
