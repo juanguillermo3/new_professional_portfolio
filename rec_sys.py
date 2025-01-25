@@ -256,7 +256,88 @@ class RecommendationSystem:
                 unsafe_allow_html=True,
             )
 
-            
+    def render_card(self, rec, is_project=False):
+        """Render a single recommendation card with fixed height and scrollable content."""
+        background_color = "#f4f4f4" if not is_project else "#fff5e6"  # Silver background for non-project items
+        border_style = "2px solid gold" if is_project else "1px solid #ddd"
+    
+        # Fixed height for the card and enable vertical scrolling
+        card_height = "200px"  # Adjustable height for the card
+        overflow_style = "overflow-y: auto;"  # Enables vertical scrolling for overflowing content
+    
+        # Check if 'galleria' is present in the card
+        galleria_present = "galleria" in rec
+    
+        # Modify the title to include a star if 'galleria' is present
+        title = self.prettify_title(rec['title'])
+        if galleria_present:
+            title = f"⭐ {title}"
+    
+        # Render the card layout
+        st.markdown(
+            f"""
+            <div style="background-color: {background_color}; border: {border_style}; 
+                        border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+                        padding: 10px; text-align: center; height: {card_height}; {overflow_style}">
+                <img src="https://via.placeholder.com/150"
+                     style="border-radius: 10px; width: 100%; height: auto;">
+                <h5>{title}</h5>
+                <p style="text-align: justify; height: 100%; overflow-y: auto;">{rec['description']}</p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    
+        # Render the "View Galleria" button and connect it to self.video_placeholder
+        if galleria_present:
+            if st.button(f"View Galleria for {rec['title']}", key=f"galleria_button_{rec['title']}"):
+                # Use self.video_placeholder to dynamically load content
+                self.video_placeholder.empty()  # Clear any existing content
+                self.video_placeholder.write("Loading Galleria...")  # Placeholder while loading
+                self.video_placeholder.image("https://via.placeholder.com/600", 
+                                             caption=f"Galleria content for project: {rec['title']}",
+                                             use_column_width=True)
+    
+        # Render the "See in GitHub" button if a URL is provided
+        if "url" in rec and rec["url"]:
+            st.markdown(
+                f"""
+                <div style="display: flex; justify-content: center; margin-top: 10px;">
+                    <a href="{rec['url']}" target="_blank" 
+                       style="text-decoration: none;">
+                        <button style="background-color: #333; color: white; 
+                                       border: none; padding: 10px 20px; 
+                                       text-align: center; text-decoration: none; 
+                                       font-size: 14px; cursor: pointer; 
+                                       border-radius: 5px;">
+                            See in GitHub
+                        </button>
+                    </a>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+    
+        # Render the "See Report" button if a report_url is provided
+        if "report_url" in rec and rec["report_url"]:
+            st.markdown(
+                f"""
+                <div style="display: flex; justify-content: center; margin-top: 10px;">
+                    <a href="{rec['report_url']}" target="_blank" 
+                       style="text-decoration: none;">
+                        <button style="background-color: #34A853; color: white; 
+                                       border: none; padding: 10px 20px; 
+                                       text-align: center; text-decoration: none; 
+                                       font-size: 14px; cursor: pointer; 
+                                       border-radius: 5px;">
+                            See Report
+                        </button>
+                    </a>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+           
     def render_title_and_description(self, project_metadata):
         """Renders the title and description of a project, centered and with margins."""
         st.markdown(
