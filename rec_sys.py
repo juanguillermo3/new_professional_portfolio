@@ -287,11 +287,12 @@ class RecommendationSystem:
             unsafe_allow_html=True,
         )
 
-    
+
         # Conditionally render the "See Galleria" button if 'galleria' attribute is present
         if galleria_present:
-            # Create the button with a fixed label and style, using an id for unique identification
             button_id = f"galleria_button_{rec['title']}"
+            
+            # Render the button with a fixed label and style, including JavaScript to trigger event
             st.markdown(
                 f"""
                 <div style="display: flex; justify-content: center; margin-top: 10px;">
@@ -299,7 +300,8 @@ class RecommendationSystem:
                                                    border: none; padding: 10px 20px; 
                                                    text-align: center; text-decoration: none; 
                                                    font-size: 14px; cursor: pointer; 
-                                                   border-radius: 5px;">
+                                                   border-radius: 5px;" 
+                            onclick="window.parent.postMessage({{'type': 'galleria_click', 'button_id': '{button_id}'}}, '*');">
                         See Galleria
                     </button>
                 </div>
@@ -307,13 +309,13 @@ class RecommendationSystem:
                 unsafe_allow_html=True,
             )
     
-            # Button trigger logic for the "See Galleria" button
-            # Streamlit button relies on a unique key to detect button press
-            button_trigger = st.button(f"Trigger Galleria for {rec['title']}", key=f"trigger_{button_id}")
-    
-            # Conditionally render content based on the button trigger
-            if button_trigger:
-                # Update the video placeholder or trigger any desired action here
+            # JavaScript message handling to trigger callback logic
+            # We'll use the session state to track when the button was clicked
+            if 'galleria_click' in st.session_state and st.session_state.galleria_click == button_id:
+                # Reset the state to prevent repeated triggers
+                del st.session_state['galleria_click']
+                
+                # Perform the callback action (e.g., updating the video placeholder)
                 with self.video_placeholder:
                     st.write(f"Galleria content for project: {rec['title']}")
                     st.image("https://via.placeholder.com/600", caption="Sample Galleria Image", use_container_width=True)
