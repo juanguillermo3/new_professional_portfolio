@@ -137,68 +137,43 @@ class RecommendationSystem:
             unsafe_allow_html=True,
         )
 
-
-        # Conditionally render the "See Galleria" button if 'galleria' attribute is present
-        if galleria_present:
-            button_id = f"galleria_button_{rec['title']}"
-            
-            # Render the button with a fixed label and style, including JavaScript to trigger event
-            st.markdown(
-                f"""
-                <div style="display: flex; justify-content: center; margin-top: 10px;">
-                    <button id="{button_id}" style="background-color: gold; color: white; 
-                                                   border: none; padding: 10px 20px; 
-                                                   text-align: center; text-decoration: none; 
-                                                   font-size: 14px; cursor: pointer; 
-                                                   border-radius: 5px;" 
-                            onclick="window.parent.postMessage({{'type': 'galleria_click', 'button_id': '{button_id}'}}, '*');">
-                        See Galleria
-                    </button>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
-    
-            # JavaScript message handling to trigger callback logic
-            # We'll use the session state to track when the button was clicked
-            if 'galleria_click' in st.session_state and st.session_state.galleria_click == button_id:
-                # Reset the state to prevent repeated triggers
-                del st.session_state['galleria_click']
-                
-                # Perform the callback action (e.g., updating the video placeholder)
-                with self.video_placeholder:
-                    st.write(f"Galleria content for project: {rec['title']}")
-                    st.image("https://via.placeholder.com/600", caption="Sample Galleria Image", use_container_width=True)
-                    
-        # Generate a unique hash for the title
+  
+        # Generate a unique hash for the button ID based on the card title
         unique_hash = hashlib.md5(rec['title'].encode()).hexdigest()
-        galleria_present = "galleria" in rec
+        button_id = f"galleria_{unique_hash}"  # Unique button ID
     
-        if galleria_present:
-            button_key = f"galleria_{unique_hash}"  # Unique key using the hash
-            clicked = st.button("See Galleria", key=button_key)
+        # HTML for the custom button
+        st.markdown(
+            f"""
+            <div style="display: flex; justify-content: center; margin-top: 10px;">
+                <button id="{button_id}" style="background-color: gold; color: white; 
+                                                 border: none; padding: 10px 20px; 
+                                                 text-align: center; text-decoration: none; 
+                                                 font-size: 14px; cursor: pointer; 
+                                                 border-radius: 5px;" 
+                        onclick="window.parent.postMessage({{'type': 'galleria_click', 'button_id': '{button_id}'}}, '*');">
+                    See Galleria
+                </button>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
     
-            # Inject CSS to style only this button
-            st.markdown(
-                f"""
-                <style>
-                    button[data-testid="stButton"][key="{button_key}"] {{
-                        background-color: gold;
-                        color: white;
-                        border: none;
-                        padding: 10px 20px;
-                        font-size: 14px;
-                        cursor: pointer;
-                        border-radius: 5px;
-                    }}
-                </style>
-                """,
-                unsafe_allow_html=True,
-            )
-    
-            if clicked:
-                # Callback logic for this button
-                st.write(f"Galleria for card with title: '{rec['title']}' clicked!")
+        # JavaScript to handle the postMessage event
+        st.markdown(
+            """
+            <script>
+                window.addEventListener('message', function(event) {
+                    if (event.data.type === 'galleria_click') {
+                        const buttonId = event.data.button_id;
+                        const streamlitContainer = window.parent.document.querySelector('iframe');
+                        streamlitContainer.contentWindow.postMessage({type: 'streamlit_callback', button_id: buttonId}, '*');
+                    }
+                });
+            </script>
+            """,
+            unsafe_allow_html=True,
+        )
 
     
         # Add "See in GitHub" button if URL is present
