@@ -253,24 +253,17 @@ class RecommendationSystem:
         
         # HTML for the custom button
         if galleria_present:
-        
-            # Create a regular Streamlit primary button with callback registration
-            if st.button("See Galleria", key=button_id):
-                # Trigger callback when the button is clicked
-                self.show_galleria_details(rec)
-    
-            # JavaScript to handle the postMessage event
             st.markdown(
-                """
-                <script>
-                    window.addEventListener('message', function(event) {
-                        if (event.data.type === 'galleria_click') {
-                            const buttonId = event.data.button_id;
-                            const streamlitContainer = window.parent.document.querySelector('iframe');
-                            streamlitContainer.contentWindow.postMessage({type: 'streamlit_callback', button_id: buttonId}, '*');
-                        }
-                    });
-                </script>
+                f"""
+                <div style="display: flex; justify-content: center; margin-top: 10px;">
+                    <button style="background-color: gold; color: white; 
+                                   border: none; padding: 10px 20px; 
+                                   text-align: center; text-decoration: none; 
+                                   font-size: 14px; cursor: pointer; 
+                                   border-radius: 5px;">
+                        See Galleria
+                    </button>
+                </div>
                 """,
                 unsafe_allow_html=True,
             )
