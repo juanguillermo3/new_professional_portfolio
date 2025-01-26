@@ -348,29 +348,29 @@ class RecommendationSystem:
 
         if galleria_present:
         button_key = f"galleria_{rec['id']}"  # Unique key for the button
-            clicked = st.button("See Galleria", key=button_key)
-    
-            # Inject CSS to style only this button
-            st.markdown(
-                f"""
-                <style>
-                    button[kind="primary"][key="{button_key}"] {{
-                        background-color: gold;
-                        color: white;
-                        border: none;
-                        padding: 10px 20px;
-                        font-size: 14px;
-                        cursor: pointer;
-                        border-radius: 5px;
-                    }}
-                </style>
-                """,
-                unsafe_allow_html=True,
-            )
-    
-            if clicked:
-                # Callback logic for this button
-                st.write(f"Galleria {rec['id']} clicked!")
+        clicked = st.button("See Galleria", key=button_key)
+
+        # Inject CSS to style only this button
+        st.markdown(
+            f"""
+            <style>
+                button[kind="primary"][key="{button_key}"] {{
+                    background-color: gold;
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    font-size: 14px;
+                    cursor: pointer;
+                    border-radius: 5px;
+                }}
+            </style>
+            """,
+            unsafe_allow_html=True,
+        )
+
+        if clicked:
+            # Callback logic for this button
+            st.write(f"Galleria {rec['id']} clicked!")
 
     
         # Add "See in GitHub" button if URL is present
