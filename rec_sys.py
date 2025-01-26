@@ -253,21 +253,11 @@ class RecommendationSystem:
         
         # HTML for the custom button
         if galleria_present:
-            st.markdown(
-                f"""
-                <div style="display: flex; justify-content: center; margin-top: 10px;">
-                    <button id="{button_id}" style="background-color: {st.get_option('theme.primaryColor')}; color: white; 
-                                                     border: none; padding: 10px 20px; 
-                                                     text-align: center; text-decoration: none; 
-                                                     font-size: 14px; cursor: pointer; 
-                                                     border-radius: 5px;" 
-                            onclick="window.parent.postMessage({{'type': 'galleria_click', 'button_id': '{button_id}'}}, '*');">
-                        See Galleria
-                    </button>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
+        
+            # Create a regular Streamlit primary button with callback registration
+            if st.button("See Galleria", key=button_id):
+                # Trigger callback when the button is clicked
+                self.show_galleria_details(rec)
     
             # JavaScript to handle the postMessage event
             st.markdown(
@@ -284,20 +274,6 @@ class RecommendationSystem:
                 """,
                 unsafe_allow_html=True,
             )
-
-            # Callback to render the modal and display the project specifics when the button is clicked
-            # This assumes you are using a Streamlit Modal or a simple text rendering as a substitute
-            if st.session_state.get("galleria_click") == button_id:
-                st.markdown(
-                    f"""
-                    <div style="background-color: #fff; border: 1px solid #ccc; 
-                                padding: 20px; border-radius: 10px; max-width: 500px; margin: 0 auto;">
-                        <h3>Project Specifics for {rec['title']}</h3>
-                        <p>{rec.get('galleria_details', 'No details available for this project.')}</p>
-                    </div>
-                    """,
-                    unsafe_allow_html=True,
-                )
         
         # Add "See in GitHub" button if URL is present
         if "url" in rec and rec["url"]:
@@ -339,6 +315,19 @@ class RecommendationSystem:
                 unsafe_allow_html=True,
             )
 
+    def show_galleria_details(self, rec):
+        """Show details of the project or galleria when the button is clicked."""
+        # Display a modal-style content below the card for simplicity
+        st.markdown(
+            f"""
+            <div style="background-color: #fff; border: 1px solid #ccc; 
+                        padding: 20px; border-radius: 10px; max-width: 500px; margin: 20px auto;">
+                <h3>Project Specifics for {rec['title']}</h3>
+                <p>{rec.get('galleria_details', 'No details available for this project.')}</p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
     def render_title_and_description(self, project_metadata):
         """Renders the title and description of a project, centered and with margins."""
