@@ -216,7 +216,130 @@ class RecommendationSystem:
                 unsafe_allow_html=True,
             )
 
-           
+    def render_card(self, rec, is_project=False):
+        """Render a single recommendation card with fixed height and scrollable content."""
+        background_color = "#f4f4f4" if not is_project else "#fff5e6"  # Silver background for non-project items
+        border_style = "2px solid gold" if is_project else "1px solid #ddd"
+        
+        # Fixed height for the card and allow vertical scrolling
+        card_height = "200px"  # You can adjust this value to set the desired height
+        overflow_style = "overflow-y: auto;"  # Enables vertical scrolling for overflowing content
+    
+        # Check if 'galleria' is present in the card
+        galleria_present = "galleria" in rec
+        
+        # Modify the title to include a star if 'galleria' is present
+        title = self.prettify_title(rec['title'])
+        if galleria_present:
+            title = f"⭐ {title}"
+    
+        st.markdown(
+            f"""
+            <div style="background-color: {background_color}; border: {border_style}; 
+                        border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+                        padding: 10px; text-align: center; height: {card_height}; {overflow_style}">
+                <img src="https://via.placeholder.com/150"
+                     style="border-radius: 10px; width: 100%; height: auto;">
+                <h5>{title}</h5>
+                <p style="text-align: justify; height: 100%; overflow-y: auto;">{rec['description']}</p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+        # Generate a unique hash for the button ID based on the card title
+        unique_hash = hashlib.md5(rec['title'].encode()).hexdigest()
+        button_id = f"galleria_{unique_hash}"  # Unique button ID
+        
+        # HTML for the custom button
+        if galleria_present:
+            st.markdown(
+                f"""
+                <div style="display: flex; justify-content: center; margin-top: 10px;">
+                    <button id="{button_id}" style="background-color: {st.get_option('theme.primaryColor')}; color: white; 
+                                                     border: none; padding: 10px 20px; 
+                                                     text-align: center; text-decoration: none; 
+                                                     font-size: 14px; cursor: pointer; 
+                                                     border-radius: 5px;" 
+                            onclick="window.parent.postMessage({{'type': 'galleria_click', 'button_id': '{button_id}'}}, '*');">
+                        See Galleria
+                    </button>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+    
+            # JavaScript to handle the postMessage event
+            st.markdown(
+                """
+                <script>
+                    window.addEventListener('message', function(event) {
+                        if (event.data.type === 'galleria_click') {
+                            const buttonId = event.data.button_id;
+                            const streamlitContainer = window.parent.document.querySelector('iframe');
+                            streamlitContainer.contentWindow.postMessage({type: 'streamlit_callback', button_id: buttonId}, '*');
+                        }
+                    });
+                </script>
+                """,
+                unsafe_allow_html=True,
+            )
+
+            # Callback to render the modal and display the project specifics when the button is clicked
+            # This assumes you are using a Streamlit Modal or a simple text rendering as a substitute
+            if st.session_state.get("galleria_click") == button_id:
+                st.markdown(
+                    f"""
+                    <div style="background-color: #fff; border: 1px solid #ccc; 
+                                padding: 20px; border-radius: 10px; max-width: 500px; margin: 0 auto;">
+                        <h3>Project Specifics for {rec['title']}</h3>
+                        <p>{rec.get('galleria_details', 'No details available for this project.')}</p>
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
+        
+        # Add "See in GitHub" button if URL is present
+        if "url" in rec and rec["url"]:
+            st.markdown(
+                f"""
+                <div style="display: flex; justify-content: center; margin-top: 10px;">
+                    <a href="{rec['url']}" target="_blank" 
+                       style="text-decoration: none;">
+                        <button style="background-color: #333; color: white; 
+                                       border: none; padding: 10px 20px; 
+                                       text-align: center; text-decoration: none; 
+                                       font-size: 14px; cursor: pointer; 
+                                       border-radius: 5px;">
+                            See in GitHub
+                        </button>
+                    </a>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+    
+        # Add "See Report" button if report_url is present
+        if "report_url" in rec and rec["report_url"]:
+            st.markdown(
+                f"""
+                <div style="display: flex; justify-content: center; margin-top: 10px;">
+                    <a href="{rec['report_url']}" target="_blank" 
+                       style="text-decoration: none;">
+                        <button style="background-color: #34A853; color: white; 
+                                       border: none; padding: 10px 20px; 
+                                       text-align: center; text-decoration: none; 
+                                       font-size: 14px; cursor: pointer; 
+                                       border-radius: 5px;">
+                            See Report
+                        </button>
+                    </a>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+
     def render_title_and_description(self, project_metadata):
         """Renders the title and description of a project, centered and with margins."""
         st.markdown(
