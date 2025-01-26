@@ -10,6 +10,7 @@ from datetime import datetime
 from git_api_utils import load_modules_metadata
 from git_api_utils import load_repos_metadata as load_github_metadata
 from app_end_metadata import load_repos_metadata as load_app_metadata
+import hashlib
 
 def combine_metadata():
     # Load both sets of metadata
@@ -169,15 +170,17 @@ class RecommendationSystem:
                     st.write(f"Galleria content for project: {rec['title']}")
                     st.image("https://via.placeholder.com/600", caption="Sample Galleria Image", use_container_width=True)
 
+        galleria_present = "galleria" in rec
+    
         if galleria_present:
-            button_key = f"galleria_{rec['id']}"  # Unique key for the button
+            button_key = f"galleria_{unique_hash}"  # Unique key using the hash
             clicked = st.button("See Galleria", key=button_key)
     
             # Inject CSS to style only this button
             st.markdown(
                 f"""
                 <style>
-                    button[kind="primary"][key="{button_key}"] {{
+                    button[data-testid="stButton"][key="{button_key}"] {{
                         background-color: gold;
                         color: white;
                         border: none;
@@ -193,7 +196,7 @@ class RecommendationSystem:
     
             if clicked:
                 # Callback logic for this button
-                st.write(f"Galleria {rec['id']} clicked!")
+                st.write(f"Galleria for card with title: '{rec['title']}' clicked!")
 
     
         # Add "See in GitHub" button if URL is present
