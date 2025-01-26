@@ -137,7 +137,9 @@ class RecommendationSystem:
             unsafe_allow_html=True,
         )
 
-  
+        # Generate a unique hash for the button ID based on the card title
+        unique_hash = hashlib.md5(rec['title'].encode()).hexdigest()
+        button_id = f"galleria_{unique_hash}"  # Unique button ID
         # HTML for the custom button
         if galleria_present:
             st.markdown(
