@@ -169,7 +169,9 @@ class RecommendationSystem:
                 with self.video_placeholder:
                     st.write(f"Galleria content for project: {rec['title']}")
                     st.image("https://via.placeholder.com/600", caption="Sample Galleria Image", use_container_width=True)
-
+                    
+        # Generate a unique hash for the title
+        unique_hash = hashlib.md5(rec['title'].encode()).hexdigest()
         galleria_present = "galleria" in rec
     
         if galleria_present:
