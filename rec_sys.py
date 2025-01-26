@@ -138,42 +138,40 @@ class RecommendationSystem:
         )
 
   
-        # Generate a unique hash for the button ID based on the card title
-        unique_hash = hashlib.md5(rec['title'].encode()).hexdigest()
-        button_id = f"galleria_{unique_hash}"  # Unique button ID
-    
         # HTML for the custom button
-        st.markdown(
-            f"""
-            <div style="display: flex; justify-content: center; margin-top: 10px;">
-                <button id="{button_id}" style="background-color: gold; color: white; 
-                                                 border: none; padding: 10px 20px; 
-                                                 text-align: center; text-decoration: none; 
-                                                 font-size: 14px; cursor: pointer; 
-                                                 border-radius: 5px;" 
-                        onclick="window.parent.postMessage({{'type': 'galleria_click', 'button_id': '{button_id}'}}, '*');">
-                    See Galleria
-                </button>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
+        if galleria_present:
+            st.markdown(
+                f"""
+                <div style="display: flex; justify-content: center; margin-top: 10px;">
+                    <button id="{button_id}" style="background-color: gold; color: white; 
+                                                     border: none; padding: 10px 20px; 
+                                                     text-align: center; text-decoration: none; 
+                                                     font-size: 14px; cursor: pointer; 
+                                                     border-radius: 5px;" 
+                            onclick="window.parent.postMessage({{'type': 'galleria_click', 'button_id': '{button_id}'}}, '*');">
+                        See Galleria
+                    </button>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
     
-        # JavaScript to handle the postMessage event
-        st.markdown(
-            """
-            <script>
-                window.addEventListener('message', function(event) {
-                    if (event.data.type === 'galleria_click') {
-                        const buttonId = event.data.button_id;
-                        const streamlitContainer = window.parent.document.querySelector('iframe');
-                        streamlitContainer.contentWindow.postMessage({type: 'streamlit_callback', button_id: buttonId}, '*');
-                    }
-                });
-            </script>
-            """,
-            unsafe_allow_html=True,
-        )
+            # JavaScript to handle the postMessage event
+            st.markdown(
+                """
+                <script>
+                    window.addEventListener('message', function(event) {
+                        if (event.data.type === 'galleria_click') {
+                            const buttonId = event.data.button_id;
+                            const streamlitContainer = window.parent.document.querySelector('iframe');
+                            streamlitContainer.contentWindow.postMessage({type: 'streamlit_callback', button_id: buttonId}, '*');
+                        }
+                    });
+                </script>
+                """,
+                unsafe_allow_html=True,
+            )
+
 
     
         # Add "See in GitHub" button if URL is present
