@@ -1,1 +1,32 @@
-[]
+[][
+    {
+        "title": "lab_market_trends",
+        "description": "This projects aims to detect/analize emergent trends in the demand side of the colombian laboral market trough NLP on the vancancies published in the SPE.",
+        "image": "https://raw.githubusercontent.com/juanguillermo3/lab_market_trends/main/project_image.png",
+        "url": "https://github.com/juanguillermo3/lab_market_trends"
+    },
+    {
+        "title": "monkey_research",
+        "description": "an ethology research which aims to analize the time budgets for a few monkey species and details about behaviour, diet and living environments",
+        "image": "https://raw.githubusercontent.com/juanguillermo3/monkey_research/main/project_image.png",
+        "url": "https://github.com/juanguillermo3/monkey_research"
+    },
+    {
+        "title": "new_professional_portfolio",
+        "description": "to experiment new ideas to serve a professional portfolio",
+        "image": "https://raw.githubusercontent.com/juanguillermo3/new_professional_portfolio/main/project_image.png",
+        "url": "https://github.com/juanguillermo3/new_professional_portfolio"
+    },
+    {
+        "title": "predictive_analytics",
+        "description": "A house specialty, the series of predictive analytics groups several consultancies focused on the development of high-performance ML systems, with a component of research and development on algorithms to boost performance through maximum hyperparameter configuration.",
+        "image": "https://raw.githubusercontent.com/juanguillermo3/predictive_analytics/main/project_image.png",
+        "url": "https://github.com/juanguillermo3/predictive_analytics"
+    },
+    {
+        "title": "evaluation_job_program",
+        "description": "I was hired as a remote research assistant to assess the effectiveness of a job intermediation program administered by a job agency located in Bogotá, using program evaluation techniques. We used propensity score matching to account for selection bias due to the job agency's targeting policies.",
+        "image": "https://raw.githubusercontent.com/juanguillermo3/evaluation_job_program/main/project_image.png",
+        "url": "https://github.com/juanguillermo3/evaluation_job_program"
+    }
+]
