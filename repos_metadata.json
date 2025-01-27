@@ -1,4 +1,10 @@
 [
+    { "title": "evaluation_of_job_intermediation_program",
+      "description": "I was hired as a remote research assistant to assess the effectiveness of a job intermediation program administered by a job agency located in Bogotá, using program evaluation techniques. We used propensity score matching to account for selection bias due to the job agency's targeting policies.",
+      "image": "https://raw.githubusercontent.com/juanguillermo3/evaluation_of_job_intermediation_program/main/project_image.png",
+      "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program"
+    },
+    
     {
         "title": "lab_market_trends",
         "description": "This projects aims to detect/analize emergent trends in the demand side of the colombian laboral market trough NLP on the vancancies published in the SPE.",
