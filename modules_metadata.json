@@ -42,8 +42,7 @@
         "last_updated": "2025-01-25T03:55:16Z",
         "url": "https://github.com/juanguillermo3/monkey_research/blob/main/correlation_patterns.R",
         "file_path": "correlation_patterns.R",
-        "repo_name": "monkey_research",
-        "galleria": "True"
+        "repo_name": "monkey_research"
     },
     {
         "title": "Generate Comprehensive Excel Reports",
@@ -112,7 +111,7 @@
     {
         "title": "Recommendation System",
         "description": "Current implementation of the RecSys, featuring a vanilla ranking that sorts items by the most recently updated, filters by query (exact matching), and allows filtering by project.",
-        "last_updated": "2025-01-23T22:11:04Z",
+        "last_updated": "2025-01-26T20:04:36Z",
         "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/rec_sys.py",
         "file_path": "rec_sys.py",
         "repo_name": "new_professional_portfolio"
@@ -122,7 +121,6 @@
         "author": "Taylor White",
         "date": "2025-01-14",
         "description": "This notebook demonstrates extracting metadata for Jupyter.",
-        "last_updated": "2025-01-20T04:27:03Z",
         "url": "https://github.com/juanguillermo3/predictive_analytics/blob/main/ensemble_learning.ipynb",
         "file_path": "ensemble_learning.ipynb",
         "repo_name": "predictive_analytics"
