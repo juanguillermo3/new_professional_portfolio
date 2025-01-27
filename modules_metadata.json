@@ -42,7 +42,8 @@
         "last_updated": "2025-01-25T03:55:16Z",
         "url": "https://github.com/juanguillermo3/monkey_research/blob/main/correlation_patterns.R",
         "file_path": "correlation_patterns.R",
-        "repo_name": "monkey_research"
+        "repo_name": "monkey_research",
+        "galleria": True
     },
     {
         "title": "Generate Comprehensive Excel Reports",
