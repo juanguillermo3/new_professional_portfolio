@@ -268,6 +268,14 @@ class RecommendationSystem:
                 """,
                 unsafe_allow_html=True,
             )
+        # Listen for the button click event
+        
+        if 'button_click' in st.session_state:
+            if st.session_state.button_click:
+                st.write("Button Clicked!")
+                # Reset the session state after click to prevent rerun from continuing the action
+                st.session_state.button_clicked = False
+                st.experimental_rerun()
         
         # Add "See in GitHub" button if URL is present
         if "url" in rec and rec["url"]:
