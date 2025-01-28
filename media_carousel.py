@@ -1,17 +1,53 @@
+import os
+import glob
 import streamlit as st
-import time
 
 class MediaCarousel:
     def __init__(self, media_content, session_key=None, update_interval=None):
-        self.media_content = media_content
+        """
+        Initializes the carousel.
+        
+        :param media_content: Either a list of media content (strings or URLs) or a path to a folder of media files.
+        :param session_key: The key for session state to store the current index (optional).
+        :param update_interval: Time interval (in seconds) for automatic updates (optional).
+        """
         self.session_key = session_key or f"media_carousel_{id(self)}"
         self.update_interval = update_interval  # Interval in seconds for auto-update
+        
+        # Handle media content based on type (list or folder path)
+        if isinstance(media_content, list):
+            self.media_content = media_content  # Use directly if it's a list
+        elif os.path.isdir(media_content):
+            # Load files from the folder if media_content is a folder path
+            self.media_content = self.load_media_from_folder(media_content)
+        else:
+            raise ValueError("media_content should be a list of media items or a valid folder path.")
+
         # Initialize the index in the session state if not already initialized
         if self.session_key not in st.session_state:
             st.session_state[self.session_key] = 0
         
         # The index will be tracked by the instance variable
         self.index = st.session_state[self.session_key]
+
+    def load_media_from_folder(self, folder_path):
+        """
+        Loads media files from a folder.
+        
+        :param folder_path: The path to the folder containing media files (e.g., images, videos).
+        :return: A list of media file paths.
+        """
+        # Define the types of files to be considered media (you can expand this list)
+        media_extensions = ['*.jpg', '*.jpeg', '*.png', '*.gif', '*.mp4', '*.avi']
+        media_files = []
+        
+        for ext in media_extensions:
+            media_files.extend(glob.glob(os.path.join(folder_path, ext)))
+        
+        # Sort the files for consistent order
+        media_files.sort()
+        
+        return media_files
 
     def next_item(self):
         """Navigate to the next item."""
