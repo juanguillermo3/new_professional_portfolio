@@ -284,6 +284,19 @@ class RecommendationSystem:
                 with col:
                     self.render_card(rec, is_project=rec.get("is_project", False))
 
+        # Incorporate Galleria if the folder exists
+        if selected_project and project_metadata:
+            self.show_galleria(selected_project)
+            
+    def show_galleria(self, project_title):
+        """Check if the galleria folder exists and render the details."""
+        galleria_path = os.path.join('assets', f"{project_title}_galleria")
+        if os.path.exists(galleria_path):
+            st.markdown(f"### Galleria for {project_title}")
+            st.markdown(f"Explore more in the [Galleria folder](./assets/{project_title}_galleria).")
+        else:
+            st.warning(f"Galleria for {project_title} not found.")
+
 
 
 # Example usage
