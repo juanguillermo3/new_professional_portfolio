@@ -2,6 +2,7 @@ import os
 import glob
 import streamlit as st
 import time
+import streamlit.components.v1 as components
 
 class MediaCarousel:
     def __init__(self, media_content, session_key=None, update_interval=None):
@@ -196,6 +197,7 @@ class MediaCarousel:
                 st.session_state[f"{self.session_key}_last_update"] = current_time
                 st.experimental_rerun()
 
+
     def parse_media(self, media_path):
         """
         Parses media based on file extension and returns appropriate HTML or Streamlit format.
@@ -213,10 +215,11 @@ class MediaCarousel:
             # Render video with autoplay, muted, and looping
             return st.video(media_path, loop=True, autoplay=True, muted=True)
         elif ext == '.html':
-            # Render HTML content directly, assuming it contains an <img> tag or other HTML
+            # Render HTML content with embedded JavaScript or dynamic elements
             with open(media_path, 'r') as file:
                 html_content = file.read()
-            return st.markdown(html_content, unsafe_allow_html=True)
+            # Use Streamlit's HTML component to render HTML with JS and other dynamic content
+            components.html(html_content, height=600)
         else:
             # Fallback: Display the file path if unsupported format
             return st.write(media_path)
