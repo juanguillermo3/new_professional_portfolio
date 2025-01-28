@@ -1,12 +1,5 @@
 import streamlit as st
 import time
-import threading
-
-import streamlit as st
-import time
-
-import streamlit as st
-import time
 
 class MediaCarousel:
     def __init__(self, media_content, session_key=None, update_interval=None):
@@ -52,7 +45,32 @@ class MediaCarousel:
         st.write(f"**Item {self.index + 1} of {len(self.media_content)}:**")
         st.write(self.media_content[self.index])
         
-        # Navigation buttons
+        # Custom CSS to style the buttons and center them vertically
+        st.markdown("""
+            <style>
+            .stButton>button {
+                background-color: #e0e0e0;
+                color: #333;
+                border: 1px solid #ccc;
+                border-radius: 8px;
+                padding: 10px;
+                font-size: 16px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            .stButton>button:hover {
+                background-color: #d6d6d6;
+            }
+            .stColumn {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+            }
+            </style>
+        """, unsafe_allow_html=True)
+        
+        # Navigation buttons with centered alignment
         col1, col2 = st.columns([1, 1])
         with col1:
             if st.button("◀️ Previous", key=f"{self.session_key}_prev"):
@@ -60,7 +78,6 @@ class MediaCarousel:
         with col2:
             if st.button("Next ▶️", key=f"{self.session_key}_next"):
                 self.next_item()
-
 
 
 # Example media content
