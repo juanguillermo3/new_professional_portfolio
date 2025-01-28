@@ -1,6 +1,7 @@
 import os
 import glob
 import streamlit as st
+import time
 
 class MediaCarousel:
     def __init__(self, media_content, session_key=None, update_interval=None):
