@@ -1,46 +1,60 @@
 [
-    { "title": "Assess Program Balance for Treatment and Control Groups",
-      "description": "This function assesses the balance of independent variables across treatment and control groups by performing statistical tests (e.g., T-tests for continuous variables, Proportion tests for binary variables).",
-      "last_updated": "2025-01-27T04:02:35Z",
-      "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/assess_program_balance.R",
-      "file_path": "assess_program_balance.R",
-      "repo_name": "evaluation_of_job_intermediation_program"},
-    { "title": "Demographic Model",
-      "description": "Provides a demographic model for workers registered with the job agency.",
-      "last_updated": "2025-01-27T04:02:35Z",
-      "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/demographics.R",
-      "file_path": "demographics.R",
-      "repo_name": "evaluation_of_job_intermediation_program"},
-    { "title": "Worker Participation in Job Intermediation Programs",
-      "description": "Describes workers' participation in multiple job intermediation programs provided by the agency personnel.",
-      "last_updated": "2025-01-27T04:02:35Z",
-      "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/experimental_cases.R",
-      "file_path": "experimental_cases.R",
-      "repo_name": "evaluation_of_job_intermediation_program"},
-    { "title": "Data Sharing and Persistence Utilities",
-      "description": "Provides tools to facilitate data sharing and persistence between application modules.",
-      "last_updated": "2025-01-27T04:02:35Z",
-      "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/persistence _utils.R",
-      "file_path": "persistence _utils.R",
-      "repo_name": "evaluation_of_job_intermediation_program"},
-    { "title": "Data Sharing and Persistence Utilities",
-      "description": "Provides tools to facilitate data sharing and persistence between application modules.",
-      "last_updated": "2025-01-27T04:03:38Z",
-      "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/persistence_utils.R",
-      "file_path": "persistence_utils.R",
-      "repo_name": "evaluation_of_job_intermediation_program"},
-    { "title": "sample balance in workers sample",
-      "description": "merges demographic and professional information from workers, along with participation in job intermerdiation, to a single sample. It asses balance in program assignation.",
-      "last_updated": "2025-01-27T04:16:01Z",
-      "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/sample_balance_in_workers_sample.R",
-      "file_path": "sample_balance_in_workers_sample.R",
-      "repo_name": "evaluation_of_job_intermediation_program"},
-    { "title": "Worker Profiles Module",
-      "description": "Extracts and processes features from the curricula of workers registered with the job agency.",
-      "last_updated": "2025-01-27T04:02:35Z",
-      "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/worker_profiles.R",
-      "file_path": "worker_profiles.R",
-      "repo_name": "evaluation_of_job_intermediation_program"},
+    {
+        "title": "Assess Program Balance for Treatment and Control Groups",
+        "description": "This function assesses the balance of independent variables across treatment and control groups by performing statistical tests (e.g., T-tests for continuous variables, Proportion tests for binary variables).",
+        "last_updated": "2025-01-27T04:02:35Z",
+        "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/assess_program_balance.R",
+        "file_path": "assess_program_balance.R",
+        "repo_name": "evaluation_of_job_intermediation_program"
+    },
+    {
+        "title": "Demographic Model",
+        "description": "Provides a demographic model for workers registered with the job agency.",
+        "last_updated": "2025-01-27T04:02:35Z",
+        "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/demographics.R",
+        "file_path": "demographics.R",
+        "repo_name": "evaluation_of_job_intermediation_program"
+    },
+    {
+        "title": "Worker Participation in Job Intermediation Programs",
+        "description": "Describes workers' participation in multiple job intermediation programs provided by the agency personnel.",
+        "last_updated": "2025-01-27T04:02:35Z",
+        "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/experimental_cases.R",
+        "file_path": "experimental_cases.R",
+        "repo_name": "evaluation_of_job_intermediation_program"
+    },
+    {
+        "title": "Data Sharing and Persistence Utilities",
+        "description": "Provides tools to facilitate data sharing and persistence between application modules.",
+        "last_updated": "2025-01-27T04:02:35Z",
+        "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/persistence _utils.R",
+        "file_path": "persistence _utils.R",
+        "repo_name": "evaluation_of_job_intermediation_program"
+    },
+    {
+        "title": "Data Sharing and Persistence Utilities",
+        "description": "Provides tools to facilitate data sharing and persistence between application modules.",
+        "last_updated": "2025-01-27T04:03:38Z",
+        "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/persistence_utils.R",
+        "file_path": "persistence_utils.R",
+        "repo_name": "evaluation_of_job_intermediation_program"
+    },
+    {
+        "title": "sample balance in workers sample",
+        "description": "merges demographic and professional information from workers, along with participation in job intermerdiation, to a single sample. It asses balance in program assignation.",
+        "last_updated": "2025-01-27T04:16:01Z",
+        "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/sample_balance_in_workers_sample.R",
+        "file_path": "sample_balance_in_workers_sample.R",
+        "repo_name": "evaluation_of_job_intermediation_program"
+    },
+    {
+        "title": "Worker Profiles Module",
+        "description": "Extracts and processes features from the curricula of workers registered with the job agency.",
+        "last_updated": "2025-01-27T04:02:35Z",
+        "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/worker_profiles.R",
+        "file_path": "worker_profiles.R",
+        "repo_name": "evaluation_of_job_intermediation_program"
+    },
     {
         "title": "deduplication service for the job listings",
         "description": "Provides a brute_force_deduplication to deduplicate an RDD with the job listings, by implementing a reduceByKey op which only keep the first text per vancancy code.",
@@ -167,5 +181,53 @@
         "url": "https://github.com/juanguillermo3/predictive_analytics/blob/main/ensemble_learning.ipynb",
         "file_path": "ensemble_learning.ipynb",
         "repo_name": "predictive_analytics"
+    },
+    {
+        "title": "Dates Range",
+        "description": "Describes de temporal range (dates covered) by the job listings",
+        "last_updated": "2025-01-28T05:26:59Z",
+        "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/dates.py",
+        "file_path": "dates.py",
+        "repo_name": "lab_market_trends"
+    },
+    {
+        "title": "Feature Extraction",
+        "description": "Perform extraction of significant features for the job listings dataset.",
+        "last_updated": "2025-01-28T05:28:22Z",
+        "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/features.py",
+        "file_path": "features.py",
+        "repo_name": "lab_market_trends"
+    },
+    {
+        "title": "single provider for the job listings RDD",
+        "description": "A single source of truth for an RDD with job listings. Implements dependency injection to stack several services, such as ingestion and deduplication.",
+        "last_updated": "2025-01-28T05:28:38Z",
+        "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/main_provider_curated_job_listings_rdd.py",
+        "file_path": "main_provider_curated_job_listings_rdd.py",
+        "repo_name": "lab_market_trends"
+    },
+    {
+        "title": "Phrases discovery",
+        "description": "Provides tool for discovery of significant N-gram based phrases based on n-grams and lift metrics.",
+        "last_updated": "2025-01-28T00:38:01Z",
+        "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/phrases.py",
+        "file_path": "phrases.py",
+        "repo_name": "lab_market_trends"
+    },
+    {
+        "title": "Preprocessing",
+        "description": "Provides tools to prepare job listings for feature discovery/extraction on standardized text.",
+        "last_updated": "2025-01-28T05:28:53Z",
+        "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/preprocess.py",
+        "file_path": "preprocess.py",
+        "repo_name": "lab_market_trends"
+    },
+    {
+        "title": "Wages Analysis",
+        "description": "Plots the distribution on wages in job listings, overall vs segment specific",
+        "last_updated": "2025-01-28T05:26:59Z",
+        "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/wages.py",
+        "file_path": "wages.py",
+        "repo_name": "lab_market_trends"
     }
 ]
