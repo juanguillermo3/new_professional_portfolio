@@ -2,13 +2,16 @@ import streamlit as st
 import time
 import threading
 
+import streamlit as st
+import time
+
 class MediaCarousel:
     def __init__(self, media_content, session_key=None, update_interval=None):
         self.media_content = media_content
         self.session_key = session_key or f"media_carousel_{id(self)}"
         self.update_interval = update_interval  # Interval in seconds for auto-update
         
-        # Initialize session state for carousel index
+        # Initialize session state for carousel index if not set
         if self.session_key not in st.session_state:
             st.session_state[self.session_key] = 0
 
@@ -21,19 +24,23 @@ class MediaCarousel:
         st.session_state[self.session_key] = (st.session_state[self.session_key] - 1) % len(self.media_content)
 
     def start_auto_update(self):
-        """Start automatic updates in a separate thread."""
+        """Handle periodic updates in the app loop."""
         if self.update_interval:
-            def update_loop():
-                while True:
-                    time.sleep(self.update_interval)
-                    self.next_item()
-                    st.experimental_rerun()
+            # Time tracking for auto-update
+            last_update_time = st.session_state.get(f"{self.session_key}_last_update", time.time())
+            current_time = time.time()
 
-            # Start the thread in daemon mode to run in the background
-            threading.Thread(target=update_loop, daemon=True).start()
+            if current_time - last_update_time >= self.update_interval:
+                self.next_item()
+                # Update the last update time
+                st.session_state[f"{self.session_key}_last_update"] = current_time
+                st.experimental_rerun()
 
     def render(self):
         """Render the carousel UI."""
+        # Automatically update if the interval is set
+        self.start_auto_update()
+
         # Display the current item
         current_index = st.session_state[self.session_key]
         st.write(f"**Item {current_index + 1} of {len(self.media_content)}:**")
@@ -48,9 +55,6 @@ class MediaCarousel:
             if st.button("Next ▶️", key=f"{self.session_key}_next"):
                 self.next_item()
 
-        # Start the auto-update loop if an interval is specified
-        if self.update_interval:
-            self.start_auto_update()
 
 # Example media content
 media_items = [
