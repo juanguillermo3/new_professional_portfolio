@@ -5,23 +5,30 @@ import threading
 import streamlit as st
 import time
 
+import streamlit as st
+import time
+
 class MediaCarousel:
     def __init__(self, media_content, session_key=None, update_interval=None):
         self.media_content = media_content
         self.session_key = session_key or f"media_carousel_{id(self)}"
         self.update_interval = update_interval  # Interval in seconds for auto-update
-        
-        # Initialize session state for carousel index if not set
+        # Initialize the index in the session state if not already initialized
         if self.session_key not in st.session_state:
             st.session_state[self.session_key] = 0
+        
+        # The index will be tracked by the instance variable
+        self.index = st.session_state[self.session_key]
 
     def next_item(self):
         """Navigate to the next item."""
-        st.session_state[self.session_key] = (st.session_state[self.session_key] + 1) % len(self.media_content)
+        self.index = (self.index + 1) % len(self.media_content)
+        st.session_state[self.session_key] = self.index
 
     def previous_item(self):
         """Navigate to the previous item."""
-        st.session_state[self.session_key] = (st.session_state[self.session_key] - 1) % len(self.media_content)
+        self.index = (self.index - 1) % len(self.media_content)
+        st.session_state[self.session_key] = self.index
 
     def start_auto_update(self):
         """Handle periodic updates in the app loop."""
@@ -42,9 +49,8 @@ class MediaCarousel:
         self.start_auto_update()
 
         # Display the current item
-        current_index = st.session_state[self.session_key]
-        st.write(f"**Item {current_index + 1} of {len(self.media_content)}:**")
-        st.write(self.media_content[current_index])
+        st.write(f"**Item {self.index + 1} of {len(self.media_content)}:**")
+        st.write(self.media_content[self.index])
         
         # Navigation buttons
         col1, col2 = st.columns([1, 1])
@@ -54,6 +60,7 @@ class MediaCarousel:
         with col2:
             if st.button("Next ▶️", key=f"{self.session_key}_next"):
                 self.next_item()
+
 
 
 # Example media content
