@@ -121,6 +121,11 @@ import glob
 import time
 import streamlit as st
 
+import os
+import glob
+import time
+import streamlit as st
+
 class MediaCarousel:
     def __init__(self, media_content, session_key=None, update_interval=None):
         """
@@ -203,7 +208,7 @@ class MediaCarousel:
         
         if ext in ['.jpg', '.jpeg', '.png', '.gif']:
             # Render image with aspect ratio preserved
-            return st.image(media_path, use_column_width=True)
+            return st.image(media_path, use_container_width=True)
         elif ext in ['.mp4', '.avi']:
             # Render video with autoplay, muted, and looping
             return st.video(media_path, loop=True, autoplay=True, muted=True)
@@ -255,6 +260,7 @@ class MediaCarousel:
         with col2:
             if st.button("Next ▶️", key=f"{self.session_key}_next"):
                 self.next_item()
+
 
 
 
