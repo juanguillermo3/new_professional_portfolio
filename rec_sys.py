@@ -12,6 +12,7 @@ from git_api_utils import load_repos_metadata as load_github_metadata
 from app_end_metadata import load_repos_metadata as load_app_metadata
 import hashlib
 from front_end_utils import render_section_separator
+from media_carousel import MediaCarousel  # Assuming this is the correct import
 
 def combine_metadata():
     # Load both sets of metadata
@@ -79,6 +80,13 @@ class RecommendationSystem:
         
         # Set default to the project with the highest number of items
         self.default_project = self.repos_metadata[0]["title"] if self.repos_metadata else "No Projects"
+
+        # Pre-instantiate the media carousels for all projects with galleria folders
+        self.galleria_carousels = {}
+        for repo in self.repos_metadata:
+            galleria_folder = os.path.join('assets', f"{repo['title'].replace(' ', '_').lower()}_galleria")
+            if os.path.exists(galleria_folder):
+                self.galleria_carousels[repo["title"]] = MediaCarousel(galleria_folder)
 
     def rank_items(self, query=None, selected_project=None):
         """Rank the items by the last updated date and apply filters."""
@@ -296,11 +304,9 @@ class RecommendationSystem:
         galleria_path = os.path.join('assets', f"{project_title}_galleria")
         if os.path.exists(galleria_path):
             st.markdown(f"### Galleria for {project_title}")
-            st.markdown(f"Explore more in the [Galleria folder](./assets/{project_title}_galleria).")
+            self.galleria_carousels[project_title].render()
         else:
             st.warning(f"Galleria for {project_title} not found.")
-
-
 
 # Example usage
 # Initialize RecSys with custom header and description
