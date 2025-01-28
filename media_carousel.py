@@ -1,65 +1,56 @@
 import streamlit as st
+import time
+import threading
 
 class MediaCarousel:
-    def __init__(self, media_content, session_key="media_carousel"):
-        """
-        A class to manage a media carousel with button-based navigation.
-        
-        Args:
-            media_content (list): List of media items (image URLs, video URLs, or embed codes).
-            session_key (str): Unique session key for managing carousel state.
-        """
+    def __init__(self, media_content, session_key=None, update_interval=None):
         self.media_content = media_content
-        self.session_key = session_key
-
-        # Initialize session state
+        self.session_key = session_key or f"media_carousel_{id(self)}"
+        self.update_interval = update_interval  # Interval in seconds for auto-update
+        
+        # Initialize session state for carousel index
         if self.session_key not in st.session_state:
-            st.session_state[self.session_key] = 0  # Start with the first media item
+            st.session_state[self.session_key] = 0
+
+    def next_item(self):
+        """Navigate to the next item."""
+        st.session_state[self.session_key] = (st.session_state[self.session_key] + 1) % len(self.media_content)
+
+    def previous_item(self):
+        """Navigate to the previous item."""
+        st.session_state[self.session_key] = (st.session_state[self.session_key] - 1) % len(self.media_content)
+
+    def start_auto_update(self):
+        """Start automatic updates in a separate thread."""
+        if self.update_interval:
+            def update_loop():
+                while True:
+                    time.sleep(self.update_interval)
+                    self.next_item()
+                    st.experimental_rerun()
+
+            # Start the thread in daemon mode to run in the background
+            threading.Thread(target=update_loop, daemon=True).start()
 
     def render(self):
-        """
-        Renders the media carousel with navigation buttons.
-        """
-        # Get the current index from the session state
+        """Render the carousel UI."""
+        # Display the current item
         current_index = st.session_state[self.session_key]
-
-        # Display the current media content
-        self._display_media(current_index)
-
-        # Render navigation buttons
-        col1, col2, col3 = st.columns([1, 2, 1])
+        st.write(f"**Item {current_index + 1} of {len(self.media_content)}:**")
+        st.write(self.media_content[current_index])
+        
+        # Navigation buttons
+        col1, col2 = st.columns([1, 1])
         with col1:
             if st.button("◀️ Previous", key=f"{self.session_key}_prev"):
-                self._navigate(-1)
-        with col3:
+                self.previous_item()
+        with col2:
             if st.button("Next ▶️", key=f"{self.session_key}_next"):
-                self._navigate(1)
+                self.next_item()
 
-    def _display_media(self, index):
-        """
-        Displays the media content at the specified index.
-        
-        Args:
-            index (int): Index of the media content to display.
-        """
-        media_item = self.media_content[index]
-        if media_item.endswith((".jpg", ".png", ".jpeg", ".gif")):
-            st.image(media_item, use_column_width=True)
-        elif media_item.endswith((".mp4", ".webm", ".ogg")):
-            st.video(media_item)
-        else:
-            st.write(media_item)  # Fallback: Display as text or raw HTML
-
-    def _navigate(self, step):
-        """
-        Updates the session state index to navigate through the carousel.
-        
-        Args:
-            step (int): Step size for navigation (-1 for previous, +1 for next).
-        """
-        current_index = st.session_state[self.session_key]
-        new_index = (current_index + step) % len(self.media_content)  # Circular navigation
-        st.session_state[self.session_key] = new_index
+        # Start the auto-update loop if an interval is specified
+        if self.update_interval:
+            self.start_auto_update()
 
 # Example media content
 media_items = [
@@ -69,6 +60,7 @@ media_items = [
     "This is a raw HTML or text fallback."
 ]
 
-# Create and render the carousel
-carousel = MediaCarousel(media_items)
+# Initialize the carousel with a 5-second auto-update interval
+carousel = MediaCarousel(media_items, session_key="example_carousel", update_interval=5)
+
 #carousel.render()
