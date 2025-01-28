@@ -60,3 +60,15 @@ class MediaCarousel:
         current_index = st.session_state[self.session_key]
         new_index = (current_index + step) % len(self.media_content)  # Circular navigation
         st.session_state[self.session_key] = new_index
+
+# Example media content
+media_items = [
+    "https://via.placeholder.com/800x400.png?text=Image+1",
+    "https://via.placeholder.com/800x400.png?text=Image+2",
+    "https://www.w3schools.com/html/mov_bbb.mp4",
+    "This is a raw HTML or text fallback."
+]
+
+# Create and render the carousel
+carousel = MediaCarousel(media_items)
+carousel.render()
