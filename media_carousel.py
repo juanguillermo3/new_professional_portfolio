@@ -125,6 +125,6 @@ media_items = [
 ]
 
 # Initialize the carousel with a 5-second auto-update interval
-carousel = MediaCarousel(media_items, session_key="example_carousel", update_interval=5)
+#carousel = MediaCarousel(media_items, session_key="example_carousel", update_interval=5)
 
 #carousel.render()
