@@ -84,6 +84,8 @@ recsys.render()
 render_section_separator()
 #
 carousel.render()
+# 
+render_section_separator()
 
 #
 # **Services Section**
