@@ -11,6 +11,7 @@ from git_api_utils import load_modules_metadata
 from git_api_utils import load_repos_metadata as load_github_metadata
 from app_end_metadata import load_repos_metadata as load_app_metadata
 import hashlib
+from front_end_utils import render_section_separator
 
 def combine_metadata():
     # Load both sets of metadata
@@ -283,9 +284,11 @@ class RecommendationSystem:
             for col, rec in zip(cols, recommendations[i: i + self.num_columns]):
                 with col:
                     self.render_card(rec, is_project=rec.get("is_project", False))
-
+                    
+        
         # Incorporate Galleria if the folder exists
         if selected_project and project_metadata:
+            render_section_separator()
             self.show_galleria(selected_project)
             
     def show_galleria(self, project_title):
