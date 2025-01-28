@@ -71,4 +71,4 @@ media_items = [
 
 # Create and render the carousel
 carousel = MediaCarousel(media_items)
-carousel.render()
+#carousel.render()
