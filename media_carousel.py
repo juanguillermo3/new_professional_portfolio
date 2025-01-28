@@ -212,6 +212,11 @@ class MediaCarousel:
         elif ext in ['.mp4', '.avi']:
             # Render video with autoplay, muted, and looping
             return st.video(media_path, loop=True, autoplay=True, muted=True)
+        elif ext == '.html':
+            # Render HTML content directly, assuming it contains an <img> tag or other HTML
+            with open(media_path, 'r') as file:
+                html_content = file.read()
+            return st.markdown(html_content, unsafe_allow_html=True)
         else:
             # Fallback: Display the file path if unsupported format
             return st.write(media_path)
