@@ -20,6 +20,7 @@ from rec_sys import recsys
 from about_section import about
 from services_section import services
 from socials_section import socials
+from media_carousel import carousel
 
 #
 load_dotenv(override=True)
@@ -81,6 +82,8 @@ render_section_separator()
 recsys.render()
 # 
 render_section_separator()
+#
+carousel.render()
 
 #
 # **Services Section**
