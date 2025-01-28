@@ -162,7 +162,7 @@ class MediaCarousel:
         :return: A list of media file paths.
         """
         # Define the types of files to be considered media (you can expand this list)
-        media_extensions = ['*.jpg', '*.jpeg', '*.png', '*.gif', '*.mp4', '*.avi', '.html']
+        media_extensions = ['*.jpg', '*.jpeg', '*.png', '*.gif', '*.mp4', '*.avi', '*.html']
         media_files = []
         
         for ext in media_extensions:
