@@ -257,7 +257,7 @@ class RecommendationSystem:
             <div style="text-align: center; margin-bottom: 20px;">
                 <h3>{self.prettify_title(project_metadata['title'])}</h3>
             </div>
-            <div style="text-align: justify; margin-left: 10%; margin-right: 10%; margin-bottom: 20px; font-size: 1.1em; line-height: 1.6;">
+            <div style="text-align: justify; margin-left: 10%; margin-right: 10%; margin-bottom: 20px;">
                 <p>{project_metadata['description']} {tags_html}</p>
             </div>
             """,
