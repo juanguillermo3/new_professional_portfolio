@@ -18,6 +18,6 @@ def load_repos_metadata():
         },
         {
             "title": "predictive_analytics",
-            "tags": ["Neural Networks", "Genetic Algorithms", , "Ensemble Learning"]
+            "tags": ["Neural Networks", "Genetic Algorithms", "Ensemble Learning"]
         },
     ]
