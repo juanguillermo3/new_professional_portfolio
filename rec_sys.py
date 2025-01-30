@@ -230,14 +230,25 @@ class RecommendationSystem:
         )
 
     def render_title_and_description(self, project_metadata):
-        """Renders the title and description of a project, centered and with margins."""
+        """Renders the title and description of a project, centered and with margins, with inline hashtags."""
+        
+        # Define a set of subtle colors for hashtags
+        color_palette = ["#A3C4DC", "#B5E2FA", "#C9F0D1", "#F2D7B6", "#E4C1F9", "#D1D1D1"]
+
+        # Generate inline tags
+        tags_html = " ".join(
+            f'<span style="color: {random.choice(color_palette)}; font-size: 0.85em; opacity: 0.85;">#{tag}</span>'
+            for tag in project_metadata.get("tags", [])
+        )
+
+        # Render HTML with inline styling
         st.markdown(
             f"""
             <div style="text-align: center; margin-bottom: 20px;">
                 <h3>{self.prettify_title(project_metadata['title'])}</h3>
             </div>
             <div style="text-align: justify; margin-left: 10%; margin-right: 10%; margin-bottom: 20px;">
-                <p>{project_metadata['description']}</p>
+                <p>{project_metadata['description']} {tags_html}</p>
             </div>
             """,
             unsafe_allow_html=True,
