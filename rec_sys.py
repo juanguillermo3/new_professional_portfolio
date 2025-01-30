@@ -45,49 +45,51 @@ class RecommendationSystem:
         self.repos_metadata = combine_metadata()  
         self.metadata_list = load_modules_metadata()  
 
-        # Sort the projects by the number of related items in metadata_list
-        project_item_counts = {}
-        for repo in self.repos_metadata:
-            repo_name = repo["title"].lower()
-            related_items_count = sum(1 for item in self.metadata_list if item['repo_name'].lower() == repo_name)
-            project_item_counts[repo_name] = related_items_count
+        # Sort the projects
+        self._sort_projects()
+        
+        # Prepare project titles and default project
+        self._prepare_project_titles_and_default()
 
-        # Calculate project-related item counts and status
-        project_item_counts = {}
-        for repo in self.repos_metadata:
-            repo_name = repo["title"].lower()
-            related_items_count = sum(1 for item in self.metadata_list if item['repo_name'].lower() == repo_name)
-            project_item_counts[repo_name] = related_items_count
+        # Pre-instantiate the media carousels for all projects with galleria folders
+        self.galleria_carousels = self._initialize_galleria_carousels()
 
-        # Sort repos by ongoing status (True for ongoing first), then by item count
+    def _sort_projects(self):
+        """Sorts the projects by ongoing status and number of related items."""
+        project_item_counts = {
+            repo["title"].lower(): sum(1 for item in self.metadata_list if item['repo_name'].lower() == repo["title"].lower())
+            for repo in self.repos_metadata
+        }
+
         self.repos_metadata.sort(
             key=lambda x: (
-                not x.get("ongoing", False),  # False for ongoing (sorts first), True otherwise
+                not x.get("ongoing", False),  # Sort ongoing projects first
                 -project_item_counts.get(x["title"].lower(), 0)  # Descending by item count
             )
         )
-        
-        # Prepare titles for the selector with "(Ongoing)" appended if applicable
+
+    def _prepare_project_titles_and_default(self):
+        """Prepares project titles for selection and determines the default project."""
         self.project_titles = [
             f"{repo['title']} (Ongoing)" if repo.get("ongoing", False) else repo["title"]
             for repo in self.repos_metadata
         ]
-        
-        # Map prettified titles to actual titles
+
         self.title_mapping = {
             self.prettify_title(title): repo["title"]
             for title, repo in zip(self.project_titles, self.repos_metadata)
         }
-        
-        # Set default to the project with the highest number of items
+
         self.default_project = self.repos_metadata[0]["title"] if self.repos_metadata else "No Projects"
 
-        # Pre-instantiate the media carousels for all projects with galleria folders
-        self.galleria_carousels = {}
+    def _initialize_galleria_carousels(self):
+        """Prepares media carousels for projects with galleria folders."""
+        carousels = {}
         for repo in self.repos_metadata:
             galleria_folder = os.path.join('assets', f"{repo['title'].replace(' ', '_').lower()}_galleria")
             if os.path.exists(galleria_folder):
-                self.galleria_carousels[repo["title"]] = MediaCarousel(galleria_folder)
+                carousels[repo["title"]] = MediaCarousel(galleria_folder)
+        return carousels
 
     def rank_items(self, query=None, selected_project=None):
         """Rank the items by the last updated date and apply filters."""
