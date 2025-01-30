@@ -95,7 +95,7 @@ class RecommendationSystem:
         """Rank the items by the last updated date and apply filters."""
         # Step 1: Sort items by 'last_updated' from newest to oldest,
         # Treat items without 'last_updated' as if they are the oldest.
-        ranked_items = sorted(self.metadata_list, key=lambda x: datetime.strptime(x.get('last_updated', '1970-01-01T00:00:00Z'), "%Y-%m-%dT%H:%M:%SZ"), reverse=False)
+        ranked_items = sorted(self.metadata_list, key=lambda x: datetime.strptime(x.get('last_updated', '1970-01-01T00:00:00Z'), "%Y-%m-%dT%H:%M:%SZ"), reverse=True)
     
         # Step 2: Filter by project selection
         if selected_project and selected_project != "All Projects":
