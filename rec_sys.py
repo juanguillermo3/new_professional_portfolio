@@ -279,10 +279,7 @@ class RecommendationSystem:
         prettified_titles = [self.prettify_title(title) for title in self.project_titles]
         selected_pretty_project = st.selectbox("📂 Filter recommendations by project:", prettified_titles, index=0)
         selected_project = self.title_mapping[selected_pretty_project]
-        
-        # Add a breakline for better distinction
-        st.markdown("")
-        
+                
         # Keyword Search - Comes After
         st.markdown("&nbsp;&nbsp;&nbsp;&nbsp;")  # Indent
         query = st.text_input("🔍 Search for recommendations by keyword (e.g., Python, R):", placeholder="Type a keyword and press Enter")
