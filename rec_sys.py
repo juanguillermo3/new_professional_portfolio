@@ -5,6 +5,7 @@ description: Current implementation of the RecSys, featuring a vanilla ranking t
 
 import os
 import re
+import random
 import streamlit as st
 from datetime import datetime
 from git_api_utils import load_modules_metadata
