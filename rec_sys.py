@@ -232,13 +232,22 @@ class RecommendationSystem:
 
     def render_title_and_description(self, project_metadata):
         """Renders the title and description of a project, centered and with margins, with inline hashtags."""
-        
-        # Define a set of subtle colors for hashtags
-        color_palette = ["#A3C4DC", "#B5E2FA", "#C9F0D1", "#F2D7B6", "#E4C1F9", "#D1D1D1"]
 
-        # Generate inline tags
+        # Professional and innovative color palette
+        color_palette = [
+            "#1E3A8A",  # Deep Blue (Tech/Professional)
+            "#065F46",  # Dark Green (Trust/Innovation)
+            "#9333EA",  # Purple (Creative/Modern)
+            "#0EA5E9",  # Cyan Blue (Fresh/Innovative)
+            "#B91C1C",  # Deep Red (Bold/Strong)
+            "#7C3AED",  # Vibrant Indigo (Techy Feel)
+            "#2563EB",  # Solid Blue (Corporate/Stable)
+            "#059669",  # Teal Green (Sophisticated)
+        ]
+
+        # Generate inline tags with improved styling
         tags_html = " ".join(
-            f'<span style="color: {random.choice(color_palette)}; font-size: 0.85em; opacity: 0.85;">#{tag}</span>'
+            f'<span style="color: {random.choice(color_palette)}; font-size: 0.9em; font-weight: 600;">#{tag}</span>'
             for tag in project_metadata.get("tags", [])
         )
 
@@ -248,7 +257,7 @@ class RecommendationSystem:
             <div style="text-align: center; margin-bottom: 20px;">
                 <h3>{self.prettify_title(project_metadata['title'])}</h3>
             </div>
-            <div style="text-align: justify; margin-left: 10%; margin-right: 10%; margin-bottom: 20px;">
+            <div style="text-align: justify; margin-left: 10%; margin-right: 10%; margin-bottom: 20px; font-size: 1.1em; line-height: 1.6;">
                 <p>{project_metadata['description']} {tags_html}</p>
             </div>
             """,
