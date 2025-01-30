@@ -64,15 +64,11 @@ class MediaCarousel:
         """Navigate to the next item."""
         self.index = (self.index + 1) % len(self.media_content)
         st.session_state[self.session_key] = self.index
-        # Ensure the update happens immediately
-        st.experimental_rerun()
 
     def previous_item(self):
         """Navigate to the previous item."""
         self.index = (self.index - 1) % len(self.media_content)
         st.session_state[self.session_key] = self.index
-        # Ensure the update happens immediately
-        st.experimental_rerun()
 
     def start_auto_update(self):
         """Handle periodic updates in the app loop."""
