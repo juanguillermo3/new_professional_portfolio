@@ -271,12 +271,21 @@ class RecommendationSystem:
         st.markdown("---")
         st.markdown(f'<p style="color: gray;">{self.section_description}</p>', unsafe_allow_html=True)
     
-        # Query Input
-        query = st.text_input("Search for recommendations by keyword (e.g., Python, R):", placeholder="Type a keyword and press Enter")
-    
+        # Add space to separate the section description from the controls
+        st.markdown("")
+        
+        # Project Filter - Comes First
+        st.markdown("&nbsp;&nbsp;&nbsp;&nbsp;")  # Indent
         prettified_titles = [self.prettify_title(title) for title in self.project_titles]
-        selected_pretty_project = st.selectbox("Filter recommendations by project:", prettified_titles, index=0)
+        selected_pretty_project = st.selectbox("📂 Filter recommendations by project:", prettified_titles, index=0)
         selected_project = self.title_mapping[selected_pretty_project]
+        
+        # Add a breakline for better distinction
+        st.markdown("")
+        
+        # Keyword Search - Comes After
+        st.markdown("&nbsp;&nbsp;&nbsp;&nbsp;")  # Indent
+        query = st.text_input("🔍 Search for recommendations by keyword (e.g., Python, R):", placeholder="Type a keyword and press Enter")
     
         # Call rank_items to get the ranked and filtered recommendations
         recommendations = self.rank_items(query, selected_project)
