@@ -1,5 +1,9 @@
 {
   "recent_wages_in_colombia.png": {
-    "caption": "An insightful look into recent wage trends in Colombia, highlighting key economic factors and changes."
-  }
+    "caption": "The job listings dataset includes wage information for the overall labor market, as well as specific segments such as job postings that mention Python."
+  },
+  "job_listings_scrapped_each_day.png": {
+    "caption": "This project monitors job listings in the Colombian labor market through web scraping. The chart displays the number of listings scraped each day."
+  }  
 }
+
