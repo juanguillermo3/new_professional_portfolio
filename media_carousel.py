@@ -2,14 +2,9 @@ import os
 import glob
 import streamlit as st
 import time
+import json
 import streamlit.components.v1 as components
 
-import os
-import glob
-import time
-import streamlit as st
-import json
-from streamlit import components
 
 class MediaCarousel:
     def __init__(self, media_content, session_key=None, update_interval=None):
@@ -69,11 +64,15 @@ class MediaCarousel:
         """Navigate to the next item."""
         self.index = (self.index + 1) % len(self.media_content)
         st.session_state[self.session_key] = self.index
+        # Ensure the update happens immediately
+        st.experimental_rerun()
 
     def previous_item(self):
         """Navigate to the previous item."""
         self.index = (self.index - 1) % len(self.media_content)
         st.session_state[self.session_key] = self.index
+        # Ensure the update happens immediately
+        st.experimental_rerun()
 
     def start_auto_update(self):
         """Handle periodic updates in the app loop."""
