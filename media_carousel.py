@@ -109,7 +109,7 @@ class MediaCarousel:
         
         # Get caption from metadata
         caption = self.get_caption(media_path)
-
+    
         # Render image or video
         if ext in ['.jpg', '.jpeg', '.png', '.gif']:
             # Render image with aspect ratio preserved
@@ -125,7 +125,7 @@ class MediaCarousel:
             # Render HTML content with embedded JavaScript or dynamic elements
             with open(media_path, 'r') as file:
                 html_content = file.read()
-            components.html(html_content, height=600)
+            components.html(html_content, height=600)  # Use the correct call
         else:
             # Fallback: Display the file path if unsupported format
             return st.write(media_path)
