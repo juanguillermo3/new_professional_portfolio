@@ -244,16 +244,20 @@ class MediaCarousel:
 
     def render(self):
         """Displays the media carousel and navigation buttons."""
-        st.write(f"**Item {self.index + 1} of {len(self.media_content)}:**")
+        st.markdown(f"<p style='font-size: 16px; text-align: center; font-weight: bold;'>Item {self.index + 1} of {len(self.media_content)}</p>", unsafe_allow_html=True)
+
+        # Display media content
         self.parse_media(self.media_content[self.index])
 
-        col1, col2 = st.columns(2)
+        # Navigation buttons (preserving layout)
+        col1, col2, col3 = st.columns([2, 6, 2])
         with col1:
-            if st.button("◀️ Previous"):
+            if st.button("◀️ Previous", key="prev_button"):
                 self.previous_item()
-        with col2:
-            if st.button("Next ▶️"):
+        with col3:
+            if st.button("Next ▶️", key="next_button"):
                 self.next_item()
+
 
 # Example media content
 media_items = [
