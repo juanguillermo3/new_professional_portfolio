@@ -196,6 +196,7 @@ class MediaCarousel:
 
         self.index = 0  # Track current media index
         self.metadata = self.load_metadata(media_content)
+        self.next_item()
 
     def load_media_from_folder(self, folder_path):
         """Loads media files from a folder."""
@@ -249,7 +250,6 @@ class MediaCarousel:
         # Display media content
         self.parse_media(self.media_content[self.index])
         
-        self.next_item()
         
         # Navigation buttons (preserving layout)
         col1, col2, col3 = st.columns([2, 6, 2])
