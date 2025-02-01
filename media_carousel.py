@@ -36,7 +36,7 @@ class MediaCarousel:
         
         # Initialize the index in the session state if not already initialized
         if self.session_key not in st.session_state:
-            st.session_state[self.session_key] = 0
+            st.session_state[self.session_key] = 1
         
         # The index will be tracked by the instance variable
         self.index = st.session_state[self.session_key]
