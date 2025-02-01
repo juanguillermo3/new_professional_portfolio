@@ -36,7 +36,7 @@ class MediaCarousel:
         
         # Initialize the index in the session state if not already initialized
         if self.session_key not in st.session_state:
-            st.session_state[self.session_key] = 1
+            st.session_state[self.session_key] = 0
         
         # The index will be tracked by the instance variable
         self.index = st.session_state[self.session_key]
@@ -171,6 +171,89 @@ class MediaCarousel:
             if st.button("Next ▶️", key=f"{self.session_key}_next"):
                 self.next_item()
 
+import os
+import glob
+import streamlit as st
+import streamlit.components.v1 as components
+
+class MediaCarousel:
+    def __init__(self, media_content):
+        """
+        Initializes the carousel.
+
+        :param media_content: Either a list of media content (strings or URLs) or a path to a folder of media files.
+        """
+        # Load media items
+        if isinstance(media_content, list):
+            self.media_content = media_content
+        elif os.path.isdir(media_content):
+            self.media_content = self.load_media_from_folder(media_content)
+        else:
+            raise ValueError("media_content should be a list of media items or a valid folder path.")
+
+        if not self.media_content:
+            raise ValueError("No media files found.")
+
+        self.index = 0  # Track current media index
+        self.metadata = self.load_metadata(media_content)
+
+    def load_media_from_folder(self, folder_path):
+        """Loads media files from a folder."""
+        media_extensions = ['*.jpg', '*.jpeg', '*.png', '*.gif', '*.mp4', '*.avi', '*.html']
+        media_files = [file for ext in media_extensions for file in glob.glob(os.path.join(folder_path, ext))]
+        return sorted(media_files)
+
+    def load_metadata(self, media_content):
+        """Loads metadata if available."""
+        metadata_file = os.path.join(media_content, 'media_metadata.json') if isinstance(media_content, str) else None
+        if metadata_file and os.path.exists(metadata_file):
+            import json
+            with open(metadata_file, 'r') as file:
+                return json.load(file)
+        return {}
+
+    def next_item(self):
+        """Navigate to the next media item."""
+        self.index = (self.index + 1) % len(self.media_content)
+
+    def previous_item(self):
+        """Navigate to the previous media item."""
+        self.index = (self.index - 1) % len(self.media_content)
+
+    def get_caption(self, media_path):
+        """Retrieves the caption for the current media item from metadata."""
+        return self.metadata.get(os.path.basename(media_path), {}).get("caption", "")
+
+    def parse_media(self, media_path):
+        """Renders media based on file type."""
+        ext = os.path.splitext(media_path)[-1].lower()
+        caption = self.get_caption(media_path)
+
+        if ext in ['.jpg', '.jpeg', '.png', '.gif']:
+            st.image(media_path, use_container_width=True)
+        elif ext in ['.mp4', '.avi']:
+            st.video(media_path, loop=True, autoplay=True, muted=True)
+        elif ext == '.html':
+            with open(media_path, 'r') as file:
+                components.html(file.read(), height=600)
+        else:
+            st.write(media_path)
+
+        if caption:
+            st.markdown(f"<p style='font-size: 12px; color: #888;'>{caption}</p>", unsafe_allow_html=True)
+
+    def render(self):
+        """Displays the media carousel and navigation buttons."""
+        st.write(f"**Item {self.index + 1} of {len(self.media_content)}:**")
+        self.parse_media(self.media_content[self.index])
+
+        col1, col2 = st.columns(2)
+        with col1:
+            if st.button("◀️ Previous"):
+                self.previous_item()
+        with col2:
+            if st.button("Next ▶️"):
+                self.next_item()
 
 # Example media content
 media_items = [
