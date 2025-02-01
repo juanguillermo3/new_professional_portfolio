@@ -194,7 +194,7 @@ class MediaCarousel:
         if not self.media_content:
             raise ValueError("No media files found.")
 
-        self.index = 0  # Track current media index
+        self.index = 1  # Track current media index
         self.metadata = self.load_metadata(media_content)
 
     def load_media_from_folder(self, folder_path):
