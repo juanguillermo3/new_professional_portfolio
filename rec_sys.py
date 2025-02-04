@@ -154,7 +154,7 @@ class RecommendationSystem:
             """,
             unsafe_allow_html=True,
         )
-    
+
     def render_card(self, rec, is_project=False):
         """Render a single recommendation card with fixed height and scrollable content."""
         background_color = "#f4f4f4" if not is_project else "#fff5e6"  # Silver background for non-project items
@@ -176,12 +176,27 @@ class RecommendationSystem:
             f"""
             <div style="background-color: {background_color}; border: {border_style}; 
                         border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
-                        padding: 10px; text-align: center; height: {card_height}; {overflow_style}">
-                <img src="https://via.placeholder.com/150"
-                     style="border-radius: 10px; width: 100%; height: auto;">
-                <h5>{title}</h5>
-                <p style="text-align: justify; height: 100%; overflow-y: auto;">{rec['description']}</p>
+                        padding: 10px; text-align: center; height: {card_height}; {overflow_style}; 
+                        position: relative; overflow: hidden;">
+                <div style="position: absolute; top: 0; left: 0; right: 0; background-color: rgba(255, 255, 255, 0.7); 
+                            padding: 10px; border-radius: 10px 10px 0 0; font-size: 16px; font-weight: bold; z-index: 10;">
+                    {title}
+                </div>
+                <p style="text-align: justify; padding-top: 40px; overflow-y: auto;">{rec['description']}</p>
             </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    
+        # JavaScript to reset scroll to top when hover ends
+        st.markdown(
+            """
+            <script>
+            const card = document.querySelector('div[data-testid="stMarkdownContainer"]');
+            card.addEventListener('mouseenter', function() {
+                card.scrollTop = 0;
+            });
+            </script>
             """,
             unsafe_allow_html=True,
         )
@@ -219,7 +234,7 @@ class RecommendationSystem:
             if st.button("See Galleria", key=button_id):
                 # Update media placeholder here, triggering a transition
                 self.handle_galleria_click()
-        
+    
         # Button row with fixed width buttons (for GitHub, Sheets, etc.)
         button_cols = st.columns(2) if "url" in rec and "report_url" in rec else [st.columns(1)[0]]
         
@@ -227,7 +242,7 @@ class RecommendationSystem:
             with button_cols[0]:
                 st.markdown(
                     f"""
-                    <div style="display: flex; justify-content: center; margin-top: 10px;">
+                    <div style="display: flex; justify-content: center; margin-top: 5px;">
                         <a href="{rec['url']}" target="_blank" 
                            style="text-decoration: none; width: 200px; display: block; margin: 0 auto;">
                             <button style="background-color: #333; color: white; 
@@ -247,7 +262,7 @@ class RecommendationSystem:
             with button_cols[-1]:
                 st.markdown(
                     f"""
-                    <div style="display: flex; justify-content: center; margin-top: 10px;">
+                    <div style="display: flex; justify-content: center; margin-top: 5px;">
                         <a href="{rec['report_url']}" target="_blank" 
                            style="text-decoration: none; width: 200px; display: block; margin: 0 auto;">
                             <button style="background-color: #34A853; color: white; 
@@ -262,6 +277,10 @@ class RecommendationSystem:
                     """,
                     unsafe_allow_html=True,
                 )
+        
+        # Add more margin between the button area and the next row of card items
+        st.markdown("<br><br>", unsafe_allow_html=True)
+
         
                 
     def handle_galleria_click(self):
