@@ -301,7 +301,7 @@ class RecommendationSystem:
             "This is a brief description of the selected item. It gives the user "
             "a quick overview of the project, its objectives, and key outcomes."
         )
-        image_path = "assets/mock_up_galleria.png"  # Assuming this is your image path
+        image_path = "/assets/mock_up_galleria.png"  # Assuming this is your image path
     
         # Begin using the placeholder context
         with self.media_placeholder.container():
