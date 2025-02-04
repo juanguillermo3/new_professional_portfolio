@@ -285,16 +285,16 @@ class RecommendationSystem:
         # Add more margin between the button area and the next row of card items
         st.markdown("<br><br>", unsafe_allow_html=True)
         
-   def handle_galleria_click(self):
+    def handle_galleria_click(self):
         """
         Handle the click event for the galleria item and display its content.
         The content includes a title, a brief description, and a background image.
         Hardcoded mockup values are used for now.
         """
-
+    
         # Clear any existing content in the media placeholder
         self.media_placeholder.empty()
-
+    
         # Hardcoded title, description, and image path for the mockup
         item_title = "Exciting New Project"
         item_description = (
@@ -302,10 +302,10 @@ class RecommendationSystem:
             "a quick overview of the project, its objectives, and key outcomes."
         )
         image_path = "assets/mock_up_galleria.png"  # Assuming this is your image path
-
+    
         # Begin using the placeholder context
         with self.media_placeholder.container():
-
+    
             # Check if the image exists at the provided path and display it
             try:
                 # Display the image
@@ -313,7 +313,7 @@ class RecommendationSystem:
             except Exception as e:
                 # Show a debug statement if there is an issue with loading the image
                 st.error(f"Error loading image: {str(e)}")
-
+    
             # Display the title and description in a single paragraph with inline styling
             st.markdown(
                 f"""
@@ -331,7 +331,7 @@ class RecommendationSystem:
                 """, 
                 unsafe_allow_html=True
             )
-
+    
             # Add space after the media content (appendix space)
             st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
             
