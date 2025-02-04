@@ -284,7 +284,7 @@ class RecommendationSystem:
         
         # Add more margin between the button area and the next row of card items
         st.markdown("<br><br>", unsafe_allow_html=True)
-
+    
     def handle_galleria_click(self):
         """
         Handle the click event for the galleria item and display its content with a smooth sliding image effect.
@@ -357,6 +357,7 @@ class RecommendationSystem:
     
             # Add space after the media content (appendix space)
             st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
+
 
 
     def apply_transition_styles(self):
