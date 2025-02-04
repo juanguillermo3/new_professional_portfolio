@@ -214,6 +214,10 @@ class RecommendationSystem:
     
             # Streamlit button with a unique key
             if st.button("See Galleria", key=button_id):
+                
+                # Update media placeholder here, triggering a transition
+                self.handle_galleria_click()
+                
                 st.write("Button Clicked!")
     
         # Add "See in GitHub" button if URL is present
@@ -255,23 +259,39 @@ class RecommendationSystem:
                 """,
                 unsafe_allow_html=True,
             )  
+
             
+    def handle_galleria_click(self):
+        """Handle the transition when the Galleria button is clicked."""
+        # Prototype transition with dummy content
+        if self.media_placeholder:
+            self.media_placeholder.empty()  # Clear the previous content
+        
+        # Switch between dummy content types (image, text, etc.)
+        content_type = "image"  # Can be "image", "text", or "other" (future types)
+        
+        if content_type == "image":
+            self.media_placeholder.image("https://via.placeholder.com/300", caption="New Media Placeholder Image")
+        elif content_type == "text":
+            self.media_placeholder.markdown("**This is a placeholder text.** You can replace this with a video or other media.")
+        else:
+            self.media_placeholder.markdown("**Placeholder for other types of media.**")
+    
     def render(self):
+        """Render method with Galleria callback integration."""
         st.subheader(self.section_header)
         st.markdown("---")
         st.markdown(f'<p style="color: gray;">{self.section_description}</p>', unsafe_allow_html=True)
-    
+
         # Add space to separate the section description from the controls
         st.markdown("")
         
         # Project Filter - Comes First
-        #st.markdown("&nbsp;&nbsp;&nbsp;&nbsp;")  # Indent
         prettified_titles = [self.prettify_title(title) for title in self.project_titles]
         selected_pretty_project = st.selectbox("📂 Filter recommendations by project:", prettified_titles, index=0)
         selected_project = self.title_mapping[selected_pretty_project]
                 
         # Keyword Search - Comes After
-        #st.markdown("&nbsp;&nbsp;&nbsp;&nbsp;")  # Indent
         query = st.text_input("🔍 Search for recommendations by keyword (e.g., Python, R):", placeholder="Type a keyword and press Enter")
     
         # Call rank_items to get the ranked and filtered recommendations
@@ -295,15 +315,15 @@ class RecommendationSystem:
             self.render_title_and_description(project_metadata)
             
             # Create a placeholder for the video area
-            self.video_placeholder = st.empty()
+            self.media_placeholder = st.empty()  # Placeholder for media area
         
             # Check if the video file exists in the assets folder
             if os.path.exists(video_path):
                 # Display the video in the placeholder
-                self.video_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
+                self.media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
             else:
                 # Show a warning if the video is not found
-                self.video_placeholder.warning(f"Video for {project_metadata['title']} not found.")
+                self.media_placeholder.warning(f"Video for {project_metadata['title']} not found.")
     
         # Render recommendations in a grid
         for i in range(0, len(recommendations), self.num_columns):
@@ -312,7 +332,6 @@ class RecommendationSystem:
                 with col:
                     self.render_card(rec, is_project=rec.get("is_project", False))
                     
-        
         # Incorporate Galleria if the folder exists
         if selected_project and project_metadata:
             render_section_separator()
