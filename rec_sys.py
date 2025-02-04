@@ -267,6 +267,9 @@ class RecommendationSystem:
         if self.media_placeholder:
             self.media_placeholder.empty()  # Clear the previous content
         
+        # Apply transition effect before adding new content
+        self.apply_transition_styles()
+
         # Switch between dummy content types (image, text, etc.)
         content_type = "image"  # Can be "image", "text", or "other" (future types)
         
@@ -276,6 +279,43 @@ class RecommendationSystem:
             self.media_placeholder.markdown("**This is a placeholder text.** You can replace this with a video or other media.")
         else:
             self.media_placeholder.markdown("**Placeholder for other types of media.**")
+    
+    def apply_transition_styles(self):
+        """Apply the CSS transition styles to the media placeholder."""
+        st.markdown(
+            """
+            <style>
+            .media-placeholder {
+                transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            .media-placeholder.show {
+                opacity: 1;
+                transform: scale(1);
+            }
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+        
+        # Add the "show" class to trigger the transition after the content change
+        st.markdown(
+            """
+            <script>
+            // Wait for the content to be updated and then apply the 'show' class
+            window.onload = function() {
+                const mediaElement = document.querySelector('.media-placeholder');
+                if (mediaElement) {
+                    setTimeout(() => {
+                        mediaElement.classList.add('show');
+                    }, 100);  // Small delay to trigger transition
+                }
+            };
+            </script>
+            """,
+            unsafe_allow_html=True
+        )
     
     def render(self):
         """Render method with Galleria callback integration."""
@@ -335,7 +375,7 @@ class RecommendationSystem:
         # Incorporate Galleria if the folder exists
         if selected_project and project_metadata:
             render_section_separator()
-            self.show_galleria(selected_project)
+            self.render_galleria(self.recommended_items)
             
     def show_galleria(self, project_title):
         """Check if the galleria folder exists and render the details."""
