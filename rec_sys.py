@@ -306,14 +306,20 @@ class RecommendationSystem:
         # Begin using the placeholder context
         with self.media_placeholder.container():
     
-            # Add the sliding animation to the image using CSS
+            # Add the sliding animation to the image container using CSS
             st.markdown(
                 f"""
                 <style>
-                    .sliding-image {{
+                    .sliding-container {{
                         position: relative;
                         width: 100%;
-                        animation: slideIn 2s ease-out;
+                        overflow: hidden;
+                    }}
+    
+                    .sliding-image {{
+                        position: relative;
+                        left: -100%;
+                        animation: slideIn 2s ease-out forwards;
                     }}
                     
                     @keyframes slideIn {{
@@ -329,13 +335,15 @@ class RecommendationSystem:
                 unsafe_allow_html=True
             )
     
-            # Check if the image exists at the provided path and display it
-            try:
-                # Apply the sliding effect on the image
-                st.image(image_path, use_container_width=True, caption="Featured Project", width=700)
-            except Exception as e:
-                # Show a debug statement if there is an issue with loading the image
-                st.error(f"Error loading image: {str(e)}")
+            # Image container with sliding effect
+            st.markdown(
+                f"""
+                <div class="sliding-container">
+                    <img src="{image_path}" class="sliding-image" style="width: 100%; object-fit: cover;">
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
     
             # Display the title and description in a single paragraph with inline styling
             st.markdown(
@@ -357,6 +365,7 @@ class RecommendationSystem:
     
             # Add space after the media content (appendix space)
             st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
+
 
 
     def apply_transition_styles(self):
