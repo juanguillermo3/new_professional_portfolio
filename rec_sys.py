@@ -285,7 +285,6 @@ class RecommendationSystem:
         # Add more margin between the button area and the next row of card items
         st.markdown("<br><br>", unsafe_allow_html=True)
 
-                
 
     def handle_galleria_click(self):
         """Handle the transition with stylish representation of item-specific content."""
@@ -322,20 +321,21 @@ class RecommendationSystem:
             st.warning(f"Image not found: {background_image_url}. Please check the file path.")
 
         # Display the content in the placeholder with the defined styles
+        # Use st.image() to load the image
+        self.media_placeholder.image(background_image_url, use_column_width=True)
+
+        # Display title and description under the image
         self.media_placeholder.markdown(
             f"""
             <div style="position: relative; width: {MEDIA_CONTAINER_WIDTH}; height: {MEDIA_CONTAINER_HEIGHT}; 
-                        background: url('{background_image_url}') no-repeat center center fixed; 
-                        background-size: cover; border-radius: 10px; overflow: hidden; 
                         color: white; padding: 20px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);">
                 <!-- Title and Description -->
-                <div style="position: absolute; top: 20px; left: 20px; font-size: 2rem; font-weight: 600; 
+                <div style="font-size: 2rem; font-weight: 600; 
                             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);">
                     {title}
                 </div>
                 <!-- Debrief (extended description) -->
-                <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; 
-                            max-height: 200px; overflow-y: auto; font-size: 1.1rem; 
+                <div style="max-height: 200px; overflow-y: auto; font-size: 1.1rem; 
                             text-align: justify; background-color: rgba(0, 0, 0, 0.5); 
                             padding: 15px; border-radius: 8px;">
                     <p>{debrief}</p>
