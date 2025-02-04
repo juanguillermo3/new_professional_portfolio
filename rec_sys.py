@@ -286,8 +286,8 @@ class RecommendationSystem:
         background_color = "#f4f4f4" if not is_project else "#fff5e6"  # Silver background for non-project items
         border_style = "2px solid gold" if is_project else "1px solid #ddd"
         
-        # Fixed height for the card and allow vertical scrolling for the description content
-        card_height = "300px"  # The fixed height you want for the card
+        # Set the fixed height to half of the previous value (150px)
+        card_height = "150px"  # New fixed height for the card
         overflow_style = "overflow-y: auto;"  # Allow scrolling for overflow content
     
         # Check if 'galleria' is present in the card
@@ -306,10 +306,10 @@ class RecommendationSystem:
                         padding: 10px; text-align: center; height: {card_height}; {overflow_style}; 
                         position: relative; overflow: hidden;">
                 <div style="position: absolute; top: 0; left: 0; right: 0; background-color: rgba(255, 255, 255, 0.7); 
-                            padding: 10px; border-radius: 10px 10px 0 0; font-size: 16px; font-weight: bold; z-index: 10;">
+                            padding: 5px 10px; border-radius: 10px 10px 0 0; font-size: 16px; font-weight: bold; z-index: 10;">
                     {title}
                 </div>
-                <div style="margin-top: 60px; padding: 0 10px; overflow-y: auto; height: calc(100% - 60px); text-align: justify;">
+                <div style="margin-top: 40px; padding: 0 10px; overflow-y: auto; height: calc(100% - 40px); text-align: justify;">
                     {rec['description']}
                 </div>
             </div>
@@ -408,7 +408,8 @@ class RecommendationSystem:
                 )
         
         # Add more margin between the button area and the next row of card items
-        st.markdown("<br><br>", unsafe_allow_html=True)  
+        st.markdown("<br><br>", unsafe_allow_html=True)
+
                 
     def handle_galleria_click(self):
         """Handle the transition when the Galleria button is clicked."""
