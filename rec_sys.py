@@ -376,7 +376,7 @@ class RecommendationSystem:
         # Incorporate Galleria if the folder exists
         if selected_project and project_metadata:
             render_section_separator()
-            self.render_galleria(self.recommended_items)
+            self.show_galleria(self, selected_project )
             
     def show_galleria(self, project_title):
         """Check if the galleria folder exists and render the details."""
