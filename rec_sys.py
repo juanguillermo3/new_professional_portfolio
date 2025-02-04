@@ -725,15 +725,6 @@ class RecommendationSystem:
             self.galleria_carousels[project_title].render()
         else:
             st.warning(f"Galleria for {project_title} not found.")
-
-# Example usage
-# Initialize RecSys with custom header and description
-recsys = RecommendationSystem(
-    #section_header="Customized Recommendations 🔍", 
-    section_description="My research RecSys to make my portfolio discoverable. This RecSys versions uses exact pattern on item titles/descriptions, while more flexible, NLP type of matching is under development."
-)
-
-
             
     def show_galleria(self, project_title):
         """Check if the galleria folder exists and render the details."""
