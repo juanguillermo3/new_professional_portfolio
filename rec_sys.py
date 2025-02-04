@@ -324,6 +324,7 @@ class RecommendationSystem:
                 unsafe_allow_html=True
             )
 
+
     def handle_galleria_click(self):
         """Handle the transition with stylish representation of item-specific content."""
         if self.media_placeholder:
@@ -342,11 +343,19 @@ class RecommendationSystem:
         background_image_url = "mock_up_galleria.png"  # Replace with the actual path or URL to your image
         title = "Project Title with Intriguing Name"
         debrief = (
-            "This is the extended description of the item, providing rich, detailed information about the "
-            "specific content that needs to capture the user's attention. It's structured to offer all the "
-            "important details in an engaging manner. The content here will describe features, benefits, or "
-            "unique aspects of the project that set it apart."
+            "A concise description about the project item. This section highlights key features and points of interest "
+            "to draw the user into the content, offering a quick overview of what makes this item unique."
         )
+    
+        # Debug: Check if the background image is available
+        try:
+            with open(background_image_url, 'rb') as f:
+                image_exists = True
+        except FileNotFoundError:
+            image_exists = False
+    
+        if not image_exists:
+            st.warning(f"Image not found: {background_image_url}. Please check the file path.")
     
         # Display the content in the placeholder with the defined styles
         self.media_placeholder.markdown(
@@ -355,16 +364,16 @@ class RecommendationSystem:
                         background: url('{background_image_url}') no-repeat center center fixed; 
                         background-size: cover; border-radius: 10px; overflow: hidden; 
                         color: white; padding: 20px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);">
-                <!-- Title -->
-                <div style="position: absolute; top: 20px; left: 20px; font-size: 3rem; font-weight: bold; 
+                <!-- Title and Description -->
+                <div style="position: absolute; top: 20px; left: 20px; font-size: 2rem; font-weight: 600; 
                             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);">
                     {title}
                 </div>
                 <!-- Debrief (extended description) -->
                 <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; 
-                            max-height: 300px; overflow-y: auto; font-size: 1.2rem; 
+                            max-height: 200px; overflow-y: auto; font-size: 1.1rem; 
                             text-align: justify; background-color: rgba(0, 0, 0, 0.5); 
-                            padding: 20px; border-radius: 8px;">
+                            padding: 15px; border-radius: 8px;">
                     <p>{debrief}</p>
                 </div>
             </div>
@@ -387,6 +396,7 @@ class RecommendationSystem:
             """,
             unsafe_allow_html=True,
         )
+
 
 
     def apply_transition_styles(self):
