@@ -301,7 +301,7 @@ class RecommendationSystem:
             "This is a brief description of the selected item. It gives the user "
             "a quick overview of the project, its objectives, and key outcomes."
         )
-        image_path = "/assets/mock_up_galleria.png"  # Assuming this is your image path
+        image_path = "assets/mock_up_galleria.png"  # Assuming this is your image path
     
         # Begin using the placeholder context
         with self.media_placeholder.container():
@@ -335,15 +335,20 @@ class RecommendationSystem:
                 unsafe_allow_html=True
             )
     
-            # Image container with sliding effect
-            st.markdown(
-                f"""
-                <div class="sliding-container">
-                    <img src="{image_path}" class="sliding-image" style="width: 100%; object-fit: cover;">
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
+            # Display the image with the sliding effect using the container
+            try:
+                # Image wrapped in a div for animation
+                st.markdown(
+                    f"""
+                    <div class="sliding-container">
+                        <img src="{image_path}" class="sliding-image" style="width: 100%; object-fit: cover;">
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
+            except Exception as e:
+                # Show a debug statement if there is an issue with loading the image
+                st.error(f"Error loading image: {str(e)}")
     
             # Display the title and description in a single paragraph with inline styling
             st.markdown(
@@ -365,6 +370,7 @@ class RecommendationSystem:
     
             # Add space after the media content (appendix space)
             st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
+
 
 
 
