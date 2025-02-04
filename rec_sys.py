@@ -287,79 +287,79 @@ class RecommendationSystem:
 
                 
 
-        def handle_galleria_click(self):
-            """Handle the transition with stylish representation of item-specific content."""
-            
-            if self.media_placeholder:
-                self.media_placeholder.empty()
-    
-            # Apply transition styles for a smooth fade
-            self.apply_transition_styles()
-    
-            # Short sleep to simulate smooth transition effect
-            time.sleep(0.5)
-    
-            # Define media container size
-            MEDIA_CONTAINER_WIDTH = "100%"
-            MEDIA_CONTAINER_HEIGHT = "500px"
-    
-            # Hardcoded background image and content for this mock
-            background_image_url = "mock_up_galleria.png"  # Replace with actual image path
-            title = "Project Title with Intriguing Name"
-            debrief = (
-                "A concise description about the project item. This section highlights key features and points of interest "
-                "to draw the user into the content, offering a quick overview of what makes this item unique."
-            )
-    
-            # Debug: Check if the background image is available
-            try:
-                with open(background_image_url, 'rb') as f:
-                    image_exists = True
-            except FileNotFoundError:
-                image_exists = False
-    
-            if not image_exists:
-                st.warning(f"Image not found: {background_image_url}. Please check the file path.")
-    
-            # Display the content in the placeholder with the defined styles
-            self.media_placeholder.markdown(
-                f"""
-                <div style="position: relative; width: {MEDIA_CONTAINER_WIDTH}; height: {MEDIA_CONTAINER_HEIGHT}; 
-                            background: url('{background_image_url}') no-repeat center center fixed; 
-                            background-size: cover; border-radius: 10px; overflow: hidden; 
-                            color: white; padding: 20px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);">
-                    <!-- Title and Description -->
-                    <div style="position: absolute; top: 20px; left: 20px; font-size: 2rem; font-weight: 600; 
-                                text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);">
-                        {title}
-                    </div>
-                    <!-- Debrief (extended description) -->
-                    <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; 
-                                max-height: 200px; overflow-y: auto; font-size: 1.1rem; 
-                                text-align: justify; background-color: rgba(0, 0, 0, 0.5); 
-                                padding: 15px; border-radius: 8px;">
-                        <p>{debrief}</p>
-                    </div>
+    def handle_galleria_click(self):
+        """Handle the transition with stylish representation of item-specific content."""
+        
+        if self.media_placeholder:
+            self.media_placeholder.empty()
+
+        # Apply transition styles for a smooth fade
+        self.apply_transition_styles()
+
+        # Short sleep to simulate smooth transition effect
+        time.sleep(0.5)
+
+        # Define media container size
+        MEDIA_CONTAINER_WIDTH = "100%"
+        MEDIA_CONTAINER_HEIGHT = "500px"
+
+        # Hardcoded background image and content for this mock
+        background_image_url = "mock_up_galleria.png"  # Replace with actual image path
+        title = "Project Title with Intriguing Name"
+        debrief = (
+            "A concise description about the project item. This section highlights key features and points of interest "
+            "to draw the user into the content, offering a quick overview of what makes this item unique."
+        )
+
+        # Debug: Check if the background image is available
+        try:
+            with open(background_image_url, 'rb') as f:
+                image_exists = True
+        except FileNotFoundError:
+            image_exists = False
+
+        if not image_exists:
+            st.warning(f"Image not found: {background_image_url}. Please check the file path.")
+
+        # Display the content in the placeholder with the defined styles
+        self.media_placeholder.markdown(
+            f"""
+            <div style="position: relative; width: {MEDIA_CONTAINER_WIDTH}; height: {MEDIA_CONTAINER_HEIGHT}; 
+                        background: url('{background_image_url}') no-repeat center center fixed; 
+                        background-size: cover; border-radius: 10px; overflow: hidden; 
+                        color: white; padding: 20px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);">
+                <!-- Title and Description -->
+                <div style="position: absolute; top: 20px; left: 20px; font-size: 2rem; font-weight: 600; 
+                            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);">
+                    {title}
                 </div>
-                """,
-                unsafe_allow_html=True,
-            )
-    
-            # Apply animation for smooth text fade-in (this ensures fade animation on text)
-            st.markdown(
-                """
-                <style>
-                .media-placeholder {
-                    animation: fadeIn 2s ease-in-out;
-                }
-                @keyframes fadeIn {
-                    0% { opacity: 0; }
-                    100% { opacity: 1; }
-                }
-                </style>
-                """,
-                unsafe_allow_html=True,
-            )
+                <!-- Debrief (extended description) -->
+                <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; 
+                            max-height: 200px; overflow-y: auto; font-size: 1.1rem; 
+                            text-align: justify; background-color: rgba(0, 0, 0, 0.5); 
+                            padding: 15px; border-radius: 8px;">
+                    <p>{debrief}</p>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+        # Apply animation for smooth text fade-in (this ensures fade animation on text)
+        st.markdown(
+            """
+            <style>
+            .media-placeholder {
+                animation: fadeIn 2s ease-in-out;
+            }
+            @keyframes fadeIn {
+                0% { opacity: 0; }
+                100% { opacity: 1; }
+            }
+            </style>
+            """,
+            unsafe_allow_html=True,
+        )
 
 
     def apply_transition_styles(self):
