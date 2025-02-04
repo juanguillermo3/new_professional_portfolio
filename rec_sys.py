@@ -659,12 +659,7 @@ class RecommendationSystem:
         recommendations = self.rank_items(query, selected_project)
     
         # Check if there is project metadata and show video
-        project_metadata = None
-        if selected_project != "All Projects":
-            for repo in self.repos_metadata:
-                if repo["title"].lower() == selected_project.lower():
-                    project_metadata = repo
-                    break
+        project_metadata = next((repo for repo in self.repos_metadata if repo["title"].lower() == selected_project.lower()), None) if selected_project != "All Projects" else None
     
         # If project metadata is available, display it with the video area
         if project_metadata:
@@ -674,28 +669,14 @@ class RecommendationSystem:
     
             # Render the title and description
             self.render_title_and_description(project_metadata)
-    
-            # Define a fixed height and width for the media container
-            MEDIA_CONTAINER_WIDTH = 700
-            MEDIA_CONTAINER_HEIGHT = 400
-    
+            
+            # Define a fixed height and width for the media container (adjust as needed)
+            MEDIA_CONTAINER_WIDTH = "700px"
+            MEDIA_CONTAINER_HEIGHT = "400px"  # Adjust to match the video size
+            
             # Create a placeholder for the media area with a fixed size
-            container_html = f"""
-            <div id="media-container" style="
-                width: {MEDIA_CONTAINER_WIDTH}px; 
-                height: {MEDIA_CONTAINER_HEIGHT}px; 
-                display: flex; 
-                align-items: center; 
-                justify-content: center; 
-                background-color: #f0f0f0;
-                border-radius: 10px;">
-                <p style="color: #aaa;">Loading content...</p>
-            </div>
-            """
-            st.markdown(container_html, unsafe_allow_html=True)
+            self.media_placeholder = st.empty()
     
-            self.media_placeholder = st.empty()  # Placeholder that will be updated later
-        
             # Check if the video file exists in the assets folder
             if os.path.exists(video_path):
                 # Display the video in the placeholder
@@ -716,15 +697,6 @@ class RecommendationSystem:
             render_section_separator()
             self.show_galleria(selected_project)
 
-            
-    def show_galleria(self, project_title):
-        """Check if the galleria folder exists and render the details."""
-        galleria_path = os.path.join('assets', f"{project_title}_galleria")
-        if os.path.exists(galleria_path):
-            st.markdown(f"### Galleria for {project_title}")
-            self.galleria_carousels[project_title].render()
-        else:
-            st.warning(f"Galleria for {project_title} not found.")
             
     def show_galleria(self, project_title):
         """Check if the galleria folder exists and render the details."""
