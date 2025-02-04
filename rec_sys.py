@@ -287,7 +287,7 @@ class RecommendationSystem:
 
                 
 
-    def handle_galleria_click():
+    def handle_galleria_click(self):
         """
         Handle the click event for the galleria item and display its content.
         The content includes a title, a brief description, and a background image.
