@@ -190,7 +190,7 @@ class HeroArea:
     
         # Render the contact button (hidden by default)
         self.render_contact_button()
-
+    
 
 
 # Example data for HeroArea with multiple paragraphs in the quote and code sample links
