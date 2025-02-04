@@ -277,7 +277,7 @@ class RecommendationSystem:
             )
     
             # Streamlit button with a unique key
-            if st.button("See Galleria", key=button_id):
+            if st.button("See Galleria2", key=button_id):
                 st.session_state["button_click"] = True
     
         # Handle button click event
