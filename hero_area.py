@@ -172,15 +172,17 @@ class HeroArea:
         # Render the code samples and WhatsApp button inside an expander
         with st.expander("Explore more", expanded=True):  # Make the expander open by default
             # Add styling for the expandable section's background color
-            st.markdown("""<style>
-            .streamlit-expanderHeader {
-                background-color: #C0C0C0;  # Silver color
+            st.markdown("""
+            <style>
+            .css-1v3fvcr {
+                background-color: #C0C0C0 !important;  /* Silver color */
+            }
+            .css-1v3fvcr .streamlit-expanderHeader {
+                background-color: #C0C0C0 !important;  /* Silver color */
                 color: black;
             }
-            .streamlit-expanderContent {
-                background-color: #C0C0C0;  # Silver color
-            }
-            </style>""", unsafe_allow_html=True)
+            </style>
+            """, unsafe_allow_html=True)
     
             # Render the 5+1 key differentials section
             st.markdown(self.detailed_offering)
@@ -190,6 +192,7 @@ class HeroArea:
     
         # Render the contact button (hidden by default)
         self.render_contact_button()
+
     
 
 
