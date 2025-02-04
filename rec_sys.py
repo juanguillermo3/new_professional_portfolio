@@ -307,7 +307,7 @@ class RecommendationSystem:
         st.subheader(self.section_header)
         st.markdown("---")
         st.markdown(f'<p style="color: gray;">{self.section_description}</p>', unsafe_allow_html=True)
-
+    
         # Add space to separate the section description from the controls
         st.markdown("")
         
@@ -335,7 +335,7 @@ class RecommendationSystem:
             # Generate the video filename based on the project title
             video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
             video_path = os.path.join('assets', video_filename)  # Path to the local MP4 file
-
+    
             # Render the title and description
             self.render_title_and_description(project_metadata)
             
