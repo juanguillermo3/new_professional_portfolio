@@ -335,13 +335,15 @@ class RecommendationSystem:
                 unsafe_allow_html=True
             )
     
-            # Display the image with the sliding effect using the container
+            # Wrap the image in the sliding container
             try:
-                # Image wrapped in a div for animation
+                # Use Streamlit's st.image() and wrap it in the sliding container div
                 st.markdown(
                     f"""
                     <div class="sliding-container">
-                        <img src="{image_path}" class="sliding-image" style="width: 100%; object-fit: cover;">
+                        <div class="sliding-image">
+                            {st.image(image_path, use_container_width=True)}
+                        </div>
                     </div>
                     """,
                     unsafe_allow_html=True
@@ -370,7 +372,6 @@ class RecommendationSystem:
     
             # Add space after the media content (appendix space)
             st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
-
 
 
 
