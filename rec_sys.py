@@ -303,14 +303,14 @@ class RecommendationSystem:
         )
         image_path = "assets/mock_up_galleria.png"  # Assuming this is your image path
 
-        # Check if the image exists at the provided path
+        # Check if the image exists at the provided path and display it
         try:
-            self.media_placeholder.image(image_path, use_container_width=True)
+            st.image(image_path, use_container_width=True)
         except Exception as e:
             # Show a debug statement if there is an issue with loading the image
             self.media_placeholder.error(f"Error loading image: {str(e)}")
 
-        # Display the title and description
+        # Display the title and description in the media_placeholder
         self.media_placeholder.markdown(
             f"""
             <div style="font-size: 28px; font-weight: bold; text-align: center; margin-bottom: 15px;">
