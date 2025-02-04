@@ -155,107 +155,94 @@ class RecommendationSystem:
             unsafe_allow_html=True,
         )
 
-    def render_card(self, rec, is_project=False):
-        """Render a single recommendation card with fixed height and scrollable content."""
-        background_color = "#f4f4f4" if not is_project else "#fff5e6"  # Silver background for non-project items
-        border_style = "2px solid gold" if is_project else "1px solid #ddd"
-        
-        # Fixed height for the card and allow vertical scrolling
-        card_height = "200px"
-        overflow_style = "overflow-y: auto;"  
+    def render(self):
+        """
+        Render the Hero area in Streamlit with the main content always visible
+        and the code samples + contact button inside expandable content.
+        """
+        # Two-column layout for quote and avatar
+        col1, col2 = st.columns([2, 1])
     
-        # Check if 'galleria' is present in the card
-        galleria_present = "galleria" in rec
+        # Render the quote (always visible)
+        with col1:
+            st.markdown("""<style>
+            .hero-quote {
+                font-style: italic;
+                font-size: 1.5em;
+                line-height: 1.8;
+                margin: 0 auto;
+                max-width: 800px;
+                color: #333333;
+                text-align: justify;
+                padding-bottom: 20px;
+            }
+            .hero-avatar-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+            }
+            </style>""", unsafe_allow_html=True)
     
-        # Modify the title to include a star if 'galleria' is present
-        title = self.prettify_title(rec['title'])
-        if galleria_present:
-            title = f"⭐ {title}"
+            # Render each paragraph separately in the quote
+            for paragraph in self.quote:
+                st.markdown(f'<p class="hero-quote">{paragraph}</p>', unsafe_allow_html=True)
     
-        st.markdown(
-            f"""
-            <div style="background-color: {background_color}; border: {border_style}; 
-                        border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
-                        padding: 10px; text-align: center; height: {card_height}; {overflow_style}">
-                <img src="https://via.placeholder.com/150"
-                     style="border-radius: 10px; width: 100%; height: auto;">
-                <h5>{title}</h5>
-                <p style="text-align: justify; height: 100%; overflow-y: auto;">{rec['description']}</p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
+        # Render the avatar with caption (always visible)
+        if self.avatar_image:
+            with col2:
+                st.markdown('<div class="hero-avatar-container">', unsafe_allow_html=True)
+                st.image(f"assets/{self.avatar_image}", caption=self.avatar_caption, use_container_width=True)
+                st.markdown('</div>', unsafe_allow_html=True)
     
-        # Generate a unique hash for the button ID based on the card title
-        unique_hash = hashlib.md5(rec['title'].encode()).hexdigest()
-        button_id = f"galleria_{unique_hash}"  # Unique button ID
+        # Render the expandable content (with fixed silver background color and opened by default)
+        with st.expander("Explore more", expanded=True):  
+            # Add silver background color to the expandable section
+            st.markdown("""
+            <style>
+            .css-1v3fvcr {
+                background-color: #C0C0C0 !important;  /* Silver color */
+            }
+            .css-1v3fvcr .streamlit-expanderHeader {
+                background-color: #C0C0C0 !important;  /* Silver color */
+                color: black;
+            }
+            </style>
+            """, unsafe_allow_html=True)
     
-        # Streamlit button with a unique key
-        if galleria_present:
-            st.markdown(
-                """
-                <style>
-                div[data-testid="stButton"] > button {
-                    background-color: gold !important;
-                    color: white !important;
-                    border: none;
-                    padding: 10px 20px;
-                    font-size: 14px;
-                    cursor: pointer;
-                    border-radius: 5px;
-                    width: 75% !important;
-                    margin: 0 auto;
-                }
-                div[data-testid="stButton"] > button:hover {
-                    background-color: #ffd700 !important;
-                }
-                </style>
-                """,
-                unsafe_allow_html=True
-            )
-        
-        # Button row with fixed width buttons (75% of container width)
-        button_cols = st.columns(2) if "url" in rec and "report_url" in rec else [st.columns(1)[0]]
-        
-        if "url" in rec and rec["url"]:
-            with button_cols[0]:
-                st.markdown(
-                    f"""
-                    <div style="display: flex; justify-content: center; margin-top: 10px;">
-                        <a href="{rec['url']}" target="_blank" 
-                           style="text-decoration: none; width: 75%; display: block; margin: 0 auto;">
-                            <button style="background-color: #333; color: white; 
-                                           border: none; padding: 10px 20px; 
-                                           text-align: center; text-decoration: none; 
-                                           font-size: 14px; cursor: pointer; 
-                                           border-radius: 5px; width: 100%; margin: 0 auto;">
-                                See GitHub
-                            </button>
-                        </a>
-                    </div>
-                    """,
-                    unsafe_allow_html=True,
-                )
-        
-        if "report_url" in rec and rec["report_url"]:
-            with button_cols[-1]:
-                st.markdown(
-                    f"""
-                    <div style="display: flex; justify-content: center; margin-top: 10px;">
-                        <a href="{rec['report_url']}" target="_blank" 
-                           style="text-decoration: none; width: 75%; display: block; margin: 0 auto;">
-                            <button style="background-color: #34A853; color: white; 
-                                           border: none; padding: 10px 20px; 
-                                           text-align: center; text-decoration: none; 
-                                           font-size: 14px; cursor: pointer; 
-                                           border-radius: 5px; width: 100%; margin: 0 auto;">
-                                See Report
-                            </button>
-                        </a>
-                    </div>
-                    """,
-                    unsafe_allow_html=True,
-                )
+            # Render the 5+1 key differentials section
+            st.markdown(self.detailed_offering)
+    
+            # Render the code samples (hidden by default)
+            self.render_code_samples()
+    
+        # Render the contact button (hidden by default)
+        self.render_contact_button()
+    
+        # Galleria button with fixed width of 60% of the container
+        st.markdown("""
+        <style>
+        .galleria-button {
+            width: 60% !important;  /* Fixed width of 60% */
+        }
+        </style>
+        """, unsafe_allow_html=True)
+        st.button("Galleria", key="galleria", use_container_width=True)
+    
+        # Buttons with external links (simplified labels and fixed width)
+        st.markdown("""
+        <style>
+        .external-button {
+            width: 200px !important;  /* Fixed width of 200px */
+        }
+        </style>
+        """, unsafe_allow_html=True)
+    
+        # GitHub button
+        st.button("GitHub", key="github", use_container_width=True, help="Go to GitHub", css_class="external-button")
+    
+        # Sheets button
+        st.button("Sheets", key="sheets", use_container_width=True, help="Go to Sheets", css_class="external-button")
 
     
                 
