@@ -304,19 +304,23 @@ class RecommendationSystem:
     
         # Add the "show" class to trigger the transition after the content change
         st.markdown(
-            """
-            <script>
-            // Wait for the content to be updated and then apply the 'show' class
-            window.onload = function() {
-                const mediaElement = document.querySelector('.media-placeholder');
-                if (mediaElement) {
-                    setTimeout(() => {
-                        mediaElement.classList.add('show');
-                    }, 200);  // Slightly longer delay (200ms) to make the effect smoother
-                }
-            };
-            </script>
-            """,
+            "
+            <style>
+            .media-placeholder {
+                transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth transition */
+                opacity: 1;
+                transform: scale(1);
+            }
+            .media-placeholder.fade-out {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            .media-placeholder.fade-in {
+                opacity: 1;
+                transform: scale(1);
+            }
+            </style>
+            ",
             unsafe_allow_html=True
         )
 
