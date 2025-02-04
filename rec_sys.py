@@ -281,7 +281,134 @@ class RecommendationSystem:
         # Add more margin between the button area and the next row of card items
         st.markdown("<br><br>", unsafe_allow_html=True)
 
+    def render_card(self, rec, is_project=False):
+        """Render a single recommendation card with fixed height and scrollable content."""
+        background_color = "#f4f4f4" if not is_project else "#fff5e6"  # Silver background for non-project items
+        border_style = "2px solid gold" if is_project else "1px solid #ddd"
         
+        # Fixed height for the card and allow vertical scrolling
+        card_height = "300px"
+        overflow_style = "overflow-y: auto;"  # Allow scrolling for overflow content
+    
+        # Check if 'galleria' is present in the card
+        galleria_present = "galleria" in rec
+        
+        # Modify the title to include a star if 'galleria' is present
+        title = self.prettify_title(rec['title'])
+        if galleria_present:
+            title = f"⭐ {title}"
+        
+        # Render the card with a fixed height, semi-transparent title, and scrollable content
+        st.markdown(
+            f"""
+            <div style="background-color: {background_color}; border: {border_style}; 
+                        border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+                        padding: 10px; text-align: center; height: {card_height}; {overflow_style}; 
+                        position: relative; overflow: hidden;">
+                <div style="position: absolute; top: 0; left: 0; right: 0; background-color: rgba(255, 255, 255, 0.7); 
+                            padding: 10px; border-radius: 10px 10px 0 0; font-size: 16px; font-weight: bold; z-index: 10;">
+                    {title}
+                </div>
+                <div style="margin-top: 50px; padding: 0 10px; overflow-y: auto; height: 100%; text-align: justify;">
+                    {rec['description']}
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    
+        # JavaScript to reset scroll to top when hover ends
+        st.markdown(
+            """
+            <script>
+            const card = document.querySelector('div[data-testid="stMarkdownContainer"]');
+            card.addEventListener('mouseenter', function() {
+                card.scrollTop = 0;
+            });
+            </script>
+            """,
+            unsafe_allow_html=True,
+        )
+        
+        # Generate a unique hash for the button ID based on the card title
+        unique_hash = hashlib.md5(rec['title'].encode()).hexdigest()
+        button_id = f"galleria_{unique_hash}"  # Unique button ID
+        
+        # Custom CSS for the Galleria button only
+        if galleria_present:
+            st.markdown(
+                """
+                <style>
+                div[data-testid="stButton"] > button {
+                    background-color: gold !important;
+                    color: white !important;
+                    border: none;
+                    padding: 10px 20px;
+                    font-size: 14px;
+                    cursor: pointer;
+                    border-radius: 5px;
+                    width: 60% !important;  /* Fixed width for Galleria button */
+                    margin: 5px auto;  /* Reduced margin */
+                    display: block;
+                }
+                div[data-testid="stButton"] > button:hover {
+                    background-color: #ffd700 !important;
+                }
+                </style>
+                """,
+                unsafe_allow_html=True
+            )
+    
+            # Streamlit button with a unique key
+            if st.button("See Galleria", key=button_id):
+                # Update media placeholder here, triggering a transition
+                self.handle_galleria_click()
+    
+        # Button row with fixed width buttons (for GitHub, Sheets, etc.)
+        button_cols = st.columns(2) if "url" in rec and "report_url" in rec else [st.columns(1)[0]]
+        
+        if "url" in rec and rec["url"]:
+            with button_cols[0]:
+                st.markdown(
+                    f"""
+                    <div style="display: flex; justify-content: center; margin-top: 5px;">
+                        <a href="{rec['url']}" target="_blank" 
+                           style="text-decoration: none; width: 200px; display: block; margin: 0 auto;">
+                            <button style="background-color: #333; color: white; 
+                                           border: none; padding: 10px 20px; 
+                                           text-align: center; text-decoration: none; 
+                                           font-size: 14px; cursor: pointer; 
+                                           border-radius: 5px; width: 100%; margin: 0 auto;">
+                                GitHub
+                            </button>
+                        </a>
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
+        
+        if "report_url" in rec and rec["report_url"]:
+            with button_cols[-1]:
+                st.markdown(
+                    f"""
+                    <div style="display: flex; justify-content: center; margin-top: 5px;">
+                        <a href="{rec['report_url']}" target="_blank" 
+                           style="text-decoration: none; width: 200px; display: block; margin: 0 auto;">
+                            <button style="background-color: #34A853; color: white; 
+                                           border: none; padding: 10px 20px; 
+                                           text-align: center; text-decoration: none; 
+                                           font-size: 14px; cursor: pointer; 
+                                           border-radius: 5px; width: 100%; margin: 0 auto;">
+                                Sheets
+                            </button>
+                        </a>
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
+        
+        # Add more margin between the button area and the next row of card items
+        st.markdown("<br><br>", unsafe_allow_html=True)    
                 
     def handle_galleria_click(self):
         """Handle the transition when the Galleria button is clicked."""
