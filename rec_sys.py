@@ -308,23 +308,32 @@ class RecommendationSystem:
 
             # Check if the image exists at the provided path and display it
             try:
+                # Display the image in the background
                 st.image(image_path, use_container_width=True)
             except Exception as e:
                 # Show a debug statement if there is an issue with loading the image
                 st.error(f"Error loading image: {str(e)}")
 
-            # Display the title and description in the media_placeholder
+            # Overlay the title and description on top of the image
             st.markdown(
                 f"""
-                <div style="font-size: 28px; font-weight: bold; text-align: center; margin-bottom: 15px;">
-                    {item_title}
-                </div>
-                <div style="font-size: 18px; text-align: justify; line-height: 1.6;">
-                    {item_description}
+                <div style="position: relative; width: 100%; height: 500px; background: url('{image_path}') no-repeat center center fixed; 
+                            background-size: cover; border-radius: 10px; color: white; padding: 20px; overflow: hidden;">
+                    <!-- Title -->
+                    <div style="position: absolute; top: 20px; left: 20px; font-size: 28px; font-weight: bold; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);">
+                        {item_title}
+                    </div>
+                    
+                    <!-- Extended Description -->
+                    <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; font-size: 18px; text-align: justify; line-height: 1.6; 
+                                max-height: 150px; overflow-y: auto; background-color: rgba(0, 0, 0, 0.5); padding: 15px; border-radius: 8px;">
+                        {item_description}
+                    </div>
                 </div>
                 """, 
                 unsafe_allow_html=True
             )
+
 
 
     def apply_transition_styles(self):
