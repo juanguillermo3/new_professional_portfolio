@@ -355,8 +355,28 @@ class RecommendationSystem:
             # Render the title and description
             self.render_title_and_description(project_metadata)
             
-            # Create a placeholder for the video area
-            self.media_placeholder = st.empty()  # Placeholder for media area
+            # Define a fixed height and width for the media container (adjust as needed)
+            MEDIA_CONTAINER_WIDTH = "700px"
+            MEDIA_CONTAINER_HEIGHT = "400px"  # Adjust to match the video size
+            
+            # Create a placeholder for the media area with a fixed size
+            st.markdown(
+                f"""
+                <div id="media-container" style="
+                    width: {MEDIA_CONTAINER_WIDTH}; 
+                    height: {MEDIA_CONTAINER_HEIGHT}; 
+                    display: flex; 
+                    align-items: center; 
+                    justify-content: center; 
+                    background-color: #f0f0f0;
+                    border-radius: 10px;">
+                    <p style="color: #aaa;">Loading content...</p>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+            
+            self.media_placeholder = st.empty()  # Placeholder that will be updated later
         
             # Check if the video file exists in the assets folder
             if os.path.exists(video_path):
