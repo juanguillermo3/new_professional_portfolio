@@ -204,7 +204,8 @@ class RecommendationSystem:
                     cursor: pointer;
                     border-radius: 5px;
                     width: 60% !important;  /* Fixed width for Galleria button */
-                    margin: 0 auto;
+                    margin: 5px auto;  /* Reduced margin */
+                    display: block;
                 }
                 div[data-testid="stButton"] > button:hover {
                     background-color: #ffd700 !important;
@@ -261,7 +262,7 @@ class RecommendationSystem:
                     """,
                     unsafe_allow_html=True,
                 )
-    
+        
                 
     def handle_galleria_click(self):
         """Handle the transition when the Galleria button is clicked."""
