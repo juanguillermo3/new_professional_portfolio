@@ -317,15 +317,17 @@ class RecommendationSystem:
             # Display the title and description in a single paragraph with inline styling
             st.markdown(
                 f"""
-                <div style="text-align: center; margin-top: 5px;">
-                    <p style="font-size: 24px; font-weight: 400; line-height: 1.6; color: #333; margin: 0;">
-                        <span style="font-size: 26px; font-weight: 600; color: #222;">
+                <div style="position: relative; background-color: rgba(0, 0, 0, 0.4); padding: 15px; border-radius: 8px; color: white;">
+                    <div style="font-size: 20px; font-weight: 300; line-height: 1.6; text-align: center; margin: 0;">
+                        <span style="font-size: 24px; font-weight: 600; color: #fff; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);">
                             {item_title}
-                        </span> 
-                        - {item_description}
-                    </p>
+                        </span>
+                        <br>
+                        <span style="font-size: 16px; font-weight: 300; color: #eee; text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);">
+                            {item_description}
+                        </span>
+                    </div>
                 </div>
-                <br><br> <!-- Extra space below the content -->
                 """, 
                 unsafe_allow_html=True
             )
