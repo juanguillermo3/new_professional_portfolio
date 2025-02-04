@@ -408,9 +408,9 @@ class RecommendationSystem:
                     self.render_card(rec, is_project=rec.get("is_project", False))
                     
         # Incorporate Galleria if the folder exists
-        if selected_project and project_metadata:
-            render_section_separator()
-            #self.show_galleria(selected_project)
+        #if selected_project and project_metadata:
+        #    render_section_separator()
+        #    #self.show_galleria(selected_project)
 
             
     def show_galleria(self, project_title):
