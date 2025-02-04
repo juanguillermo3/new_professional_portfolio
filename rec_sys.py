@@ -190,7 +190,7 @@ class RecommendationSystem:
         unique_hash = hashlib.md5(rec['title'].encode()).hexdigest()
         button_id = f"galleria_{unique_hash}"  # Unique button ID
     
-        # Custom CSS for the Galleria button only
+        # Streamlit button with a unique key
         if galleria_present:
             st.markdown(
                 """
@@ -203,7 +203,8 @@ class RecommendationSystem:
                     font-size: 14px;
                     cursor: pointer;
                     border-radius: 5px;
-                    width: 100%;
+                    width: 75% !important;
+                    margin: 0 auto;
                 }
                 div[data-testid="stButton"] > button:hover {
                     background-color: #ffd700 !important;
@@ -212,13 +213,8 @@ class RecommendationSystem:
                 """,
                 unsafe_allow_html=True
             )
-    
-            # Streamlit button with a unique key
-            if st.button("See Galleria", key=button_id):
-                # Update media placeholder here, triggering a transition
-                self.handle_galleria_click()
-    
-        # Button row
+        
+        # Button row with fixed width buttons (75% of container width)
         button_cols = st.columns(2) if "url" in rec and "report_url" in rec else [st.columns(1)[0]]
         
         if "url" in rec and rec["url"]:
@@ -227,12 +223,12 @@ class RecommendationSystem:
                     f"""
                     <div style="display: flex; justify-content: center; margin-top: 10px;">
                         <a href="{rec['url']}" target="_blank" 
-                           style="text-decoration: none; width: 100%;">
+                           style="text-decoration: none; width: 75%; display: block; margin: 0 auto;">
                             <button style="background-color: #333; color: white; 
                                            border: none; padding: 10px 20px; 
                                            text-align: center; text-decoration: none; 
                                            font-size: 14px; cursor: pointer; 
-                                           border-radius: 5px; width: 100%;">
+                                           border-radius: 5px; width: 100%; margin: 0 auto;">
                                 See GitHub
                             </button>
                         </a>
@@ -247,12 +243,12 @@ class RecommendationSystem:
                     f"""
                     <div style="display: flex; justify-content: center; margin-top: 10px;">
                         <a href="{rec['report_url']}" target="_blank" 
-                           style="text-decoration: none; width: 100%;">
+                           style="text-decoration: none; width: 75%; display: block; margin: 0 auto;">
                             <button style="background-color: #34A853; color: white; 
                                            border: none; padding: 10px 20px; 
                                            text-align: center; text-decoration: none; 
                                            font-size: 14px; cursor: pointer; 
-                                           border-radius: 5px; width: 100%;">
+                                           border-radius: 5px; width: 100%; margin: 0 auto;">
                                 See Report
                             </button>
                         </a>
@@ -260,6 +256,7 @@ class RecommendationSystem:
                     """,
                     unsafe_allow_html=True,
                 )
+
     
                 
     def handle_galleria_click(self):
