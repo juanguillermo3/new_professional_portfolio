@@ -220,20 +220,6 @@ class RecommendationSystem:
                 unsafe_allow_html=True,
             )  
 
-    def show_galleria_details(self, rec):
-        """Show details of the project or galleria when the button is clicked."""
-        # Display a modal-style content below the card for simplicity
-        st.markdown(
-            f"""
-            <div style="background-color: #fff; border: 1px solid #ccc; 
-                        padding: 20px; border-radius: 10px; max-width: 500px; margin: 20px auto;">
-                <h3>Project Specifics for {rec['title']}</h3>
-                <p>{rec.get('galleria_details', 'No details available for this project.')}</p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
     def render_title_and_description(self, project_metadata):
         """Renders the title and description of a project, centered and with margins, with inline hashtags."""
 
