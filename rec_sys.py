@@ -287,14 +287,14 @@ class RecommendationSystem:
 
     def handle_galleria_click(self):
         """
-        Handle the click event for the galleria item and display its content.
+        Handle the click event for the galleria item and display its content with a smooth sliding image effect.
         The content includes a title, a brief description, and a background image.
         Hardcoded mockup values are used for now.
         """
-
+    
         # Clear any existing content in the media placeholder
         self.media_placeholder.empty()
-
+    
         # Hardcoded title, description, and image path for the mockup
         item_title = "Exciting New Project"
         item_description = (
@@ -302,18 +302,41 @@ class RecommendationSystem:
             "a quick overview of the project, its objectives, and key outcomes."
         )
         image_path = "assets/mock_up_galleria.png"  # Assuming this is your image path
-
+    
         # Begin using the placeholder context
         with self.media_placeholder.container():
-
+    
+            # Add the sliding animation to the image using CSS
+            st.markdown(
+                f"""
+                <style>
+                    .sliding-image {{
+                        position: relative;
+                        width: 100%;
+                        animation: slideIn 2s ease-out;
+                    }}
+                    
+                    @keyframes slideIn {{
+                        0% {{
+                            left: -100%;
+                        }}
+                        100% {{
+                            left: 0;
+                        }}
+                    }}
+                </style>
+                """, 
+                unsafe_allow_html=True
+            )
+    
             # Check if the image exists at the provided path and display it
             try:
-                # Display the image
-                st.image(image_path, use_container_width=True)
+                # Apply the sliding effect on the image
+                st.image(image_path, use_container_width=True, caption="Featured Project", width=700)
             except Exception as e:
                 # Show a debug statement if there is an issue with loading the image
                 st.error(f"Error loading image: {str(e)}")
-
+    
             # Display the title and description in a single paragraph with inline styling
             st.markdown(
                 f"""
@@ -331,9 +354,10 @@ class RecommendationSystem:
                 """, 
                 unsafe_allow_html=True
             )
-
+    
             # Add space after the media content (appendix space)
             st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
+
 
     def apply_transition_styles(self):
         """Apply the CSS transition styles to the media placeholder."""
