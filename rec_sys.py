@@ -218,17 +218,16 @@ class RecommendationSystem:
                 unsafe_allow_html=True,
             )
 
-
     def render_card(self, rec, is_project=False):
         """Render a single recommendation card with fixed height and scrollable content."""
-        background_color = "#f4f4f4" if not is_project else "#fff5e6"  # Silver for non-projects, warm for projects
+        background_color = "#f4f4f4" if not is_project else "#fff5e6"
         border_style = "2px solid gold" if is_project else "1px solid #ddd"
         
         # Fixed height for the card and allow vertical scrolling
         card_height = "200px"
         overflow_style = "overflow-y: auto;"
         
-        galleria_present = "galleria" in rec  # Check if 'galleria' is in the record
+        galleria_present = "galleria" in rec
         title = self.prettify_title(rec['title'])
         if galleria_present:
             title = f"⭐ {title}"
@@ -249,26 +248,37 @@ class RecommendationSystem:
     
         # Generate unique hash for button ID
         unique_hash = hashlib.md5(rec['title'].encode()).hexdigest()
-        
-        # Standardized Button Styling
-        button_style = """
-            display: inline-block;
-            background-color: gold;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 14px;
-            cursor: pointer;
-            border-radius: 5px;
-            text-align: center;
-            text-decoration: none;
-            margin-top: 10px;
+    
+        # Standardized button styling
+        button_container = """
+            <style>
+                .custom-button-container {
+                    display: flex;
+                    justify-content: center;
+                    margin-top: 10px;
+                }
+                .custom-button {
+                    background-color: gold;
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    font-size: 14px;
+                    cursor: pointer;
+                    border-radius: 5px;
+                    text-align: center;
+                    text-decoration: none;
+                    width: auto;
+                }
+            </style>
         """
-        
-        # Render Galleria button (only if 'galleria' is present)
+    
+        # Render Galleria button inside styled div
         if galleria_present:
-            if st.button("See Galleria", key=f"galleria_{unique_hash}", help="View the Galleria collection"):
-                st.write("Galleria button clicked!")
+            st.markdown(button_container, unsafe_allow_html=True)
+            st.markdown('<div class="custom-button-container">', unsafe_allow_html=True)
+            if st.button("See Galleria", key=f"galleria_{unique_hash}"):
+                st.write("✅ Galleria button clicked!")
+            st.markdown('</div>', unsafe_allow_html=True)
     
         # Render "See in GitHub" button (if URL exists)
         if "url" in rec and rec["url"]:
@@ -303,6 +313,7 @@ class RecommendationSystem:
                 """,
                 unsafe_allow_html=True,
             )
+
 
     def show_galleria_details(self, rec):
         """Show details of the project or galleria when the button is clicked."""
