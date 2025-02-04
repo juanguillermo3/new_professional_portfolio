@@ -263,22 +263,25 @@ class RecommendationSystem:
             
     def handle_galleria_click(self):
         """Handle the transition when the Galleria button is clicked."""
-        # Prototype transition with dummy content
         if self.media_placeholder:
             self.media_placeholder.empty()  # Clear the previous content
-        
+         
         # Apply transition effect before adding new content
         self.apply_transition_styles()
-
+    
+        # Slight delay to make the transition effect visible before content change
+        time.sleep(0.5)  # Add a small delay (e.g., 0.5 seconds)
+    
         # Switch between dummy content types (image, text, etc.)
         content_type = "image"  # Can be "image", "text", or "other" (future types)
-        
+         
         if content_type == "image":
             self.media_placeholder.image("https://via.placeholder.com/300", caption="New Media Placeholder Image")
         elif content_type == "text":
             self.media_placeholder.markdown("**This is a placeholder text.** You can replace this with a video or other media.")
         else:
             self.media_placeholder.markdown("**Placeholder for other types of media.**")
+
     
     def apply_transition_styles(self):
         """Apply the CSS transition styles to the media placeholder."""
