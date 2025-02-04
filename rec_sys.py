@@ -339,12 +339,7 @@ class RecommendationSystem:
         recommendations = self.rank_items(query, selected_project)
     
         # Check if there is project metadata and show video
-        project_metadata = None
-        if selected_project != "All Projects":
-            for repo in self.repos_metadata:
-                if repo["title"].lower() == selected_project.lower():
-                    project_metadata = repo
-                    break
+        project_metadata = next((repo for repo in self.repos_metadata if repo["title"].lower() == selected_project.lower()), None) if selected_project != "All Projects" else None
     
         # If project metadata is available, display it with the video area
         if project_metadata:
@@ -360,24 +355,8 @@ class RecommendationSystem:
             MEDIA_CONTAINER_HEIGHT = "400px"  # Adjust to match the video size
             
             # Create a placeholder for the media area with a fixed size
-            st.markdown(
-                f"""
-                <div id="media-container" style="
-                    width: {MEDIA_CONTAINER_WIDTH}; 
-                    height: {MEDIA_CONTAINER_HEIGHT}; 
-                    display: flex; 
-                    align-items: center; 
-                    justify-content: center; 
-                    background-color: #f0f0f0;
-                    border-radius: 10px;">
-                    <p style="color: #aaa;">Loading content...</p>
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-            
-            self.media_placeholder = st.empty()  # Placeholder that will be updated later
-        
+            self.media_placeholder = st.empty()
+    
             # Check if the video file exists in the assets folder
             if os.path.exists(video_path):
                 # Display the video in the placeholder
@@ -396,7 +375,7 @@ class RecommendationSystem:
         # Incorporate Galleria if the folder exists
         if selected_project and project_metadata:
             render_section_separator()
-            self.show_galleria(selected_project )
+            self.show_galleria(selected_project)
             
     def show_galleria(self, project_title):
         """Check if the galleria folder exists and render the details."""
