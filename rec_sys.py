@@ -284,97 +284,57 @@ class RecommendationSystem:
         
         # Add more margin between the button area and the next row of card items
         st.markdown("<br><br>", unsafe_allow_html=True)
+        
+       def handle_galleria_click(self):
+            """
+            Handle the click event for the galleria item and display its content.
+            The content includes a title, a brief description, and a background image.
+            Hardcoded mockup values are used for now.
+            """
     
-    def handle_galleria_click(self):
-        """
-        Handle the click event for the galleria item and display its content with a smooth sliding image effect.
-        The content includes a title, a brief description, and a background image.
-        Hardcoded mockup values are used for now.
-        """
+            # Clear any existing content in the media placeholder
+            self.media_placeholder.empty()
     
-        # Clear any existing content in the media placeholder
-        self.media_placeholder.empty()
-    
-        # Hardcoded title, description, and image path for the mockup
-        item_title = "Exciting New Project"
-        item_description = (
-            "This is a brief description of the selected item. It gives the user "
-            "a quick overview of the project, its objectives, and key outcomes."
-        )
-        image_path = "assets/mock_up_galleria.png"  # Assuming this is your image path
-    
-        # Begin using the placeholder context
-        with self.media_placeholder.container():
-    
-            # Add the sliding animation to the image container using CSS
-            st.markdown(
-                f"""
-                <style>
-                    .sliding-container {{
-                        position: relative;
-                        width: 100%;
-                        overflow: hidden;
-                    }}
-    
-                    .sliding-image {{
-                        position: relative;
-                        left: -100%;
-                        animation: slideIn 2s ease-out forwards;
-                    }}
-                    
-                    @keyframes slideIn {{
-                        0% {{
-                            left: -100%;
-                        }}
-                        100% {{
-                            left: 0;
-                        }}
-                    }}
-                </style>
-                """, 
-                unsafe_allow_html=True
+            # Hardcoded title, description, and image path for the mockup
+            item_title = "Exciting New Project"
+            item_description = (
+                "This is a brief description of the selected item. It gives the user "
+                "a quick overview of the project, its objectives, and key outcomes."
             )
+            image_path = "assets/mock_up_galleria.png"  # Assuming this is your image path
     
-            # Wrap the image in the sliding container
-            try:
-                # Use Streamlit's st.image() and wrap it in the sliding container div
+            # Begin using the placeholder context
+            with self.media_placeholder.container():
+    
+                # Check if the image exists at the provided path and display it
+                try:
+                    # Display the image
+                    st.image(image_path, use_container_width=True)
+                except Exception as e:
+                    # Show a debug statement if there is an issue with loading the image
+                    st.error(f"Error loading image: {str(e)}")
+    
+                # Display the title and description in a single paragraph with inline styling
                 st.markdown(
                     f"""
-                    <div class="sliding-container">
-                        <div class="sliding-image">
-                            {st.image(image_path, use_container_width=True)}
+                    <div style="position: relative; background-color: rgba(0, 0, 0, 0.4); padding: 15px; border-radius: 8px; color: white;">
+                        <div style="font-size: 20px; font-weight: 300; line-height: 1.6; text-align: center; margin: 0;">
+                            <span style="font-size: 24px; font-weight: 600; color: #fff; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);">
+                                {item_title}
+                            </span>
+                            <br>
+                            <span style="font-size: 16px; font-weight: 300; color: #eee; text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);">
+                                {item_description}
+                            </span>
                         </div>
                     </div>
-                    """,
+                    """, 
                     unsafe_allow_html=True
                 )
-            except Exception as e:
-                # Show a debug statement if there is an issue with loading the image
-                st.error(f"Error loading image: {str(e)}")
     
-            # Display the title and description in a single paragraph with inline styling
-            st.markdown(
-                f"""
-                <div style="position: relative; background-color: rgba(0, 0, 0, 0.4); padding: 15px; border-radius: 8px; color: white;">
-                    <div style="font-size: 20px; font-weight: 300; line-height: 1.6; text-align: center; margin: 0;">
-                        <span style="font-size: 24px; font-weight: 600; color: #fff; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);">
-                            {item_title}
-                        </span>
-                        <br>
-                        <span style="font-size: 16px; font-weight: 300; color: #eee; text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);">
-                            {item_description}
-                        </span>
-                    </div>
-                </div>
-                """, 
-                unsafe_allow_html=True
-            )
-    
-            # Add space after the media content (appendix space)
-            st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
-
-
-
+                # Add space after the media content (appendix space)
+                st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
+                
     def apply_transition_styles(self):
         """Apply the CSS transition styles to the media placeholder."""
         st.markdown(
