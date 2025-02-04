@@ -249,8 +249,7 @@ class MediaCarousel:
 
         # Display media content
         self.parse_media(self.media_content[self.index])
-        
-        
+         
         # Navigation buttons (preserving layout)
         col1, col2, col3 = st.columns([2, 6, 2])
         with col1:
