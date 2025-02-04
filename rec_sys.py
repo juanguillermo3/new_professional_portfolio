@@ -14,6 +14,7 @@ from app_end_metadata import load_repos_metadata as load_app_metadata
 import hashlib
 from front_end_utils import render_section_separator
 from media_carousel import MediaCarousel  # Assuming this is the correct import
+import time
 
 def combine_metadata():
     # Load both sets of metadata
