@@ -118,6 +118,42 @@ class RecommendationSystem:
         """Prettify the title by removing underscores and capitalizing words."""
         return " ".join(word.capitalize() for word in title.replace("_", " ").split())
 
+
+
+    def render_title_and_description(self, project_metadata):
+        """Renders the title and description of a project, centered and with margins, with inline hashtags."""
+
+        # Professional and innovative color palette
+        color_palette = [
+            "#1E3A8A",  # Deep Blue (Tech/Professional)
+            "#065F46",  # Dark Green (Trust/Innovation)
+            "#9333EA",  # Purple (Creative/Modern)
+            "#0EA5E9",  # Cyan Blue (Fresh/Innovative)
+            "#B91C1C",  # Deep Red (Bold/Strong)
+            "#7C3AED",  # Vibrant Indigo (Techy Feel)
+            "#2563EB",  # Solid Blue (Corporate/Stable)
+            "#059669",  # Teal Green (Sophisticated)
+        ]
+
+        # Generate inline tags with improved styling
+        tags_html = " ".join(
+            f'<span style="color: {random.choice(color_palette)}; font-size: 0.9em; font-weight: 600;">#{tag}</span>'
+            for tag in project_metadata.get("tags", [])
+        )
+
+        # Render HTML with inline styling
+        st.markdown(
+            f"""
+            <div style="text-align: center; margin-bottom: 20px;">
+                <h3>{self.prettify_title(project_metadata['title'])}</h3>
+            </div>
+            <div style="text-align: justify; margin-left: 10%; margin-right: 10%; margin-bottom: 20px;">
+                <p>{project_metadata['description']} {tags_html}</p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
     def render_card(self, rec, is_project=False):
         """Render a single recommendation card with fixed height and scrollable content."""
         background_color = "#f4f4f4" if not is_project else "#fff5e6"  # Silver background for non-project items
@@ -219,41 +255,7 @@ class RecommendationSystem:
                 """,
                 unsafe_allow_html=True,
             )  
-
-    def render_title_and_description(self, project_metadata):
-        """Renders the title and description of a project, centered and with margins, with inline hashtags."""
-
-        # Professional and innovative color palette
-        color_palette = [
-            "#1E3A8A",  # Deep Blue (Tech/Professional)
-            "#065F46",  # Dark Green (Trust/Innovation)
-            "#9333EA",  # Purple (Creative/Modern)
-            "#0EA5E9",  # Cyan Blue (Fresh/Innovative)
-            "#B91C1C",  # Deep Red (Bold/Strong)
-            "#7C3AED",  # Vibrant Indigo (Techy Feel)
-            "#2563EB",  # Solid Blue (Corporate/Stable)
-            "#059669",  # Teal Green (Sophisticated)
-        ]
-
-        # Generate inline tags with improved styling
-        tags_html = " ".join(
-            f'<span style="color: {random.choice(color_palette)}; font-size: 0.9em; font-weight: 600;">#{tag}</span>'
-            for tag in project_metadata.get("tags", [])
-        )
-
-        # Render HTML with inline styling
-        st.markdown(
-            f"""
-            <div style="text-align: center; margin-bottom: 20px;">
-                <h3>{self.prettify_title(project_metadata['title'])}</h3>
-            </div>
-            <div style="text-align: justify; margin-left: 10%; margin-right: 10%; margin-bottom: 20px;">
-                <p>{project_metadata['description']} {tags_html}</p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-        
+            
     def render(self):
         st.subheader(self.section_header)
         st.markdown("---")
