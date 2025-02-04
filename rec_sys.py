@@ -285,43 +285,43 @@ class RecommendationSystem:
         # Add more margin between the button area and the next row of card items
         st.markdown("<br><br>", unsafe_allow_html=True)
 
-    def handle_galleria_click(self):
-        """
-        Handle the click event for the galleria item and display its content.
-        The content includes a title, a brief description, and a background image.
-        Hardcoded mockup values are used for now.
-        """
-
-        # Clear any existing content in the media placeholder
-        self.media_placeholder.empty()
-
-        # Hardcoded title, description, and image path for the mockup
-        item_title = "Exciting New Project"
-        item_description = (
-            "This is a brief description of the selected item. It gives the user "
-            "a quick overview of the project, its objectives, and key outcomes."
-        )
-        image_path = "assets/mock_up_galleria.png"  # Assuming this is your image path
-
-        # Check if the image exists at the provided path
-        try:
-            self.media_placeholder.image(image_path, use_container_width=True)
-        except Exception as e:
-            # Show a debug statement if there is an issue with loading the image
-            self.media_placeholder.error(f"Error loading image: {str(e)}")
-
-        # Display the title and description
-        self.media_placeholder.markdown(
-            f"""
-            <div style="font-size: 28px; font-weight: bold; text-align: center; margin-bottom: 15px;">
-                {item_title}
-            </div>
-            <div style="font-size: 18px; text-align: justify; line-height: 1.6;">
-                {item_description}
-            </div>
-            """, 
-            unsafe_allow_html=True
-        )
+        def handle_galleria_click(self):
+            """
+            Handle the click event for the galleria item and display its content.
+            The content includes a title, a brief description, and a background image.
+            Hardcoded mockup values are used for now.
+            """
+    
+            # Clear any existing content in the media placeholder
+            self.media_placeholder.empty()
+    
+            # Hardcoded title, description, and image path for the mockup
+            item_title = "Exciting New Project"
+            item_description = (
+                "This is a brief description of the selected item. It gives the user "
+                "a quick overview of the project, its objectives, and key outcomes."
+            )
+            image_path = "assets/mock_up_galleria.png"  # Assuming this is your image path
+    
+            # Check if the image exists at the provided path
+            try:
+                self.media_placeholder.image(image_path, use_container_width=True)
+            except Exception as e:
+                # Show a debug statement if there is an issue with loading the image
+                self.media_placeholder.error(f"Error loading image: {str(e)}")
+    
+            # Display the title and description
+            self.media_placeholder.markdown(
+                f"""
+                <div style="font-size: 28px; font-weight: bold; text-align: center; margin-bottom: 15px;">
+                    {item_title}
+                </div>
+                <div style="font-size: 18px; text-align: justify; line-height: 1.6;">
+                    {item_description}
+                </div>
+                """, 
+                unsafe_allow_html=True
+            )
 
 
     def apply_transition_styles(self):
