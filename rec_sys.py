@@ -265,23 +265,38 @@ class RecommendationSystem:
     def handle_galleria_click(self):
         """Handle the transition when the Galleria button is clicked."""
         if self.media_placeholder:
-            self.media_placeholder.empty()  # Clear the previous content
-         
-        # Apply transition effect before adding new content
+            self.media_placeholder.empty()  # Clear previous content
+        
+        # Apply transition effect
         self.apply_transition_styles()
     
-        # Slight delay to make the transition effect visible before content change
-        time.sleep(0.5)  # Add a small delay (e.g., 0.5 seconds)
+        time.sleep(0.5)  # Short delay for the transition effect
     
-        # Switch between dummy content types (image, text, etc.)
-        content_type = "image"  # Can be "image", "text", or "other" (future types)
-         
+        # Switch content while maintaining the fixed container size
+        content_type = "image"  # Example: Can be "image", "text", etc.
+    
         if content_type == "image":
-            self.media_placeholder.image("https://via.placeholder.com/300", caption="New Media Placeholder Image")
+            self.media_placeholder.markdown(
+                f"""
+                <div id="media-container">
+                    <img src="https://via.placeholder.com/300" 
+                         style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
         elif content_type == "text":
-            self.media_placeholder.markdown("**This is a placeholder text.** You can replace this with a video or other media.")
-        else:
-            self.media_placeholder.markdown("**Placeholder for other types of media.**")
+            self.media_placeholder.markdown(
+                f"""
+                <div id="media-container">
+                    <p style="font-size: 18px; text-align: center; color: #333;">
+                        This is a placeholder text. Replace it with a video or other media.
+                    </p>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+
 
     def apply_transition_styles(self):
         """Apply the CSS transition styles to the media placeholder."""
