@@ -278,13 +278,7 @@ class RecommendationSystem:
     
             # Streamlit button with a unique key
             if st.button("See Galleria", key=button_id):
-                st.session_state["button_click"] = True
-    
-        # Handle button click event
-        if st.session_state.get("button_click", False):
-            st.write("Button Clicked!")
-            st.session_state["button_click"] = False
-            st.experimental_rerun()
+                st.write("Button Clicked!")
     
         # Add "See in GitHub" button if URL is present
         if "url" in rec and rec["url"]:
