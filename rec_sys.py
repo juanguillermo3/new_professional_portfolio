@@ -335,6 +335,7 @@ class RecommendationSystem:
             # Add space after the media content (appendix space)
             st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
             
+            
     def apply_transition_styles(self):
         """Apply the CSS transition styles to the media placeholder."""
         st.markdown(
