@@ -36,57 +36,6 @@ class HeroArea:
         self.professional_offering = professional_offering
         self.detailed_offering=detailed_offering
 
-    def render(self):
-        """
-        Render the Hero area in Streamlit with the main content always visible
-        and the code samples + contact button inside expandable content.
-        """
-        # Two-column layout for quote and avatar
-        col1, col2 = st.columns([2, 1])
-    
-        # Render the quote (always visible)
-        with col1:
-            st.markdown("""<style>
-            .hero-quote {
-                font-style: italic;
-                font-size: 1.5em;
-                line-height: 1.8;
-                margin: 0 auto;
-                max-width: 800px;
-                color: #333333;
-                text-align: justify;
-                padding-bottom: 20px;
-            }
-            .hero-avatar-container {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100%;
-            }
-            </style>""", unsafe_allow_html=True)
-    
-            # Render each paragraph separately in the quote
-            for paragraph in self.quote:
-                st.markdown(f'<p class="hero-quote">{paragraph}</p>', unsafe_allow_html=True)
-    
-        # Render the avatar with caption (always visible)
-        if self.avatar_image:
-            with col2:
-                st.markdown('<div class="hero-avatar-container">', unsafe_allow_html=True)
-                st.image(f"assets/{self.avatar_image}", caption=self.avatar_caption, use_container_width=True)
-                st.markdown('</div>', unsafe_allow_html=True)
-    
-        # Render the code samples and WhatsApp button inside an expander
-        with st.expander("Explore more"):
-            # Render the professional offering paragraph
-            st.markdown(f'<p>{self.professional_offering}</p>', unsafe_allow_html=True)
-
-            # Render the code samples (hidden by default)
-            self.render_code_samples()
-    
-            # Render the contact button (hidden by default)
-            self.render_contact_button()
-
     def render_code_samples(self):
         """
         Render code sample buttons as GitHub-styled buttons with an introductory text.
@@ -169,20 +118,16 @@ class HeroArea:
                 st.image(f"assets/{self.avatar_image}", caption=self.avatar_caption, use_container_width=True)
                 st.markdown('</div>', unsafe_allow_html=True)
     
-        # Render the code samples and WhatsApp button inside an expander
-        with st.expander("Explore more", expanded=True):  # Make the expander open by default
-            # Add styling for the expandable section's background color
-            st.markdown("""
-            <style>
-            .css-1v3fvcr {
-                background-color: #C0C0C0 !important;  /* Silver color */
-            }
-            .css-1v3fvcr .streamlit-expanderHeader {
-                background-color: #C0C0C0 !important;  /* Silver color */
-                color: black;
-            }
-            </style>
-            """, unsafe_allow_html=True)
+        # Create a container for the state toggle
+        expander_label = "Explore more (details)"  # Label for closed expander
+        with st.expander(expander_label, expanded=True):  # Make the expander open by default
+            # Add a dynamic label depending on whether the expander is open or closed
+            if st.session_state.get("expander_open", False):
+                expander_label = "Explore more (less details)"
+                st.session_state.expander_open = False
+            else:
+                expander_label = "Explore more (details)"
+                st.session_state.expander_open = True
     
             # Render the 5+1 key differentials section
             st.markdown(self.detailed_offering)
