@@ -586,7 +586,7 @@ class RecommendationSystem:
         """Handle the transition when the Galleria button is clicked."""
         if self.media_placeholder:
             self.media_placeholder.empty()  # Clear previous content
-        
+    
         # Apply transition effect
         self.apply_transition_styles()
     
@@ -595,10 +595,13 @@ class RecommendationSystem:
         # Switch content while maintaining the fixed container size
         content_type = "image"  # Example: Can be "image", "text", etc.
     
+        MEDIA_CONTAINER_WIDTH = "700px"
+        MEDIA_CONTAINER_HEIGHT = "400px"
+    
         if content_type == "image":
             self.media_placeholder.markdown(
                 f"""
-                <div id="media-container">
+                <div id="media-container" style="width: {MEDIA_CONTAINER_WIDTH}; height: {MEDIA_CONTAINER_HEIGHT};">
                     <img src="https://via.placeholder.com/300" 
                          style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
                 </div>
@@ -608,7 +611,7 @@ class RecommendationSystem:
         elif content_type == "text":
             self.media_placeholder.markdown(
                 f"""
-                <div id="media-container">
+                <div id="media-container" style="width: {MEDIA_CONTAINER_WIDTH}; height: {MEDIA_CONTAINER_HEIGHT};">
                     <p style="font-size: 18px; text-align: center; color: #333;">
                         This is a placeholder text. Replace it with a video or other media.
                     </p>
