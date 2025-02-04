@@ -218,23 +218,21 @@ class RecommendationSystem:
                 unsafe_allow_html=True,
             )
 
+
     def render_card(self, rec, is_project=False):
         """Render a single recommendation card with fixed height and scrollable content."""
-        background_color = "#f4f4f4" if not is_project else "#fff5e6"  # Silver background for non-project items
+        background_color = "#f4f4f4" if not is_project else "#fff5e6"  # Silver for non-projects, warm for projects
         border_style = "2px solid gold" if is_project else "1px solid #ddd"
         
         # Fixed height for the card and allow vertical scrolling
         card_height = "200px"
-        overflow_style = "overflow-y: auto;"  
-    
-        # Check if 'galleria' is present in the card
-        galleria_present = "galleria" in rec
-    
-        # Modify the title to include a star if 'galleria' is present
+        overflow_style = "overflow-y: auto;"
+        
+        galleria_present = "galleria" in rec  # Check if 'galleria' is in the record
         title = self.prettify_title(rec['title'])
         if galleria_present:
             title = f"⭐ {title}"
-    
+        
         st.markdown(
             f"""
             <div style="background-color: {background_color}; border: {border_style}; 
@@ -249,54 +247,37 @@ class RecommendationSystem:
             unsafe_allow_html=True,
         )
     
-        # Generate a unique hash for the button ID based on the card title
+        # Generate unique hash for button ID
         unique_hash = hashlib.md5(rec['title'].encode()).hexdigest()
-        button_id = f"galleria_{unique_hash}"  # Unique button ID
-    
-        # Custom CSS for the Galleria button only
+        
+        # Standardized Button Styling
+        button_style = """
+            display: inline-block;
+            background-color: gold;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            margin-top: 10px;
+        """
+        
+        # Render Galleria button (only if 'galleria' is present)
         if galleria_present:
-            st.markdown(
-                """
-                <style>
-                div[data-testid="stButton"] > button {
-                    background-color: gold !important;
-                    color: white !important;
-                    border: none;
-                    padding: 10px 20px;
-                    font-size: 14px;
-                    cursor: pointer;
-                    border-radius: 5px;
-                    width: 100%;
-                }
-                div[data-testid="stButton"] > button:hover {
-                    background-color: #ffd700 !important;
-                }
-                </style>
-                """,
-                unsafe_allow_html=True
-            )
+            if st.button("See Galleria", key=f"galleria_{unique_hash}", help="View the Galleria collection"):
+                st.write("Galleria button clicked!")
     
-            # Streamlit button with a unique key
-            if st.button("See Galleria", key=button_id):
-                st.session_state["button_click"] = True
-    
-        # Handle button click event
-        if st.session_state.get("button_click", False):
-            st.write("Button Clicked!")
-            st.session_state["button_click"] = False
-            st.experimental_rerun()
-    
-        # Add "See in GitHub" button if URL is present
+        # Render "See in GitHub" button (if URL exists)
         if "url" in rec and rec["url"]:
             st.markdown(
                 f"""
                 <div style="display: flex; justify-content: center; margin-top: 10px;">
-                    <a href="{rec['url']}" target="_blank" 
-                       style="text-decoration: none;">
-                        <button style="background-color: #333; color: white; 
-                                       border: none; padding: 10px 20px; 
-                                       text-align: center; text-decoration: none; 
-                                       font-size: 14px; cursor: pointer; 
+                    <a href="{rec['url']}" target="_blank" style="text-decoration: none;">
+                        <button style="background-color: #333; color: white; border: none;
+                                       padding: 10px 20px; font-size: 14px; cursor: pointer;
                                        border-radius: 5px;">
                             See in GitHub
                         </button>
@@ -306,17 +287,14 @@ class RecommendationSystem:
                 unsafe_allow_html=True,
             )
     
-        # Add "See Report" button if report_url is present
+        # Render "See Report" button (if report_url exists)
         if "report_url" in rec and rec["report_url"]:
             st.markdown(
                 f"""
                 <div style="display: flex; justify-content: center; margin-top: 10px;">
-                    <a href="{rec['report_url']}" target="_blank" 
-                       style="text-decoration: none;">
-                        <button style="background-color: #34A853; color: white; 
-                                       border: none; padding: 10px 20px; 
-                                       text-align: center; text-decoration: none; 
-                                       font-size: 14px; cursor: pointer; 
+                    <a href="{rec['report_url']}" target="_blank" style="text-decoration: none;">
+                        <button style="background-color: #34A853; color: white; border: none;
+                                       padding: 10px 20px; font-size: 14px; cursor: pointer;
                                        border-radius: 5px;">
                             See Report
                         </button>
@@ -325,8 +303,6 @@ class RecommendationSystem:
                 """,
                 unsafe_allow_html=True,
             )
-
-    
 
     def show_galleria_details(self, rec):
         """Show details of the project or galleria when the button is clicked."""
