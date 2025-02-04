@@ -308,33 +308,26 @@ class RecommendationSystem:
 
             # Check if the image exists at the provided path and display it
             try:
-                # Display the image in the background
+                # Display the image
                 st.image(image_path, use_container_width=True)
             except Exception as e:
                 # Show a debug statement if there is an issue with loading the image
                 st.error(f"Error loading image: {str(e)}")
 
-            # Overlay the title and description on top of the image
+            # Display the title and description below the image as pseudo-caption
             st.markdown(
                 f"""
-                <div style="position: relative; width: 100%; height: 500px; background: url('{image_path}') no-repeat center center fixed; 
-                            background-size: cover; border-radius: 10px; color: white; padding: 20px; overflow: hidden;">
-                    <!-- Title -->
-                    <div style="position: absolute; top: 20px; left: 20px; font-size: 28px; font-weight: bold; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);">
+                <div style="text-align: center; margin-top: 20px;">
+                    <div style="font-size: 28px; font-weight: bold; margin-bottom: 10px;">
                         {item_title}
                     </div>
-                    
-                    <!-- Extended Description -->
-                    <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; font-size: 18px; text-align: justify; line-height: 1.6; 
-                                max-height: 150px; overflow-y: auto; background-color: rgba(0, 0, 0, 0.5); padding: 15px; border-radius: 8px;">
+                    <div style="font-size: 18px; text-align: justify; line-height: 1.6; max-width: 800px; margin: 0 auto;">
                         {item_description}
                     </div>
                 </div>
                 """, 
                 unsafe_allow_html=True
             )
-
-
 
     def apply_transition_styles(self):
         """Apply the CSS transition styles to the media placeholder."""
