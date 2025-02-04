@@ -237,7 +237,7 @@ class RecommendationSystem:
             # Streamlit button with a unique key
             if st.button("See Galleria", key=button_id):
                 # Update media placeholder here, triggering a transition
-                self.handle_galleria_click()
+                self.handle_galleria_click(rec)
     
         # Button row with fixed width buttons (for GitHub, Sheets, etc.)
         button_cols = st.columns(2) if "url" in rec and "report_url" in rec else [st.columns(1)[0]]
@@ -285,23 +285,19 @@ class RecommendationSystem:
         # Add more margin between the button area and the next row of card items
         st.markdown("<br><br>", unsafe_allow_html=True)
         
-    def handle_galleria_click(self):
+    def handle_galleria_click(self, rec):
         """
         Handle the click event for the galleria item and display its content.
         The content includes a title, a brief description, and a background image.
         Hardcoded mockup values are used for now.
         """
-    
         # Clear any existing content in the media placeholder
         self.media_placeholder.empty()
     
-        # Hardcoded title, description, and image path for the mockup
-        item_title = "Exciting New Project"
-        item_description = (
-            "This is a brief description of the selected item. It gives the user "
-            "a quick overview of the project, its objectives, and key outcomes."
-        )
-        image_path = "assets/mock_up_galleria.png"  # Assuming this is your image path
+        # Use the title and description from the rec object
+        item_title = rec.get('title', 'No Title Available')
+        item_description = rec.get('description', 'No description available.')
+        image_path = rec.get('image_path', 'assets/mock_up_galleria.png')  # Adjust if image path is stored in rec
     
         # Begin using the placeholder context
         with self.media_placeholder.container():
@@ -334,6 +330,7 @@ class RecommendationSystem:
     
             # Add space after the media content (appendix space)
             st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
+
             
             
     def apply_transition_styles(self):
