@@ -314,17 +314,18 @@ class RecommendationSystem:
                 # Show a debug statement if there is an issue with loading the image
                 st.error(f"Error loading image: {str(e)}")
 
-            # Display the title and description below the image as pseudo-caption
+            # Display the title and description in a single paragraph with inline styling
             st.markdown(
                 f"""
-                <div style="text-align: center; margin-top: 20px;">
-                    <div style="font-size: 28px; font-weight: bold; margin-bottom: 10px;">
-                        {item_title}
-                    </div>
-                    <div style="font-size: 18px; text-align: justify; line-height: 1.6; max-width: 800px; margin: 0 auto;">
-                        {item_description}
-                    </div>
+                <div style="text-align: center; margin-top: 5px;">
+                    <p style="font-size: 24px; font-weight: 400; line-height: 1.6; color: #333; margin: 0;">
+                        <span style="font-size: 26px; font-weight: 600; color: #222;">
+                            {item_title}
+                        </span> 
+                        - {item_description}
+                    </p>
                 </div>
+                <br><br> <!-- Extra space below the content -->
                 """, 
                 unsafe_allow_html=True
             )
