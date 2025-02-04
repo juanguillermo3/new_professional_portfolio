@@ -154,7 +154,7 @@ class RecommendationSystem:
             """,
             unsafe_allow_html=True,
         )
-
+    
     def render_card(self, rec, is_project=False):
         """Render a single recommendation card with fixed height and scrollable content."""
         background_color = "#f4f4f4" if not is_project else "#fff5e6"  # Silver background for non-project items
