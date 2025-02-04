@@ -261,7 +261,7 @@ class RecommendationSystem:
             )  
 
             
-   def handle_galleria_click(self):
+    def handle_galleria_click(self):
         """Handle the transition when the Galleria button is clicked."""
         if self.media_placeholder:
             self.media_placeholder.empty()  # Clear the previous content
