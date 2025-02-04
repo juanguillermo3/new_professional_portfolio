@@ -286,7 +286,7 @@ class RecommendationSystem:
             """
             <style>
             .media-placeholder {
-                transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+                transition: opacity 2s ease-in-out, transform 2s ease-in-out;  /* Slowed down transition */
                 opacity: 0;
                 transform: scale(0.95);
             }
@@ -298,7 +298,7 @@ class RecommendationSystem:
             """,
             unsafe_allow_html=True
         )
-        
+    
         # Add the "show" class to trigger the transition after the content change
         st.markdown(
             """
@@ -309,13 +309,14 @@ class RecommendationSystem:
                 if (mediaElement) {
                     setTimeout(() => {
                         mediaElement.classList.add('show');
-                    }, 100);  // Small delay to trigger transition
+                    }, 200);  // Slightly longer delay (200ms) to make the effect smoother
                 }
             };
             </script>
             """,
             unsafe_allow_html=True
         )
+
     
     def render(self):
         """Render method with Galleria callback integration."""
