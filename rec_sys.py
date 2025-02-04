@@ -309,27 +309,18 @@ class RecommendationSystem:
             # Explicit spacing at the top of the media section
             st.markdown("<div style='margin-top: 40px;'></div>", unsafe_allow_html=True)
 
-            # Create a common container for both image and caption
-            st.markdown(
-                f"""
-                <div style="position: relative; background-color: rgba(0, 0, 0, 0.4); padding: 15px; border-radius: 8px; color: white; overflow: hidden;">
-                    <!-- Image inside the common container -->
-                    <img src="{image_path}" style="width: 100%; object-fit: cover; height: auto;" />
-                    
-                    <!-- Caption (Title + Description) -->
-                    <div style="position: absolute; top: 20px; left: 15px; right: 15px; bottom: 15px; display: flex; flex-direction: column; justify-content: flex-end;">
-                        <span style="font-size: 24px; font-weight: 600; color: #fff; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);">
-                            {item_title}
-                        </span>
-                        <br>
-                        <span style="font-size: 16px; font-weight: 300; color: #eee; text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);">
-                            {item_description}
-                        </span>
-                    </div>
-                </div>
-                """, 
-                unsafe_allow_html=True
-            )
+            # Display the image with Streamlit's image component
+            st.image(image_path, use_container_width=True)
+
+            # Create a container for the caption (title + description)
+            with st.container():
+                st.markdown(f"<h3 style='text-align: center; font-size: 28px; font-weight: 600; color: white;'>"
+                            f"{item_title}</h3>", unsafe_allow_html=True)
+                st.markdown(f"<p style='text-align: center; font-size: 16px; font-weight: 300; color: white;'>"
+                            f"{item_description}</p>", unsafe_allow_html=True)
+
+            # Add explicit spacing after the content
+            st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
 
     def apply_transition_styles(self):
         """Apply the CSS transition styles to the media placeholder."""
