@@ -286,117 +286,41 @@ class RecommendationSystem:
         st.markdown("<br><br>", unsafe_allow_html=True)
 
                 
-    def handle_galleria_click(self):
-        """Handle the transition when the Galleria button is clicked."""
-        if self.media_placeholder:
-            self.media_placeholder.empty()  # Clear previous content
-    
-        # Apply transition effect
-        self.apply_transition_styles()
-    
-        time.sleep(0.5)  # Short delay for the transition effect
-    
-        # Switch content while maintaining the fixed container size
-        content_type = "image"  # Example: Can be "image", "text", etc.
-    
-        MEDIA_CONTAINER_WIDTH = "700px"
-        MEDIA_CONTAINER_HEIGHT = "400px"
-    
-        if content_type == "image":
-            self.media_placeholder.markdown(
-                f"""
-                <div id="media-container" style="width: {MEDIA_CONTAINER_WIDTH}; height: {MEDIA_CONTAINER_HEIGHT};">
-                    <img src="https://via.placeholder.com/300" 
-                         style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-        elif content_type == "text":
-            self.media_placeholder.markdown(
-                f"""
-                <div id="media-container" style="width: {MEDIA_CONTAINER_WIDTH}; height: {MEDIA_CONTAINER_HEIGHT};">
-                    <p style="font-size: 18px; text-align: center; color: #333;">
-                        This is a placeholder text. Replace it with a video or other media.
-                    </p>
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
 
-
-    def handle_galleria_click(self):
-        """Handle the transition with stylish representation of item-specific content."""
-        if self.media_placeholder:
-            self.media_placeholder.empty()
+    def handle_galleria_click():
+        """
+        Handle the click event for the galleria item and display its content.
+        The content includes a title, a brief description, and a background image.
+        Hardcoded mockup values are used for now.
+        """
     
-        # Apply transition styles for a smooth fade
-        self.apply_transition_styles()
-    
-        time.sleep(0.5)
-    
-        # Define media container size
-        MEDIA_CONTAINER_WIDTH = "100%"
-        MEDIA_CONTAINER_HEIGHT = "500px"
-    
-        # Define background image and content
-        background_image_url = "mock_up_galleria.png"  # Replace with the actual path or URL to your image
-        title = "Project Title with Intriguing Name"
-        debrief = (
-            "A concise description about the project item. This section highlights key features and points of interest "
-            "to draw the user into the content, offering a quick overview of what makes this item unique."
+        # Hardcoded title, description, and image path for the mockup
+        item_title = "Exciting New Project"
+        item_description = (
+            "This is a brief description of the selected item. It gives the user "
+            "a quick overview of the project, its objectives, and key outcomes."
         )
+        image_path = "assets/mock_up_galleria.png"  # Assuming this is your image path
     
-        # Debug: Check if the background image is available
+        # Check if the image exists at the provided path
         try:
-            with open(background_image_url, 'rb') as f:
-                image_exists = True
-        except FileNotFoundError:
-            image_exists = False
+            st.image(image_path, use_container_width=True)
+        except Exception as e:
+            # Show a debug statement if there is an issue with loading the image
+            st.error(f"Error loading image: {str(e)}")
     
-        if not image_exists:
-            st.warning(f"Image not found: {background_image_url}. Please check the file path.")
-    
-        # Display the content in the placeholder with the defined styles
-        self.media_placeholder.markdown(
-            f"""
-            <div style="position: relative; width: {MEDIA_CONTAINER_WIDTH}; height: {MEDIA_CONTAINER_HEIGHT}; 
-                        background: url('{background_image_url}') no-repeat center center fixed; 
-                        background-size: cover; border-radius: 10px; overflow: hidden; 
-                        color: white; padding: 20px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);">
-                <!-- Title and Description -->
-                <div style="position: absolute; top: 20px; left: 20px; font-size: 2rem; font-weight: 600; 
-                            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);">
-                    {title}
-                </div>
-                <!-- Debrief (extended description) -->
-                <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; 
-                            max-height: 200px; overflow-y: auto; font-size: 1.1rem; 
-                            text-align: justify; background-color: rgba(0, 0, 0, 0.5); 
-                            padding: 15px; border-radius: 8px;">
-                    <p>{debrief}</p>
-                </div>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-    
-        # Apply animation for smooth text fade-in
+        # Display the title and description
         st.markdown(
-            """
-            <style>
-            .media-placeholder {
-                animation: fadeIn 2s ease-in-out;
-            }
-            @keyframes fadeIn {
-                0% { opacity: 0; }
-                100% { opacity: 1; }
-            }
-            </style>
-            """,
-            unsafe_allow_html=True,
+            f"""
+            <div style="font-size: 28px; font-weight: bold; text-align: center; margin-bottom: 15px;">
+                {item_title}
+            </div>
+            <div style="font-size: 18px; text-align: justify; line-height: 1.6;">
+                {item_description}
+            </div>
+            """, 
+            unsafe_allow_html=True
         )
-
 
 
     def apply_transition_styles(self):
