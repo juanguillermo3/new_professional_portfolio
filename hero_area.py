@@ -128,7 +128,7 @@ class HeroArea:
             </button>
         </a>
         """, unsafe_allow_html=True)
-
+    
     def render(self):
         """
         Render the Hero area in Streamlit with the main content always visible
@@ -170,15 +170,27 @@ class HeroArea:
                 st.markdown('</div>', unsafe_allow_html=True)
     
         # Render the code samples and WhatsApp button inside an expander
-        with st.expander("Explore more"):
+        with st.expander("Explore more", expanded=True):  # Make the expander open by default
+            # Add styling for the expandable section's background color
+            st.markdown("""<style>
+            .streamlit-expanderHeader {
+                background-color: #C0C0C0;  # Silver color
+                color: black;
+            }
+            .streamlit-expanderContent {
+                background-color: #C0C0C0;  # Silver color
+            }
+            </style>""", unsafe_allow_html=True)
+    
             # Render the 5+1 key differentials section
             st.markdown(self.detailed_offering)
-            
+    
             # Render the code samples (hidden by default)
             self.render_code_samples()
     
         # Render the contact button (hidden by default)
         self.render_contact_button()
+
 
 
 # Example data for HeroArea with multiple paragraphs in the quote and code sample links
