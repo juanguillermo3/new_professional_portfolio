@@ -218,6 +218,115 @@ class RecommendationSystem:
                 unsafe_allow_html=True,
             )
 
+    def render_card(self, rec, is_project=False):
+        """Render a single recommendation card with fixed height and scrollable content."""
+        background_color = "#f4f4f4" if not is_project else "#fff5e6"  # Silver background for non-project items
+        border_style = "2px solid gold" if is_project else "1px solid #ddd"
+        
+        # Fixed height for the card and allow vertical scrolling
+        card_height = "200px"
+        overflow_style = "overflow-y: auto;"  
+    
+        # Check if 'galleria' is present in the card
+        galleria_present = "galleria" in rec
+    
+        # Modify the title to include a star if 'galleria' is present
+        title = self.prettify_title(rec['title'])
+        if galleria_present:
+            title = f"⭐ {title}"
+    
+        st.markdown(
+            f"""
+            <div style="background-color: {background_color}; border: {border_style}; 
+                        border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+                        padding: 10px; text-align: center; height: {card_height}; {overflow_style}">
+                <img src="https://via.placeholder.com/150"
+                     style="border-radius: 10px; width: 100%; height: auto;">
+                <h5>{title}</h5>
+                <p style="text-align: justify; height: 100%; overflow-y: auto;">{rec['description']}</p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    
+        # Generate a unique hash for the button ID based on the card title
+        unique_hash = hashlib.md5(rec['title'].encode()).hexdigest()
+        button_id = f"galleria_{unique_hash}"  # Unique button ID
+    
+        # Custom CSS for the Galleria button only
+        if galleria_present:
+            st.markdown(
+                """
+                <style>
+                div[data-testid="stButton"] > button {
+                    background-color: gold !important;
+                    color: white !important;
+                    border: none;
+                    padding: 10px 20px;
+                    font-size: 14px;
+                    cursor: pointer;
+                    border-radius: 5px;
+                    width: 100%;
+                }
+                div[data-testid="stButton"] > button:hover {
+                    background-color: #ffd700 !important;
+                }
+                </style>
+                """,
+                unsafe_allow_html=True
+            )
+    
+            # Streamlit button with a unique key
+            if st.button("See Galleria", key=button_id):
+                st.session_state["button_click"] = True
+    
+        # Handle button click event
+        if st.session_state.get("button_click", False):
+            st.write("Button Clicked!")
+            st.session_state["button_click"] = False
+            st.experimental_rerun()
+    
+        # Add "See in GitHub" button if URL is present
+        if "url" in rec and rec["url"]:
+            st.markdown(
+                f"""
+                <div style="display: flex; justify-content: center; margin-top: 10px;">
+                    <a href="{rec['url']}" target="_blank" 
+                       style="text-decoration: none;">
+                        <button style="background-color: #333; color: white; 
+                                       border: none; padding: 10px 20px; 
+                                       text-align: center; text-decoration: none; 
+                                       font-size: 14px; cursor: pointer; 
+                                       border-radius: 5px;">
+                            See in GitHub
+                        </button>
+                    </a>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+    
+        # Add "See Report" button if report_url is present
+        if "report_url" in rec and rec["report_url"]:
+            st.markdown(
+                f"""
+                <div style="display: flex; justify-content: center; margin-top: 10px;">
+                    <a href="{rec['report_url']}" target="_blank" 
+                       style="text-decoration: none;">
+                        <button style="background-color: #34A853; color: white; 
+                                       border: none; padding: 10px 20px; 
+                                       text-align: center; text-decoration: none; 
+                                       font-size: 14px; cursor: pointer; 
+                                       border-radius: 5px;">
+                            See Report
+                        </button>
+                    </a>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+    
+
     def show_galleria_details(self, rec):
         """Show details of the project or galleria when the button is clicked."""
         # Display a modal-style content below the card for simplicity
