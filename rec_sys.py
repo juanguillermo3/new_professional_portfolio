@@ -261,7 +261,7 @@ class RecommendationSystem:
             )  
 
             
-    def handle_galleria_click(self):
+   def handle_galleria_click(self):
         """Handle the transition when the Galleria button is clicked."""
         if self.media_placeholder:
             self.media_placeholder.empty()  # Clear the previous content
@@ -282,7 +282,6 @@ class RecommendationSystem:
         else:
             self.media_placeholder.markdown("**Placeholder for other types of media.**")
 
-    
     def apply_transition_styles(self):
         """Apply the CSS transition styles to the media placeholder."""
         st.markdown(
@@ -299,28 +298,6 @@ class RecommendationSystem:
             }
             </style>
             """,
-            unsafe_allow_html=True
-        )
-    
-        # Add the "show" class to trigger the transition after the content change
-        st.markdown(
-            "
-            <style>
-            .media-placeholder {
-                transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth transition */
-                opacity: 1;
-                transform: scale(1);
-            }
-            .media-placeholder.fade-out {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            .media-placeholder.fade-in {
-                opacity: 1;
-                transform: scale(1);
-            }
-            </style>
-            ",
             unsafe_allow_html=True
         )
 
