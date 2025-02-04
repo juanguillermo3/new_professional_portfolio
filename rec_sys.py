@@ -325,6 +325,7 @@ class RecommendationSystem:
                 """,
                 unsafe_allow_html=True,
             )
+
     
 
     def show_galleria_details(self, rec):
