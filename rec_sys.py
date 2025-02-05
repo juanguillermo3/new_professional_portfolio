@@ -106,7 +106,7 @@ class RecommendationSystem:
         ranked_items = sorted(
             self.metadata_list,
             key=lambda x: (
-                not parse_boolean(x.get("galleria", "False")),  # False (desired) comes first
+                not parse_boolean(x.get("galleria", "True")),  # True (desired) comes first
                 datetime.strptime(x.get('last_updated', '1970-01-01T00:00:00Z'), "%Y-%m-%dT%H:%M:%SZ"),
             ),
             reverse=True,  # Reverse needed because we want latest dates first
