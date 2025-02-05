@@ -100,22 +100,21 @@ class RecommendationSystem:
             """Helper function to safely parse boolean values from strings."""
             return str(value).strip().lower() == "true"
     
-        # Step 1: Sort by two criteria:
-        #   - Priority to items with "galleria" evaluating to True.
-        #   - Then, sort by 'last_updated' in descending order.
+        # Step 1: Sort items based on:
+        #   - Priority: Items with "galleria" == True come first.
+        #   - Secondary: Sort by 'last_updated' in descending order.
         ranked_items = sorted(
             self.metadata_list,
             key=lambda x: (
-                not parse_boolean(x.get("galleria", "True")),  # True (desired) comes first
-                datetime.strptime(x.get('last_updated', '1970-01-01T00:00:00Z'), "%Y-%m-%dT%H:%M:%SZ"),
+                not parse_boolean(x.get("galleria", "False")),  # 'False' items get a higher value (sorted later)
+                -datetime.strptime(x.get("last_updated", "1970-01-01T00:00:00Z"), "%Y-%m-%dT%H:%M:%SZ").timestamp(),
             ),
-            reverse=True,  # Reverse needed because we want latest dates first
         )
     
         # Step 2: Filter by project selection
         if selected_project and selected_project != "All Projects":
             ranked_items = [
-                item for item in ranked_items if item['repo_name'].lower() == selected_project.lower()
+                item for item in ranked_items if item["repo_name"].lower() == selected_project.lower()
             ]
     
         # Step 3: Filter by search query
@@ -128,6 +127,7 @@ class RecommendationSystem:
     
         # Step 4: Return the top 'num_recommended_items' recommendations
         return ranked_items[:self.num_recommended_items]
+
 
 
     def prettify_title(self, title):
