@@ -94,10 +94,23 @@ class RecommendationSystem:
         return carousels
 
     def rank_items(self, query=None, selected_project=None):
-        """Rank the items by the last updated date and apply filters."""
-        # Step 1: Sort items by 'last_updated' from newest to oldest,
-        # Treat items without 'last_updated' as if they are the oldest.
-        ranked_items = sorted(self.metadata_list, key=lambda x: datetime.strptime(x.get('last_updated', '1970-01-01T00:00:00Z'), "%Y-%m-%dT%H:%M:%SZ"), reverse=True)
+        """Rank the items by priority on 'galleria' and 'last_updated', then apply filters."""
+        
+        def parse_boolean(value):
+            """Helper function to safely parse boolean values from strings."""
+            return str(value).strip().lower() == "true"
+    
+        # Step 1: Sort by two criteria:
+        #   - Priority to items with "galleria" evaluating to True.
+        #   - Then, sort by 'last_updated' in descending order.
+        ranked_items = sorted(
+            self.metadata_list,
+            key=lambda x: (
+                not parse_boolean(x.get("galleria", "False")),  # False (desired) comes first
+                datetime.strptime(x.get('last_updated', '1970-01-01T00:00:00Z'), "%Y-%m-%dT%H:%M:%SZ"),
+            ),
+            reverse=True,  # Reverse needed because we want latest dates first
+        )
     
         # Step 2: Filter by project selection
         if selected_project and selected_project != "All Projects":
@@ -115,6 +128,7 @@ class RecommendationSystem:
     
         # Step 4: Return the top 'num_recommended_items' recommendations
         return ranked_items[:self.num_recommended_items]
+
 
     def prettify_title(self, title):
         """Prettify the title by removing underscores and capitalizing words."""
