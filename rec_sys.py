@@ -443,6 +443,19 @@ class RecommendationSystem:
         else:
             st.warning(f"Galleria for {project_title} not found.")    
 
+import streamlit as st
+import glob
+import os
+import re
+
+class MediaViewer:
+    def __init__(self):
+        # Initialize the current_index attribute to keep track of the image index
+        self.current_index = 0
+        self.media_files = []  # Placeholder for media files
+
+        self.media_placeholder = st.empty()  # Placeholder for displaying content
+
     def _load_media_from_folder(self, folder_path, image_path_pattern=".*\.png"):
         """
         Loads media files from a folder, with filtering based on the provided regex pattern.
@@ -463,14 +476,14 @@ class RecommendationSystem:
         
         return filtered_files
 
-    def update_video_content(self, title, description, image_path):
+    def update_video_content(self, title, description, image_path, rec):
         """
         Updates the video/image content with title, description, and image path.
         This method will render the content with the same style applied in the old layout.
         """
         # Clear any existing content in the media placeholder
         self.media_placeholder.empty()
-    
+
         # Begin using the placeholder context
         with self.media_placeholder.container():
             try:
@@ -479,7 +492,7 @@ class RecommendationSystem:
             except Exception as e:
                 # Show a debug statement if there is an issue with loading the image
                 st.error(f"Error loading image: {str(e)}")
-    
+
             # Display the title and description in a single paragraph with inline styling
             st.markdown(
                 f"""
@@ -497,7 +510,22 @@ class RecommendationSystem:
                 """, 
                 unsafe_allow_html=True
             )
-    
+
+            # Navigation controls within the gallery context
+            col1, col2 = st.columns([1, 1])
+
+            with col1:
+                if st.button("Previous"):
+                    # Navigate to previous image
+                    self.current_index = (self.current_index - 1) % len(self.media_files)
+                    self.update_video_content(title, description, self.media_files[self.current_index], rec)
+
+            with col2:
+                if st.button("Next"):
+                    # Navigate to next image
+                    self.current_index = (self.current_index + 1) % len(self.media_files)
+                    self.update_video_content(title, description, self.media_files[self.current_index], rec)
+
             # Add space after the media content (appendix space)
             st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
 
@@ -505,42 +533,28 @@ class RecommendationSystem:
         """
         Handle the click event for the galleria item and display its content.
         The content includes a title, a brief description, and a background image.
-        Allows subtle navigation through images using navigation buttons.
+        Allows subtle navigation through images using navigation buttons within the gallery context.
         """
         # Extract data from the rec object (title, description, and image_path pattern)
         item_title = rec.get('title', 'No Title Available')
         item_description = rec.get('description', 'No description available.')
         image_path_pattern = rec.get('image_path', '.*\.png')  # Regex pattern for image path
-    
+
         # Helper function to get media files from the assets folder
         def get_media_files():
             return self._load_media_from_folder('assets', image_path_pattern)
-    
+
         # Get all media files from the assets folder (filtered by the regex pattern)
         self.media_files = get_media_files()
-    
+
         # Check if there are media files available
         if not self.media_files:
             st.error("No media files found matching the pattern.")
             return
-    
+
         # Update the content with the current media
-        self.update_video_content(item_title, item_description, self.media_files[self.current_index])
-    
-        # Navigation controls
-        col1, col2 = st.columns([1, 1])
-        
-        with col1:
-            if st.button("Previous"):
-                # Navigate to previous image
-                self.current_index = (self.current_index - 1) % len(self.media_files)
-                self.update_video_content(item_title, item_description, self.media_files[self.current_index])
-        
-        with col2:
-            if st.button("Next"):
-                # Navigate to next image
-                self.current_index = (self.current_index + 1) % len(self.media_files)
-                self.update_video_content(item_title, item_description, self.media_files[self.current_index])
+        self.update_video_content(item_title, item_description, self.media_files[self.current_index], rec)
+
 
 
 # Example usage
