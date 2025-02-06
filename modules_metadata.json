@@ -253,9 +253,16 @@
         "galleria": "True"
     },
     {
-        "title": "title: Wages Drivers",
+        "title": "Wages Drivers",
         "description": "Detects the main drivers behind wage formation trough the analysis of the gradients of a Neural Network model.",
         "image_path": "assets/wages_drivers.png",
+        "galleria": "True",
+        "repo_name": "lab_market_trends"
+    },
+    {
+        "title": "Neural Networks for Wages Prediction",
+        "description": "Provides a deep learning approach based on a deep, feed-forward NN to predict wages.",
+        "image_path": "assets/wages_models.html",
         "galleria": "True",
         "repo_name": "lab_market_trends"
     }
