@@ -443,104 +443,85 @@ class RecommendationSystem:
         else:
             st.warning(f"Galleria for {project_title} not found.")    
 
-    def _load_media_from_folder(self, folder_path, image_path_pattern=".*\.png"):
+    def _load_media_from_folder(self, image_path_pattern=".*\.png"):
         """
-        Loads media files from a folder, with filtering based on the provided regex pattern.
+        Loads media files from the uploader folder, filtered by a regex pattern.
         
-        :param folder_path: The path to the folder containing media files.
-        :param image_path_pattern: The filtering regex pattern for the image files.
-        :return: A list of media file paths that match the regex pattern.
+        :param image_path_pattern: Regex pattern to filter image files.
+        :return: Sorted list of media file paths matching the pattern.
         """
-        # Get all media files from the folder (no filtering at this point)
-        media_files = glob.glob(os.path.join(folder_path, "*"))
+        media_files = glob.glob(os.path.join(self.uploader, "*"))
         
-        # Use regex to filter files based on the provided image_path pattern
+        # Filter files using regex
         regex = re.compile(image_path_pattern)
         filtered_files = [file for file in media_files if regex.match(file)]
         
-        # Sort the files for consistent order
-        filtered_files.sort()
-        
-        return filtered_files
+        return sorted(filtered_files)  # Sort for consistent ordering
 
-    def update_video_content(self, title, description, image_path, rec):
+    def update_video_content(self, title, description, rec):
         """
-        Updates the video/image content with title, description, and image path.
-        This method will render the content with the same style applied in the old layout.
+        Updates the displayed media content and renders navigation controls.
         """
-        # Clear any existing content in the media placeholder
-        self.media_placeholder.empty()
+        self.media_placeholder.empty()  # Clear previous content
 
-        # Begin using the placeholder context
+        if not self.media_files:
+            st.error("No media files found.")
+            return
+
+        # Get current image path
+        image_path = self.media_files[self.current_index]
+
+        # Begin new content rendering
         with self.media_placeholder.container():
-            try:
-                # Display the image (or video if applicable)
-                st.image(image_path, use_container_width=True)
-            except Exception as e:
-                # Show a debug statement if there is an issue with loading the image
-                st.error(f"Error loading image: {str(e)}")
+            # Create a 3-column layout: left navigation, image, right navigation
+            col1, col2, col3 = st.columns([0.05, 0.90, 0.05])  # 5% - 90% - 5%
 
-            # Display the title and description in a single paragraph with inline styling
-            st.markdown(
-                f"""
-                <div style="position: relative; background-color: rgba(0, 0, 0, 0.4); padding: 15px; border-radius: 8px; color: white;">
-                    <div style="font-size: 20px; font-weight: 300; line-height: 1.6; text-align: center; margin: 0;">
-                        <span style="font-size: 24px; font-weight: 600; color: #fff; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);">
-                            {title}
-                        </span>
-                        <br>
-                        <span style="font-size: 16px; font-weight: 300; color: #eee; text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);">
-                            {description}
-                        </span>
-                    </div>
-                </div>
-                """, 
-                unsafe_allow_html=True
-            )
-
-            # Navigation controls within the gallery context
-            col1, col2 = st.columns([1, 1])
-
+            # Left navigation button
             with col1:
-                if st.button("Previous"):
-                    # Navigate to previous image
+                if st.button("<", key="prev"):
                     self.current_index = (self.current_index - 1) % len(self.media_files)
-                    self.update_video_content(title, description, self.media_files[self.current_index], rec)
+                    self.update_video_content(title, description, rec)
 
+            # Main media display (centered)
             with col2:
-                if st.button("Next"):
-                    # Navigate to next image
-                    self.current_index = (self.current_index + 1) % len(self.media_files)
-                    self.update_video_content(title, description, self.media_files[self.current_index], rec)
+                try:
+                    st.image(image_path, use_column_width=True)
+                except Exception as e:
+                    st.error(f"Error loading image: {e}")
 
-            # Add space after the media content (appendix space)
-            st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
+                # Title & description below the image
+                st.markdown(
+                    f"""
+                    <div style="text-align: center; padding: 10px; background: rgba(0, 0, 0, 0.4); border-radius: 8px; color: white;">
+                        <span style="font-size: 24px; font-weight: 600;">{title}</span><br>
+                        <span style="font-size: 16px; font-weight: 300;">{description}</span>
+                    </div>
+                    """, unsafe_allow_html=True
+                )
+
+            # Right navigation button
+            with col3:
+                if st.button(">", key="next"):
+                    self.current_index = (self.current_index + 1) % len(self.media_files)
+                    self.update_video_content(title, description, rec)
 
     def handle_galleria_click(self, rec):
         """
-        Handle the click event for the galleria item and display its content.
-        The content includes a title, a brief description, and a background image.
-        Allows subtle navigation through images using navigation buttons within the gallery context.
+        Handles user interaction with a galleria item and loads the corresponding media.
         """
-        # Extract data from the rec object (title, description, and image_path pattern)
         item_title = rec.get('title', 'No Title Available')
         item_description = rec.get('description', 'No description available.')
-        image_path_pattern = rec.get('image_path', '.*\.png')  # Regex pattern for image path
+        image_path_pattern = rec.get('image_path', '.*\.png')  # Regex pattern
 
-        # Helper function to get media files from the assets folder
-        def get_media_files():
-            return self._load_media_from_folder('assets', image_path_pattern)
+        # Load media files
+        self.media_files = self._load_media_from_folder(image_path_pattern)
 
-        # Get all media files from the assets folder (filtered by the regex pattern)
-        self.media_files = get_media_files()
-
-        # Check if there are media files available
         if not self.media_files:
-            st.error("No media files found matching the pattern.")
+            st.error("No media files found.")
             return
 
-        # Update the content with the current media
-        self.update_video_content(item_title, item_description, self.media_files[self.current_index], rec)
+        # Show the first media item by default
+        self.update_video_content(item_title, item_description, rec)
 
 
 
