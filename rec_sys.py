@@ -20,6 +20,8 @@ import glob
 import os
 import time
 import streamlit as st
+import streamlit as st
+import streamlit.components.v1 as components
 
 def combine_metadata():
     # Load both sets of metadata
@@ -353,12 +355,13 @@ class RecommendationSystem:
     
             # Add space after the media content (appendix space)
             st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
-            
+        
+
     def handle_galleria_click(self, rec):
         """
         Handle the click event for the galleria item and display its content.
         The content includes a title, a brief description, and a background image or media.
-        Hardcoded mockup values are used for now.
+        The key `theme_image` is used instead of `media_path`.
         """
         # Clear any existing content in the media placeholder
         self.media_placeholder.empty()
@@ -366,41 +369,47 @@ class RecommendationSystem:
         # Use the title and description from the rec object
         item_title = rec.get('title', 'No Title Available')
         item_description = rec.get('description', 'No description available.')
-        media_path = rec.get('image_path', 'assets/mock_up_galleria.png')  # Adjust if media path is stored in rec
+        theme_image = rec.get('theme_image', None)  # Adjust if theme_image key is used in rec
+    
+        # Debug statement if the key is not provided
+        if not theme_image:
+            st.error("Error: 'theme_image' key not found in the provided data.")
         
-        # Extract file extension
-        ext = media_path.split('.')[-1].lower()
+        # Extract file extension if theme_image is provided
+        if theme_image:
+            ext = theme_image.split('.')[-1].lower()
         
-        # Begin using the placeholder context
-        with self.media_placeholder.container():
-        
-            # Handle different types of media based on the file extension
-            if ext in ['jpg', 'jpeg', 'png', 'gif']:
-                # Render image with aspect ratio preserved
-                try:
-                    st.image(media_path, use_container_width=True)
-                except Exception as e:
-                    st.error(f"Error loading image: {str(e)}")
-            
-            elif ext in ['mp4', 'avi']:
-                # Render video with autoplay, muted, and looping
-                try:
-                    st.video(media_path, loop=True, autoplay=True, muted=True)
-                except Exception as e:
-                    st.error(f"Error loading video: {str(e)}")
-            
-            elif ext == 'html':
-                # Render HTML content
-                try:
-                    with open(media_path, 'r') as file:
-                        html_content = file.read()
-                    st.markdown(html_content, unsafe_allow_html=True)
-                except Exception as e:
-                    st.error(f"Error loading HTML content: {str(e)}")
-            
-            else:
-                # Fallback for unsupported media types
-                st.error(f"Unsupported media type: {ext}")
+            # Begin using the placeholder context
+            with self.media_placeholder.container():
+    
+                # Handle different types of media based on the file extension
+                if ext in ['jpg', 'jpeg', 'png', 'gif']:
+                    # Render image with aspect ratio preserved
+                    try:
+                        st.image(theme_image, use_container_width=True)
+                    except Exception as e:
+                        st.error(f"Error loading image: {str(e)}")
+                
+                elif ext in ['mp4', 'avi']:
+                    # Render video with autoplay, muted, and looping
+                    try:
+                        st.video(theme_image, loop=True, autoplay=True, muted=True)
+                    except Exception as e:
+                        st.error(f"Error loading video: {str(e)}")
+                
+                elif ext == 'html':
+                    # Render HTML content
+                    try:
+                        with open(theme_image, 'r') as file:
+                            components.html(file.read(), height=None)  # Auto-adjust container size
+                    except FileNotFoundError:
+                        st.error(f"Error: File '{theme_image}' not found.")
+                    except Exception as e:
+                        st.error(f"Error loading HTML content: {str(e)}")
+                
+                else:
+                    # Fallback for unsupported media types
+                    st.error(f"Unsupported media type: {ext}")
     
             # Display the title and description in a single paragraph with inline styling
             st.markdown(
@@ -422,7 +431,7 @@ class RecommendationSystem:
     
             # Add space after the media content (appendix space)
             st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
-        
+            
     def apply_transition_styles(self):
         """Apply the CSS transition styles to the media placeholder."""
         st.markdown(
