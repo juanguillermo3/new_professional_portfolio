@@ -382,24 +382,24 @@ class RecommendationSystem:
                 ext = image_path.split('.')[-1].lower()
     
                 if ext in ['jpg', 'jpeg', 'png', 'gif']:
-                    # Render image with 100% width
+                    # Render image with 100% width, auto-adjust height
                     try:
                         st.image(image_path, use_container_width=True)
                     except Exception as e:
                         st.error(f"Error loading image: {str(e)}")
     
                 elif ext in ['mp4', 'avi']:
-                    # Render video with 100% width
+                    # Render video with 100% width, auto-adjust height
                     try:
                         st.video(image_path, use_container_width=True)
                     except Exception as e:
                         st.error(f"Error loading video: {str(e)}")
     
                 elif ext == 'html':
-                    # Render HTML content with 100% width
+                    # Render HTML content with 100% width, dynamic height
                     try:
                         with open(image_path, 'r') as file:
-                            components.html(file.read(), height=600)  # HTML content with 100% width
+                            components.html(file.read())  # Let Streamlit adjust height automatically
                     except FileNotFoundError:
                         st.error(f"Error: File '{image_path}' not found.")
                     except Exception as e:
