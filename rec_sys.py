@@ -389,15 +389,33 @@ class RecommendationSystem:
                 </div>
                 """, unsafe_allow_html=True
             
-            # Iterate over images with timed navigation (3-second delay between each)
-            for img_path in image_paths:
-                try:
-                    # Display the image
-                    st.image(img_path, use_container_width=True)
-                    # Wait for a few seconds before showing the next image
-                    time.sleep(3)  # 3-second delay between images
-                except Exception as e:
-                    st.error(f"Error loading image: {str(e)}")
+            # Show images with a "slideshow" effect (timed transition)
+            if image_paths:
+                current_index = 0
+                total_images = len(image_paths)
+                
+                # Use Streamlit's rerun functionality for timed navigation
+                while True:
+                    try:
+                        # Display the current image
+                        st.image(image_paths[current_index], use_container_width=True)
+    
+                        # Display the next image after a short delay (3 seconds)
+                        time.sleep(3)  # Adjust if needed
+    
+                        # Move to the next image, and loop back after the last one
+                        current_index = (current_index + 1) % total_images
+    
+                        # Optionally break the loop if you want to end after a specific number of cycles
+                        # For example, we can exit after one full cycle:
+                        if current_index == 0:
+                            break
+    
+                    except Exception as e:
+                        st.error(f"Error loading image: {str(e)}")
+    
+            else:
+                st.error("No images found matching the pattern.")
     
             # Add space after the media content (appendix space)
             st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
