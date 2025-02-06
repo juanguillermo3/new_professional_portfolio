@@ -42,6 +42,11 @@ def combine_metadata():
 
 class RecommendationSystem:
     def __init__(self, num_recommended_items=6, num_columns=3, section_header="Recommendation System 🎯", section_description="Discover content tailored to your needs. Use the search bar to find recommendations and filter by project category."):
+        
+        # Initialize the current_index attribute to keep track of the image index
+        self.current_index = 0
+        self.media_files = []  # Placeholder for media files
+        
         self.num_recommended_items = num_recommended_items
         self.num_columns = num_columns
         self.section_header = section_header
