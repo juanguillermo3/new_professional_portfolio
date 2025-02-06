@@ -438,34 +438,37 @@ class RecommendationSystem:
         else:
             st.warning(f"Galleria for {project_title} not found.")    
 
-    def load_media_from_folder(self,folder_path):
+    def _load_media_from_folder(self, folder_path, image_path_pattern=".*\.png"):
         """
-        Loads media files from a folder.
+        Loads media files from a folder, with filtering based on the provided regex pattern.
         
         :param folder_path: The path to the folder containing media files (e.g., images, videos).
-        :return: A list of media file paths.
+        :param image_path_pattern: The filtering regex pattern for the image files (default is .*\.png).
+        :return: A list of media file paths that match the regex pattern.
         """
-        # Define the types of files to be considered media (you can expand this list)
-        media_extensions = ['*.jpg', '*.jpeg', '*.png', '*.gif', '*.mp4', '*.avi', '*.html']
-        media_files = []
+        # Get all media files from the folder (no filtering at this point)
+        media_files = glob.glob(os.path.join(folder_path, "*"))
         
-        for ext in media_extensions:
-            media_files.extend(glob.glob(os.path.join(folder_path, ext)))
+        # Use regex to filter files based on the provided image_path pattern
+        regex = re.compile(image_path_pattern)
+        filtered_files = [file for file in media_files if regex.match(file)]
         
         # Sort the files for consistent order
-        media_files.sort()
+        filtered_files.sort()
         
-        return media_files
-    
+        return filtered_files
+
     def handle_galleria_click(self, rec):
         """
         Handle the click event for the galleria item and display its content.
         The content includes a title, a brief description, and background images in a slideshow.
         """
+        # Extract the image_path pattern from the rec object (default to ".*\.png")
+        image_path_pattern = rec.get('image_path', '.*\.png')  # Default to matching PNG files
     
         # Helper function to get media files from the assets folder
         def get_media_files():
-            return self.load_media_from_folder('assets')
+            return self._load_media_from_folder('assets', image_path_pattern)
     
         # Clear any existing content in the media placeholder
         self.media_placeholder.empty()
@@ -474,7 +477,7 @@ class RecommendationSystem:
         item_title = rec.get('title', 'No Title Available')
         item_description = rec.get('description', 'No description available.')
     
-        # Get all media files from the assets folder
+        # Get all media files from the assets folder (filtered by the regex pattern)
         media_files = get_media_files()
     
         # Debugging step: print the media files found
@@ -499,7 +502,7 @@ class RecommendationSystem:
                 """.format(item_title=item_title, item_description=item_description), unsafe_allow_html=True
             )
             
-            # Show media files (images/videos) with a "slideshow" effect (timed transition)
+            # Show media files (images) with a "slideshow" effect (timed transition)
             if media_files:
                 current_index = 0
                 total_media = len(media_files)
@@ -510,13 +513,8 @@ class RecommendationSystem:
                         # Display the current media (image or video)
                         media_file = media_files[current_index]
                         
-                        # Check file type and display accordingly (image/video)
-                        if media_file.endswith(('jpg', 'jpeg', 'png', 'gif')):
-                            st.image(media_file, use_container_width=True)
-                        elif media_file.endswith(('mp4', 'avi')):
-                            st.video(media_file, use_container_width=True)
-                        else:
-                            st.markdown(f"Unsupported media type: {media_file}")
+                        # Display image (since we constrained to the image_path pattern)
+                        st.image(media_file, use_container_width=True)
     
                         # Display the next media after a short delay (3 seconds)
                         time.sleep(3)  # Adjust if needed
