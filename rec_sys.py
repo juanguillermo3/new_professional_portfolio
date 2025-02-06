@@ -348,59 +348,6 @@ class RecommendationSystem:
     
             # Add space after the media content (appendix space)
             st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
-
-    def handle_galleria_click(self, rec):
-        """
-        Handle the click event for the galleria item and display its content.
-        The content includes a title, a brief description, and background images in a slideshow.
-        """
-    
-        # Helper function to get matching images using glob
-        def get_matching_images(directory, pattern):
-            matching_files = glob.glob(os.path.join(directory, pattern))
-            return matching_files
-    
-        # Clear any existing content in the media placeholder
-        self.media_placeholder.empty()
-    
-        # Use the title and description from the rec object
-        item_title = rec.get('title', 'No Title Available')
-        item_description = rec.get('description', 'No description available.')
-        image_pattern = rec.get('image_path', 'assets/*.png')  # Allow regex or glob pattern for multiple images
-    
-        # Get all matching images based on the pattern
-        image_paths = get_matching_images('assets', image_pattern)
-    
-        # Begin using the placeholder context
-        with self.media_placeholder.container():
-            # Display title and description once
-            st.markdown(
-                f"""
-                <div style="position: relative; background-color: rgba(0, 0, 0, 0.4); padding: 15px; border-radius: 8px; color: white;">
-                    <div style="font-size: 20px; font-weight: 300; line-height: 1.6; text-align: center; margin: 0;">
-                        <span style="font-size: 24px; font-weight: 600; color: #fff; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);">
-                            {item_title}
-                        </span>
-                        <br>
-                        <span style="font-size: 16px; font-weight: 300; color: #eee; text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);">
-                            {item_description}
-                        </span>
-                    </div>
-                </div>
-                """, unsafe_allow_html=True
-            
-            # Iterate over images with timed navigation (3-second delay between each)
-            for img_path in image_paths:
-                try:
-                    # Display the image
-                    st.image(img_path, use_container_width=True)
-                    # Wait for a few seconds before showing the next image
-                    time.sleep(3)  # 3-second delay between images
-                except Exception as e:
-                    st.error(f"Error loading image: {str(e)}")
-    
-            # Add space after the media content (appendix space)
-            st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
             
             
     def apply_transition_styles(self):
