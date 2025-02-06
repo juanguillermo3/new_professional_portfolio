@@ -355,13 +355,12 @@ class RecommendationSystem:
     
             # Add space after the media content (appendix space)
             st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
-        
+    
 
     def handle_galleria_click(self, rec):
         """
         Handle the click event for the galleria item and display its content.
-        The content includes a title, a brief description, and a background image or media.
-        The key `theme_image` is used instead of `media_path`.
+        The content includes a title, a brief description, and a background image or other media.
         """
         # Clear any existing content in the media placeholder
         self.media_placeholder.empty()
@@ -369,44 +368,43 @@ class RecommendationSystem:
         # Use the title and description from the rec object
         item_title = rec.get('title', 'No Title Available')
         item_description = rec.get('description', 'No description available.')
-        theme_image = rec.get('image_path', None)  # Adjust if theme_image key is used in rec
+        image_path = rec.get('image_path', None)  # The key to use is 'image_path'
     
         # Debug statement if the key is not provided
-        if not theme_image:
+        if not image_path:
             st.error("Error: 'image_path' key not found in the provided data.")
-        
-        # Extract file extension if theme_image is provided
-        if theme_image:
-            ext = theme_image.split('.')[-1].lower()
-        
-            # Begin using the placeholder context
-            with self.media_placeholder.container():
     
-                # Handle different types of media based on the file extension
+        # Begin using the placeholder context
+        with self.media_placeholder.container():
+    
+            # Check if the file extension is valid and render accordingly
+            if image_path:
+                ext = image_path.split('.')[-1].lower()
+    
                 if ext in ['jpg', 'jpeg', 'png', 'gif']:
                     # Render image with aspect ratio preserved
                     try:
-                        st.image(theme_image, use_container_width=True)
+                        st.image(image_path, use_container_width=True)
                     except Exception as e:
                         st.error(f"Error loading image: {str(e)}")
-                
+    
                 elif ext in ['mp4', 'avi']:
                     # Render video with autoplay, muted, and looping
                     try:
-                        st.video(theme_image, loop=True, autoplay=True, muted=True)
+                        st.video(image_path, loop=True, autoplay=True, muted=True)
                     except Exception as e:
                         st.error(f"Error loading video: {str(e)}")
-                
+    
                 elif ext == 'html':
                     # Render HTML content
                     try:
-                        with open(theme_image, 'r') as file:
-                            components.html(file.read(), height=None)  # Auto-adjust container size
+                        with open(image_path, 'r') as file:
+                            components.html(file.read(), height=600)  # Fixed height of 600
                     except FileNotFoundError:
-                        st.error(f"Error: File '{theme_image}' not found.")
+                        st.error(f"Error: File '{image_path}' not found.")
                     except Exception as e:
                         st.error(f"Error loading HTML content: {str(e)}")
-                
+    
                 else:
                     # Fallback for unsupported media types
                     st.error(f"Unsupported media type: {ext}")
@@ -431,6 +429,7 @@ class RecommendationSystem:
     
             # Add space after the media content (appendix space)
             st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
+
             
     def apply_transition_styles(self):
         """Apply the CSS transition styles to the media placeholder."""
