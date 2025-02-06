@@ -501,7 +501,7 @@ class RecommendationSystem:
         """
         Handle the click event for the galleria item and display its content.
         The content includes a title, a brief description, and a background image.
-        Hardcoded mockup values are used for now.
+        Allows cycling through images in the media folder automatically.
         """
         # Extract data from the rec object (title, description, and image_path pattern)
         item_title = rec.get('title', 'No Title Available')
@@ -516,17 +516,24 @@ class RecommendationSystem:
         media_files = get_media_files()
     
         # Check if there are media files available
-        if media_files:
-            # Display the first image in the list (can be adjusted if you want a slideshow or gallery)
-            image_path = media_files[0]  # Default to the first image (or add logic for a gallery)
-        else:
-            image_path = 'assets/mock_up_galleria.png'  # Default image if no media found
+        if not media_files:
+            st.error("No media files found matching the pattern.")
+            return
+        
+        # Initialize the current index for navigating media
+        current_index = 0
+
+        # Start a while loop for automatic media navigation
+        while True:
+            # Get the current media path
+            image_path = media_files[current_index]
+            
+            # Call the method to update the content with the extracted data
+            self.update_video_content(item_title, item_description, image_path)
     
-        # Call the method to update the content with the extracted data
-        self.update_video_content(item_title, item_description, image_path)
-    
-        # Optionally, add some additional content or footer
-        st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
+            # Automatically cycle through the images after a brief delay
+            current_index = (current_index + 1) % len(media_files)  # Move to the next image
+            time.sleep(3)  # Wait for 3 seconds before switching to the next image
 
 
 # Example usage
