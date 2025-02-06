@@ -382,24 +382,24 @@ class RecommendationSystem:
                 ext = image_path.split('.')[-1].lower()
     
                 if ext in ['jpg', 'jpeg', 'png', 'gif']:
-                    # Render image with aspect ratio preserved
+                    # Render image with 100% width
                     try:
                         st.image(image_path, use_container_width=True)
                     except Exception as e:
                         st.error(f"Error loading image: {str(e)}")
     
                 elif ext in ['mp4', 'avi']:
-                    # Render video with autoplay, muted, and looping
+                    # Render video with 100% width
                     try:
-                        st.video(image_path, loop=True, autoplay=True, muted=True)
+                        st.video(image_path, use_container_width=True)
                     except Exception as e:
                         st.error(f"Error loading video: {str(e)}")
     
                 elif ext == 'html':
-                    # Render HTML content
+                    # Render HTML content with 100% width
                     try:
                         with open(image_path, 'r') as file:
-                            components.html(file.read(), height=600)  # Fixed height of 600
+                            components.html(file.read(), height=600)  # HTML content with 100% width
                     except FileNotFoundError:
                         st.error(f"Error: File '{image_path}' not found.")
                     except Exception as e:
@@ -429,7 +429,6 @@ class RecommendationSystem:
     
             # Add space after the media content (appendix space)
             st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
-
             
     def apply_transition_styles(self):
         """Apply the CSS transition styles to the media placeholder."""
