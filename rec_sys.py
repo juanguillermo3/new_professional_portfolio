@@ -369,11 +369,11 @@ class RecommendationSystem:
         # Use the title and description from the rec object
         item_title = rec.get('title', 'No Title Available')
         item_description = rec.get('description', 'No description available.')
-        theme_image = rec.get('theme_image', None)  # Adjust if theme_image key is used in rec
+        theme_image = rec.get('image_path', None)  # Adjust if theme_image key is used in rec
     
         # Debug statement if the key is not provided
         if not theme_image:
-            st.error("Error: 'theme_image' key not found in the provided data.")
+            st.error("Error: 'image_path' key not found in the provided data.")
         
         # Extract file extension if theme_image is provided
         if theme_image:
