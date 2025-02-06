@@ -251,5 +251,11 @@
         "file_path": "geometric_modelling.R",
         "repo_name": "monkey_research",
         "galleria": "True"
+    },
+    {
+        "title": "title: Wages Drivers",
+        "description": "Detects the main drivers behind wage formation trough the analysis of the gradients of a Neural Network model.",
+        "image_path": "assets/wages_drivers.png",
+        "galleria": "True"
     }
 ]
