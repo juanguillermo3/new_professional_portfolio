@@ -438,7 +438,7 @@ class RecommendationSystem:
         else:
             st.warning(f"Galleria for {project_title} not found.")    
 
-    def load_media_from_folder(folder_path):
+    def load_media_from_folder(self,folder_path):
         """
         Loads media files from a folder.
         
