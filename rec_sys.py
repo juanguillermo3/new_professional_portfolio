@@ -438,6 +438,105 @@ class RecommendationSystem:
         else:
             st.warning(f"Galleria for {project_title} not found.")    
 
+    def load_media_from_folder(folder_path):
+        """
+        Loads media files from a folder.
+        
+        :param folder_path: The path to the folder containing media files (e.g., images, videos).
+        :return: A list of media file paths.
+        """
+        # Define the types of files to be considered media (you can expand this list)
+        media_extensions = ['*.jpg', '*.jpeg', '*.png', '*.gif', '*.mp4', '*.avi', '*.html']
+        media_files = []
+        
+        for ext in media_extensions:
+            media_files.extend(glob.glob(os.path.join(folder_path, ext)))
+        
+        # Sort the files for consistent order
+        media_files.sort()
+        
+        return media_files
+    
+    def handle_galleria_click(self, rec):
+        """
+        Handle the click event for the galleria item and display its content.
+        The content includes a title, a brief description, and background images in a slideshow.
+        """
+    
+        # Helper function to get media files from the assets folder
+        def get_media_files():
+            return load_media_from_folder('assets')
+    
+        # Clear any existing content in the media placeholder
+        self.media_placeholder.empty()
+    
+        # Use the title and description from the rec object
+        item_title = rec.get('title', 'No Title Available')
+        item_description = rec.get('description', 'No description available.')
+    
+        # Get all media files from the assets folder
+        media_files = get_media_files()
+    
+        # Debugging step: print the media files found
+        st.write(f"Media files found: {media_files}")
+    
+        # Begin using the placeholder context
+        with self.media_placeholder.container():
+            # Display title and description once
+            st.markdown(
+                """
+                <div style="position: relative; background-color: rgba(0, 0, 0, 0.4); padding: 15px; border-radius: 8px; color: white;">
+                    <div style="font-size: 20px; font-weight: 300; line-height: 1.6; text-align: center; margin: 0;">
+                        <span style="font-size: 24px; font-weight: 600; color: #fff; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);">
+                            {item_title}
+                        </span>
+                        <br>
+                        <span style="font-size: 16px; font-weight: 300; color: #eee; text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);">
+                            {item_description}
+                        </span>
+                    </div>
+                </div>
+                """.format(item_title=item_title, item_description=item_description), unsafe_allow_html=True
+            )
+            
+            # Show media files (images/videos) with a "slideshow" effect (timed transition)
+            if media_files:
+                current_index = 0
+                total_media = len(media_files)
+                
+                # Use Streamlit's rerun functionality for timed navigation
+                while True:
+                    try:
+                        # Display the current media (image or video)
+                        media_file = media_files[current_index]
+                        
+                        # Check file type and display accordingly (image/video)
+                        if media_file.endswith(('jpg', 'jpeg', 'png', 'gif')):
+                            st.image(media_file, use_container_width=True)
+                        elif media_file.endswith(('mp4', 'avi')):
+                            st.video(media_file, use_container_width=True)
+                        else:
+                            st.markdown(f"Unsupported media type: {media_file}")
+    
+                        # Display the next media after a short delay (3 seconds)
+                        time.sleep(3)  # Adjust if needed
+    
+                        # Move to the next media, and loop back after the last one
+                        current_index = (current_index + 1) % total_media
+    
+                        # Optionally break the loop if you want to end after a specific number of cycles
+                        if current_index == 0:
+                            break
+    
+                    except Exception as e:
+                        st.error(f"Error loading media: {str(e)}")
+    
+            else:
+                st.error("No media found in the assets folder.")
+    
+            # Add space after the media content (appendix space)
+            st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
+
 # Example usage
 # Initialize RecSys with custom header and description
 recsys = RecommendationSystem(
