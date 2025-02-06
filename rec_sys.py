@@ -445,12 +445,12 @@ class RecommendationSystem:
 
     def _load_media_from_folder(self, image_path_pattern=".*\.png"):
         """
-        Loads media files from the uploader folder, filtered by a regex pattern.
+        Loads media files from the default directory, filtered by a regex pattern.
         
         :param image_path_pattern: Regex pattern to filter image files.
         :return: Sorted list of media file paths matching the pattern.
         """
-        media_files = glob.glob(os.path.join(self.uploader, "*"))
+        media_files = glob.glob(os.path.join("assets", "*"))  # Keep previous structure
         
         # Filter files using regex
         regex = re.compile(image_path_pattern)
