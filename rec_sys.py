@@ -443,19 +443,6 @@ class RecommendationSystem:
         else:
             st.warning(f"Galleria for {project_title} not found.")    
 
-import streamlit as st
-import glob
-import os
-import re
-
-class MediaViewer:
-    def __init__(self):
-        # Initialize the current_index attribute to keep track of the image index
-        self.current_index = 0
-        self.media_files = []  # Placeholder for media files
-
-        self.media_placeholder = st.empty()  # Placeholder for displaying content
-
     def _load_media_from_folder(self, folder_path, image_path_pattern=".*\.png"):
         """
         Loads media files from a folder, with filtering based on the provided regex pattern.
