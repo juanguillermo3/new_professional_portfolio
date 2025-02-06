@@ -354,6 +354,75 @@ class RecommendationSystem:
             # Add space after the media content (appendix space)
             st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
             
+    def handle_galleria_click(self, rec):
+        """
+        Handle the click event for the galleria item and display its content.
+        The content includes a title, a brief description, and a background image or media.
+        Hardcoded mockup values are used for now.
+        """
+        # Clear any existing content in the media placeholder
+        self.media_placeholder.empty()
+    
+        # Use the title and description from the rec object
+        item_title = rec.get('title', 'No Title Available')
+        item_description = rec.get('description', 'No description available.')
+        media_path = rec.get('media_path', 'assets/mock_up_galleria.png')  # Adjust if media path is stored in rec
+        
+        # Extract file extension
+        ext = media_path.split('.')[-1].lower()
+        
+        # Begin using the placeholder context
+        with self.media_placeholder.container():
+        
+            # Handle different types of media based on the file extension
+            if ext in ['jpg', 'jpeg', 'png', 'gif']:
+                # Render image with aspect ratio preserved
+                try:
+                    st.image(media_path, use_container_width=True)
+                except Exception as e:
+                    st.error(f"Error loading image: {str(e)}")
+            
+            elif ext in ['mp4', 'avi']:
+                # Render video with autoplay, muted, and looping
+                try:
+                    st.video(media_path, loop=True, autoplay=True, muted=True)
+                except Exception as e:
+                    st.error(f"Error loading video: {str(e)}")
+            
+            elif ext == 'html':
+                # Render HTML content
+                try:
+                    with open(media_path, 'r') as file:
+                        html_content = file.read()
+                    st.markdown(html_content, unsafe_allow_html=True)
+                except Exception as e:
+                    st.error(f"Error loading HTML content: {str(e)}")
+            
+            else:
+                # Fallback for unsupported media types
+                st.error(f"Unsupported media type: {ext}")
+    
+            # Display the title and description in a single paragraph with inline styling
+            st.markdown(
+                f"""
+                <div style="position: relative; background-color: rgba(0, 0, 0, 0.4); padding: 15px; border-radius: 8px; color: white;">
+                    <div style="font-size: 20px; font-weight: 300; line-height: 1.6; text-align: center; margin: 0;">
+                        <span style="font-size: 24px; font-weight: 600; color: #fff; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);">
+                            {item_title}
+                        </span>
+                        <br>
+                        <span style="font-size: 16px; font-weight: 300; color: #eee; text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);">
+                            {item_description}
+                        </span>
+                    </div>
+                </div>
+                """, 
+                unsafe_allow_html=True
+            )
+    
+            # Add space after the media content (appendix space)
+            st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
+        
     def apply_transition_styles(self):
         """Apply the CSS transition styles to the media placeholder."""
         st.markdown(
