@@ -461,6 +461,9 @@ class RecommendationSystem:
         # Get all matching images based on the pattern
         image_paths = get_matching_images('assets', image_pattern)
     
+        # Debugging step: print the matching image paths
+        st.write(f"Matching images: {image_paths}")
+    
         # Begin using the placeholder context
         with self.media_placeholder.container():
             # Display title and description once
@@ -498,7 +501,6 @@ class RecommendationSystem:
                         current_index = (current_index + 1) % total_images
     
                         # Optionally break the loop if you want to end after a specific number of cycles
-                        # For example, we can exit after one full cycle:
                         if current_index == 0:
                             break
     
