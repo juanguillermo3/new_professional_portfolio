@@ -465,7 +465,7 @@ class RecommendationSystem:
     
         # Helper function to get media files from the assets folder
         def get_media_files():
-            return load_media_from_folder('assets')
+            return self.load_media_from_folder('assets')
     
         # Clear any existing content in the media placeholder
         self.media_placeholder.empty()
