@@ -262,7 +262,7 @@
     {
         "title": "Neural Networks for Wages Prediction",
         "description": "Provides a deep learning approach based on a deep, feed-forward NN to predict wages.",
-        "image_path": "assets/wages_models.html",
+        "image_path": "assets/learning_curve.html",
         "galleria": "True",
         "repo_name": "lab_market_trends"
     }
