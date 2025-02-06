@@ -443,85 +443,85 @@ class RecommendationSystem:
         else:
             st.warning(f"Galleria for {project_title} not found.")    
 
-    def _load_media_from_folder(self, image_path_pattern=".*\.png"):
-        """
-        Loads media files from the default directory, filtered by a regex pattern.
-        
-        :param image_path_pattern: Regex pattern to filter image files.
-        :return: Sorted list of media file paths matching the pattern.
-        """
-        media_files = glob.glob(os.path.join("assets", "*"))  # Keep previous structure
-        
-        # Filter files using regex
-        regex = re.compile(image_path_pattern)
-        filtered_files = [file for file in media_files if regex.match(file)]
-        
-        return sorted(filtered_files)  # Sort for consistent ordering
+def _load_media_from_folder(self, image_path_pattern=".*\.png"):
+    """
+    Loads media files from the default directory, filtered by a regex pattern.
+    
+    :param image_path_pattern: Regex pattern to filter image files.
+    :return: Sorted list of media file paths matching the pattern.
+    """
+    media_files = glob.glob(os.path.join("assets", "*"))  # Keep previous structure
+    
+    # Filter files using regex
+    regex = re.compile(image_path_pattern)
+    filtered_files = [file for file in media_files if regex.match(file)]
+    
+    return sorted(filtered_files)  # Sort for consistent ordering
 
-    def update_video_content(self, title, description, rec):
-        """
-        Updates the displayed media content and renders navigation controls.
-        """
-        self.media_placeholder.empty()  # Clear previous content
+def update_video_content(self, title, description, rec):
+    """
+    Updates the displayed media content and renders navigation controls.
+    """
+    self.media_placeholder.empty()  # Clear previous content
 
-        if not self.media_files:
-            st.error("No media files found.")
-            return
+    if not self.media_files:
+        st.error("No media files found.")
+        return
 
-        # Get current image path
-        image_path = self.media_files[self.current_index]
+    # Get current image path
+    image_path = self.media_files[self.current_index]
 
-        # Begin new content rendering
-        with self.media_placeholder.container():
-            # Create a 3-column layout: left navigation, image, right navigation
-            col1, col2, col3 = st.columns([0.05, 0.90, 0.05])  # 5% - 90% - 5%
+    # Begin new content rendering
+    with self.media_placeholder.container():
+        # Create a 3-column layout: left navigation, image, right navigation
+        col1, col2, col3 = st.columns([0.05, 0.90, 0.05])  # 5% - 90% - 5%
 
-            # Left navigation button
-            with col1:
-                if st.button("<", key="prev"):
-                    self.current_index = (self.current_index - 1) % len(self.media_files)
-                    self.update_video_content(title, description, rec)
+        # Left navigation button
+        with col1:
+            if st.button("<", key="prev"):
+                self.current_index = (self.current_index - 1) % len(self.media_files)
+                self.update_video_content(title, description, rec)
 
-            # Main media display (centered)
-            with col2:
-                try:
-                    st.image(image_path, use_column_width=True)
-                except Exception as e:
-                    st.error(f"Error loading image: {e}")
+        # Main media display (centered)
+        with col2:
+            try:
+                st.image(image_path, use_column_width=True)
+            except Exception as e:
+                st.error(f"Error loading image: {e}")
 
-                # Title & description below the image
-                st.markdown(
-                    f"""
-                    <div style="text-align: center; padding: 10px; background: rgba(0, 0, 0, 0.4); border-radius: 8px; color: white;">
-                        <span style="font-size: 24px; font-weight: 600;">{title}</span><br>
-                        <span style="font-size: 16px; font-weight: 300;">{description}</span>
-                    </div>
-                    """, unsafe_allow_html=True
-                )
+            # Title & description below the image
+            st.markdown(
+                f"""
+                <div style="text-align: center; padding: 10px; background: rgba(0, 0, 0, 0.4); border-radius: 8px; color: white;">
+                    <span style="font-size: 24px; font-weight: 600;">{title}</span><br>
+                    <span style="font-size: 16px; font-weight: 300;">{description}</span>
+                </div>
+                """, unsafe_allow_html=True
+            )
 
-            # Right navigation button
-            with col3:
-                if st.button(">", key="next"):
-                    self.current_index = (self.current_index + 1) % len(self.media_files)
-                    self.update_video_content(title, description, rec)
+        # Right navigation button
+        with col3:
+            if st.button(">", key="next"):
+                self.current_index = (self.current_index + 1) % len(self.media_files)
+                self.update_video_content(title, description, rec)
 
-    def handle_galleria_click(self, rec):
-        """
-        Handles user interaction with a galleria item and loads the corresponding media.
-        """
-        item_title = rec.get('title', 'No Title Available')
-        item_description = rec.get('description', 'No description available.')
-        image_path_pattern = rec.get('image_path', '.*\.png')  # Regex pattern
+def handle_galleria_click(self, rec):
+    """
+    Handles user interaction with a galleria item and loads the corresponding media.
+    """
+    item_title = rec.get('title', 'No Title Available')
+    item_description = rec.get('description', 'No description available.')
+    image_path_pattern = rec.get('image_path', '.*\.png')  # Regex pattern
 
-        # Load media files
-        self.media_files = self._load_media_from_folder(image_path_pattern)
+    # Load media files
+    self.media_files = self._load_media_from_folder(image_path_pattern)
 
-        if not self.media_files:
-            st.error("No media files found.")
-            return
+    if not self.media_files:
+        st.error("No media files found.")
+        return
 
-        # Show the first media item by default
-        self.update_video_content(item_title, item_description, rec)
+    # Show the first media item by default
+    self.update_video_content(item_title, item_description, rec)
 
 
 
