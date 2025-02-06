@@ -438,6 +438,7 @@ class RecommendationSystem:
         else:
             st.warning(f"Galleria for {project_title} not found.")
 
+    
     def handle_galleria_click(self, rec):
         """
         Handle the click event for the galleria item and display its content.
@@ -464,7 +465,7 @@ class RecommendationSystem:
         with self.media_placeholder.container():
             # Display title and description once
             st.markdown(
-                f"""
+                """
                 <div style="position: relative; background-color: rgba(0, 0, 0, 0.4); padding: 15px; border-radius: 8px; color: white;">
                     <div style="font-size: 20px; font-weight: 300; line-height: 1.6; text-align: center; margin: 0;">
                         <span style="font-size: 24px; font-weight: 600; color: #fff; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);">
@@ -476,7 +477,8 @@ class RecommendationSystem:
                         </span>
                     </div>
                 </div>
-                """, unsafe_allow_html=True
+                """.format(item_title=item_title, item_description=item_description), unsafe_allow_html=True
+            )
             
             # Show images with a "slideshow" effect (timed transition)
             if image_paths:
@@ -508,6 +510,7 @@ class RecommendationSystem:
     
             # Add space after the media content (appendix space)
             st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
+    
 
 # Example usage
 # Initialize RecSys with custom header and description
