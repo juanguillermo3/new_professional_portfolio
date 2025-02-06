@@ -231,7 +231,7 @@
         "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/wages.py",
         "file_path": "wages.py",
         "repo_name": "lab_market_trends",
-        "galleria": True
+        "galleria": "True",
         "image_path": "assets/wages.png"
     },
     {
