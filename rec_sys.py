@@ -458,82 +458,76 @@ class RecommendationSystem:
         
         return filtered_files
 
+    def update_video_content(self, title, description, image_path):
+        """
+        Updates the video/image content with title, description, and image path.
+        This method will render the content with the same style applied in the old layout.
+        """
+        # Clear any existing content in the media placeholder
+        self.media_placeholder.empty()
+    
+        # Begin using the placeholder context
+        with self.media_placeholder.container():
+            # Check if the image exists at the provided path and display it
+            try:
+                # Display the image (or video if applicable)
+                st.image(image_path, use_container_width=True)
+            except Exception as e:
+                # Show a debug statement if there is an issue with loading the image
+                st.error(f"Error loading image: {str(e)}")
+    
+            # Display the title and description in a single paragraph with inline styling
+            st.markdown(
+                f"""
+                <div style="position: relative; background-color: rgba(0, 0, 0, 0.4); padding: 15px; border-radius: 8px; color: white;">
+                    <div style="font-size: 20px; font-weight: 300; line-height: 1.6; text-align: center; margin: 0;">
+                        <span style="font-size: 24px; font-weight: 600; color: #fff; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);">
+                            {title}
+                        </span>
+                        <br>
+                        <span style="font-size: 16px; font-weight: 300; color: #eee; text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);">
+                            {description}
+                        </span>
+                    </div>
+                </div>
+                """, 
+                unsafe_allow_html=True
+            )
+    
+            # Add space after the media content (appendix space)
+            st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
+
     def handle_galleria_click(self, rec):
         """
         Handle the click event for the galleria item and display its content.
-        The content includes a title, a brief description, and background images in a slideshow.
+        The content includes a title, a brief description, and a background image.
+        Hardcoded mockup values are used for now.
         """
-        # Extract the image_path pattern from the rec object (default to ".*\.png")
-        image_path_pattern = rec.get('image_path', '.*\.png')  # Default to matching PNG files
+        # Extract data from the rec object (title, description, and image_path pattern)
+        item_title = rec.get('title', 'No Title Available')
+        item_description = rec.get('description', 'No description available.')
+        image_path_pattern = rec.get('image_path', '.*\.png')  # Regex pattern for image path
     
         # Helper function to get media files from the assets folder
         def get_media_files():
             return self._load_media_from_folder('assets', image_path_pattern)
     
-        # Clear any existing content in the media placeholder
-        self.media_placeholder.empty()
-    
-        # Use the title and description from the rec object
-        item_title = rec.get('title', 'No Title Available')
-        item_description = rec.get('description', 'No description available.')
-    
         # Get all media files from the assets folder (filtered by the regex pattern)
         media_files = get_media_files()
     
-        # Debugging step: print the media files found
-        st.write(f"Media files found: {media_files}")
+        # Check if there are media files available
+        if media_files:
+            # Display the first image in the list (can be adjusted if you want a slideshow or gallery)
+            image_path = media_files[0]  # Default to the first image (or add logic for a gallery)
+        else:
+            image_path = 'assets/mock_up_galleria.png'  # Default image if no media found
     
-        # Begin using the placeholder context
-        with self.media_placeholder.container():
-            # Display title and description once
-            st.markdown(
-                """
-                <div style="position: relative; background-color: rgba(0, 0, 0, 0.4); padding: 15px; border-radius: 8px; color: white;">
-                    <div style="font-size: 20px; font-weight: 300; line-height: 1.6; text-align: center; margin: 0;">
-                        <span style="font-size: 24px; font-weight: 600; color: #fff; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);">
-                            {item_title}
-                        </span>
-                        <br>
-                        <span style="font-size: 16px; font-weight: 300; color: #eee; text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);">
-                            {item_description}
-                        </span>
-                    </div>
-                </div>
-                """.format(item_title=item_title, item_description=item_description), unsafe_allow_html=True
-            )
-            
-            # Show media files (images) with a "slideshow" effect (timed transition)
-            if media_files:
-                current_index = 0
-                total_media = len(media_files)
-                
-                # Use Streamlit's rerun functionality for timed navigation
-                while True:
-                    try:
-                        # Display the current media (image or video)
-                        media_file = media_files[current_index]
-                        
-                        # Display image (since we constrained to the image_path pattern)
-                        st.image(media_file, use_container_width=True)
+        # Call the method to update the content with the extracted data
+        self.update_video_content(item_title, item_description, image_path)
     
-                        # Display the next media after a short delay (3 seconds)
-                        time.sleep(3)  # Adjust if needed
-    
-                        # Move to the next media, and loop back after the last one
-                        current_index = (current_index + 1) % total_media
-    
-                        # Optionally break the loop if you want to end after a specific number of cycles
-                        if current_index == 0:
-                            break
-    
-                    except Exception as e:
-                        st.error(f"Error loading media: {str(e)}")
-    
-            else:
-                st.error("No media found in the assets folder.")
-    
-            # Add space after the media content (appendix space)
-            st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
+        # Optionally, add some additional content or footer
+        st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
+
 
 # Example usage
 # Initialize RecSys with custom header and description
