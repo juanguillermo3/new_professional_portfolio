@@ -366,7 +366,7 @@ class RecommendationSystem:
         # Use the title and description from the rec object
         item_title = rec.get('title', 'No Title Available')
         item_description = rec.get('description', 'No description available.')
-        media_path = rec.get('media_path', 'assets/mock_up_galleria.png')  # Adjust if media path is stored in rec
+        media_path = rec.get('image_path', 'assets/mock_up_galleria.png')  # Adjust if media path is stored in rec
         
         # Extract file extension
         ext = media_path.split('.')[-1].lower()
