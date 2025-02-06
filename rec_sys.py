@@ -438,102 +438,102 @@ class RecommendationSystem:
         else:
             st.warning(f"Galleria for {project_title} not found.")    
 
-    def _load_media_from_folder(self, folder_path, image_path_pattern=".*\.png"):
-        """
-        Loads media files from a folder, with filtering based on the provided regex pattern.
-        
-        :param folder_path: The path to the folder containing media files (e.g., images, videos).
-        :param image_path_pattern: The filtering regex pattern for the image files (default is .*\.png).
-        :return: A list of media file paths that match the regex pattern.
-        """
-        # Get all media files from the folder (no filtering at this point)
-        media_files = glob.glob(os.path.join(folder_path, "*"))
-        
-        # Use regex to filter files based on the provided image_path pattern
-        regex = re.compile(image_path_pattern)
-        filtered_files = [file for file in media_files if regex.match(file)]
-        
-        # Sort the files for consistent order
-        filtered_files.sort()
-        
-        return filtered_files
+def _load_media_from_folder(self, folder_path, image_path_pattern=".*\.png"):
+    """
+    Loads media files from a folder, with filtering based on the provided regex pattern.
+    
+    :param folder_path: The path to the folder containing media files (e.g., images, videos).
+    :param image_path_pattern: The filtering regex pattern for the image files (default is .*\.png).
+    :return: A list of media file paths that match the regex pattern.
+    """
+    # Get all media files from the folder (no filtering at this point)
+    media_files = glob.glob(os.path.join(folder_path, "*"))
+    
+    # Use regex to filter files based on the provided image_path pattern
+    regex = re.compile(image_path_pattern)
+    filtered_files = [file for file in media_files if regex.match(file)]
+    
+    # Sort the files for consistent order
+    filtered_files.sort()
+    
+    return filtered_files
 
-    def update_video_content(self, title, description, image_path):
-        """
-        Updates the video/image content with title, description, and image path.
-        This method will render the content with the same style applied in the old layout.
-        """
-        # Clear any existing content in the media placeholder
-        self.media_placeholder.empty()
-    
-        # Begin using the placeholder context
-        with self.media_placeholder.container():
-            # Check if the image exists at the provided path and display it
-            try:
-                # Display the image (or video if applicable)
-                st.image(image_path, use_container_width=True)
-            except Exception as e:
-                # Show a debug statement if there is an issue with loading the image
-                st.error(f"Error loading image: {str(e)}")
-    
-            # Display the title and description in a single paragraph with inline styling
-            st.markdown(
-                f"""
-                <div style="position: relative; background-color: rgba(0, 0, 0, 0.4); padding: 15px; border-radius: 8px; color: white;">
-                    <div style="font-size: 20px; font-weight: 300; line-height: 1.6; text-align: center; margin: 0;">
-                        <span style="font-size: 24px; font-weight: 600; color: #fff; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);">
-                            {title}
-                        </span>
-                        <br>
-                        <span style="font-size: 16px; font-weight: 300; color: #eee; text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);">
-                            {description}
-                        </span>
-                    </div>
+def update_video_content(self, title, description, image_path):
+    """
+    Updates the video/image content with title, description, and image path.
+    This method will render the content with the same style applied in the old layout.
+    """
+    # Clear any existing content in the media placeholder
+    self.media_placeholder.empty()
+
+    # Begin using the placeholder context
+    with self.media_placeholder.container():
+        # Check if the image exists at the provided path and display it
+        try:
+            # Display the image (or video if applicable)
+            st.image(image_path, use_container_width=True)
+        except Exception as e:
+            # Show a debug statement if there is an issue with loading the image
+            st.error(f"Error loading image: {str(e)}")
+
+        # Display the title and description in a single paragraph with inline styling
+        st.markdown(
+            f"""
+            <div style="position: relative; background-color: rgba(0, 0, 0, 0.4); padding: 15px; border-radius: 8px; color: white;">
+                <div style="font-size: 20px; font-weight: 300; line-height: 1.6; text-align: center; margin: 0;">
+                    <span style="font-size: 24px; font-weight: 600; color: #fff; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);">
+                        {title}
+                    </span>
+                    <br>
+                    <span style="font-size: 16px; font-weight: 300; color: #eee; text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);">
+                        {description}
+                    </span>
                 </div>
-                """, 
-                unsafe_allow_html=True
-            )
-    
-            # Add space after the media content (appendix space)
-            st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
+            </div>
+            """, 
+            unsafe_allow_html=True
+        )
 
-    def handle_galleria_click(self, rec):
-        """
-        Handle the click event for the galleria item and display its content.
-        The content includes a title, a brief description, and a background image.
-        Allows cycling through images in the media folder automatically.
-        """
-        # Extract data from the rec object (title, description, and image_path pattern)
-        item_title = rec.get('title', 'No Title Available')
-        item_description = rec.get('description', 'No description available.')
-        image_path_pattern = rec.get('image_path', '.*\.png')  # Regex pattern for image path
+        # Add space after the media content (appendix space)
+        st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
+
+def handle_galleria_click(self, rec):
+    """
+    Handle the click event for the galleria item and display its content.
+    The content includes a title, a brief description, and a background image.
+    Allows cycling through images in the media folder automatically.
+    """
+    # Extract data from the rec object (title, description, and image_path pattern)
+    item_title = rec.get('title', 'No Title Available')
+    item_description = rec.get('description', 'No description available.')
+    image_path_pattern = rec.get('image_path', '.*\.png')  # Regex pattern for image path
+
+    # Helper function to get media files from the assets folder
+    def get_media_files():
+        return self._load_media_from_folder('assets', image_path_pattern)
+
+    # Get all media files from the assets folder (filtered by the regex pattern)
+    media_files = get_media_files()
+
+    # Check if there are media files available
+    if not media_files:
+        st.error("No media files found matching the pattern.")
+        return
     
-        # Helper function to get media files from the assets folder
-        def get_media_files():
-            return self._load_media_from_folder('assets', image_path_pattern)
-    
-        # Get all media files from the assets folder (filtered by the regex pattern)
-        media_files = get_media_files()
-    
-        # Check if there are media files available
-        if not media_files:
-            st.error("No media files found matching the pattern.")
-            return
+    # Initialize the current index for navigating media
+    current_index = 0
+
+    # Start a while loop for automatic media navigation
+    while True:
+        # Get the current media path
+        image_path = media_files[current_index]
         
-        # Initialize the current index for navigating media
-        current_index = 0
+        # Call the method to update the content with the extracted data
+        self.update_video_content(item_title, item_description, image_path)
 
-        # Start a while loop for automatic media navigation
-        while True:
-            # Get the current media path
-            image_path = media_files[current_index]
-            
-            # Call the method to update the content with the extracted data
-            self.update_video_content(item_title, item_description, image_path)
-    
-            # Automatically cycle through the images after a brief delay
-            current_index = (current_index + 1) % len(media_files)  # Move to the next image
-            time.sleep(3)  # Wait for 3 seconds before switching to the next image
+        # Automatically cycle through the images after a brief delay
+        current_index = (current_index + 1) % len(media_files)  # Move to the next image
+        time.sleep(3)  # Wait for 3 seconds before switching to the next image
 
 
 # Example usage
