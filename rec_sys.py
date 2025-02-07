@@ -496,7 +496,7 @@ class RecommendationSystem:
         st.markdown(
             f"""
             <div style="text-align: center; margin-bottom: 20px;">
-                <h3>{self.prettify_title(project_metadata['title'])}</h3>
+                <h3>{prettify_title(project_metadata['title'])}</h3>
             </div>
             <div style="text-align: justify; margin-left: 10%; margin-right: 10%; margin-bottom: 20px;">
                 <p>{project_metadata['description']} {tags_html}</p>
