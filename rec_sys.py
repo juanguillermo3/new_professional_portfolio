@@ -76,7 +76,24 @@ class RecommendationSystem:
     # ranking logic aspect of the RecSys
     #
     def rank_items(self, query=None, selected_project=None):
-        """Rank the items by priority on 'galleria' and 'last_updated', then apply filters."""
+        """
+        Rank items based on multiple heuristics:
+        
+        1. Primary sorting:
+           - Items with "galleria" set to True are prioritized.
+           - Items are then sorted by 'last_updated' in descending order.
+        
+        2. Forced ranking:
+           - Items with a 'forced_rank' integer value are placed in their specified position.
+           - Collisions (multiple items assigned the same rank) are resolved by preserving the first occurrence.
+           - Remaining unranked items are appended in their original order.
+        
+        3. Filtering:
+           - Optionally filters by project name if 'selected_project' is specified.
+           - Optionally filters by search query matching 'title' or 'description'.
+        
+        4. Returns the top 'num_recommended_items' after all sorting and filtering.
+        """
         
         def parse_boolean(value):
             """Helper function to safely parse boolean values from strings."""
@@ -93,22 +110,41 @@ class RecommendationSystem:
             ),
         )
     
-        # Step 2: Filter by project selection
+        # Step 2: Apply forced rank heuristic
+        forced_ranked_items = [None] * len(ranked_items)  # Create a list with placeholders
+        unranked_items = []
+        
+        for item in ranked_items:
+            forced_rank = item.get("forced_rank")
+            if isinstance(forced_rank, int) and 0 <= forced_rank < len(ranked_items):
+                if forced_ranked_items[forced_rank] is None:
+                    forced_ranked_items[forced_rank] = item  # Place item in specified position
+                else:
+                    unranked_items.append(item)  # Handle collisions by adding to unranked
+            else:
+                unranked_items.append(item)  # Add items without forced_rank to unranked
+        
+        # Fill in the remaining slots with unranked items
+        final_ranked_items = [item for item in forced_ranked_items if item is not None] + unranked_items
+    
+        # Step 3: Filter by project selection
         if selected_project and selected_project != "All Projects":
-            ranked_items = [
-                item for item in ranked_items if item["repo_name"].lower() == selected_project.lower()
+            final_ranked_items = [
+                item for item in final_ranked_items if item["repo_name"].lower() == selected_project.lower()
             ]
     
-        # Step 3: Filter by search query
+        # Step 4: Filter by search query
         if query:
             query_pattern = re.compile(re.escape(query), re.IGNORECASE)
-            ranked_items = [
-                item for item in ranked_items
+            final_ranked_items = [
+                item for item in final_ranked_items
                 if query_pattern.search(item["title"]) or query_pattern.search(item["description"])
             ]
     
-        # Step 4: Return the top 'num_recommended_items' recommendations
-        return ranked_items[:self.num_recommended_items]
+        # Step 5: Return the top 'num_recommended_items' recommendations
+        return final_ranked_items[:self.num_recommended_items]
+
+    
     #
     # sorting logica applied to the projects
     #
