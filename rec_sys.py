@@ -75,28 +75,18 @@ class RecommendationSystem:
     # ranking logic aspect of the RecSys
     #
     def rank_items(self, query=None, selected_project=None):
-        """
-        Rank items based on multiple heuristics:
-        
-        1. Primary sorting:
-           - Items with "galleria" set to True are prioritized.
-           - Items are then sorted by 'last_updated' in descending order.
-        
-        2. Forced ranking:
-           - Items with a 'forced_rank' integer value are placed in their specified position.
-           - Collisions (multiple items assigned the same rank) are resolved by preserving the first occurrence.
-           - Remaining unranked items are appended in their original order.
-        
-        3. Filtering:
-           - Optionally filters by project name if 'selected_project' is specified.
-           - Optionally filters by search query matching 'title' or 'description'.
-        
-        4. Returns the top 'num_recommended_items' after all sorting and filtering.
-        """
+        """Rank the items by priority on 'galleria' and 'last_updated', then apply filters."""
         
         def parse_boolean(value):
             """Helper function to safely parse boolean values from strings."""
             return str(value).strip().lower() == "true"
+        
+        def parse_int(value):
+            """Helper function to safely parse integers."""
+            try:
+                return int(value)
+            except (TypeError, ValueError):
+                return None
     
         # Step 1: Sort items based on:
         #   - Priority: Items with "galleria" == True come first.
@@ -114,7 +104,7 @@ class RecommendationSystem:
         unranked_items = []
         
         for item in ranked_items:
-            forced_rank = item.get("forced_rank")
+            forced_rank = parse_int(item.get("forced_rank"))
             if isinstance(forced_rank, int) and 0 <= forced_rank < len(ranked_items):
                 if forced_ranked_items[forced_rank] is None:
                     forced_ranked_items[forced_rank] = item  # Place item in specified position
@@ -142,6 +132,7 @@ class RecommendationSystem:
     
         # Step 5: Return the top 'num_recommended_items' recommendations
         return final_ranked_items[:self.num_recommended_items]
+
     
     #
     # sorting logica applied to the projects
