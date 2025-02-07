@@ -21,7 +21,7 @@ import streamlit.components.v1 as components
 from git_api_utils import load_modules_metadata
 from git_api_utils import load_repos_metadata as load_github_metadata
 from app_end_metadata import load_repos_metadata as load_app_metadata
-from front_end_utils import render_section_separator
+from front_end_utils import render_section_separator, render_external_link_button
 from media_carousel import MediaCarousel  # Assuming this is the correct import
 
 #
