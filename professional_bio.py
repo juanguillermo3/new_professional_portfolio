@@ -29,23 +29,21 @@ class CurriculumVitae:
         # Work Experience Section
         st.markdown("#### Work Experience 🔧")
 
-        st.text(CURRENT_JOB_KEYWORD)
-        
         default_circle_color = "#1c7bba"  # Default circle color (blue)
-        current_job_circle_color = "#ff6f00"  # Orange circle color for current jobs
-        shadow_color = "rgba(28, 123, 186, 0.2)"  # Fixed shadow color
+        current_job_circle_color = "#ff6f00"  # Orange for current job
+        shadow_color = "rgba(28, 123, 186, 0.2)"  # Default shadow color (blue tint)
+        current_job_shadow_color = "rgba(255, 111, 0, 0.2)"  # Soft orange shadow
 
         for experience in self.work_experience:
             start_date, end_date = experience['date_range']
 
-            st.text(end_date)
-            
             # Special handling for current job experience
             if CURRENT_JOB_KEYWORD.strip().lower() == end_date.strip().lower():
                 end_date_str = CURRENT_JOB_KEYWORD  # Keep the keyword as is for current job
-                circle_color = current_job_circle_color  # Use orange for current job
+                circle_color = current_job_circle_color  # Orange for current job
+                shadow_color = current_job_shadow_color  # Soft orange shadow
             else:
-                end_date_str = parse_as_datetime(end_date).strftime('%m/%Y') if end_date !=CURRENT_JOB_KEYWORD else "Present"
+                end_date_str = parse_as_datetime(end_date).strftime('%m/%Y')
                 circle_color = default_circle_color  # Default to blue for past jobs
             
             start_date_str = parse_as_datetime(start_date).strftime('%m/%Y')
@@ -76,7 +74,7 @@ class CurriculumVitae:
             start_date, end_date = edu['date_range']
             # Format date ranges to mm/yyyy
             start_date_str = parse_as_datetime(start_date).strftime('%m/%Y')
-            end_date_str = parse_as_datetime(end_date).strftime('%m/%Y') if end_date != "Actualmente" else "Present"
+            end_date_str = parse_as_datetime(end_date).strftime('%m/%Y') if end_date != CURRENT_JOB_KEYWORD else "Present"
             
             date_range_str = f"{start_date_str} - {end_date_str}"
             
@@ -97,8 +95,6 @@ class CurriculumVitae:
                     <p style='font-style: italic;'>{date_range_str}</p>
                 </div>
             </div>""", unsafe_allow_html=True)
-
-
 
             
 cv = CurriculumVitae(
