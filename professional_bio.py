@@ -25,36 +25,37 @@ class CurriculumVitae:
         st.subheader("Curriculum Vitae 📜")
         st.markdown("---")
         st.markdown(f'<p style="color: gray;">{self.statement}</p>', unsafe_allow_html=True)
-
+    
         # Work Experience Section
         st.markdown("#### Work Experience 🔧")
-
-        default_circle_color = "#1c7bba"  # Default circle color (blue)
-        current_job_circle_color = "#ff6f00"  # Orange for current job
-        shadow_color = "rgba(28, 123, 186, 0.2)"  # Default shadow color (blue tint)
-        current_job_shadow_color = "rgba(255, 111, 0, 0.2)"  # Soft orange shadow
-
+    
+        # Predefined Colors
+        circle_color = "#1c7bba"  # Default circle color (blue)
+        shadow_circle_color = "rgba(28, 123, 186, 0.2)"  # Default shadow (soft blue)
+        
+        current_circle_color = "#ff6f00"  # Orange for current job
+        shadow_current_circle_color = "rgba(255, 111, 0, 0.2)"  # Soft orange shadow
+    
         for experience in self.work_experience:
             start_date, end_date = experience['date_range']
-
-            # Special handling for current job experience
-            if CURRENT_JOB_KEYWORD.strip().lower() == end_date.strip().lower():
-                end_date_str = CURRENT_JOB_KEYWORD  # Keep the keyword as is for current job
-                circle_color = current_job_circle_color  # Orange for current job
-                shadow_color = current_job_shadow_color  # Soft orange shadow
-            else:
-                end_date_str = parse_as_datetime(end_date).strftime('%m/%Y')
-                circle_color = default_circle_color  # Default to blue for past jobs
-            
+    
+            # Determine if this is the current job
+            is_current_job = CURRENT_JOB_KEYWORD.strip().lower() == end_date.strip().lower()
+    
+            # Assign colors based on whether it is the current job
+            display_circle_color = current_circle_color if is_current_job else circle_color
+            display_shadow_color = shadow_current_circle_color if is_current_job else shadow_circle_color
+            end_date_str = CURRENT_JOB_KEYWORD if is_current_job else parse_as_datetime(end_date).strftime('%m/%Y')
+    
             start_date_str = parse_as_datetime(start_date).strftime('%m/%Y')
             date_range_str = f"{start_date_str} - {end_date_str}"
-
+    
             st.markdown(f"""<div style='margin-bottom: 0.5rem; display: flex; align-items: flex-start;'>
                 <div style='
                     width: 20px; height: 20px; 
-                    border: 5px solid {circle_color}; 
+                    border: 5px solid {display_circle_color}; 
                     border-radius: 50%; 
-                    box-shadow: 0 0 0 5px {shadow_color}; 
+                    box-shadow: 0 0 0 5px {display_shadow_color}; 
                     position: relative; 
                     margin-right: 10px; 
                     margin-top: 2px;  
@@ -66,10 +67,10 @@ class CurriculumVitae:
                     <p style='font-style: italic;'>{date_range_str}</p>
                 </div>
             </div>""", unsafe_allow_html=True)
-
+    
         # Education Section
         st.markdown("#### Education 🎓")
-        
+    
         for edu in self.education:
             start_date, end_date = edu['date_range']
             # Format date ranges to mm/yyyy
@@ -81,9 +82,9 @@ class CurriculumVitae:
             st.markdown(f"""<div style='margin-bottom: 0.5rem; display: flex; align-items: flex-start;'>
                 <div style='
                     width: 20px; height: 20px; 
-                    border: 5px solid {default_circle_color}; 
+                    border: 5px solid {circle_color}; 
                     border-radius: 50%; 
-                    box-shadow: 0 0 0 5px {shadow_color}; 
+                    box-shadow: 0 0 0 5px {shadow_circle_color}; 
                     position: relative; 
                     margin-right: 10px; 
                     margin-top: 2px; 
@@ -95,6 +96,7 @@ class CurriculumVitae:
                     <p style='font-style: italic;'>{date_range_str}</p>
                 </div>
             </div>""", unsafe_allow_html=True)
+
 
             
 cv = CurriculumVitae(
