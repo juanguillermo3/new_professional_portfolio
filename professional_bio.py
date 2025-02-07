@@ -72,6 +72,9 @@ class CurriculumVitae:
 import streamlit as st
 from cv_data_loader import load_experience_items, load_education_items, professional_statement, parse_as_datetime
 
+import streamlit as st
+from cv_data_loader import load_experience_items, load_education_items, professional_statement, parse_as_datetime
+
 class CurriculumVitae:
     def __init__(self, section_description):
         """
@@ -152,6 +155,7 @@ class CurriculumVitae:
                     <p style='font-style: italic;'>{date_range_str}</p>
                 </div>
             </div>""", unsafe_allow_html=True)
+
             
 cv = CurriculumVitae(
     section_description="This is a description of the Curriculum Vitae section.",
