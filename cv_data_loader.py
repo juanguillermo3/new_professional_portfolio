@@ -1,7 +1,29 @@
-# cv_data_loader.py
-
 import json
 import pandas as pd
+from datetime import datetime
+import os
+
+# Global constants (can be loaded from environment or defaults)
+DATE_FORMAT = os.getenv('DATE_FORMAT', '%d/%m/%Y')  # Default format: dd/mm/yyyy
+CURRENT_JOB_KEYWORD = os.getenv('CURRENT_JOB_KEYWORD', 'Actualmente')  # Default keyword: 'Actualmente'
+
+# Helper utility to parse dates, treating the special keyword for current job
+def parse_as_datetime(date_str):
+    """
+    Parses a string as a datetime object. If the string contains the CURRENT_JOB_KEYWORD, 
+    it returns the current system date.
+
+    :param date_str: The date string to parse.
+    :return: A datetime object representing the parsed date.
+    """
+    if date_str.lower() == CURRENT_JOB_KEYWORD.lower():
+        return datetime.now()  # Return current system date if special keyword is found
+    try:
+        # Attempt to parse the date string using the default date format
+        return datetime.strptime(date_str, DATE_FORMAT)
+    except ValueError:
+        # Handle the case where the date format is invalid or unrecognized
+        raise ValueError(f"Invalid date format for '{date_str}', expected format is '{DATE_FORMAT}'.")
 
 def load_experience_items():
     experience_items = [
@@ -16,7 +38,7 @@ def load_experience_items():
                 "covariates (sex, groups) influence this. Data processing, visualization, and statistical tests "
                 "(Kruskal-Wallis, Dunn test) were automated for streamlined reporting."
             ),
-            "date_range": "Julio 2022 - Actualmente"
+            "date_range": ("01/07/2022", CURRENT_JOB_KEYWORD)
         },
         {
             "title": "Freelance ML Consultant/Developer (Ensemble Learning)",
@@ -28,7 +50,7 @@ def load_experience_items():
                 "outperformed individual models in terms of F1 score. Code sample available at: "
                 "<a href='https://colab.research.google.com/drive/1sPdB-uoOEdw2xIKPQCx1aGp5QUuu1ooK#scrollTo=_Ycax1ucXvA' target='_blank'>Google Colab</a>"
             ),
-            "date_range": "Enero 2024 - Julio 2024"
+            "date_range": ("01/01/2024", "01/07/2024")
         },
         {
             "title": "Python Developer",
@@ -40,7 +62,7 @@ def load_experience_items():
                 "with AWS Watchtower. Through on-the-job training, I honed my skills as a low-code developer, assimilating "
                 "a tech stack involving GPT and Copilot to enhance workflow efficiency."
             ),
-            "date_range": "Junio 2023 - Diciembre 2023"
+            "date_range": ("01/06/2023", "31/12/2023")
         },
         {
             "title": "Freelance ML Consultant/Developer (AI and Genetic Algorithms)",
@@ -52,7 +74,7 @@ def load_experience_items():
                 "to find near-optimal Neural Network architectures. Code sample available at: "
                 "<a href='https://colab.research.google.com/drive/1QKFY5zfiRkUUPrnhlsOrtRlqGJ14oFf3#scrollTo=sxBOaWZ9uabz' target='_blank'>Google Colab</a>"
             ),
-            "date_range": "Enero 2023 - Julio 2023"
+            "date_range": ("01/01/2023", "01/07/2023")
         },
         {
             "title": "Data Analyst, Public Policy Research Assistant",
@@ -63,10 +85,16 @@ def load_experience_items():
                 "gathering and transformation pipelines using Stata, R, and Python. Additionally, I provided inferential statistics, "
                 "regression analysis, and program evaluation techniques, including propensity score matching (PSM)."
             ),
-            "date_range": "Julio 2019 - Julio 2022"
+            "date_range": ("01/07/2019", "01/07/2022")
         }
     ]
     
+    # Convert date ranges to tuples of datetime objects
+    for item in experience_items:
+        start_date = parse_as_datetime(item["date_range"][0])
+        end_date = parse_as_datetime(item["date_range"][1])
+        item["date_range"] = (start_date.strftime(DATE_FORMAT), end_date.strftime(DATE_FORMAT))
+
     return experience_items
 
 def load_education_items():
@@ -84,7 +112,7 @@ def load_education_items():
                 "analysis and techniques available through non-mandatory master level college courses, comprehending artificial intelligence, "
                 "advanced econometrics, data mining (machine learning), forecasting, and big data, for which I hold their respective certifications."
             ),
-            "date_range": "Enero 2012 - Junio 2019"
+            "date_range": ("01/01/2012", "01/06/2019")
         }
     ]
     
@@ -103,5 +131,10 @@ def professional_statement():
         "current professional offering is on Data Analysis and Machine Learning engineering—making data analysis actionable through "
         "software automation."
     )
+
+# Example output for experience items
+items = load_experience_items()
+for item in items:
+    print(f"Title: {item['title']}, Date Range: {item['date_range']}")
 
 
