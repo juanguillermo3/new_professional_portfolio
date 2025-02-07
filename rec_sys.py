@@ -4,43 +4,29 @@ title: Recommendation System
 description: Current implementation of the RecSys, featuring a vanilla ranking that sorts items by the most recently updated, filters by query (exact matching), and allows filtering by project.
 """
 
+# Standard Library Imports
 import os
 import re
-import random
-import streamlit as st
-from datetime import datetime
-from git_api_utils import load_modules_metadata
-from git_api_utils import load_repos_metadata as load_github_metadata
-from app_end_metadata import load_repos_metadata as load_app_metadata
-import hashlib
-from front_end_utils import render_section_separator
-from media_carousel import MediaCarousel  # Assuming this is the correct import
 import time
 import glob
-import os
-import time
-import streamlit as st
+import random
+import hashlib
+from datetime import datetime
+
+# Third-Party Imports
 import streamlit as st
 import streamlit.components.v1 as components
 
+# Custom Project-Specific Imports
+from git_api_utils import load_modules_metadata
+from git_api_utils import load_repos_metadata as load_github_metadata
+from app_end_metadata import load_repos_metadata as load_app_metadata
+from front_end_utils import render_section_separator
+from media_carousel import MediaCarousel  # Assuming this is the correct import
+
 #
-def render_external_link_button(url, label, bg_color):
-    """Helper method to render an external link button with consistent styling."""
-    return f"""
-    <div style="display: flex; justify-content: center; margin-top: 5px;">
-        <a href="{url}" target="_blank" 
-           style="text-decoration: none; width: 200px; display: block; margin: 0 auto;">
-            <button style="background-color: {bg_color}; color: white; 
-                           border: none; padding: 10px 20px; 
-                           text-align: center; text-decoration: none; 
-                           font-size: 14px; cursor: pointer; 
-                           border-radius: 5px; width: 100%; margin: 0 auto;">
-                {label}
-            </button>
-        </a>
-    </div>
-    """
-    
+# (0) ancillary function to merge metadata about underlyng items
+#
 def combine_metadata():
     # Load both sets of metadata
     github_metadata = load_github_metadata()
@@ -59,9 +45,16 @@ def combine_metadata():
 
     return combined_metadata
 
-
+#
+# (1) RecSys
+#
 class RecommendationSystem:
-    def __init__(self, num_recommended_items=6, num_columns=3, section_header="Recommendation System 🎯", section_description="Discover content tailored to your needs. Use the search bar to find recommendations and filter by project category."):
+    def __init__(self, 
+                 num_recommended_items=6, 
+                 num_columns=3, 
+                 section_header="Recommendation System 🎯", 
+                 section_description="Discover content tailored to your needs. Use the search bar to find recommendations and filter by project category."
+                ):
                 
         self.num_recommended_items = num_recommended_items
         self.num_columns = num_columns
@@ -78,46 +71,10 @@ class RecommendationSystem:
         # Prepare project titles and default project
         self._prepare_project_titles_and_default()
 
-        # Pre-instantiate the media carousels for all projects with galleria folders
-        self.galleria_carousels = self._initialize_galleria_carousels()
 
-    def _sort_projects(self):
-        """Sorts the projects by ongoing status and number of related items."""
-        project_item_counts = {
-            repo["title"].lower(): sum(1 for item in self.metadata_list if item['repo_name'].lower() == repo["title"].lower())
-            for repo in self.repos_metadata
-        }
-
-        self.repos_metadata.sort(
-            key=lambda x: (
-                not x.get("ongoing", False),  # Sort ongoing projects first
-                -project_item_counts.get(x["title"].lower(), 0)  # Descending by item count
-            )
-        )
-
-    def _prepare_project_titles_and_default(self):
-        """Prepares project titles for selection and determines the default project."""
-        self.project_titles = [
-            f"{repo['title']} (Ongoing)" if repo.get("ongoing", False) else repo["title"]
-            for repo in self.repos_metadata
-        ]
-
-        self.title_mapping = {
-            self.prettify_title(title): repo["title"]
-            for title, repo in zip(self.project_titles, self.repos_metadata)
-        }
-
-        self.default_project = self.repos_metadata[0]["title"] if self.repos_metadata else "No Projects"
-
-    def _initialize_galleria_carousels(self):
-        """Prepares media carousels for projects with galleria folders."""
-        carousels = {}
-        for repo in self.repos_metadata:
-            galleria_folder = os.path.join('assets', f"{repo['title'].replace(' ', '_').lower()}_galleria")
-            if os.path.exists(galleria_folder):
-                carousels[repo["title"]] = MediaCarousel(galleria_folder)
-        return carousels
-
+    #
+    # ranking logic aspect of the RecSys
+    #
     def rank_items(self, query=None, selected_project=None):
         """Rank the items by priority on 'galleria' and 'last_updated', then apply filters."""
         
@@ -152,48 +109,45 @@ class RecommendationSystem:
     
         # Step 4: Return the top 'num_recommended_items' recommendations
         return ranked_items[:self.num_recommended_items]
+    #
+    # sorting logica applied to the projects
+    #
+    def _sort_projects(self):
+        """Sorts the projects by ongoing status and number of related items."""
+        project_item_counts = {
+            repo["title"].lower(): sum(1 for item in self.metadata_list if item['repo_name'].lower() == repo["title"].lower())
+            for repo in self.repos_metadata
+        }
 
+        self.repos_metadata.sort(
+            key=lambda x: (
+                not x.get("ongoing", False),  # Sort ongoing projects first
+                -project_item_counts.get(x["title"].lower(), 0)  # Descending by item count
+            )
+        )
 
-
+    #
     def prettify_title(self, title):
         """Prettify the title by removing underscores and capitalizing words."""
         return " ".join(word.capitalize() for word in title.replace("_", " ").split())
-
-
-    def render_title_and_description(self, project_metadata):
-        """Renders the title and description of a project, centered and with margins, with inline hashtags."""
-
-        # Professional and innovative color palette
-        color_palette = [
-            "#1E3A8A",  # Deep Blue (Tech/Professional)
-            "#065F46",  # Dark Green (Trust/Innovation)
-            "#9333EA",  # Purple (Creative/Modern)
-            "#0EA5E9",  # Cyan Blue (Fresh/Innovative)
-            "#B91C1C",  # Deep Red (Bold/Strong)
-            "#7C3AED",  # Vibrant Indigo (Techy Feel)
-            "#2563EB",  # Solid Blue (Corporate/Stable)
-            "#059669",  # Teal Green (Sophisticated)
+    #
+    def _prepare_project_titles_and_default(self):
+        """Prepares project titles for selection and determines the default project."""
+        self.project_titles = [
+            f"{repo['title']} (Ongoing)" if repo.get("ongoing", False) else repo["title"]
+            for repo in self.repos_metadata
         ]
 
-        # Generate inline tags with improved styling
-        tags_html = " ".join(
-            f'<span style="color: {random.choice(color_palette)}; font-size: 0.9em; font-weight: 600;">#{tag}</span>'
-            for tag in project_metadata.get("tags", [])
-        )
+        self.title_mapping = {
+            self.prettify_title(title): repo["title"]
+            for title, repo in zip(self.project_titles, self.repos_metadata)
+        }
 
-        # Render HTML with inline styling
-        st.markdown(
-            f"""
-            <div style="text-align: center; margin-bottom: 20px;">
-                <h3>{self.prettify_title(project_metadata['title'])}</h3>
-            </div>
-            <div style="text-align: justify; margin-left: 10%; margin-right: 10%; margin-bottom: 20px;">
-                <p>{project_metadata['description']} {tags_html}</p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
+        self.default_project = self.repos_metadata[0]["title"] if self.repos_metadata else "No Projects"
 
+
+    #
+    # front end representation of items
     #
     def render_card(self, rec, is_project=False):
         """Render a single recommendation card with fixed height and scrollable content."""
@@ -297,8 +251,6 @@ class RecommendationSystem:
         # Add more margin between the button area and the next row of card items
         st.markdown("<br><br>", unsafe_allow_html=True)
     
-            
-
     # Default media dimensions (class-level static attributes)
     MEDIA_CONTAINER_WIDTH = "700px"
     MEDIA_CONTAINER_HEIGHT = "400px"
@@ -435,7 +387,9 @@ class RecommendationSystem:
             unsafe_allow_html=True
         )
 
-    
+    #
+    # main public method to render the RecSys
+    #
     def render(self):
         """Render method with Galleria callback integration."""
         st.subheader(self.section_header)
@@ -495,95 +449,42 @@ class RecommendationSystem:
         #    render_section_separator()
         #    #self.show_galleria(selected_project)
 
+    def render_title_and_description(self, project_metadata):
+        """Renders the title and description of a project, centered and with margins, with inline hashtags."""
+
+        # Professional and innovative color palette
+        color_palette = [
+            "#1E3A8A",  # Deep Blue (Tech/Professional)
+            "#065F46",  # Dark Green (Trust/Innovation)
+            "#9333EA",  # Purple (Creative/Modern)
+            "#0EA5E9",  # Cyan Blue (Fresh/Innovative)
+            "#B91C1C",  # Deep Red (Bold/Strong)
+            "#7C3AED",  # Vibrant Indigo (Techy Feel)
+            "#2563EB",  # Solid Blue (Corporate/Stable)
+            "#059669",  # Teal Green (Sophisticated)
+        ]
+
+        # Generate inline tags with improved styling
+        tags_html = " ".join(
+            f'<span style="color: {random.choice(color_palette)}; font-size: 0.9em; font-weight: 600;">#{tag}</span>'
+            for tag in project_metadata.get("tags", [])
+        )
+
+        # Render HTML with inline styling
+        st.markdown(
+            f"""
+            <div style="text-align: center; margin-bottom: 20px;">
+                <h3>{self.prettify_title(project_metadata['title'])}</h3>
+            </div>
+            <div style="text-align: justify; margin-left: 10%; margin-right: 10%; margin-bottom: 20px;">
+                <p>{project_metadata['description']} {tags_html}</p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
             
-    def show_galleria(self, project_title):
-        """Check if the galleria folder exists and render the details."""
-        galleria_path = os.path.join('assets', f"{project_title}_galleria")
-        if os.path.exists(galleria_path):
-            st.markdown(f"### Galleria for {project_title}")
-            self.galleria_carousels[project_title].render()
-        else:
-            st.warning(f"Galleria for {project_title} not found.")    
+ 
 
-def _load_media_from_folder(self, image_path_pattern=".*\.png"):
-    """
-    Loads media files from the default directory, filtered by a regex pattern.
-    
-    :param image_path_pattern: Regex pattern to filter image files.
-    :return: Sorted list of media file paths matching the pattern.
-    """
-    media_files = glob.glob(os.path.join("assets", "*"))  # Keep previous structure
-    
-    # Filter files using regex
-    regex = re.compile(image_path_pattern)
-    filtered_files = [file for file in media_files if regex.match(file)]
-    
-    return sorted(filtered_files)  # Sort for consistent ordering
-
-def update_video_content(self, title, description, rec):
-    """
-    Updates the displayed media content and renders navigation controls.
-    """
-    self.media_placeholder.empty()  # Clear previous content
-
-    if not self.media_files:
-        st.error("No media files found.")
-        return
-
-    # Get current image path
-    image_path = self.media_files[self.current_index]
-
-    # Begin new content rendering
-    with self.media_placeholder.container():
-        # Create a 3-column layout: left navigation, image, right navigation
-        col1, col2, col3 = st.columns([0.05, 0.90, 0.05])  # 5% - 90% - 5%
-
-        # Left navigation button
-        with col1:
-            if st.button("<", key="prev"):
-                self.current_index = (self.current_index - 1) % len(self.media_files)
-                self.update_video_content(title, description, rec)
-
-        # Main media display (centered)
-        with col2:
-            try:
-                st.image(image_path, use_column_width=True)
-            except Exception as e:
-                st.error(f"Error loading image: {e}")
-
-            # Title & description below the image
-            st.markdown(
-                f"""
-                <div style="text-align: center; padding: 10px; background: rgba(0, 0, 0, 0.4); border-radius: 8px; color: white;">
-                    <span style="font-size: 24px; font-weight: 600;">{title}</span><br>
-                    <span style="font-size: 16px; font-weight: 300;">{description}</span>
-                </div>
-                """, unsafe_allow_html=True
-            )
-
-        # Right navigation button
-        with col3:
-            if st.button(">", key="next"):
-                self.current_index = (self.current_index + 1) % len(self.media_files)
-                self.update_video_content(title, description, rec)
-
-def handle_galleria_click(self, rec):
-    """
-    Handles user interaction with a galleria item and loads the corresponding media.
-    """
-    item_title = rec.get('title', 'No Title Available')
-    item_description = rec.get('description', 'No description available.')
-    image_path_pattern = rec.get('image_path', '.*\.png')  # Regex pattern
-
-    # Load media files
-    self.media_files = self._load_media_from_folder(image_path_pattern)
-
-    if not self.media_files:
-        st.error("No media files found.")
-        return
-
-    # Show the first media item by default
-    self.update_video_content(item_title, item_description, rec)
 
 
 
