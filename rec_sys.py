@@ -496,7 +496,7 @@ class RecommendationSystem:
             ext = image_path.split('.')[-1].lower()
 
             # Media rendering inside a fixed-size div
-            st.markdown(f"<div class='media-container'>", unsafe_allow_html=True)
+            #st.markdown(f"<div class='media-container'>", unsafe_allow_html=True)
 
             if ext in ['jpg', 'jpeg', 'png', 'gif']:
                 try:
