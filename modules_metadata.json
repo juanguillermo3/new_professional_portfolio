@@ -255,7 +255,7 @@
     {
         "title": "Wages Drivers",
         "description": "Detects the main drivers behind wage formation trough the analysis of the gradients of a Neural Network model.",
-        "image_path": "assets/effects_rank.html",
+        "image_path": "assets/effects_rank (1).html",
         "galleria": "True",
         "repo_name": "lab_market_trends"
     },
@@ -269,7 +269,7 @@
     {
         "title": "Overall Application",
         "description": "Connected version of the wages appication. It combines several modules into a sequence of workflows to analyze wages formation in the Colombian laboral market",
-        "image_path": "assets/effects_and_proportions.html",
+        "image_path": "assets/effects_and_proportions (1).html",
         "colab_url": "https://colab.research.google.com/drive/1gY17gbUdUxpWv2Ddooo0niPCkmqg8-hg#scrollTo=Hwfe5gZe3e_A>",
         "galleria": "True",
         "repo_name": "lab_market_trends"
