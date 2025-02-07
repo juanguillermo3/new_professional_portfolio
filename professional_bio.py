@@ -72,9 +72,6 @@ class CurriculumVitae:
 import streamlit as st
 from cv_data_loader import load_experience_items, load_education_items, professional_statement, parse_as_datetime
 
-import streamlit as st
-from cv_data_loader import load_experience_items, load_education_items, professional_statement, parse_as_datetime
-
 class CurriculumVitae:
     def __init__(self, section_description):
         """
@@ -85,9 +82,9 @@ class CurriculumVitae:
         self.work_experience = load_experience_items()  # Fetch work experience data
         self.education = load_education_items()  # Fetch education data
 
-        # Sort the work and education items by the second date in the date range (end date)
-        self.work_experience.sort(key=lambda x: parse_as_datetime(x['date_range'][1]))
-        self.education.sort(key=lambda x: parse_as_datetime(x['date_range'][1]))
+        # Sort the work and education items by the second date in the date range (end date), in reverse order (most recent first)
+        self.work_experience.sort(key=lambda x: parse_as_datetime(x['date_range'][1]), reverse=True)
+        self.education.sort(key=lambda x: parse_as_datetime(x['date_range'][1]), reverse=True)
 
     def render(self):
         # Curriculum Vitae Header
@@ -155,6 +152,7 @@ class CurriculumVitae:
                     <p style='font-style: italic;'>{date_range_str}</p>
                 </div>
             </div>""", unsafe_allow_html=True)
+
 
             
 cv = CurriculumVitae(
