@@ -151,10 +151,7 @@ class RecommendationSystem:
             )
         )
 
-    #
-    def prettify_title(self, title):
-        """Prettify the title by removing underscores and capitalizing words."""
-        return " ".join(word.capitalize() for word in title.replace("_", " ").split())
+
     #
     def _prepare_project_titles_and_default(self):
         """Prepares project titles for selection and determines the default project."""
@@ -164,7 +161,7 @@ class RecommendationSystem:
         ]
 
         self.title_mapping = {
-            self.prettify_title(title): repo["title"]
+            prettify_title(title): repo["title"]
             for title, repo in zip(self.project_titles, self.repos_metadata)
         }
 
