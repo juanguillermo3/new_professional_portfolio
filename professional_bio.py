@@ -42,7 +42,7 @@ class CurriculumVitae:
                 circle_color = current_job_circle_color  # Use orange for current job
             else:
                 end_date_str = parse_as_datetime(end_date).strftime('%m/%Y') if end_date !=CURRENT_JOB_KEYWORD else "Present"
-                circle_color = current_job_circle_color # Default to blue for past jobs
+                circle_color = default_circle_color  # Default to blue for past jobs
             
             start_date_str = parse_as_datetime(start_date).strftime('%m/%Y')
             date_range_str = f"{start_date_str} - {end_date_str}"
