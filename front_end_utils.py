@@ -23,3 +23,7 @@ def render_external_link_button(url, label, bg_color):
         </a>
     </div>
     """
+#
+def prettify_title(title):
+    """Prettify the title by removing underscores and capitalizing words."""
+    return " ".join(word.capitalize() for word in title.replace("_", " ").split())
