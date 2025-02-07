@@ -37,7 +37,7 @@ class CurriculumVitae:
             start_date, end_date = experience['date_range']
             
             # Special handling for current job experience
-            if CURRENT_JOB_KEYWORD.lower() == end_date.lower():
+            if CURRENT_JOB_KEYWORD.strip().lower() == end_date.strip().lower():
                 end_date_str = CURRENT_JOB_KEYWORD  # Keep the keyword as is for current job
                 circle_color = current_job_circle_color  # Use orange for current job
             else:
