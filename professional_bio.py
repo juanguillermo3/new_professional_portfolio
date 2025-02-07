@@ -107,7 +107,7 @@ class CurriculumVitae:
                 end_date_str = CURRENT_JOB_KEYWORD  # Keep the keyword as is for current job
                 circle_color = current_job_circle_color  # Use orange for current job
             else:
-                end_date_str = parse_as_datetime(end_date).strftime('%m/%Y') if end_date != "Actualmente" else "Present"
+                end_date_str = parse_as_datetime(end_date).strftime('%m/%Y') if end_date !=CURRENT_JOB_KEYWORD else "Present"
                 circle_color = default_circle_color  # Default to blue for past jobs
             
             start_date_str = parse_as_datetime(start_date).strftime('%m/%Y')
