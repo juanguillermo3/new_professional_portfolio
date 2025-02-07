@@ -70,7 +70,7 @@ class RecommendationSystem:
         
         # Prepare project titles and default project
         self._prepare_project_titles_and_default()
-
+                    
     #
     # ranking logic aspect of the RecSys
     #
