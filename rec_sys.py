@@ -177,6 +177,23 @@ class RecommendationSystem:
         )
 
     #
+    def render_external_link_button(url, label, bg_color):
+        """Helper method to render an external link button with consistent styling."""
+        return f"""
+        <div style="display: flex; justify-content: center; margin-top: 5px;">
+            <a href="{url}" target="_blank" 
+               style="text-decoration: none; width: 200px; display: block; margin: 0 auto;">
+                <button style="background-color: {bg_color}; color: white; 
+                               border: none; padding: 10px 20px; 
+                               text-align: center; text-decoration: none; 
+                               font-size: 14px; cursor: pointer; 
+                               border-radius: 5px; width: 100%; margin: 0 auto;">
+                    {label}
+                </button>
+            </a>
+        </div>
+        """
+    #
     def render_card(self, rec, is_project=False):
         """Render a single recommendation card with fixed height and scrollable content."""
         background_color = "#f4f4f4" if not is_project else "#fff5e6"  # Silver background for non-project items
@@ -260,52 +277,26 @@ class RecommendationSystem:
                 # Update media placeholder here, triggering a transition
                 self.handle_galleria_click(rec)
     
-        # Button row with fixed width buttons (for GitHub, Sheets, etc.)
-        button_cols = st.columns(2) if "url" in rec and "report_url" in rec else [st.columns(1)[0]]
-        
+        # Determine how many buttons will be displayed
+        buttons = []
         if "url" in rec and rec["url"]:
-            with button_cols[0]:
-                st.markdown(
-                    f"""
-                    <div style="display: flex; justify-content: center; margin-top: 5px;">
-                        <a href="{rec['url']}" target="_blank" 
-                           style="text-decoration: none; width: 200px; display: block; margin: 0 auto;">
-                            <button style="background-color: #333; color: white; 
-                                           border: none; padding: 10px 20px; 
-                                           text-align: center; text-decoration: none; 
-                                           font-size: 14px; cursor: pointer; 
-                                           border-radius: 5px; width: 100%; margin: 0 auto;">
-                                GitHub
-                            </button>
-                        </a>
-                    </div>
-                    """,
-                    unsafe_allow_html=True,
-                )
-        
+            buttons.append(("GitHub", rec["url"], "#333"))  # Dark Gray
         if "report_url" in rec and rec["report_url"]:
-            with button_cols[-1]:
-                st.markdown(
-                    f"""
-                    <div style="display: flex; justify-content: center; margin-top: 5px;">
-                        <a href="{rec['report_url']}" target="_blank" 
-                           style="text-decoration: none; width: 200px; display: block; margin: 0 auto;">
-                            <button style="background-color: #34A853; color: white; 
-                                           border: none; padding: 10px 20px; 
-                                           text-align: center; text-decoration: none; 
-                                           font-size: 14px; cursor: pointer; 
-                                           border-radius: 5px; width: 100%; margin: 0 auto;">
-                                Sheets
-                            </button>
-                        </a>
-                    </div>
-                    """,
-                    unsafe_allow_html=True,
-                )
-        
+            buttons.append(("Sheets", rec["report_url"], "#34A853"))  # Google Sheets Green
+        if "colab_url" in rec and rec["colab_url"]:
+            buttons.append(("Colab Notebook", rec["colab_url"], "#F9AB00"))  # Colab Yellow-Orange
+    
+        # Create columns dynamically based on the number of buttons
+        button_cols = st.columns(len(buttons)) if buttons else []
+    
+        for col, (label, url, color) in zip(button_cols, buttons):
+            with col:
+                st.markdown(render_external_link_button(url, label, color), unsafe_allow_html=True)
+    
         # Add more margin between the button area and the next row of card items
         st.markdown("<br><br>", unsafe_allow_html=True)
-        
+    
+            
 
     # Default media dimensions (class-level static attributes)
     MEDIA_CONTAINER_WIDTH = "700px"
