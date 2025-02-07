@@ -70,7 +70,7 @@ class CurriculumVitae:
             </div>""", unsafe_allow_html=True)
 
 import streamlit as st
-from cv_data_loader import load_experience_items, load_education_items, professional_statement, parse_as_datetime
+from cv_data_loader import load_experience_items, load_education_items, professional_statement, parse_as_datetime, CURRENT_JOB_KEYWORD
 
 class CurriculumVitae:
     def __init__(self, section_description):
@@ -95,17 +95,24 @@ class CurriculumVitae:
         # Work Experience Section
         st.markdown("#### Work Experience 🔧")
         
-        circle_color = "#1c7bba"  # Fixed circle color
+        default_circle_color = "#1c7bba"  # Default circle color (blue)
+        current_job_circle_color = "#ff6f00"  # Orange circle color for current jobs
         shadow_color = "rgba(28, 123, 186, 0.2)"  # Fixed shadow color
 
         for experience in self.work_experience:
             start_date, end_date = experience['date_range']
-            # Format date ranges to mm/yyyy
+            
+            # Special handling for current job experience
+            if CURRENT_JOB_KEYWORD in end_date:
+                end_date_str = CURRENT_JOB_KEYWORD  # Keep the keyword as is for current job
+                circle_color = current_job_circle_color  # Use orange for current job
+            else:
+                end_date_str = parse_as_datetime(end_date).strftime('%m/%Y') if end_date != "Actualmente" else "Present"
+                circle_color = default_circle_color  # Default to blue for past jobs
+            
             start_date_str = parse_as_datetime(start_date).strftime('%m/%Y')
-            end_date_str = parse_as_datetime(end_date).strftime('%m/%Y') if end_date != "Actualmente" else "Present"
-            
             date_range_str = f"{start_date_str} - {end_date_str}"
-            
+
             st.markdown(f"""<div style='margin-bottom: 0.5rem; display: flex; align-items: flex-start;'>
                 <div style='
                     width: 20px; height: 20px; 
@@ -138,7 +145,7 @@ class CurriculumVitae:
             st.markdown(f"""<div style='margin-bottom: 0.5rem; display: flex; align-items: flex-start;'>
                 <div style='
                     width: 20px; height: 20px; 
-                    border: 5px solid {circle_color}; 
+                    border: 5px solid {default_circle_color}; 
                     border-radius: 50%; 
                     box-shadow: 0 0 0 5px {shadow_color}; 
                     position: relative; 
@@ -152,6 +159,7 @@ class CurriculumVitae:
                     <p style='font-style: italic;'>{date_range_str}</p>
                 </div>
             </div>""", unsafe_allow_html=True)
+
 
 
             
