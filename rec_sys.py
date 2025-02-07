@@ -422,7 +422,7 @@ class RecommendationSystem:
         st.markdown("")
         
         # Project Filter - Comes First
-        prettified_titles = [self.prettify_title(title) for title in self.project_titles]
+        prettified_titles = [prettify_title(title) for title in self.project_titles]
         selected_pretty_project = st.selectbox("📂 Filter recommendations by project:", prettified_titles, index=0)
         selected_project = self.title_mapping[selected_pretty_project]
                 
