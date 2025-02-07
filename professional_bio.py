@@ -37,6 +37,8 @@ class CurriculumVitae:
 
         for experience in self.work_experience:
             start_date, end_date = experience['date_range']
+
+            st.text(end_date)
             
             # Special handling for current job experience
             if CURRENT_JOB_KEYWORD.strip().lower() == end_date.strip().lower():
