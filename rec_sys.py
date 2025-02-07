@@ -71,7 +71,6 @@ class RecommendationSystem:
         # Prepare project titles and default project
         self._prepare_project_titles_and_default()
 
-
     #
     # ranking logic aspect of the RecSys
     #
@@ -143,7 +142,6 @@ class RecommendationSystem:
     
         # Step 5: Return the top 'num_recommended_items' recommendations
         return final_ranked_items[:self.num_recommended_items]
-
     
     #
     # sorting logica applied to the projects
