@@ -89,12 +89,6 @@ def load_experience_items():
         }
     ]
     
-    # Convert date ranges to tuples of datetime objects
-    for item in experience_items:
-        start_date = parse_as_datetime(item["date_range"][0])
-        end_date = parse_as_datetime(item["date_range"][1])
-        item["date_range"] = (start_date.strftime(DATE_FORMAT), end_date.strftime(DATE_FORMAT))
-
     return experience_items
 
 def load_education_items():
@@ -132,9 +126,5 @@ def professional_statement():
         "software automation."
     )
 
-# Example output for experience items
-items = load_experience_items()
-for item in items:
-    print(f"Title: {item['title']}, Date Range: {item['date_range']}")
 
 
