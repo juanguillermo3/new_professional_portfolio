@@ -477,10 +477,23 @@ class RecommendationSystem:
                         st.error(f"Error loading video: {str(e)}")
     
                 elif ext == 'html':
-                    # Render HTML content with full width
+                    # Render HTML content ensuring images scale properly
                     try:
                         with open(image_path, 'r') as file:
-                            components.html(file.read())  # Auto-adjust height
+                            html_content = file.read()
+                        
+                        # Inject CSS to enforce full-width scaling inside the HTML
+                        responsive_html = f"""
+                        <style>
+                            img {{
+                                max-width: 100%;
+                                height: auto;
+                            }}
+                        </style>
+                        {html_content}
+                        """
+    
+                        components.html(responsive_html, scrolling=True)  # Allow scrolling if needed
                     except FileNotFoundError:
                         st.error(f"Error: File '{image_path}' not found.")
                     except Exception as e:
@@ -510,7 +523,7 @@ class RecommendationSystem:
     
             # Add space after the media content (appendix space)
             st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
-
+    
 
     def apply_transition_styles(self):
         """Apply the CSS transition styles to the media placeholder."""
