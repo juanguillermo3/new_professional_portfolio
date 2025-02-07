@@ -3,6 +3,10 @@ title: Curriculum Vitae
 description: CV area for a modern proffesional portfolio. The gist of it is serving an elegant front end representation of a couple of unordered lists: work items, experience items. Its design is inspired by modern job intermediation sites.
 """
 
+import streamlit as st
+from cv_data_loader import load_experience_items, load_education_items, professional_statement, parse_as_datetime, CURRENT_JOB_KEYWORD
+
+
 def render_expandable_text(text, limit=300):
     """Renders an expandable text component with 'Read more' functionality."""
     unique_id = hash(text)  # Unique ID for each block to avoid conflicts
@@ -38,10 +42,6 @@ def render_expandable_text(text, limit=300):
     """
     return html_code  # Return as string to inject into Markdown
     
-
-import streamlit as st
-from cv_data_loader import load_experience_items, load_education_items, professional_statement, parse_as_datetime, CURRENT_JOB_KEYWORD
-
 class CurriculumVitae:
     def __init__(self, section_description):
         """
