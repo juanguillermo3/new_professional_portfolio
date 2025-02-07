@@ -44,11 +44,7 @@ def combine_metadata():
 
 class RecommendationSystem:
     def __init__(self, num_recommended_items=6, num_columns=3, section_header="Recommendation System 🎯", section_description="Discover content tailored to your needs. Use the search bar to find recommendations and filter by project category."):
-        
-        # Initialize the current_index attribute to keep track of the image index
-        self.current_index = 0
-        self.media_files = []  # Placeholder for media files
-        
+                
         self.num_recommended_items = num_recommended_items
         self.num_columns = num_columns
         self.section_header = section_header
@@ -310,125 +306,6 @@ class RecommendationSystem:
         # Add more margin between the button area and the next row of card items
         st.markdown("<br><br>", unsafe_allow_html=True)
         
-    def handle_galleria_click(self, rec):
-        """
-        Handle the click event for the galleria item and display its content.
-        The content includes a title, a brief description, and a background image.
-        Hardcoded mockup values are used for now.
-        """
-        # Clear any existing content in the media placeholder
-        self.media_placeholder.empty()
-    
-        # Use the title and description from the rec object
-        item_title = rec.get('title', 'No Title Available')
-        item_description = rec.get('description', 'No description available.')
-        image_path = rec.get('image_path', 'assets/mock_up_galleria.png')  # Adjust if image path is stored in rec
-    
-        # Begin using the placeholder context
-        with self.media_placeholder.container():
-    
-            # Check if the image exists at the provided path and display it
-            try:
-                # Display the image
-                st.image(image_path, use_container_width=True)
-            except Exception as e:
-                # Show a debug statement if there is an issue with loading the image
-                st.error(f"Error loading image: {str(e)}")
-    
-            # Display the title and description in a single paragraph with inline styling
-            st.markdown(
-                f"""
-                <div style="position: relative; background-color: rgba(0, 0, 0, 0.4); padding: 15px; border-radius: 8px; color: white;">
-                    <div style="font-size: 20px; font-weight: 300; line-height: 1.6; text-align: center; margin: 0;">
-                        <span style="font-size: 24px; font-weight: 600; color: #fff; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);">
-                            {item_title}
-                        </span>
-                        <br>
-                        <span style="font-size: 16px; font-weight: 300; color: #eee; text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);">
-                            {item_description}
-                        </span>
-                    </div>
-                </div>
-                """, 
-                unsafe_allow_html=True
-            )
-    
-            # Add space after the media content (appendix space)
-            st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
-    
-
-    def handle_galleria_click(self, rec):
-        """
-        Handle the click event for the galleria item and display its content.
-        The content includes a title, a brief description, and a background image or other media.
-        """
-        # Clear any existing content in the media placeholder
-        self.media_placeholder.empty()
-    
-        # Use the title and description from the rec object
-        item_title = rec.get('title', 'No Title Available')
-        item_description = rec.get('description', 'No description available.')
-        image_path = rec.get('image_path', None)  # The key to use is 'image_path'
-    
-        # Debug statement if the key is not provided
-        if not image_path:
-            st.error("Error: 'image_path' key not found in the provided data.")
-    
-        # Begin using the placeholder context
-        with self.media_placeholder.container():
-    
-            # Check if the file extension is valid and render accordingly
-            if image_path:
-                ext = image_path.split('.')[-1].lower()
-    
-                if ext in ['jpg', 'jpeg', 'png', 'gif']:
-                    # Render image with 100% width, auto-adjust height
-                    try:
-                        st.image(image_path, use_container_width=True)
-                    except Exception as e:
-                        st.error(f"Error loading image: {str(e)}")
-    
-                elif ext in ['mp4', 'avi']:
-                    # Render video with 100% width, auto-adjust height
-                    try:
-                        st.video(image_path, use_container_width=True)
-                    except Exception as e:
-                        st.error(f"Error loading video: {str(e)}")
-    
-                elif ext == 'html':
-                    # Render HTML content with 100% width, dynamic height
-                    try:
-                        with open(image_path, 'r') as file:
-                            components.html(file.read())  # Let Streamlit adjust height automatically
-                    except FileNotFoundError:
-                        st.error(f"Error: File '{image_path}' not found.")
-                    except Exception as e:
-                        st.error(f"Error loading HTML content: {str(e)}")
-    
-                else:
-                    # Fallback for unsupported media types
-                    st.error(f"Unsupported media type: {ext}")
-    
-            # Display the title and description in a single paragraph with inline styling
-            st.markdown(
-                f"""
-                <div style="position: relative; background-color: rgba(0, 0, 0, 0.4); padding: 15px; border-radius: 8px; color: white;">
-                    <div style="font-size: 20px; font-weight: 300; line-height: 1.6; text-align: center; margin: 0;">
-                        <span style="font-size: 24px; font-weight: 600; color: #fff; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);">
-                            {item_title}
-                        </span>
-                        <br>
-                        <span style="font-size: 16px; font-weight: 300; color: #eee; text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);">
-                            {item_description}
-                        </span>
-                    </div>
-                </div>
-                """, 
-                unsafe_allow_html=True
-            )
-    
-            # Add space after the media content (appendix space)
-            st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
 
     # Default media dimensions (class-level static attributes)
     MEDIA_CONTAINER_WIDTH = "700px"
