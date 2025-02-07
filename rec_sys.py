@@ -184,7 +184,7 @@ class RecommendationSystem:
         galleria_present = "galleria" in rec
         
         # Modify the title to include a star if 'galleria' is present
-        title = self.prettify_title(rec['title'])
+        title = prettify_title(rec['title'])
         if galleria_present:
             title = f"⭐ {title}"
         
