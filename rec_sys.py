@@ -281,7 +281,7 @@ class RecommendationSystem:
         """
         Handle the click event for the galleria item and display its content.
         The content includes a title, a brief description, and a background image or other media.
-
+        
         Parameters:
         - rec (dict): The dictionary containing media metadata.
         - width (str): Optional. The width of the media container (default: class-level).
@@ -289,106 +289,105 @@ class RecommendationSystem:
         """
         # Clear any existing content in the media placeholder
         self.media_placeholder.empty()
-
+    
         # Use defaults if width/height not provided
         width = width or self.MEDIA_CONTAINER_WIDTH
         height = height or self.MEDIA_CONTAINER_HEIGHT
-
+    
         # Extract metadata from `rec`
         item_title = rec.get('title', 'No Title Available')
         item_description = rec.get('description', 'No description available.')
         image_path = rec.get('image_path', None)  # Ensure correct key is used
-
+    
         # Debug statement if image_path is missing
         if not image_path:
             st.error("Error: 'image_path' key not found in the provided data.")
             return
-
-        # Begin using the placeholder context
-        with self.media_placeholder.container():
-            
-            # **Insert a full-width dummy div to reset layout constraints**
-            st.markdown(
-                "<div style='width: 100%; height: 1px;'></div>",
-                unsafe_allow_html=True
-            )
-
-            # Define CSS to enforce fixed media dimensions
-            media_css = f"""
-                <style>
-                    .media-container {{
-                        width: {width};
-                        height: {height};
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        overflow: hidden;
-                        border-radius: 8px;
-                        background-color: rgba(0, 0, 0, 0.1);
-                    }}
-                    .media-container img, .media-container video {{
-                        max-width: 100%;
-                        max-height: 100%;
-                        object-fit: contain;
-                    }}
-                </style>
-            """
-            st.markdown(media_css, unsafe_allow_html=True)
-
-            # Identify file type
-            ext = image_path.split('.')[-1].lower()
-
-            # Media rendering inside a fixed-size div
-            #st.markdown(f"<div class='media-container'>", unsafe_allow_html=True)
-
-            if ext in ['jpg', 'jpeg', 'png', 'gif']:
-                try:
-                    st.image(image_path, use_container_width=False)
-                except Exception as e:
-                    st.error(f"Error loading image: {str(e)}")
-
-            elif ext in ['mp4', 'avi']:
-                try:
-                    st.video(image_path)
-                except Exception as e:
-                    st.error(f"Error loading video: {str(e)}")
-
-            elif ext == 'html':
-                try:
-                    with open(image_path, 'r') as file:
-                        html_content = file.read()
-                    components.html(html_content, width=int(width.replace("px", "")), height=int(height.replace("px", "")))
-                except FileNotFoundError:
-                    st.error(f"Error: File '{image_path}' not found.")
-                except Exception as e:
-                    st.error(f"Error loading HTML content: {str(e)}")
-
-            else:
-                st.error(f"Unsupported media type: {ext}")
-
-            st.markdown("</div>", unsafe_allow_html=True)
-
-            # Display the title and description
-            st.markdown(
-                f"""
-                <div style="position: relative; background-color: rgba(0, 0, 0, 0.4); padding: 15px; border-radius: 8px; color: white; width: 100%;">
-                    <div style="font-size: 20px; font-weight: 300; line-height: 1.6; text-align: center; margin: 0;">
-                        <span style="font-size: 24px; font-weight: 600; color: #fff; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);">
-                            {item_title}
-                        </span>
-                        <br>
-                        <span style="font-size: 16px; font-weight: 300; color: #eee; text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);">
-                            {item_description}
-                        </span>
-                    </div>
-                </div>
-                """, 
-                unsafe_allow_html=True
-            )
-
-            # Add spacing after media
-            st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
     
+        # Show spinner while loading content
+        with st.spinner("Loading media..."):
+            # Begin using the placeholder context
+            with self.media_placeholder.container():
+                # **Insert a full-width dummy div to reset layout constraints**
+                st.markdown(
+                    "<div style='width: 100%; height: 1px;'></div>",
+                    unsafe_allow_html=True
+                )
+    
+                # Define CSS to enforce fixed media dimensions
+                media_css = f"""
+                    <style>
+                        .media-container {{
+                            width: {width};
+                            height: {height};
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            overflow: hidden;
+                            border-radius: 8px;
+                            background-color: rgba(0, 0, 0, 0.1);
+                        }}
+                        .media-container img, .media-container video {{
+                            max-width: 100%;
+                            max-height: 100%;
+                            object-fit: contain;
+                        }}
+                    </style>
+                """
+                st.markdown(media_css, unsafe_allow_html=True)
+    
+                # Identify file type
+                ext = image_path.split('.')[-1].lower()
+    
+                # Media rendering inside a fixed-size div
+                if ext in ['jpg', 'jpeg', 'png', 'gif']:
+                    try:
+                        st.image(image_path, use_container_width=False)
+                    except Exception as e:
+                        st.error(f"Error loading image: {str(e)}")
+    
+                elif ext in ['mp4', 'avi']:
+                    try:
+                        st.video(image_path)
+                    except Exception as e:
+                        st.error(f"Error loading video: {str(e)}")
+    
+                elif ext == 'html':
+                    try:
+                        with open(image_path, 'r') as file:
+                            html_content = file.read()
+                        components.html(html_content, width=int(width.replace("px", "")), height=int(height.replace("px", "")))
+                    except FileNotFoundError:
+                        st.error(f"Error: File '{image_path}' not found.")
+                    except Exception as e:
+                        st.error(f"Error loading HTML content: {str(e)}")
+    
+                else:
+                    st.error(f"Unsupported media type: {ext}")
+    
+                st.markdown("</div>", unsafe_allow_html=True)
+    
+                # Display the title and description
+                st.markdown(
+                    f"""
+                    <div style="position: relative; background-color: rgba(0, 0, 0, 0.4); padding: 15px; border-radius: 8px; color: white; width: 100%;">
+                        <div style="font-size: 20px; font-weight: 300; line-height: 1.6; text-align: center; margin: 0;">
+                            <span style="font-size: 24px; font-weight: 600; color: #fff; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);">
+                                {item_title}
+                            </span>
+                            <br>
+                            <span style="font-size: 16px; font-weight: 300; color: #eee; text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);">
+                                {item_description}
+                            </span>
+                        </div>
+                    </div>
+                    """, 
+                    unsafe_allow_html=True
+                )
+    
+                # Add spacing after media
+                st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
+        
 
     def apply_transition_styles(self):
         """Apply the CSS transition styles to the media placeholder."""
