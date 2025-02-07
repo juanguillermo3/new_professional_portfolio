@@ -28,6 +28,8 @@ class CurriculumVitae:
 
         # Work Experience Section
         st.markdown("#### Work Experience 🔧")
+
+        st.text(CURRENT_JOB_KEYWORD)
         
         default_circle_color = "#1c7bba"  # Default circle color (blue)
         current_job_circle_color = "#ff6f00"  # Orange circle color for current jobs
