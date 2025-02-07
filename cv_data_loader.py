@@ -5,7 +5,7 @@ import os
 
 # Global constants (can be loaded from environment or defaults)
 DATE_FORMAT = os.getenv('DATE_FORMAT', '%d/%m/%Y')  # Default format: dd/mm/yyyy
-CURRENT_JOB_KEYWORD = os.getenv('CURRENT_JOB_KEYWORD', 'Actualmente')  # Default keyword: 'Actualmente'
+CURRENT_JOB_KEYWORD = os.getenv('CURRENT_JOB_KEYWORD', 'Nowadays')  # Default keyword: 'Actualmente'
 
 # Helper utility to parse dates, treating the special keyword for current job
 def parse_as_datetime(date_str):
