@@ -1,9 +1,12 @@
 import streamlit as st
-from cv_data_loader import load_experience_items, load_education_items, professional_statement, parse_as_datetime, CURRENT_JOB_KEYWORD
-
-# Module configuration: Front-end date format
-FRONT_DATE_FORMAT = "%B %Y"  # Natural month-year format (e.g., "January 2024")
-
+from cv_data_loader import (
+    load_experience_items,
+    load_education_items,
+    professional_statement,
+    parse_as_datetime,
+    format_date_for_frontend,
+    CURRENT_JOB_KEYWORD,
+)
 
 class CurriculumVitae:
     def __init__(self, section_description):
@@ -19,20 +22,14 @@ class CurriculumVitae:
         self.work_experience.sort(key=lambda x: parse_as_datetime(x['date_range'][1]), reverse=True)
         self.education.sort(key=lambda x: parse_as_datetime(x['date_range'][1]), reverse=True)
 
-    def format_date(self, date_str):
-        """Converts a date string into the configured front-end format."""
-        if date_str.strip().lower() == CURRENT_JOB_KEYWORD.strip().lower():
-            return CURRENT_JOB_KEYWORD  # Keep "Present" or similar keywords unchanged
-        return parse_as_datetime(date_str).strftime(FRONT_DATE_FORMAT)
-
     def render(self):
         # Curriculum Vitae Header
-        st.subheader("Curriculum Vitae 📜")
+        st.subheader("Curriculum Vitae \ud83d\udc1c")
         st.markdown("---")
         st.markdown(f'<p style="color: gray;">{self.statement}</p>', unsafe_allow_html=True)
     
         # Work Experience Section
-        st.markdown("#### Work Experience 🔧")
+        st.markdown("#### Work Experience \ud83d\udee0\ufe0f")
     
         # Predefined Colors
         circle_color = "#1c7bba"  # Default circle color (blue)
@@ -51,7 +48,7 @@ class CurriculumVitae:
             display_circle_color = current_circle_color if is_current_job else circle_color
             display_shadow_color = shadow_current_circle_color if is_current_job else shadow_circle_color
             
-            date_range_str = f"{self.format_date(start_date)} - {self.format_date(end_date)}"
+            date_range_str = f"{format_date_for_frontend(start_date)} - {format_date_for_frontend(end_date)}"
     
             st.markdown(f"""<div style='margin-bottom: 0.5rem; display: flex; align-items: flex-start;'>
                 <div style='
@@ -72,12 +69,12 @@ class CurriculumVitae:
             </div>""", unsafe_allow_html=True)
     
         # Education Section
-        st.markdown("#### Education 🎓")
+        st.markdown("#### Education \ud83c\udf93")
     
         for edu in self.education:
             start_date, end_date = edu['date_range']
             
-            date_range_str = f"{self.format_date(start_date)} - {self.format_date(end_date)}"
+            date_range_str = f"{format_date_for_frontend(start_date)} - {format_date_for_frontend(end_date)}"
             
             st.markdown(f"""<div style='margin-bottom: 0.5rem; display: flex; align-items: flex-start;'>
                 <div style='
@@ -97,15 +94,8 @@ class CurriculumVitae:
                 </div>
             </div>""", unsafe_allow_html=True)
 
-
 cv = CurriculumVitae(
-    section_description="This is a description of the Curriculum Vitae section.",
+    section_description="This is a description of the Curriculum Vitae section."
 )
 
-            
-cv = CurriculumVitae(
-    section_description="This is a description of the Curriculum Vitae section.",
-)
-
-#cv.render()
 
