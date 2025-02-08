@@ -1,11 +1,11 @@
 import streamlit as st
 from cv_data_loader import (
-    load_experience_items,
-    load_education_items,
-    professional_statement,
-    parse_as_datetime,
-    format_date_for_frontend,
-    CURRENT_JOB_KEYWORD,
+    load_experience_items, 
+    load_education_items, 
+    professional_statement, 
+    parse_as_datetime, 
+    format_date_for_frontend, 
+    CURRENT_JOB_KEYWORD
 )
 
 class CurriculumVitae:
@@ -24,12 +24,12 @@ class CurriculumVitae:
 
     def render(self):
         # Curriculum Vitae Header
-        st.subheader("Curriculum Vitae \ud83d\udc1c")
+        st.subheader("Curriculum Vitae 📜")
         st.markdown("---")
         st.markdown(f'<p style="color: gray;">{self.statement}</p>', unsafe_allow_html=True)
     
         # Work Experience Section
-        st.markdown("#### Work Experience \ud83d\udee0\ufe0f")
+        st.markdown("#### Work Experience 🔧")
     
         # Predefined Colors
         circle_color = "#1c7bba"  # Default circle color (blue)
@@ -69,7 +69,7 @@ class CurriculumVitae:
             </div>""", unsafe_allow_html=True)
     
         # Education Section
-        st.markdown("#### Education \ud83c\udf93")
+        st.markdown("#### Education 🎓")
     
         for edu in self.education:
             start_date, end_date = edu['date_range']
