@@ -3,27 +3,38 @@ import pandas as pd
 from datetime import datetime
 import os
 
-# Global constants (can be loaded from environment or defaults)
-DATE_FORMAT = os.getenv('DATE_FORMAT', '%d/%m/%Y')  # Default format: dd/mm/yyyy
-CURRENT_JOB_KEYWORD = os.getenv('CURRENT_JOB_KEYWORD', 'Nowadays')  # Default keyword: 'Actualmente'
- 
-# Helper utility to parse dates, treating the special keyword for current job
+# Global constants (Backend parsing & Frontend formatting)
+DATE_FORMAT = os.getenv('DATE_FORMAT', '%d/%m/%Y')  # Backend parsing format (e.g., "01/06/2023")
+CURRENT_JOB_KEYWORD = os.getenv('CURRENT_JOB_KEYWORD', 'Nowadays')  # Keyword for current job
+FRONT_DATE_FORMAT = os.getenv('FRONT_DATE_FORMAT', '%B %Y')  # Frontend display format (e.g., "June 2023")
+
 def parse_as_datetime(date_str):
     """
-    Parses a string as a datetime object. If the string contains the CURRENT_JOB_KEYWORD, 
-    it returns the current system date.
+    Parses a string as a datetime object using DATE_FORMAT.
+    If the string matches CURRENT_JOB_KEYWORD, returns the current system date.
 
     :param date_str: The date string to parse.
     :return: A datetime object representing the parsed date.
     """
-    if date_str.lower() == CURRENT_JOB_KEYWORD.lower():
-        return datetime.now()  # Return current system date if special keyword is found
+    if date_str.strip().lower() == CURRENT_JOB_KEYWORD.strip().lower():
+        return datetime.now()  # Return current date for "Nowadays" or equivalent keyword
+    
     try:
-        # Attempt to parse the date string using the default date format
         return datetime.strptime(date_str, DATE_FORMAT)
     except ValueError:
-        # Handle the case where the date format is invalid or unrecognized
         raise ValueError(f"Invalid date format for '{date_str}', expected format is '{DATE_FORMAT}'.")
+
+def format_date_for_frontend(date_str):
+    """
+    Converts a date string to a user-friendly frontend representation using FRONT_DATE_FORMAT.
+
+    :param date_str: The original date string.
+    :return: A formatted string (e.g., "June 2023") for display.
+    """
+    if date_str.strip().lower() == CURRENT_JOB_KEYWORD.strip().lower():
+        return CURRENT_JOB_KEYWORD  # Keep "Nowadays" or equivalent term unchanged
+
+    return parse_as_datetime(date_str).strftime(FRONT_DATE_FORMAT)
 
 def load_experience_items():
     experience_items = [
