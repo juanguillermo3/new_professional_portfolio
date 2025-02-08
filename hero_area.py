@@ -173,6 +173,20 @@ detailed_offering="""
             - **Bonus: Rigorous Economic Mindset**: As an economist, I approach data analysis with a focus on causal reasoning, marginal effects, and 
               counterfactual analysis.
               """
+detailed_offering="""
+### (5+1) Key Differentiators of My Professional Offering
+
+- <span style="color: black; font-weight: bold;">High-Performance Predictive Analytics</span>: I research and implement techniques for regression, classification, and forecasting use cases, with applications ranging from macroeconomic and financial forecasting to microdata predictions in various systems.
+- <span style="color: gray; font-weight: bold;">Software for Inference Distribution</span>: I develop applications (batch scripts, APIs, dashboards, web applications) to distribute insights and predictions across corporate environments.
+- <span style="color: black; font-weight: bold;">Data Transformation Expertise</span>: As my former boss Susana Martinez Restrepo said, "I can perform data miracles." This refers to my ability to clean and organize datasets from complex, multi-source environments for research and model development.
+- <span style="color: gray; font-weight: bold;">Holistic Understanding of Modern Tooling</span>: I integrate tools and technologies for modern data analysis, committing to research the unique purposes of each tool and efficiently write workflows around them using GPT.
+  - *Excellence Tier* (I know the code line by heart): Python, R Studio, Stata, GPT.
+  - *Proficiency Tier*: Airflow, SQL, Spark, Bash scripting.
+  - *Currently Learning*: Docker, Kubernetes, GitHub, Big Data Cloud tools, SQLAlchemy, Django.
+- <span style="color: black; font-weight: bold;">AI & LLM Disruption in Software Development</span>: I prepare myself by means of self-learning for the disruption of Artificial Intelligence in software development and the rise of LLM-powered applications.
+- <span style="color: gray; font-weight: bold;">Bonus: Rigorous Economic Mindset</span>: As an economist, I approach data analysis with a focus on causal reasoning, marginal effects, and counterfactual analysis.
+"""
+
             
 
 # Instantiate and render HeroArea with code samples
