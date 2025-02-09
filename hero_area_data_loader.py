@@ -15,7 +15,7 @@ def load_avatar_caption():
     return "God told me I could either be good-looking or an excellent worker."
 
 def load_detailed_offering():
-    return """
+    offering = """
     ### (5+1) Key Differentials of My Professional Offering
 
     - **High-Performance Predictive Analytics**: I research and implement techniques for regression, classification, and forecasting use cases, 
@@ -33,6 +33,19 @@ def load_detailed_offering():
     - **Bonus: Rigorous Economic Mindset**: As an economist, I approach data analysis with a focus on causal reasoning, marginal effects, and 
       counterfactual analysis.
     """
+    
+    # Split the offering into individual list items
+    list_items = offering.split("\n")
+
+    # Alternate colors for the list items
+    styled_items = []
+    for idx, item in enumerate(list_items):
+        if item.strip():  # Skip empty lines
+            color = "#f0f0f0" if idx % 2 == 0 else "#ffffff"  # Alternating colors (light gray and white)
+            styled_items.append(f'<li style="background-color: {color}; padding: 8px; border-radius: 4px;">{item}</li>')
+    
+    # Return the HTML for the list with alternating colors
+    return f"<ul style='list-style-type: none; padding: 0;'>{''.join(styled_items)}</ul>"
 
 def load_code_samples():
     return [
