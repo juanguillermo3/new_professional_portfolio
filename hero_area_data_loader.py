@@ -19,7 +19,7 @@ def load_avatar_caption():
 def load_detailed_offering():
     offering = """
     <h3>(5+1) Key Differentials of My Professional Offering</h3>
-    <ul style="list-style-type: none; padding: 0;">
+    <ol style="padding-left: 20px;">
         <li style="background-color: #f0f0f0; padding: 8px; border-radius: 4px;">
             <strong>High-Performance Predictive Analytics</strong>: I research and implement techniques for regression, classification, and forecasting use cases, 
             with applications ranging from macroeconomic and financial forecasting to microdata predictions in various systems.
@@ -48,7 +48,7 @@ def load_detailed_offering():
             <strong>Bonus: Rigorous Economic Mindset</strong>: As an economist, I approach data analysis with a focus on causal reasoning, marginal effects, and 
             counterfactual analysis.
         </li>
-    </ul>
+    </ol>
     """
     
     return offering
