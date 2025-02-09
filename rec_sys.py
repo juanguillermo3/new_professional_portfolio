@@ -71,9 +71,11 @@ class RecommendationSystem:
         # Prepare project titles and default project
         self._prepare_project_titles_and_default()
 
-    # Class level static variable holding a brief technical description with criteria
     RANKER_LOGIC = """
-    🧠 **Ranking Logic**: The recommendations are ranked based on item priority and recency, considering specific project filters and search queries. The logic ensures that items are displayed in order of importance, followed by their last update date. Forced ranking positions are applied where specified, with the option to filter recommendations by project or keyword. This ensures the most relevant content is highlighted for the user.
+    ⚙️ Items are ranked based on priority and recency:
+    - Items are prioritized based on forced ranks if available.
+    - For items without forced ranks, they are sorted by recency (last updated).
+    - Filtering is applied based on project selection and keyword search.
     """
 
 
@@ -423,8 +425,8 @@ class RecommendationSystem:
         st.markdown("---")
         st.markdown(f'<p style="color: gray;">{self.section_description}</p>', unsafe_allow_html=True)
         
-        # Add the technical note with the ranking criteria description using an emoji
-        st.markdown(f'🔍 **Ranking Logic Overview**: {self.RANKER_LOGIC}')
+        # Display technical note for ranking logic
+        st.markdown(f'{self.RANKER_LOGIC}', unsafe_allow_html=True)
         
         # Add space to separate the section description from the controls
         st.markdown("")
