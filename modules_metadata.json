@@ -257,14 +257,16 @@
         "description": "Detects the main drivers behind wage formation trough the analysis of the gradients of a Neural Network model.",
         "image_path": "assets/effects_rank (1).html",
         "galleria": "True",
-        "repo_name": "lab_market_trends"
+        "repo_name": "lab_market_trends",
+        "url"="https://github.com/juanguillermo3/lab_market_trends/blob/main/wages_drivers.py"
     },
     {
         "title": "Neural Networks for Wages Prediction",
         "description": "Provides a deep learning approach based on a deep, feed-forward NN to predict wages.",
         "image_path": "assets/learning_curve.html",
         "galleria": "True",
-        "repo_name": "lab_market_trends"
+        "repo_name": "lab_market_trends",
+        "url"="https://github.com/juanguillermo3/lab_market_trends/blob/main/deep_learning"
     },
     {
         "title": "Overall Application",
