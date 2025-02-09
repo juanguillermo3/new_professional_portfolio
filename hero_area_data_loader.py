@@ -35,6 +35,11 @@ def load_detailed_offering():
         <li style="background-color: #ffffff; padding: 8px; border-radius: 4px;">
             <strong>Holistic Understanding of Modern Tooling</strong>: I integrate tools and technologies for modern data analysis, committing to research the 
             unique purposes of each tool and efficiently write workflows around them using GPT.
+            <ul>
+                <li><strong>*Excellence Tier* (I know the code line by heart):</strong> Python, R Studio, Stata, GPT</li>
+                <li><strong>*Proficiency Tier*:</strong> Airflow, SQL, Spark, Bash scripting</li>
+                <li><strong>*Currently Learning*:</strong> Docker, Kubernetes, GitHub, Big Data Cloud tools, SQLAlchemy, Django</li>
+            </ul>
         </li>
         <li style="background-color: #f0f0f0; padding: 8px; border-radius: 4px;">
             <strong>AI & LLM Disruption in Software Development</strong>: I prepare myself by means of self-learning for the disruption of Artificial Intelligence in software development and the rise of LLM-powered applications.
@@ -49,19 +54,6 @@ def load_detailed_offering():
     return offering
 
 
-    
-    # Split the offering into individual list items
-    list_items = offering.split("\n")
-
-    # Alternate colors for the list items
-    styled_items = []
-    for idx, item in enumerate(list_items):
-        if item.strip():  # Skip empty lines
-            color = "#f0f0f0" if idx % 2 == 0 else "#ffffff"  # Alternating colors (light gray and white)
-            styled_items.append(f'<li style="background-color: {color}; padding: 8px; border-radius: 4px;">{item}</li>')
-    
-    # Return the HTML for the list with alternating colors
-    return f"<ul style='list-style-type: none; padding: 0;'>{''.join(styled_items)}</ul>"
 
 def load_code_samples():
     return [
