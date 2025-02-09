@@ -71,8 +71,8 @@ class RecommendationSystem:
         # Prepare project titles and default project
         self._prepare_project_titles_and_default()
 
-    RANKER_LOGIC="""
-    ### Recommender System Overview
+    RANKER_LOGIC=
+    """
     The recommender system prioritizes items based on their relevance and freshness, ensuring that the most important and recently updated content appears first. It allows for manual adjustments to the ranking, accommodating special preferences. The system can also filter results based on user-defined projects or search queries to ensure that recommendations are highly relevant and tailored to individual needs. The final output is a personalized list of the top recommendations.
     """
 
@@ -423,7 +423,7 @@ class RecommendationSystem:
         st.markdown(f'<p style="color: gray;">{self.section_description}</p>', unsafe_allow_html=True)
         
         # Add the technical note with the ranker logic description
-        st.markdown(f'### Recommender System Technical Note\n{self.RANKER_LOGIC}', unsafe_allow_html=True)
+        st.markdown(f'{self.RANKER_LOGIC}', unsafe_allow_html=True)
         
         # Add space to separate the section description from the controls
         st.markdown("")
