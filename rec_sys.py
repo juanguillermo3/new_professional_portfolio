@@ -504,7 +504,7 @@ class RecommendationSystem:
         # Render HTML with inline styling
         st.markdown(
             f"""
-            <div style="text-align: center; margin-bottom: 20px;">
+            <div style="text-align: center;">
                 <h3>{prettify_title(project_metadata['title'])}</h3>
             </div>
             <div style="text-align: justify; margin-left: 10%; margin-right: 10%; margin-bottom: 20px;">
