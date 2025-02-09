@@ -1,13 +1,29 @@
 import streamlit as st
+from front_end_for_recommended_content import html_for_item_data
 
 class ServicesSection:
     def __init__(self, services):
+        """
+        Initialize the ServicesSection with a list of service dictionaries.
+
+        Parameters:
+        - services (list of dict): Each dict should contain:
+            - "title" (str): The service title.
+            - "description" (str): A brief service description.
+            - "image" (str): URL to an image representing the service.
+            - "highlighted_content" (bool, optional): Marks outstanding services.
+        """
         self.services = services
 
     def render(self):
+        """Render the services section using Streamlit."""
         st.subheader("Service Lines 🛠️")
         st.markdown("---")
-        st.markdown('<p style="color: gray;">Here are the key services I provide to my clients. Hover over the titles for more information.</p>', unsafe_allow_html=True)
+        st.markdown(
+            '<p style="color: gray;">Here are the key services I provide to my clients. '
+            'Hover over the titles for more information.</p>',
+            unsafe_allow_html=True
+        )
         st.markdown("<br>", unsafe_allow_html=True)
 
         services_area = st.container()
@@ -15,22 +31,32 @@ class ServicesSection:
             service_cols = st.columns(3)
             for i, service in enumerate(self.services):
                 with service_cols[i % 3]:
-                    st.markdown(
-                        f"""
-                        <div style="border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); padding: 10px; text-align: center;">
-                            <img src="{service['image']}" alt="{service['title']}" style="border-radius: 10px; width: 100%; height: auto;">
-                            <h5>{service['title']}</h5>
-                            <p>{service['description']}</p>
-                        </div>
-                        """,
-                        unsafe_allow_html=True,
-                    )
+                    # Generate HTML using the shared item data structure
+                    service_html = html_for_item_data(service)
+                    st.markdown(service_html, unsafe_allow_html=True)
 
-# Instantiation
+# Instantiation Example
 services = ServicesSection(
     services=[
-        {"image": "https://via.placeholder.com/150", "title": "Consulting", "description": "Expert advice to help you grow your business."},
-        {"image": "https://via.placeholder.com/150", "title": "Data Analysis", "description": "In-depth analysis of your business data to drive decisions."},
-        {"image": "https://via.placeholder.com/150", "title": "Software Development", "description": "Building robust and scalable software solutions."},
+        {
+            "title": "Consulting",
+            "description": "Expert advice to help you grow your business.",
+            "image": "https://via.placeholder.com/150",
+            "highlighted_content": True  # Marked as outstanding
+        },
+        {
+            "title": "Data Analysis",
+            "description": "In-depth analysis of your business data to drive decisions.",
+            "image": "https://via.placeholder.com/150"
+        },
+        {
+            "title": "Software Development",
+            "description": "Building robust and scalable software solutions.",
+            "image": "https://via.placeholder.com/150"
+        }
     ]
 )
+
+# To render the section
+#services.render()
+
