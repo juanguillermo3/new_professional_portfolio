@@ -330,7 +330,7 @@ class RecommendationSystem:
                             display: flex;
                             align-items: center;
                             justify-content: center;
-                            overflow: hidden;
+                            #overflow: hidden;
                             border-radius: 8px;
                             background-color: rgba(0, 0, 0, 0.1);
                         }}
