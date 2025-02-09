@@ -70,5 +70,5 @@ services = ServicesSection(
 )
 
 # To render the section
-services.render()
+#services.render()
 
