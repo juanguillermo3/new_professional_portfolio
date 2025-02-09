@@ -21,7 +21,7 @@ import streamlit.components.v1 as components
 from git_api_utils import load_modules_metadata
 from git_api_utils import load_repos_metadata as load_github_metadata
 from app_end_metadata import load_repos_metadata as load_app_metadata
-from front_end_utils import render_section_separator, render_external_link_button, prettify_title
+from front_end_utils import render_section_separator, render_external_link_button, prettify_title, tags_in_twitter_style
 from media_carousel import MediaCarousel  # Assuming this is the correct import
 
 #
@@ -480,28 +480,11 @@ class RecommendationSystem:
                 with col:
                     self.render_card(rec, is_project=rec.get("is_project", False))
 
-
-            
  
     def render_title_and_description(self, project_metadata):
         """Renders the title and description of a project, centered and with margins, with inline hashtags."""
-        # Professional and innovative color palette
-        color_palette = [
-            "#1E3A8A",  # Deep Blue (Tech/Professional)
-            "#065F46",  # Dark Green (Trust/Innovation)
-            "#9333EA",  # Purple (Creative/Modern)
-            "#0EA5E9",  # Cyan Blue (Fresh/Innovative)
-            "#B91C1C",  # Deep Red (Bold/Strong)
-            "#7C3AED",  # Vibrant Indigo (Techy Feel)
-            "#2563EB",  # Solid Blue (Corporate/Stable)
-            "#059669",  # Teal Green (Sophisticated)
-        ]
-        # Generate inline tags with improved styling
-        tags_html = " ".join(
-            f'<span style="color: {random.choice(color_palette)}; font-size: 0.9em; font-weight: 600;">#{tag}</span>'
-            for tag in project_metadata.get("tags", [])
-        )
-        # Render HTML with inline styling
+        tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
+        
         st.markdown(
             f"""
             <div style="text-align: center;">
