@@ -43,12 +43,47 @@ class ServicesSection:
         # Render services
         services_area = st.container()
         with services_area:
+            # Apply custom styling for the button (with a unique section identifier)
+            self.apply_custom_button_styles()
+
             # Button to roll the dice for random service offerings
-            if st.button("🎲 Sample Offerings", key="sample_offerings", help="Click to roll for a sample set of services!"):
+            if st.button("🎲 Sample Offerings", key="sample_offerings", help="Click to roll for a sample set of services!", key="sample_offerings_section"):
                 self.display_random_services()
 
             # Display the services grid (start with all or sample if button clicked)
             self.display_services_grid()
+
+    def apply_custom_button_styles(self):
+        """Apply casino-style button styling specifically for this section."""
+        st.markdown(
+            """
+            <style>
+            /* Specific targeting for the button inside the ServicesSection */
+            #services-section div[data-testid="stButton"] > button {
+                background-color: #ff5733 !important; /* Red-orange background */
+                color: white !important;
+                border: none;
+                padding: 12px 24px;
+                font-size: 16px;
+                cursor: pointer;
+                border-radius: 8px;
+                width: 50% !important;
+                margin: 10px auto;
+                display: block;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Shadow effect for depth */
+                transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+            }
+            #services-section div[data-testid="stButton"] > button:hover {
+                background-color: #ff8c1a !important; /* Lighter hover color */
+                transform: scale(1.05); /* Button "pop" effect */
+            }
+            #services-section div[data-testid="stButton"] > button:active {
+                background-color: #cc4b00 !important; /* Darker active color */
+            }
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
 
     def display_random_services(self):
         """Display a randomized subset of services."""
@@ -64,18 +99,14 @@ class ServicesSection:
             
             for i, service in enumerate(services_to_render):
                 with service_cols[i % 3]:
-                    # Wrap the service HTML inside a div for custom styles
-                    service_html = f"""
-                    <div style="background-color: #f0f0f0; padding: 10px; margin: 5px; border-radius: 10px;
-                                transition: background-color 0.3s ease;">
-                        {html_for_item_data(service)}
-                    </div>
-                    """
+                    # Generate HTML using the shared item data structure
+                    service_html = html_for_item_data(service)
                     st.markdown(service_html, unsafe_allow_html=True)
                 
                 # Add vertical spacing between rows
                 if (i + 1) % 3 == 0 and i + 1 != len(services_to_render):
                     st.markdown("<br><br>", unsafe_allow_html=True)  # Adding vertical margin between rows
+
                     
 # To render the section
 services = ServicesSection()
