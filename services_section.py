@@ -78,8 +78,10 @@ class ServicesSection:
                 # Add vertical spacing between rows (after every 3rd item)
                 if (i + 1) % 3 == 0 and i + 1 != len(services_to_render):
                     st.markdown("<br><br>", unsafe_allow_html=True)  # Adding vertical margin between rows
-
-    def display_rates_and_wages(self, description="I am able to work as freelance or full-time contractor under very flexible arrangements. I typically deliver my work in advance of payment. Below are some reference parameters."):
+    
+    def display_rates_and_wages(self, 
+                                description="I am able to work as freelance or full-time contractor under very flexible arrangements. I typically deliver my work in advance of payment. Below are some reference parameters.",
+                                currency="USD"):
         """Display a section with the hourly rate and monthly compensation."""
         st.markdown("### Rates and Expected Wages 💰")
         st.markdown(
@@ -90,20 +92,19 @@ class ServicesSection:
         # Set up the grid layout for hourly rate, monthly compensation, and calculated results
         col1, col2 = st.columns(2)
     
-        # Hourly Rate display
+        # Hourly Rate display with currency appended
         with col1:
-            self.display_info_component("Hourly Rate", f"${DEFAULT_HOURLY_RATE:.2f}", "background-color: #e0e0e0; padding: 10px; border-radius: 5px;")
+            self.display_info_component("Hourly Rate", f"{currency} {DEFAULT_HOURLY_RATE:.2f}", "background-color: #e0e0e0; padding: 10px; border-radius: 5px;")
     
-        # Monthly Compensation display
+        # Monthly Compensation display with currency appended
         with col2:
-            self.display_info_component("Monthly Compensation", f"${DEFAULT_MONTHLY_COMPENSATION:.2f}", "background-color: #e0e0e0; padding: 10px; border-radius: 5px;")
-
-    def display_info_component(self, label, value, style):
-        """Display a simple info block with label and value."""
-        st.markdown(
-            f'<div style="{style}"><strong>{label}</strong>: {value}</div>',
-            unsafe_allow_html=True
-        )
+            self.display_info_component("Monthly Compensation", f"{currency} {DEFAULT_MONTHLY_COMPENSATION:.2f}", "background-color: #e0e0e0; padding: 10px; border-radius: 5px;")
+        def display_info_component(self, label, value, style):
+            """Display a simple info block with label and value."""
+            st.markdown(
+                f'<div style="{style}"><strong>{label}</strong>: {value}</div>',
+                unsafe_allow_html=True
+            )
 
            
 # To render the section
