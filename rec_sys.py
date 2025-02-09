@@ -71,9 +71,11 @@ class RecommendationSystem:
         # Prepare project titles and default project
         self._prepare_project_titles_and_default()
 
-    RANKER_LOGIC="""
-    The recommender system prioritizes items based on their relevance and freshness, ensuring that the most important and recently updated content appears first. It allows for manual adjustments to the ranking, accommodating special preferences. The system can also filter results based on user-defined projects or search queries to ensure that recommendations are highly relevant and tailored to individual needs. The final output is a personalized list of the top recommendations.
+    # Class level static variable holding a brief technical description with criteria
+    RANKER_LOGIC = """
+    🧠 **Ranking Logic**: The recommendations are ranked based on item priority and recency, considering specific project filters and search queries. The logic ensures that items are displayed in order of importance, followed by their last update date. Forced ranking positions are applied where specified, with the option to filter recommendations by project or keyword. This ensures the most relevant content is highlighted for the user.
     """
+
 
     #
     # ranking logic aspect of the RecSys
@@ -421,9 +423,8 @@ class RecommendationSystem:
         st.markdown("---")
         st.markdown(f'<p style="color: gray;">{self.section_description}</p>', unsafe_allow_html=True)
         
-        # Add the technical note with the ranker logic description in an expandable format
-        with st.expander("Technical Details (Click to Expand)"):
-            st.markdown(f'{self.RANKER_LOGIC}', unsafe_allow_html=True)
+        # Add the technical note with the ranking criteria description using an emoji
+        st.markdown(f'🔍 **Ranking Logic Overview**: {self.RANKER_LOGIC}')
         
         # Add space to separate the section description from the controls
         st.markdown("")
