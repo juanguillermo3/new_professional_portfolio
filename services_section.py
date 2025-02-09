@@ -1,5 +1,6 @@
 import streamlit as st
 from front_end_for_recommended_content import html_for_item_data
+from services_data_loader import load_service_items
 
 class ServicesSection:
     SERVICE_LOGIC = """
@@ -8,18 +9,11 @@ class ServicesSection:
     We use advanced tools and methodologies to ensure the highest quality results tailored to your needs.
     """
 
-    def __init__(self, services):
+    def __init__(self):
         """
-        Initialize the ServicesSection with a list of service dictionaries.
-
-        Parameters:
-        - services (list of dict): Each dict should contain:
-            - "title" (str): The service title.
-            - "description" (str): A brief service description.
-            - "image" (str): URL to an image representing the service.
-            - "highlighted_content" (bool, optional): Marks outstanding services.
+        Initialize the ServicesSection by loading the service items.
         """
-        self.services = services
+        self.services = load_service_items()
 
     def render(self):
         """Render the services section using Streamlit."""
@@ -47,27 +41,10 @@ class ServicesSection:
                     service_html = html_for_item_data(service)
                     st.markdown(service_html, unsafe_allow_html=True)
 
-# Instantiation Example
-services = ServicesSection(
-    services=[
-        {
-            "title": "Consulting",
-            "description": "Expert advice to help you grow your business.",
-            "image": "https://via.placeholder.com/150",
-            "highlighted_content": True  # Marked as outstanding
-        },
-        {
-            "title": "Data Analysis",
-            "description": "In-depth analysis of your business data to drive decisions.",
-            "image": "https://via.placeholder.com/150"
-        },
-        {
-            "title": "Software Development",
-            "description": "Building robust and scalable software solutions.",
-            "image": "https://via.placeholder.com/150"
-        }
-    ]
-)
+# To render the section
+services = ServicesSection()
+services.render()
+
 
 # To render the section
 #services.render()
