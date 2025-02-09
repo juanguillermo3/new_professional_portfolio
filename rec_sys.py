@@ -330,8 +330,8 @@ class RecommendationSystem:
                             display: flex;
                             align-items: center;
                             justify-content: center;
-                            #overflow: hidden;
-                            border-radius: 8px;
+                            overflow: hidden;
+                            #border-radius: 8px;
                             background-color: rgba(0, 0, 0, 0.1);
                         }}
                         .media-container img, .media-container video {{
