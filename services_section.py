@@ -11,6 +11,10 @@ load_dotenv()
 # Default OFFERINGS_SAMPLE_SIZE if not set in .env
 OFFERINGS_SAMPLE_SIZE = int(os.getenv('OFFERINGS_SAMPLE_SIZE', 6))
 
+# Default hourly rate and monthly compensation
+DEFAULT_HOURLY_RATE = 17
+DEFAULT_MONTHLY_COMPENSATION = 1500
+
 class ServicesSection:
     SERVICE_LOGIC = """
     💳 The services I offer are designed to help you tackle complex business challenges.
@@ -51,6 +55,9 @@ class ServicesSection:
             # Display the services grid (start with a random sample or updated if button clicked)
             self.display_services_grid()
 
+            # Display the Rates and Wages section
+            self.display_rates_and_wages()
+
     def display_random_services(self):
         """Display a randomized subset of services."""
         self.services_to_display = random.sample(self.services, OFFERINGS_SAMPLE_SIZE)
@@ -72,6 +79,41 @@ class ServicesSection:
                 if (i + 1) % 3 == 0 and i + 1 != len(services_to_render):
                     st.markdown("<br><br>", unsafe_allow_html=True)  # Adding vertical margin between rows
 
+    def display_rates_and_wages(self):
+        """Display a section with the hourly rate and monthly compensation."""
+        st.markdown("### Rates and Expected Wages 💰")
+        st.markdown(
+            '<p style="color: gray;">Here are my rates and expected wages for the services provided.</p>',
+            unsafe_allow_html=True
+        )
+        
+        # Set up the input fields for hourly rate and monthly compensation
+        col1, col2 = st.columns(2)
+
+        with col1:
+            hourly_rate = st.number_input(
+                "Hourly Rate (USD)",
+                min_value=0,
+                value=DEFAULT_HOURLY_RATE,
+                step=1,
+                help="Input your hourly rate here."
+            )
+        
+        with col2:
+            monthly_compensation = st.number_input(
+                "Monthly Compensation (USD)",
+                min_value=0,
+                value=DEFAULT_MONTHLY_COMPENSATION,
+                step=100,
+                help="Input your expected monthly compensation here."
+            )
+        
+        # Show a calculated output based on input
+        annual_compensation = monthly_compensation * 12
+        hourly_income = hourly_rate * 40 * 4  # Assuming 40 hours a week, 4 weeks per month
+
+        st.markdown(f"### Estimated Annual Compensation: **${annual_compensation:,.2f}**")
+        st.markdown(f"### Estimated Monthly Income: **${hourly_income:,.2f}**")
 
                     
 # To render the section
