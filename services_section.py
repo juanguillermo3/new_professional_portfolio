@@ -44,16 +44,23 @@ class ServicesSection:
         # Render services
         services_area = st.container()
         with services_area:
-            # Display the services grid (always show a random sample)
+            # Button to roll the dice for random service offerings
+            if st.button("🎲 Sample Offerings", key="sample_offerings", help="Click to roll for a sample set of services!"):
+                self.display_random_services()
+
+            # Display the services grid (start with a random sample or updated if button clicked)
             self.display_services_grid()
+
+    def display_random_services(self):
+        """Display a randomized subset of services."""
+        self.services_to_display = random.sample(self.services, OFFERINGS_SAMPLE_SIZE)
 
     def display_services_grid(self):
         """Render the service offerings in a grid."""
         services_area = st.container()
         with services_area:
             service_cols = st.columns(3)
-            # Always show the random sample of services
-            services_to_render = self.services_to_display
+            services_to_render = self.services_to_display  # Use the random sample stored in the class
             
             for i, service in enumerate(services_to_render):
                 with service_cols[i % 3]:
@@ -64,6 +71,7 @@ class ServicesSection:
                 # Add vertical spacing between rows (after every 3rd item)
                 if (i + 1) % 3 == 0 and i + 1 != len(services_to_render):
                     st.markdown("<br><br>", unsafe_allow_html=True)  # Adding vertical margin between rows
+
 
                     
 # To render the section
