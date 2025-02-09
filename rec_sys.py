@@ -71,6 +71,8 @@ class RecommendationSystem:
         # Prepare project titles and default project
         self._prepare_project_titles_and_default()
 
+
+    
     RANKER_LOGIC = """
     ⚙️ The current version of the RecSys engine recommends items based on their visual prominence and freshness. 
     Items with highlighted content, such as featured or visually prominent materials, are ranked higher. After this, 
@@ -78,8 +80,6 @@ class RecommendationSystem:
     Items with specific ranking priorities are placed in their assigned positions, and any remaining items are sorted 
     based on freshness. Finally, filters for project selection and search queries are applied to refine the results.
     """
-
-
     #
     # ranking logic aspect of the RecSys
     #
