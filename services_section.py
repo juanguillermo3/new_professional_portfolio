@@ -87,33 +87,29 @@ class ServicesSection:
             unsafe_allow_html=True
         )
         
-        # Set up the input fields for hourly rate and monthly compensation
-        col1, col2 = st.columns(2)
+        # Set up the grid layout for hourly rate, monthly compensation, and calculated results
+        col1, col2, col3 = st.columns(3)
 
+        # Hourly Rate display
         with col1:
-            hourly_rate = st.number_input(
-                "Hourly Rate (USD)",
-                min_value=0,
-                value=DEFAULT_HOURLY_RATE,
-                step=1,
-                help="Input your hourly rate here."
-            )
-        
-        with col2:
-            monthly_compensation = st.number_input(
-                "Monthly Compensation (USD)",
-                min_value=0,
-                value=DEFAULT_MONTHLY_COMPENSATION,
-                step=100,
-                help="Input your expected monthly compensation here."
-            )
-        
-        # Show a calculated output based on input
-        annual_compensation = monthly_compensation * 12
-        hourly_income = hourly_rate * 40 * 4  # Assuming 40 hours a week, 4 weeks per month
+            self.display_info_component("Hourly Rate", f"${DEFAULT_HOURLY_RATE:.2f}", "background-color: #e0e0e0; padding: 10px; border-radius: 5px;")
 
-        st.markdown(f"### Estimated Annual Compensation: **${annual_compensation:,.2f}**")
-        st.markdown(f"### Estimated Monthly Income: **${hourly_income:,.2f}**")
+        # Monthly Compensation display
+        with col2:
+            self.display_info_component("Monthly Compensation", f"${DEFAULT_MONTHLY_COMPENSATION:.2f}", "background-color: #e0e0e0; padding: 10px; border-radius: 5px;")
+
+        # Estimated Annual Compensation display
+        with col3:
+            annual_compensation = DEFAULT_MONTHLY_COMPENSATION * 12
+            self.display_info_component("Estimated Annual Compensation", f"${annual_compensation:,.2f}", "background-color: #e0e0e0; padding: 10px; border-radius: 5px;")
+
+    def display_info_component(self, label, value, style):
+        """Display a simple info block with label and value."""
+        st.markdown(
+            f'<div style="{style}"><strong>{label}</strong>: {value}</div>',
+            unsafe_allow_html=True
+        )
+
 
                     
 # To render the section
