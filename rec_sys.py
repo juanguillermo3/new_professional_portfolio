@@ -524,13 +524,13 @@ class RecommendationSystem:
                 unsafe_allow_html=True
             )
             
-            # Use a Streamlit placeholder to render media dynamically
-            media_placeholder = st.empty()
+            # Use an instance attribute for the media placeholder
+            self.media_placeholder = st.empty()
             
             if os.path.exists(video_path):
-                media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
+                self.media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
             else:
-                media_placeholder.warning(f"Video for {project_metadata['title']} not found.")
+                self.media_placeholder.warning(f"Video for {project_metadata['title']} not found.")
             
             # Inject JavaScript to trigger transition
             st.markdown(
@@ -550,6 +550,7 @@ class RecommendationSystem:
             for col, rec in zip(cols, recommendations[i: i + self.num_columns]):
                 with col:
                     self.render_card(rec, is_project=rec.get("is_project", False))
+
 
     def render_title_and_description(self, project_metadata):
         """Renders the title and description of a project, centered and with margins, with inline hashtags."""
