@@ -43,22 +43,23 @@ class ServicesSection:
         # Render services
         services_area = st.container()
         with services_area:
-            # Apply custom styling for the button
+            # Apply custom styling for the button (with a unique section identifier)
             self.apply_custom_button_styles()
 
             # Button to roll the dice for random service offerings
-            if st.button("🎲 Sample Offerings", key="sample_offerings", help="Click to roll for a sample set of services!"):
+            if st.button("🎲 Sample Offerings", key="sample_offerings", help="Click to roll for a sample set of services!", key="sample_offerings_section"):
                 self.display_random_services()
 
             # Display the services grid (start with all or sample if button clicked)
             self.display_services_grid()
 
     def apply_custom_button_styles(self):
-        """Apply casino-style button styling."""
+        """Apply casino-style button styling specifically for this section."""
         st.markdown(
             """
             <style>
-            div[data-testid="stButton"] > button {
+            /* Specific targeting for the button inside the ServicesSection */
+            #services-section div[data-testid="stButton"] > button {
                 background-color: #ff5733 !important; /* Red-orange background */
                 color: white !important;
                 border: none;
@@ -72,11 +73,11 @@ class ServicesSection:
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Shadow effect for depth */
                 transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
             }
-            div[data-testid="stButton"] > button:hover {
+            #services-section div[data-testid="stButton"] > button:hover {
                 background-color: #ff8c1a !important; /* Lighter hover color */
                 transform: scale(1.05); /* Button "pop" effect */
             }
-            div[data-testid="stButton"] > button:active {
+            #services-section div[data-testid="stButton"] > button:active {
                 background-color: #cc4b00 !important; /* Darker active color */
             }
             </style>
@@ -105,6 +106,7 @@ class ServicesSection:
                 # Add vertical spacing between rows
                 if (i + 1) % 3 == 0 and i + 1 != len(services_to_render):
                     st.markdown("<br><br>", unsafe_allow_html=True)  # Adding vertical margin between rows
+
                     
 # To render the section
 services = ServicesSection()
