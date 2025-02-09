@@ -425,7 +425,7 @@ class RecommendationSystem:
         st.markdown(f'<p style="color: gray;">{self.section_description}</p>', unsafe_allow_html=True)
         
         # Add space to separate the section description from the controls
-        st.markdown(<br>)
+        st.markdown("<br>")
         
         # Display technical note for ranking logic
         st.markdown(f'{self.RANKER_LOGIC}', unsafe_allow_html=True)
