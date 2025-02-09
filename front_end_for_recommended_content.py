@@ -3,10 +3,17 @@ import streamlit as st
 from front_end_utils import prettify_title
 import re
 
-def html_for_item_data(rec):
+def html_for_item_data(
+    rec,
+    outstanding_content_regex=re.compile(r"^(galleria|highlighted_content)$", re.IGNORECASE),
+    background_color="#f4f4f4",
+    border_style="1px solid #ddd",
+    card_height="150px",
+    overflow_style="overflow-y: auto;"
+):
     """
     Generate an HTML snippet for a recommended item card dynamically.
-    
+
     Parameters:
     - rec (dict): A dictionary containing item metadata with the following fields:
         - "title" (str): The title of the recommended item.
@@ -14,18 +21,17 @@ def html_for_item_data(rec):
         - "galleria" (bool, optional, legacy): Marks outstanding content (deprecated).
         - "highlighted_content" (bool, optional, preferred): Marks outstanding content.
 
+    - outstanding_content_regex (re.Pattern): A regex pattern to detect keys marking outstanding content.
+    - background_color (str): Background color of the card.
+    - border_style (str): CSS style for the border.
+    - card_height (str): Height of the card.
+    - overflow_style (str): CSS for overflow handling.
+
     Returns:
     - str: A formatted HTML string representing the item card.
     """
     
-    # Define styling attributes
-    background_color = "#f4f4f4"  # Light gray background
-    border_style = "1px solid #ddd"  # Thin, soft border
-    card_height = "150px"  # Fixed height for uniformity
-    overflow_style = "overflow-y: auto;"  # Enables vertical scrolling if content overflows
-
-    # Use regex to detect any outstanding content key
-    outstanding_content_regex = re.compile(r"^(galleria|highlighted_content)$", re.IGNORECASE)
+    # Check for outstanding content using the provided regex
     is_outstanding = any(outstanding_content_regex.match(key) and rec.get(key) for key in rec)
 
     # Apply title transformation
@@ -51,4 +57,5 @@ def html_for_item_data(rec):
             </div>
         </div>
     """
+
 
