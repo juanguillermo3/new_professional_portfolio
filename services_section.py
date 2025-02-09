@@ -88,8 +88,13 @@ class ServicesSection:
             unsafe_allow_html=True
         )
         
-        # Set up the grid layout for hourly rate, monthly compensation
-        col1, col2 = st.columns(2)
+        st.markdown(
+            '<p style="color: gray;">Here are my rates and expected wages for the services provided.</p>',
+            unsafe_allow_html=True
+        )
+
+        # Set up the grid layout for hourly rate, monthly compensation, and calculated results
+        col1, col2, col3 = st.columns(3)
 
         # Hourly Rate display
         with col1:
@@ -98,6 +103,11 @@ class ServicesSection:
         # Monthly Compensation display
         with col2:
             self.display_info_component("Monthly Compensation", f"${DEFAULT_MONTHLY_COMPENSATION:.2f}", "background-color: #e0e0e0; padding: 10px; border-radius: 5px;")
+
+        # Estimated Annual Compensation display
+        with col3:
+            annual_compensation = DEFAULT_MONTHLY_COMPENSATION * 12
+            self.display_info_component("Estimated Annual Compensation", f"${annual_compensation:,.2f}", "background-color: #e0e0e0; padding: 10px; border-radius: 5px;")
 
     def display_info_component(self, label, value, style):
         """Display a simple info block with label and value."""
