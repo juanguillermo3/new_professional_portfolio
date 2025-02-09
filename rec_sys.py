@@ -421,8 +421,9 @@ class RecommendationSystem:
         st.markdown("---")
         st.markdown(f'<p style="color: gray;">{self.section_description}</p>', unsafe_allow_html=True)
         
-        # Add the technical note with the ranker logic description
-        st.markdown(f'{self.RANKER_LOGIC}', unsafe_allow_html=True)
+        # Add the technical note with the ranker logic description in an expandable format
+        with st.expander("Technical Details (Click to Expand)"):
+            st.markdown(f'{self.RANKER_LOGIC}', unsafe_allow_html=True)
         
         # Add space to separate the section description from the controls
         st.markdown("")
