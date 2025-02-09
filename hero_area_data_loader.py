@@ -14,8 +14,6 @@ def load_quote():
 def load_avatar_caption():
     return "God told me I could either be good-looking or an excellent worker."
 
-# hero_area_data_loader.py
-
 def load_detailed_offering():
     offering = """
     <h3>(5+1) Key Differentials of My Professional Offering</h3>
@@ -35,7 +33,7 @@ def load_detailed_offering():
         <li style="background-color: #ffffff; padding: 8px; border-radius: 4px;">
             <strong>Holistic Understanding of Modern Tooling</strong>: I integrate tools and technologies for modern data analysis, committing to research the 
             unique purposes of each tool and efficiently write workflows around them using GPT.
-            <ul>
+            <ul style="list-style-type: none; padding-left: 0;">
                 <li><strong>*Excellence Tier* (I know the code line by heart):</strong> Python, R Studio, Stata, GPT</li>
                 <li><strong>*Proficiency Tier*:</strong> Airflow, SQL, Spark, Bash scripting</li>
                 <li><strong>*Currently Learning*:</strong> Docker, Kubernetes, GitHub, Big Data Cloud tools, SQLAlchemy, Django</li>
