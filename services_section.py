@@ -47,7 +47,7 @@ class ServicesSection:
             self.apply_custom_button_styles()
 
             # Button to roll the dice for random service offerings
-            if st.button("🎲 Sample Offerings", key="sample_offerings", help="Click to roll for a sample set of services!", key="sample_offerings_section"):
+            if st.button("🎲 Sample Offerings", key="sample_offerings_section", help="Click to roll for a sample set of services!"):
                 self.display_random_services()
 
             # Display the services grid (start with all or sample if button clicked)
@@ -106,6 +106,7 @@ class ServicesSection:
                 # Add vertical spacing between rows
                 if (i + 1) % 3 == 0 and i + 1 != len(services_to_render):
                     st.markdown("<br><br>", unsafe_allow_html=True)  # Adding vertical margin between rows
+
 
                     
 # To render the section
