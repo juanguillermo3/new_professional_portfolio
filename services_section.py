@@ -1,16 +1,3 @@
-import random
-import streamlit as st
-import os
-from dotenv import load_dotenv
-from front_end_for_recommended_content import html_for_item_data
-from services_data_loader import load_service_items
-
-# Load environment variables
-load_dotenv()
-
-# Default OFFERINGS_SAMPLE_SIZE if not set in .env
-OFFERINGS_SAMPLE_SIZE = int(os.getenv('OFFERINGS_SAMPLE_SIZE', 6))
-
 class ServicesSection:
     SERVICE_LOGIC = """
     💳 The services I offer are designed to help you tackle complex business challenges.
@@ -43,12 +30,46 @@ class ServicesSection:
         # Render services
         services_area = st.container()
         with services_area:
+            # Apply custom styling for the button
+            self.apply_custom_button_styles()
+
             # Button to roll the dice for random service offerings
             if st.button("🎲 Sample Offerings", key="sample_offerings", help="Click to roll for a sample set of services!"):
                 self.display_random_services()
 
             # Display the services grid (start with all or sample if button clicked)
             self.display_services_grid()
+
+    def apply_custom_button_styles(self):
+        """Apply casino-style button styling."""
+        st.markdown(
+            """
+            <style>
+            div[data-testid="stButton"] > button {
+                background-color: #ff5733 !important; /* Red-orange background */
+                color: white !important;
+                border: none;
+                padding: 12px 24px;
+                font-size: 16px;
+                cursor: pointer;
+                border-radius: 8px;
+                width: 50% !important;
+                margin: 10px auto;
+                display: block;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Shadow effect for depth */
+                transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+            }
+            div[data-testid="stButton"] > button:hover {
+                background-color: #ff8c1a !important; /* Lighter hover color */
+                transform: scale(1.05); /* Button "pop" effect */
+            }
+            div[data-testid="stButton"] > button:active {
+                background-color: #cc4b00 !important; /* Darker active color */
+            }
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
 
     def display_random_services(self):
         """Display a randomized subset of services."""
