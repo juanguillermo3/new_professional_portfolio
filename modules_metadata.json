@@ -258,7 +258,7 @@
         "image_path": "assets/effects_rank (1).html",
         "galleria": "True",
         "repo_name": "lab_market_trends",
-        "url"="https://github.com/juanguillermo3/lab_market_trends/blob/main/wages_drivers.py"
+        "url":"https://github.com/juanguillermo3/lab_market_trends/blob/main/wages_drivers.py"
     },
     {
         "title": "Neural Networks for Wages Prediction",
@@ -266,7 +266,7 @@
         "image_path": "assets/learning_curve.html",
         "galleria": "True",
         "repo_name": "lab_market_trends",
-        "url"="https://github.com/juanguillermo3/lab_market_trends/blob/main/deep_learning"
+        "url":"https://github.com/juanguillermo3/lab_market_trends/blob/main/deep_learning"
     },
     {
         "title": "Overall Application",
