@@ -71,6 +71,7 @@ class ServicesSection:
                 # Add vertical spacing between rows
                 if (i + 1) % 3 == 0 and i + 1 != len(services_to_render):
                     st.markdown("<br><br>", unsafe_allow_html=True)  # Adding vertical margin between rows
+                    
 # To render the section
 services = ServicesSection()
 
