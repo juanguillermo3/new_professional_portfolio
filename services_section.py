@@ -82,8 +82,9 @@ class ServicesSection:
     def display_rates_and_wages(self):
         """Display a section with the hourly rate and monthly compensation."""
         st.markdown(
-            '<p style="font-size: 16px; font-weight: bold;">Rates and Expected Wages 💰:</p>'
-            '<p style="font-size: 16px; color: gray;">I am able to work as freelance or full-time contractor under very flexible arrangements. Below are some minimal parameters.</p>',
+            '<p style="font-size: 16px; font-weight: bold;">Rates and Expected Wages 💰: '
+            'I am able to work as freelance or full-time contractor under very flexible arrangements. '
+            'Below are some minimal parameters.</p>',
             unsafe_allow_html=True
         )
         
@@ -109,6 +110,7 @@ class ServicesSection:
             f'<div style="{style}"><strong>{label}</strong>: {value}</div>',
             unsafe_allow_html=True
         )
+
            
 # To render the section
 services = ServicesSection()
