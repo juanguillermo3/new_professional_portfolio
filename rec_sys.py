@@ -74,11 +74,9 @@ class RecommendationSystem:
 
     
     RANKER_LOGIC = """
-    ⚙️ The current version of the RecSys engine recommends items based on their visual prominence and freshness. 
-    Items with highlighted content, such as featured or visually prominent materials, are ranked higher. After this, 
-    the recommendations are sorted by their most recent updates to ensure users see the latest available content. 
-    Items with specific ranking priorities are placed in their assigned positions, and any remaining items are sorted 
-    based on freshness. Finally, filters for project selection and search queries are applied to refine the results.
+    ⚙️ The RecSys engine recommends items based on visual prominence and freshness. 
+    Items with highlighted content are ranked first, followed by those with the most recent updates. 
+    Special ranking positions are applied where defined, and the results are filtered by project and search query.
     """
     #
     # ranking logic aspect of the RecSys
