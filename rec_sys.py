@@ -74,7 +74,7 @@ class RecommendationSystem:
     RANKER_LOGIC="""
     ### Recommender System Overview
     The recommender system prioritizes items based on their relevance and freshness, ensuring that the most important and recently updated content appears first. It allows for manual adjustments to the ranking, accommodating special preferences. The system can also filter results based on user-defined projects or search queries to ensure that recommendations are highly relevant and tailored to individual needs. The final output is a personalized list of the top recommendations.
-    """"
+    """
 
     #
     # ranking logic aspect of the RecSys
