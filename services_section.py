@@ -23,6 +23,7 @@ class ServicesSection:
         Initialize the ServicesSection by loading the service items.
         """
         self.services = load_service_items()
+        self.display_random_services()  # Display a random sample when the section is initialized
 
     def render(self):
         """Render the services section using Streamlit."""
@@ -43,11 +44,32 @@ class ServicesSection:
         # Render services
         services_area = st.container()
         with services_area:
-            # Button to roll the dice for random service offerings
-            if st.button("🎲 Sample Offerings", key="sample_offerings", help="Click to roll for a sample set of services!"):
-                self.display_random_services()
+            # Casino-styled button to roll the dice for random service offerings
+            self.roll_button_html = """
+            <style>
+                .dice-button {
+                    background-color: #28a745; /* Green casino vibe */
+                    color: white;
+                    font-size: 20px;
+                    padding: 10px 20px;
+                    border-radius: 10px;
+                    border: none;
+                    cursor: pointer;
+                    display: block;
+                    width: 100%;
+                    text-align: center;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                    transition: background-color 0.3s ease;
+                }
+                .dice-button:hover {
+                    background-color: #218838; /* Darker green on hover */
+                }
+            </style>
+            <button class="dice-button" onclick="window.location.reload();">🎲 Sample Offerings</button>
+            """
+            st.markdown(self.roll_button_html, unsafe_allow_html=True)
 
-            # Display the services grid (start with all or sample if button clicked)
+            # Display the services grid (either randomized or the full set)
             self.display_services_grid()
 
     def display_random_services(self):
@@ -67,6 +89,10 @@ class ServicesSection:
                     # Generate HTML using the shared item data structure
                     service_html = html_for_item_data(service)
                     st.markdown(service_html, unsafe_allow_html=True)
+
+# To render the section
+services = ServicesSection()
+services.render()
 
 # To render the section
 services = ServicesSection()
