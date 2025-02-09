@@ -425,7 +425,7 @@ class RecommendationSystem:
         st.markdown(f'<p style="color: gray;">{self.section_description}</p>', unsafe_allow_html=True)
         
         # Add space to separate the section description from the controls
-        st.markdown("")
+        st.markdown(<br>)
         
         # Display technical note for ranking logic
         st.markdown(f'{self.RANKER_LOGIC}', unsafe_allow_html=True)
@@ -436,12 +436,12 @@ class RecommendationSystem:
         # Project Filter in the first column
         with cols[0]:
             prettified_titles = [prettify_title(title) for title in self.project_titles]
-            selected_pretty_project = st.selectbox("📂 Filter recommendations by project:", prettified_titles, index=0)
+            selected_pretty_project = st.selectbox("📂 Filter by project:", prettified_titles, index=0)
             selected_project = self.title_mapping[selected_pretty_project]
     
         # Keyword Search in the second column
         with cols[1]:
-            query = st.text_input("🔍 Search for recommendations by keyword (e.g., Python, R):", placeholder="Type a keyword and press Enter")
+            query = st.text_input("🔍 Search for by keyword (e.g., Python, R):", placeholder="Type a keyword and press Enter")
         
         # Call rank_items to get the ranked and filtered recommendations
         recommendations = self.rank_items(query, selected_project)
