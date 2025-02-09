@@ -480,7 +480,77 @@ class RecommendationSystem:
                 with col:
                     self.render_card(rec, is_project=rec.get("is_project", False))
 
- 
+    def render(self):
+        """Render method with Galleria callback integration and smooth media transitions."""
+        st.subheader(self.section_header)
+        st.markdown("---")
+        st.markdown(f'<p style="color: gray;">{self.section_description}</p>', unsafe_allow_html=True)
+        
+        # Display technical note for ranking logic
+        st.markdown(f'{self.RANKER_LOGIC}', unsafe_allow_html=True)
+        
+        # Space separator
+        st.markdown("")
+        
+        # Stack the control widgets (Project Filter and Keyword Search) in a single row
+        cols = st.columns(2)
+        
+        # Project Filter in the first column
+        with cols[0]:
+            prettified_titles = [prettify_title(title) for title in self.project_titles]
+            selected_pretty_project = st.selectbox("📂 Filter by project:", prettified_titles, index=0)
+            selected_project = self.title_mapping[selected_pretty_project]
+        
+        # Keyword Search in the second column
+        with cols[1]:
+            query = st.text_input("🔍 Search for by keyword (e.g., Python, R):", placeholder="Type a keyword and press Enter")
+        
+        # Call rank_items to get the ranked and filtered recommendations
+        recommendations = self.rank_items(query, selected_project)
+        
+        # Check if there is project metadata and show video
+        project_metadata = next((repo for repo in self.repos_metadata if repo["title"].lower() == selected_project.lower()), None) if selected_project != "All Projects" else None
+        
+        if project_metadata:
+            video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
+            video_path = os.path.join('assets', video_filename)
+            
+            # Render the title and description
+            self.render_title_and_description(project_metadata)
+            
+            # Inject the placeholder div for the media content with the CSS class
+            st.markdown(
+                '<div class="media-placeholder" id="media-area"></div>',
+                unsafe_allow_html=True
+            )
+            
+            # Use a Streamlit placeholder to render media dynamically
+            media_placeholder = st.empty()
+            
+            if os.path.exists(video_path):
+                media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
+            else:
+                media_placeholder.warning(f"Video for {project_metadata['title']} not found.")
+            
+            # Inject JavaScript to trigger transition
+            st.markdown(
+                """
+                <script>
+                setTimeout(() => {
+                    document.querySelector('.media-placeholder')?.classList.add('show');
+                }, 100);
+                </script>
+                """,
+                unsafe_allow_html=True
+            )
+        
+        # Render recommendations in a grid
+        for i in range(0, len(recommendations), self.num_columns):
+            cols = st.columns(self.num_columns)
+            for col, rec in zip(cols, recommendations[i: i + self.num_columns]):
+                with col:
+                    self.render_card(rec, is_project=rec.get("is_project", False))
+
     def render_title_and_description(self, project_metadata):
         """Renders the title and description of a project, centered and with margins, with inline hashtags."""
         tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
