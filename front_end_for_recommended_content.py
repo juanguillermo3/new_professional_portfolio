@@ -1,5 +1,6 @@
 import hashlib
 import streamlit as st
+from front_end_utils import prettify_title
 
 def html_for_item_data(rec):
     """Generate HTML for a recommended item card dynamically."""
