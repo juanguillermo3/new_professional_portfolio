@@ -340,7 +340,7 @@ class RecommendationSystem:
             for col, rec in zip(cols, recommendations[i: i + self.num_columns]):
                 with col:
                     self.render_card(rec, is_project=rec.get("is_project", False))
-    
+                    
     def render(self):
         """Render method with Galleria callback integration and smooth media transitions."""
         st.subheader(self.section_header)
