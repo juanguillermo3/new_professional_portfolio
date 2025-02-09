@@ -1,3 +1,16 @@
+import random
+import streamlit as st
+import os
+from dotenv import load_dotenv
+from front_end_for_recommended_content import html_for_item_data
+from services_data_loader import load_service_items
+
+# Load environment variables
+load_dotenv()
+
+# Default OFFERINGS_SAMPLE_SIZE if not set in .env
+OFFERINGS_SAMPLE_SIZE = int(os.getenv('OFFERINGS_SAMPLE_SIZE', 6))
+
 class ServicesSection:
     SERVICE_LOGIC = """
     💳 The services I offer are designed to help you tackle complex business challenges.
