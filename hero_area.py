@@ -80,9 +80,9 @@ class HeroArea:
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                height: 300px;  /* Set a fixed height for the container */
-                text-align: center;
-                padding: 0;
+                height: 100%;  /* Ensure the container takes up full height */
+                text-align: center;  /* Center the content horizontally as well */
+                padding: 0;  /* Remove padding if needed */
             }
             </style>""", unsafe_allow_html=True)
             for paragraph in self.quote:
