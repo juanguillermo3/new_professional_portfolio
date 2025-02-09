@@ -99,12 +99,13 @@ class ServicesSection:
         # Monthly Compensation display with currency appended
         with col2:
             self.display_info_component("Monthly Compensation", f"{currency} {DEFAULT_MONTHLY_COMPENSATION:.2f}", "background-color: #e0e0e0; padding: 10px; border-radius: 5px;")
-        def display_info_component(self, label, value, style):
-            """Display a simple info block with label and value."""
-            st.markdown(
-                f'<div style="{style}"><strong>{label}</strong>: {value}</div>',
-                unsafe_allow_html=True
-            )
+    
+    def display_info_component(self, label, value, style):
+        """Display a simple info block with label and value."""
+        st.markdown(
+            f'<div style="{style}"><strong>{label}</strong>: {value}</div>',
+            unsafe_allow_html=True
+        )
 
            
 # To render the section
