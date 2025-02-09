@@ -92,8 +92,4 @@ class ServicesSection:
 
 # To render the section
 services = ServicesSection()
-services.render()
-
-# To render the section
-services = ServicesSection()
 
