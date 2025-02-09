@@ -23,7 +23,7 @@ from git_api_utils import load_repos_metadata as load_github_metadata
 from app_end_metadata import load_repos_metadata as load_app_metadata
 from front_end_utils import render_section_separator, render_external_link_button, prettify_title, tags_in_twitter_style
 from media_carousel import MediaCarousel  # Assuming this is the correct import
-from visual media import render_item_visual_content
+from visual_media import render_item_visual_content
 
 #
 # (0) ancillary function to merge metadata about underlyng items
