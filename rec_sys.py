@@ -70,7 +70,12 @@ class RecommendationSystem:
         
         # Prepare project titles and default project
         self._prepare_project_titles_and_default()
-                    
+
+    RANKER_LOGIC="""
+    ### Recommender System Overview
+    The recommender system prioritizes items based on their relevance and freshness, ensuring that the most important and recently updated content appears first. It allows for manual adjustments to the ranking, accommodating special preferences. The system can also filter results based on user-defined projects or search queries to ensure that recommendations are highly relevant and tailored to individual needs. The final output is a personalized list of the top recommendations.
+    """"
+
     #
     # ranking logic aspect of the RecSys
     #
@@ -416,7 +421,10 @@ class RecommendationSystem:
         st.subheader(self.section_header)
         st.markdown("---")
         st.markdown(f'<p style="color: gray;">{self.section_description}</p>', unsafe_allow_html=True)
-    
+        
+        # Add the technical note with the ranker logic description
+        st.markdown(f'### Recommender System Technical Note\n{self.RANKER_LOGIC}', unsafe_allow_html=True)
+        
         # Add space to separate the section description from the controls
         st.markdown("")
         
@@ -427,19 +435,19 @@ class RecommendationSystem:
                 
         # Keyword Search - Comes After
         query = st.text_input("🔍 Search for recommendations by keyword (e.g., Python, R):", placeholder="Type a keyword and press Enter")
-    
+        
         # Call rank_items to get the ranked and filtered recommendations
         recommendations = self.rank_items(query, selected_project)
-    
+        
         # Check if there is project metadata and show video
         project_metadata = next((repo for repo in self.repos_metadata if repo["title"].lower() == selected_project.lower()), None) if selected_project != "All Projects" else None
-    
+        
         # If project metadata is available, display it with the video area
         if project_metadata:
             # Generate the video filename based on the project title
             video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
             video_path = os.path.join('assets', video_filename)  # Path to the local MP4 file
-    
+        
             # Render the title and description
             self.render_title_and_description(project_metadata)
             
@@ -449,7 +457,7 @@ class RecommendationSystem:
             
             # Create a placeholder for the media area with a fixed size
             self.media_placeholder = st.empty()
-    
+        
             # Check if the video file exists in the assets folder
             if os.path.exists(video_path):
                 # Display the video in the placeholder
@@ -457,7 +465,7 @@ class RecommendationSystem:
             else:
                 # Show a warning if the video is not found
                 self.media_placeholder.warning(f"Video for {project_metadata['title']} not found.")
-    
+        
         # Render recommendations in a grid
         for i in range(0, len(recommendations), self.num_columns):
             cols = st.columns(self.num_columns)
@@ -470,39 +478,6 @@ class RecommendationSystem:
         #    render_section_separator()
         #    #self.show_galleria(selected_project)
 
-    def render_title_and_description(self, project_metadata):
-        """Renders the title and description of a project, centered and with margins, with inline hashtags."""
-
-        # Professional and innovative color palette
-        color_palette = [
-            "#1E3A8A",  # Deep Blue (Tech/Professional)
-            "#065F46",  # Dark Green (Trust/Innovation)
-            "#9333EA",  # Purple (Creative/Modern)
-            "#0EA5E9",  # Cyan Blue (Fresh/Innovative)
-            "#B91C1C",  # Deep Red (Bold/Strong)
-            "#7C3AED",  # Vibrant Indigo (Techy Feel)
-            "#2563EB",  # Solid Blue (Corporate/Stable)
-            "#059669",  # Teal Green (Sophisticated)
-        ]
-
-        # Generate inline tags with improved styling
-        tags_html = " ".join(
-            f'<span style="color: {random.choice(color_palette)}; font-size: 0.9em; font-weight: 600;">#{tag}</span>'
-            for tag in project_metadata.get("tags", [])
-        )
-
-        # Render HTML with inline styling
-        st.markdown(
-            f"""
-            <div style="text-align: center; margin-bottom: 20px;">
-                <h3>{prettify_title(project_metadata['title'])}</h3>
-            </div>
-            <div style="text-align: justify; margin-left: 10%; margin-right: 10%; margin-bottom: 20px;">
-                <p>{project_metadata['description']} {tags_html}</p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
             
  
 
