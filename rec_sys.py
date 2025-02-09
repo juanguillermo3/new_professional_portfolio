@@ -179,61 +179,14 @@ class RecommendationSystem:
     #
     # front end representation of items
     #
-    def render_card(self, rec, is_project=False):
-        """Render a single recommendation card with fixed height and scrollable content."""
-        background_color = "#f4f4f4" if not is_project else "#fff5e6"  # Silver background for non-project items
-        border_style = "2px solid gold" if is_project else "1px solid #ddd"
+    def render_card(self, rec, **kwargs):
+        """Render a single recommendation card with dynamic HTML generation."""
+        st.markdown(html_for_item_data(rec), unsafe_allow_html=True)
         
-        # Set the fixed height to half of the previous value (150px)
-        card_height = "150px"  # New fixed height for the card
-        overflow_style = "overflow-y: auto;"  # Allow scrolling for overflow content
-    
-        # Check if 'galleria' is present in the card
-        galleria_present = "galleria" in rec
-        
-        # Modify the title to include a star if 'galleria' is present
-        title = prettify_title(rec['title'])
-        if galleria_present:
-            title = f"⭐ {title}"
-        
-        # Render the card with a fixed height, semi-transparent title, and scrollable content
-        st.markdown(
-            f"""
-            <div style="background-color: {background_color}; border: {border_style}; 
-                        border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
-                        padding: 10px; text-align: center; height: {card_height}; {overflow_style}; 
-                        position: relative; overflow: hidden;">
-                <div style="position: absolute; top: 0; left: 0; right: 0; background-color: rgba(255, 255, 255, 0.7); 
-                            padding: 5px 10px; border-radius: 10px 10px 0 0; font-size: 16px; font-weight: bold; z-index: 10;">
-                    {title}
-                </div>
-                <div style="margin-top: 40px; padding: 0 10px; overflow-y: auto; height: calc(100% - 40px); text-align: justify;">
-                    {rec['description']}
-                </div>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-    
-        # JavaScript to reset scroll to top when hover ends
-        st.markdown(
-            """
-            <script>
-            const card = document.querySelector('div[data-testid="stMarkdownContainer"]');
-            card.addEventListener('mouseenter', function() {
-                card.scrollTop = 0;
-            });
-            </script>
-            """,
-            unsafe_allow_html=True,
-        )
-        
-        # Generate a unique hash for the button ID based on the card title
         unique_hash = hashlib.md5(rec['title'].encode()).hexdigest()
-        button_id = f"galleria_{unique_hash}"  # Unique button ID
+        button_id = f"galleria_{unique_hash}"
         
-        # Custom CSS for the Galleria button only
-        if galleria_present:
+        if "galleria" in rec:
             st.markdown(
                 """
                 <style>
@@ -245,8 +198,8 @@ class RecommendationSystem:
                     font-size: 14px;
                     cursor: pointer;
                     border-radius: 5px;
-                    width: 60% !important;  /* Fixed width for Galleria button */
-                    margin: 5px auto;  /* Reduced margin */
+                    width: 60% !important;
+                    margin: 5px auto;
                     display: block;
                 }
                 div[data-testid="stButton"] > button:hover {
@@ -257,28 +210,23 @@ class RecommendationSystem:
                 unsafe_allow_html=True
             )
     
-            # Streamlit button with a unique key
             if st.button("See Galleria", key=button_id):
-                # Update media placeholder here, triggering a transition
                 self.handle_galleria_click(rec)
-    
-        # Determine how many buttons will be displayed
+        
         buttons = []
         if "url" in rec and rec["url"]:
-            buttons.append(("GitHub", rec["url"], "#333"))  # Dark Gray
+            buttons.append(("GitHub", rec["url"], "#333"))
         if "report_url" in rec and rec["report_url"]:
-            buttons.append(("Sheets", rec["report_url"], "#34A853"))  # Google Sheets Green
+            buttons.append(("Sheets", rec["report_url"], "#34A853"))
         if "colab_url" in rec and rec["colab_url"]:
-            buttons.append(("Colab Notebook", rec["colab_url"], "#F9AB00"))  # Colab Yellow-Orange
-    
-        # Create columns dynamically based on the number of buttons
+            buttons.append(("Colab Notebook", rec["colab_url"], "#F9AB00"))
+        
         button_cols = st.columns(len(buttons)) if buttons else []
-    
+        
         for col, (label, url, color) in zip(button_cols, buttons):
             with col:
                 st.markdown(render_external_link_button(url, label, color), unsafe_allow_html=True)
-    
-        # Add more margin between the button area and the next row of card items
+        
         st.markdown("<br><br>", unsafe_allow_html=True)
     
     # Default media dimensions (class-level static attributes)
