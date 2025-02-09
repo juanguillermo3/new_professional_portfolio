@@ -424,11 +424,11 @@ class RecommendationSystem:
         st.markdown("---")
         st.markdown(f'<p style="color: gray;">{self.section_description}</p>', unsafe_allow_html=True)
         
-        # Add space to separate the section description from the controls
-        st.markdown("<br>")
-        
         # Display technical note for ranking logic
         st.markdown(f'{self.RANKER_LOGIC}', unsafe_allow_html=True)
+
+        # Add space to separate the section description from the controls
+        st.markdown("")
         
         # Stack the control widgets (Project Filter and Keyword Search) in a single row
         cols = st.columns(2)  # Creates 2 equal-width columns
