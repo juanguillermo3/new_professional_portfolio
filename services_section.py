@@ -83,17 +83,17 @@ class ServicesSection:
         """Display a section with the hourly rate and monthly compensation."""
         st.markdown("### Rates and Expected Wages 💰")
         st.markdown(
-            '<p style="color: gray;">{ description }</p>',
+            f'<p style="color: gray;">{description}</p>',  # Using f-string for dynamic insertion
             unsafe_allow_html=True
         )
         
         # Set up the grid layout for hourly rate, monthly compensation, and calculated results
-        col1, col2= st.columns(2)
-
+        col1, col2 = st.columns(2)
+    
         # Hourly Rate display
         with col1:
             self.display_info_component("Hourly Rate", f"${DEFAULT_HOURLY_RATE:.2f}", "background-color: #e0e0e0; padding: 10px; border-radius: 5px;")
-
+    
         # Monthly Compensation display
         with col2:
             self.display_info_component("Monthly Compensation", f"${DEFAULT_MONTHLY_COMPENSATION:.2f}", "background-color: #e0e0e0; padding: 10px; border-radius: 5px;")
