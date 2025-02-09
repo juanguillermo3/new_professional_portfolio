@@ -523,8 +523,19 @@ class RecommendationSystem:
             video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
             video_path = os.path.join('assets', video_filename)
             
-            # Render the title and description
-            self.render_title_and_description(project_metadata)
+            # Render the title and description of the project, centered and with margins
+            tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
+            st.markdown(
+                f"""
+                <div style="text-align: center;">
+                    <h3>{prettify_title(project_metadata['title'])}</h3>
+                </div>
+                <div style="text-align: justify; margin-left: 10%; margin-right: 10%;">
+                    <p>{project_metadata['description']} {tags_html}</p>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
             
             # Inject the placeholder div for the media content with the CSS class
             st.markdown(
@@ -552,29 +563,19 @@ class RecommendationSystem:
                 unsafe_allow_html=True
             )
         
+        # Display active filters message after project info
+        filter_message = f"Showing all results for project {selected_project} "
+        if query:
+            filter_message += f"(and for keyword: {query})"
+        st.markdown(f'<p style="font-style: italic; color: #555;">{filter_message}</p>', unsafe_allow_html=True)
+        
         # Render recommendations in a grid
         for i in range(0, len(recommendations), self.num_columns):
             cols = st.columns(self.num_columns)
             for col, rec in zip(cols, recommendations[i: i + self.num_columns]):
                 with col:
                     self.render_card(rec, is_project=rec.get("is_project", False))
-
-
-    def render_title_and_description(self, project_metadata):
-        """Renders the title and description of a project, centered and with margins, with inline hashtags."""
-        tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
-        
-        st.markdown(
-            f"""
-            <div style="text-align: center;">
-                <h3>{prettify_title(project_metadata['title'])}</h3>
-            </div>
-            <div style="text-align: justify; margin-left: 10%; margin-right: 10%;">
-                <p>{project_metadata['description']} {tags_html}</p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
+    
 
 
 
