@@ -43,7 +43,7 @@ class ServicesSection:
 
 # To render the section
 services = ServicesSection()
-services.render()
+#services.render()
 
 
 # To render the section
