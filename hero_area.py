@@ -92,7 +92,7 @@ class HeroArea:
                 st.markdown('</div>', unsafe_allow_html=True)
         expander_label = "Explore more (details)"
         with st.expander(expander_label, expanded=True):
-            st.markdown(self.detailed_offering, unsafe_allow_html=True))
+            st.markdown(self.detailed_offering, unsafe_allow_html=True)
             self.render_code_samples()
         self.render_contact_button()
 
