@@ -18,24 +18,36 @@ def load_avatar_caption():
 
 def load_detailed_offering():
     offering = """
-    ### (5+1) Key Differentials of My Professional Offering
-
+    <h3>(5+1) Key Differentials of My Professional Offering</h3>
     <ul style="list-style-type: none; padding: 0;">
-        <li style="background-color: #f0f0f0; padding: 8px; border-radius: 4px;">**High-Performance Predictive Analytics**: I research and implement techniques for regression, classification, and forecasting use cases, 
-        with applications ranging from macroeconomic and financial forecasting to microdata predictions in various systems.</li>
-        <li style="background-color: #ffffff; padding: 8px; border-radius: 4px;">**Software for Inference Distribution**: I develop applications (batch scripts, APIs, dashboards, web applications) to distribute insights 
-        and predictions across corporate environments.</li>
-        <li style="background-color: #f0f0f0; padding: 8px; border-radius: 4px;">**Data Transformation Expertise**: As my former boss Susana Martinez Restrepo said, "I can perform data miracles." This refers to my 
-        ability to clean and organize datasets from complex, multi-source environments for research and model development.</li>
-        <li style="background-color: #ffffff; padding: 8px; border-radius: 4px;">**Holistic Understanding of Modern Tooling**: I integrate tools and technologies for modern data analysis, committing to research the 
-        unique purposes of each tool and efficiently write workflows around them using GPT.</li>
-        <li style="background-color: #f0f0f0; padding: 8px; border-radius: 4px;">**AI & LLM Disruption in Software Development**: I prepare myself by means of self-learning for the disruption of Artificial Intelligence in software development and the rise of LLM-powered applications.</li>
-        <li style="background-color: #ffffff; padding: 8px; border-radius: 4px;">**Bonus: Rigorous Economic Mindset**: As an economist, I approach data analysis with a focus on causal reasoning, marginal effects, and 
-        counterfactual analysis.</li>
+        <li style="background-color: #f0f0f0; padding: 8px; border-radius: 4px;">
+            <strong>High-Performance Predictive Analytics</strong>: I research and implement techniques for regression, classification, and forecasting use cases, 
+            with applications ranging from macroeconomic and financial forecasting to microdata predictions in various systems.
+        </li>
+        <li style="background-color: #ffffff; padding: 8px; border-radius: 4px;">
+            <strong>Software for Inference Distribution</strong>: I develop applications (batch scripts, APIs, dashboards, web applications) to distribute insights 
+            and predictions across corporate environments.
+        </li>
+        <li style="background-color: #f0f0f0; padding: 8px; border-radius: 4px;">
+            <strong>Data Transformation Expertise</strong>: As my former boss Susana Martinez Restrepo said, "I can perform data miracles." This refers to my 
+            ability to clean and organize datasets from complex, multi-source environments for research and model development.
+        </li>
+        <li style="background-color: #ffffff; padding: 8px; border-radius: 4px;">
+            <strong>Holistic Understanding of Modern Tooling</strong>: I integrate tools and technologies for modern data analysis, committing to research the 
+            unique purposes of each tool and efficiently write workflows around them using GPT.
+        </li>
+        <li style="background-color: #f0f0f0; padding: 8px; border-radius: 4px;">
+            <strong>AI & LLM Disruption in Software Development</strong>: I prepare myself by means of self-learning for the disruption of Artificial Intelligence in software development and the rise of LLM-powered applications.
+        </li>
+        <li style="background-color: #ffffff; padding: 8px; border-radius: 4px;">
+            <strong>Bonus: Rigorous Economic Mindset</strong>: As an economist, I approach data analysis with a focus on causal reasoning, marginal effects, and 
+            counterfactual analysis.
+        </li>
     </ul>
     """
     
     return offering
+
 
     
     # Split the offering into individual list items
