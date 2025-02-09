@@ -27,9 +27,11 @@ from media_carousel import MediaCarousel  # Assuming this is the correct import
 #
 # (-1) 
 #
+import streamlit.components.v1 as components
+
 def render_item_visual_content(title, description, image_path, width="700px", height="400px"):
     """
-    Render the visual content based on the provided metadata.
+    Render the visual content based on the provided metadata with minimal spacing.
     """
     st.markdown(
         f"""
@@ -42,11 +44,36 @@ def render_item_visual_content(title, description, image_path, width="700px", he
                 justify-content: center;
                 overflow: hidden;
                 background-color: rgba(0, 0, 0, 0.1);
+                margin-bottom: 5px; /* Reduce bottom spacing */
             }}
             .media-container img, .media-container video {{
                 max-width: 100%;
                 max-height: 100%;
                 object-fit: contain;
+            }}
+            .text-container {{
+                background-color: rgba(0, 0, 0, 0.4);
+                padding: 8px; /* Reduced padding */
+                border-radius: 5px;
+                color: white;
+                width: 100%;
+                text-align: center;
+                margin-top: 5px; /* Reduce top spacing */
+            }}
+            .title-text {{
+                font-size: 20px;
+                font-weight: 500;
+                color: #fff;
+                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+                display: inline-block;
+            }}
+            .description-text {{
+                font-size: 14px;
+                font-weight: 300;
+                color: #ddd;
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+                display: inline-block;
+                margin-top: 2px;
             }}
         </style>
         """,
@@ -82,25 +109,17 @@ def render_item_visual_content(title, description, image_path, width="700px", he
     else:
         st.error(f"Unsupported media type: {ext}")
 
+    # Render the text section with minimal spacing
     st.markdown(
         f"""
-        <div style="position: relative; background-color: rgba(0, 0, 0, 0.4); padding: 15px; border-radius: 8px; color: white; width: 100%;">
-            <div style="font-size: 20px; font-weight: 300; line-height: 1.6; text-align: center; margin: 0;">
-                <span style="font-size: 24px; font-weight: 600; color: #fff; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);">
-                    {title}
-                </span>
-                <br>
-                <span style="font-size: 16px; font-weight: 300; color: #eee; text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);">
-                    {description}
-                </span>
-            </div>
+        <div class="text-container">
+            <div class="title-text">{title}</div><br>
+            <div class="description-text">{description}</div>
         </div>
         """,
         unsafe_allow_html=True
     )
 
-    # Add spacing after media
-    st.markdown("<div style='margin-bottom: 40px;'></div>", unsafe_allow_html=True)
     
 #
 # (0) ancillary function to merge metadata about underlyng items
