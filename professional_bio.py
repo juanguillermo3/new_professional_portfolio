@@ -87,9 +87,3 @@ cv = CurriculumVitae(
     tags=["Python", "DataScience", "MachineLearning", "AI"]
 )
 
-
-cv = CurriculumVitae(
-    section_description="This is a description of the Curriculum Vitae section."
-)
-
-
