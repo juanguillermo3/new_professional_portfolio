@@ -6,11 +6,6 @@ Author: Juan Guillermo
 
 import streamlit as st
 import os
-from dotenv import load_dotenv
-
-# Load environment variables from the .env file
-load_dotenv()
-
 from hero_area_data_loader import (
     load_quote, 
     load_avatar_caption, 
@@ -18,6 +13,12 @@ from hero_area_data_loader import (
     load_detailed_offering
 )
 from front_end_utils import tags_in_twitter_style
+
+from dotenv import load_dotenv
+# Load environment variables from the .env file
+load_dotenv()
+
+WHATSAPP_NUMBER="573053673370"
 
 class HeroArea:
     def __init__(self, quote, avatar_image: str = None, avatar_caption: str = "", avatar_tags: list = None,
