@@ -29,8 +29,8 @@ class HeroArea:
     def __init__(self, quote, avatar_image: str = None, avatar_caption: str = "", avatar_tags: list = None,
                  code_samples: list = None, code_samples_intro: str = "Explore the code samples below:",
                  whatsapp_number: str = WHATSAPP_NUMBER, contact_button_intro: str = "Let's work together. Connect to talk about your specific requirements. I can start working for you almost instantly",
-                 professional_offering: str = "Simply put, I can develop application code for analytics applications at any stage of the ML/Data Analysis development workflow. I offer several key differentiators compared to typical data analysts: expertise in developing high-performance predictive analytics (Artificial Intelligence, Machine Learning, Genetic Optimization, Ensemble Models, Forecasting models); full commitment to research modern information tools for data analytics (Python, R, Stata, Airflow, Spark, SQL, Bash scripting, Cloud computing, GPT, SQLAlchemy, APIs, development frameworks, Git, and more); strong automation capabilities in complex empirical environments with multiple sources, schemas, data types, and mixes of structured/unstructured data; robust algorithm and application development skills in Python, including libraries like Requests, Selenium, Airflow, Pandas, Scikit-Learn, TensorFlow, Plotly, Flask, and Dash, as well as logging systems and object-oriented programming; knowledge of formal software development topics (architectural and design patterns, development methodologies, distributed systems, computing resources); and a very efficient development workflow supported by technologies like GPT.",
-                 detailed_offering: str ="This is a more detailed offering"
+                 professional_offering: str = "Professional offering description.",
+                 detailed_offering: str ="Detailed offering description"
                 ):
         self.quote = quote if isinstance(quote, list) else [quote]
         self.avatar_image = avatar_image
@@ -56,20 +56,15 @@ class HeroArea:
             """, unsafe_allow_html=True)
         st.markdown("</div>", unsafe_allow_html=True)
 
-    def render_contact_button(self):
-        if not self.whatsapp_number:
-            st.warning("WhatsApp number is not available.")
-            return
-        st.markdown(f'<p class="contact-button-intro">{self.contact_button_intro}</p>', unsafe_allow_html=True)
-        button_url = f"https://wa.me/{self.whatsapp_number}?text=Hi,%20I%27d%20like%20to%20get%20in%20touch!"
-        st.markdown(f"""
-        <a href="{button_url}" target="_blank">
-            <button style="background-color: #25d366; color: white; border: 1px solid white; padding: 10px 20px; font-size: 14px; border-radius: 5px; text-align: center; width: 100%;">
-                Contact Me on WhatsApp
-            </button>
-        </a>
-        """, unsafe_allow_html=True)
-    
+    def render_contact_details(self):
+        contact_html = f"""
+        <div style="text-align: center; font-size: 1.1em; color: #444;">
+            <p>📱 <a href="https://wa.me/{self.whatsapp_number}" target="_blank">{self.whatsapp_number}</a></p>
+            <p>📧 {' | '.join([f'<a href="mailto:{email}">{email}</a>' for email in DEFAULT_EMAILS])}</p>
+        </div>
+        """
+        st.markdown(contact_html, unsafe_allow_html=True)
+
     def render(self):
         col1, col2 = st.columns([2, 1])
         with col1:
@@ -109,13 +104,14 @@ class HeroArea:
                     """,
                     unsafe_allow_html=True,
                 )
+                self.render_contact_details()
                 st.markdown('</div>', unsafe_allow_html=True)
 
         expander_label = "Explore more (details)"
         with st.expander(expander_label, expanded=True):
             st.markdown(self.detailed_offering, unsafe_allow_html=True)
             self.render_code_samples()
-        self.render_contact_button()
+
         
 # Instantiate and render HeroArea with data loaded from the loader functions
 hero = HeroArea(
