@@ -57,7 +57,7 @@ class HeroArea:
 
     def render_contact_details(self):
         contact_html = f"""
-        <div style="text-align: center; font-size: 0.9em; color: #444; line-height: 1.2;">
+        <div style="text-align: left; font-size: 0.9em; color: #444; line-height: 1.2;">
             <p>📱 {self.whatsapp_number}</p>
             <p>📧 {' | '.join(DEFAULT_EMAILS)}</p>
         </div>
