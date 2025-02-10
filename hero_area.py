@@ -98,7 +98,7 @@ class HeroArea:
                 tags_html = tags_in_twitter_style(self.avatar_tags)
                 st.markdown(
                     f"""
-                    <div style="text-align: center; font-size: 1.0em; color: #444;">
+                    <div style="text-align: center; font-size: 1.1em; color: #444;">
                         <p>{self.avatar_caption} {tags_html}</p>
                     </div>
                     """,
