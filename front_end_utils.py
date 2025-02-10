@@ -30,21 +30,20 @@ def prettify_title(title):
     return " ".join(word.capitalize() for word in title.replace("_", " ").split())
 
 def tags_in_twitter_style(tags, color_palette=None):
-    """Generates styled hashtags with a Twitter-like appearance."""
+    """Generates styled hashtags with a refined navy-themed appearance."""
     if color_palette is None:
         color_palette = [
-            "#1E3A8A",  # Deep Blue (Tech/Professional)
-            "#065F46",  # Dark Green (Trust/Innovation)
-            "#9333EA",  # Purple (Creative/Modern)
-            "#0EA5E9",  # Cyan Blue (Fresh/Innovative)
-            "#B91C1C",  # Deep Red (Bold/Strong)
-            "#7C3AED",  # Vibrant Indigo (Techy Feel)
-            "#2563EB",  # Solid Blue (Corporate/Stable)
-            "#059669",  # Teal Green (Sophisticated)
+            "#1B1F3B",  # Deep Navy Blue (Elegant & Professional)
+            "#2C3E50",  # Dark Blue-Gray (Subtle & Modern)
+            "#34495E",  # Muted Navy (Sophisticated Look)
+            "#22303C",  # Dark Steel Blue (Sleek & Low-key)
+            "#1E3A8A",  # Bold Royal Blue (Accent Color)
+            "#0F172A",  # Almost Black Blue (Sharp & Clean)
+            "#3B4B74",  # Classic Navy (Trust & Stability)
+            "#102A43",  # Twilight Navy (Calm & Focused)
         ]
-    
-    return " ".join(
-        f'<span style="color: {random.choice(color_palette)}; font-size: 0.9em; font-weight: 600;">#{tag}</span>'
-        for tag in tags
-    )
+    # Generate styled hashtags (implement UI styling accordingly)
+    return [f"<span style='color:{color}; font-weight:bold;'>#{tag}</span>"
+            for tag, color in zip(tags, color_palette[:len(tags)])]
+
 
