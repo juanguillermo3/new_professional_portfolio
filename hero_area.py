@@ -21,8 +21,8 @@ from dotenv import load_dotenv
 load_dotenv()
 WHATSAPP_NUMBER = os.getenv("WHATSAPP_NUMBER", "573658650")
 DEFAULT_EMAILS = [
-    ("📧", "juanosio838@gmail.com"),
-    ("📧", "jg.osio151@uniandes.edu.co")
+    ("juanosio838@gmail.com"),
+    ("jg.osio151@uniandes.edu.co")
 ]
 
 class HeroArea:
