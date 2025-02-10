@@ -58,12 +58,13 @@ class HeroArea:
 
     def render_contact_details(self):
         contact_html = f"""
-        <div style="text-align: center; font-size: 1.1em; color: #444;">
-            <p>📱 <a href="https://wa.me/{self.whatsapp_number}" target="_blank">{self.whatsapp_number}</a></p>
-            <p>📧 {' | '.join([f'<a href="mailto:{email}">{email}</a>' for email in DEFAULT_EMAILS])}</p>
+        <div style="text-align: center; font-size: 0.9em; color: #444; line-height: 1.2;">
+            <p>📱 {self.whatsapp_number}</p>
+            <p>📧 {' | '.join(DEFAULT_EMAILS)}</p>
         </div>
         """
         st.markdown(contact_html, unsafe_allow_html=True)
+
 
     def render(self):
         col1, col2 = st.columns([2, 1])
