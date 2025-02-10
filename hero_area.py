@@ -18,7 +18,7 @@ from dotenv import load_dotenv
 # Load environment variables from the .env file
 load_dotenv()
 
-WHATSAPP_NUMBER = os.getenv("WHATSAPP_NUMBER", "573053673370")
+WHATSAPP_NUMBER = os.getenv("WHATSAPP_NUMBER", "573658650")
 
 class HeroArea:
     def __init__(self, quote, avatar_image: str = None, avatar_caption: str = "", avatar_tags: list = None,
