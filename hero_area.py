@@ -19,7 +19,7 @@ from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
-WHATSAPP_NUMBER = os.getenv("WHATSAPP_NUMBER", "573658650")
+WHATSAPP_NUMBER = os.getenv("WHATSAPP_NUMBER", "573053658650 ")
 DEFAULT_EMAILS = [
     ("juanosio838@gmail.com"),
     ("jg.osio151@uniandes.edu.co")
