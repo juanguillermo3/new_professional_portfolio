@@ -72,5 +72,14 @@ class HeroArea:
             st.markdown(self.detailed_offering, unsafe_allow_html=True)
             self.render_code_samples()
 
+# Instantiate and render HeroArea
+hero = HeroArea(
+    quote=load_quote(),
+    avatar_image="jg_pick.jpg",
+    avatar_tags=["Economist", "Data Analyst", "Data Engineer"],
+    detailed_offering=load_detailed_offering()
+)
+hero.render()
+
 
 
