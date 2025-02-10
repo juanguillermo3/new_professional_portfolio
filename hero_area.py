@@ -106,18 +106,17 @@ class HeroArea:
 
         if self.avatar_image:
             with col2:
-                st.markdown('<div class="hero-avatar-container">', unsafe_allow_html=True)
                 st.image(f"assets/{self.avatar_image}", use_container_width=True)
                 tags_html = tags_in_twitter_style(self.avatar_tags)
                 st.markdown(
                     f"""
                     <div style="text-align: center; font-size: 1.1em; color: #444;">
                         <p>{self.avatar_caption} {tags_html}</p>
+                        {self.prepare_contact_details()}
                     </div>
                     """,
                     unsafe_allow_html=True,
                 )
-                st.markdown('</div>', unsafe_allow_html=True)
 
         expander_label = "Explore more (details)"
         with st.expander(expander_label, expanded=True):
