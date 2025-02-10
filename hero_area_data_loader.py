@@ -34,9 +34,9 @@ def load_detailed_offering():
             <strong>Holistic Understanding of Modern Tooling</strong>: I integrate tools and technologies for modern data analysis, committing to research the 
             unique purposes of each tool and efficiently write workflows around them using GPT.
             <ul style="list-style-type: none; padding-left: 0;">
-                <li><strong>*Excellence Tier* (I know the code line by heart):</strong> Python, R Studio, Stata, GPT</li>
-                <li><strong>*Proficiency Tier*:</strong> Airflow, SQL, Spark, Bash scripting</li>
-                <li><strong>*Currently Learning*:</strong> Docker, Kubernetes, GitHub, Big Data Cloud tools, SQLAlchemy, Django</li>
+                <li><strong>Excellence Tier (I know the code line by heart):</strong> Python, R Studio, Stata, GPT</li>
+                <li><strong>Proficiency Tier:</strong> Airflow, SQL, Spark, Bash scripting</li>
+                <li><strong>Currently Learning:</strong> Docker, Kubernetes, GitHub, Big Data Cloud tools, SQLAlchemy, Django</li>
             </ul>
         </li>
         <li style="background-color: #f0f0f0; padding: 8px; border-radius: 4px;">
