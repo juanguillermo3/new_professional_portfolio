@@ -43,9 +43,11 @@ def tags_in_twitter_style(tags, color_palette=None):
             "#3B4B74",  # Classic Navy (Trust & Stability)
             "#102A43",  # Twilight Navy (Calm & Focused)
         ]
-    
-    return [f"<span style='color:{color}; font-weight:bold;'>#{tag}</span>"
-            for tag, color in zip(tags, color_palette[:len(tags)])]
+
+    return " ".join(
+        f'<span style="color: {random.choice(color_palette)}; font-size: 0.9em; font-weight: 600;">#{tag}</span>'
+        for tag in tags
+    )
 
 
 
