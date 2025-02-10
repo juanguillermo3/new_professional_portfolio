@@ -29,6 +29,7 @@ def prettify_title(title):
     """Prettify the title by removing underscores and capitalizing words."""
     return " ".join(word.capitalize() for word in title.replace("_", " ").split())
 
+#
 def tags_in_twitter_style(tags, color_palette=None):
     """Generates styled hashtags with a refined navy-themed appearance."""
     if color_palette is None:
@@ -42,8 +43,9 @@ def tags_in_twitter_style(tags, color_palette=None):
             "#3B4B74",  # Classic Navy (Trust & Stability)
             "#102A43",  # Twilight Navy (Calm & Focused)
         ]
-    # Generate styled hashtags (implement UI styling accordingly)
+    
     return [f"<span style='color:{color}; font-weight:bold;'>#{tag}</span>"
             for tag, color in zip(tags, color_palette[:len(tags)])]
+
 
 
