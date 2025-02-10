@@ -18,12 +18,12 @@ from dotenv import load_dotenv
 # Load environment variables from the .env file
 load_dotenv()
 
-WHATSAPP_NUMBER="573053673370"
+WHATSAPP_NUMBER = os.getenv("WHATSAPP_NUMBER", "573053673370")
 
 class HeroArea:
     def __init__(self, quote, avatar_image: str = None, avatar_caption: str = "", avatar_tags: list = None,
                  code_samples: list = None, code_samples_intro: str = "Explore the code samples below:",
-                 whatsapp_number: str = None, contact_button_intro: str = "Let's work together. Connect to talk about your specific requirements. I can start working for you almost instantly",
+                 whatsapp_number: str = WHATSAPP_NUMBER, contact_button_intro: str = "Let's work together. Connect to talk about your specific requirements. I can start working for you almost instantly",
                  professional_offering: str = "Simply put, I can develop application code for analytics applications at any stage of the ML/Data Analysis development workflow. I offer several key differentiators compared to typical data analysts: expertise in developing high-performance predictive analytics (Artificial Intelligence, Machine Learning, Genetic Optimization, Ensemble Models, Forecasting models); full commitment to research modern information tools for data analytics (Python, R, Stata, Airflow, Spark, SQL, Bash scripting, Cloud computing, GPT, SQLAlchemy, APIs, development frameworks, Git, and more); strong automation capabilities in complex empirical environments with multiple sources, schemas, data types, and mixes of structured/unstructured data; robust algorithm and application development skills in Python, including libraries like Requests, Selenium, Airflow, Pandas, Scikit-Learn, TensorFlow, Plotly, Flask, and Dash, as well as logging systems and object-oriented programming; knowledge of formal software development topics (architectural and design patterns, development methodologies, distributed systems, computing resources); and a very efficient development workflow supported by technologies like GPT.",
                  detailed_offering: str ="This is a more detailed offering"
                 ):
@@ -33,7 +33,7 @@ class HeroArea:
         self.avatar_tags = avatar_tags if avatar_tags else []
         self.code_samples = code_samples if code_samples is not None else load_code_samples()
         self.code_samples_intro = code_samples_intro
-        self.whatsapp_number = whatsapp_number or os.getenv("WHATSAPP_NUMBER")
+        self.whatsapp_number = whatsapp_number
         self.contact_button_intro = contact_button_intro
         self.professional_offering = professional_offering
         self.detailed_offering = detailed_offering
@@ -120,7 +120,6 @@ hero = HeroArea(
     avatar_tags=["Economist", "Data Analyst", "Data Minning", "Data Engineer", "Application Developer"],
     detailed_offering=load_detailed_offering()
 )
-
 
 
 
