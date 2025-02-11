@@ -8,37 +8,36 @@ field: something
 """
 
 import streamlit as st
-import random
 import os
-import re
+from dotenv import load_dotenv
 from git_api_utils import load_repos_metadata, load_modules_metadata, REPOS_IN_PORTFOLIO
 from professional_bio import cv
-from dotenv import load_dotenv, dotenv_values
 from front_end_utils import render_section_separator
 from hero_area import hero
 from rec_sys import recsys
 from about_section import about
 from services_section import services
 from socials_section import socials
-#from media_carousel import carousel
 
-#
+# Load environment variables
 load_dotenv(override=True)
 
-#
+# Environment configurations
 ENVIRONMENT = os.getenv("ENVIRONMENT")
-REPO_OWNER= os.getenv("REPO_OWNER")
-#REPOS_IN_PORTFOLIO=os.getenv("REPOS_IN_PORTFOLIO", "lab_market_trends,monkey_research,new_professional_portfolio").split(",") 
-
-
-# Get the LinkedIn profile URL from the environment
+REPO_OWNER = os.getenv("REPO_OWNER")
 LINKEDIN_PROFILE = os.getenv("LINKEDIN_PROFILE")
-# Default WhatsApp number, which can be overridden by the .env file
-WHATSAPP_NUMBER= os.getenv("WHATSAPP_NUMBER")
+WHATSAPP_NUMBER = os.getenv("WHATSAPP_NUMBER")
 
-#
+# Define available sections for customization
+SECTIONS = {
+    "About this portfolio": about,
+    "RecSys": recsys,
+    "Services": services,
+    "About Me": cv,
+    "Connect with Me": socials
+}
+
 # **Title Section**
-#
 st.markdown("""
     <style>
     h1 {
@@ -49,60 +48,26 @@ st.markdown("""
     }
     </style>
 """, unsafe_allow_html=True)
-#
+
 st.title("Welcome to My Professional Site")
 
-#
-# **Hero Section**
-
-#
+# **Hero Section (Always Rendered)**
 hero.render()
-# 
 render_section_separator()
 
-#
-# **About this portfolio**
-#
+# **Customization Options**
+if "selected_sections" not in st.session_state:
+    st.session_state["selected_sections"] = list(SECTIONS.keys())
 
-#
-about.render()
-# 
-render_section_separator()
+selected_sections = st.multiselect(
+    "Customize your view: Select sections to display",
+    options=SECTIONS.keys(),
+    default=st.session_state["selected_sections"]
+)
 
+# **Render Sections Conditionally**
+for section_name, module in SECTIONS.items():
+    if section_name in selected_sections:
+        module.render()
+        render_section_separator()
 
-#
-# **RecSys**
-#
-
-#
-recsys.render()
-# 
-render_section_separator()
-#
-#carousel.render()
-# 
-#render_section_separator()
-
-#
-# **Services Section**
-#
-
-#
-services.render()
-# 
-render_section_separator()
-
-# **About Me Section**
-
-#
-cv.render()
-#
-render_section_separator()
-
-#
-# **Connect with Me Section**
-#
-
-socials.render()
-#
-render_section_separator()
