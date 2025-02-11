@@ -28,14 +28,13 @@ load_dotenv(override=True)
 #
 ENVIRONMENT = os.getenv("ENVIRONMENT")
 REPO_OWNER= os.getenv("REPO_OWNER")
-REPOS_IN_PORTFOLIO=os.getenv("REPOS_IN_PORTFOLIO", "lab_market_trends,monkey_research,new_professional_portfolio").split(",") 
+#REPOS_IN_PORTFOLIO=os.getenv("REPOS_IN_PORTFOLIO", "lab_market_trends,monkey_research,new_professional_portfolio").split(",") 
 
 
 # Get the LinkedIn profile URL from the environment
 LINKEDIN_PROFILE = os.getenv("LINKEDIN_PROFILE")
 # Default WhatsApp number, which can be overridden by the .env file
 WHATSAPP_NUMBER= os.getenv("WHATSAPP_NUMBER")
-
 
 #
 # **Title Section**
@@ -52,9 +51,6 @@ st.markdown("""
 """, unsafe_allow_html=True)
 #
 st.title("Welcome to My Professional Site")
-# Get the LinkedIn profile URL from the environment
-LINKEDIN_PROFILE = os.getenv("LINKEDIN_PROFILE")
-
 
 #
 # **Hero Section**
