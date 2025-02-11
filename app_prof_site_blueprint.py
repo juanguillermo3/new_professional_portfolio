@@ -60,34 +60,15 @@ if "selected_sections" not in st.session_state:
     st.session_state["selected_sections"] = list(SECTIONS.keys())
 
 # UI Elements for Section Selection
-col1, col2 = st.columns([0.8, 0.2])  # Create two columns
+selected_sections = st.multiselect(
+    "Personalize which sections of this portfolio are visible.",
+    options=SECTIONS.keys(),
+    default=st.session_state["selected_sections"],
+    format_func=lambda x: x  # Ensure full label visibility
+)
 
-with col1:
-    selected_sections = st.multiselect(
-        "You can personalize which sections of this portfolio are visible.",
-        options=SECTIONS.keys(),
-        default=st.session_state["selected_sections"],
-        format_func=lambda x: f"{x}\n"  # Ensuring multiline wrapping
-    )
-
-with col2:
-    if st.button("Select All", use_container_width=True):
-        selected_sections = list(SECTIONS.keys())  # Activate all sections
-
-# Apply divergent color scale within navy color palette
-st.markdown("""
-    <style>
-    div[data-baseweb="select"] div {
-        background: linear-gradient(90deg, #001f3f, #0074D9, #7FDBFF);
-        color: white;
-        border-radius: 5px;
-        padding: 5px;
-    }
-    div[data-baseweb="select"] div:hover {
-        background: #0074D9;
-    }
-    </style>
-""", unsafe_allow_html=True)
+if st.button("Select All", use_container_width=True):
+    selected_sections = list(SECTIONS.keys())  # Activate all sections
 
 # Update session state to store selections
 st.session_state["selected_sections"] = selected_sections
@@ -97,5 +78,6 @@ for section_name, module in SECTIONS.items():
     if section_name in selected_sections:
         module.render()
         render_section_separator()
+
 
 
