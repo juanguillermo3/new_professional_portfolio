@@ -30,11 +30,11 @@ WHATSAPP_NUMBER = os.getenv("WHATSAPP_NUMBER")
 
 # Define available sections for customization
 SECTIONS = {
-    "About this portfolio": about,
+    "About": about,
     "RecSys": recsys,
     "Services": services,
-    "About Me": cv,
-    "Connect with Me": socials
+    "Curriculum Vitae": cv,
+    "Socials": socials
 }
 
 # **Title Section**
