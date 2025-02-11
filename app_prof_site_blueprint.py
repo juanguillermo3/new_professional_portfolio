@@ -64,6 +64,7 @@ selected_sections = st.multiselect(
     options=SECTIONS.keys(),
     default=st.session_state["selected_sections"]
 )
+render_section_separator()
 
 # **Render Sections Conditionally**
 for section_name, module in SECTIONS.items():
