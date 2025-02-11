@@ -79,7 +79,7 @@ st.markdown("""
 
 # Example usage of the multiselect widget
 selected_sections = st.multiselect(
-    "Customize your view: Select sections to display",
+    "Customize which sections to display. Refresh the page for a full view.",
     options=SECTIONS.keys(),
     default=st.session_state["selected_sections"]
 )
