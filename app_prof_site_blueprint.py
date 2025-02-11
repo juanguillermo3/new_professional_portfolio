@@ -59,25 +59,16 @@ render_section_separator()
 if "selected_sections" not in st.session_state:
     st.session_state["selected_sections"] = list(SECTIONS.keys())
 
-# UI Elements for Section Selection
 selected_sections = st.multiselect(
-    "Personalize which sections of this portfolio are visible.",
+    "Customize your view: Select sections to display",
     options=SECTIONS.keys(),
-    default=st.session_state["selected_sections"],
-    format_func=lambda x: x  # Ensure full label visibility
+    default=st.session_state["selected_sections"]
 )
-
-if st.button("Select All", use_container_width=True):
-    selected_sections = list(SECTIONS.keys())  # Activate all sections
-
-# Update session state to store selections
-st.session_state["selected_sections"] = selected_sections
 
 # **Render Sections Conditionally**
 for section_name, module in SECTIONS.items():
     if section_name in selected_sections:
         module.render()
         render_section_separator()
-
 
 
