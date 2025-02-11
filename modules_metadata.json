@@ -282,7 +282,7 @@
     {
         "title": "Overall Application",
         "description": "Connected version of the forecasting application. It combines capabilities from several modules into a sequence of workflows to forecast sales for the food delivery context.",
-        "image_path": "assets/hourly_sales.png",
+        "image_path": "assets/dnn_best_predictions.html",
         "colab_url": "https://colab.research.google.com/drive/1QKFY5zfiRkUUPrnhlsOrtRlqGJ14oFf3#scrollTo=ZznO-uxNus8v",
         "galleria": "True",
         "repo_name": "sales_forecasting_with_genetic_neural_networks",
