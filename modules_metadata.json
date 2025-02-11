@@ -288,5 +288,13 @@
         "repo_name": "sales_forecasting_with_genetic_neural_networks",
         "forced_rank": "1",
         "report_url":"https://docs.google.com/spreadsheets/d/1-7xJZvAwYe9B4BYmJcA3-m1rAzf4CXNH/edit?gid=2146063770#gid=2146063770"
+    },
+    {
+        "title": "Visualization of monthly sales",
+        "description": "Visualization tool to inspect the behaviour of sales series produced by company´s data warehouse",
+        "image_path": "assets/hourly_sales.png",
+        "url": "https://github.com/juanguillermo3/sales_forecasting_with_genetic_neural_networks/blob/main/plot_sales.py",
+        "galleria": "True",
+        "repo_name": "sales_forecasting_with_genetic_neural_networks"    
     }
 ]
