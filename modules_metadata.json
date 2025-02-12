@@ -242,17 +242,6 @@
         "repo_name": "monkey_research"
     },
     {
-        "title": "Geometric Modelling for Nutrition Data",
-        "description": "Applies Geometric Modelling based on dimensionality reduction to analize nutritional preferences of the monkey species.",
-        "debrief": "This module performs a visualization devide to facilitate the analisis of",
-        "image_path": "assets/gm_per_group.png",
-        "last_updated": "2025-02-04T23:16:04Z",
-        "url": "https://github.com/juanguillermo3/monkey_research/blob/main/geometric_modelling.R",
-        "file_path": "geometric_modelling.R",
-        "repo_name": "monkey_research",
-        "galleria": "True"
-    },
-    {
         "title": "Wages Drivers",
         "description": "Detects the main drivers behind wage formation trough the analysis of the gradients of a Neural Network model.",
         "image_path": "assets/effects_rank (1).html",
@@ -296,5 +285,16 @@
         "url": "https://github.com/juanguillermo3/sales_forecasting_with_genetic_neural_networks/blob/main/plot_sales.py",
         "galleria": "True",
         "repo_name": "sales_forecasting_with_genetic_neural_networks"    
-    }
+    },
+    {
+        "title": "Geometric Modelling for Nutrition Data",
+        "description": "Applies Geometric Modelling based on dimensionality reduction to analize nutritional preferences of the monkey species.",
+        "debrief": "This module performs a visualization devide to facilitate the analisis of",
+        "image_path": "assets/gm_per_group*.png",
+        "last_updated": "2025-02-04T23:16:04Z",
+        "url": "https://github.com/juanguillermo3/monkey_research/blob/main/geometric_modelling.R",
+        "file_path": "geometric_modelling.R",
+        "repo_name": "monkey_research",
+        "galleria": "True"
+    },
 ]
