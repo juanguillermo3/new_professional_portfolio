@@ -1,3 +1,8 @@
+import streamlit as st
+import streamlit.components.v1 as components
+import os
+import glob
+
 def render_item_visual_content(title, description, media_path, width="700px", height="400px"):
     """
     Render visual content based on metadata with minimal spacing. Supports images, videos, and HTML.
