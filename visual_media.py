@@ -1,10 +1,17 @@
 import streamlit as st
 import streamlit.components.v1 as components
+import os
 
-def render_item_visual_content(title, description, image_path, width="700px", height="400px"):
+def render_item_visual_content(title, description, media_path, width="700px", height="400px"):
     """
     Render the visual content based on the provided metadata with minimal spacing.
+    Supports images, videos, and HTML.
     """
+    
+    # Determine file type
+    file_ext = os.path.splitext(media_path)[-1].lower()
+
+    # Define base styles
     st.markdown(
         f"""
         <style>
@@ -15,78 +22,66 @@ def render_item_visual_content(title, description, image_path, width="700px", he
                 align-items: center;
                 justify-content: center;
                 overflow: hidden;
-                background-color: rgba(0, 0, 0, 0.1);
-                margin-bottom: 5px; /* Reduce bottom spacing */
-            }}
-            .media-container img, .media-container video {{
-                max-width: 100%;
-                max-height: 100%;
-                object-fit: contain;
+                background: rgba(0, 0, 0, 0.05);
+                border-radius: 10px;
+                margin-bottom: 5px;
             }}
             .text-container {{
-                background-color: rgba(0, 0, 0, 0.4);
-                padding: 8px; /* Reduced padding */
-                border-radius: 5px;
+                background: rgba(0, 0, 0, 0.3);
+                padding: 6px;
+                border-radius: 8px;
                 color: white;
                 width: 100%;
                 text-align: center;
-                margin-top: 5px; /* Reduce top spacing */
+                margin-top: 5px;
             }}
             .title-text {{
-                font-size: 20px;
-                font-weight: 500;
+                font-size: 18px;
+                font-weight: 600;
                 color: #fff;
-                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-                display: inline-block;
+                display: block;
             }}
             .description-text {{
                 font-size: 14px;
-                font-weight: 300;
+                font-weight: 400;
                 color: #ddd;
-                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
-                display: inline-block;
-                margin-top: 2px;
+                display: block;
+                margin-top: 3px;
             }}
         </style>
         """,
         unsafe_allow_html=True
     )
 
-    # Identify file type
-    ext = image_path.split('.')[-1].lower()
+    # Render media based on type
+    if not os.path.exists(media_path):
+        st.error(f"File not found: {media_path}")
+        return
 
-    # Media rendering inside a fixed-size div
-    if ext in ['jpg', 'jpeg', 'png', 'gif']:
-        try:
-            st.image(image_path, use_container_width=False)
-        except Exception as e:
-            st.error(f"Error loading image: {str(e)}")
+    with st.container():
+        if file_ext in ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg']:
+            st.image(media_path, use_column_width=True)
 
-    elif ext in ['mp4', 'avi']:
-        try:
-            st.video(image_path)
-        except Exception as e:
-            st.error(f"Error loading video: {str(e)}")
+        elif file_ext in ['.mp4', '.avi', '.mov', '.webm']:
+            st.video(media_path)
 
-    elif ext == 'html':
-        try:
-            with open(image_path, 'r') as file:
-                html_content = file.read()
-            components.html(html_content, width=int(width.replace("px", "")), height=int(height.replace("px", "")))
-        except FileNotFoundError:
-            st.error(f"Error: File '{image_path}' not found.")
-        except Exception as e:
-            st.error(f"Error loading HTML content: {str(e)}")
+        elif file_ext == '.html':
+            try:
+                with open(media_path, 'r') as file:
+                    html_content = file.read()
+                components.html(html_content, width=int(width.replace("px", "")), height=int(height.replace("px", "")))
+            except Exception as e:
+                st.error(f"Error loading HTML content: {str(e)}")
 
-    else:
-        st.error(f"Unsupported media type: {ext}")
+        else:
+            st.error(f"Unsupported media type: {file_ext}")
 
-    # Render the text section with minimal spacing
+    # Render the text section
     st.markdown(
         f"""
         <div class="text-container">
-            <div class="title-text">{title}</div><br>
-            <div class="description-text">{description}</div>
+            <span class="title-text">{title}</span>
+            <span class="description-text">{description}</span>
         </div>
         """,
         unsafe_allow_html=True
