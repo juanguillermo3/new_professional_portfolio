@@ -3,12 +3,39 @@ import streamlit.components.v1 as components
 import os
 import glob
 
+import streamlit as st
+import streamlit.components.v1 as components
+import os
+import glob
+
 def render_item_visual_content(title, description, media_path, width="700px", height="400px"):
     """
-    Render visual content based on metadata with minimal spacing.
-    Supports images, videos, and HTML. Allows navigation if multiple media files match a glob pattern.
+    Render visual content based on metadata with minimal spacing. Supports images, videos, and HTML.
+    Allows navigation between multiple media files matched by a glob pattern.
+    
+    This function:
+    1. Resolves a file path pattern (supports glob patterns) to a list of media files.
+    2. Displays a single media item at a time, such as an image, video, or HTML.
+    3. Provides navigation buttons (Previous/Next) to cycle through the matched media files.
+    4. Uses Streamlit session state to track the current media index and enable navigation.
+    5. Renders text metadata (title and description) with a styled minimal layout.
+    
+    Args:
+    - title (str): Title text to be displayed above the media content.
+    - description (str): Description text to be displayed below the title.
+    - media_path (str): The file path (or glob pattern) to the media files (e.g., '*.jpg', 'media/*').
+    - width (str, optional): The width of the media container (default is "700px").
+    - height (str, optional): The height of the media container (default is "400px").
+    
+    Raises:
+    - ValueError: If no files are found for the given glob pattern.
+    - IOError: If there is an error loading an HTML file.
+    
+    The Chain of Responsibility pattern isn't explicitly applied here, but the concept of handling different
+    media types (images, videos, and HTML) based on file extensions resembles the handling of distinct cases
+    in a chain, where each media type is independently processed by its respective handling logic.
     """
-
+    
     # Resolve file paths
     file_list = glob.glob(media_path) if '*' in media_path or '?' in media_path else [media_path]
     file_list = sorted(file_list)  # Sort for consistent order
@@ -116,4 +143,5 @@ def render_item_visual_content(title, description, media_path, width="700px", he
         """,
         unsafe_allow_html=True
     )
+
 
