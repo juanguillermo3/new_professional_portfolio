@@ -51,16 +51,17 @@ def combine_metadata():
 # (1) RecSys
 #
 class RecommendationSystem:
+
+    # Default media dimensions (class-level static attributes)
+    MEDIA_CONTAINER_WIDTH = "700px"
+    MEDIA_CONTAINER_HEIGHT = "400px"
+    
     def __init__(self, 
                  num_recommended_items=6, 
                  num_columns=3, 
                  section_header="Recommendation System 🎯", 
                  section_description="Discover content tailored to your needs. Use the search bar to find recommendations and filter by project category."
                 ):
-
-        # Default media dimensions (class-level static attributes)
-        MEDIA_CONTAINER_WIDTH = "700px"
-        MEDIA_CONTAINER_HEIGHT = "400px"
     
         self.num_recommended_items = num_recommended_items
         self.num_columns = num_columns
