@@ -1,3 +1,5 @@
+
+
 import streamlit as st
 import streamlit.components.v1 as components
 import os
@@ -6,29 +8,14 @@ import glob
 def render_item_visual_content(title, description, media_path, width="700px", height="400px"):
     """
     Render visual content based on metadata with minimal spacing. Supports images, videos, and HTML.
-    Allows navigation between multiple media files matched by a glob pattern.
+    Allows navigation between multiple media files matched by a glob pattern using numbered buttons.
     
     This function:
     1. Resolves a file path pattern (supports glob patterns) to a list of media files.
     2. Displays a single media item at a time, such as an image, video, or HTML.
-    3. Provides navigation buttons (Previous/Next) to cycle through the matched media files.
+    3. Provides numbered buttons for navigation to jump directly to any media file.
     4. Uses Streamlit session state to track the current media index and enable navigation.
     5. Renders text metadata (title and description) with a styled minimal layout.
-    
-    Args:
-    - title (str): Title text to be displayed above the media content.
-    - description (str): Description text to be displayed below the title.
-    - media_path (str): The file path (or glob pattern) to the media files (e.g., '*.jpg', 'media/*').
-    - width (str, optional): The width of the media container (default is "700px").
-    - height (str, optional): The height of the media container (default is "400px").
-    
-    Raises:
-    - ValueError: If no files are found for the given glob pattern.
-    - IOError: If there is an error loading an HTML file.
-    
-    The Chain of Responsibility pattern isn't explicitly applied here, but the concept of handling different
-    media types (images, videos, and HTML) based on file extensions resembles the handling of distinct cases
-    in a chain, where each media type is independently processed by its respective handling logic.
     """
     
     # Resolve file paths
@@ -87,8 +74,19 @@ def render_item_visual_content(title, description, media_path, width="700px", he
             .nav-buttons {{
                 display: flex;
                 justify-content: center;
-                margin-top: 5px;
-                gap: 10px;
+                margin-top: 10px;
+                gap: 5px;
+            }}
+            .nav-button {{
+                background-color: navy;
+                color: white;
+                border: none;
+                padding: 8px 12px;
+                border-radius: 5px;
+                cursor: pointer;
+            }}
+            .nav-button:hover {{
+                background-color: darkblue;
             }}
         </style>
         """,
@@ -114,20 +112,15 @@ def render_item_visual_content(title, description, media_path, width="700px", he
         else:
             st.error(f"Unsupported media type: {file_ext}")
 
-    # Navigation buttons if multiple files exist
+    # Render navigation buttons as a grid of numbered buttons
     if total_files > 1:
-        col1, col2 = st.columns([1, 1])
-        with col1:
-            if st.button("⬅️ Previous", key="prev_media"):
-                st.session_state.media_index = (st.session_state.media_index - 1) % total_files
-                st.experimental_rerun()
-        with col2:
-            if st.button("Next ➡️", key="next_media"):
-                st.session_state.media_index = (st.session_state.media_index + 1) % total_files
-                st.experimental_rerun()
+        nav_buttons = st.columns(total_files)
+        for idx, col in enumerate(nav_buttons):
+            with col:
+                if st.button(f"{idx + 1}", key=f"nav_button_{idx}"):
+                    st.session_state.media_index = idx
+                    st.experimental_rerun()
         
-        st.caption(f"Media {st.session_state.media_index + 1} of {total_files}")
-
     # Render the text section
     st.markdown(
         f"""
@@ -138,5 +131,4 @@ def render_item_visual_content(title, description, media_path, width="700px", he
         """,
         unsafe_allow_html=True
     )
-
 
