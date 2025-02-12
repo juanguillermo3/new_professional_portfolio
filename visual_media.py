@@ -7,6 +7,11 @@ import os
 import streamlit as st
 import streamlit.components.v1 as components
 
+import streamlit as st
+import streamlit.components.v1 as components
+import os
+import glob
+
 def parse_media_content(media_path, width="700px", height="400px"):
     """
     Render media content based on the file type (image, video, HTML).
@@ -29,8 +34,6 @@ def parse_media_content(media_path, width="700px", height="400px"):
 
     # Wrap the media content in a styled container
     with st.container():
-        #st.markdown('<div class="media-container">', unsafe_allow_html=True)
-
         # Render media content based on type (image, video, html)
         if file_ext in ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg']:
             st.image(media_path, use_container_width=True)
@@ -48,9 +51,6 @@ def parse_media_content(media_path, width="700px", height="400px"):
 
         else:
             st.error(f"Unsupported media type: {file_ext}")
-
-        st.markdown('</div>', unsafe_allow_html=True)
-
 
 
 def render_item_visual_content(title, description, media_path, width="700px", height="400px"):
@@ -161,7 +161,8 @@ def render_item_visual_content(title, description, media_path, width="700px", he
                     st.session_state.media_index = idx
 
                     # Directly update the media container without rerun
-                    with media_placeholder:
+                    media_placeholder.empty()  # Clear the placeholder
+                    with media_placeholder:  # Re-render content after clearing the placeholder
                         parse_media_content(st.session_state.file_list[st.session_state.media_index], width, height)
                     break  # Exit after updating the media content
 
@@ -175,5 +176,6 @@ def render_item_visual_content(title, description, media_path, width="700px", he
         """,
         unsafe_allow_html=True
     )
+
 
 
