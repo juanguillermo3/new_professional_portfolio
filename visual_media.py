@@ -120,7 +120,8 @@ def render_item_visual_content(title, description, media_path, width="700px", he
         nav_buttons = st.columns(total_files)
         for idx, col in enumerate(nav_buttons):
             with col:
-                if st.button(f"{idx + 1}", key=f"nav_button_{idx}", type="secondary"):
+                # Apply secondary button style
+                if st.button(f"{idx + 1}", key=f"nav_button_{idx}", help=f"Go to media {idx + 1}", use_container_width=True):
                     st.session_state.media_index = idx
                     st.experimental_rerun()
         
