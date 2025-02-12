@@ -29,7 +29,7 @@ def parse_media_content(media_path, width="700px", height="400px"):
 
     # Wrap the media content in a styled container
     with st.container():
-        st.markdown('<div class="media-container">', unsafe_allow_html=True)
+        #st.markdown('<div class="media-container">', unsafe_allow_html=True)
 
         # Render media content based on type (image, video, html)
         if file_ext in ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg']:
