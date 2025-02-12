@@ -1,5 +1,3 @@
-
-
 import streamlit as st
 import streamlit.components.v1 as components
 import os
@@ -12,24 +10,23 @@ def parse_media_content(media_path, width="700px", height="400px"):
     """
     file_ext = os.path.splitext(media_path)[-1].lower()
 
-    # Render media
-    with st.container():
-        if file_ext in ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg']:
-            st.image(media_path, use_container_width=True)  # ✅ Fixed: Replaced deprecated `use_column_width`
+    # Render media content based on type (image, video, html)
+    if file_ext in ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg']:
+        st.image(media_path, use_container_width=True)
 
-        elif file_ext in ['.mp4', '.avi', '.mov', '.webm']:
-            st.video(media_path)
+    elif file_ext in ['.mp4', '.avi', '.mov', '.webm']:
+        st.video(media_path)
 
-        elif file_ext == '.html':
-            try:
-                with open(media_path, 'r') as file:
-                    html_content = file.read()
-                components.html(html_content, width=int(width.replace("px", "")), height=int(height.replace("px", "")))
-            except Exception as e:
-                st.error(f"Error loading HTML content: {str(e)}")
+    elif file_ext == '.html':
+        try:
+            with open(media_path, 'r') as file:
+                html_content = file.read()
+            components.html(html_content, width=int(width.replace("px", "")), height=int(height.replace("px", "")))
+        except Exception as e:
+            st.error(f"Error loading HTML content: {str(e)}")
 
-        else:
-            st.error(f"Unsupported media type: {file_ext}")
+    else:
+        st.error(f"Unsupported media type: {file_ext}")
 
 
 def render_item_visual_content(title, description, media_path, width="700px", height="400px"):
@@ -44,7 +41,7 @@ def render_item_visual_content(title, description, media_path, width="700px", he
     4. Uses Streamlit session state to track the current media index and enable navigation.
     5. Renders text metadata (title and description) with a styled minimal layout.
     """
-    
+
     # Resolve file paths (first time media_path gets registered in session_state)
     if "file_list" not in st.session_state:
         file_list = glob.glob(media_path) if '*' in media_path or '?' in media_path else [media_path]
@@ -57,7 +54,7 @@ def render_item_visual_content(title, description, media_path, width="700px", he
         st.error(f"No files found for pattern: {media_path}")
         return
 
-    # Session state for navigation
+    # Session state for navigation (store the index of the currently active media)
     if "media_index" not in st.session_state:
         st.session_state.media_index = 0
 
@@ -123,18 +120,24 @@ def render_item_visual_content(title, description, media_path, width="700px", he
         unsafe_allow_html=True
     )
 
-    # Render the current media item
-    parse_media_content(current_file, width, height)
+    # Render the current media item in the "media-container" placeholder
+    media_placeholder = st.empty()  # This creates a fixed placeholder reference
+    with media_placeholder:
+        parse_media_content(current_file, width, height)
 
-    # Render navigation buttons as a grid of numbered buttons
+    # Navigation buttons as a grid of numbered buttons
     if total_files > 1:
         nav_buttons = st.columns(total_files)
         for idx, col in enumerate(nav_buttons):
             with col:
                 if st.button(f"{idx + 1}", key=f"nav_button_{idx}"):
+                    # Update the media index in session state
                     st.session_state.media_index = idx
-                    parse_media_content(file_list[st.session_state.media_index], width, height)
-                    break  # No need for rerun; the content gets updated directly
+
+                    # Directly update the media container without rerun
+                    with media_placeholder:
+                        parse_media_content(file_list[st.session_state.media_index], width, height)
+                    break  # Exit after updating the media content
 
     # Render the text section
     st.markdown(
@@ -146,5 +149,4 @@ def render_item_visual_content(title, description, media_path, width="700px", he
         """,
         unsafe_allow_html=True
     )
-
 
