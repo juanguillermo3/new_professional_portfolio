@@ -61,7 +61,7 @@ def render_item_visual_content(title, description, media_path, width="700px", he
     total_files = len(file_list)
     current_file = file_list[st.session_state.media_index]
 
-    # Define base styles
+    # Define base styles for the visual content container and text
     st.markdown(
         f"""
         <style>
@@ -111,6 +111,7 @@ def render_item_visual_content(title, description, media_path, width="700px", he
                 padding: 8px 12px;
                 border-radius: 5px;
                 cursor: pointer;
+                text-align: center;
             }}
             .nav-button:hover {{
                 background-color: darkblue;
@@ -127,17 +128,20 @@ def render_item_visual_content(title, description, media_path, width="700px", he
 
     # Navigation buttons as a grid of numbered buttons
     if total_files > 1:
-        nav_buttons = st.columns(total_files)
-        for idx, col in enumerate(nav_buttons):
-            with col:
-                if st.button(f"{idx + 1}", key=f"nav_button_{idx}"):
-                    # Update the media index in session state
-                    st.session_state.media_index = idx
+        # HTML button generation instead of Streamlit button() to directly apply styles
+        button_html = ""
+        for idx in range(total_files):
+            button_html += f'<button class="nav-button" onclick="window.location.reload();">{idx + 1}</button>'
+        
+        st.markdown(f'<div class="nav-buttons">{button_html}</div>', unsafe_allow_html=True)
 
-                    # Directly update the media container without rerun
-                    with media_placeholder:
-                        parse_media_content(file_list[st.session_state.media_index], width, height)
-                    break  # Exit after updating the media content
+        # Update media content when a button is clicked
+        for idx in range(total_files):
+            if st.button(f"{idx + 1}", key=f"nav_button_{idx}"):
+                st.session_state.media_index = idx
+                with media_placeholder:
+                    parse_media_content(file_list[st.session_state.media_index], width, height)
+                break  # Exit after updating the media content
 
     # Render the text section
     st.markdown(
@@ -149,4 +153,5 @@ def render_item_visual_content(title, description, media_path, width="700px", he
         """,
         unsafe_allow_html=True
     )
+
 
