@@ -76,7 +76,7 @@ def render_item_visual_content(title, description, media_path, width="700px", he
     # Render media
     with st.container():
         if file_ext in ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg']:
-            st.image(current_file, use_container_width=True)
+            st.image(current_file, use_container_width=True)  # ✅ Fixed: Replaced deprecated `use_column_width`
 
         elif file_ext in ['.mp4', '.avi', '.mov', '.webm']:
             st.video(current_file)
