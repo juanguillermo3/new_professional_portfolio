@@ -32,7 +32,7 @@ WHATSAPP_NUMBER = os.getenv("WHATSAPP_NUMBER")
 SECTIONS = {
     "About": about,
     "RecSys": recsys,
-    "Services": services,
+    "Services&Rates": services,
     "Curriculum Vitae": cv,
     "Socials": socials
 }
