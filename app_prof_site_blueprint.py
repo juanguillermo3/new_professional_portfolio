@@ -59,8 +59,6 @@ render_section_separator()
 if "selected_sections" not in st.session_state:
     st.session_state["selected_sections"] = list(SECTIONS.keys())
 
-import streamlit as st
-
 # Adding custom CSS for customizing the pills' appearance with a navy blue color
 st.markdown("""
     <style>
