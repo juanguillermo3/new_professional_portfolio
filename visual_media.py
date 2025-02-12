@@ -29,6 +29,9 @@ def parse_media_content(media_path, width="700px", height="400px"):
         st.error(f"Unsupported media type: {file_ext}")
 
 
+import streamlit as st
+import glob
+
 def render_item_visual_content(title, description, media_path, width="700px", height="400px"):
     """
     Render visual content based on metadata with minimal spacing. Supports images, videos, and HTML.
@@ -104,16 +107,17 @@ def render_item_visual_content(title, description, media_path, width="700px", he
                 margin-top: 10px;
                 gap: 5px;
             }}
-            .nav-button {{
-                background-color: navy;
-                color: white;
+            /* Secondary button styling */
+            .nav-button-secondary {{
+                background-color: #e0e0e0;
+                color: black;
                 border: none;
                 padding: 8px 12px;
                 border-radius: 5px;
                 cursor: pointer;
             }}
-            .nav-button:hover {{
-                background-color: darkblue;
+            .nav-button-secondary:hover {{
+                background-color: #bdbdbd;
             }}
         </style>
         """,
@@ -130,7 +134,8 @@ def render_item_visual_content(title, description, media_path, width="700px", he
         nav_buttons = st.columns(total_files)
         for idx, col in enumerate(nav_buttons):
             with col:
-                if st.button(f"{idx + 1}", key=f"nav_button_{idx}"):
+                # Apply secondary button style
+                if st.button(f"{idx + 1}", key=f"nav_button_{idx}", help=f"Go to media {idx + 1}", use_container_width=True):
                     # Update the media index in session state
                     st.session_state.media_index = idx
 
@@ -149,4 +154,5 @@ def render_item_visual_content(title, description, media_path, width="700px", he
         """,
         unsafe_allow_html=True
     )
+
 
