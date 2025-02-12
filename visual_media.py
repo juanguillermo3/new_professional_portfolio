@@ -162,7 +162,7 @@ def render_item_visual_content(title, description, media_path, width="700px", he
 
                     # Directly update the media container without rerun
                     with media_placeholder:
-                        parse_media_content(file_list[st.session_state.media_index], width, height)
+                        parse_media_content(st.session_state.file_list[st.session_state.media_index], width, height)
                     break  # Exit after updating the media content
 
     # Render the text section
