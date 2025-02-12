@@ -3,20 +3,16 @@ import streamlit.components.v1 as components
 import os
 import glob
 
-# Ensure necessary session state variables exist
-if "media_index" not in st.session_state:
-    st.session_state.media_index = 0  # Tracks the current media item
+# Create a persistent placeholder outside the function
 if "media_placeholder" not in st.session_state:
     st.session_state.media_placeholder = st.empty()  # Stores the placeholder reference
-if "active_title" not in st.session_state:
-    st.session_state.active_title = None  # Tracks the currently displayed gallery title
 
 def render_item_visual_content(title, description, media_path, width="700px", height="400px"):
     """
     Render visual content based on metadata with minimal spacing.
     Supports images, videos, and HTML with navigation.
     """
-
+    
     # Resolve file paths
     file_list = glob.glob(media_path) if '*' in media_path or '?' in media_path else [media_path]
     file_list = sorted(file_list)  # Sort for consistent order
@@ -25,22 +21,15 @@ def render_item_visual_content(title, description, media_path, width="700px", he
         st.error(f"No files found for pattern: {media_path}")
         return
 
+    # Session state for navigation
+    if "media_index" not in st.session_state:
+        st.session_state.media_index = 0
+
     total_files = len(file_list)
-
-    # Check if we are in a new gallery or the same one
-    if st.session_state.active_title != title:
-        # New gallery detected → Reset everything
-        st.session_state.active_title = title
-        st.session_state.media_index = 0  # Start from the first item
-        st.session_state.media_placeholder = st.empty()  # Reset placeholder
-
-    # Ensure index is within bounds
-    st.session_state.media_index = min(st.session_state.media_index, total_files - 1)
-
     current_file = file_list[st.session_state.media_index]
     file_ext = os.path.splitext(current_file)[-1].lower()
 
-    # Update only the media content inside the placeholder
+    # Use the persistent placeholder
     with st.session_state.media_placeholder.container():
         if file_ext in ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg']:
             st.image(current_file, use_container_width=True)
@@ -59,12 +48,12 @@ def render_item_visual_content(title, description, media_path, width="700px", he
         else:
             st.error(f"Unsupported media type: {file_ext}")
 
-    # If it's a new gallery, render navigation buttons
-    if st.session_state.active_title == title and total_files > 1:
+    # Render navigation buttons
+    if total_files > 1:
         nav_buttons = st.columns(total_files)
         for idx, col in enumerate(nav_buttons):
             with col:
-                if st.button(f"{idx + 1}", key=f"nav_button_{st.session_state.active_title}_{idx}", use_container_width=True):
+                if st.button(f"{idx + 1}", key=f"nav_button_{idx}", use_container_width=True):
                     st.session_state.media_index = idx
                     st.experimental_rerun()
 
