@@ -12,7 +12,7 @@ from front_end_utils import tags_in_twitter_style
 
 
 class CurriculumVitae:
-    def __init__(self, section_description, tags=None):
+    def __init__(self, section_description):
         """
         :param section_description: A string representing the description for the Curriculum Vitae section.
         :param tags: A list of string tags to be displayed in a Twitter-style format.
@@ -21,7 +21,6 @@ class CurriculumVitae:
         self.statement = professional_statement()
         self.work_experience = load_experience_items()
         self.education = load_education_items()
-        self.tags = tags if tags else []
 
         # Sort the work and education items by end date (most recent first)
         self.work_experience.sort(key=lambda x: parse_as_datetime(x['date_range'][1]), reverse=True)
@@ -76,14 +75,8 @@ class CurriculumVitae:
                 </div>
             </div>""", unsafe_allow_html=True)
         
-        if self.tags:
-            styled_tags = tags_in_twitter_style(self.tags)
-            st.markdown(f"""<div style='margin-top: 20px; padding-top: 10px; border-top: 1px solid #ccc;'>
-                <strong>Tags:</strong> {styled_tags}
-            </div>""", unsafe_allow_html=True)
 
 cv = CurriculumVitae(
-    section_description="This is a description of the Curriculum Vitae section.",
-    tags=["Python", "DataScience", "MachineLearning", "AI"]
+    section_description="This is a description of the Curriculum Vitae section."
 )
 
