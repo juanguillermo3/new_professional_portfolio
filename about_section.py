@@ -11,7 +11,6 @@ class AboutSection:
     One key area of interest is efficiently displaying content to potential clients or employers. 
     Features such as the RecSys are still under development, and related research can be found on my 
     <a href="{linkedin}" target="_blank" style="color: #1f77b4; text-decoration: none;">LinkedIn profile</a>. 
-    Some content is AI-generated for developmental purposes.
     """
 
     def __init__(self, linkedin_profile):
