@@ -102,10 +102,10 @@ def render_item_visual_content(title, description, media_path, width="700px", he
                 display: flex;
                 justify-content: center;
                 margin-top: 10px;
-                gap: 5px;
+                gap: 2px;  /* Reduced horizontal margin between buttons */
             }}
             .nav-button {{
-                background-color: navy;
+                background-color: navy;  /* Navy blue button */
                 color: white;
                 border: none;
                 padding: 8px 12px;
