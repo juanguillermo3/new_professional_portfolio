@@ -57,7 +57,11 @@ class RecommendationSystem:
                  section_header="Recommendation System 🎯", 
                  section_description="Discover content tailored to your needs. Use the search bar to find recommendations and filter by project category."
                 ):
-                
+
+        # Default media dimensions (class-level static attributes)
+        MEDIA_CONTAINER_WIDTH = "700px"
+        MEDIA_CONTAINER_HEIGHT = "400px"
+    
         self.num_recommended_items = num_recommended_items
         self.num_columns = num_columns
         self.section_header = section_header
@@ -72,8 +76,36 @@ class RecommendationSystem:
         
         # Prepare project titles and default project
         self._prepare_project_titles_and_default()
+    #
+    # sorting logica applied to the projects
+    #
+    def _sort_projects(self):
+        """Sorts the projects by ongoing status and number of related items."""
+        project_item_counts = {
+            repo["title"].lower(): sum(1 for item in self.metadata_list if item['repo_name'].lower() == repo["title"].lower())
+            for repo in self.repos_metadata
+        }
 
+        self.repos_metadata.sort(
+            key=lambda x: (
+                not x.get("ongoing", False),  # Sort ongoing projects first
+                -project_item_counts.get(x["title"].lower(), 0)  # Descending by item count
+            )
+        )
+    #
+    def _prepare_project_titles_and_default(self):
+        """Prepares project titles for selection and determines the default project."""
+        self.project_titles = [
+            f"{repo['title']} (Ongoing)" if repo.get("ongoing", False) else repo["title"]
+            for repo in self.repos_metadata
+        ]
 
+        self.title_mapping = {
+            prettify_title(title): repo["title"]
+            for title, repo in zip(self.project_titles, self.repos_metadata)
+        }
+
+        self.default_project = self.repos_metadata[0]["title"] if self.repos_metadata else "No Projects"
     
     RANKER_LOGIC = """
     ⚙️ The RecSys engine recommends items based on visual prominence and freshness. 
@@ -142,41 +174,6 @@ class RecommendationSystem:
         # Step 5: Return the top 'num_recommended_items' recommendations
         return final_ranked_items[:self.num_recommended_items]
 
-    
-    #
-    # sorting logica applied to the projects
-    #
-    def _sort_projects(self):
-        """Sorts the projects by ongoing status and number of related items."""
-        project_item_counts = {
-            repo["title"].lower(): sum(1 for item in self.metadata_list if item['repo_name'].lower() == repo["title"].lower())
-            for repo in self.repos_metadata
-        }
-
-        self.repos_metadata.sort(
-            key=lambda x: (
-                not x.get("ongoing", False),  # Sort ongoing projects first
-                -project_item_counts.get(x["title"].lower(), 0)  # Descending by item count
-            )
-        )
-
-
-    #
-    def _prepare_project_titles_and_default(self):
-        """Prepares project titles for selection and determines the default project."""
-        self.project_titles = [
-            f"{repo['title']} (Ongoing)" if repo.get("ongoing", False) else repo["title"]
-            for repo in self.repos_metadata
-        ]
-
-        self.title_mapping = {
-            prettify_title(title): repo["title"]
-            for title, repo in zip(self.project_titles, self.repos_metadata)
-        }
-
-        self.default_project = self.repos_metadata[0]["title"] if self.repos_metadata else "No Projects"
-
-
     #
     # front end representation of items
     #
@@ -230,10 +227,6 @@ class RecommendationSystem:
         
         st.markdown("<br><br>", unsafe_allow_html=True)
     
-    # Default media dimensions (class-level static attributes)
-    MEDIA_CONTAINER_WIDTH = "700px"
-    MEDIA_CONTAINER_HEIGHT = "400px"
-
     def handle_galleria_click(self, rec, width=None, height=None):
         """
         Handle the click event for the galleria item and display its content.
@@ -254,8 +247,6 @@ class RecommendationSystem:
         with st.spinner("Loading media..."):
             with self.media_placeholder.container():
                 render_item_visual_content(item_title, item_description, image_path, width, height)
-    
-            
 
     def apply_transition_styles(self):
         """Apply the CSS transition styles to the media placeholder."""
