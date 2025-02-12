@@ -1,58 +1,3 @@
-import streamlit as st
-import streamlit.components.v1 as components
-import os
-import glob
-
-import os
-import streamlit as st
-import streamlit.components.v1 as components
-
-import streamlit as st
-import streamlit.components.v1 as components
-import os
-import glob
-
-def parse_media_content(media_path, width="700px", height="400px"):
-    """
-    Render media content based on the file type (image, video, HTML).
-    This function is responsible for parsing and rendering the appropriate media.
-    """
-    file_ext = os.path.splitext(media_path)[-1].lower()
-
-    # Create a container with a shadow effect to distinguish media
-    media_container_style = """
-        <style>
-        .media-container {
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            padding: 10px;
-            background-color: #fff;
-        }
-        </style>
-    """
-    st.markdown(media_container_style, unsafe_allow_html=True)
-
-    # Wrap the media content in a styled container
-    with st.container():
-        # Render media content based on type (image, video, html)
-        if file_ext in ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg']:
-            st.image(media_path, use_container_width=True)
-
-        elif file_ext in ['.mp4', '.avi', '.mov', '.webm']:
-            st.video(media_path)
-
-        elif file_ext == '.html':
-            try:
-                with open(media_path, 'r') as file:
-                    html_content = file.read()
-                components.html(html_content, width=int(width.replace("px", "")), height=int(height.replace("px", "")))
-            except Exception as e:
-                st.error(f"Error loading HTML content: {str(e)}")
-
-        else:
-            st.error(f"Unsupported media type: {file_ext}")
-
-
 def render_item_visual_content(title, description, media_path, width="700px", height="400px"):
     """
     Render visual content based on metadata with minimal spacing. Supports images, videos, and HTML.
@@ -128,17 +73,16 @@ def render_item_visual_content(title, description, media_path, width="700px", he
                 margin-top: 10px;
                 gap: 5px;
             }}
-            /* Secondary button styling */
-            .nav-button-secondary {{
-                background-color: #e0e0e0;
-                color: black;
+            .nav-button {{
+                background-color: navy;
+                color: white;
                 border: none;
                 padding: 8px 12px;
                 border-radius: 5px;
                 cursor: pointer;
             }}
-            .nav-button-secondary:hover {{
-                background-color: #bdbdbd;
+            .nav-button:hover {{
+                background-color: darkblue;
             }}
         </style>
         """,
@@ -155,15 +99,13 @@ def render_item_visual_content(title, description, media_path, width="700px", he
         nav_buttons = st.columns(total_files)
         for idx, col in enumerate(nav_buttons):
             with col:
-                # Apply secondary button style
-                if st.button(f"{idx + 1}", key=f"nav_button_{idx}", help=f"Go to media {idx + 1}", use_container_width=True):
+                if st.button(f"{idx + 1}", key=f"nav_button_{idx}"):
                     # Update the media index in session state
                     st.session_state.media_index = idx
 
                     # Directly update the media container without rerun
-                    media_placeholder.empty()  # Clear the placeholder
-                    with media_placeholder:  # Re-render content after clearing the placeholder
-                        parse_media_content(st.session_state.file_list[st.session_state.media_index], width, height)
+                    with media_placeholder:
+                        parse_media_content(file_list[st.session_state.media_index], width, height)
                     break  # Exit after updating the media content
 
     # Render the text section
