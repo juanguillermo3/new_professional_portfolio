@@ -10,22 +10,9 @@ def parse_media_content(media_path, width="700px", height="400px"):
     """
     file_ext = os.path.splitext(media_path)[-1].lower()
 
-    # Create a container with a shadow effect to distinguish media
-    media_container_style = """
-        <style>
-        .media-container {
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            padding: 10px;
-            background-color: #fff;
-        }
-        </style>
-    """
-    #st.markdown(media_container_style, unsafe_allow_html=True)
 
     # Wrap the media content in a styled container
     with st.container():
-        st.markdown('<div class="media-container">', unsafe_allow_html=True)
         #st.markdown('<div class="media-container">', unsafe_allow_html=True)
 
         # Render media content based on type (image, video, html)
