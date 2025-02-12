@@ -28,7 +28,8 @@ DEFAULT_EMAILS = [
 class HeroArea:
     def __init__(self, quote, avatar_image: str = None, avatar_caption: str = "", avatar_tags: list = None,
                  code_samples: list = None, code_samples_intro: str = "Explore the code samples below:",
-                 whatsapp_number: str = WHATSAPP_NUMBER, contact_button_intro: str = "Let's work together. Connect to talk about your specific requirements. I can start working for you almost instantly",
+                 whatsapp_number: str = WHATSAPP_NUMBER, 
+                 contact_button_intro: str = "Interested in collaborating? Let's discuss how I can bring value to your project. I'm ready to help when you are.",
                  professional_offering: str = "Professional offering description.",
                  detailed_offering: str = "Detailed offering description"):
         self.quote = quote if isinstance(quote, list) else [quote]
@@ -64,20 +65,25 @@ class HeroArea:
         """
         st.markdown(contact_html, unsafe_allow_html=True)
 
-
     def render_contact_button(self):
         if not self.whatsapp_number:
             st.warning("WhatsApp number is not available.")
             return
+        
         st.markdown(f'<p class="contact-button-intro">{self.contact_button_intro}</p>', unsafe_allow_html=True)
-        button_url = f"https://wa.me/{self.whatsapp_number}?text=Hi,%20I%27d%20like%20to%20get%20in%20touch!"
+        
+        button_url = f"https://wa.me/{self.whatsapp_number}?text=Hi,%20I%27d%20like%20to%20connect!"
+    
+        button_label = "Start a Conversation 💬"
+    
         st.markdown(f"""
         <a href="{button_url}" target="_blank">
             <button style="background-color: #25d366; color: white; border: 1px solid white; padding: 10px 20px; font-size: 14px; border-radius: 5px; text-align: center; width: 100%;">
-                Contact Me on WhatsApp
+                {button_label}
             </button>
         </a>
         """, unsafe_allow_html=True)
+
 
     def render(self):
         col1, col2 = st.columns([2, 1])
