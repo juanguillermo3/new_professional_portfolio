@@ -3,6 +3,10 @@ import streamlit.components.v1 as components
 import os
 import glob
 
+import os
+import streamlit as st
+import streamlit.components.v1 as components
+
 def parse_media_content(media_path, width="700px", height="400px"):
     """
     Render media content based on the file type (image, video, HTML).
@@ -10,27 +14,44 @@ def parse_media_content(media_path, width="700px", height="400px"):
     """
     file_ext = os.path.splitext(media_path)[-1].lower()
 
-    # Render media content based on type (image, video, html)
-    if file_ext in ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg']:
-        st.image(media_path, use_container_width=True)
+    # Create a container with a shadow effect to distinguish media
+    media_container_style = """
+        <style>
+        .media-container {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 10px;
+            background-color: #fff;
+        }
+        </style>
+    """
+    st.markdown(media_container_style, unsafe_allow_html=True)
 
-    elif file_ext in ['.mp4', '.avi', '.mov', '.webm']:
-        st.video(media_path)
+    # Wrap the media content in a styled container
+    with st.container():
+        st.markdown('<div class="media-container">', unsafe_allow_html=True)
 
-    elif file_ext == '.html':
-        try:
-            with open(media_path, 'r') as file:
-                html_content = file.read()
-            components.html(html_content, width=int(width.replace("px", "")), height=int(height.replace("px", "")))
-        except Exception as e:
-            st.error(f"Error loading HTML content: {str(e)}")
+        # Render media content based on type (image, video, html)
+        if file_ext in ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg']:
+            st.image(media_path, use_container_width=True)
 
-    else:
-        st.error(f"Unsupported media type: {file_ext}")
+        elif file_ext in ['.mp4', '.avi', '.mov', '.webm']:
+            st.video(media_path)
+
+        elif file_ext == '.html':
+            try:
+                with open(media_path, 'r') as file:
+                    html_content = file.read()
+                components.html(html_content, width=int(width.replace("px", "")), height=int(height.replace("px", "")))
+            except Exception as e:
+                st.error(f"Error loading HTML content: {str(e)}")
+
+        else:
+            st.error(f"Unsupported media type: {file_ext}")
+
+        st.markdown('</div>', unsafe_allow_html=True)
 
 
-import streamlit as st
-import glob
 
 def render_item_visual_content(title, description, media_path, width="700px", height="400px"):
     """
