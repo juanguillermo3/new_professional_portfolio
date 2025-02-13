@@ -23,7 +23,7 @@ from git_api_utils import load_repos_metadata as load_github_metadata
 from app_end_metadata import load_repos_metadata as load_app_metadata
 from front_end_utils import render_section_separator, render_external_link_button, prettify_title, tags_in_twitter_style
 from media_carousel import MediaCarousel  # Assuming this is the correct import
-from visual_media import render_item_visual_content, GalleryCollection
+from visual_media import render_item_visual_content, test_gallery_collection
 from front_end_for_recommended_content import html_for_item_data
 
 #
@@ -78,7 +78,7 @@ class RecommendationSystem:
         self._prepare_project_titles_and_default()
 
         # Initialize GalleryCollection instance
-        self.gallery_collection = GalleryCollection()
+        self.gallery_collection = test_gallery_collection
     #
     # sorting logica applied to the projects
     #
