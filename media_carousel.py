@@ -70,28 +70,6 @@ class MediaCarousel:
         self.index = (self.index - 1) % len(self.media_content)
         st.session_state[self.session_key] = self.index
 
-    def start_auto_update(self):
-        """Handle periodic updates in the app loop."""
-        if self.update_interval:
-            # Time tracking for auto-update
-            last_update_time = st.session_state.get(f"{self.session_key}_last_update", time.time())
-            current_time = time.time()
-
-            if current_time - last_update_time >= self.update_interval:
-                self.next_item()
-                # Update the last update time
-                st.session_state[f"{self.session_key}_last_update"] = current_time
-                st.experimental_rerun()
-
-    def get_caption(self, media_path):
-        """
-        Retrieves the caption for the current media item from the metadata.
-        
-        :param media_path: The path of the media file.
-        :return: A string caption if found, otherwise an empty string.
-        """
-        filename = os.path.basename(media_path)
-        return self.metadata.get(filename, {}).get("caption", "")
 
     def parse_media(self, media_path):
         """
