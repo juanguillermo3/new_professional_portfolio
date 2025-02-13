@@ -3,6 +3,11 @@ import streamlit.components.v1 as components
 import os
 import glob
 
+import streamlit as st
+import glob
+import os
+from streamlit.components.v1 import html as components_html
+
 def render_item_visual_content(title, description, media_path, width="700px", height="400px"):
     """
     Render visual content based on metadata with minimal spacing. Supports images, videos, and HTML.
@@ -130,6 +135,103 @@ def render_item_visual_content(title, description, media_path, width="700px", he
         """,
         unsafe_allow_html=True
     )
+
+
+class VisualContentGallery:
+    def __init__(self, title, description, media_path, width="700px", height="400px"):
+        self.title = title
+        self.description = description
+        self.width = width
+        self.height = height
+        self.file_list = self._find_media_files(media_path)
+        self.current_index = 0 if self.file_list else None
+
+    def _find_media_files(self, media_path):
+        file_list = glob.glob(media_path) if '*' in media_path or '?' in media_path else [media_path]
+        return sorted(file_list)
+
+    def parse_media(self, file_path):
+        file_ext = os.path.splitext(file_path)[-1].lower()
+        if file_ext in ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg']:
+            st.image(file_path, use_column_width=True)
+        elif file_ext in ['.mp4', '.avi', '.mov', '.webm']:
+            st.video(file_path)
+        elif file_ext == '.html':
+            try:
+                with open(file_path, 'r') as file:
+                    html_content = file.read()
+                components_html(html_content, width=int(self.width.replace("px", "")), height=int(self.height.replace("px", "")))
+            except Exception as e:
+                st.error(f"Error loading HTML content: {str(e)}")
+        else:
+            st.error(f"Unsupported media type: {file_ext}")
+
+    def render(self):
+        if not self.file_list:
+            st.error("No media files found.")
+            return
+
+        st.markdown(
+            f"""
+            <style>
+                .media-container {{
+                    width: {self.width};
+                    height: {self.height};
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    overflow: hidden;
+                    background: rgba(0, 0, 0, 0.05);
+                    border-radius: 10px;
+                    margin-bottom: 5px;
+                }}
+                .text-container {{
+                    background: rgba(0, 0, 0, 0.3);
+                    padding: 6px;
+                    border-radius: 8px;
+                    color: white;
+                    width: 100%;
+                    text-align: center;
+                    margin-top: 5px;
+                }}
+                .title-text {{
+                    font-size: 18px;
+                    font-weight: 600;
+                    color: #fff;
+                    display: block;
+                }}
+                .description-text {{
+                    font-size: 14px;
+                    font-weight: 400;
+                    color: #ddd;
+                    display: block;
+                    margin-top: 3px;
+                }}
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+
+        current_file = self.file_list[self.current_index]
+        self.parse_media(current_file)
+
+        if len(self.file_list) > 1:
+            nav_buttons = st.columns(len(self.file_list))
+            for idx, col in enumerate(nav_buttons):
+                with col:
+                    if st.button(f"{idx + 1}", key=f"nav_button_{idx}"):
+                        self.current_index = idx
+                        st.experimental_rerun()
+
+        st.markdown(
+            f"""
+            <div class="text-container">
+                <span class="title-text">{self.title}</span>
+                <span class="description-text">{self.description}</span>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
 
 
