@@ -1,12 +1,8 @@
+import os
+import glob
 import streamlit as st
 import streamlit.components.v1 as components
-import os
-import glob
 
-import streamlit as st
-import glob
-import os
-from streamlit.components.v1 import html as components_html
 
 def render_item_visual_content(title, description, media_path, width="700px", height="400px"):
     """
