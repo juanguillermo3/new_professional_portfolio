@@ -318,6 +318,16 @@ test_gallery = VisualContentGallery(
 #
 #test_gallery.render()
 
+test_gallery_collection=GalleryCollection()
+#
+#test_gallery_collection.get(
+#    "test_galleria",
+#    {
+#    "title":"Geometric Modelling for Nutrition Data",
+#    "description":"Applies Geometric Modelling based on dimensionality reduction to analize nutritional preferences of the monkey species.",
+#    "media_path":"assets/gm_per_*.png",
+#    }
+#).render()
 
 
 
