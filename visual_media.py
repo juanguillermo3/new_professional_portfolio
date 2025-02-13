@@ -264,3 +264,63 @@ test_gallery = VisualContentGallery(
 )
 #
 #test_gallery.render()
+
+
+class GalleryCollection:
+    """
+    A collection that manages multiple instances of VisualContentGallery.
+    It provides a centralized access point for retrieving gallery instances by a unique key.
+    Instances are cached to ensure that duplicate galleries are not created for the same key.
+
+    Attributes:
+        cache (dict): A dictionary that stores cached VisualContentGallery instances by key.
+
+    Methods:
+        get(key, galleria_params): Retrieves an existing VisualContentGallery instance from the cache 
+                                   or creates a new one if it doesn't exist. Validates the provided parameters.
+    """
+
+    def __init__(self):
+        """
+        Initializes the GalleryCollection with an empty cache.
+        """
+        self.cache = {}
+
+    def _validate_galleria_params(self, galleria_params):
+        """
+        Validates the required parameters for instantiating a VisualContentGallery.
+        
+        Raises:
+            ValueError: If any of the required keys ('title', 'description', 'media_path') are missing.
+        """
+        required_keys = ['title', 'description', 'media_path']
+        for key in required_keys:
+            if key not in galleria_params:
+                raise ValueError(f"Missing required parameter: '{key}' in galleria_params")
+
+    def get(self, key, galleria_params):
+        """
+        Retrieves a VisualContentGallery instance by key. If the instance does not exist, it is created and cached.
+        
+        Args:
+            key (str): The unique identifier for the gallery.
+            galleria_params (dict): A dictionary containing parameters like 'title', 'description', and 'media_path'.
+        
+        Returns:
+            VisualContentGallery: A cached or newly created VisualContentGallery instance.
+
+        Raises:
+            ValueError: If any required parameters are missing from galleria_params.
+        """
+        self._validate_galleria_params(galleria_params)
+        
+        if key not in self.cache:
+            self.cache[key] = VisualContentGallery(
+                title=galleria_params['title'],
+                description=galleria_params['description'],
+                media_path=galleria_params['media_path'],
+                width=galleria_params.get('width', '700px'),
+                height=galleria_params.get('height', '400px')
+            )
+        return self.cache[key]
+
