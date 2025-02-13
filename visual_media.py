@@ -167,6 +167,66 @@ class VisualContentGallery:
             st.error(f"Unsupported media type: {file_ext}")
 
     def render(self):
+
+        # Apply styles globally to the app
+        st.markdown(
+            f"""
+            <style>
+                .media-container {{
+                    width: {self.width};
+                    height: {self.height};
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    overflow: hidden;
+                    background: rgba(0, 0, 0, 0.05);
+                    border-radius: 10px;
+                    margin-bottom: 5px;
+                }}
+                .text-container {{
+                    background: rgba(0, 0, 0, 0.3);
+                    padding: 6px;
+                    border-radius: 8px;
+                    color: white;
+                    width: 100%;
+                    text-align: center;
+                    margin-top: 5px;
+                }}
+                .title-text {{
+                    font-size: 18px;
+                    font-weight: 600;
+                    color: #fff;
+                    display: block;
+                }}
+                .description-text {{
+                    font-size: 14px;
+                    font-weight: 400;
+                    color: #ddd;
+                    display: block;
+                    margin-top: 3px;
+                }}
+                .nav-buttons {{
+                    display: flex;
+                    justify-content: center;
+                    margin-top: 10px;
+                    gap: 5px;
+                }}
+                .nav-button {{
+                    background-color: navy;
+                    color: white;
+                    border: none;
+                    padding: 8px 12px;
+                    border-radius: 5px;
+                    cursor: pointer;
+                }}
+                .nav-button:hover {{
+                    background-color: darkblue;
+                }}
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+        
         if not self.file_list:
             st.error("No media files found.")
             return
