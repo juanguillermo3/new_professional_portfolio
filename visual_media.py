@@ -144,7 +144,7 @@ class VisualContentGallery:
         self.width = width
         self.height = height
         self.file_list = self._find_media_files(media_path)
-        self.current_index = 0 if self.file_list else None
+        self.current_index = 0
 
     def _find_media_files(self, media_path):
         file_list = glob.glob(media_path) if '*' in media_path or '?' in media_path else [media_path]
@@ -153,14 +153,14 @@ class VisualContentGallery:
     def parse_media(self, file_path):
         file_ext = os.path.splitext(file_path)[-1].lower()
         if file_ext in ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg']:
-            st.image(file_path, use_column_width=True)
+            st.image(file_path, use_container_width=True)
         elif file_ext in ['.mp4', '.avi', '.mov', '.webm']:
             st.video(file_path)
         elif file_ext == '.html':
             try:
                 with open(file_path, 'r') as file:
                     html_content = file.read()
-                components_html(html_content, width=int(self.width.replace("px", "")), height=int(self.height.replace("px", "")))
+                components.html(html_content, width=int(self.width.replace("px", "")), height=int(self.height.replace("px", "")))
             except Exception as e:
                 st.error(f"Error loading HTML content: {str(e)}")
         else:
@@ -171,47 +171,6 @@ class VisualContentGallery:
             st.error("No media files found.")
             return
 
-        st.markdown(
-            f"""
-            <style>
-                .media-container {{
-                    width: {self.width};
-                    height: {self.height};
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    overflow: hidden;
-                    background: rgba(0, 0, 0, 0.05);
-                    border-radius: 10px;
-                    margin-bottom: 5px;
-                }}
-                .text-container {{
-                    background: rgba(0, 0, 0, 0.3);
-                    padding: 6px;
-                    border-radius: 8px;
-                    color: white;
-                    width: 100%;
-                    text-align: center;
-                    margin-top: 5px;
-                }}
-                .title-text {{
-                    font-size: 18px;
-                    font-weight: 600;
-                    color: #fff;
-                    display: block;
-                }}
-                .description-text {{
-                    font-size: 14px;
-                    font-weight: 400;
-                    color: #ddd;
-                    display: block;
-                    margin-top: 3px;
-                }}
-            </style>
-            """,
-            unsafe_allow_html=True
-        )
-
         current_file = self.file_list[self.current_index]
         self.parse_media(current_file)
 
@@ -219,9 +178,9 @@ class VisualContentGallery:
             nav_buttons = st.columns(len(self.file_list))
             for idx, col in enumerate(nav_buttons):
                 with col:
-                    if st.button(f"{idx + 1}", key=f"nav_button_{idx}"):
+                    if st.button(f"{idx + 1}", key=f"nav_button_{idx}", help=f"Go to media {idx + 1}", type="secondary", use_container_width=True):
                         self.current_index = idx
-                        #st.experimental_rerun()
+                        st.experimental_rerun()
 
         st.markdown(
             f"""
@@ -234,6 +193,7 @@ class VisualContentGallery:
         )
 
 
+
 # Usage example
 test_gallery = VisualContentGallery(
     title="Geometric Modelling for Nutrition Data",
@@ -243,4 +203,4 @@ test_gallery = VisualContentGallery(
     height="400px"
 )
 #
-test_gallery.render()
+#test_gallery.render()
