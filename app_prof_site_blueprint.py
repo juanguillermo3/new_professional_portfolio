@@ -96,8 +96,8 @@ gc=GalleryCollection()
 gc.get(
     "test_galleria",
     {
-    title:"Geometric Modelling for Nutrition Data",
-    description:"Applies Geometric Modelling based on dimensionality reduction to analize nutritional preferences of the monkey species.",
-    media_path:"assets/gm_per_*.png",
+    "title":"Geometric Modelling for Nutrition Data",
+    "description":"Applies Geometric Modelling based on dimensionality reduction to analize nutritional preferences of the monkey species.",
+    "media_path":"assets/gm_per_*.png",
     }
 ).render()
