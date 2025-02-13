@@ -180,7 +180,7 @@ class VisualContentGallery:
                 with col:
                     if st.button(f"{idx + 1}", key=f"nav_button_{idx}", help=f"Go to media {idx + 1}", type="secondary", use_container_width=True):
                         self.current_index = idx
-                        st.experimental_rerun()
+                        #st.experimental_rerun()
 
         st.markdown(
             f"""
