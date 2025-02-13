@@ -221,7 +221,7 @@ class VisualContentGallery:
                 with col:
                     if st.button(f"{idx + 1}", key=f"nav_button_{idx}"):
                         self.current_index = idx
-                        st.experimental_rerun()
+                        #st.experimental_rerun()
 
         st.markdown(
             f"""
@@ -234,4 +234,13 @@ class VisualContentGallery:
         )
 
 
-
+# Usage example
+test_gallery = VisualContentGallery(
+    title="Geometric Modelling for Nutrition Data",
+    description="Applies Geometric Modelling based on dimensionality reduction to analize nutritional preferences of the monkey species.",
+    media_path="assets/gm_per_*.png",
+    width="700px",
+    height="400px"
+)
+#
+test_gallery.render()
