@@ -318,7 +318,7 @@ test_gallery = VisualContentGallery(
 #
 #test_gallery.render()
 
-gallery_collection=GalleryCollection()
+test_gallery_collection=GalleryCollection()
 #
 #test_gallery_collection.get(
 #    "test_galleria",
