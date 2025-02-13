@@ -18,6 +18,7 @@ from rec_sys import recsys
 from about_section import about
 from services_section import services
 from socials_section import socials
+from render_item_visual_content import test_gallery
 
 # Load environment variables
 load_dotenv(override=True)
@@ -90,4 +91,4 @@ for section_name, module in SECTIONS.items():
         module.render()
         render_section_separator()
 
-
+test_gallery.render()
