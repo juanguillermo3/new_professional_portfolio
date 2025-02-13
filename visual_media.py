@@ -249,19 +249,6 @@ class VisualContentGallery:
         )
 
 
-
-# Usage example
-test_gallery = VisualContentGallery(
-    title="Geometric Modelling for Nutrition Data",
-    description="Applies Geometric Modelling based on dimensionality reduction to analize nutritional preferences of the monkey species.",
-    media_path="assets/gm_per_*.png",
-    width="700px",
-    height="400px"
-)
-#
-#test_gallery.render()
-
-
 class GalleryCollection:
     """
     A collection that manages multiple instances of VisualContentGallery.
@@ -319,4 +306,18 @@ class GalleryCollection:
                 height=galleria_params.get('height', '400px')
             )
         return self.cache[key]
+        
+# Usage example
+test_gallery = VisualContentGallery(
+    title="Geometric Modelling for Nutrition Data",
+    description="Applies Geometric Modelling based on dimensionality reduction to analize nutritional preferences of the monkey species.",
+    media_path="assets/gm_per_*.png",
+    width="700px",
+    height="400px"
+)
+#
+#test_gallery.render()
+
+
+
 
