@@ -51,7 +51,6 @@ def combine_metadata():
 # (1) RecSys
 #
 class RecommendationSystem:
-
     # Default media dimensions (class-level static attributes)
     MEDIA_CONTAINER_WIDTH = "700px"
     MEDIA_CONTAINER_HEIGHT = "400px"
@@ -77,6 +76,9 @@ class RecommendationSystem:
         
         # Prepare project titles and default project
         self._prepare_project_titles_and_default()
+
+        # Initialize GalleryCollection instance
+        self.gallery_collection = GalleryCollection()
     #
     # sorting logica applied to the projects
     #
@@ -231,23 +233,40 @@ class RecommendationSystem:
     def handle_galleria_click(self, rec, width=None, height=None):
         """
         Handle the click event for the galleria item and display its content.
+        Instead of calling render_item_visual_content directly, use the GalleryCollection.
         """
         self.media_placeholder.empty()
         
         width = width or self.MEDIA_CONTAINER_WIDTH
         height = height or self.MEDIA_CONTAINER_HEIGHT
         
-        item_title = rec.get('title', 'No Title Available')
-        item_description = rec.get('description', 'No description available.')
-        image_path = rec.get('image_path', None)
+        # Generate a unique key for the gallery based on repo_name and title
+        gallery_key = f"{rec.get('repo_name', 'default_repo')}_{rec.get('title', 'default_title')}"
         
-        if not image_path:
-            st.error("Error: 'image_path' key not found in the provided data.")
-            return
+        # Prepare galleria_params
+        galleria_params = {
+            'title': rec.get('title', None),
+            'description': rec.get('description', None),
+            'media_path': rec.get('image_path', None),
+            'width': width,
+            'height': height
+        }
+
+        # Validate that the required parameters are present
+        missing_params = [key for key, value in galleria_params.items() if value is None]
         
+        if missing_params:
+            # If any required parameters are missing, output a debug message
+            st.write(f"Debug: Missing parameters for Galleria - {', '.join(missing_params)}")
+            return  # Exit the function if the schema is not compliant
+
+        # Retrieve or create a new VisualContentGallery instance
+        gallery_instance = self.gallery_collection.get(gallery_key, galleria_params)
+        
+        # Call the render method on the retrieved instance
         with st.spinner("Loading media..."):
             with self.media_placeholder.container():
-                render_item_visual_content(item_title, item_description, image_path, width, height)
+                gallery_instance.render()
 
     def apply_transition_styles(self):
         """Apply the CSS transition styles to the media placeholder."""
