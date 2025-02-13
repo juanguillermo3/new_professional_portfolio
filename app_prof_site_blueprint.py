@@ -92,12 +92,14 @@ for section_name, module in SECTIONS.items():
         render_section_separator()
 
 
-gc=GalleryCollection()
-gc.get(
-    "test_galleria",
-    {
-    "title":"Geometric Modelling for Nutrition Data",
-    "description":"Applies Geometric Modelling based on dimensionality reduction to analize nutritional preferences of the monkey species.",
-    "media_path":"assets/gm_per_*.png",
-    }
-).render()
+#gc=GalleryCollection()
+#gc.get(
+#    "test_galleria",
+#    {
+#    "title":"Geometric Modelling for Nutrition Data",
+#    "description":"Applies Geometric Modelling based on dimensionality reduction to analize nutritional preferences of the monkey species.",
+#    "media_path":"assets/gm_per_*.png",
+#    }
+#).render()
+#
+test_gallery.render()
