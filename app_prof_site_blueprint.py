@@ -91,4 +91,3 @@ for section_name, module in SECTIONS.items():
         module.render()
         render_section_separator()
 
-test_gallery.render()
