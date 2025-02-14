@@ -25,32 +25,11 @@ from media_carousel import MediaCarousel  # Assuming this is the correct import
 from visual_media import render_item_visual_content, VisualContentGallery, test_gallery_collection
 from front_end_for_recommended_content import html_for_item_data
 
-#
-# (0) ancillary function to merge metadata about underlyng items
-#
-def combine_metadata():
-    # Load both sets of metadata
-    github_metadata = load_github_metadata()
-    app_metadata = load_app_metadata()
-
-    # Convert app metadata to a dictionary for fast lookup
-    app_metadata_dict = {item["title"]: item for item in app_metadata}
-
-    # Perform a left join: update GitHub metadata with matching app metadata
-    combined_metadata = []
-    for project in github_metadata:
-        title = project["title"]
-        # Update GitHub metadata with app metadata if available
-        updated_project = {**project, **app_metadata_dict.get(title, {})}
-        combined_metadata.append(updated_project)
-
-    return combined_metadata
 
 #
 # (1) RecSys
 #
 class RecommendationSystem:
-    # Default media dimensions (class-level static attributes)
     MEDIA_CONTAINER_WIDTH = "700px"
     MEDIA_CONTAINER_HEIGHT = "400px"
     
@@ -66,116 +45,22 @@ class RecommendationSystem:
         self.section_header = section_header
         self.section_description = section_description
         
-        # Cache the metadata
-        self.repos_metadata = combine_metadata()  
-        self.metadata_list = load_modules_metadata()  
-
-        # Sort the projects
-        self._sort_projects()
+        if 'repos_metadata' not in st.session_state:
+            st.session_state.repos_metadata = combine_metadata()
+        self.repos_metadata = st.session_state.repos_metadata
         
-        # Prepare project titles and default project
+        if 'metadata_list' not in st.session_state:
+            st.session_state.metadata_list = load_modules_metadata()
+        self.metadata_list = st.session_state.metadata_list
+
+        self._sort_projects()
         self._prepare_project_titles_and_default()
 
-        # Initialize GalleryCollection instance
-        self.gallery_collection = test_gallery_collection
-    #
-    # sorting logica applied to the projects
-    #
-    def _sort_projects(self):
-        """Sorts the projects by ongoing status and number of related items."""
-        project_item_counts = {
-            repo["title"].lower(): sum(1 for item in self.metadata_list if item['repo_name'].lower() == repo["title"].lower())
-            for repo in self.repos_metadata
-        }
-
-        self.repos_metadata.sort(
-            key=lambda x: (
-                not x.get("ongoing", False),  # Sort ongoing projects first
-                -project_item_counts.get(x["title"].lower(), 0)  # Descending by item count
-            )
-        )
-    #
-    def _prepare_project_titles_and_default(self):
-        """Prepares project titles for selection and determines the default project."""
-        self.project_titles = [
-            f"{repo['title']} (Ongoing)" if repo.get("ongoing", False) else repo["title"]
-            for repo in self.repos_metadata
-        ]
-
-        self.title_mapping = {
-            prettify_title(title): repo["title"]
-            for title, repo in zip(self.project_titles, self.repos_metadata)
-        }
-
-        self.default_project = self.repos_metadata[0]["title"] if self.repos_metadata else "No Projects"
-    
-    RANKER_LOGIC = """
-    ⚙️ The RecSys engine recommends items based on visual prominence and freshness. 
-    Items with highlighted content are ranked first, followed by those with the most recent updates. 
-    Special ranking positions are applied where defined, and the results are filtered by project and search query.
-    """
-    #
-    # ranking logic aspect of the RecSys
-    #
-    def rank_items(self, query=None, selected_project=None):
-        """Rank the items by priority on 'galleria' and 'last_updated', then apply filters."""
-        
-        def parse_boolean(value):
-            """Helper function to safely parse boolean values from strings."""
-            return str(value).strip().lower() == "true"
-        
-        def parse_int(value):
-            """Helper function to safely parse integers."""
-            try:
-                return int(value)
-            except (TypeError, ValueError):
-                return None
-    
-        # Step 1: Sort items based on:
-        #   - Priority: Items with "galleria" == True come first.
-        #   - Secondary: Sort by 'last_updated' in descending order.
-        ranked_items = sorted(
-            self.metadata_list,
-            key=lambda x: (
-                not parse_boolean(x.get("galleria", "False")),  # 'False' items get a higher value (sorted later)
-                -datetime.strptime(x.get("last_updated", "1970-01-01T00:00:00Z"), "%Y-%m-%dT%H:%M:%SZ").timestamp(),
-            ),
-        )
-    
-        # Step 2: Apply forced rank heuristic
-        forced_ranked_items = [None] * len(ranked_items)  # Create a list with placeholders
-        unranked_items = []
-        
-        for item in ranked_items:
-            forced_rank = parse_int(item.get("forced_rank"))
-            if isinstance(forced_rank, int) and 0 <= forced_rank < len(ranked_items):
-                if forced_ranked_items[forced_rank] is None:
-                    forced_ranked_items[forced_rank] = item  # Place item in specified position
-                else:
-                    unranked_items.append(item)  # Handle collisions by adding to unranked
-            else:
-                unranked_items.append(item)  # Add items without forced_rank to unranked
-        
-        # Fill in the remaining slots with unranked items
-        final_ranked_items = [item for item in forced_ranked_items if item is not None] + unranked_items
-    
-        # Step 3: Filter by project selection
-        if selected_project and selected_project != "All Projects":
-            final_ranked_items = [
-                item for item in final_ranked_items if item["repo_name"].lower() == selected_project.lower()
-            ]
-    
-        # Step 4: Filter by search query
-        if query:
-            query_pattern = re.compile(re.escape(query), re.IGNORECASE)
-            final_ranked_items = [
-                item for item in final_ranked_items
-                if query_pattern.search(item["title"]) or query_pattern.search(item["description"])
-            ]
-    
-        # Step 5: Return the top 'num_recommended_items' recommendations
-        return final_ranked_items[:self.num_recommended_items]
-
+        # Cache GalleryCollection in Streamlit session state
+        if 'gallery_collection' not in st.session_state:
+            st.session_state.gallery_collection = GalleryCollection()  # No parameters
+        self.gallery_collection = st.session_state.gallery_collection
+ 
     #
     # front end representation of items
     #
