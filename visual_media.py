@@ -305,7 +305,7 @@ class GalleryCollection:
                 width=galleria_params.get('width', '700px'),
                 height=galleria_params.get('height', '400px')
             )
-        return self.cache[key]. 
+        return self.cache[key]
 
 test_gallery = VisualContentGallery(
     title="Geometric Modelling for Nutrition Data",
