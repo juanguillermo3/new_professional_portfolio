@@ -305,8 +305,7 @@ class GalleryCollection:
                 width=galleria_params.get('width', '700px'),
                 height=galleria_params.get('height', '400px')
             )
-        return self.cache[key]. adjust my collections class, so that it get instantiated by receiving a list of instance of the galleria type. for example, we can do # Usage example
-
+        return self.cache[key]. 
 
 test_gallery = VisualContentGallery(
     title="Geometric Modelling for Nutrition Data",
