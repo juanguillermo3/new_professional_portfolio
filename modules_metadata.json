@@ -296,5 +296,18 @@
         "file_path": "geometric_modelling.R",
         "repo_name": "monkey_research",
         "galleria": "True"
-    }
+    },
+    {
+      "title": "Habitat islands",
+      "description": """Applies k-means clustering within a self-calibration framework 
+      to discover smaller partitions of habitat islands from sights data. It is useful 
+      in ecological studies to decompose the habitat of some species into smaller habitats, 
+      thus allowing statistical analysis of home range sizes, such as correlation with 
+      habitat parameters.""",
+      "debrief": "",
+      "url": "https://github.com/juanguillermo3/monkey_research/blob/main/discover_habitat_islands.R",
+      "repo_name": "monkey_research",
+      "galleria": "True",
+      "image_path": "assets/islands_*.html"
+}
 ]
