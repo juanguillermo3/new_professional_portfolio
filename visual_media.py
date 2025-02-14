@@ -134,7 +134,8 @@ def render_item_visual_content(title, description, media_path, width="700px", he
 
 
 class VisualContentGallery:
-    def __init__(self, title, description, media_path, width="700px", height="400px"):
+    def __init__(self, repo_name, title, description, media_path, width="700px", height="400px"):
+        self.repo_name = repo_name
         self.title = title
         self.description = description
         self.width = width
@@ -267,6 +268,7 @@ class GalleryCollection:
         
 # Usage example
 test_gallery = VisualContentGallery(
+    repo_name="monkey_research",
     title="Geometric Modelling for Nutrition Data",
     description="Applies Geometric Modelling based on dimensionality reduction to analize nutritional preferences of the monkey species.",
     media_path="assets/gm_per_*.png",
