@@ -78,35 +78,6 @@ class RecommendationSystem:
 
         # Initialize GalleryCollection instance
         self.gallery_collection = test_gallery_collection
-
-
-    def __init__(self, 
-                 num_recommended_items=6, 
-                 num_columns=3, 
-                 section_header="Recommendation System 🎯", 
-                 section_description="Discover content tailored to your needs. Use the search bar to find recommendations and filter by project category."
-                ):
-    
-        self.num_recommended_items = num_recommended_items
-        self.num_columns = num_columns
-        self.section_header = section_header
-        self.section_description = section_description
-        
-        if 'repos_metadata' not in st.session_state:
-            st.session_state.repos_metadata = combine_metadata()
-        self.repos_metadata = st.session_state.repos_metadata
-        
-        if 'metadata_list' not in st.session_state:
-            st.session_state.metadata_list = load_modules_metadata()
-        self.metadata_list = st.session_state.metadata_list
-
-        self._sort_projects()
-        self._prepare_project_titles_and_default()
-
-        # Cache GalleryCollection in Streamlit session state
-        if 'gallery_collection' not in st.session_state:
-            st.session_state.gallery_collection = GalleryCollection()  # No parameters
-        self.gallery_collection = st.session_state.gallery_collection
                     
     #
     # sorting logica applied to the projects
