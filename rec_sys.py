@@ -77,7 +77,7 @@ class RecommendationSystem:
         self._prepare_project_titles_and_default()
 
         # Initialize GalleryCollection instance
-        self.gallery_collection = test_gallery_collection
+        self.gallery_collection = test_gallery
                     
     #
     # sorting logica applied to the projects
@@ -266,7 +266,7 @@ class RecommendationSystem:
         # Call the render method on the retrieved instance
         with st.spinner("Loading media..."):
             with self.media_placeholder.container():
-                self.gallery_collection.render(gallery_key)
+                self.gallery_collection.test_gallery()
 
     def apply_transition_styles(self):
         """Apply the CSS transition styles to the media placeholder."""
