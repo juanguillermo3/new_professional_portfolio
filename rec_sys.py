@@ -266,7 +266,7 @@ class RecommendationSystem:
         # Call the render method on the retrieved instance
         with st.spinner("Loading media..."):
             with self.media_placeholder.container():
-                self.test_gallery.render()
+                self.gallery_collection.render()
 
     def apply_transition_styles(self):
         """Apply the CSS transition styles to the media placeholder."""
