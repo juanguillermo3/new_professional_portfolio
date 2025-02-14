@@ -133,7 +133,7 @@ def render_item_visual_content(title, description, media_path, width="700px", he
     )
 
 
-VisualContentGallery:
+class VisualContentGallery:
     def __init__(self, title, description, media_path, width="700px", height="400px"):
         self.title = title
         self.description = description
