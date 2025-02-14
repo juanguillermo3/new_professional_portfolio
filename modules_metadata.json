@@ -92,16 +92,6 @@
         "repo_name": "lab_market_trends"
     },
     {
-        "title": "Spatial correlation analysis",
-        "description": "Computes correlation between home ranges sizes and habitat parameters",
-        "report_url": "https://docs.google.com/spreadsheets/d/1KMhoqoPNrcP8Gp5eimwHmUeiFZZhKekL/edit?gid=521562748#gid=521562748",
-        "last_updated": "2025-01-25T03:55:16Z",
-        "url": "https://github.com/juanguillermo3/monkey_research/blob/main/correlation_patterns.R",
-        "file_path": "correlation_patterns.R",
-        "repo_name": "monkey_research",
-        "galleria": "True"
-    },
-    {
         "title": "Generate Comprehensive Excel Reports",
         "description": "A flexible function to create Excel reports with dataframes, ggplots, leaflet maps, and nested lists of content.",
         "last_updated": "2025-01-17T06:10:14Z",
@@ -305,5 +295,15 @@
         "repo_name": "monkey_research",
         "galleria": "True",
         "image_path": "assets/islands_*.html"
-    }
+    },
+    {
+        "title": "Spatial correlation analysis",
+        "description": "Computes correlation between home ranges sizes and habitat parameters",
+        "report_url": "https://docs.google.com/spreadsheets/d/1KMhoqoPNrcP8Gp5eimwHmUeiFZZhKekL/edit?gid=521562748#gid=521562748",
+        "last_updated": "2025-01-25T03:55:16Z",
+        "url": "https://github.com/juanguillermo3/monkey_research/blob/main/correlation_patterns.R",
+        "repo_name": "monkey_research",
+        "galleria": "True",
+        "image_path": "assets/plots_and_islands_*.html"
+    },
 ]
