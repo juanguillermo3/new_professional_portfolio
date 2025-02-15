@@ -156,7 +156,11 @@ class VisualContentGallery:
             try:
                 with open(file_path, 'r') as file:
                     html_content = file.read()
-                components.html(html_content, width=int(self.width.replace("px", "")), height=int(self.height.replace("px", "")))
+                components.html(
+                    html_content, 
+                    width=int(self.width.replace("px", "")), 
+                    height=int(self.height.replace("px", "")) + 100  # Added 100px padding
+                )
             except Exception as e:
                 st.error(f"Error loading HTML content: {str(e)}")
         else:
