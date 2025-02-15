@@ -181,7 +181,6 @@ class VisualContentGallery:
                     overflow: hidden;
                     background: rgba(0, 0, 0, 0.05);
                     border-radius: 10px;
-                    margin-bottom: 5px;
                 }}
                 .text-container {{
                     background: rgba(0, 0, 0, 0.3);
@@ -190,7 +189,6 @@ class VisualContentGallery:
                     color: white;
                     width: 100%;
                     text-align: center;
-                    margin-top: 5px;
                 }}
                 .title-text {{
                     font-size: 18px;
@@ -203,12 +201,10 @@ class VisualContentGallery:
                     font-weight: 400;
                     color: #ddd;
                     display: block;
-                    margin-top: 3px;
                 }}
                 .nav-buttons {{
                     display: flex;
                     justify-content: center;
-                    margin-top: 10px;
                     gap: 5px;
                 }}
                 .nav-button {{
