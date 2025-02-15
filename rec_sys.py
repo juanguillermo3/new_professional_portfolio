@@ -328,14 +328,19 @@ class RecommendationSystem:
             # Render the title and description of the project, centered and with margins
             tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
             
-            description_html = markdown.markdown(project_metadata['description'])
+
+            # Pre-concatenate description and tags
+            full_content = f"{project_metadata['description']} {tags_html}"            
+            # Convert the combined markdown to HTML
+            description_html = markdown.markdown(full_content)       
+            # Render using st.markdown with HTML
             st.markdown(
                 f"""
                 <div style="text-align: center;">
                     <h3>{prettify_title(project_metadata['title'])}</h3>
                 </div>
                 <div style="text-align: justify; margin-left: 10%; margin-right: 10%;">
-                    {description_html} {tags_html}
+                    {description_html}
                 </div>
                 """,
                 unsafe_allow_html=True,
