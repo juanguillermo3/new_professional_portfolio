@@ -373,7 +373,7 @@ class RecommendationSystem:
             )
 
         # Display active filters message after project info
-        filter_message = f"Showing all results for project {selected_project} "
+        filter_message = f"Showing all results for project {prettify_title(selected_project)} "
         if query:
             filter_message += f"(and for keyword: {query})"
         st.markdown(f'<p style="font-style: italic; color: #555;">{filter_message}</p>', unsafe_allow_html=True)
