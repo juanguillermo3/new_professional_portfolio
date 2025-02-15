@@ -146,7 +146,7 @@ class VisualContentGallery:
         file_list = glob.glob(media_path) if '*' in media_path or '?' in media_path else [media_path]
         return sorted(file_list)
 
-    def parse_media(self, file_path):
+    def parse_media(self, file_path, width_offset=0, height_offset=50):
         file_ext = os.path.splitext(file_path)[-1].lower()
         if file_ext in ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg']:
             st.image(file_path, use_container_width=True)
@@ -158,8 +158,8 @@ class VisualContentGallery:
                     html_content = file.read()
                 components.html(
                     html_content, 
-                    width=int(self.width.replace("px", "")), 
-                    height=int(self.height.replace("px", "")) + 100  # Added 100px padding
+                    width=int(self.width.replace("px", "")) + width_offset, 
+                    height=int(self.height.replace("px", "")) + height_offset
                 )
             except Exception as e:
                 st.error(f"Error loading HTML content: {str(e)}")
