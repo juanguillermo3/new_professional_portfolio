@@ -373,10 +373,22 @@ class RecommendationSystem:
             )
 
         # Display active filters message after project info
-        filter_message = f"Showing all results for project {prettify_title(selected_project)} "
+        filter_message = f"Showing all results for project {prettify_title(selected_project)}"
         if query:
-            filter_message += f"(and for keyword: {query})"
-        st.markdown(f'<p style="font-style: italic; color: #555;">{filter_message}</p>', unsafe_allow_html=True)
+            filter_message += f" (and for keyword: {query})"
+        
+        st.markdown(
+            f"""
+            <p style="
+                font-style: italic; 
+                color: #555; 
+                font-size: 105%; 
+                font-weight: 550;">
+                {filter_message}
+            </p>
+            """,
+            unsafe_allow_html=True
+        )
 
         # Render recommendations in a grid
         for i in range(0, len(recommendations), self.num_columns):
