@@ -328,17 +328,18 @@ class RecommendationSystem:
             # Render the title and description of the project, centered and with margins
             tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
             
+            description_html = markdown.markdown(project_metadata['description'])
             st.markdown(
-                        f"""
-                        <div style="text-align: center;">
-                            <h3>{prettify_title(project_metadata['title'])}</h3>
-                        </div>
-                        <div style="text-align: justify; margin-left: 10%; margin-right: 10%;">
-                            <p>{project_metadata['description']} {tags_html}</p>
-                        </div>
-                        """,
-                        unsafe_allow_html=True,
-                        ) 
+                f"""
+                <div style="text-align: center;">
+                    <h3>{prettify_title(project_metadata['title'])}</h3>
+                </div>
+                <div style="text-align: justify; margin-left: 10%; margin-right: 10%;">
+                    {description_html} {tags_html}
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
 
             # Inject the placeholder div for the media content with the CSS class
             st.markdown(
