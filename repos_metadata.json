@@ -30,8 +30,9 @@
     },
     {
     "title": "lab_market_trends",
-    "description": "This project aims to **automatically detect and analyze** emerging trends in the demand side of the Colombian **labor market** through **Natural Language Processing (NLP)** applied to job vacancies published on the **Servicio Público de Empleo (SPE)** platform. A **web scraping service** gathers job posting texts from the SPE site, while a **pseudo-regression approach** within a **language model (LM)** framework models wages based on keywords. **Feature importance metrics** identify keywords correlated with wage drivers.",
+    "description": "This project aims to **automatically detect and analyze** emerging trends in the demand side of the Colombian **labor market** through **Natural Language Processing (NLP)** applied to job vacancies published on the **Servicio Público de Empleo (SPE)** platform. A **web scraping service** gathers job posting texts from the SPE site, while a **pseudo-regression approach** within a **machine learning (ML)** framework models wages based on keywords. **Feature importance metrics** identify keywords correlated with wage drivers.",
     "image": "https://raw.githubusercontent.com/juanguillermo3/lab_market_trends/main/project_image.png",
     "url": "https://github.com/juanguillermo3/lab_market_trends"
     }
+
 ]
