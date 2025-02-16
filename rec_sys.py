@@ -291,15 +291,15 @@ class RecommendationSystem:
     #
     # 
     #
-    def render_project_metadata(self, project_metadata):
-        """Render the project title, description, tags, and video."""
+    def render_project_metadata(self, project_metadata, display_milestones=True):
+        """Render the project title, description, tags, video, and milestones."""
         video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
         video_path = os.path.join('assets', video_filename)
-        
+    
         tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
         full_content = f"{project_metadata['description']} {tags_html}"
         description_html = markdown.markdown(full_content)
-        
+    
         st.markdown(
             f"""
             <div style="text-align: center;">
@@ -311,13 +311,13 @@ class RecommendationSystem:
             """,
             unsafe_allow_html=True,
         )
-        
+    
         self.media_placeholder = st.empty()
         if os.path.exists(video_path):
             self.media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
         else:
             self.media_placeholder.warning(f"Video for {project_metadata['title']} not found.")
-        
+    
         st.markdown(
             """
             <script>
@@ -328,6 +328,24 @@ class RecommendationSystem:
             """,
             unsafe_allow_html=True,
         )
+    
+        if display_milestones:
+            achieved = project_metadata.get("achieved_milestones", [])
+            next_steps = project_metadata.get("next_milestones", [])
+    
+            if achieved or next_steps:
+                st.markdown("### 🚦 Project Milestones")
+            
+            if achieved:
+                st.markdown("**Achieved:**")
+                for milestone in achieved:
+                    st.markdown(f"- 🟢 {milestone}")
+            
+            if next_steps:
+                st.markdown("**Next Steps:**")
+                for milestone in next_steps:
+                    st.markdown(f"- 🟡 {milestone}")
+
     #
     # Updated render method
     #
