@@ -3,7 +3,7 @@ def load_repos_metadata():
     return [
          {
             "title": "lab_market_trends",
-            "ongoing": true,
+            "ongoing": True,
             "tags": ["labor market", "wages analysis", "data engineering", "PySpark", "Selenium"],
             "achieved_milestones": [
                 "Data pipeline established",
