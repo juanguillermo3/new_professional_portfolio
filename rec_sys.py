@@ -450,6 +450,7 @@ class RecommendationSystem:
         st.markdown(sample_html, unsafe_allow_html=True)
         
         # Media placeholder
+        st.markdown("<br>", unsafe_allow_html=True)
         self.media_placeholder = st.empty()
         if os.path.exists(video_path):
             self.media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
