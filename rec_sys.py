@@ -446,9 +446,9 @@ class RecommendationSystem:
         # Code sample count section
         project_title = project_metadata['title'].lower()
         sample_count = self.project_item_counts.get(project_title, 0)
-        sample_html = f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%; color:#4CAF50; font-size:105%; font-weight:95%;'>📂 {sample_count} code samples indexed</div>"
+        sample_html = f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%; color:#3A86FF; font-size:105%; font-weight:95%;'>💾 {sample_count} code samples indexed</div>"
         st.markdown(sample_html, unsafe_allow_html=True)
-    
+        
         # Media placeholder
         self.media_placeholder = st.empty()
         if os.path.exists(video_path):
