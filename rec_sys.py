@@ -417,6 +417,7 @@ class RecommendationSystem:
         # Media placeholder
         self.media_placeholder = st.empty()
         if os.path.exists(video_path):
+            st.markdown("<br>", unsafe_allow_html=True)
             self.media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
         else:
             self.media_placeholder.warning(f"Video for {project_metadata['title']} not found.")
