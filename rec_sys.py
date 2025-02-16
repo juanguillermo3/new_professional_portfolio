@@ -377,7 +377,51 @@ class RecommendationSystem:
             self.media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
         else:
             self.media_placeholder.warning(f"Video for {project_metadata['title']} not found.")
+        
+    def render_project_metadata(self, project_metadata, display_milestones=True):
+        """Render project title, description, tags, milestones, and video."""
+        video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
+        video_path = os.path.join('assets', video_filename)
     
+        tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
+        full_content = f"{project_metadata['description']} {tags_html}"
+        description_html = markdown.markdown(full_content)
+    
+        # Render project description and tags
+        st.markdown(
+            f"""
+            <div style="text-align: center;"><h3>{prettify_title(project_metadata['title'])}</h3></div>
+            <div style="text-align: justify; margin-left: 10%; margin-right: 10%;">
+                {description_html}
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    
+        # Render milestones if enabled
+        if display_milestones and 'achieved_milestones' in project_metadata and 'next_milestones' in project_metadata:
+            milestone_html = ''.join(
+                [f'<div style="color:green; font-size:105%; font-weight:95%;">🟢 {m}</div>' for m in project_metadata['achieved_milestones']]
+            ) + ''.join(
+                [f'<div style="color:orange; font-size:105%; font-weight:95%;">🟡 {m}</div>' for m in project_metadata['next_milestones']]
+            )
+            st.markdown(
+                f"""
+                <div style="margin: 5px 0; font-size: 90%; background-color: rgb(224, 224, 224); padding: 8px; border-radius: 6px; text-align: center;">
+                    <div style="display: inline-block; text-align: left;">
+                        {milestone_html}
+                    </div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+    
+        # Render media placeholder
+        self.media_placeholder = st.empty()
+        if os.path.exists(video_path):
+            self.media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
+        else:
+            self.media_placeholder.warning(f"Video for {project_metadata['title']} not found.")
 
     #
     # Updated render method
