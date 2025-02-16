@@ -324,6 +324,12 @@
     "description": "Provides a TimeSeriesDataHandler which prepares time series data (loaded from disk) for ML model development. It performs feature extraction using lags of the same series beyond a target forecast horizon. The handler outputs numpy arrays suitable for model development.",
     "url": "https://github.com/juanguillermo3/sales_forecasting_with_genetic_neural_networks/blob/main/prepare_ts_data.py",
     "repo_name": "sales_forecasting_with_genetic_neural_networks"
+    },
+    {
+    "title": "Genetic Optimization",
+    "description": "A custom implementation of a genetic optimization algorithm to find optimal hyperparameters for DL/ML models.",
+    "image_path": "ServerDNN*.html",
+    "repo_name": "sales_forecasting_with_genetic_neural_networks"
     }
 
 ]
