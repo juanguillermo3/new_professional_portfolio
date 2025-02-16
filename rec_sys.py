@@ -54,46 +54,37 @@ class RecommendationSystem:
     # Default media dimensions (class-level static attributes)
     MEDIA_CONTAINER_WIDTH = "700px"
     MEDIA_CONTAINER_HEIGHT = "400px"
-
-    def __init__(self, 
-                 num_recommended_items=6, 
-                 num_columns=3, 
-                 section_header="Recommendation System 🎯", 
-                 section_description="Discover content tailored to your needs. Use the search bar to find recommendations and filter by project category."
-                ):
-
+    #
+    def __init__(self, num_recommended_items=6, num_columns=3,
+                 section_header="Recommendation System 🎯",
+                 section_description="Discover content tailored to your needs. Use the search bar to find recommendations and filter by project category."):
         self.num_recommended_items = num_recommended_items
         self.num_columns = num_columns
         self.section_header = section_header
         self.section_description = section_description
-
-        # Cache the metadata
+        
         self.repos_metadata = combine_metadata()  
         self.metadata_list = load_modules_metadata()  
 
-        # Sort the projects
         self._sort_projects()
-
-        # Prepare project titles and default project
         self._prepare_project_titles_and_default()
 
-        # Initialize GalleryCollection instance
         self.gallery_collection = GalleryCollection()
-        self.active_galleria = None           
-    #
-    # sorting logica applied to the projects
+        self.active_galleria = None
     #
     def _sort_projects(self):
-        """Sorts the projects by ongoing status and number of related items."""
-        project_item_counts = {
-            repo["title"].lower(): sum(1 for item in self.metadata_list if item['repo_name'].lower() == repo["title"].lower())
+        """Sort projects by ongoing status and number of related items."""
+        self.project_item_counts = {
+            repo["title"].lower(): sum(
+                1 for item in self.metadata_list if item['repo_name'].lower() == repo["title"].lower()
+            )
             for repo in self.repos_metadata
         }
 
         self.repos_metadata.sort(
             key=lambda x: (
-                not x.get("ongoing", False),  # Sort ongoing projects first
-                -project_item_counts.get(x["title"].lower(), 0)  # Descending by item count
+                not x.get("ongoing", False),
+                -self.project_item_counts.get(x["title"].lower(), 0)
             )
         )
     #
@@ -421,6 +412,50 @@ class RecommendationSystem:
             self.media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
         else:
             self.media_placeholder.warning(f"Video for {project_metadata['title']} not found.")
+
+
+    def render_project_metadata(self, project_metadata, display_milestones=True, margin_percent=10):
+        """Render project title, description, tags, milestones, code sample count, and video."""
+        video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
+        video_path = os.path.join('assets', video_filename)
+    
+        tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
+        description_html = markdown.markdown(f"{project_metadata['description']} {tags_html}")
+    
+        # Title and description
+        st.markdown(
+            f"""
+            <div style="text-align: center;"><h3>{prettify_title(project_metadata['title'])}</h3></div>
+            <div style="text-align: justify; margin-left: {margin_percent}%; margin-right: {margin_percent}%;">
+                {description_html}
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    
+        milestone_margin = margin_percent * 1.5
+    
+        # Milestones section
+        if display_milestones and 'achieved_milestones' in project_metadata and 'next_milestones' in project_metadata:
+            milestone_html = (
+                ''.join([f'<div style="color:green;">✅ {m}</div>' for m in project_metadata['achieved_milestones']]) +
+                ''.join([f'<div style="color:#FFB300;">🚧 {m}</div>' for m in project_metadata['next_milestones']])
+            )
+            st.markdown(f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{milestone_html}</div>", unsafe_allow_html=True)
+    
+        # Code sample count section
+        project_title = project_metadata['title'].lower()
+        sample_count = self.project_item_counts.get(project_title, 0)
+        sample_html = f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%; color:#4CAF50; font-size:105%; font-weight:95%;'>📂 {sample_count} code samples indexed</div>"
+        st.markdown(sample_html, unsafe_allow_html=True)
+    
+        # Media placeholder
+        self.media_placeholder = st.empty()
+        if os.path.exists(video_path):
+            self.media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
+        else:
+            self.media_placeholder.warning(f"Video for {project_metadata['title']} not found.")
+
 
 
 
