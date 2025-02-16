@@ -378,7 +378,7 @@ class RecommendationSystem:
         else:
             self.media_placeholder.warning(f"Video for {project_metadata['title']} not found.")
         
-    def render_project_metadata(self, project_metadata, display_milestones=True):
+    def render_project_metadata(self, project_metadata, display_milestones=True, margin_percent="10%"):
         """Render project title, description, tags, milestones, and video."""
         video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
         video_path = os.path.join('assets', video_filename)
@@ -391,14 +391,14 @@ class RecommendationSystem:
         st.markdown(
             f"""
             <div style="text-align: center;"><h3>{prettify_title(project_metadata['title'])}</h3></div>
-            <div style="text-align: justify; margin-left: 10%; margin-right: 10%;">
+            <div style="text-align: justify; margin-left: {margin_percent}; margin-right: {margin_percent};">
                 {description_html}
             </div>
             """,
             unsafe_allow_html=True,
         )
     
-        # Milestones with default colored text
+        # Milestones
         if display_milestones and 'achieved_milestones' in project_metadata and 'next_milestones' in project_metadata:
             milestone_html = (
                 ''.join([f'<div style="color:green; font-size:105%; font-weight:95%;">✅ {m}</div>' for m in project_metadata['achieved_milestones']]) +
@@ -406,7 +406,7 @@ class RecommendationSystem:
             )
             st.markdown(
                 f"""
-                <div style="padding: 8px; text-align: left;">
+                <div style="margin-left: {margin_percent}; margin-right: {margin_percent}; text-align: left;">
                     {milestone_html}
                 </div>
                 """,
@@ -419,6 +419,7 @@ class RecommendationSystem:
             self.media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
         else:
             self.media_placeholder.warning(f"Video for {project_metadata['title']} not found.")
+
 
 
 
