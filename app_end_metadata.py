@@ -27,4 +27,8 @@ def load_repos_metadata():
             "title": "predictive_analytics",
             "tags": ["Neural Networks", "Genetic Algorithms", "Ensemble Learning"]
         },
+        {
+            "title": "sales_forecasting_with_genetic_neural_networks",
+            "tags": ["Sales Forecasting", "Food Delivery", "Deep Neural Networks", "Genetic Optimization", "Feed Forward Neural Networks", "Recurrent Neural Networks"]
+        },
     ]
