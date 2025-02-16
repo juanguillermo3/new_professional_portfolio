@@ -309,8 +309,8 @@
     {
         "title": "Results Parser",
         "description": "Generates visual reports from optimization process results.",
-        "image": "results_*.png",
         "url": "https://github.com/juanguillermo3/sales_forecasting_with_genetic_neural_networks/blob/main/results.py",
-        "repo_name": "sales_forecasting_with_genetic_neural_networks"  
+        "repo_name": "sales_forecasting_with_genetic_neural_networks",
+        "results_*.png",: "assets/plots_and_islands_*.html"  
     }
 ]
