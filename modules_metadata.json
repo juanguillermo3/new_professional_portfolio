@@ -314,9 +314,9 @@
         "image_path": "assets/results_*.png"
     },
     {
-        "title": "Plot Utilities",
-        "description": "Provides styling and export functionalities for plots across the application.",
-        "url": "https://github.com/juanguillermo3/sales_forecasting_with_genetic_neural_networks/edit/main/plot_utils.py"
+    "title": "Plot Utilities",
+    "description": "Provides styling and export functionalities for plots across the application.",
+    "url": "https://github.com/juanguillermo3/sales_forecasting_with_genetic_neural_networks/edit/main/plot_utils.py",
+    "repo_name": "sales_forecasting_with_genetic_neural_networks"
     }
-
 ]
