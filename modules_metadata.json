@@ -328,7 +328,7 @@
     {
     "title": "Genetic Optimization",
     "description": "A custom implementation of a genetic optimization algorithm to find optimal hyperparameters for DL/ML models.",
-    "image_path": "ServerDNN*.html",
+    "image_path": "assets/ServerDNN*.html",
     "repo_name": "sales_forecasting_with_genetic_neural_networks"
     }
 
