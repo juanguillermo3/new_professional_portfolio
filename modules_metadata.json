@@ -318,5 +318,11 @@
     "description": "Provides styling and export functionalities for plots across the application.",
     "url": "https://github.com/juanguillermo3/sales_forecasting_with_genetic_neural_networks/edit/main/plot_utils.py",
     "repo_name": "sales_forecasting_with_genetic_neural_networks"
+    },
+    {
+    "title": "Prepare Time Series Data",
+    "description": "Provides a TimeSeriesDataHandler which prepares time series data (loaded from disk) for ML model development. It performs feature extraction using lags of the same series beyond a target forecast horizon. The handler outputs numpy arrays suitable for model development.",
+    "repo_name": "sales_forecasting_with_genetic_neural_networks"
     }
+
 ]
