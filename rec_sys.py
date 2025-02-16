@@ -111,34 +111,36 @@ class RecommendationSystem:
     # ranking logic aspect of the RecSys
     #
     def rank_items(self, query=None, selected_project=None):
-        """Rank the items by priority on 'galleria' and 'last_updated', then apply filters."""
-
+        """Rank the items by priority on 'image_path' and 'last_updated', then apply filters."""
+    
         def parse_boolean(value):
             """Helper function to safely parse boolean values from strings."""
             return str(value).strip().lower() == "true"
-
+    
         def parse_int(value):
             """Helper function to safely parse integers."""
             try:
                 return int(value)
             except (TypeError, ValueError):
                 return None
-
+    
         # Step 1: Sort items based on:
-        #   - Priority: Items with "galleria" == True come first.
+        #   - Priority: Items with "image_path" not empty come first.
         #   - Secondary: Sort by 'last_updated' in descending order.
         ranked_items = sorted(
             self.metadata_list,
             key=lambda x: (
-                not parse_boolean(x.get("galleria", "False")),  # 'False' items get a higher value (sorted later)
-                -datetime.strptime(x.get("last_updated", "1970-01-01T00:00:00Z"), "%Y-%m-%dT%H:%M:%SZ").timestamp(),
+                not bool(x.get("image_path")),  # Items without image_path get a higher value (sorted later)
+                -datetime.strptime(
+                    x.get("last_updated", "1970-01-01T00:00:00Z"), "%Y-%m-%dT%H:%M:%SZ"
+                ).timestamp(),
             ),
         )
-
+    
         # Step 2: Apply forced rank heuristic
         forced_ranked_items = [None] * len(ranked_items)  # Create a list with placeholders
         unranked_items = []
-
+    
         for item in ranked_items:
             forced_rank = parse_int(item.get("forced_rank"))
             if isinstance(forced_rank, int) and 0 <= forced_rank < len(ranked_items):
@@ -148,16 +150,16 @@ class RecommendationSystem:
                     unranked_items.append(item)  # Handle collisions by adding to unranked
             else:
                 unranked_items.append(item)  # Add items without forced_rank to unranked
-
+    
         # Fill in the remaining slots with unranked items
         final_ranked_items = [item for item in forced_ranked_items if item is not None] + unranked_items
-
+    
         # Step 3: Filter by project selection
         if selected_project and selected_project != "All Projects":
             final_ranked_items = [
                 item for item in final_ranked_items if item["repo_name"].lower() == selected_project.lower()
             ]
-
+    
         # Step 4: Filter by search query
         if query:
             query_pattern = re.compile(re.escape(query), re.IGNORECASE)
@@ -165,7 +167,7 @@ class RecommendationSystem:
                 item for item in final_ranked_items
                 if query_pattern.search(item["title"]) or query_pattern.search(item["description"])
             ]
-
+    
         # Step 5: Return the top 'num_recommended_items' recommendations
         return final_ranked_items[:self.num_recommended_items]
 
@@ -175,11 +177,11 @@ class RecommendationSystem:
     def render_card(self, rec, **kwargs):
         """Render a single recommendation card with dynamic HTML generation."""
         st.markdown(html_for_item_data(rec), unsafe_allow_html=True)
-
+    
         unique_hash = hashlib.md5(rec['title'].encode()).hexdigest()
         button_id = f"galleria_{unique_hash}"
-
-        if "galleria" in rec:
+    
+        if "image_path" in rec:
             st.markdown(
                 """
                 <style>
@@ -202,7 +204,7 @@ class RecommendationSystem:
                 """,
                 unsafe_allow_html=True
             )
-
+    
             if st.button("See Galleria", key=button_id):
                 self.handle_galleria_click(rec)
 
