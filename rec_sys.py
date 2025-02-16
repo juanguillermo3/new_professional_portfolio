@@ -314,13 +314,13 @@ class RecommendationSystem:
         # Render milestones if enabled
         if display_milestones and 'achieved_milestones' in project_metadata and 'next_milestones' in project_metadata:
             milestone_html = ''.join(
-                [f'<div style="color:green; font-weight:bold; text-align:center;">🟢 {m}</div>' for m in project_metadata['achieved_milestones']]
+                [f'<div>🟢 {m}</div>' for m in project_metadata['achieved_milestones']]
             ) + ''.join(
-                [f'<div style="color:#FFD700; font-weight:bold; text-align:center;">🟡 {m}</div>' for m in project_metadata['next_milestones']]
+                [f'<div>🟡 {m}</div>' for m in project_metadata['next_milestones']]
             )
             st.markdown(
                 f"""
-                <div style="margin: 5px 0; font-size: 90%; text-align:center;">
+                <div style="display: flex; flex-direction: column; align-items: center; font-size: 95%; font-weight: 95%; margin: 5px 0;">
                     {milestone_html}
                 </div>
                 """,
@@ -333,6 +333,7 @@ class RecommendationSystem:
             self.media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
         else:
             self.media_placeholder.warning(f"Video for {project_metadata['title']} not found.")
+
 
 
     #
