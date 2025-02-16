@@ -314,13 +314,13 @@ class RecommendationSystem:
         # Render milestones if enabled
         if display_milestones and 'achieved_milestones' in project_metadata and 'next_milestones' in project_metadata:
             milestone_html = ''.join(
-                [f'<div style="color:green; font-weight:bold;">🟢 {m}</div>' for m in project_metadata['achieved_milestones']]
+                [f'<div style="color:green; font-weight:bold; text-align:center;">🟢 {m}</div>' for m in project_metadata['achieved_milestones']]
             ) + ''.join(
-                [f'<div style="color:orange; font-weight:bold;">🟠 {m}</div>' for m in project_metadata['next_milestones']]
+                [f'<div style="color:#FFD700; font-weight:bold; text-align:center;">🟡 {m}</div>' for m in project_metadata['next_milestones']]
             )
             st.markdown(
                 f"""
-                <div style="margin: 5px 0; font-size: 90%;">
+                <div style="margin: 5px 0; font-size: 90%; text-align:center;">
                     {milestone_html}
                 </div>
                 """,
