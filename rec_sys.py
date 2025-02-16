@@ -398,15 +398,15 @@ class RecommendationSystem:
             unsafe_allow_html=True,
         )
     
-        # Milestones with gray container and improved visibility for next milestone
+        # Milestones with default colored text
         if display_milestones and 'achieved_milestones' in project_metadata and 'next_milestones' in project_metadata:
             milestone_html = (
-                ''.join([f'<div style="color:green; font-size:105%; font-weight:95%;">🟢 {m}</div>' for m in project_metadata['achieved_milestones']]) +
-                ''.join([f'<div style="color:#FFB300; font-size:105%; font-weight:95%;">🟡 {m}</div>' for m in project_metadata['next_milestones']])
+                ''.join([f'<div style="color:green; font-size:105%; font-weight:95%;">✅ {m}</div>' for m in project_metadata['achieved_milestones']]) +
+                ''.join([f'<div style="color:orange; font-size:105%; font-weight:95%;">🚧 {m}</div>' for m in project_metadata['next_milestones']])
             )
             st.markdown(
                 f"""
-                <div style="background-color: rgb(224, 224, 224); padding: 8px; width: 80%; margin: auto; text-align: left; border-radius: 6px;">
+                <div style="padding: 8px; text-align: left;">
                     {milestone_html}
                 </div>
                 """,
@@ -419,6 +419,7 @@ class RecommendationSystem:
             self.media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
         else:
             self.media_placeholder.warning(f"Video for {project_metadata['title']} not found.")
+
 
 
     #
