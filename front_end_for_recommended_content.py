@@ -5,7 +5,7 @@ import re
 
 def html_for_item_data(
     rec,
-    outstanding_content_regex=re.compile(r"^(galleria|highlighted_content)$", re.IGNORECASE),
+    outstanding_content_regex=re.compile(r"^(galleria|highlighted_content|image_path)$", re.IGNORECASE),
     background_color="#f4f4f4",
     border_style="1px solid #ddd",
     card_height="150px",
