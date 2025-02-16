@@ -292,7 +292,7 @@ class RecommendationSystem:
     # 
     #
     def render_project_metadata(self, project_metadata, display_milestones=True):
-        """Render the project title, description, tags, video, and milestones."""
+        """Render project title, description, tags, milestones, and video."""
         video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
         video_path = os.path.join('assets', video_filename)
     
@@ -300,11 +300,10 @@ class RecommendationSystem:
         full_content = f"{project_metadata['description']} {tags_html}"
         description_html = markdown.markdown(full_content)
     
+        # Render project description and tags
         st.markdown(
             f"""
-            <div style="text-align: center;">
-                <h3>{prettify_title(project_metadata['title'])}</h3>
-            </div>
+            <div style="text-align: center;"><h3>{prettify_title(project_metadata['title'])}</h3></div>
             <div style="text-align: justify; margin-left: 10%; margin-right: 10%;">
                 {description_html}
             </div>
@@ -312,39 +311,29 @@ class RecommendationSystem:
             unsafe_allow_html=True,
         )
     
+        # Render milestones if enabled
+        if display_milestones and 'milestones_achieved' in project_metadata and 'milestones_next' in project_metadata:
+            milestone_html = ''.join(
+                [f'<div style="color:green; font-weight:bold;">🟢 {m}</div>' for m in project_metadata['milestones_achieved']]
+            ) + ''.join(
+                [f'<div style="color:orange; font-weight:bold;">🟠 {m}</div>' for m in project_metadata['milestones_next']]
+            )
+            st.markdown(
+                f"""
+                <div style="margin: 5px 0; font-size: 90%;">
+                    {milestone_html}
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+    
+        # Render media placeholder
         self.media_placeholder = st.empty()
         if os.path.exists(video_path):
             self.media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
         else:
             self.media_placeholder.warning(f"Video for {project_metadata['title']} not found.")
-    
-        st.markdown(
-            """
-            <script>
-            setTimeout(() => {
-                document.querySelector('.media-placeholder')?.classList.add('show');
-            }, 100);
-            </script>
-            """,
-            unsafe_allow_html=True,
-        )
-    
-        if display_milestones:
-            achieved = project_metadata.get("achieved_milestones", [])
-            next_steps = project_metadata.get("next_milestones", [])
-    
-            if achieved or next_steps:
-                st.markdown("### 🚦 Project Milestones")
-            
-            if achieved:
-                st.markdown("**Achieved:**")
-                for milestone in achieved:
-                    st.markdown(f"- 🟢 {milestone}")
-            
-            if next_steps:
-                st.markdown("**Next Steps:**")
-                for milestone in next_steps:
-                    st.markdown(f"- 🟡 {milestone}")
+
 
     #
     # Updated render method
