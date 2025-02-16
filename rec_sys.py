@@ -334,7 +334,50 @@ class RecommendationSystem:
         else:
             self.media_placeholder.warning(f"Video for {project_metadata['title']} not found.")
 
-
+    def render_project_metadata(self, project_metadata, display_milestones=True):
+        """Render project title, description, tags, milestones, and video."""
+        video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
+        video_path = os.path.join('assets', video_filename)
+    
+        tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
+        full_content = f"{project_metadata['description']} {tags_html}"
+        description_html = markdown.markdown(full_content)
+    
+        # Render project description and tags
+        st.markdown(
+            f"""
+            <div style="text-align: center;"><h3>{prettify_title(project_metadata['title'])}</h3></div>
+            <div style="text-align: justify; margin-left: 10%; margin-right: 10%;">
+                {description_html}
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    
+        # Render milestones if enabled
+        if display_milestones and 'achieved_milestones' in project_metadata and 'next_milestones' in project_metadata:
+            milestone_html = (
+                ''.join([f'<div style="color:green;">🟢 {m}</div>' for m in project_metadata['achieved_milestones']]) +
+                ''.join([f'<div style="color:yellow;">🟡 {m}</div>' for m in project_metadata['next_milestones']])
+            )
+            st.markdown(
+                f"""
+                <div style="display: flex; flex-direction: column; align-items: center; font-size: 95%; font-weight: 95%;">
+                    <div style="text-align: left;">
+                        {milestone_html}
+                    </div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+    
+        # Render media placeholder
+        self.media_placeholder = st.empty()
+        if os.path.exists(video_path):
+            self.media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
+        else:
+            self.media_placeholder.warning(f"Video for {project_metadata['title']} not found.")
+    
 
     #
     # Updated render method
