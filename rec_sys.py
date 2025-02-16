@@ -312,7 +312,7 @@ class RecommendationSystem:
         )
     
         # Render milestones if enabled
-        if display_milestones and 'milestones_achieved' in project_metadata and 'milestones_next' in project_metadata:
+        if display_milestones and 'achieved_milestones' in project_metadata and 'next_milestones' in project_metadata:
             milestone_html = ''.join(
                 [f'<div style="color:green; font-weight:bold;">🟢 {m}</div>' for m in project_metadata['milestones_achieved']]
             ) + ''.join(
