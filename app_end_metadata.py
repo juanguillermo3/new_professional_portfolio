@@ -1,10 +1,17 @@
 # app_end_metadata.py
 def load_repos_metadata():
     return [
-        {
+         {
             "title": "lab_market_trends",
-            "ongoing": True,
-            "tags": ["labor market", "wages anlysis", "data engineering", "PySpark", "Selenium"]
+            "ongoing": true,
+            "tags": ["labor market", "wages analysis", "data engineering", "PySpark", "Selenium"],
+            "achieved_milestones": [
+                "Data pipeline established",
+                "First wage trend analysis published"
+            ],
+            "next_milestones": [
+                "Integrate real-time labor demand trends"
+            ]
         },
         {
             "title": "monkey_research",
