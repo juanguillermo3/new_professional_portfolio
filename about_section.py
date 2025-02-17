@@ -36,7 +36,6 @@ class AboutSection:
         st.markdown(self.KEY_HYPOTHESIS.format(linkedin=self.linkedin_profile), unsafe_allow_html=True)
 
         # Add break line and display development environment info
-        st.markdown("<br>", unsafe_allow_html=True)
         st.markdown(self.DEV_ENVIRONMENT, unsafe_allow_html=True)
 
 
