@@ -15,9 +15,9 @@ class AboutSection:
     """
 
     DEV_ENVIRONMENT = """
-    🛠️ This portfolio is a Python/Streamlit web application, built with modular components that follow 
-    OOP principles and SOLID design patterns. Its architecture, inspired by microservices, organizes 
-    modules by responsibility. The full codebase is available on 
+    🛠️ This portfolio is a Python/Streamlit web application with a modular design inspired by microservice 
+    architecture, adapted for a professional site. It follows OOP principles and SOLID design patterns, 
+    with modules organized by responsibility. The full codebase is available on 
     <a href="https://github.com/juanguillermo3/new_professional_portfolio/tree/main" 
     target="_blank" style="color: #1f77b4; text-decoration: none;">GitHub</a>. 
     """
