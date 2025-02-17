@@ -5,12 +5,21 @@ from about_section_data_loader import load_general_info
 
 class AboutSection:
     SECTION_HEADER = "About this portfolio 💡"
+    
     KEY_HYPOTHESIS = """
     🔬 Ongoing research explores leveraging emerging technologies like Recommendation Systems (RecSys) 
     and LLM-powered applications (LLM apps) to create practical software solutions for professionals. 
     One key area of interest is efficiently displaying content to potential clients or employers. 
     Features such as the RecSys are still under development, and related research can be found on my 
     <a href="{linkedin}" target="_blank" style="color: #1f77b4; text-decoration: none;">LinkedIn profile</a>. 
+    """
+
+    DEV_ENVIRONMENT = """
+    🛠️ This portfolio is a Python/Streamlit web application, built with modular components that follow 
+    OOP principles and SOLID design patterns. Its architecture, inspired by microservices, organizes 
+    modules by responsibility. The full codebase is available on 
+    <a href="https://github.com/juanguillermo3/new_professional_portfolio/tree/main" 
+    target="_blank" style="color: #1f77b4; text-decoration: none;">GitHub</a>. 
     """
 
     def __init__(self, linkedin_profile):
@@ -25,6 +34,11 @@ class AboutSection:
 
         # Display research hypothesis
         st.markdown(self.KEY_HYPOTHESIS.format(linkedin=self.linkedin_profile), unsafe_allow_html=True)
+
+        # Add break line and display development environment info
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown(self.DEV_ENVIRONMENT, unsafe_allow_html=True)
+
 
 # Instantiation
 about = AboutSection(linkedin_profile="https://www.linkedin.com/in/juan-guillermo-osio/")
