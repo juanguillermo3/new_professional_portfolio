@@ -23,7 +23,7 @@ from git_api_utils import load_repos_metadata as load_github_metadata
 from app_end_metadata import load_repos_metadata as load_app_metadata
 from front_end_utils import render_section_separator, render_external_link_button, prettify_title, tags_in_twitter_style
 from media_carousel import MediaCarousel  # Assuming this is the correct import
-from visual_media import  GalleryCollection
+from visual_media import  GalleryCollection, test_gallery
 from front_end_for_recommended_content import html_for_item_data
 
 #
@@ -70,7 +70,7 @@ class RecommendationSystem:
         self._prepare_project_titles_and_default()
 
         self.gallery_collection = GalleryCollection()
-        self.active_galleria = None
+        self.active_galleria = test_gallery
     #
     def _sort_projects(self):
         """Sort projects by ongoing status and number of related items."""
@@ -255,7 +255,7 @@ class RecommendationSystem:
             return  # Exit the function if the schema is not compliant
 
         # Retrieve or create a new VisualContentGallery instance
-        self.active_galleria = self.gallery_collection.get(gallery_key, galleria_params)
+        self.active_galleria = self.active_galleria 
 
         # Call the render method on the retrieved instance
         with st.spinner("Loading media..."):
