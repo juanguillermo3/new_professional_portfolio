@@ -18,7 +18,7 @@ from rec_sys import recsys
 from about_section import about
 from services_section import services
 from socials_section import socials
-#from visual_media import test_gallery, test_gallery_collection
+from visual_media import test_gallery
 
 # Load environment variables
 load_dotenv(override=True)
@@ -100,3 +100,5 @@ for section_name, module in SECTIONS.items():
 #    "media_path":"assets/gm_per_*.png",
 #    }
 #).render()
+
+test_gallery.render()
