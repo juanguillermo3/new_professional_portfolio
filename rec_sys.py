@@ -255,7 +255,8 @@ class RecommendationSystem:
             return  # Exit the function if the schema is not compliant
 
         # Retrieve or create a new VisualContentGallery instance
-        self.active_galleria = self.gallery_collection.get(gallery_key)
+        self.active_galleria = self.gallery_collection.get(gallery_key, galleria_params)
+
 
         # Call the render method on the retrieved instance
         with st.spinner("Loading media..."):
