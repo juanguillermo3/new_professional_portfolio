@@ -307,6 +307,12 @@ class GalleryCollection:
             )
         return self.cache[key]
 
+import streamlit as st
+import streamlit.components.v1 as components
+import hashlib
+import glob
+import os
+
 class VisualContentGallery:
     def __init__(self, title, description, media_path, width="700px", height="400px"):
         self.title = title
