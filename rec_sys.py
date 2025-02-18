@@ -70,7 +70,7 @@ class RecommendationSystem:
         self._prepare_project_titles_and_default()
 
         self.gallery_collection = GalleryCollection()
-        self.active_galleria = test_gallery
+        self.active_galleria = None
     #
     def _sort_projects(self):
         """Sort projects by ongoing status and number of related items."""
@@ -255,7 +255,7 @@ class RecommendationSystem:
             return  # Exit the function if the schema is not compliant
 
         # Retrieve or create a new VisualContentGallery instance
-        self.active_galleria = self.active_galleria 
+        self.active_galleria = self.gallery_collection.get(gallery_key)
 
         # Call the render method on the retrieved instance
         with st.spinner("Loading media..."):
