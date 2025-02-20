@@ -1,3 +1,8 @@
+"""
+title: Front-End for Recommended Data
+description: Implements the front-end representation of items displayed by the RecSys. It aims to create elegant and informative components by combining Streamlit built-ins with custom styling.
+"""
+
 import hashlib
 import streamlit as st
 from front_end_utils import prettify_title
@@ -16,8 +21,8 @@ def html_for_item_data(
 
     Parameters:
     - rec (dict): A dictionary containing item metadata with the following fields:
-        - "title" (str): The title of the recommended item.
-        - "description" (str): A short descriptive text for the item.
+        - "title" (str, optional): The title of the recommended item. Defaults to "Untitled".
+        - "description" (str, optional): A short descriptive text for the item. Defaults to "No description available."
         - "galleria" (bool, optional, legacy): Marks outstanding content (deprecated).
         - "highlighted_content" (bool, optional, preferred): Marks outstanding content.
 
@@ -34,11 +39,14 @@ def html_for_item_data(
     # Check for outstanding content using the provided regex
     is_outstanding = any(outstanding_content_regex.match(key) and rec.get(key) for key in rec)
 
-    # Apply title transformation
-    title = prettify_title(rec['title'])
+    # Apply title transformation with a default value
+    title = prettify_title(rec.get('title', 'Untitled'))
     if is_outstanding:
         title = f"⭐ {title}"  # Highlight special items
     
+    # Default description if missing
+    description = rec.get('description', 'No description available.')
+
     # Return the HTML structure
     return f"""
         <div style="background-color: {background_color}; border: {border_style}; 
@@ -53,9 +61,10 @@ def html_for_item_data(
             </div>
             <div style="margin-top: 40px; padding: 0 10px; overflow-y: auto; 
                         height: calc(100% - 40px); text-align: justify;">
-                {rec['description']}
+                {description}
             </div>
         </div>
     """
+
 
 
