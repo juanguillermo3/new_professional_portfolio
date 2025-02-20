@@ -139,7 +139,21 @@
     "last_updated": "2025-02-18T20:12:46Z",
     "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/app_prof_site_blueprint.py",
     "file_path": "app_prof_site_blueprint.py",
-    "repo_name": "new_professional_portfolio"
+    "repo_name": "new_professional_portfolio",
+    "libraries": [
+      "git_api_utils",
+      "visual_media",
+      "front_end_utils",
+      "hero_area",
+      "streamlit",
+      "dotenv",
+      "professional_bio",
+      "os",
+      "rec_sys",
+      "about_section",
+      "services_section",
+      "socials_section"
+    ]
   },
   {
     "title": "Curriculum Vitae",
@@ -155,7 +169,24 @@
     "last_updated": "2025-02-18T20:17:43Z",
     "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/rec_sys.py",
     "file_path": "rec_sys.py",
-    "repo_name": "new_professional_portfolio"
+    "repo_name": "new_professional_portfolio",
+    "libraries": [
+      "random",
+      "re",
+      "glob",
+      "markdown",
+      "media_carousel",
+      "git_api_utils",
+      "visual_media",
+      "datetime",
+      "app_end_metadata",
+      "front_end_utils",
+      "streamlit",
+      "os",
+      "hashlib",
+      "front_end_for_recommended_content",
+      "time"
+    ]
   },
   {
     "title": "Example Jupyter Notebook",
@@ -315,6 +346,13 @@
     "last_updated": "2025-02-12T18:29:47Z",
     "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/hero_area.py",
     "file_path": "hero_area.py",
-    "repo_name": "new_professional_portfolio"
+    "repo_name": "new_professional_portfolio",
+    "libraries": [
+      "hero_area_data_loader",
+      "front_end_utils",
+      "streamlit",
+      "dotenv",
+      "os"
+    ]
   }
 ]
