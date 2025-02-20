@@ -1,303 +1,335 @@
 [
-  {
-    "title": "Assess Program Balance for Treatment and Control Groups",
-    "description": "This function assesses the balance of independent variables across treatment and control groups by performing statistical tests (e.g., T-tests for continuous variables, Proportion tests for binary variables).",
-    "last_updated": "2025-01-27T04:02:35Z",
-    "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/assess_program_balance.R",
-    "file_path": "assess_program_balance.R",
-    "repo_name": "evaluation_of_job_intermediation_program"
-  },
-  {
-    "title": "Demographic Model",
-    "description": "Provides a demographic model for workers registered with the job agency.",
-    "last_updated": "2025-01-27T04:02:35Z",
-    "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/demographics.R",
-    "file_path": "demographics.R",
-    "repo_name": "evaluation_of_job_intermediation_program"
-  },
-  {
-    "title": "Worker Participation in Job Intermediation Programs",
-    "description": "Describes workers' participation in multiple job intermediation programs provided by the agency personnel.",
-    "last_updated": "2025-01-27T04:02:35Z",
-    "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/experimental_cases.R",
-    "file_path": "experimental_cases.R",
-    "repo_name": "evaluation_of_job_intermediation_program"
-  },
-  {
-    "title": "Data Sharing and Persistence Utilities",
-    "description": "Provides tools to facilitate data sharing and persistence between application modules.",
-    "last_updated": "2025-01-27T04:02:35Z",
-    "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/persistence _utils.R",
-    "file_path": "persistence _utils.R",
-    "repo_name": "evaluation_of_job_intermediation_program"
-  },
-  {
-    "title": "Data Sharing and Persistence Utilities",
-    "description": "Provides tools to facilitate data sharing and persistence between application modules.",
-    "last_updated": "2025-01-27T04:03:38Z",
-    "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/persistence_utils.R",
-    "file_path": "persistence_utils.R",
-    "repo_name": "evaluation_of_job_intermediation_program"
-  },
-  {
-    "title": "sample balance in workers sample",
-    "description": "merges demographic and professional information from workers, along with participation in job intermerdiation, to a single sample. It asses balance in program assignation.",
-    "last_updated": "2025-01-27T04:16:01Z",
-    "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/sample_balance_in_workers_sample.R",
-    "file_path": "sample_balance_in_workers_sample.R",
-    "repo_name": "evaluation_of_job_intermediation_program"
-  },
-  {
-    "title": "Worker Profiles Module",
-    "description": "Extracts and processes features from the curricula of workers registered with the job agency.",
-    "last_updated": "2025-01-27T04:02:35Z",
-    "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/worker_profiles.R",
-    "file_path": "worker_profiles.R",
-    "repo_name": "evaluation_of_job_intermediation_program"
-  },
-  {
-    "title": "deduplication service for the job listings",
-    "description": "Provides a brute_force_deduplication to deduplicate an RDD with the job listings, by implementing a reduceByKey op which only keep the first text per vancancy code.",
-    "last_updated": "2025-01-23T09:51:54Z",
-    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/deduplication.py",
-    "file_path": "deduplication.py",
-    "repo_name": "lab_market_trends"
-  },
-  {
-    "title": "ingestions service for the job listings",
-    "description": "Reads job listings from a disk folder where scrapped data is located. Discard files that dont follow the expected structure.",
-    "last_updated": "2025-01-23T09:52:15Z",
-    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/ingestion_of_job_listings.py",
-    "file_path": "ingestion_of_job_listings.py",
-    "repo_name": "lab_market_trends"
-  },
-  {
-    "project": "lab_market_trends",
-    "title": "Jobs Vacancies scrapper",
-    "description": "This modules performs scrapping of job listings",
-    "author": "Juan Guillermo",
-    "field": "something",
-    "portfolio": "True",
-    "last_updated": "2025-01-04T07:12:43Z",
-    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/job_listing_scrapper_1.2.py",
-    "file_path": "job_listing_scrapper_1.2.py",
-    "repo_name": "lab_market_trends"
-  },
-  {
-    "title": "single provider for the job listings RDD",
-    "description": "A single source of truth for an RDD with job listings. Implements dependency injection to stack several services, such as ingestion and deduplication.",
-    "last_updated": "2025-01-28T05:28:38Z",
-    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/main_provider_curated_job_listings_rdd.py",
-    "file_path": "main_provider_curated_job_listings_rdd.py",
-    "repo_name": "lab_market_trends"
-  },
-  {
-    "title": "Generate Comprehensive Excel Reports",
-    "description": "A flexible function to create Excel reports with dataframes, ggplots, leaflet maps, and nested lists of content.",
-    "last_updated": "2025-01-17T06:10:14Z",
-    "url": "https://github.com/juanguillermo3/monkey_research/blob/main/flexible_excel_reports.R",
-    "file_path": "flexible_excel_reports.R",
-    "repo_name": "monkey_research"
-  },
-  {
-    "title": "Flexible Comparison Across Groups",
-    "description": "Performs statistical tests to compare measurements of a dependent variable across groups defined by an independent variable. Supports multiple behaviors for ecological studies.",
-    "last_updated": "2025-01-17T06:10:34Z",
-    "url": "https://github.com/juanguillermo3/monkey_research/blob/main/flexible_test_across_groups.R",
-    "file_path": "flexible_test_across_groups.R",
-    "repo_name": "monkey_research"
-  },
-  {
-    "title": "Food Index over Transect Data",
-    "description": "This scripts performs the computation and vizualization of the food availability data over the vegetation records (transect data) for all the home ranges of the monkey species",
-    "last_updated": "2025-01-17T06:13:28Z",
-    "url": "https://github.com/juanguillermo3/monkey_research/blob/main/food_availability_index_over_transect_data.R",
-    "file_path": "food_availability_index_over_transect_data.R",
-    "repo_name": "monkey_research"
-  },
-  {
-    "title": "Home range sizes trough CPE",
-    "description": "Implements a the Minimum Convex Polygon Estimator to compute the home range sizes for each of 4 monkey groups under study",
-    "report_url": "https://docs.google.com/spreadsheets/d/1Dr48Q6WI18ldeaSUnL_C2OpaVQPiSNGv/edit?gid=1820260740#gid=1820260740",
-    "last_updated": "2025-01-17T05:52:02Z",
-    "url": "https://github.com/juanguillermo3/monkey_research/blob/main/home_ranges.R",
-    "file_path": "home_ranges.R",
-    "repo_name": "monkey_research",
-    "image_path": "assets/home_ranges.png",
-    "galleria": "True"
-  },
-  {
-    "title": "Computation of Morisita Index",
-    "description": "Computes the Morisita Index for spatial dispersion for the home range of each monkey species",
-    "portfolio": "True",
-    "project": "monkey_research",
-    "version": "2.1.0",
-    "date": "2025-01-02",
-    "last_updated": "2025-01-10T03:30:16Z",
-    "url": "https://github.com/juanguillermo3/monkey_research/blob/main/morisita_index.R",
-    "file_path": "morisita_index.R",
-    "repo_name": "monkey_research"
-  },
-  {
-    "project": "new_professional_portfolio",
-    "title": "Web Application",
-    "description": "Streamlit based Front-End application for my professional portfolio.",
-    "author": "Juan Guillermo",
-    "field": "something",
-    "last_updated": "2025-02-18T20:12:46Z",
-    "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/app_prof_site_blueprint.py",
-    "file_path": "app_prof_site_blueprint.py",
-    "repo_name": "new_professional_portfolio"
-  },
-  {
-    "title": "Curriculum Vitae",
-    "description": "CV area for a modern proffesional portfolio. The gist of it is serving an elegant front end representation of a couple of unordered lists: work items, experience items. Its design is inspired by modern job intermediation sites.",
-    "last_updated": "2025-01-23T11:33:28Z",
-    "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/professional_bio.py",
-    "file_path": "professional_bio.py",
-    "repo_name": "new_professional_portfolio"
-  },
-  {
-    "title": "Recommendation System",
-    "description": "Current implementation of the RecSys, featuring a vanilla ranking that sorts items by the most recently updated, filters by query (exact matching), and allows filtering by project.",
-    "last_updated": "2025-02-18T20:17:43Z",
-    "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/rec_sys.py",
-    "file_path": "rec_sys.py",
-    "repo_name": "new_professional_portfolio"
-  },
-  {
-    "title": "Example Jupyter Notebook",
-    "author": "Taylor White",
-    "date": "2025-01-14",
-    "description": "This notebook demonstrates extracting metadata for Jupyter.",
-    "url": "https://github.com/juanguillermo3/predictive_analytics/blob/main/ensemble_learning.ipynb",
-    "file_path": "ensemble_learning.ipynb",
-    "repo_name": "predictive_analytics"
-  },
-  {
-    "title": "Dates Range",
-    "description": "Describes de temporal range (dates covered) by the job listings",
-    "last_updated": "2025-01-28T05:26:59Z",
-    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/dates.py",
-    "file_path": "dates.py",
-    "repo_name": "lab_market_trends"
-  },
-  {
-    "title": "Feature Extraction",
-    "description": "Perform extraction of significant features for the job listings dataset.",
-    "last_updated": "2025-01-28T05:28:22Z",
-    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/features.py",
-    "file_path": "features.py",
-    "repo_name": "lab_market_trends"
-  },
-  {
-    "title": "Phrases discovery",
-    "description": "Provides tool for discovery of significant N-gram based phrases based on n-grams and lift metrics.",
-    "last_updated": "2025-01-28T00:38:01Z",
-    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/phrases.py",
-    "file_path": "phrases.py",
-    "repo_name": "lab_market_trends"
-  },
-  {
-    "title": "Preprocessing",
-    "description": "Provides tools to prepare job listings for feature discovery/extraction on standardized text.",
-    "last_updated": "2025-01-28T05:28:53Z",
-    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/preprocess.py",
-    "file_path": "preprocess.py",
-    "repo_name": "lab_market_trends"
-  },
-  {
-    "title": "Wages Analysis",
-    "description": "Plots the distribution on wages in job listings, overall vs segment specific",
-    "last_updated": "2025-01-28T05:26:59Z",
-    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/wages.py",
-    "file_path": "wages.py",
-    "repo_name": "lab_market_trends",
-    "galleria": "True",
-    "image_path": "assets/wages.png"
-  },
-  {
-    "title": "Wages Drivers",
-    "description": "Detects the main drivers behind wage formation trough the analysis of the gradients of a Neural Network model.",
-    "image_path": "assets/effects_rank (1).html",
-    "galleria": "True",
-    "repo_name": "lab_market_trends",
-    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/wages_drivers.py",
-    "forced_rank": "2"
-  },
-  {
-    "title": "Neural Networks for Wages Prediction",
-    "description": "Provides a deep learning approach based on a deep, feed-forward NN to predict wages.",
-    "image_path": "assets/learning_curve.html",
-    "galleria": "True",
-    "repo_name": "lab_market_trends",
-    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/deep_learning",
-    "forced_rank": "3"
-  },
-  {
-    "title": "Visualization of monthly sales",
-    "description": "Visualization tool to inspect the behaviour of sales series produced by company\u00b4s data warehouse",
-    "image_path": "assets/hourly_sales.png",
-    "url": "https://github.com/juanguillermo3/sales_forecasting_with_genetic_neural_networks/blob/main/plot_sales.py",
-    "galleria": "True",
-    "repo_name": "sales_forecasting_with_genetic_neural_networks"
-  },
-  {
-    "title": "Geometric Modelling for Nutrition Data",
-    "description": "Applies Geometric Modelling based on dimensionality reduction to analize nutritional preferences of the monkey species.",
-    "debrief": "This module performs a visualization devide to facilitate the analisis of",
-    "image_path": "assets/gm_per_*.png",
-    "last_updated": "2025-02-04T23:16:04Z",
-    "url": "https://github.com/juanguillermo3/monkey_research/blob/main/geometric_modelling.R",
-    "file_path": "geometric_modelling.R",
-    "repo_name": "monkey_research",
-    "galleria": "True"
-  },
-  {
-    "title": "Habitat islands",
-    "description": "Applies k-means clustering within a self-calibration framework to discover smaller partitions of habitat islands from sights data. It is useful in ecological studies to decompose the habitat of some species into smaller habitats, thus allowing statistical analysis of home range sizes, such as correlation with habitat parameters.",
-    "debrief": "",
-    "url": "https://github.com/juanguillermo3/monkey_research/blob/main/discover_habitat_islands.R",
-    "repo_name": "monkey_research",
-    "galleria": "True",
-    "image_path": "assets/islands_*.html"
-  },
-  {
-    "title": "Spatial correlation analysis",
-    "description": "Computes correlation between home ranges sizes and habitat parameters",
-    "report_url": "https://docs.google.com/spreadsheets/d/1KMhoqoPNrcP8Gp5eimwHmUeiFZZhKekL/edit?gid=521562748#gid=521562748",
-    "last_updated": "2025-01-25T03:55:16Z",
-    "url": "https://github.com/juanguillermo3/monkey_research/blob/main/correlation_patterns.R",
-    "repo_name": "monkey_research",
-    "galleria": "True",
-    "image_path": "assets/plots_and_islands_*.html"
-  },
-  {
-    "title": "Results Parser",
-    "description": "Generates visual reports from optimization process results.",
-    "url": "https://github.com/juanguillermo3/sales_forecasting_with_genetic_neural_networks/blob/main/results.py",
-    "repo_name": "sales_forecasting_with_genetic_neural_networks",
-    "image_path": "assets/results_*.png"
-  },
-  {
+    {
+        "title": "Assess Program Balance for Treatment and Control Groups",
+        "description": "This function assesses the balance of independent variables across treatment and control groups by performing statistical tests (e.g., T-tests for continuous variables, Proportion tests for binary variables).",
+        "last_updated": "2025-01-27T04:02:35Z",
+        "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/assess_program_balance.R",
+        "file_path": "assess_program_balance.R",
+        "repo_name": "evaluation_of_job_intermediation_program"
+    },
+    {
+        "title": "Demographic Model",
+        "description": "Provides a demographic model for workers registered with the job agency.",
+        "last_updated": "2025-01-27T04:02:35Z",
+        "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/demographics.R",
+        "file_path": "demographics.R",
+        "repo_name": "evaluation_of_job_intermediation_program"
+    },
+    {
+        "title": "Worker Participation in Job Intermediation Programs",
+        "description": "Describes workers' participation in multiple job intermediation programs provided by the agency personnel.",
+        "last_updated": "2025-01-27T04:02:35Z",
+        "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/experimental_cases.R",
+        "file_path": "experimental_cases.R",
+        "repo_name": "evaluation_of_job_intermediation_program"
+    },
+    {
+        "title": "Data Sharing and Persistence Utilities",
+        "description": "Provides tools to facilitate data sharing and persistence between application modules.",
+        "last_updated": "2025-01-27T04:02:35Z",
+        "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/persistence _utils.R",
+        "file_path": "persistence _utils.R",
+        "repo_name": "evaluation_of_job_intermediation_program"
+    },
+    {
+        "title": "Data Sharing and Persistence Utilities",
+        "description": "Provides tools to facilitate data sharing and persistence between application modules.",
+        "last_updated": "2025-01-27T04:03:38Z",
+        "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/persistence_utils.R",
+        "file_path": "persistence_utils.R",
+        "repo_name": "evaluation_of_job_intermediation_program"
+    },
+    {
+        "title": "sample balance in workers sample",
+        "description": "merges demographic and professional information from workers, along with participation in job intermerdiation, to a single sample. It asses balance in program assignation.",
+        "last_updated": "2025-01-27T04:16:01Z",
+        "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/sample_balance_in_workers_sample.R",
+        "file_path": "sample_balance_in_workers_sample.R",
+        "repo_name": "evaluation_of_job_intermediation_program"
+    },
+    {
+        "title": "Worker Profiles Module",
+        "description": "Extracts and processes features from the curricula of workers registered with the job agency.",
+        "last_updated": "2025-01-27T04:02:35Z",
+        "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/worker_profiles.R",
+        "file_path": "worker_profiles.R",
+        "repo_name": "evaluation_of_job_intermediation_program"
+    },
+    {
+        "title": "deduplication service for the job listings",
+        "description": "Provides a brute_force_deduplication to deduplicate an RDD with the job listings, by implementing a reduceByKey op which only keep the first text per vancancy code.",
+        "last_updated": "2025-01-23T09:51:54Z",
+        "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/deduplication.py",
+        "file_path": "deduplication.py",
+        "repo_name": "lab_market_trends"
+    },
+    {
+        "title": "ingestions service for the job listings",
+        "description": "Reads job listings from a disk folder where scrapped data is located. Discard files that dont follow the expected structure.",
+        "last_updated": "2025-01-23T09:52:15Z",
+        "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/ingestion_of_job_listings.py",
+        "file_path": "ingestion_of_job_listings.py",
+        "repo_name": "lab_market_trends"
+    },
+    {
+        "project": "lab_market_trends",
+        "title": "Jobs Vacancies scrapper",
+        "description": "This modules performs scrapping of job listings",
+        "author": "Juan Guillermo",
+        "field": "something",
+        "portfolio": "True",
+        "last_updated": "2025-01-04T07:12:43Z",
+        "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/job_listing_scrapper_1.2.py",
+        "file_path": "job_listing_scrapper_1.2.py",
+        "repo_name": "lab_market_trends"
+    },
+    {
+        "title": "single provider for the job listings RDD",
+        "description": "A single source of truth for an RDD with job listings. Implements dependency injection to stack several services, such as ingestion and deduplication.",
+        "last_updated": "2025-01-23T09:28:00Z",
+        "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/main_provider_curated_job_listings_rdd.py",
+        "file_path": "main_provider_curated_job_listings_rdd.py",
+        "repo_name": "lab_market_trends"
+    },
+    {
+        "title": "Generate Comprehensive Excel Reports",
+        "description": "A flexible function to create Excel reports with dataframes, ggplots, leaflet maps, and nested lists of content.",
+        "last_updated": "2025-01-17T06:10:14Z",
+        "url": "https://github.com/juanguillermo3/monkey_research/blob/main/flexible_excel_reports.R",
+        "file_path": "flexible_excel_reports.R",
+        "repo_name": "monkey_research"
+    },
+    {
+        "title": "Flexible Comparison Across Groups",
+        "description": "Performs statistical tests to compare measurements of a dependent variable across groups defined by an independent variable. Supports multiple behaviors for ecological studies.",
+        "last_updated": "2025-01-17T06:10:34Z",
+        "url": "https://github.com/juanguillermo3/monkey_research/blob/main/flexible_test_across_groups.R",
+        "file_path": "flexible_test_across_groups.R",
+        "repo_name": "monkey_research"
+    },
+    {
+        "title": "Food Index over Transect Data",
+        "description": "This scripts performs the computation and vizualization of the food availability data over the vegetation records (transect data) for all the home ranges of the monkey species",
+        "last_updated": "2025-01-17T06:13:28Z",
+        "url": "https://github.com/juanguillermo3/monkey_research/blob/main/food_availability_index_over_transect_data.R",
+        "file_path": "food_availability_index_over_transect_data.R",
+        "repo_name": "monkey_research"
+    },
+    {
+        "title": "Home range sizes trough CPE",
+        "description": "Implements a the Minimum Convex Polygon Estimator to compute the home range sizes for each of 4 monkey groups under study",
+        "report_url": "https://docs.google.com/spreadsheets/d/1Dr48Q6WI18ldeaSUnL_C2OpaVQPiSNGv/edit?gid=1820260740#gid=1820260740",
+        "last_updated": "2025-01-17T05:52:02Z",
+        "url": "https://github.com/juanguillermo3/monkey_research/blob/main/home_ranges.R",
+        "file_path": "home_ranges.R",
+        "repo_name": "monkey_research",
+        "image_path": "assets/home_ranges.png",
+        "galleria": "True"
+    },
+    {
+        "title": "Computation of Morisita Index",
+        "description": "Computes the Morisita Index for spatial dispersion for the home range of each monkey species",
+        "portfolio": "True",
+        "project": "monkey_research",
+        "version": "2.1.0",
+        "date": "2025-01-02",
+        "last_updated": "2025-01-10T03:30:16Z",
+        "url": "https://github.com/juanguillermo3/monkey_research/blob/main/morisita_index.R",
+        "file_path": "morisita_index.R",
+        "repo_name": "monkey_research"
+    },
+    {
+        "project": "new_professional_portfolio",
+        "title": "Web Application",
+        "description": "Streamlit based Front-End application for my professional portfolio.",
+        "author": "Juan Guillermo",
+        "field": "something",
+        "last_updated": "2025-01-24T18:48:32Z",
+        "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/app_prof_site_blueprint.py",
+        "file_path": "app_prof_site_blueprint.py",
+        "repo_name": "new_professional_portfolio"
+    },
+    {
+        "title": "Curriculum Vitae",
+        "description": "CV area for a modern proffesional portfolio. The gist of it is serving an elegant front end representation of a couple of unordered lists: work items, experience items. Its design is inspired by modern job intermediation sites.",
+        "last_updated": "2025-01-23T11:33:28Z",
+        "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/professional_bio.py",
+        "file_path": "professional_bio.py",
+        "repo_name": "new_professional_portfolio"
+    },
+    {
+        "title": "Recommendation System",
+        "description": "Current implementation of the RecSys, featuring a vanilla ranking that sorts items by the most recently updated, filters by query (exact matching), and allows filtering by project.",
+        "last_updated": "2025-01-26T20:04:36Z",
+        "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/rec_sys.py",
+        "file_path": "rec_sys.py",
+        "repo_name": "new_professional_portfolio"
+    },
+    {
+        "title": "Example Jupyter Notebook",
+        "author": "Taylor White",
+        "date": "2025-01-14",
+        "description": "This notebook demonstrates extracting metadata for Jupyter.",
+        "url": "https://github.com/juanguillermo3/predictive_analytics/blob/main/ensemble_learning.ipynb",
+        "file_path": "ensemble_learning.ipynb",
+        "repo_name": "predictive_analytics"
+    },
+    {
+        "title": "Dates Range",
+        "description": "Describes de temporal range (dates covered) by the job listings",
+        "last_updated": "2025-01-28T05:26:59Z",
+        "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/dates.py",
+        "file_path": "dates.py",
+        "repo_name": "lab_market_trends"
+    },
+    {
+        "title": "Feature Extraction",
+        "description": "Perform extraction of significant features for the job listings dataset.",
+        "last_updated": "2025-01-28T05:28:22Z",
+        "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/features.py",
+        "file_path": "features.py",
+        "repo_name": "lab_market_trends"
+    },
+    {
+        "title": "single provider for the job listings RDD",
+        "description": "A single source of truth for an RDD with job listings. Implements dependency injection to stack several services, such as ingestion and deduplication.",
+        "last_updated": "2025-01-28T05:28:38Z",
+        "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/main_provider_curated_job_listings_rdd.py",
+        "file_path": "main_provider_curated_job_listings_rdd.py",
+        "repo_name": "lab_market_trends"
+    },
+    {
+        "title": "Phrases discovery",
+        "description": "Provides tool for discovery of significant N-gram based phrases based on n-grams and lift metrics.",
+        "last_updated": "2025-01-28T00:38:01Z",
+        "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/phrases.py",
+        "file_path": "phrases.py",
+        "repo_name": "lab_market_trends"
+    },
+    {
+        "title": "Preprocessing",
+        "description": "Provides tools to prepare job listings for feature discovery/extraction on standardized text.",
+        "last_updated": "2025-01-28T05:28:53Z",
+        "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/preprocess.py",
+        "file_path": "preprocess.py",
+        "repo_name": "lab_market_trends"
+    },
+    {
+        "title": "Wages Analysis",
+        "description": "Plots the distribution on wages in job listings, overall vs segment specific",
+        "last_updated": "2025-01-28T05:26:59Z",
+        "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/wages.py",
+        "file_path": "wages.py",
+        "repo_name": "lab_market_trends",
+        "galleria": "True",
+        "image_path": "assets/wages.png"
+    },
+    {
+        "title": "Generate Comprehensive Excel Reports",
+        "description": "A flexible function to create Excel reports with dataframes, ggplots, leaflet maps, and nested lists of content.",
+        "url": "https://github.com/juanguillermo3/monkey_research/blob/main/flexible_excel_reports.R",
+        "file_path": "flexible_excel_reports.R",
+        "repo_name": "monkey_research"
+    },
+    {
+        "title": "Wages Drivers",
+        "description": "Detects the main drivers behind wage formation trough the analysis of the gradients of a Neural Network model.",
+        "image_path": "assets/effects_rank (1).html",
+        "galleria": "True",
+        "repo_name": "lab_market_trends",
+        "url":"https://github.com/juanguillermo3/lab_market_trends/blob/main/wages_drivers.py",
+        "forced_rank": "2"
+    },
+    {
+        "title": "Neural Networks for Wages Prediction",
+        "description": "Provides a deep learning approach based on a deep, feed-forward NN to predict wages.",
+        "image_path": "assets/learning_curve.html",
+        "galleria": "True",
+        "repo_name": "lab_market_trends",
+        "url":"https://github.com/juanguillermo3/lab_market_trends/blob/main/deep_learning",
+        "forced_rank": "3"
+    },
+    {
+        "title": "Overall Application",
+        "description": "Connected version of the wages appication. It combines several modules into a sequence of workflows to analyze wages formation in the Colombian laboral market",
+        "image_path": "assets/effects_and_proportions (1).html",
+        "colab_url": "https://colab.research.google.com/drive/1gY17gbUdUxpWv2Ddooo0niPCkmqg8-hg#scrollTo=Hwfe5gZe3e_A>",
+        "galleria": "True",
+        "repo_name": "lab_market_trends",
+        "forced_rank": "1"
+    },
+    {
+        "title": "Overall Application",
+        "description": "Connected version of the forecasting application. It combines capabilities from several modules into a sequence of workflows to forecast sales for the food delivery context.",
+        "image_path": "assets/dnn_best_predictions.html",
+        "colab_url": "https://colab.research.google.com/drive/1QKFY5zfiRkUUPrnhlsOrtRlqGJ14oFf3#scrollTo=ZznO-uxNus8v",
+        "galleria": "True",
+        "repo_name": "sales_forecasting_with_genetic_neural_networks",
+        "forced_rank": "1",
+        "report_url":"https://docs.google.com/spreadsheets/d/1-7xJZvAwYe9B4BYmJcA3-m1rAzf4CXNH/edit?gid=2146063770#gid=2146063770"
+    },
+    {
+        "title": "Visualization of monthly sales",
+        "description": "Visualization tool to inspect the behaviour of sales series produced by company´s data warehouse",
+        "image_path": "assets/hourly_sales.png",
+        "url": "https://github.com/juanguillermo3/sales_forecasting_with_genetic_neural_networks/blob/main/plot_sales.py",
+        "galleria": "True",
+        "repo_name": "sales_forecasting_with_genetic_neural_networks"    
+    },
+    {
+        "title": "Geometric Modelling for Nutrition Data",
+        "description": "Applies Geometric Modelling based on dimensionality reduction to analize nutritional preferences of the monkey species.",
+        "debrief": "This module performs a visualization devide to facilitate the analisis of",
+        "image_path": "assets/gm_per_*.png",
+        "last_updated": "2025-02-04T23:16:04Z",
+        "url": "https://github.com/juanguillermo3/monkey_research/blob/main/geometric_modelling.R",
+        "file_path": "geometric_modelling.R",
+        "repo_name": "monkey_research",
+        "galleria": "True"
+    },
+    {
+        "title": "Habitat islands",
+        "description": "Applies k-means clustering within a self-calibration framework to discover smaller partitions of habitat islands from sights data. It is useful in ecological studies to decompose the habitat of some species into smaller habitats, thus allowing statistical analysis of home range sizes, such as correlation with habitat parameters.",
+        "debrief": "",
+        "url": "https://github.com/juanguillermo3/monkey_research/blob/main/discover_habitat_islands.R",
+        "repo_name": "monkey_research",
+        "galleria": "True",
+        "image_path": "assets/islands_*.html"
+    },
+    {
+        "title": "Spatial correlation analysis",
+        "description": "Computes correlation between home ranges sizes and habitat parameters",
+        "report_url": "https://docs.google.com/spreadsheets/d/1KMhoqoPNrcP8Gp5eimwHmUeiFZZhKekL/edit?gid=521562748#gid=521562748",
+        "last_updated": "2025-01-25T03:55:16Z",
+        "url": "https://github.com/juanguillermo3/monkey_research/blob/main/correlation_patterns.R",
+        "repo_name": "monkey_research",
+        "galleria": "True",
+        "image_path": "assets/plots_and_islands_*.html"
+    },
+    {
+        "title": "Results Parser",
+        "description": "Generates visual reports from optimization process results.",
+        "url": "https://github.com/juanguillermo3/sales_forecasting_with_genetic_neural_networks/blob/main/results.py",
+        "repo_name": "sales_forecasting_with_genetic_neural_networks",
+        "image_path": "assets/results_*.png"
+    },
+    {
     "title": "Plot Utilities",
     "description": "Provides styling and export functionalities for plots across the application.",
     "url": "https://github.com/juanguillermo3/sales_forecasting_with_genetic_neural_networks/edit/main/plot_utils.py",
     "repo_name": "sales_forecasting_with_genetic_neural_networks"
-  },
-  {
+    },
+    {
     "title": "Prepare Time Series Data",
     "description": "Provides a TimeSeriesDataHandler which prepares time series data (loaded from disk) for ML model development. It performs feature extraction using lags of the same series beyond a target forecast horizon. The handler outputs numpy arrays suitable for model development.",
     "url": "https://github.com/juanguillermo3/sales_forecasting_with_genetic_neural_networks/blob/main/prepare_ts_data.py",
     "repo_name": "sales_forecasting_with_genetic_neural_networks"
-  },
-  {
-    "title": "Hero section for a professional portfolio.",
-    "description": "Low key hero section for a professional porftolio. Styled as a quote from a book with a biopick.",
-    "author": "Juan Guillermo",
-    "last_updated": "2025-02-12T18:29:47Z",
-    "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/hero_area.py",
-    "file_path": "hero_area.py",
-    "repo_name": "new_professional_portfolio"
-  }
+    },
+    {
+    "title": "Genetic Optimization",
+    "description": "A custom implementation of a genetic optimization algorithm to find optimal hyperparameters for DL/ML models.",
+    "image_path": "assets/ServerDNN*.html",
+    "repo_name": "sales_forecasting_with_genetic_neural_networks"
+    }
+
 ]
