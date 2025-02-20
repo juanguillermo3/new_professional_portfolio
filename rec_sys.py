@@ -167,9 +167,9 @@ class RecommendationSystem:
                 item for item in final_ranked_items
                 if query_pattern.search(item["title"]) 
                 or query_pattern.search(item["description"]) 
-                or ("libraries" in item and isinstance(item["libraries"], dict) and any(query_pattern.search(lib) for lib in item["libraries"].keys()))
+                or ("libraries" in item and any(query_pattern.search(lib) for lib in item["libraries"]))
             ]
-    
+
         # Step 5: Return the top 'num_recommended_items' recommendations
         return final_ranked_items[:self.num_recommended_items]
 
