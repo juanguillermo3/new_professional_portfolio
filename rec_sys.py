@@ -165,9 +165,9 @@ class RecommendationSystem:
             query_pattern = re.compile(re.escape(query), re.IGNORECASE)
             final_ranked_items = [
                 item for item in final_ranked_items
-                if query_pattern.search(item["title"]) 
-                or query_pattern.search(item["description"]) 
-                or ("libraries" in item and any(query_pattern.search(lib) for lib in item["libraries"]))
+                if query_pattern.search(item.get("title", "")) 
+                or query_pattern.search(item.get("description", "")) 
+                or any(query_pattern.search(lib) for lib in item.get("libraries", []))
             ]
 
         # Step 5: Return the top 'num_recommended_items' recommendations
