@@ -332,10 +332,6 @@ class RecommendationSystem:
             self.media_placeholder.warning(f"Video for {project_metadata['title']} not found.")
 
 
-
-
-
-
     #
     # Updated render method
     #
@@ -353,7 +349,7 @@ class RecommendationSystem:
             selected_project = self.title_mapping[selected_pretty_project]
         
         with cols[1]:
-            query = st.text_input("🔍 Search for by keyword/library (e.g., Python, R, streamlit):", placeholder="Type a keyword and press Enter")
+            query = st.text_input("🔍 Search for by keyword/library (e.g., Python, R):", placeholder="Type a keyword and press Enter")
         
         recommendations = self.rank_items(query, selected_project)
         
