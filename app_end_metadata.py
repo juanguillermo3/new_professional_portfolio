@@ -2,11 +2,6 @@
 def load_repos_metadata():
     return [
         {
-            "title": "monkey_research",
-            "ongoing": True,
-            "tags": ["ethology research", "inferential statistics", "R Studio", "Visualization"]
-        },
-        {
             "title": "new_professional_portfolio",
             "ongoing": True,
             "tags": ["online portfolio", "application development", "streamlit", "Recommendation Systems", "LLM apps"]
@@ -28,15 +23,30 @@ def load_repos_metadata():
             ]
         },
         {
-        "title": "sales_forecasting_with_genetic_neural_networks",
-        "tags": ["Sales Forecasting", "Food Delivery", "Deep Neural Networks", "Genetic Optimization", "Feed Forward Neural Networks", "Recurrent Neural Networks"],
-        "achieved_milestones": [
-            "Built an ETL pipeline to aggregate sales counts into hourly and 15-minute intervals.",
-            "Developed services for feature extraction and ML sample delivery for forecasting.",
-            "Implemented traditional forecasting models (ARIMA, Exponential Smoothing).",
-            "Developed AI-based forecasting models (Deep Neural Networks, Recurrent Neural Networks).",
-            "Conducted research and custom-built a Genetic Optimization algorithm to fine-tune neural networks using core Python with GPT assistance."
-        ],
-        "next_milestones": []
-    }
+    "title": "monkey_research",
+    "ongoing": true,
+    "tags": [
+        "Scientific Research",
+        "Ethology",
+        "Behavioral Analysis",
+        "Inferential Statistics",
+        "Multivariate Analysis",
+        "Visualization",
+        "Unsupervised Learning",
+        "R Studio"
+    ],
+    "achieved_milestones": [
+        "Standardized scientific taxonomies across project tables.",
+        "Implemented an analytical database using SQLite.",
+        "Developed exploratory queries to analyze project data.",
+        "Implemented transformation pipelines for feature extraction.",
+        "Developed publication-grade visualizations for key behavioral patterns.",
+        "Implemented a statistical engine using Dunn's test and bootstrapping to analyze differences in behavior and diet patterns.",
+        "Developed a model for group behavior using multinomial logistic regression.",
+        "Estimated habitat areas using the Minimum Convex Polygon method.",
+        "Performed spatial correlation analysis of vegetation parameters using site clustering and spatial smoothing.",
+        "Visualized nutritional profiles of diets through geometric modeling."
+    ]
+}
+
     ]
