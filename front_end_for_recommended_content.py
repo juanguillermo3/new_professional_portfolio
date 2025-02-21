@@ -66,14 +66,14 @@ def html_for_item_data(
         </div>
     """
 
-def html_for_milestones_from_project_metadata(project_metadata):
+def html_for_milestones_from_project_metadata(project_metadata, num_displayed=3 ):
     milestone_html = []
 
     if 'achieved_milestones' in project_metadata:
         achieved = [f'<div style="color:green;">✅ {m}</div>' for m in project_metadata['achieved_milestones']]
-        if len(achieved) > 5:  # Cap initial display to 5
-            achieved_preview = achieved[:5]
-            achieved_hidden = achieved[5:]  # Only hidden milestones go inside <details>
+        if len(achieved) > num_displayed:  # Cap initial display to 5
+            achieved_preview = achieved[:num_displayed]
+            achieved_hidden = achieved[num_displayed:]  # Only hidden milestones go inside <details>
             milestone_html.extend(achieved_preview)
             milestone_html.append(
                 f"<details><summary style='cursor: pointer; margin-left:1.5%;'>See all achieved milestones...</summary>{''.join(achieved_hidden)}</details>"
@@ -83,9 +83,9 @@ def html_for_milestones_from_project_metadata(project_metadata):
 
     if 'next_milestones' in project_metadata:
         next_milestones = [f'<div style="color:#FFB300;">🚧 {m}</div>' for m in project_metadata['next_milestones']]
-        if len(next_milestones) > 5:  # Cap initial display to 5
-            next_preview = next_milestones[:5]
-            next_hidden = next_milestones[5:]  # Only hidden milestones go inside <details>
+        if len(next_milestones) > num_displayed:  # Cap initial display to 5
+            next_preview = next_milestones[:num_displayed]
+            next_hidden = next_milestones[num_displayed:]  # Only hidden milestones go inside <details>
             milestone_html.extend(next_preview)
             milestone_html.append(
                 f"<details><summary style='cursor: pointer; margin-left:1.5%;'>See all upcoming milestones...</summary>{''.join(next_hidden)}</details>"
