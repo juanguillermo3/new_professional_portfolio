@@ -307,7 +307,6 @@ class RecommendationSystem:
             unsafe_allow_html=True,
         )
 
-        st.markdown(html_for_item_data(rec), unsafe_allow_html=True)
         
         milestone_margin = margin_percent * 1.5  
         if display_milestones:
