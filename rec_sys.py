@@ -313,16 +313,35 @@ class RecommendationSystem:
             milestone_html = []
         
             if 'achieved_milestones' in project_metadata:
-                milestone_html.extend([f'<div style="color:green;">✅ {m}</div>' for m in project_metadata['achieved_milestones']])
+                achieved = [f'<div style="color:green;">✅ {m}</div>' for m in project_metadata['achieved_milestones']]
+                if len(achieved) > 5:  # Cap initial display to 5
+                    achieved_preview = achieved[:5]
+                    achieved_full = ''.join(achieved)
+                    milestone_html.append(
+                        f"<details><summary style='cursor: pointer;'>See all achieved milestones...</summary>{achieved_full}</details>"
+                    )
+                    milestone_html[:0] = achieved_preview  # Insert preview before the toggle
+                else:
+                    milestone_html.extend(achieved)
         
             if 'next_milestones' in project_metadata:
-                milestone_html.extend([f'<div style="color:#FFB300;">🚧 {m}</div>' for m in project_metadata['next_milestones']])
+                next_milestones = [f'<div style="color:#FFB300;">🚧 {m}</div>' for m in project_metadata['next_milestones']]
+                if len(next_milestones) > 5:  # Cap initial display to 5
+                    next_preview = next_milestones[:5]
+                    next_full = ''.join(next_milestones)
+                    milestone_html.append(
+                        f"<details><summary style='cursor: pointer;'>See all upcoming milestones...</summary>{next_full}</details>"
+                    )
+                    milestone_html[:0] = next_preview  # Insert preview before the toggle
+                else:
+                    milestone_html.extend(next_milestones)
         
             if milestone_html:
                 st.markdown(
-                    f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{''.join(milestone_html)}</div>", 
+                    f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{''.join(milestone_html)}</div>",
                     unsafe_allow_html=True
                 )
+
 
     
         # Code sample count section
