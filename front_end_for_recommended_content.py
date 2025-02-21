@@ -67,6 +67,23 @@ def html_for_item_data(
     """
 
 def html_for_milestones_from_project_metadata(project_metadata):
+    """
+    Generates an HTML string to display project milestones with collapsible sections 
+    when the list is long.
+
+    Uses:
+    - ✅ `<details>`: A native HTML element to create collapsible content without JavaScript.
+    - 📌 `<summary>`: A clickable title that toggles the visibility of `<details>` content.
+    - 🎨 Custom styling:
+        - The `<details>` element has a 5% left margin for distinguishability.
+        - The `<summary>` has padding for visual clarity but does not affect the hidden content.
+
+    Args:
+        project_metadata (dict): Dictionary containing 'achieved_milestones' and/or 'next_milestones'.
+
+    Returns:
+        str: A formatted HTML string for displaying milestones with optional collapsibility.
+    """
     milestone_html = []
 
     if 'achieved_milestones' in project_metadata:
@@ -75,7 +92,7 @@ def html_for_milestones_from_project_metadata(project_metadata):
             achieved_preview = achieved[:5]
             achieved_full = ''.join(achieved)
             milestone_html.append(
-                f"<details><summary style='cursor: pointer;'>See all achieved milestones...</summary>{achieved_full}</details>"
+                f"<details style='margin-left:5%;'><summary style='cursor: pointer; padding: 3px 0;'>See all achieved milestones...</summary>{achieved_full}</details>"
             )
             milestone_html[:0] = achieved_preview  # Insert preview before the toggle
         else:
@@ -87,12 +104,13 @@ def html_for_milestones_from_project_metadata(project_metadata):
             next_preview = next_milestones[:5]
             next_full = ''.join(next_milestones)
             milestone_html.append(
-                f"<details><summary style='cursor: pointer;'>See all upcoming milestones...</summary>{next_full}</details>"
+                f"<details style='margin-left:5%;'><summary style='cursor: pointer; padding: 3px 0;'>See all upcoming milestones...</summary>{next_full}</details>"
             )
             milestone_html[:0] = next_preview  # Insert preview before the toggle
         else:
             milestone_html.extend(next_milestones)
 
     return ''.join(milestone_html)
+
 
 
