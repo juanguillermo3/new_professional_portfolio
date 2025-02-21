@@ -46,6 +46,8 @@ def load_repos_metadata():
                 "Estimated habitat areas using the Minimum Convex Polygon method.",
                 "Performed spatial correlation analysis of vegetation parameters using site clustering and spatial smoothing.",
                 "Visualized nutritional profiles of diets through geometric modeling."
+            ],
+            "next_milestones": [
             ]
         }
     ]
