@@ -24,7 +24,7 @@ from app_end_metadata import load_repos_metadata as load_app_metadata
 from front_end_utils import render_section_separator, render_external_link_button, prettify_title, tags_in_twitter_style
 from media_carousel import MediaCarousel  # Assuming this is the correct import
 from visual_media import  GalleryCollection, test_gallery
-from front_end_for_recommended_content import html_for_item_data
+from front_end_for_recommended_content import html_for_item_data, html_for_milestones_from_project_metadata
 
 #
 # (0) ancillary function to merge metadata about underlyng items
@@ -306,43 +306,17 @@ class RecommendationSystem:
             """,
             unsafe_allow_html=True,
         )
-    
-        milestone_margin = margin_percent * 1.5 
-        # Milestones section
+
+        st.markdown(html_for_item_data(rec), unsafe_allow_html=True)
+        
+        milestone_margin = margin_percent * 1.5  
         if display_milestones:
-            milestone_html = []
-        
-            if 'achieved_milestones' in project_metadata:
-                achieved = [f'<div style="color:green;">✅ {m}</div>' for m in project_metadata['achieved_milestones']]
-                if len(achieved) > 5:  # Cap initial display to 5
-                    achieved_preview = achieved[:5]
-                    achieved_full = ''.join(achieved)
-                    milestone_html.append(
-                        f"<details><summary style='cursor: pointer;'>See all achieved milestones...</summary>{achieved_full}</details>"
-                    )
-                    milestone_html[:0] = achieved_preview  # Insert preview before the toggle
-                else:
-                    milestone_html.extend(achieved)
-        
-            if 'next_milestones' in project_metadata:
-                next_milestones = [f'<div style="color:#FFB300;">🚧 {m}</div>' for m in project_metadata['next_milestones']]
-                if len(next_milestones) > 5:  # Cap initial display to 5
-                    next_preview = next_milestones[:5]
-                    next_full = ''.join(next_milestones)
-                    milestone_html.append(
-                        f"<details><summary style='cursor: pointer;'>See all upcoming milestones...</summary>{next_full}</details>"
-                    )
-                    milestone_html[:0] = next_preview  # Insert preview before the toggle
-                else:
-                    milestone_html.extend(next_milestones)
-        
-            if milestone_html:
+            milestone_html = html_for_milestones_from_project_metadata(project_metadata)        
+            if milestone_html:  # Ensure content exists before rendering
                 st.markdown(
-                    f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{''.join(milestone_html)}</div>",
+                    f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{milestone_html}</div>",
                     unsafe_allow_html=True
                 )
-
-
     
         # Code sample count section
         project_title = project_metadata['title'].lower()
