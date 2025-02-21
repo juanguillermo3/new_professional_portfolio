@@ -11,18 +11,6 @@ def load_repos_metadata():
             "tags": ["Neural Networks", "Genetic Algorithms", "Ensemble Learning"]
         },
         {
-            "title": "lab_market_trends",
-            "ongoing": True,
-            "tags": ["labor market", "wages analysis", "data engineering", "PySpark", "Selenium"],
-            "achieved_milestones": [
-                "Data pipeline established",
-                "First wage trend analysis published"
-            ],
-            "next_milestones": [
-                "Integrate real-time labor demand trends"
-            ]
-        },
-        {
         "title": "sales_forecasting_with_genetic_neural_networks",
         "tags": ["Sales Forecasting", "Food Delivery", "Deep Neural Networks", "Genetic Optimization", "Feed Forward Neural Networks", "Recurrent Neural Networks"],
         "achieved_milestones": [
@@ -62,5 +50,26 @@ def load_repos_metadata():
             "next_milestones": [
                 "Editing for publication and dissemination."
             ]
-        }
+        },
+        {
+    "title": "lab_market_trends",
+    "ongoing": true,
+    "tags": ["labor market", "wage analysis", "data engineering", "PySpark", "Selenium", "NLP", "Deep Learning"],
+    "achieved_milestones": [
+        "Developed a recurrent web scraping service (Selenium/Airflow) to periodically collect job postings from the SPE website.",
+        "Built a distributed application (PySpark) to filter and deduplicate job postings.",
+        "Created visualizations for overall wage distribution and segment-specific trends.",
+        "Implemented a distributed application (PySpark) for phrase discovery using lift metrics.",
+        "Developed distributed applications (PySpark) for text standardization, feature extraction, and transformation.",
+        "Trained a deep learning model (NumPy/TensorFlow) to predict wages based on job posting vocabulary.",
+        "Built services to analyze wage drivers from the underlying model (NumPy/TensorFlow).",
+        "Designed a persistence model (SQLAlchemy) to store model inferences."
+    ],
+    "next_milestones": [
+        "Refine the overall architecture of the neural network model (word vectors, transformers).",
+        "Develop a calibration service for optimal hyperparameter selection.",
+        "Conduct analysis on key labor market segments of interest."
+    ]
+}
+
     ]
