@@ -23,6 +23,18 @@ def load_repos_metadata():
             ]
         },
         {
+        "title": "sales_forecasting_with_genetic_neural_networks",
+        "tags": ["Sales Forecasting", "Food Delivery", "Deep Neural Networks", "Genetic Optimization", "Feed Forward Neural Networks", "Recurrent Neural Networks"],
+        "achieved_milestones": [
+            "Built an ETL pipeline to aggregate sales counts into hourly and 15-minute intervals.",
+            "Developed services for feature extraction and ML sample delivery for forecasting.",
+            "Implemented traditional forecasting models (ARIMA, Exponential Smoothing).",
+            "Developed AI-based forecasting models (Deep Neural Networks, Recurrent Neural Networks).",
+            "Conducted research and custom-built a Genetic Optimization algorithm to fine-tune neural networks using core Python with GPT assistance."
+        ],
+        "next_milestones": []
+        },
+        {
             "title": "monkey_research",
             "ongoing": "True",
             "tags": [
