@@ -53,7 +53,10 @@
     "last_updated": "2025-01-23T09:51:54Z",
     "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/deduplication.py",
     "file_path": "deduplication.py",
-    "repo_name": "lab_market_trends"
+    "repo_name": "lab_market_trends",
+    "libraries": [
+      "re"
+    ]
   },
   {
     "title": "ingestions service for the job listings",
@@ -61,7 +64,13 @@
     "last_updated": "2025-01-23T09:52:15Z",
     "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/ingestion_of_job_listings.py",
     "file_path": "ingestion_of_job_listings.py",
-    "repo_name": "lab_market_trends"
+    "repo_name": "lab_market_trends",
+    "libraries": [
+      "os",
+      "gzip",
+      "re",
+      "logging"
+    ]
   },
   {
     "project": "lab_market_trends",
@@ -73,7 +82,19 @@
     "last_updated": "2025-01-04T07:12:43Z",
     "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/job_listing_scrapper_1.2.py",
     "file_path": "job_listing_scrapper_1.2.py",
-    "repo_name": "lab_market_trends"
+    "repo_name": "lab_market_trends",
+    "libraries": [
+      "re",
+      "dateutil",
+      "selenium",
+      "dotenv",
+      "airflow",
+      "gzip",
+      "logging",
+      "time",
+      "os",
+      "datetime"
+    ]
   },
   {
     "title": "single provider for the job listings RDD",
@@ -81,6 +102,182 @@
     "last_updated": "2025-01-28T05:28:38Z",
     "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/main_provider_curated_job_listings_rdd.py",
     "file_path": "main_provider_curated_job_listings_rdd.py",
+    "repo_name": "lab_market_trends",
+    "libraries": [
+      "logging",
+      "deduplication",
+      "spark_session_management",
+      "ingestion_of_job_listings",
+      "dotenv"
+    ]
+  },
+  {
+    "title": "Dates Range",
+    "description": "Describes de temporal range (dates covered) by the job listings",
+    "last_updated": "2025-01-28T05:26:59Z",
+    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/dates.py",
+    "file_path": "dates.py",
+    "repo_name": "lab_market_trends",
+    "libraries": [
+      "pandas",
+      "re",
+      "dotenv",
+      "logging",
+      "matplotlib",
+      "datetime"
+    ]
+  },
+  {
+    "title": "Feature Extraction",
+    "description": "Perform extraction of significant features for the job listings dataset.",
+    "last_updated": "2025-02-06T04:38:42Z",
+    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/features.py",
+    "file_path": "features.py",
+    "repo_name": "lab_market_trends",
+    "libraries": [
+      "re",
+      "dotenv",
+      "phrases",
+      "logging",
+      "time",
+      "os",
+      "preprocess",
+      "main_provider_curated_job_listings_rdd",
+      "collections",
+      "pyspark",
+      "datetime"
+    ]
+  },
+  {
+    "title": "Phrases discovery",
+    "description": "Provides tool for discovery of significant N-gram based phrases based on n-grams and lift metrics.",
+    "last_updated": "2025-02-06T04:38:01Z",
+    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/phrases.py",
+    "file_path": "phrases.py",
+    "repo_name": "lab_market_trends",
+    "libraries": [
+      "json",
+      "re",
+      "dotenv",
+      "logging",
+      "os",
+      "preprocess",
+      "main_provider_curated_job_listings_rdd",
+      "collections",
+      "pyspark",
+      "datetime"
+    ]
+  },
+  {
+    "title": "Preprocessing",
+    "description": "Provides tools to prepare job listings for feature discovery/extraction on standardized text.",
+    "last_updated": "2025-02-06T04:36:10Z",
+    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/preprocess.py",
+    "file_path": "preprocess.py",
+    "repo_name": "lab_market_trends",
+    "libraries": [
+      "re",
+      "unicodedata",
+      "textwrap"
+    ]
+  },
+  {
+    "title": "Wages Analysis",
+    "description": "Plots the distribution on wages in job listings, overall vs segment specific",
+    "last_updated": "2025-02-06T04:26:27Z",
+    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/wages.py",
+    "file_path": "wages.py",
+    "repo_name": "lab_market_trends",
+    "galleria": "True",
+    "image_path": "assets/wages.png",
+    "libraries": [
+      "re",
+      "matplotlib",
+      "pandas"
+    ]
+  },
+  {
+    "title": "Wages Drivers",
+    "description": "Detects the main drivers behind wage formation trough the analysis of the gradients of a Neural Network model.",
+    "image_path": "assets/wages_drrivers.png",
+    "galleria": "True",
+    "repo_name": "lab_market_trends",
+    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/wages_drivers.py",
+    "forced_rank": "2",
+    "libraries": [
+      "numpy",
+      "pandas",
+      "tensorflow",
+      "plotly",
+      "typing",
+      "os",
+      "random"
+    ],
+    "last_updated": "2025-02-06T05:01:44Z",
+    "file_path": "wages_drivers.py"
+  },
+  {
+    "title": "Neural Networks for Wages Prediction",
+    "description": "Provides a deep learning approach based on a deep, feed-forward NN to predict wages.",
+    "image_path": "assets/learning_curve.html",
+    "galleria": "True",
+    "repo_name": "lab_market_trends",
+    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/deep_learning",
+    "forced_rank": "3"
+  },
+  {
+    "title": "Overall Application",
+    "description": "Connected version of the wages appication. It combines several modules into a sequence of workflows to analyze wages formation in the Colombian laboral market",
+    "image_path": "assets/effects_and_proportions (1).html",
+    "colab_url": "https://colab.research.google.com/drive/1gY17gbUdUxpWv2Ddooo0niPCkmqg8-hg#scrollTo=Hwfe5gZe3e_A>",
+    "galleria": "True",
+    "repo_name": "lab_market_trends",
+    "forced_rank": "1"
+  },
+  {
+    "title": "Feature Transformation",
+    "description": "Converts an RDD to a pandas DataFrame and pipelines operations to create numerical features for downstream machine learning tasks.",
+    "libraries": [
+      "json",
+      "numpy",
+      "features",
+      "typing",
+      "dotenv",
+      "phrases",
+      "logging",
+      "time",
+      "os",
+      "preprocess",
+      "main_provider_curated_job_listings_rdd",
+      "pyspark",
+      "datetime"
+    ],
+    "last_updated": "2025-02-06T04:43:58Z",
+    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/feature_transformation.py",
+    "file_path": "feature_transformation.py",
+    "repo_name": "lab_market_trends"
+  },
+  {
+    "title": "Feature transformation",
+    "description": "Recast RDD as pandas.Dataframe and pipelines several operations to create numerical features for downstream ML.",
+    "libraries": [
+      "json",
+      "numpy",
+      "features",
+      "typing",
+      "dotenv",
+      "phrases",
+      "logging",
+      "time",
+      "os",
+      "preprocess",
+      "main_provider_curated_job_listings_rdd",
+      "pyspark",
+      "datetime"
+    ],
+    "last_updated": "2025-02-06T04:50:04Z",
+    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/writefile feature_transformation.py",
+    "file_path": "writefile feature_transformation.py",
     "repo_name": "lab_market_trends"
   },
   {
@@ -91,13 +288,13 @@
     "file_path": "flexible_excel_reports.R",
     "repo_name": "monkey_research",
     "libraries": [
-      "grid",
-      "png",
+      "ggplot2",
       "openxlsx",
       "webshot",
+      "grid",
       "gridExtra",
       "leaflet",
-      "ggplot2"
+      "png"
     ]
   },
   {
@@ -109,9 +306,9 @@
     "repo_name": "monkey_research",
     "libraries": [
       "dunn.test",
-      "purrr",
       "dplyr",
-      "coin"
+      "coin",
+      "purrr"
     ]
   },
   {
@@ -122,15 +319,15 @@
     "file_path": "food_availability_index_over_transect_data.R",
     "repo_name": "monkey_research",
     "libraries": [
-      "readxl",
-      "stringr",
-      "RSQLite",
-      "openxlsx",
-      "tidyr",
-      "ggrepel",
       "ggplot2",
-      "lubridate",
-      "dplyr"
+      "openxlsx",
+      "stringr",
+      "readxl",
+      "ggrepel",
+      "tidyr",
+      "dplyr",
+      "RSQLite",
+      "lubridate"
     ]
   },
   {
@@ -144,21 +341,21 @@
     "image_path": "assets/home_ranges.png",
     "galleria": "True",
     "libraries": [
-      "adehabitatHR",
-      "magrittr",
-      "RSQLite",
-      "sf",
+      "ggplot2",
       "openxlsx",
-      "htmlwidgets",
-      "purrr",
-      "tidyr",
+      "adehabitatHR",
+      "rgdal",
+      "magrittr",
+      "sf",
       "sp",
       "leaflet",
-      "ggplot2",
-      "rgdal",
-      "lubridate",
+      "plyr",
+      "purrr",
+      "htmlwidgets",
+      "tidyr",
       "dplyr",
-      "plyr"
+      "RSQLite",
+      "lubridate"
     ]
   },
   {
@@ -173,11 +370,83 @@
     "file_path": "morisita_index.R",
     "repo_name": "monkey_research",
     "libraries": [
-      "openxlsx",
-      "RSQLite",
       "writexl",
+      "dplyr",
+      "RSQLite",
+      "openxlsx"
+    ]
+  },
+  {
+    "title": "Geometric Modelling for Nutrition Data",
+    "description": "Applies Geometric Modelling based on dimensionality reduction to analize nutritional preferences of the monkey species.",
+    "debrief": "This module performs a visualization devide to facilitate the analisis of",
+    "image_path": "gm_per_group.png",
+    "last_updated": "2025-02-12T03:42:26Z",
+    "url": "https://github.com/juanguillermo3/monkey_research/blob/main/geometric_modelling.R",
+    "file_path": "geometric_modelling.R",
+    "repo_name": "monkey_research",
+    "galleria": "True",
+    "libraries": [
+      "reshape2",
+      "ggplot2",
+      "readxl",
+      "ggrepel",
+      "ggcorrplot",
       "dplyr"
     ]
+  },
+  {
+    "title": "Habitat islands",
+    "description": "Applies k-means clustering within a self-calibration framework to",
+    "debrief": "",
+    "url": "https://github.com/juanguillermo3/monkey_research/blob/main/discover_habitat_islands.R",
+    "repo_name": "monkey_research",
+    "galleria": "True",
+    "image_path": "assets/islands_*.html",
+    "libraries": [
+      "adehabitatHR",
+      "sf",
+      "sp",
+      "leaflet",
+      "dplyr"
+    ],
+    "last_updated": "2025-02-14T01:03:40Z",
+    "file_path": "discover_habitat_islands.R"
+  },
+  {
+    "title": "Spatial correlation analysis",
+    "description": "Computes correlation between home ranges sizes and habitat parameters",
+    "report_url": "https://docs.google.com/spreadsheets/d/1KMhoqoPNrcP8Gp5eimwHmUeiFZZhKekL/edit?gid=521562748#gid=521562748",
+    "last_updated": "2025-01-25T03:55:16Z",
+    "url": "https://github.com/juanguillermo3/monkey_research/blob/main/correlation_patterns.R",
+    "repo_name": "monkey_research",
+    "galleria": "True",
+    "image_path": "assets/plots_and_islands_*.html",
+    "libraries": [
+      "cluster",
+      "ggplot2",
+      "adehabitatHR",
+      "stringr",
+      "RColorBrewer",
+      "sf",
+      "sp",
+      "leaflet",
+      "dplyr",
+      "tmap"
+    ],
+    "file_path": "correlation_patterns.R"
+  },
+  {
+    "title": "Geometric modelling tools",
+    "libraries": [
+      "reshape2",
+      "ggrepel",
+      "ggcorrplot"
+    ],
+    "last_updated": "2025-02-12T03:42:26Z",
+    "url": "https://github.com/juanguillermo3/monkey_research/blob/main/geometric_modelling_tools.R",
+    "file_path": "geometric_modelling_tools.R",
+    "repo_name": "monkey_research"
   },
   {
     "project": "new_professional_portfolio",
@@ -238,6 +507,22 @@
     ]
   },
   {
+    "title": "Hero section for a professional portfolio.",
+    "description": "Low key hero section for a professional porftolio. Styled as a quote from a book with a biopick.",
+    "author": "Juan Guillermo",
+    "last_updated": "2025-02-12T18:29:47Z",
+    "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/hero_area.py",
+    "file_path": "hero_area.py",
+    "repo_name": "new_professional_portfolio",
+    "libraries": [
+      "hero_area_data_loader",
+      "front_end_utils",
+      "streamlit",
+      "dotenv",
+      "os"
+    ]
+  },
+  {
     "title": "Example Jupyter Notebook",
     "author": "Taylor White",
     "date": "2025-01-14",
@@ -245,75 +530,6 @@
     "url": "https://github.com/juanguillermo3/predictive_analytics/blob/main/ensemble_learning.ipynb",
     "file_path": "ensemble_learning.ipynb",
     "repo_name": "predictive_analytics"
-  },
-  {
-    "title": "Dates Range",
-    "description": "Describes de temporal range (dates covered) by the job listings",
-    "last_updated": "2025-01-28T05:26:59Z",
-    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/dates.py",
-    "file_path": "dates.py",
-    "repo_name": "lab_market_trends"
-  },
-  {
-    "title": "Feature Extraction",
-    "description": "Perform extraction of significant features for the job listings dataset.",
-    "last_updated": "2025-01-28T05:28:22Z",
-    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/features.py",
-    "file_path": "features.py",
-    "repo_name": "lab_market_trends"
-  },
-  {
-    "title": "Phrases discovery",
-    "description": "Provides tool for discovery of significant N-gram based phrases based on n-grams and lift metrics.",
-    "last_updated": "2025-01-28T00:38:01Z",
-    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/phrases.py",
-    "file_path": "phrases.py",
-    "repo_name": "lab_market_trends"
-  },
-  {
-    "title": "Preprocessing",
-    "description": "Provides tools to prepare job listings for feature discovery/extraction on standardized text.",
-    "last_updated": "2025-01-28T05:28:53Z",
-    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/preprocess.py",
-    "file_path": "preprocess.py",
-    "repo_name": "lab_market_trends"
-  },
-  {
-    "title": "Wages Analysis",
-    "description": "Plots the distribution on wages in job listings, overall vs segment specific",
-    "last_updated": "2025-01-28T05:26:59Z",
-    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/wages.py",
-    "file_path": "wages.py",
-    "repo_name": "lab_market_trends",
-    "galleria": "True",
-    "image_path": "assets/wages.png"
-  },
-  {
-    "title": "Wages Drivers",
-    "description": "Detects the main drivers behind wage formation trough the analysis of the gradients of a Neural Network model.",
-    "image_path": "assets/effects_rank (1).html",
-    "galleria": "True",
-    "repo_name": "lab_market_trends",
-    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/wages_drivers.py",
-    "forced_rank": "2"
-  },
-  {
-    "title": "Neural Networks for Wages Prediction",
-    "description": "Provides a deep learning approach based on a deep, feed-forward NN to predict wages.",
-    "image_path": "assets/learning_curve.html",
-    "galleria": "True",
-    "repo_name": "lab_market_trends",
-    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/deep_learning",
-    "forced_rank": "3"
-  },
-  {
-    "title": "Overall Application",
-    "description": "Connected version of the wages appication. It combines several modules into a sequence of workflows to analyze wages formation in the Colombian laboral market",
-    "image_path": "assets/effects_and_proportions (1).html",
-    "colab_url": "https://colab.research.google.com/drive/1gY17gbUdUxpWv2Ddooo0niPCkmqg8-hg#scrollTo=Hwfe5gZe3e_A>",
-    "galleria": "True",
-    "repo_name": "lab_market_trends",
-    "forced_rank": "1"
   },
   {
     "title": "Overall Application",
@@ -332,66 +548,6 @@
     "url": "https://github.com/juanguillermo3/sales_forecasting_with_genetic_neural_networks/blob/main/plot_sales.py",
     "galleria": "True",
     "repo_name": "sales_forecasting_with_genetic_neural_networks"
-  },
-  {
-    "title": "Geometric Modelling for Nutrition Data",
-    "description": "Applies Geometric Modelling based on dimensionality reduction to analize nutritional preferences of the monkey species.",
-    "debrief": "This module performs a visualization devide to facilitate the analisis of",
-    "image_path": "gm_per_group.png",
-    "last_updated": "2025-02-12T03:42:26Z",
-    "url": "https://github.com/juanguillermo3/monkey_research/blob/main/geometric_modelling.R",
-    "file_path": "geometric_modelling.R",
-    "repo_name": "monkey_research",
-    "galleria": "True",
-    "libraries": [
-      "ggcorrplot",
-      "ggrepel",
-      "ggplot2",
-      "reshape2",
-      "readxl",
-      "dplyr"
-    ]
-  },
-  {
-    "title": "Habitat islands",
-    "description": "Applies k-means clustering within a self-calibration framework to",
-    "debrief": "",
-    "url": "https://github.com/juanguillermo3/monkey_research/blob/main/discover_habitat_islands.R",
-    "repo_name": "monkey_research",
-    "galleria": "True",
-    "image_path": "assets/islands_*.html",
-    "libraries": [
-      "adehabitatHR",
-      "sf",
-      "sp",
-      "leaflet",
-      "dplyr"
-    ],
-    "last_updated": "2025-02-14T01:03:40Z",
-    "file_path": "discover_habitat_islands.R"
-  },
-  {
-    "title": "Spatial correlation analysis",
-    "description": "Computes correlation between home ranges sizes and habitat parameters",
-    "report_url": "https://docs.google.com/spreadsheets/d/1KMhoqoPNrcP8Gp5eimwHmUeiFZZhKekL/edit?gid=521562748#gid=521562748",
-    "last_updated": "2025-01-25T03:55:16Z",
-    "url": "https://github.com/juanguillermo3/monkey_research/blob/main/correlation_patterns.R",
-    "repo_name": "monkey_research",
-    "galleria": "True",
-    "image_path": "assets/plots_and_islands_*.html",
-    "libraries": [
-      "stringr",
-      "adehabitatHR",
-      "cluster",
-      "RColorBrewer",
-      "sf",
-      "sp",
-      "leaflet",
-      "ggplot2",
-      "tmap",
-      "dplyr"
-    ],
-    "file_path": "correlation_patterns.R"
   },
   {
     "title": "Results Parser",
@@ -417,33 +573,5 @@
     "description": "A custom implementation of a genetic optimization algorithm to find optimal hyperparameters for DL/ML models.",
     "image_path": "assets/ServerDNN*.html",
     "repo_name": "sales_forecasting_with_genetic_neural_networks"
-  },
-  {
-    "title": "Hero section for a professional portfolio.",
-    "description": "Low key hero section for a professional porftolio. Styled as a quote from a book with a biopick.",
-    "author": "Juan Guillermo",
-    "last_updated": "2025-02-12T18:29:47Z",
-    "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/hero_area.py",
-    "file_path": "hero_area.py",
-    "repo_name": "new_professional_portfolio",
-    "libraries": [
-      "hero_area_data_loader",
-      "front_end_utils",
-      "streamlit",
-      "dotenv",
-      "os"
-    ]
-  },
-  {
-    "title": "Geometric modelling tools",
-    "libraries": [
-      "reshape2",
-      "ggcorrplot",
-      "ggrepel"
-    ],
-    "last_updated": "2025-02-12T03:42:26Z",
-    "url": "https://github.com/juanguillermo3/monkey_research/blob/main/geometric_modelling_tools.R",
-    "file_path": "geometric_modelling_tools.R",
-    "repo_name": "monkey_research"
   }
 ]
