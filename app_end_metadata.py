@@ -23,30 +23,29 @@ def load_repos_metadata():
             ]
         },
         {
-    "title": "monkey_research",
-    "ongoing": "True",
-    "tags": [
-        "Scientific Research",
-        "Ethology",
-        "Behavioral Analysis",
-        "Inferential Statistics",
-        "Multivariate Analysis",
-        "Visualization",
-        "Unsupervised Learning",
-        "R Studio"
-    ],
-    "achieved_milestones": [
-        "Standardized scientific taxonomies across project tables.",
-        "Implemented an analytical database using SQLite.",
-        "Developed exploratory queries to analyze project data.",
-        "Implemented transformation pipelines for feature extraction.",
-        "Developed publication-grade visualizations for key behavioral patterns.",
-        "Implemented a statistical engine using Dunn's test and bootstrapping to analyze differences in behavior and diet patterns.",
-        "Developed a model for group behavior using multinomial logistic regression.",
-        "Estimated habitat areas using the Minimum Convex Polygon method.",
-        "Performed spatial correlation analysis of vegetation parameters using site clustering and spatial smoothing.",
-        "Visualized nutritional profiles of diets through geometric modeling."
-    ]
-}
-
+            "title": "monkey_research",
+            "ongoing": "True",
+            "tags": [
+                "Scientific Research",
+                "Ethology",
+                "Behavioral Analysis",
+                "Inferential Statistics",
+                "Multivariate Analysis",
+                "Visualization",
+                "Unsupervised Learning",
+                "R Studio"
+            ],
+            "achieved_milestones": [
+                "Standardized scientific taxonomies across project tables.",
+                "Implemented an analytical database using SQLite.",
+                "Developed exploratory queries to analyze project data.",
+                "Implemented transformation pipelines for feature extraction.",
+                "Developed publication-grade visualizations for key behavioral patterns.",
+                "Implemented a statistical engine using Dunn's test and bootstrapping to analyze differences in behavior and diet patterns.",
+                "Developed a model for group behavior using multinomial logistic regression.",
+                "Estimated habitat areas using the Minimum Convex Polygon method.",
+                "Performed spatial correlation analysis of vegetation parameters using site clustering and spatial smoothing.",
+                "Visualized nutritional profiles of diets through geometric modeling."
+            ]
+        }
     ]
