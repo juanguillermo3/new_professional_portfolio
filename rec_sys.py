@@ -307,15 +307,23 @@ class RecommendationSystem:
             unsafe_allow_html=True,
         )
     
-        milestone_margin = margin_percent * 1.5
-    
+        milestone_margin = margin_percent * 1.5 
         # Milestones section
-        if display_milestones and 'achieved_milestones' in project_metadata and 'next_milestones' in project_metadata:
-            milestone_html = (
-                ''.join([f'<div style="color:green;">✅ {m}</div>' for m in project_metadata['achieved_milestones']]) +
-                ''.join([f'<div style="color:#FFB300;">🚧 {m}</div>' for m in project_metadata['next_milestones']])
-            )
-            st.markdown(f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{milestone_html}</div>", unsafe_allow_html=True)
+        if display_milestones:
+            milestone_html = []
+        
+            if 'achieved_milestones' in project_metadata:
+                milestone_html.extend([f'<div style="color:green;">✅ {m}</div>' for m in project_metadata['achieved_milestones']])
+        
+            if 'next_milestones' in project_metadata:
+                milestone_html.extend([f'<div style="color:#FFB300;">🚧 {m}</div>' for m in project_metadata['next_milestones']])
+        
+            if milestone_html:
+                st.markdown(
+                    f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{''.join(milestone_html)}</div>", 
+                    unsafe_allow_html=True
+                )
+
     
         # Code sample count section
         project_title = project_metadata['title'].lower()
