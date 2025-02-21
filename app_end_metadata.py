@@ -52,24 +52,23 @@ def load_repos_metadata():
             ]
         },
         {
-    "title": "lab_market_trends",
-    "ongoing": true,
-    "tags": ["labor market", "wage analysis", "data engineering", "PySpark", "Selenium", "NLP", "Deep Learning"],
-    "achieved_milestones": [
-        "Developed a recurrent web scraping service (Selenium/Airflow) to periodically collect job postings from the SPE website.",
-        "Built a distributed application (PySpark) to filter and deduplicate job postings.",
-        "Created visualizations for overall wage distribution and segment-specific trends.",
-        "Implemented a distributed application (PySpark) for phrase discovery using lift metrics.",
-        "Developed distributed applications (PySpark) for text standardization, feature extraction, and transformation.",
-        "Trained a deep learning model (NumPy/TensorFlow) to predict wages based on job posting vocabulary.",
-        "Built services to analyze wage drivers from the underlying model (NumPy/TensorFlow).",
-        "Designed a persistence model (SQLAlchemy) to store model inferences."
-    ],
-    "next_milestones": [
-        "Refine the overall architecture of the neural network model (word vectors, transformers).",
-        "Develop a calibration service for optimal hyperparameter selection.",
-        "Conduct analysis on key labor market segments of interest."
-    ]
-}
-
+            "title": "lab_market_trends",
+            "ongoing": "True",
+            "tags": ["labor market", "wage analysis", "data engineering", "PySpark", "Selenium", "NLP", "Deep Learning"],
+            "achieved_milestones": [
+                "Developed a recurrent web scraping service (Selenium/Airflow) to periodically collect job postings from the SPE website.",
+                "Built a distributed application (PySpark) to filter and deduplicate job postings.",
+                "Created visualizations for overall wage distribution and segment-specific trends.",
+                "Implemented a distributed application (PySpark) for phrase discovery using lift metrics.",
+                "Developed distributed applications (PySpark) for text standardization, feature extraction, and transformation.",
+                "Trained a deep learning model (NumPy/TensorFlow) to predict wages based on job posting vocabulary.",
+                "Built services to analyze wage drivers from the underlying model (NumPy/TensorFlow).",
+                "Designed a persistence model (SQLAlchemy) to store model inferences."
+            ],
+            "next_milestones": [
+                "Refine the overall architecture of the neural network model (word vectors, transformers).",
+                "Develop a calibration service for optimal hyperparameter selection.",
+                "Conduct analysis on key labor market segments of interest."
+            ]
+        }
     ]
