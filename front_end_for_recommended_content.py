@@ -66,5 +66,33 @@ def html_for_item_data(
         </div>
     """
 
+def html_for_milestones_from_project_metadata(project_metadata):
+    milestone_html = []
+
+    if 'achieved_milestones' in project_metadata:
+        achieved = [f'<div style="color:green;">✅ {m}</div>' for m in project_metadata['achieved_milestones']]
+        if len(achieved) > 5:  # Cap initial display to 5
+            achieved_preview = achieved[:5]
+            achieved_full = ''.join(achieved)
+            milestone_html.append(
+                f"<details><summary style='cursor: pointer;'>See all achieved milestones...</summary>{achieved_full}</details>"
+            )
+            milestone_html[:0] = achieved_preview  # Insert preview before the toggle
+        else:
+            milestone_html.extend(achieved)
+
+    if 'next_milestones' in project_metadata:
+        next_milestones = [f'<div style="color:#FFB300;">🚧 {m}</div>' for m in project_metadata['next_milestones']]
+        if len(next_milestones) > 5:  # Cap initial display to 5
+            next_preview = next_milestones[:5]
+            next_full = ''.join(next_milestones)
+            milestone_html.append(
+                f"<details><summary style='cursor: pointer;'>See all upcoming milestones...</summary>{next_full}</details>"
+            )
+            milestone_html[:0] = next_preview  # Insert preview before the toggle
+        else:
+            milestone_html.extend(next_milestones)
+
+    return ''.join(milestone_html)
 
 
