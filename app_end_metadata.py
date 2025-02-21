@@ -60,6 +60,7 @@ def load_repos_metadata():
                 "Visualized nutritional profiles of diets through geometric modeling."
             ],
             "next_milestones": [
+                "Editing for publication and dissemination."
             ]
         }
     ]
