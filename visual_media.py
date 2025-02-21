@@ -147,24 +147,30 @@ class VisualContentGallery:
         return sorted(file_list)
 
     def parse_media(self, file_path, width_offset=0, height_offset=50):
+        if not os.path.exists(file_path):
+            st.error(f"Media file not found: {file_path}")
+            return
+        
         file_ext = os.path.splitext(file_path)[-1].lower()
-        if file_ext in ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg']:
-            st.image(file_path, use_container_width=True)
-        elif file_ext in ['.mp4', '.avi', '.mov', '.webm']:
-            st.video(file_path)
-        elif file_ext == '.html':
-            try:
-                with open(file_path, 'r') as file:
+        
+        try:
+            if file_ext in ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg']:
+                st.image(file_path, use_container_width=True)
+            elif file_ext in ['.mp4', '.avi', '.mov', '.webm']:
+                st.video(file_path)
+            elif file_ext == '.html':
+                with open(file_path, 'r', encoding='utf-8') as file:
                     html_content = file.read()
                 components.html(
                     html_content, 
                     width=int(self.width.replace("px", "")) + width_offset, 
                     height=int(self.height.replace("px", "")) + height_offset
                 )
-            except Exception as e:
-                st.error(f"Error loading HTML content: {str(e)}")
-        else:
-            st.error(f"Unsupported media type: {file_ext}")
+            else:
+                st.warning(f"Unsupported media type: {file_ext}")
+        except Exception as e:
+            st.error(f"Error displaying media ({file_ext}): {str(e)}")
+
 
     def render(self):
 
