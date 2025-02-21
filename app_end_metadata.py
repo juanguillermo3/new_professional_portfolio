@@ -24,7 +24,7 @@ def load_repos_metadata():
         },
         {
     "title": "monkey_research",
-    "ongoing": true,
+    "ongoing": "True",
     "tags": [
         "Scientific Research",
         "Ethology",
