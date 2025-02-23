@@ -43,6 +43,27 @@ class PortfolioSection:
             st.markdown(f"### {title} {badge_html}", unsafe_allow_html=True)
         else:
             st.markdown(f"### {title}", unsafe_allow_html=True)
+
+    @staticmethod
+    def _render_title_with_badge(title: str, verified: bool):
+        """
+        Renders the given title with a subtle verified badge below it.
+
+        :param title: The section title to be displayed.
+        :param verified: Whether the section data has been verified.
+        """
+        # Render the title
+        st.markdown(f"### {title}", unsafe_allow_html=True)
+
+        # Render a small badge below the title, only if verified
+        if verified:
+            st.markdown(
+                '<p style="font-size: 0.75em; background: #28a745; color: white; display: inline-block; '
+                'padding: 2px 6px; border-radius: 6px; margin-top: -8px; cursor: help;" '
+                'title="The information in this section is verified and does not contain AI-generated content.">'
+                '✅ Verified Section</p>',
+                unsafe_allow_html=True
+            )
             
     def _render_headers(self):
         """Render the section, including the title with a badge, description, and optional messages."""
