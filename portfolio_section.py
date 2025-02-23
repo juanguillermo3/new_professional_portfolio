@@ -13,8 +13,8 @@ class PortfolioSection:
 
     DESCRIPTION_STYLE = "color: gray;"
     EARLY_DEVELOPMENT_STAGE = True  # Override this in subclasses if the section is complete
-    MOCKED_DATA_NOTICE = True  # Override this in subclasses if data is real
-
+    DATA_VERIFIED = False  # Controls both the mocked data message and the verified badge
+    
     def __init__(self, title: str, description: str):
         """
         Initialize the portfolio section with a title and description.
