@@ -60,8 +60,9 @@ class PortfolioSection:
             st.markdown(
                 '<p style="font-size: 0.8em; background: #28a745; color: white; display: inline-block; '
                 'padding: 4px 9px; border-radius: 8px; margin-top: -5px; cursor: pointer;" '
-                'title="✅ This section has been reviewed for accuracy and does not contain AI-generated content.">'
-                '✔ Verified</p>',
+                'title="✅ This section has been reviewed for a responsible use of AI-generated content. '
+                'It mostly provides accurate information.">'
+                '✔ Verified Content</p>',
                 unsafe_allow_html=True
             )
             
