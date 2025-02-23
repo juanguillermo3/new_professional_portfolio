@@ -31,7 +31,7 @@ class Testimonials(PortfolioSection):
                 st.markdown(f"_{testimonial['quote']}_")
 
 # Module-level instance of TestimonialsSection
-testimonials = TestimonialsSection(
+testimonials = Testimonials(
     testimonials=[
         {"name": "Alice Johnson", "role": "Software Engineer at TechCorp", 
          "quote": "Working with Juan has been an incredible experience. His expertise in AI is remarkable!"},
