@@ -6,7 +6,7 @@ class Testimonials(PortfolioSection):
     A portfolio section to display testimonials from people who have worked with me.
     Testimonials provide insight into collaboration, expertise, and professionalism.
     """
-
+    DATA_VERIFIED=True
     EARLY_DEVELOPMENT_STAGE = True  # This section is still under development
 
     def __init__(self, testimonials: list[dict]):
