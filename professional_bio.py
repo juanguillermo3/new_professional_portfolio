@@ -9,9 +9,12 @@ from cv_data_loader import (
     CURRENT_JOB_KEYWORD
 )
 from front_end_utils import tags_in_twitter_style
+from portfolio_section import PortfolioSection
 
+class CurriculumVitae(PortfolioSection):
 
-class CurriculumVitae:
+    DATA_VERIFIED=True # Set to False if uses AI mock-ups extensively
+    
     def __init__(self, section_description):
         """
         :param section_description: A string representing the description for the Curriculum Vitae section.
@@ -27,7 +30,8 @@ class CurriculumVitae:
         self.education.sort(key=lambda x: parse_as_datetime(x['date_range'][1]), reverse=True)
 
     def render(self):
-        st.subheader("Curriculum Vitae 📜")
+        
+        self._render_title_with_badge("Curriculum Vitae 📜", self.DATA_VERIFIED) # uses the badge for verified content
         st.markdown("---")
         st.markdown(f'<p style="color: gray;">{self.statement}</p>', unsafe_allow_html=True)
     
