@@ -25,26 +25,35 @@ class PortfolioSection:
         self.title = title
         self.description = description
 
+
     @staticmethod
     def _render_title_with_badge(title: str, verified: bool):
         """
-        Renders the given title with a verified badge if the section's data is marked as verified.
+        Renders the given title with a subtle verified badge.
         
-        This is a static method, allowing it to be used outside of class instances.
+        The badge includes a tooltip similar to Streamlit's native buttons.
 
         :param title: The section title to be displayed.
         :param verified: Whether the section data has been verified.
         """
-        badge_html = ""
         if verified:
             badge_html = (
-                '<span style="font-size: 0.8em; background: #28a745; color: white; padding: 3px 8px; '
-                'border-radius: 12px; cursor: help;" title="This section has been checked and mostly contains accurate data.">'
-                '✅ Verified</span>'
+                '<span style="font-size: 0.8em; background: #28a745; color: white; padding: 3px 6px; '
+                'border-radius: 8px; margin-left: 8px; cursor: pointer;" '
+                'title="✅ This section has been reviewed for accuracy.">'
+                '✔ Verified</span>'
             )
+        else:
+            badge_html = ""
 
         # Render using markdown to allow inline HTML
         st.markdown(f"### {title} {badge_html}", unsafe_allow_html=True)
+
+        # Add an interactive tooltip for better UX
+        if verified:
+            st.button("ℹ️ Verified Data", key="verified_info",
+                      help="This section has been reviewed and contains mostly accurate data.")
+
 
     def _render_headers(self):
         """Render the section, including the title with a badge, description, and optional messages."""
