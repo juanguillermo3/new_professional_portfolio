@@ -60,7 +60,7 @@ class PortfolioSection:
                 badge_html = (
                     '<span style="font-size: 0.92em; background: #28a745; color: white; padding: 4px 9px; '
                     'border-radius: 10px; margin-left: 10px; cursor: pointer;" '
-                    'title="✅ This section has been reviewed for accuracy and does not contain AI-generated content.">'
+                    'title="✅ This section has been reviewed for a responsible use of AI mock-ups. It mostly provides accurate information.">'
                     '✔ Verified</span>'
                 )
                 st.markdown(f"### {title} {badge_html}", unsafe_allow_html=True)
