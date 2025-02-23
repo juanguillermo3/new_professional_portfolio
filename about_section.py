@@ -1,9 +1,10 @@
 import streamlit as st
-
-import streamlit as st
 from about_section_data_loader import load_general_info
 
 class AboutSection:
+    
+    DATA_VERIFIED=True
+    
     SECTION_HEADER = "About this portfolio 💡"
     
     KEY_HYPOTHESIS = """
