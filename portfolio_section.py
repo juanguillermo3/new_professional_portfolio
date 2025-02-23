@@ -55,13 +55,13 @@ class PortfolioSection:
         # Render the title
         st.markdown(f"### {title}", unsafe_allow_html=True)
 
-        # Render a small badge below the title, only if verified
+        # Render a small, well-integrated badge below the title
         if verified:
             st.markdown(
-                '<p style="font-size: 0.75em; background: #28a745; color: white; display: inline-block; '
-                'padding: 2px 6px; border-radius: 6px; margin-top: -8px; cursor: help;" '
-                'title="The information in this section is verified and does not contain AI-generated content.">'
-                '✅ Verified Section</p>',
+                '<p style="font-size: 0.8em; background: #28a745; color: white; display: inline-block; '
+                'padding: 4px 9px; border-radius: 8px; margin-top: -5px; cursor: pointer;" '
+                'title="✅ This section has been reviewed for accuracy and does not contain AI-generated content.">'
+                '✔ Verified</p>',
                 unsafe_allow_html=True
             )
             
