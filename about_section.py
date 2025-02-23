@@ -1,7 +1,8 @@
 import streamlit as st
 from about_section_data_loader import load_general_info
+from portfolio_section import PortfolioSection
 
-class AboutSection:
+class AboutSection(PortfolioSection):
     
     DATA_VERIFIED=True
     
