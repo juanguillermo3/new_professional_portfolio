@@ -50,7 +50,7 @@ def combine_metadata():
 #
 # (1) RecSys
 #
-class AboutSection(PortfolioSection):
+class RecommendationSystem(PortfolioSection):
     
     DATA_VERIFIED=True # Set to False if uses AI mock-ups extensively
     
