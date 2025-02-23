@@ -31,7 +31,7 @@ class AboutSection(PortfolioSection):
     def render(self):
         """Render the about section following the standard pattern."""
         
-        self._render_title_with_badge(self.SECTION_HEADER)
+        self._render_title_with_badge(self.SECTION_HEADER, self.DATA_VERIFIED)
         st.markdown("---")
         st.markdown(f'<p style="color: gray;">{self.general_info}</p>', unsafe_allow_html=True)
 
