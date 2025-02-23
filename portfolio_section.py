@@ -25,9 +25,29 @@ class PortfolioSection:
         self.title = title
         self.description = description
 
+    @staticmethod
+    def _get_title_with_badge(title: str, verified: bool) -> str:
+        """
+        Returns the title with an optional verified badge if the section is marked as verified.
+        
+        This is a static method to facilitate integration with older sections.
+        
+        :param title: The section title.
+        :param verified: Whether the data is verified.
+        :return: The formatted title with or without a badge.
+        """
+        if verified:
+            badge_html = (
+                '<span style="font-size: 0.8em; background: #28a745; color: white; padding: 3px 8px; '
+                'border-radius: 12px; cursor: help;" title="This section has been checked and mostly contains accurate data.">'
+                '✅ Verified</span>'
+            )
+            return f"{title} {badge_html}"
+        return title
+
     def _render_headers(self):
         """Render the standard headers: title, horizontal rule, and description."""
-        st.subheader(self.title)
+        st.subheader(self._get_title_with_badge(self.title, self.DATA_VERIFIED))
         st.markdown("---")
         st.markdown(f'<p style="{self.DESCRIPTION_STYLE}">{self.description}</p>', unsafe_allow_html=True)
 
@@ -36,8 +56,8 @@ class PortfolioSection:
         if self.EARLY_DEVELOPMENT_STAGE:
             st.warning("🚧 This is a new section we are working on. Content may be incomplete.")
 
-        if self.MOCKED_DATA_NOTICE:
-            st.info("🤖 This section is in an early development stage and could use data mocked up by AI.")
+        if not self.DATA_VERIFIED:
+            st.info("🤖 This section is still being reviewed and may contain AI-generated or placeholder data.")
 
     def render(self):
         """Render the section, including standard headers and optional messages."""
