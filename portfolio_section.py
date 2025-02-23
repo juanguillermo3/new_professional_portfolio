@@ -1,3 +1,10 @@
+"""
+title: Portfolio Section
+description: An abstraction for the front-end representation of a portfolio section in a web app. 
+It provides a default render method that can be overridden and distributes generic behavior to 
+portfolio sections, such as housekeeping messages.
+"""
+
 import streamlit as st
 
 class PortfolioSection:
