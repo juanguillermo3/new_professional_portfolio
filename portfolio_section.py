@@ -26,28 +26,28 @@ class PortfolioSection:
         self.description = description
 
     @staticmethod
-    def _get_title_with_badge(title: str, verified: bool) -> str:
+    def _render_title_with_badge(title: str):
         """
-        Returns the title with an optional verified badge if the section is marked as verified.
+        Renders the given title with a verified badge if the section's data is marked as verified.
         
-        This is a static method to facilitate integration with older sections.
-        
-        :param title: The section title.
-        :param verified: Whether the data is verified.
-        :return: The formatted title with or without a badge.
+        This is a static method, meaning it reads the verification status from the class-level attribute.
+
+        :param title: The section title to be displayed.
         """
-        if verified:
+        badge_html = ""
+        if PortfolioSection.DATA_VERIFIED:
             badge_html = (
                 '<span style="font-size: 0.8em; background: #28a745; color: white; padding: 3px 8px; '
                 'border-radius: 12px; cursor: help;" title="This section has been checked and mostly contains accurate data.">'
                 '✅ Verified</span>'
             )
-            return f"{title} {badge_html}"
-        return title
+
+        # Render using markdown to allow inline HTML
+        st.markdown(f"### {title} {badge_html}", unsafe_allow_html=True)
 
     def _render_headers(self):
-        """Render the standard headers: title, horizontal rule, and description."""
-        st.subheader(self._get_title_with_badge(self.title, self.DATA_VERIFIED))
+        """Render the section, including the title with a badge, description, and optional messages."""
+        self._render_title_with_badge(self.title)  # Uses class attribute automatically
         st.markdown("---")
         st.markdown(f'<p style="{self.DESCRIPTION_STYLE}">{self.description}</p>', unsafe_allow_html=True)
 
