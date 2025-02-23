@@ -19,6 +19,7 @@ from about_section import about
 from services_section import services
 from socials_section import socials
 from visual_media import test_gallery
+from testimonials import testimonials
 
 # Load environment variables
 load_dotenv(override=True)
@@ -35,7 +36,8 @@ SECTIONS = {
     "RecSys": recsys,
     "Services&Rates": services,
     "Curriculum Vitae": cv,
-    "Socials": socials
+    "Socials": socials,
+    "Testimonials": testimonials
 }
 
 # **Title Section**
