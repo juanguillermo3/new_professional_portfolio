@@ -342,7 +342,7 @@ class RecommendationSystem(PortfolioSection):
     def render(self):
         """Render method with Galleria callback integration and smooth media transitions."""
         
-        self._render_title_with_badge(self.SECTION_HEADER, self.DATA_VERIFIED) # uses the badge for verified content
+        self._render_title_with_badge(self.section_header, self.DATA_VERIFIED) # uses the badge for verified content
         
         st.markdown("---")
         st.markdown(f'<p style="color: gray;">{self.section_description}</p>', unsafe_allow_html=True)
