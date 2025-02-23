@@ -25,6 +25,7 @@ from front_end_utils import render_section_separator, render_external_link_butto
 from media_carousel import MediaCarousel  # Assuming this is the correct import
 from visual_media import  GalleryCollection, test_gallery
 from front_end_for_recommended_content import html_for_item_data, html_for_milestones_from_project_metadata
+from portfolio_section import PortfolioSection
 
 #
 # (0) ancillary function to merge metadata about underlyng items
