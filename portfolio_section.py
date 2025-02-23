@@ -26,16 +26,17 @@ class PortfolioSection:
         self.description = description
 
     @staticmethod
-    def _render_title_with_badge(title: str):
+    def _render_title_with_badge(title: str, verified: bool):
         """
         Renders the given title with a verified badge if the section's data is marked as verified.
         
-        This is a static method, meaning it reads the verification status from the class-level attribute.
+        This is a static method, allowing it to be used outside of class instances.
 
         :param title: The section title to be displayed.
+        :param verified: Whether the section data has been verified.
         """
         badge_html = ""
-        if PortfolioSection.DATA_VERIFIED:
+        if verified:
             badge_html = (
                 '<span style="font-size: 0.8em; background: #28a745; color: white; padding: 3px 8px; '
                 'border-radius: 12px; cursor: help;" title="This section has been checked and mostly contains accurate data.">'
@@ -47,7 +48,7 @@ class PortfolioSection:
 
     def _render_headers(self):
         """Render the section, including the title with a badge, description, and optional messages."""
-        self._render_title_with_badge(self.title)  # Uses class attribute automatically
+        self._render_title_with_badge(self.title, self.DATA_VERIFIED)  # Uses class attribute automatically
         st.markdown("---")
         st.markdown(f'<p style="{self.DESCRIPTION_STYLE}">{self.description}</p>', unsafe_allow_html=True)
 
