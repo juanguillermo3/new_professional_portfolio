@@ -44,12 +44,6 @@ class PortfolioSection:
                 'padding: 2px 6px; border-radius: 6px; margin-top: -8px; cursor: help;" '
                 'title="The information in this section is verified and does not contain AI-generated content.">'
                 '✅ Verified Section</p>',
-                unsafe_allow_html=True
-            badge_html = (
-                '<span style="font-size: 0.92em; background: #28a745; color: white; padding: 4px 9px; '
-                'border-radius: 10px; margin-left: 10px; cursor: pointer;" '
-                'title="✅ This section has been reviewed for a responsible use of AI mock-ups. It mostly provides accurate information.">'
-                '✔ Verified</span>'
             )
 
             
