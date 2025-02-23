@@ -50,7 +50,10 @@ def combine_metadata():
 #
 # (1) RecSys
 #
-class RecommendationSystem:
+class AboutSection(PortfolioSection):
+    
+    DATA_VERIFIED=True # Set to False if uses AI mock-ups extensively
+    
     # Default media dimensions (class-level static attributes)
     MEDIA_CONTAINER_WIDTH = "700px"
     MEDIA_CONTAINER_HEIGHT = "400px"
@@ -337,7 +340,9 @@ class RecommendationSystem:
     #
     def render(self):
         """Render method with Galleria callback integration and smooth media transitions."""
-        st.subheader(self.section_header)
+        
+        self._render_title_with_badge(self.SECTION_HEADER, self.DATA_VERIFIED) # uses the badge for verified content
+        
         st.markdown("---")
         st.markdown(f'<p style="color: gray;">{self.section_description}</p>', unsafe_allow_html=True)
         st.markdown(f'{self.RANKER_LOGIC}', unsafe_allow_html=True)
