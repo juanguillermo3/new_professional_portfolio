@@ -13,6 +13,7 @@ class PortfolioSection:
 
     DESCRIPTION_STYLE = "color: gray;"
     EARLY_DEVELOPMENT_STAGE = True  # Override this in subclasses if the section is complete
+    MOCKED_DATA_NOTICE = True  # Override this in subclasses if data is real
 
     def __init__(self, title: str, description: str):
         """
@@ -33,9 +34,13 @@ class PortfolioSection:
     def _render_messages(self):
         """Render housekeeping messages, such as warnings for unfinished sections."""
         if self.EARLY_DEVELOPMENT_STAGE:
-            st.warning("🚧 We are working on this section. Content may be incomplete.")
+            st.warning("🚧 This is a new section we are working on. Content may be incomplete.")
+
+        if self.MOCKED_DATA_NOTICE:
+            st.info("🤖 This section is in an early development stage and could use data mocked up by AI.")
 
     def render(self):
         """Render the section, including standard headers and optional messages."""
         self._render_headers()  # Render title, rule, and description
         self._render_messages()  # Render any section-specific messages
+
