@@ -26,15 +26,22 @@ class AboutSection(PortfolioSection):
         self.linkedin_profile = linkedin_profile
 
     def render(self):
-        """Render the about section following the standard pattern."""
-        
+        """Render the about section with a 50/50 layout, including an image and text content."""
+    
         self._render_headers()
-
-        # Display research hypothesis
-        st.markdown(self.KEY_HYPOTHESIS.format(linkedin=self.linkedin_profile), unsafe_allow_html=True)
-
-        # Add break line and display development environment info
-        st.markdown(self.DEV_ENVIRONMENT, unsafe_allow_html=True)
+    
+        # Layout with two columns
+        col1, col2 = st.columns(2)
+    
+        # Display image in the left column
+        with col1:
+            st.image(self.image_path, use_container_width=True)
+    
+        # Display text content in the right column
+        with col2:
+            st.markdown(self.KEY_HYPOTHESIS.format(linkedin=self.linkedin_profile), unsafe_allow_html=True)
+            st.markdown("---")  # Separator
+            st.markdown(self.DEV_ENVIRONMENT, unsafe_allow_html=True)
 
 
 # Instantiation
