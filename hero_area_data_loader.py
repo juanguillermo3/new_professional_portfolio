@@ -43,8 +43,8 @@ def load_detailed_offering():
             <strong>AI & LLM Disruption in Software Development</strong>: I prepare myself by means of self-learning for the disruption of Artificial Intelligence in software development and the rise of LLM-powered applications.
         </li>
         <li style="background-color: #ffffff; padding: 8px; border-radius: 4px;">
-            <strong>Bonus: Rigorous Economic Mindset</strong>: As an economist, I approach data analysis with a focus on causal reasoning, marginal effects, and 
-            counterfactual analysis.
+            <strong>Bonus: Rigorous Economic Mindset</strong>: As a professional economist, I over-simplify complex social phenomena by casually referencing supply and demand (kidding!).  
+            But really, I approach data analysis with a focus on causal reasoning, marginal effects, and counterfactual analysis.
         </li>
     </ol>
     """
