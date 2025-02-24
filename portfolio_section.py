@@ -33,7 +33,7 @@ class PortfolioSection:
         st.markdown(f"### {self.title}", unsafe_allow_html=True)
 
         badges = []
-        if self.verified:
+        if self.DATA_VERIFIED:
             badges.append(
                 """
                 <p style="font-size: 0.8em; background: #28a745; color: white; display: inline-block; 
@@ -43,7 +43,7 @@ class PortfolioSection:
                 ✔ Verified Content</p>
                 """
             )
-        if self.early_dev:
+        if self.EARLY_DEVELOPMENT_STAGE:
             badges.append(
                 """
                 <p style="font-size: 0.8em; background: #ffc107; color: black; display: inline-block; 
@@ -52,7 +52,7 @@ class PortfolioSection:
                 🚧 Early Development</p>
                 """
             )
-        if self.ai_content:
+        if not self.DATA_VERIFIED:
             badges.append(
                 """
                 <p style="font-size: 0.8em; background: #17a2b8; color: white; display: inline-block; 
