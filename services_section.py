@@ -4,6 +4,7 @@ import os
 from dotenv import load_dotenv
 from front_end_for_recommended_content import html_for_item_data
 from services_data_loader import load_service_items
+from portfolio_section import PortfolioSection
 
 # Load environment variables
 load_dotenv()
