@@ -88,6 +88,6 @@ class CurriculumVitae(PortfolioSection):
         
 
 cv = CurriculumVitae(
-    section_description="This is a description of the Curriculum Vitae section."
+
 )
 
