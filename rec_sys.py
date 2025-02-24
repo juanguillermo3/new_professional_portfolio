@@ -62,10 +62,19 @@ class RecommendationSystem(PortfolioSection):
     def __init__(self, num_recommended_items=6, num_columns=3,
                  section_header="Recommendation System 🎯",
                  section_description="Discover content tailored to your needs. Use the search bar to find recommendations and filter by project category."):
+
+        super().__init__(
+            title=section_header,
+            description=section_description,
+            verified=self.DATA_VERIFIED,  # Use subclass defaults
+            early_dev=self.EARLY_DEVELOPMENT_STAGE,
+            ai_content=not self.DATA_VERIFIED  # This ensures consistency
+        )
+                     
         self.num_recommended_items = num_recommended_items
         self.num_columns = num_columns
-        self.section_header = section_header
-        self.section_description = section_description
+        #self.section_header = section_header
+        #self.section_description = section_description
         
         self.repos_metadata = combine_metadata()  
         self.metadata_list = load_modules_metadata()  
@@ -342,10 +351,8 @@ class RecommendationSystem(PortfolioSection):
     def render(self):
         """Render method with Galleria callback integration and smooth media transitions."""
         
-        self._render_title_with_badge(self.section_header, self.DATA_VERIFIED) # uses the badge for verified content
+        self._render_headers() # new style of rendering headers, comes from the portfolio section class
         
-        st.markdown("---")
-        st.markdown(f'<p style="color: gray;">{self.section_description}</p>', unsafe_allow_html=True)
         st.markdown(f'{self.RANKER_LOGIC}', unsafe_allow_html=True)
         
         cols = st.columns(2)
