@@ -3,6 +3,9 @@ from about_section_data_loader import load_general_info
 from portfolio_section import PortfolioSection
 
 class AboutSection(PortfolioSection):
+
+    EARLY_DEVELOPMENT_STAGE = False  # Override this in subclasses if the section is complete
+    DATA_VERIFIED = True  # Controls both the mocked data message and the verified badge
     
     KEY_HYPOTHESIS = """
     🔬 Ongoing research explores leveraging emerging technologies like Recommendation Systems (RecSys) 
