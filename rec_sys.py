@@ -52,7 +52,8 @@ def combine_metadata():
 # (1) RecSys
 #
 class RecommendationSystem(PortfolioSection):
-    
+
+    EARLY_DEVELOPMENT_STAGE = False  # Override class defaults for this section
     DATA_VERIFIED=True # Set to False if uses AI mock-ups extensively
     
     # Default media dimensions (class-level static attributes)
