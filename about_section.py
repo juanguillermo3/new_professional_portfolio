@@ -22,8 +22,8 @@ class AboutSection(PortfolioSection):
 
     def __init__(self, linkedin_profile):
         self.title="About this portfolio 💡"
+        self.description = load_general_info()
         self.linkedin_profile = linkedin_profile
-        self.general_info = load_general_info()
 
     def render(self):
         """Render the about section following the standard pattern."""
