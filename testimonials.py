@@ -24,7 +24,7 @@ class Testimonials(PortfolioSection):
     def render(self):
         """Render the testimonials section."""
         self._render_headers()
-        self._render_messages()
+        #self._render_messages()
 
         for testimonial in self.testimonials:
             with st.expander(f"⭐ {testimonial['name']} - {testimonial['role']}"):
