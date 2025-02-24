@@ -13,14 +13,23 @@ from portfolio_section import PortfolioSection
 
 class CurriculumVitae(PortfolioSection):
 
-    DATA_VERIFIED=True # Set to False if uses AI mock-ups extensively
+    EARLY_DEVELOPMENT_STAGE = False  # Override class defaults for this section
+    DATA_VERIFIED = True  
     
     def __init__(self, section_description):
         """
         :param section_description: A string representing the description for the Curriculum Vitae section.
         :param tags: A list of string tags to be displayed in a Twitter-style format.
         """
-        self.section_description = section_description
+        
+        super().__init__(
+            title=title,
+            description=section_description,
+            verified=self.DATA_VERIFIED,  # Use subclass defaults
+            early_dev=self.EARLY_DEVELOPMENT_STAGE,
+            ai_content=not self.DATA_VERIFIED  # This ensures consistency
+        )
+
         self.statement = professional_statement()
         self.work_experience = load_experience_items()
         self.education = load_education_items()
@@ -31,9 +40,7 @@ class CurriculumVitae(PortfolioSection):
 
     def render(self):
         
-        self._render_title_with_badge("Curriculum Vitae 📜", self.DATA_VERIFIED) # uses the badge for verified content
-        st.markdown("---")
-        st.markdown(f'<p style="color: gray;">{self.statement}</p>', unsafe_allow_html=True)
+        self._render_headers()
     
         st.markdown("#### Work Experience 🔧")
     
