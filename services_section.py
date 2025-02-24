@@ -15,29 +15,37 @@ OFFERINGS_SAMPLE_SIZE = int(os.getenv('OFFERINGS_SAMPLE_SIZE', 6))
 DEFAULT_HOURLY_RATE = 17
 DEFAULT_MONTHLY_COMPENSATION = 1500
 
-class ServicesSection:
+class ServicesSection(PortfolioSection):
+
+    EARLY_DEVELOPMENT_STAGE = True  # Override this in subclasses if the section is complete
+    DATA_VERIFIED = False  # Controls both the mocked data message and the verified badge
+
     SERVICE_LOGIC = """
     💳 The services I offer are designed to help you tackle complex business challenges.
     Each service focuses on delivering high-impact solutions, from expert consulting to data-driven insights.
     We use advanced tools and methodologies to ensure the highest quality results tailored to your needs.
     """
 
-    def __init__(self):
+    def __init__(self, section_header="Service Lines 🛠️", section_description="Here are the key services I provide to my clients. Hover over the titles for more information."):
         """
         Initialize the ServicesSection by loading the service items.
         """
+        
+        super().__init__(
+            title=section_header,
+            description=section_description,
+            verified=self.DATA_VERIFIED,  # Use subclass defaults
+            early_dev=self.EARLY_DEVELOPMENT_STAGE,
+            ai_content=not self.DATA_VERIFIED  # This ensures consistency
+        )
+        
         self.services = load_service_items()
         self.services_to_display = random.sample(self.services, OFFERINGS_SAMPLE_SIZE)  # Always random sample on init
 
     def render(self):
         """Render the services section using Streamlit."""
-        st.subheader("Service Lines 🛠️")
-        st.markdown("---")
-        st.markdown(
-            '<p style="color: gray;">Here are the key services I provide to my clients. '
-            'Hover over the titles for more information.</p>',
-            unsafe_allow_html=True
-        )
+        
+        self._render_headers() # new style of rendering headers, comes from the portfolio section class
         
         # Display the SERVICE_LOGIC string for section-level context
         st.markdown(self.SERVICE_LOGIC, unsafe_allow_html=True)
