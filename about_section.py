@@ -4,10 +4,6 @@ from portfolio_section import PortfolioSection
 
 class AboutSection(PortfolioSection):
     
-    DATA_VERIFIED=True
-    
-    SECTION_HEADER = "About this portfolio 💡"
-    
     KEY_HYPOTHESIS = """
     🔬 Ongoing research explores leveraging emerging technologies like Recommendation Systems (RecSys) 
     and LLM-powered applications (LLM apps) to create practical software solutions for professionals. 
@@ -25,6 +21,7 @@ class AboutSection(PortfolioSection):
     """
 
     def __init__(self, linkedin_profile):
+        self.title="About this portfolio 💡"
         self.linkedin_profile = linkedin_profile
         self.general_info = load_general_info()
 
