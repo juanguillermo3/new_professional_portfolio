@@ -27,7 +27,7 @@ DEFAULT_EMAILS = [
 
 class HeroArea:
     def __init__(self, quote, avatar_image: str = None, avatar_caption: str = "", avatar_tags: list = None,
-                 code_samples: list = None, code_samples_intro: str = "Explore the code samples below:",
+                 code_samples: list = None, code_samples_intro: str = "I’ve highlighted the following code samples from my ML consulting projects as examples of my work.",
                  whatsapp_number: str = WHATSAPP_NUMBER, 
                  contact_button_intro: str = "Interested in collaborating? Let's discuss how I can bring value to your project. I'm ready to help when you are.",
                  professional_offering: str = "Professional offering description.",
