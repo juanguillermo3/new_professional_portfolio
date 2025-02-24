@@ -19,21 +19,23 @@ class PortfolioSection:
     def __init__(self, title: str, description: str, verified: bool = None, early_dev: bool = None, ai_content: bool = None):
         """
         Initialize the portfolio section with a title and description.
+        Defaults will be inherited from the class but can be overridden per instance.
         """
         self.title = title
         self.description = description
         self.verified = self.DATA_VERIFIED if verified is None else verified
         self.early_dev = self.EARLY_DEVELOPMENT_STAGE if early_dev is None else early_dev
-        self.ai_content = not self.verified if ai_content is None else ai_content
+        self.ai_content = not self.verified if ai_content is None else ai_content  # AI content is assumed if not verified
 
     def _render_title_with_badges(self, spacing: int = 10):
         """
         Renders the given title with a row of badges below it.
+        Uses instance attributes instead of class attributes.
         """
         st.markdown(f"### {self.title}", unsafe_allow_html=True)
 
         badges = []
-        if self.DATA_VERIFIED:
+        if self.verified:
             badges.append(
                 """
                 <p style="font-size: 0.8em; background: #28a745; color: white; display: inline-block; 
@@ -43,7 +45,7 @@ class PortfolioSection:
                 ✔ Verified Content</p>
                 """
             )
-        if self.EARLY_DEVELOPMENT_STAGE:
+        if self.early_dev:
             badges.append(
                 """
                 <p style="font-size: 0.8em; background: #ffc107; color: black; display: inline-block; 
@@ -52,7 +54,7 @@ class PortfolioSection:
                 🚧 Early Development</p>
                 """
             )
-        if not self.DATA_VERIFIED:
+        if self.ai_content:
             badges.append(
                 """
                 <p style="font-size: 0.8em; background: #17a2b8; color: white; display: inline-block; 
@@ -76,13 +78,11 @@ class PortfolioSection:
 
     def _render_messages(self):
         """Render housekeeping messages, now replaced by badges."""
-        import streamlit as st
         if self.early_dev:
             st.warning("🚧 This is a new section we are working on. Content may be incomplete.")
         if not self.verified:
             st.info("🤖 This section is still being reviewed and may contain AI-generated or placeholder data.")
-    
+
     def render(self):
         """Render the section, now using badges for information."""
         self._render_headers()
-        # self._render_messages()  # Commented out in favor of badges but use """ """ to define the html
