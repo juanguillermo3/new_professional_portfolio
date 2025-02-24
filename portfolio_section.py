@@ -21,8 +21,15 @@ class PortfolioSection:
         Initialize the portfolio section with a title and description.
         Defaults will be inherited from the class but can be overridden per instance.
         """
-        self.title = title
-        self.description = description
+        
+        super().__init__(
+            title=title,
+            description=description,
+            verified=self.DATA_VERIFIED,  # Use subclass defaults
+            early_dev=self.EARLY_DEVELOPMENT_STAGE,
+            ai_content=not self.DATA_VERIFIED  # This ensures consistency
+        )
+
         self.verified = self.DATA_VERIFIED if verified is None else verified
         self.early_dev = self.EARLY_DEVELOPMENT_STAGE if early_dev is None else early_dev
         self.ai_content = not self.verified if ai_content is None else ai_content  # AI content is assumed if not verified
