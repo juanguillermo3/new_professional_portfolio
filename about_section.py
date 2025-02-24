@@ -21,6 +21,7 @@ class AboutSection(PortfolioSection):
     """
 
     def __init__(self, linkedin_profile):
+        self.image_path="assets/about_section_theme.jpg"
         self.title="About this portfolio 💡"
         self.description = load_general_info()
         self.linkedin_profile = linkedin_profile
