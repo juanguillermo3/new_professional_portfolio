@@ -16,7 +16,7 @@ class CurriculumVitae(PortfolioSection):
     EARLY_DEVELOPMENT_STAGE = False  # Override class defaults for this section
     DATA_VERIFIED = True  
     
-    def __init__(self, title="Curriculum Vitae 📜", section_description):
+    def __init__(self, title="Curriculum Vitae 📜", section_description=professional_statement()):
         """
         :param section_description: A string representing the description for the Curriculum Vitae section.
         :param tags: A list of string tags to be displayed in a Twitter-style format.
@@ -24,7 +24,7 @@ class CurriculumVitae(PortfolioSection):
         
         super().__init__(
             title=title,
-            description=professional_statement(),
+            description=section_description,
             verified=self.DATA_VERIFIED,  # Use subclass defaults
             early_dev=self.EARLY_DEVELOPMENT_STAGE,
             ai_content=not self.DATA_VERIFIED  # This ensures consistency
