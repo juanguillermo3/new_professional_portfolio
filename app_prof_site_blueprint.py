@@ -18,7 +18,7 @@ from rec_sys import recsys
 from about_section import about
 from services_section import services
 from socials_section import socials
-from visual_media import test_gallery
+from visual_media import test_gallery, GalleryCollection
 from testimonials import testimonials
 
 # Load environment variables
@@ -93,14 +93,14 @@ for section_name, module in SECTIONS.items():
         module.render()
         render_section_separator()
 
+test_gallery_collection=GalleryCollection()
+test_gallery_collection.get(
+    "test_galleria",
+    {
+    "title":"Geometric Modelling for Nutrition Data",
+    "description":"Applies Geometric Modelling based on dimensionality reduction to analize nutritional preferences of the monkey species.",
+    "media_path":"assets/gm_per_*.png",
+    }
+).render()
 
-#test_gallery_collection.get(
-#    "test_galleria",
-#    {
-#    "title":"Geometric Modelling for Nutrition Data",
-#    "description":"Applies Geometric Modelling based on dimensionality reduction to analize nutritional preferences of the monkey species.",
-#    "media_path":"assets/gm_per_*.png",
-#    }
-#).render()
-
-#test_gallery.render()
+test_gallery.render()
