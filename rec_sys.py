@@ -240,7 +240,7 @@ class RecommendationSystem(PortfolioSection):
 
         st.markdown("<br><br>", unsafe_allow_html=True)
 
-    def handle_galleria_click(self, rec, width=self.MEDIA_CONTAINER_WIDTH, height=self.MEDIA_CONTAINER_HEIGHT):
+    def handle_galleria_click(self, rec):
         """
         Handle the click event for the galleria item and display its content.
         Instead of calling render_item_visual_content directly, use the GalleryCollection.
@@ -251,8 +251,8 @@ class RecommendationSystem(PortfolioSection):
             'title': rec.get('title', None),
             'description': rec.get('description', None),
             'media_path': rec.get('image_path', None),
-            'width': width,
-            'height': height
+            'width': self.MEDIA_CONTAINER_WIDTH,
+            'height': self.MEDIA_CONTAINER_HEIGHT
         }
         
         self.active_galleria=VisualContentGallery(
