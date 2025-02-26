@@ -24,3 +24,47 @@ def load_general_info():
         "as varied as the impact of gender on the Colombian labor market and scientific research on monkey behavior "
         "to high-performance sales forecasting for food delivery services."
     )
+
+def load_key_interest():
+    """
+    Load the key interest statement.
+
+    Returns:
+        str: A description of the main areas of professional interest.
+    """
+    return """
+    🔑 My recurring interest nevertheless has always been the modernization of the data analysis pipeline
+    through cutting-edge techniques, such as flexible ML-based inference, software and algorithmic automation,
+    using NLP in latent semantic spaces, and, more recently, solving data analysis tasks through agency formation
+    within LLM applications.
+    """
+
+def load_key_hypothesis():
+    """
+    Load the key hypothesis statement.
+
+    Returns:
+        str: A research focus statement including RecSys and LLM applications.
+    """
+    return """
+    🔬 Ongoing research explores leveraging emerging technologies like Recommendation Systems (RecSys) 
+    and LLM-powered applications (LLM apps) to create practical software solutions for professionals. 
+    One key area of interest is efficiently displaying content to potential clients or employers. 
+    Features such as the RecSys are still under development, and related research can be found on my 
+    <a href="{linkedin}" target="_blank" style="color: #1f77b4; text-decoration: none;">LinkedIn profile</a>. 
+    """
+
+def load_dev_environment():
+    """
+    Load the development environment description.
+
+    Returns:
+        str: A description of the technical stack and project architecture.
+    """
+    return """
+    🛠️ This portfolio is a Python/Streamlit web application with a modular design inspired by microservice 
+    architecture, adapted for a professional site. It follows OOP principles and SOLID design patterns, 
+    with modules organized by responsibility. The full codebase is available on 
+    <a href="https://github.com/juanguillermo3/new_professional_portfolio/tree/main" 
+    target="_blank" style="color: #1f77b4; text-decoration: none;">GitHub</a>. 
+    """
