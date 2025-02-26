@@ -383,12 +383,13 @@ class RecommendationSystem(PortfolioSection):
         # Check session state to determine whether to display the galleria or video
         if st.session_state.get("active_galleria", False):
             with self.media_placeholder.container():
-                self.active_galleria.render()
+                st.session_state["active_galleria"].render()
         else:
             if os.path.exists(video_path):
                 self.media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
             else:
                 self.media_placeholder.warning(f"Video for {project_metadata['title']} not found.")
+
 
 
 # Example usage
