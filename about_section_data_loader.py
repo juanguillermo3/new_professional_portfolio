@@ -11,6 +11,9 @@ career_start_year = datetime.strptime(CAREER_START_DATE, "%Y-%m-%d").year
 current_year = datetime.now().year
 num_years = current_year - career_start_year
 
+# Hardcoded LinkedIn profile URL
+LINKEDIN_PROFILE = "https://www.linkedin.com/in/juan-guillermo-osio/"
+
 def load_general_info():
     """
     Load general information for the About section.
@@ -30,7 +33,7 @@ def load_key_interest():
     Load the key interest statement.
 
     Returns:
-        str: A description of the main areas of professional interest.
+        str: The key interest text.
     """
     return """
     🔑 My recurring interest nevertheless has always been the modernization of the data analysis pipeline
@@ -44,14 +47,14 @@ def load_key_hypothesis():
     Load the key hypothesis statement.
 
     Returns:
-        str: A research focus statement including RecSys and LLM applications.
+        str: The key hypothesis text.
     """
-    return """
+    return f"""
     🔬 Ongoing research explores leveraging emerging technologies like Recommendation Systems (RecSys) 
     and LLM-powered applications (LLM apps) to create practical software solutions for professionals. 
     One key area of interest is efficiently displaying content to potential clients or employers. 
     Features such as the RecSys are still under development, and related research can be found on my 
-    <a href="{linkedin}" target="_blank" style="color: #1f77b4; text-decoration: none;">LinkedIn profile</a>. 
+    <a href="{LINKEDIN_PROFILE}" target="_blank" style="color: #1f77b4; text-decoration: none;">LinkedIn profile</a>. 
     """
 
 def load_dev_environment():
@@ -59,7 +62,7 @@ def load_dev_environment():
     Load the development environment description.
 
     Returns:
-        str: A description of the technical stack and project architecture.
+        str: The development environment description.
     """
     return """
     🛠️ This portfolio is a Python/Streamlit web application with a modular design inspired by microservice 
