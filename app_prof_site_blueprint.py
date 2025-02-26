@@ -18,7 +18,6 @@ from rec_sys import recsys
 from about_section import about
 from services_section import services
 from socials_section import socials
-from visual_media import test_gallery, GalleryCollection
 from testimonials import testimonials
 
 # Load environment variables
@@ -92,6 +91,3 @@ for section_name, module in SECTIONS.items():
     if section_name in selected_sections:
         module.render()
         render_section_separator()
-
-
-test_gallery.render()
