@@ -1,4 +1,5 @@
 import streamlit as st
+from portfolio_section import PortfolioSection
 from about_section_data_loader import load_general_info, load_key_interest, load_key_hypothesis, load_dev_environment
 from about_section_data_loader import (
     load_general_info, 
