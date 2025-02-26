@@ -269,37 +269,65 @@ class RecommendationSystem(PortfolioSection):
     def render(self):
         """Render method with Galleria callback integration and smooth media transitions."""
         
-        self._render_headers() # new style of rendering headers, comes from the portfolio section class
-        
+        self._render_headers()  # Render headers from the portfolio section class
+    
+        # Display the ranker's logic
         st.markdown(f'{self.RANKER_LOGIC}', unsafe_allow_html=True)
-        
+    
+        # Display control widgets as a grid
         cols = st.columns(2)
         with cols[0]:
             prettified_titles = [prettify_title(title) for title in self.project_titles]
-            selected_pretty_project = st.selectbox("📂 Filter by project:", prettified_titles, index=0)
+            selected_pretty_project = st.selectbox(
+                "📂 Filter by project:", prettified_titles, index=0, key="active_project"
+            )
             selected_project = self.title_mapping[selected_pretty_project]
-        
+    
+            # Ensure event propagation always occurs
+            previous_project = st.session_state.get("last_active_project", None)
+            project_changed = previous_project != selected_project
+            
+            st.session_state.last_active_project = selected_project  # Update state
+    
+            # Emit event (differentiate project change vs. interaction)
+            event_type = "ACTIVE_PROJECT_CHANGED" if project_changed else "ACTIVE_PROJECT_INTERACTED"
+            st.session_state.project_event = f"{event_type}: {selected_project}"
+    
         with cols[1]:
-            query = st.text_input("🔍 Search for by keyword/library (e.g., Python, R):", placeholder="Type a keyword and press Enter")
-        
+            query = st.text_input(
+                "🔍 Search for by keyword/library (e.g., Python, R):",
+                placeholder="Type a keyword and press Enter",
+            )
+    
+        # Fetch recommendations
         recommendations = self.rank_items(query, selected_project)
-        
-        project_metadata = next((repo for repo in self.repos_metadata if repo["title"].lower() == selected_project.lower()), None) if selected_project != "All Projects" else None
-        
+    
+        # Display project metadata if applicable
+        project_metadata = next(
+            (repo for repo in self.repos_metadata if repo["title"].lower() == selected_project.lower()), 
+            None
+        ) if selected_project != "All Projects" else None
+    
         if project_metadata:
             self.render_project_metadata(project_metadata)
-        
+    
+        # Render filtering message
         filter_message = f"Showing all results for project {prettify_title(selected_project)}"
         if query:
             filter_message += f" (and for keyword: {query})"
-        
-        st.markdown(f'<p style="font-style: italic; color: #555; font-size: 105%; font-weight: 550;">{filter_message}</p>', unsafe_allow_html=True)
-        
+    
+        st.markdown(
+            f'<p style="font-style: italic; color: #555; font-size: 105%; font-weight: 550;">{filter_message}</p>',
+            unsafe_allow_html=True
+        )
+    
+        # Render recommendations in a grid
         for i in range(0, len(recommendations), self.num_columns):
             cols = st.columns(self.num_columns)
             for col, rec in zip(cols, recommendations[i: i + self.num_columns]):
                 with col:
                     self.render_card(rec, is_project=rec.get("is_project", False))
+    
 
     def handle_galleria_click(self, rec):
         """
@@ -343,11 +371,11 @@ class RecommendationSystem(PortfolioSection):
 
 
     def render_project_metadata(self, project_metadata, display_milestones=True, margin_percent=10):
-        """Render project title, description, tags, milestones, code sample count, and video or galleria."""
+        """Render project title, description, tags, milestones, code sample count, and media content."""
         
         video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
         video_path = os.path.join('assets', video_filename)
-    
+        
         tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
         description_html = markdown.markdown(f"{project_metadata['description']} {tags_html}")
     
@@ -363,8 +391,8 @@ class RecommendationSystem(PortfolioSection):
         # Milestones section
         milestone_margin = margin_percent * 1.5  
         if display_milestones:
-            milestone_html = html_for_milestones_from_project_metadata(project_metadata)        
-            if milestone_html:  # Ensure content exists before rendering
+            milestone_html = html_for_milestones_from_project_metadata(project_metadata)
+            if milestone_html:  
                 st.markdown(
                     f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{milestone_html}</div>",
                     unsafe_allow_html=True
@@ -380,17 +408,28 @@ class RecommendationSystem(PortfolioSection):
         st.markdown("<br>", unsafe_allow_html=True)
         self.media_placeholder = st.empty()
     
-        # Check session state to determine whether to display the galleria or video
-        if st.session_state.get("active_galleria", False):
+        # Render media content
+        self._render_media_content(video_path)
+    
+    def _render_media_content(self, video_path):
+        """Handles the rendering of media content (either Galleria or Video)."""
+        
+        active_galleria = st.session_state.get("active_galleria", False)
+        project_switched = st.session_state.get("project_switched", False)  # Flag from earlier logic
+        
+        if active_galleria and not project_switched:
             with self.media_placeholder.container():
-                st.session_state["active_galleria"].render()
+                active_galleria.render()
+        elif os.path.exists(video_path):
+            self.media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
         else:
-            if os.path.exists(video_path):
-                self.media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
-            else:
-                self.media_placeholder.warning(f"Video for {project_metadata['title']} not found.")
+            self.media_placeholder.warning("Video not found.")
+        
+        # Reset the flag after handling the switch
+        st.session_state["project_switched"] = False
 
-
+    
+    
 
 # Example usage
 # Initialize RecSys with custom header and description
