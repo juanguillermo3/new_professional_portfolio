@@ -241,7 +241,6 @@ class RecommendationSystem(PortfolioSection):
         st.markdown("<br><br>", unsafe_allow_html=True)
 
 
-
     def apply_transition_styles(self):
         """Apply the CSS transition styles to the media placeholder."""
         st.markdown(
@@ -261,101 +260,8 @@ class RecommendationSystem(PortfolioSection):
             unsafe_allow_html=True
         )
         
-    #
-    # 
-    #
-
-    def render_project_metadata(self, project_metadata, display_milestones=True, margin_percent=10):
-        """Render project title, description, tags, milestones, code sample count, and video."""
-        video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
-        video_path = os.path.join('assets', video_filename)
-    
-        tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
-        description_html = markdown.markdown(f"{project_metadata['description']} {tags_html}")
-    
-        # Title and description
-        st.markdown(
-            f"""
-            <div style="text-align: center;"><h3>{prettify_title(project_metadata['title'])}</h3></div>
-            <div style="text-align: justify; margin-left: {margin_percent}%; margin-right: {margin_percent}%;">
-                {description_html}
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-        
-        milestone_margin = margin_percent * 1.5  
-        if display_milestones:
-            milestone_html = html_for_milestones_from_project_metadata(project_metadata)        
-            if milestone_html:  # Ensure content exists before rendering
-                st.markdown(
-                    f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{milestone_html}</div>",
-                    unsafe_allow_html=True
-                )
-    
-        # Code sample count section
-        project_title = project_metadata['title'].lower()
-        sample_count = self.project_item_counts.get(project_title, 0)
-        sample_html = f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%; color:#3A86FF; font-size:105%; font-weight:95%;'>💾 {sample_count} code samples indexed</div>"
-        st.markdown(sample_html, unsafe_allow_html=True)
-        
-        # Media placeholder
-        st.markdown("<br>", unsafe_allow_html=True)
-        self.media_placeholder = st.empty()
-        if os.path.exists(video_path):
-            self.media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
-        else:
-            self.media_placeholder.warning(f"Video for {project_metadata['title']} not found.")
 
 
-    def render_project_metadata(self, project_metadata, display_milestones=True, margin_percent=10):
-        """Render project title, description, tags, milestones, code sample count, and video or galleria."""
-        
-        video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
-        video_path = os.path.join('assets', video_filename)
-    
-        tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
-        description_html = markdown.markdown(f"{project_metadata['description']} {tags_html}")
-    
-        # Title and description
-        st.markdown(
-            f"""
-            <div style="text-align: center;"><h3>{prettify_title(project_metadata['title'])}</h3></div>
-            <div style="text-align: justify; margin-left: {margin_percent}%; margin-right: {margin_percent}%;">{description_html}</div>
-            """,
-            unsafe_allow_html=True,
-        )
-    
-        # Milestones section
-        milestone_margin = margin_percent * 1.5  
-        if display_milestones:
-            milestone_html = html_for_milestones_from_project_metadata(project_metadata)        
-            if milestone_html:  # Ensure content exists before rendering
-                st.markdown(
-                    f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{milestone_html}</div>",
-                    unsafe_allow_html=True
-                )
-    
-        # Code sample count section
-        project_title = project_metadata['title'].lower()
-        sample_count = self.project_item_counts.get(project_title, 0)
-        sample_html = f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%; color:#3A86FF; font-size:105%; font-weight:95%;'>💾 {sample_count} code samples indexed</div>"
-        st.markdown(sample_html, unsafe_allow_html=True)
-    
-        # Media placeholder
-        st.markdown("<br>", unsafe_allow_html=True)
-        self.media_placeholder = st.empty()
-    
-        # Check session state to determine whether to display the galleria or video
-        if st.session_state.get("active_galleria", False):
-            with self.media_placeholder.container():
-                self.active_galleria.render()
-        else:
-            if os.path.exists(video_path):
-                self.media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
-            else:
-                self.media_placeholder.warning(f"Video for {project_metadata['title']} not found.")
 
     #
     # Updated render method
@@ -434,6 +340,55 @@ class RecommendationSystem(PortfolioSection):
         with st.spinner("Loading media..."):
             with self.media_placeholder.container():
                 st.session_state["active_galleria"].render()
+
+
+    def render_project_metadata(self, project_metadata, display_milestones=True, margin_percent=10):
+        """Render project title, description, tags, milestones, code sample count, and video or galleria."""
+        
+        video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
+        video_path = os.path.join('assets', video_filename)
+    
+        tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
+        description_html = markdown.markdown(f"{project_metadata['description']} {tags_html}")
+    
+        # Title and description
+        st.markdown(
+            f"""
+            <div style="text-align: center;"><h3>{prettify_title(project_metadata['title'])}</h3></div>
+            <div style="text-align: justify; margin-left: {margin_percent}%; margin-right: {margin_percent}%;">{description_html}</div>
+            """,
+            unsafe_allow_html=True,
+        )
+    
+        # Milestones section
+        milestone_margin = margin_percent * 1.5  
+        if display_milestones:
+            milestone_html = html_for_milestones_from_project_metadata(project_metadata)        
+            if milestone_html:  # Ensure content exists before rendering
+                st.markdown(
+                    f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{milestone_html}</div>",
+                    unsafe_allow_html=True
+                )
+    
+        # Code sample count section
+        project_title = project_metadata['title'].lower()
+        sample_count = self.project_item_counts.get(project_title, 0)
+        sample_html = f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%; color:#3A86FF; font-size:105%; font-weight:95%;'>💾 {sample_count} code samples indexed</div>"
+        st.markdown(sample_html, unsafe_allow_html=True)
+    
+        # Media placeholder
+        st.markdown("<br>", unsafe_allow_html=True)
+        self.media_placeholder = st.empty()
+    
+        # Check session state to determine whether to display the galleria or video
+        if st.session_state.get("active_galleria", False):
+            with self.media_placeholder.container():
+                self.active_galleria.render()
+        else:
+            if os.path.exists(video_path):
+                self.media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
+            else:
+                self.media_placeholder.warning(f"Video for {project_metadata['title']} not found.")
 
 
 # Example usage
