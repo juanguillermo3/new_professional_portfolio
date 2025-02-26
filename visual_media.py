@@ -255,63 +255,119 @@ class VisualContentGallery:
         )
 
 
-class GalleryCollection:
-    """
-    A collection that manages multiple instances of VisualContentGallery.
-    It provides a centralized access point for retrieving gallery instances by a unique key.
-    Instances are cached to ensure that duplicate galleries are not created for the same key.
+import time
+import hashlib
+import streamlit as st
+import streamlit.components.v1 as components
+import glob
+import os
 
-    Attributes:
-        cache (dict): A dictionary that stores cached VisualContentGallery instances by key.
+class VisualContentGallery:
+    def __init__(self, title, description, media_path, width="700px", height="400px"):
+        self.title = title
+        self.description = description
+        self.width = width
+        self.height = height
+        self.file_list = self._find_media_files(media_path)
+        self.current_index = 0
 
-    Methods:
-        get(key, galleria_params): Retrieves an existing VisualContentGallery instance from the cache 
-                                   or creates a new one if it doesn't exist. Validates the provided parameters.
-    """
+        # Generate a unique hash for this instance
+        self.instance_id = hashlib.md5(str(time.time()).encode()).hexdigest()[:8]  # Shortened hash for clarity
 
-    def __init__(self):
-        """
-        Initializes the GalleryCollection with an empty cache.
-        """
-        self.cache = {}
+    def _find_media_files(self, media_path):
+        file_list = glob.glob(media_path) if '*' in media_path or '?' in media_path else [media_path]
+        return sorted(file_list)
 
-    def _validate_galleria_params(self, galleria_params):
-        """
-        Validates the required parameters for instantiating a VisualContentGallery.
+    def parse_media(self, file_path, width_offset=0, height_offset=50):
+        if not os.path.exists(file_path):
+            st.error(f"Media file not found: {file_path}")
+            return
         
-        Raises:
-            ValueError: If any of the required keys ('title', 'description', 'media_path') are missing.
-        """
-        required_keys = ['title', 'description', 'media_path']
-        for key in required_keys:
-            if key not in galleria_params:
-                raise ValueError(f"Missing required parameter: '{key}' in galleria_params")
+        file_ext = os.path.splitext(file_path)[-1].lower()
+        
+        try:
+            if file_ext in ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg']:
+                st.image(file_path, use_container_width=True)
+            elif file_ext in ['.mp4', '.avi', '.mov', '.webm']:
+                st.video(file_path)
+            elif file_ext == '.html':
+                with open(file_path, 'r', encoding='utf-8') as file:
+                    html_content = file.read()
+                components.html(
+                    html_content, 
+                    width=int(self.width.replace("px", "")) + width_offset, 
+                    height=int(self.height.replace("px", "")) + height_offset
+                )
+            else:
+                st.warning(f"Unsupported media type: {file_ext}")
+        except Exception as e:
+            st.error(f"Error displaying media ({file_ext}): {str(e)}")
 
-    def get(self, key, galleria_params):
-        """
-        Retrieves a VisualContentGallery instance by key. If the instance does not exist, it is created and cached.
+    def render(self):
+        # Apply styles globally to the app
+        st.markdown(
+            f"""
+            <style>
+                .media-container {{
+                    width: {self.width};
+                    height: {self.height};
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    overflow: hidden;
+                    background: rgba(0, 0, 0, 0.05);
+                    border-radius: 10px;
+                }}
+                .text-container {{
+                    background: rgba(0, 0, 0, 0.3);
+                    padding: 6px;
+                    border-radius: 8px;
+                    color: white;
+                    width: 100%;
+                    text-align: center;
+                }}
+                .title-text {{
+                    font-size: 18px;
+                    font-weight: 600;
+                    color: #fff;
+                    display: block;
+                }}
+                .description-text {{
+                    font-size: 14px;
+                    font-weight: 400;
+                    color: white;
+                    display: block;
+                }}
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
         
-        Args:
-            key (str): The unique identifier for the gallery.
-            galleria_params (dict): A dictionary containing parameters like 'title', 'description', and 'media_path'.
-        
-        Returns:
-            VisualContentGallery: A cached or newly created VisualContentGallery instance.
+        if not self.file_list:
+            st.error("No media files found.")
+            return
 
-        Raises:
-            ValueError: If any required parameters are missing from galleria_params.
-        """
-        self._validate_galleria_params(galleria_params)
-        
-        if key not in self.cache:
-            self.cache[key] = VisualContentGallery(
-                title=galleria_params['title'],
-                description=galleria_params['description'],
-                media_path=galleria_params['media_path'],
-                width=galleria_params.get('width', '700px'),
-                height=galleria_params.get('height', '400px')
-            )
-        return self.cache[key]
+        current_file = self.file_list[self.current_index]
+        self.parse_media(current_file)
+
+        if len(self.file_list) > 1:
+            nav_buttons = st.columns(len(self.file_list))
+            for idx, col in enumerate(nav_buttons):
+                with col:
+                    button_key = f"nav_button_{self.instance_id}_{idx}"  # Unique button key
+                    if st.button(f"{idx + 1}", key=button_key, help=f"Go to media {idx + 1}", type="secondary", use_container_width=True):
+                        self.current_index = idx
+                        # st.experimental_rerun()
+
+        st.markdown(
+            f"""
+            <div class="text-container">
+                <span class="title-text">{self.title}</span>
+                <span class="description-text">{self.description}</span>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
 
 
