@@ -8,6 +8,13 @@ class AboutSection(PortfolioSection):
     EARLY_DEVELOPMENT_STAGE = False  # Override class defaults for this section
     DATA_VERIFIED = True  
 
+    KEY_INTEREST="""
+    My recurring interest nevertheless has always been the modernization of the data analysis pipeline
+    through cutting-edge techniques, such as flexible ML-based inference, software and algorithmic automation,
+    using NLP in latent semantic spaces, and, more recently, solving data analysis tasks through agency formation
+    within LLM applications."
+    """
+    
     KEY_HYPOTHESIS = """
     🔬 Ongoing research explores leveraging emerging technologies like Recommendation Systems (RecSys) 
     and LLM-powered applications (LLM apps) to create practical software solutions for professionals. 
@@ -40,6 +47,7 @@ class AboutSection(PortfolioSection):
     def render(self):
         """Render the about section following the standard pattern."""
         self._render_headers()
+        st.markdown(self.KEY_INTEREST, unsafe_allow_html=True)
         st.markdown(self.KEY_HYPOTHESIS.format(linkedin=self.linkedin_profile), unsafe_allow_html=True)
         st.markdown(self.DEV_ENVIRONMENT, unsafe_allow_html=True)
 
