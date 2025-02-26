@@ -37,10 +37,11 @@ def load_key_interest():
     """
     return """
     🔑 My recurring interest nevertheless has always been the **modernization of the data analysis pipeline** 
-    through **cutting-edge techniques**, such as **flexible ML-based inference**, **software and algorithmic automation**, 
-    **using NLP in latent semantic spaces**, and, more recently, **solving data analysis tasks through agency formation 
-    within LLM applications**.
+    through cutting-edge techniques, such as **flexible** ML-based inference, **software** and **algorithmic automation**, 
+    using **NLP** in latent semantic spaces, and, more recently, solving data analysis tasks through **agency formation** 
+    within **LLM applications**.
     """
+
 
 def load_key_hypothesis():
     """
