@@ -247,6 +247,10 @@ class RecommendationSystem(PortfolioSection):
         """
         self.media_placeholder.empty()
 
+        with self.media_placeholder.container():
+            test_gallery.render()
+            
+
         width = width or self.MEDIA_CONTAINER_WIDTH
         height = height or self.MEDIA_CONTAINER_HEIGHT
 
