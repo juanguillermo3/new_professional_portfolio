@@ -265,7 +265,7 @@ class RecommendationSystem(PortfolioSection):
         self.active_galleria=VisualContentGallery(
             title=rec['title'],
             description=rec['description'],
-            media_path=rec['media_path'],
+            media_path=rec['image_path'],
             width=self.MEDIA_CONTAINER_WIDTH,
             height=self.MEDIA_CONTAINER_HEIGHT)
 
