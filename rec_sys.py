@@ -259,8 +259,8 @@ class RecommendationSystem(PortfolioSection):
             title="Geometric Modelling for Nutrition Data",
             description="Applies Geometric Modelling based on dimensionality reduction to analize nutritional preferences of the monkey species.",
             media_path="assets/gm_per_*.png",
-            width=width,
-            height=height)
+            width=self.MEDIA_CONTAINER_WIDTH,
+            height=self.MEDIA_CONTAINER_HEIGHT)
 
         # Validate that the required parameters are present
         missing_params = [key for key, value in galleria_params.items() if value is None]
