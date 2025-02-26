@@ -83,7 +83,7 @@ class RecommendationSystem(PortfolioSection):
         self._sort_projects()
         self._prepare_project_titles_and_default()
 
-        self.gallery_collection = GalleryCollection()
+        #self.gallery_collection = GalleryCollection()
         self.active_galleria = None
     #
     def _sort_projects(self):
@@ -245,18 +245,7 @@ class RecommendationSystem(PortfolioSection):
         Handle the click event for the galleria item and display its content.
         Instead of calling render_item_visual_content directly, use the GalleryCollection.
         """
-        self.media_placeholder.empty()
-
-        with self.media_placeholder.container():
-            test_gallery.render()
-            return ""
-
-        width = width or self.MEDIA_CONTAINER_WIDTH
-        height = height or self.MEDIA_CONTAINER_HEIGHT
-
-        # Generate a unique key for the gallery based on repo_name and title
-        gallery_key = f"{rec.get('repo_name', 'default_repo')}_{rec.get('title', 'default_title')}"
-
+        
         # Prepare galleria_params
         galleria_params = {
             'title': rec.get('title', None),
@@ -266,18 +255,24 @@ class RecommendationSystem(PortfolioSection):
             'height': height
         }
 
+        width = width or self.MEDIA_CONTAINER_WIDTH
+        height = height or self.MEDIA_CONTAINER_HEIGHT
+        
+        self.active_galleria=VisualContentGallery(
+            title="Geometric Modelling for Nutrition Data",
+            description="Applies Geometric Modelling based on dimensionality reduction to analize nutritional preferences of the monkey species.",
+            media_path="assets/gm_per_*.png",
+            width=width,
+            height=height)
+
         # Validate that the required parameters are present
         missing_params = [key for key, value in galleria_params.items() if value is None]
-
         if missing_params:
             # If any required parameters are missing, output a debug message
             st.write(f"Debug: Missing parameters for Galleria - {', '.join(missing_params)}")
             return  # Exit the function if the schema is not compliant
 
-        # Retrieve or create a new VisualContentGallery instance
-        self.active_galleria = self.gallery_collection.get(gallery_key, galleria_params)
-
-
+        self.media_placeholder.empty()
         # Call the render method on the retrieved instance
         with st.spinner("Loading media..."):
             with self.media_placeholder.container():
