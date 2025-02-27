@@ -258,29 +258,6 @@
     "repo_name": "lab_market_trends"
   },
   {
-    "title": "Feature transformation",
-    "description": "Recast RDD as pandas.Dataframe and pipelines several operations to create numerical features for downstream ML.",
-    "libraries": [
-      "json",
-      "numpy",
-      "features",
-      "typing",
-      "dotenv",
-      "phrases",
-      "logging",
-      "time",
-      "os",
-      "preprocess",
-      "main_provider_curated_job_listings_rdd",
-      "pyspark",
-      "datetime"
-    ],
-    "last_updated": "2025-02-06T04:50:04Z",
-    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/writefile feature_transformation.py",
-    "file_path": "writefile feature_transformation.py",
-    "repo_name": "lab_market_trends"
-  },
-  {
     "title": "Generate Comprehensive Excel Reports",
     "description": "A flexible function to create Excel reports with dataframes, ggplots, leaflet maps, and nested lists of content.",
     "last_updated": "2025-01-17T06:10:14Z",
