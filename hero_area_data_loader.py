@@ -1,14 +1,16 @@
 
 def load_quote():
     return [
-        "Modern data analysis requires engaging with, sometime developing substantial software, such as data gathering and information processing applications. "
-        "Moreover, software automation is key to distributing inferences from statistical analysis, such as insights from econometric analysis "
-        "or predictions from machine learning models. Bottom line, I recognize the tight dependencies between data analysis and software development, "
-        "hence my effort to serve both within a unified framework.",
-        
-        "I am Juan Guillermo. I am a professional economist. I have made a living developing data analysis and application "
-        "development scripts. My larger professional project aims for a holistic vision, interconnecting all the technology for modern data analysis, "
-        "comprising data mining and artificial intelligence models, algorithms, workflows, and information tools."
+        "Modern data analysis requires engaging with and developing substantial software, "
+        "such as applications for data gathering and information processing. "
+        "Moreover, software automation is essential for distributing inferences from statistical analysis, "
+        "whether derived from econometric models or machine learning predictions. "
+        "Bottom line: I recognize the deep connection between data analysis and software development, "
+        "hence my effort to serve them within a unified framework."
+            
+        "I am Juan Guillermo. I am a professional economist. I have made a living developing data analysis and software application scripts "
+        "for research and operational environments. My larger professional project aims for a holistic vision, interconnecting all the technology for modern data analysis, "
+        "comprising data mining and artificial intelligence models, algorithms, software engineering workflows, and information tools."
     ]
 
 def load_avatar_caption():
