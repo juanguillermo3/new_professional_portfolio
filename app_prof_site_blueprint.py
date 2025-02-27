@@ -27,7 +27,7 @@ load_dotenv(override=True)
 ENVIRONMENT = os.getenv("ENVIRONMENT")
 REPO_OWNER = os.getenv("REPO_OWNER")
 LINKEDIN_PROFILE = os.getenv("LINKEDIN_PROFILE")
-WHATSAPP_NUMBER = os.getenv("WHATSAPP_NUMBER")
+WHATSAPP_NUMBER = os.getenv("WHATSAPP_NUMBER", "+573053658650" )
 
 # Define available sections for customization
 SECTIONS = {
