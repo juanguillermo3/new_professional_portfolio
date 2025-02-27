@@ -53,43 +53,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Ensure WHATSAPP_NUMBER is set
-if WHATSAPP_NUMBER:
-    whatsapp_url = f"https://wa.me/{WHATSAPP_NUMBER.replace('+', '')}"
-
-    st.markdown(f"""
-        <style>
-        /* Floating WhatsApp Button */
-        .whatsapp-btn {{
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #25D366;
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }}
-
-        .whatsapp-btn img {{
-            width: 35px;
-            height: 35px;
-        }}
-
-        .whatsapp-btn:hover {{
-            background-color: #1EBEA5;
-            cursor: pointer;
-        }}
-        </style>
-
-        <a href="{whatsapp_url}" target="_blank" class="whatsapp-btn">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png">
-        </a>
-    """, unsafe_allow_html=True)
-
+display_floating_whatsapp_button()
 
 st.title("Welcome to My Professional Site")
 
