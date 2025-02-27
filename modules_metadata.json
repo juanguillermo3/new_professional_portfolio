@@ -228,7 +228,7 @@
   {
     "title": "Overall Application",
     "description": "Connected version of the wages appication. It combines several modules into a sequence of workflows to analyze wages formation in the Colombian laboral market",
-    "image_path": "assets/lab_market_trends_project_network.html",
+    "image_path": "assets/lab_market_trends_network_plot.html",
     "colab_url": "https://colab.research.google.com/drive/1gY17gbUdUxpWv2Ddooo0niPCkmqg8-hg#scrollTo=Hwfe5gZe3e_A>",
     "galleria": "True",
     "repo_name": "lab_market_trends",
