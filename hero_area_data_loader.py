@@ -6,7 +6,7 @@ def load_quote():
         "Moreover, software automation is essential for distributing inferences from statistical analysis, "
         "whether derived from econometric models or machine learning predictions. "
         "Bottom line: I recognize the deep connection between data analysis and software development, "
-        "hence my effort to serve them within a unified framework. \n"
+        "hence my effort to serve them within a unified framework.",
             
         "I am Juan Guillermo. I am a professional economist. I have made a living developing data analysis and software application scripts "
         "for research and operational environments. My larger professional project aims for a holistic vision, interconnecting all the technology for modern data analysis, "
