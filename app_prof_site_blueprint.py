@@ -19,6 +19,7 @@ from about_section import about
 from services_section import services
 from socials_section import socials
 from testimonials import testimonials
+from floating_whatsapp_button import  display_floating_whatsapp_button
 
 # Load environment variables
 load_dotenv(override=True)
