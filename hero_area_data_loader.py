@@ -8,9 +8,12 @@ def load_quote():
         "Bottom line: I recognize the deep connection between data analysis and software development, "
         "hence my effort to serve them within a unified framework.",
             
-        "I am Juan Guillermo. I am a professional economist. I have made a living developing data analysis and software application scripts "
-        "for research and operational environments. My larger professional project aims for a holistic vision, interconnecting all the technology for modern data analysis, "
-        "comprising data mining and artificial intelligence models, algorithms, software engineering workflows, and information tools."
+        "I am Juan Guillermo, a professional economist. "
+        "I have built my career developing data analysis and software application scripts "
+        "for research and operational environments. "
+        "My broader professional vision is to interconnect all the technologies essential for modern data analysis—"
+        "spanning data mining, artificial intelligence models, algorithms, software engineering workflows, "
+        "and information tools—into a cohesive and holistic framework."
     ]
 
 def load_avatar_caption():
