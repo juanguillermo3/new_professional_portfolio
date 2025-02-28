@@ -8,6 +8,31 @@ from about_section_data_loader import (
     load_dev_environment
 )
 
+import streamlit as st
+
+def exceptional_quote(markdown_text: str):
+    """
+    Render a notable quote with a distinctive styling:
+    - 5% indentation on the left.
+    - Rounded borders.
+    - Shadow effect on bottom and right for depth.
+    """
+    quote_style = """
+        <div style="
+            padding: 15px;
+            margin-left: 5%;
+            border-left: 4px solid #FFD700;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 204, 0.2);
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+        ">
+            <p style="font-style: italic; font-size: 1.1em; margin: 0;">{}</p>
+        </div>
+    """.format(markdown_text)
+
+    st.markdown(quote_style, unsafe_allow_html=True)
+
+
 class AboutSection(PortfolioSection):
 
     EARLY_DEVELOPMENT_STAGE = False  # Override class defaults for this section
@@ -26,16 +51,11 @@ class AboutSection(PortfolioSection):
         )
 
     def render(self):
-        """Render the about section following the standard pattern."""
+        """Render the about section with notable quotes."""
         self._render_headers()
-        st.markdown(load_key_interest(), unsafe_allow_html=True)
-        st.markdown(load_key_hypothesis(), unsafe_allow_html=True)
-        st.markdown(load_dev_environment(), unsafe_allow_html=True)
-
-# Instantiation
-about = AboutSection()
-
-
+        exceptional_quote(load_key_interest())
+        exceptional_quote(load_key_hypothesis())
+        exceptional_quote(load_dev_environment())
 
 # Instantiation
 about = AboutSection()
