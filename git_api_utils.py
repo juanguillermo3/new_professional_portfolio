@@ -9,25 +9,43 @@ description: This module leverages advanced features of the Git API to gather me
 import os
 import re
 import ast
+import json
 import logging
 import requests
 from requests.auth import HTTPBasicAuth
-import json
-from dotenv import load_dotenv, dotenv_values
 
+# Set up logging
+logging.basicConfig(level=logging.WARNING)  # Set to DEBUG for detailed logs
+logger = logging.getLogger(__name__)
 
-#
+from dotenv import load_dotenv
+import os
+
+# Load environment variables
 load_dotenv()
-REPOS_METADATA_FILE = "repos_metadata.json"
-MODULES_METADATA_FILE = "modules_metadata.json"
-#
+
+# Environment variables
 ENVIRONMENT = os.getenv("ENVIRONMENT")
-REPO_OWNER= os.getenv("REPO_OWNER")
-REPOS_IN_PORTFOLIO=os.getenv("REPOS_IN_PORTFOLIO").split(",") 
-#
-ENVIRONMENT
-REPO_OWNER
-REPOS_IN_PORTFOLIO
+REPO_OWNER = os.getenv("REPO_OWNER")
+
+# Repository portfolio setup
+REPOS_IN_PORTFOLIO = os.getenv("REPOS_IN_PORTFOLIO", "new_professional_portfolio").split(",")
+REPOS_IN_PORTFOLIO = ["new_professional_portfolio"]
+
+# Metadata file paths (falling back to defaults if not set)
+REPOS_METADATA_FILE = os.getenv("REPOS_METADATA_FILE", "files/repos_metadata.json")
+MODULES_METADATA_FILE = os.getenv("MODULES_METADATA_FILE", "files/modules_metadata.json")
+
+# GitHub raw URLs for metadata (falling back to defaults if not set)
+REPOS_METADATA_URL = os.getenv(
+    "REPOS_METADATA_URL",
+    f"https://raw.githubusercontent.com/{REPO_OWNER}/new_professional_portfolio/main/repos_metadata.json",
+)
+MODULES_METADATA_URL = os.getenv(
+    "MODULES_METADATA_URL",
+    f"https://raw.githubusercontent.com/{REPO_OWNER}/new_professional_portfolio/main/modules_metadata.json",
+)
+REPOS_IN_PORTFOLIO 
 
 
 #
@@ -68,9 +86,8 @@ def get_repo_metadata(repo_owner, repo_name, username=None, token=None):
         return None
 
 #
-#[get_repo_metadata(REPO_OWNER,some_repo) for some_repo in REPOS_IN_PORTFOLIO]
-
-
+# 1.
+#
 def get_file_metadata(repo_owner, repo_name, file_path, username=None, token=None):
     """
     Retrieve metadata for a specific file in a GitHub repository, including the date of the last update.
@@ -130,13 +147,10 @@ def get_file_metadata(repo_owner, repo_name, file_path, username=None, token=Non
     else:
         logging.warning(f"Failed to fetch file metadata for {file_path} (HTTP {response.status_code})")
         return None
-
-
-
 #
-# 1.
+# 2.
 #
-def list_repo_files(repo_owner, repo_name, username=None, token=None, file_pattern=r".*\.(py|R)$"):
+def list_repo_files(repo_owner, repo_name, username=None, token=None, file_pattern=r".*\.(py|R|do|ipynb)$"):
     """
     Lists all files in a GitHub repository, optionally filtering by file type using a regex.
 
@@ -149,7 +163,10 @@ def list_repo_files(repo_owner, repo_name, username=None, token=None, file_patte
 
     Returns:
         list: A list of dictionaries containing file metadata, including name, path, size, type, and download URL.
-              Returns an empty list if the request fails or no files match the pattern.
+              Returns an empty list if the request fails or no files match the pattern, and raises an error.
+    
+    Raises:
+        RuntimeError: If no files are found or if the API connection fails.
     """
     url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/contents"
     files_metadata = []
@@ -174,99 +191,227 @@ def list_repo_files(repo_owner, repo_name, username=None, token=None, file_patte
                     'type': file.get('type'),
                     'download_url': file.get('download_url')
                 })
+        
+        # If no files match the pattern, raise an error
+        if not files_metadata:
+            raise RuntimeError(f"No files found in repository '{repo_name}' under owner '{repo_owner}' matching the pattern '{file_pattern}'. Possible issue with the API connection or repository contents.")
+    else:
+        # If the API request fails, raise an error with status code
+        raise RuntimeError(f"Failed to fetch files from repository '{repo_name}' owned by '{repo_owner}'. API response code: {response.status_code}.")
+    
     return files_metadata
 
 #
-# 2.
+# 3.
 #
-
-# General file fetcher
-def fetch_file_content(repo_owner, repo_name, file_path, username=None, token=None):
+def fetch_file_content(repo_owner, repo_name, file_path, username=None, token=None, headers=None):
     """
     Fetches the content of a file from a GitHub repository.
+    
+    This function retrieves the raw content of a specified file from a given GitHub repository. 
+    It logs the retrieval process, including the file path being accessed. 
+    Authentication can be provided for private repositories using a username and token.
+    
+    Parameters:
+    - repo_owner (str): Owner of the GitHub repository.
+    - repo_name (str): Name of the GitHub repository.
+    - file_path (str): Path to the file within the repository.
+    - username (str, optional): GitHub username for authentication.
+    - token (str, optional): GitHub token for authentication.
+    - headers (dict, optional): Headers to include in the request, defaults to requesting raw content.
+    
+    Returns:
+    - str: The content of the file if the request is successful, otherwise None.
     """
+    if headers is None:
+        headers = {"Accept": "application/vnd.github.v3.raw"}
+    
     url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/contents/{file_path}"
-    headers = {"Accept": "application/vnd.github.v3.raw"}
+    
+    logger.info(f"Fetching file from GitHub: {url} (Path: {file_path})")
+    
     if username and token:
         response = requests.get(url, headers=headers, auth=HTTPBasicAuth(username, token))
     else:
         response = requests.get(url, headers=headers)  # No auth for public repos
-    return response.text if response.status_code == 200 else None
+    
+    if response.status_code == 200:
+        logger.info("File fetched successfully.")
+        return response.text
+    else:
+        logger.error(f"Failed to fetch file. Status code: {response.status_code}")
+        return None
 
-# Docstring extractor with differentiated methods for file types
+#
+# 4.
+#
 def extract_docstring(file_content, file_type):
     """
-    Extracts the docstring from the file content based on the file type.
+    Extracts the docstring or embedded metadata based on the file type.
     """
     if file_type == "python":
         try:
             tree = ast.parse(file_content)
             return ast.get_docstring(tree)  # Extract Python module-level docstring
         except SyntaxError:
+            logger.warning("Python file has a syntax error, unable to extract docstring.")
             return None
+
     elif file_type == "r":
-        # Assume docstring starts with "#'" for R files
         lines = file_content.splitlines()
         docstring_lines = [line[2:].strip() for line in lines if line.startswith("#'")]
         return "\n".join(docstring_lines) if docstring_lines else None
+
+    elif file_type == "stata":
+        # Assume metadata starts with "*!" for Stata do-files
+        lines = file_content.splitlines()
+        metadata_lines = [line[2:].strip() for line in lines if line.startswith("*!")]
+        return "\n".join(metadata_lines) if metadata_lines else None
+
+    elif file_type == "jupyter":
+        try:
+            notebook = json.loads(file_content)
+            logger.debug("Jupyter notebook loaded successfully.")
+            
+            # Look for the first markdown cell and extract its content
+            for cell in notebook.get("cells", []):
+                if cell.get("cell_type") == "markdown":
+                    lines = cell.get("source", [])
+                    # Join the lines in the first markdown cell as docstring-like content
+                    docstring = "\n".join(lines).strip()
+                    if docstring:
+                        logger.debug(f"Found docstring in first markdown cell: {docstring}")
+                        return docstring
+                    else:
+                        logger.warning("First markdown cell is empty or does not contain docstring-like content.")
+            
+            logger.warning("No markdown cell found in the Jupyter notebook.")
+            return None
+        except json.JSONDecodeError as e:
+            logger.error(f"Failed to parse Jupyter notebook JSON: {e}")
+            return None
+
     else:
         raise ValueError(f"Unsupported file type: {file_type}")
 
-# Function to parse the module-level docstring and extract key-value pairs
+#
+# 5.
+#
+
 def parse_module_docstring(docstring):
     """
-    Parses a docstring to extract key-value pairs using regular expressions.
+    Parses a docstring to extract key-value pairs, handling multiline values.
     """
-    metadata_pattern = r"(?P<key>\w+):\s*(?P<value>.+)"
+    metadata_pattern = r"(?P<key>\w+):\s*(?P<value>.+?)(?=\n\w+:|\Z)"  
     metadata = {}
-    matches = re.findall(metadata_pattern, docstring)
-    for key, value in matches:
-        metadata[key.strip()] = value.strip()
+
+    matches = re.finditer(metadata_pattern, docstring, re.DOTALL)
+
+    for match in matches:
+        key = match.group("key").strip()
+        value = match.group("value").strip().replace("\n", " ")  # Normalize spaces
+        metadata[key] = value
+
     return metadata
 
-# Main entry point
+#
+# 6.
+#
+def fetch_libraries(file_content, file_type):
+    """
+    Extracts imported libraries from the given file content.
+    Supports Python (.py), R (.r), and Jupyter Notebook (.ipynb) files.
+    """
+    libraries = set()
+    
+    if file_type == "python":
+        try:
+            tree = ast.parse(file_content)
+            for node in ast.walk(tree):
+                if isinstance(node, ast.Import):
+                    for alias in node.names:
+                        libraries.add(alias.name.split('.')[0])
+                elif isinstance(node, ast.ImportFrom) and node.module:
+                    libraries.add(node.module.split('.')[0])
+        except SyntaxError:
+            pass  # Handle syntax errors gracefully
+    
+    elif file_type == "r":
+        for line in file_content.splitlines():
+            match = re.match(r'\s*(library|require)\(([^)]+)\)', line)
+            if match:
+                libraries.add(match.group(2).strip('"\''))
+    
+    elif file_type == "jupyter":
+        try:
+            notebook = json.loads(file_content)
+            for cell in notebook.get("cells", []):
+                if cell.get("cell_type") == "code":
+                    code = "\n".join(cell.get("source", []))
+                    libraries.update(fetch_libraries(code, "python"))
+        except json.JSONDecodeError:
+            pass  # Handle invalid JSON
+    
+    return list(libraries)
+
+#
+# 7.
+#
 def get_module_metadata(repo_owner, repo_name, file_path, file_type, username=None, token=None):
     """
-    Fetches a file from GitHub, extracts its docstring, and parses metadata.
-    Enriches the metadata with the GitHub URL.
+    Fetches a file from GitHub, extracts its docstring, libraries, and parses metadata.
+    Enriches the metadata with the GitHub URL and optionally adds the last update date.
     """
     # Fetch the file content
     file_content = fetch_file_content(repo_owner, repo_name, file_path, username, token)
     if not file_content:
         return None
 
-    # Extract the docstring based on the file type
+    # Extract the docstring and libraries
     docstring = extract_docstring(file_content, file_type)
-    if not docstring:
-        return None
-
-    # Parse key-value pairs from the docstring
-    metadata = parse_module_docstring(docstring)
+    libraries = fetch_libraries(file_content, file_type)
     
-    # Enrich the metadata with the GitHub URL
-    if metadata is not None:
-        metadata['url'] = f'https://github.com/{repo_owner}/{repo_name}/blob/main/{file_path}'
-
+    metadata = parse_module_docstring(docstring) if docstring else {}
+    metadata["libraries"] = libraries
+    
+    # Fetch last update date from GitHub API
+    url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/commits?path={file_path}"
+    headers = {"Authorization": f"token {token}"} if token else {}
+    response = requests.get(url, headers=headers)
+    
+    if response.status_code == 200:
+        commits_data = response.json()
+        if commits_data:
+            metadata["last_updated"] = commits_data[0].get("commit", {}).get("author", {}).get("date")
+    
+    # Enrich metadata with GitHub URL
+    metadata["url"] = f"https://github.com/{repo_owner}/{repo_name}/blob/main/{file_path}"
+    
     return metadata
 
-
-
-# Define a function to determine file type based on file extension (case-insensitive)
+#
+# 8.
+#
 def get_file_type(file_path):
-    file_path = file_path.lower()  # Convert file path to lowercase for case-insensitivity
+    """
+    Determines the file type based on the file extension (case-insensitive).
+    """
+    file_path = file_path.lower()
 
     if file_path.endswith(".py"):
         return "python"
     elif file_path.endswith(".r"):
         return "r"
-    # Add more file type mappings as needed
+    elif file_path.endswith(".do"):
+        return "stata"
+    elif file_path.endswith(".ipynb"):
+        return "jupyter"
     else:
         return None  # Unsupported file type
-
-# Set up logging
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
-
-# Extract metadata from all code files
+    
+#
+# 9.
+#
 def extract_metadata_from_all_files(all_code_files, repo_owner, username=None, token=None):
     metadata_list = []
 
@@ -295,12 +440,9 @@ def extract_metadata_from_all_files(all_code_files, repo_owner, username=None, t
 
     return metadata_list
 
-
-
-# Set up logging
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
-
-# Function to export data to JSON file
+#
+# 10.
+#
 def export_to_json(data, file_path):
     """
     Exports the provided data to a JSON file.
@@ -313,7 +455,9 @@ def export_to_json(data, file_path):
         json.dump(data, json_file, ensure_ascii=False, indent=4)
     logging.info(f"Data exported to {file_path}")
     
-
+#
+# 11.
+#
 def load_metadata_from_file(metadata_type):
     """
     This function loads metadata from JSON files if they exist.
@@ -338,29 +482,96 @@ def load_metadata_from_file(metadata_type):
         # If the file doesn't exist, log a message and return None
         print(f"{metadata_type} metadata file not found at {metadata_path}.")
         return None
-
-# Function to load repos metadata
+# 
 def load_repos_metadata():
     return load_metadata_from_file('repos')
-
-# Function to load modules metadata
+# 
 def load_modules_metadata():
     return load_metadata_from_file('modules')
 
+#
+# 12.
+#
+def fetch_file(url, username=None, token=None, save_as=None, as_binary=False):
+    """
+    Fetches a file from a given URL and optionally saves it.
+    """
+    headers = {"Accept": "application/octet-stream"}  # Accept any file type
+    auth = HTTPBasicAuth(username, token) if username and token else None
 
+    response = requests.get(url, headers=headers, auth=auth)
+    
+    if response.status_code == 200:
+        content = response.content if as_binary else response.text
+        
+        if save_as:
+            os.makedirs(os.path.dirname(save_as), exist_ok=True)  # Ensure directory exists
+            mode = "wb" if as_binary else "w"
+            with open(save_as, mode, encoding=None if as_binary else "utf-8") as file:
+                file.write(content)
+            return save_as  # Return the saved file path
+        
+        return content  # Return content as text or bytes
+    
+    return None  # Return None if the request fails
+#
+# 13.
+#
+def reconcile_metadata(keys, *sources):
+    """
+    Merges multiple lists of dictionaries based on a set of unique keys.
+    Later sources override values from earlier ones.
 
-# Main loop for extracting metadata
+    If an entry is missing any of the required keys, a warning is logged, and the entry is ignored.
+
+    :param keys: A list or tuple of keys used to uniquely identify dictionary entries.
+    :param sources: Multiple lists of dictionaries to be merged.
+    :return: A reconciled list of dictionaries.
+    """
+    reconciled = {}
+
+    for source in sources:
+        for entry in source:
+            # Check if all keys are present
+            if not all(k in entry for k in keys):
+                missing_keys = [k for k in keys if k not in entry]
+                logger.warning(f"Skipping entry {entry} due to missing keys: {missing_keys}")
+                continue  # Ignore the entry if any key is missing
+
+            # Create a full key tuple including all specified keys
+            entry_key = tuple(entry[k] for k in keys)
+
+            if entry_key not in reconciled:
+                reconciled[entry_key] = entry  # First appearance
+            else:
+                reconciled[entry_key].update(entry)  # Override values
+
+    return list(reconciled.values())
+
+# Main loop for extracting and reconciling metadata
 def main():
-    # Fetch repo metadata
-    logging.info("Fetching repo metadata...")
-    repos_metadata = [get_repo_metadata(REPO_OWNER, some_repo) for some_repo in REPOS_IN_PORTFOLIO]
-    # Filter out any None values in case some repos failed to fetch metadata
-    repos_metadata = [repo for repo in repos_metadata if repo]
+    logging.info("Downloading existing metadata from GitHub...")
 
-    # Export repo metadata to JSON file
-    export_to_json(repos_metadata, REPOS_METADATA_FILE)
+    # Step 1: Download and load existing metadata
+    fetch_file(REPOS_METADATA_URL, save_as=REPOS_METADATA_FILE)
+    fetch_file(MODULES_METADATA_URL, save_as=MODULES_METADATA_FILE)
 
-    # Collect all code files from repos
+    repos_metadata_from_json_files = []
+    modules_metadata_from_json_files = []
+
+    if os.path.exists(REPOS_METADATA_FILE):
+        with open(REPOS_METADATA_FILE, "r", encoding="utf-8") as f:
+            repos_metadata_from_json_files = json.load(f)
+    
+    if os.path.exists(MODULES_METADATA_FILE):
+        with open(MODULES_METADATA_FILE, "r", encoding="utf-8") as f:
+            modules_metadata_from_json_files = json.load(f)
+
+    # Step 2: Extract metadata from GitHub
+    logging.info("Fetching repo metadata from code repositories...")
+    repos_metadata_from_code_repos = [get_repo_metadata(REPO_OWNER, some_repo) for some_repo in REPOS_IN_PORTFOLIO]
+    
+    repos_metadata_from_code_repos = [repo for repo in repos_metadata_from_code_repos if repo]
     all_code_files = []
     for some_repo in REPOS_IN_PORTFOLIO:
         for file_data in list_repo_files(REPO_OWNER, some_repo):
@@ -368,13 +579,24 @@ def main():
             all_code_files.append(file_data)
 
     # Extract metadata for all code files
-    logging.info("Extracting module metadata...")
-    metadata_list = extract_metadata_from_all_files(all_code_files, REPO_OWNER)
+    logging.info("Extracting module metadata from code repositories...")
+    modules_metadata_from_code_repos = extract_metadata_from_all_files(all_code_files, REPO_OWNER)
 
-    # Export module metadata to JSON file
-    export_to_json(metadata_list, MODULES_METADATA_FILE)
+    # Step 3: Reconcile metadata with JSON files taking priority
+    logging.info("Reconciling metadata...")
+    reconciled_repos_metadata = reconcile_metadata(["url"], repos_metadata_from_json_files, repos_metadata_from_code_repos)
+    reconciled_modules_metadata = reconcile_metadata(["title","repo_name"], modules_metadata_from_json_files, modules_metadata_from_code_repos)
 
-    logging.info("Metadata extraction and export completed.")
+    # Step 4: Overwrite metadata files in the local 'files' folder
+    with open(REPOS_METADATA_FILE, "w", encoding="utf-8") as f:
+        json.dump(sorted(reconciled_repos_metadata, key=lambda x: x["title"]), f, indent=2)
+
+    with open(MODULES_METADATA_FILE, "w", encoding="utf-8") as f:
+        json.dump(sorted(reconciled_modules_metadata, key=lambda x: x["repo_name"]), f, indent=2)
+
+
+    logging.info("Metadata reconciliation and export completed.")
+
 
 # Run the main loop
 if __name__ == "__main__":
