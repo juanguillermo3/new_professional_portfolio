@@ -1,3 +1,8 @@
+"""
+title: Front-End Utils
+description: Contains various utilities for design across portfolio sections.
+"""
+
 import streamlit as st
 import random
 
