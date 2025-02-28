@@ -1,3 +1,10 @@
+"""
+title: Visual Media
+description: Showcases the VisualContentGallery, designed to create a visually compelling representation of media 
+             across multiple projects. It emphasizes visuals as a central element of the user experience, enhancing 
+             engagement and storytelling.
+"""
+
 import os
 import glob
 import streamlit as st
@@ -254,130 +261,6 @@ class VisualContentGallery:
             unsafe_allow_html=True
         )
 
-
-import time
-import hashlib
-import streamlit as st
-import streamlit.components.v1 as components
-import glob
-import os
-
-class VisualContentGallery:
-    def __init__(self, title, description, media_path, width="700px", height="400px"):
-        self.title = title
-        self.description = description
-        self.width = width
-        self.height = height
-        self.file_list = self._find_media_files(media_path)
-        self.current_index = 0
-
-        # Generate a unique hash for this instance
-        self.instance_id = hashlib.md5(str(time.time()).encode()).hexdigest()[:8]  # Shortened hash for clarity
-
-    def _find_media_files(self, media_path):
-        file_list = glob.glob(media_path) if '*' in media_path or '?' in media_path else [media_path]
-        return sorted(file_list)
-
-    def parse_media(self, file_path, width_offset=0, height_offset=50):
-        if not os.path.exists(file_path):
-            st.error(f"Media file not found: {file_path}")
-            return
-        
-        file_ext = os.path.splitext(file_path)[-1].lower()
-        
-        try:
-            if file_ext in ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg']:
-                st.image(file_path, use_container_width=True)
-            elif file_ext in ['.mp4', '.avi', '.mov', '.webm']:
-                st.video(file_path)
-            elif file_ext == '.html':
-                with open(file_path, 'r', encoding='utf-8') as file:
-                    html_content = file.read()
-                components.html(
-                    html_content, 
-                    width=int(self.width.replace("px", "")) + width_offset, 
-                    height=int(self.height.replace("px", "")) + height_offset
-                )
-            else:
-                st.warning(f"Unsupported media type: {file_ext}")
-        except Exception as e:
-            st.error(f"Error displaying media ({file_ext}): {str(e)}")
-
-    def render(self):
-        # Apply styles globally to the app
-        st.markdown(
-            f"""
-            <style>
-                .media-container {{
-                    width: {self.width};
-                    height: {self.height};
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    overflow: hidden;
-                    background: rgba(0, 0, 0, 0.05);
-                    border-radius: 10px;
-                }}
-                .text-container {{
-                    background: rgba(0, 0, 0, 0.3);
-                    padding: 6px;
-                    border-radius: 8px;
-                    color: white;
-                    width: 100%;
-                    text-align: center;
-                }}
-                .title-text {{
-                    font-size: 18px;
-                    font-weight: 600;
-                    color: #fff;
-                    display: block;
-                }}
-                .description-text {{
-                    font-size: 14px;
-                    font-weight: 400;
-                    color: white;
-                    display: block;
-                }}
-            </style>
-            """,
-            unsafe_allow_html=True
-        )
-        
-        if not self.file_list:
-            st.error("No media files found.")
-            return
-
-        current_file = self.file_list[self.current_index]
-        self.parse_media(current_file)
-
-        if len(self.file_list) > 1:
-            nav_buttons = st.columns(len(self.file_list))
-            for idx, col in enumerate(nav_buttons):
-                with col:
-                    button_key = f"nav_button_{self.instance_id}_{idx}"  # Unique button key
-                    if st.button(f"{idx + 1}", key=button_key, help=f"Go to media {idx + 1}", type="secondary", use_container_width=True):
-                        self.current_index = idx
-                        # st.experimental_rerun()
-
-        st.markdown(
-            f"""
-            <div class="text-container">
-                <span class="title-text">{self.title}</span>
-                <span class="description-text">{self.description}</span>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
-
-
-
-test_gallery = VisualContentGallery(
-    title="Geometric Modelling for Nutrition Data",
-    description="Applies Geometric Modelling based on dimensionality reduction to analize nutritional preferences of the monkey species.",
-    media_path="assets/gm_per_*.png",
-    width="700px",
-    height="400px"
 )
 
         
