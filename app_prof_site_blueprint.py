@@ -53,7 +53,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Ensure WHATSAPP_NUMBER is set
-display_floating_whatsapp_button()
+display_floating_whatsapp_button( whatsapp_number=WHATSAPP_NUMBER)
 
 st.title("Welcome to My Professional Site")
 
