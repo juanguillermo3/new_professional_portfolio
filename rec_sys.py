@@ -1,6 +1,8 @@
 """
-title: Recommendation System
-description: Current implementation of the RecSys, featuring a vanilla ranking that sorts items by the most recently updated, filters by query (exact matching), and allows filtering by project.
+title: Front-End for Recommended Data
+description: Provides the front-end representation of items displayed by the recommendation system (RecSys). 
+             It focuses on creating elegant and informative components by combining Streamlit’s built-in features 
+             with custom styling.
 """
 
 # Standard Library Imports
