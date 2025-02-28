@@ -28,7 +28,6 @@ def exceptional_but_subtle_quote(markdown_text: str):
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
         ">
             {markdown_text}
-        </div>
     """
     
     st.markdown(subtle_style, unsafe_allow_html=True)
