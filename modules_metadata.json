@@ -50,11 +50,13 @@
   {
     "title": "deduplication service for the job listings",
     "description": "Provides a brute_force_deduplication to deduplicate an RDD with the job listings, by implementing a reduceByKey op which only keep the first text per vancancy code.",
-    "last_updated": "2025-01-23T09:51:54Z",
+    "last_updated": "2025-02-21T20:56:31Z",
     "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/deduplication.py",
     "file_path": "deduplication.py",
     "repo_name": "lab_market_trends",
     "libraries": [
+      "typing",
+      "pyspark",
       "re"
     ]
   },
@@ -67,9 +69,9 @@
     "repo_name": "lab_market_trends",
     "libraries": [
       "os",
-      "gzip",
+      "logging",
       "re",
-      "logging"
+      "gzip"
     ]
   },
   {
@@ -77,23 +79,23 @@
     "title": "Jobs Vacancies scrapper",
     "description": "This modules performs scrapping of job listings",
     "author": "Juan Guillermo",
-    "field": "something",
+    "field": "something Include in Portfolio: True",
     "portfolio": "True",
     "last_updated": "2025-01-04T07:12:43Z",
     "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/job_listing_scrapper_1.2.py",
     "file_path": "job_listing_scrapper_1.2.py",
     "repo_name": "lab_market_trends",
     "libraries": [
-      "re",
-      "dateutil",
-      "selenium",
       "dotenv",
-      "airflow",
-      "gzip",
-      "logging",
       "time",
+      "gzip",
+      "datetime",
+      "airflow",
       "os",
-      "datetime"
+      "selenium",
+      "dateutil",
+      "re",
+      "logging"
     ]
   },
   {
@@ -104,11 +106,11 @@
     "file_path": "main_provider_curated_job_listings_rdd.py",
     "repo_name": "lab_market_trends",
     "libraries": [
-      "logging",
+      "dotenv",
+      "ingestion_of_job_listings",
       "deduplication",
       "spark_session_management",
-      "ingestion_of_job_listings",
-      "dotenv"
+      "logging"
     ]
   },
   {
@@ -119,12 +121,12 @@
     "file_path": "dates.py",
     "repo_name": "lab_market_trends",
     "libraries": [
-      "pandas",
-      "re",
       "dotenv",
-      "logging",
+      "pandas",
+      "datetime",
+      "re",
       "matplotlib",
-      "datetime"
+      "logging"
     ]
   },
   {
@@ -135,17 +137,17 @@
     "file_path": "features.py",
     "repo_name": "lab_market_trends",
     "libraries": [
-      "re",
       "dotenv",
-      "phrases",
-      "logging",
       "time",
-      "os",
+      "datetime",
       "preprocess",
-      "main_provider_curated_job_listings_rdd",
-      "collections",
       "pyspark",
-      "datetime"
+      "os",
+      "phrases",
+      "collections",
+      "re",
+      "main_provider_curated_job_listings_rdd",
+      "logging"
     ]
   },
   {
@@ -157,15 +159,15 @@
     "repo_name": "lab_market_trends",
     "libraries": [
       "json",
-      "re",
       "dotenv",
-      "logging",
-      "os",
+      "datetime",
       "preprocess",
-      "main_provider_curated_job_listings_rdd",
-      "collections",
       "pyspark",
-      "datetime"
+      "os",
+      "collections",
+      "re",
+      "main_provider_curated_job_listings_rdd",
+      "logging"
     ]
   },
   {
@@ -176,9 +178,9 @@
     "file_path": "preprocess.py",
     "repo_name": "lab_market_trends",
     "libraries": [
-      "re",
       "unicodedata",
-      "textwrap"
+      "textwrap",
+      "re"
     ]
   },
   {
@@ -191,9 +193,9 @@
     "galleria": "True",
     "image_path": "assets/wages.png",
     "libraries": [
-      "re",
+      "pandas",
       "matplotlib",
-      "pandas"
+      "re"
     ]
   },
   {
@@ -205,12 +207,12 @@
     "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/wages_drivers.py",
     "forced_rank": "2",
     "libraries": [
-      "numpy",
       "pandas",
       "tensorflow",
-      "plotly",
-      "typing",
       "os",
+      "typing",
+      "numpy",
+      "plotly",
       "random"
     ],
     "last_updated": "2025-02-06T05:01:44Z",
@@ -222,13 +224,29 @@
     "image_path": "assets/learning_curve.html",
     "galleria": "True",
     "repo_name": "lab_market_trends",
-    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/deep_learning",
-    "forced_rank": "3"
+    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/deep_learning.py",
+    "forced_rank": "3",
+    "libraries": [
+      "dotenv",
+      "pandas",
+      "sklearn",
+      "ml_samples",
+      "tensorflow",
+      "plotly",
+      "pyspark",
+      "spark_session_management",
+      "os",
+      "numpy",
+      "logging",
+      "random"
+    ],
+    "last_updated": "2025-02-27T05:47:44Z",
+    "file_path": "deep_learning.py"
   },
   {
     "title": "Overall Application",
     "description": "Connected version of the wages appication. It combines several modules into a sequence of workflows to analyze wages formation in the Colombian laboral market",
-    "image_path": "assets/lab_market_trends_network_plot.html",
+    "image_path": "assets/lab_market_trends_project_network.html",
     "colab_url": "https://colab.research.google.com/drive/1gY17gbUdUxpWv2Ddooo0niPCkmqg8-hg#scrollTo=Hwfe5gZe3e_A>",
     "galleria": "True",
     "repo_name": "lab_market_trends",
@@ -239,22 +257,100 @@
     "description": "Converts an RDD to a pandas DataFrame and pipelines operations to create numerical features for downstream machine learning tasks.",
     "libraries": [
       "json",
-      "numpy",
-      "features",
-      "typing",
       "dotenv",
-      "phrases",
-      "logging",
       "time",
-      "os",
+      "datetime",
       "preprocess",
-      "main_provider_curated_job_listings_rdd",
       "pyspark",
-      "datetime"
+      "os",
+      "typing",
+      "phrases",
+      "features",
+      "main_provider_curated_job_listings_rdd",
+      "numpy",
+      "logging"
     ],
     "last_updated": "2025-02-06T04:43:58Z",
     "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/feature_transformation.py",
     "file_path": "feature_transformation.py",
+    "repo_name": "lab_market_trends"
+  },
+  {
+    "title": "Commit Inference",
+    "description": "Commits the marginal effects and metadata of an inference exercise.  Structured around a Unit of Work (single-transaction) pattern. Depends on: inferences_db.py",
+    "libraries": [
+      "inferences_db",
+      "sqlalchemy",
+      "datetime"
+    ],
+    "last_updated": "2025-02-27T06:29:38Z",
+    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/commit_inference.py",
+    "file_path": "commit_inference.py",
+    "repo_name": "lab_market_trends"
+  },
+  {
+    "title": "Discover Wage Drivers",
+    "description": "Key operational workflow, which fits a NN model for wages and discover wages drivers",
+    "libraries": [
+      "datetime",
+      "deep_learning",
+      "ml_samples",
+      "commit_inference",
+      "spark_session_management",
+      "wages_drivers",
+      "os"
+    ],
+    "last_updated": "2025-02-27T06:33:02Z",
+    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/discover_wage_drivers.py",
+    "file_path": "discover_wage_drivers.py",
+    "repo_name": "lab_market_trends"
+  },
+  {
+    "title": "Inferences Database",
+    "description": "Provides a database model using SQLAlchemy to store marginal effects related to specific inference exercises.",
+    "libraries": [
+      "sqlalchemy",
+      "datetime"
+    ],
+    "last_updated": "2025-02-27T06:29:08Z",
+    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/inferences_db.py",
+    "file_path": "inferences_db.py",
+    "repo_name": "lab_market_trends"
+  },
+  {
+    "title": "Main ETL",
+    "description": "Transform and RDD of job postings into ML samples and stores in disk.",
+    "libraries": [
+      "preprocess",
+      "ml_samples",
+      "shutil",
+      "os",
+      "phrases",
+      "features",
+      "main_provider_curated_job_listings_rdd",
+      "feature_transformation"
+    ],
+    "last_updated": "2025-02-27T06:10:22Z",
+    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/main_etl.py",
+    "file_path": "main_etl.py",
+    "repo_name": "lab_market_trends"
+  },
+  {
+    "title": "ML samples",
+    "description": "Several tools for writing and reading a vectorized dataframe as partitioned data on disk and serving the ML samples for training.",
+    "libraries": [
+      "json",
+      "dotenv",
+      "shutil",
+      "logging",
+      "os",
+      "typing",
+      "numpy",
+      "pyspark"
+    ],
+    "last_updated": "2025-02-27T05:50:18Z",
+    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/ml_samples.py",
+    "file_path": "ml_samples.py",
     "repo_name": "lab_market_trends"
   },
   {
@@ -474,22 +570,22 @@
     "description": "Streamlit based Front-End application for my professional portfolio.",
     "author": "Juan Guillermo",
     "field": "something",
-    "last_updated": "2025-02-18T20:12:46Z",
+    "last_updated": "2025-02-26T07:13:43Z",
     "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/app_prof_site_blueprint.py",
     "file_path": "app_prof_site_blueprint.py",
     "repo_name": "new_professional_portfolio",
     "libraries": [
-      "git_api_utils",
-      "visual_media",
-      "front_end_utils",
-      "hero_area",
       "streamlit",
       "dotenv",
       "professional_bio",
+      "front_end_utils",
       "os",
-      "rec_sys",
       "about_section",
+      "testimonials",
       "services_section",
+      "git_api_utils",
+      "hero_area",
+      "rec_sys",
       "socials_section"
     ]
   },
@@ -504,43 +600,69 @@
   {
     "title": "Recommendation System",
     "description": "Current implementation of the RecSys, featuring a vanilla ranking that sorts items by the most recently updated, filters by query (exact matching), and allows filtering by project.",
-    "last_updated": "2025-02-20T19:09:18Z",
+    "last_updated": "2025-02-26T20:44:25Z",
     "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/rec_sys.py",
     "file_path": "rec_sys.py",
     "repo_name": "new_professional_portfolio",
     "libraries": [
-      "random",
-      "re",
-      "glob",
-      "markdown",
-      "media_carousel",
-      "git_api_utils",
-      "visual_media",
-      "datetime",
-      "app_end_metadata",
-      "front_end_utils",
       "streamlit",
-      "os",
-      "hashlib",
+      "time",
+      "front_end_utils",
+      "portfolio_section",
+      "datetime",
+      "glob",
       "front_end_for_recommended_content",
-      "time"
+      "markdown",
+      "os",
+      "visual_media",
+      "re",
+      "app_end_metadata",
+      "git_api_utils",
+      "hashlib",
+      "media_carousel",
+      "random"
     ]
   },
   {
     "title": "Hero section for a professional portfolio.",
     "description": "Low key hero section for a professional porftolio. Styled as a quote from a book with a biopick.",
     "author": "Juan Guillermo",
-    "last_updated": "2025-02-12T18:29:47Z",
+    "last_updated": "2025-02-24T20:14:16Z",
     "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/hero_area.py",
     "file_path": "hero_area.py",
     "repo_name": "new_professional_portfolio",
     "libraries": [
-      "hero_area_data_loader",
-      "front_end_utils",
       "streamlit",
       "dotenv",
-      "os"
+      "front_end_utils",
+      "os",
+      "hero_area_data_loader"
     ]
+  },
+  {
+    "title": "Front-End for Recommended Data",
+    "description": "Implements the front-end representation of items displayed by the RecSys. It aims to create elegant and informative components by combining Streamlit built-ins with custom styling.",
+    "libraries": [
+      "streamlit",
+      "hashlib",
+      "front_end_utils",
+      "re"
+    ],
+    "last_updated": "2025-02-21T19:12:51Z",
+    "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/front_end_for_recommended_content.py",
+    "file_path": "front_end_for_recommended_content.py",
+    "repo_name": "new_professional_portfolio"
+  },
+  {
+    "title": "Portfolio Section",
+    "description": "An abstraction for the front-end representation of a portfolio section in a web app.  It provides a default render method that can be overridden and distributes generic behavior to  portfolio sections, such as housekeeping messages.",
+    "libraries": [
+      "streamlit"
+    ],
+    "last_updated": "2025-02-24T19:18:07Z",
+    "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/portfolio_section.py",
+    "file_path": "portfolio_section.py",
+    "repo_name": "new_professional_portfolio"
   },
   {
     "title": "Example Jupyter Notebook",
@@ -571,27 +693,104 @@
   },
   {
     "title": "Results Parser",
-    "description": "Generates visual reports from optimization process results.",
+    "description": "Generates visual reports from optimization process results.   Depends on: plot_utils.py",
     "url": "https://github.com/juanguillermo3/sales_forecasting_with_genetic_neural_networks/blob/main/results.py",
     "repo_name": "sales_forecasting_with_genetic_neural_networks",
-    "image_path": "assets/results_*.png"
+    "image_path": "results_*.png",
+    "libraries": [
+      "plot_utils",
+      "matplotlib",
+      "pandas"
+    ],
+    "last_updated": "2025-02-16T05:04:03Z",
+    "file_path": "results.py"
   },
   {
     "title": "Plot Utilities",
     "description": "Provides styling and export functionalities for plots across the application.",
-    "url": "https://github.com/juanguillermo3/sales_forecasting_with_genetic_neural_networks/edit/main/plot_utils.py",
-    "repo_name": "sales_forecasting_with_genetic_neural_networks"
+    "url": "https://github.com/juanguillermo3/sales_forecasting_with_genetic_neural_networks/blob/main/plot_utils.py",
+    "repo_name": "sales_forecasting_with_genetic_neural_networks",
+    "libraries": [
+      "matplotlib",
+      "logging",
+      "plotly",
+      "pandas"
+    ],
+    "last_updated": "2025-02-16T06:13:23Z",
+    "file_path": "plot_utils.py"
   },
   {
     "title": "Prepare Time Series Data",
     "description": "Provides a TimeSeriesDataHandler which prepares time series data (loaded from disk) for ML model development. It performs feature extraction using lags of the same series beyond a target forecast horizon. The handler outputs numpy arrays suitable for model development.",
     "url": "https://github.com/juanguillermo3/sales_forecasting_with_genetic_neural_networks/blob/main/prepare_ts_data.py",
-    "repo_name": "sales_forecasting_with_genetic_neural_networks"
+    "repo_name": "sales_forecasting_with_genetic_neural_networks",
+    "libraries": [
+      "json",
+      "pandas",
+      "sklearn",
+      "plot_utils",
+      "os",
+      "numpy",
+      "plotly"
+    ],
+    "last_updated": "2025-02-16T06:28:49Z",
+    "file_path": "prepare_ts_data.py"
   },
   {
     "title": "Genetic Optimization",
-    "description": "A custom implementation of a genetic optimization algorithm to find optimal hyperparameters for DL/ML models.",
+    "description": "A custom implementation of a genetic optimization algorithm to find optimal hyperparameters for DL/ML models. image_path=ServerDNN*.html",
     "image_path": "assets/ServerDNN*.html",
+    "repo_name": "sales_forecasting_with_genetic_neural_networks",
+    "libraries": [
+      "datetime",
+      "os",
+      "numpy",
+      "time",
+      "openpyxl",
+      "matplotlib",
+      "plotly",
+      "json",
+      "pandas",
+      "abc",
+      "prepare_ts_data",
+      "plot_utils",
+      "logging",
+      "random",
+      "sklearn",
+      "shutil",
+      "tensorflow",
+      "typing",
+      "optree"
+    ],
+    "last_updated": "2025-02-27T03:56:41Z",
+    "url": "https://github.com/juanguillermo3/sales_forecasting_with_genetic_neural_networks/blob/main/genetic_optimization.py",
+    "file_path": "genetic_optimization.py"
+  },
+  {
+    "title": "Genetic Deep Learning",
+    "description": "Sets up a Deep Neural Network model as target predictive model for genetic optimization",
+    "libraries": [
+      "numpy",
+      "genetic_optimization",
+      "tensorflow",
+      "sklearn"
+    ],
+    "last_updated": "2025-02-27T03:46:42Z",
+    "url": "https://github.com/juanguillermo3/sales_forecasting_with_genetic_neural_networks/blob/main/genetic_deep_learning.py",
+    "file_path": "genetic_deep_learning.py",
+    "repo_name": "sales_forecasting_with_genetic_neural_networks"
+  },
+  {
+    "title": "Plot Sales",
+    "description": "Plots the hourly sales for the food delivery service",
+    "libraries": [
+      "plot_utils",
+      "matplotlib",
+      "pandas"
+    ],
+    "last_updated": "2025-02-27T03:44:22Z",
+    "url": "https://github.com/juanguillermo3/sales_forecasting_with_genetic_neural_networks/blob/main/plot_sales.py",
+    "file_path": "plot_sales.py",
     "repo_name": "sales_forecasting_with_genetic_neural_networks"
   }
 ]
