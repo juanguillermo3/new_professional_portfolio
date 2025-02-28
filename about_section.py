@@ -22,7 +22,6 @@ def exceptional_but_subtle_quote(markdown_text: str):
         <div style="
             padding: 5px;
             margin-left: 5%;
-            margin-bottom: 5px;
             border-left: 3px solid #DDD;
             border-radius: 6px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
