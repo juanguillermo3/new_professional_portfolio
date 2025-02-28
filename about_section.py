@@ -8,7 +8,6 @@ from about_section_data_loader import (
     load_dev_environment
 )
 
-import streamlit as st
 
 def exceptional_but_subtle_quote(markdown_text: str):
     """
@@ -16,10 +15,10 @@ def exceptional_but_subtle_quote(markdown_text: str):
     - 5% left indentation.
     - Soft shadow effect on bottom and right.
     - No special font styling (blends naturally).
-    - Parsed markdown content inside.
+    - Properly parsed markdown inside the styled container.
     - Minimal spacing at the bottom for clarity.
     """
-    subtle_style = """
+    subtle_style = f"""
         <div style="
             padding: 10px;
             margin-left: 5%;
@@ -28,10 +27,10 @@ def exceptional_but_subtle_quote(markdown_text: str):
             border-radius: 6px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
         ">
-            {}
+            {markdown_text}
         </div>
-    """.format(st.markdown(markdown_text, unsafe_allow_html=True))
-
+    """
+    
     st.markdown(subtle_style, unsafe_allow_html=True)
 
 
