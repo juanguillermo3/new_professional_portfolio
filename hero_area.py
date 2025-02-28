@@ -1,7 +1,6 @@
 """
 title: Hero section for a professional portfolio.
 description: Low key hero section for a professional porftolio. Styled as a quote from a book with a biopick.
-Author: Juan Guillermo
 """
 
 
@@ -14,7 +13,6 @@ from hero_area_data_loader import (
     load_detailed_offering
 )
 from front_end_utils import tags_in_twitter_style
-
 from dotenv import load_dotenv
 
 # Load environment variables
