@@ -30,7 +30,7 @@ def exceptional_but_subtle_quote(markdown_text: str):
             min-height: 60px;
         ">
             {markdown_text}
-        </div>
+
     """
     
     st.markdown(subtle_style, unsafe_allow_html=True)
