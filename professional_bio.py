@@ -1,3 +1,10 @@
+"""
+title: Professional Bio
+description: A portfolio section dedicated to showcasing the owner's Curriculum Vitae and professional background. 
+             It is structured around a main professional statement and two key sections: work experience and education. 
+             Its design is inspired by modern job platforms, ensuring a clean and engaging presentation.
+"""
+
 import random
 import streamlit as st
 from cv_data_loader import (
