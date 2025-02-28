@@ -1,6 +1,7 @@
 """
-title: Hero section for a professional portfolio.
-description: Low key hero section for a professional porftolio. Styled as a quote from a book with a biopick.
+title: Hero Section
+description: A subtle yet impactful hero section for a professional portfolio. Styled as a book quote with a bio picture, 
+             it presents essential information and key call-to-action elements.
 """
 
 
