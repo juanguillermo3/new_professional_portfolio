@@ -33,8 +33,8 @@ REPOS_IN_PORTFOLIO = os.getenv("REPOS_IN_PORTFOLIO", "new_professional_portfolio
 REPOS_IN_PORTFOLIO = ["new_professional_portfolio"]
 
 # Metadata file paths (falling back to defaults if not set)
-REPOS_METADATA_FILE = os.getenv("REPOS_METADATA_FILE", "files/repos_metadata.json")
-MODULES_METADATA_FILE = os.getenv("MODULES_METADATA_FILE", "files/modules_metadata.json")
+REPOS_METADATA_FILE = os.getenv("REPOS_METADATA_FILE", "repos_metadata.json")
+MODULES_METADATA_FILE = os.getenv("MODULES_METADATA_FILE", "modules_metadata.json")
 
 # GitHub raw URLs for metadata (falling back to defaults if not set)
 REPOS_METADATA_URL = os.getenv(
