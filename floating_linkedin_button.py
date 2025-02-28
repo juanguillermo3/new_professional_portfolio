@@ -9,7 +9,7 @@ import streamlit as st
 def display_floating_linkedin_button(
     linkedin_url: str = None,
     button_radius: int = 75,
-    horizontal_position: str = "55%",
+    horizontal_position: str = "65%",
     hover_text: str = "Juan says: Join my professional network."
 ):
     """
