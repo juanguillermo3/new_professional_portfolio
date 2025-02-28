@@ -131,7 +131,7 @@ class HeroArea:
             self.render_code_samples()
         
         # Render the contact button at the bottom
-        self.render_contact_button()
+        #self.render_contact_button()
 
         
 # Instantiate and render HeroArea with data loaded from the loader functions
