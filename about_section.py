@@ -12,22 +12,25 @@ import streamlit as st
 
 def exceptional_but_subtle_quote(markdown_text: str):
     """
-    Render a subtle notable quote:
-    - 5% indentation on the left.
-    - Very soft shadow effect on bottom and right.
-    - No special font styling, blends with the text naturally.
+    Render a subtle notable quote with:
+    - 5% left indentation.
+    - Soft shadow effect on bottom and right.
+    - No special font styling (blends naturally).
+    - Parsed markdown content inside.
+    - Minimal spacing at the bottom for clarity.
     """
     subtle_style = """
         <div style="
             padding: 10px;
             margin-left: 5%;
+            margin-bottom: 10px;
             border-left: 3px solid #DDD;
             border-radius: 6px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
         ">
-            <p style="margin: 0;">{}</p>
+            {}
         </div>
-    """.format(markdown_text)
+    """.format(st.markdown(markdown_text, unsafe_allow_html=True))
 
     st.markdown(subtle_style, unsafe_allow_html=True)
 
