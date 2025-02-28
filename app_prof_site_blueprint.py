@@ -1,10 +1,6 @@
 """
-project: new_professional_portfolio
 title: Web Application
 description: Streamlit based Front-End application for my professional portfolio. 
-Author: Juan Guillermo
-field: something
-
 """
 
 import streamlit as st
