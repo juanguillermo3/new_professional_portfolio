@@ -1,7 +1,7 @@
 """
 title: Floating Linkedin Button
 description: Renders a floating component for Linkedin account.
-""
+"""
 
 import os
 import streamlit as st
@@ -14,7 +14,7 @@ def display_floating_linkedin_button(
 ):
     """
     Displays a floating LinkedIn button in Streamlit with a hover message.
-
+    
     Parameters:
         linkedin_url (str, optional): The LinkedIn profile URL.
                                       If not provided, it will be read from the environment.
@@ -24,16 +24,16 @@ def display_floating_linkedin_button(
         
     The button appears as a floating element, fixed at the bottom of the page.
     """
-
+    
     # Read from environment if not provided
     if linkedin_url is None:
         linkedin_url = os.getenv("LINKEDIN_URL", "").strip()
-
+    
     # Ensure valid URL
     if not linkedin_url:
         st.warning("LinkedIn button is not displayed because no profile URL was provided.")
         return
-
+    
     st.markdown(f"""
         <style>
         .linkedin-btn {{
@@ -52,17 +52,17 @@ def display_floating_linkedin_button(
             z-index: 9999;
             transition: all 0.3s ease-in-out;
         }}
-
+    
         .linkedin-btn img {{
             width: {button_radius * 0.64}px;
             height: {button_radius * 0.64}px;
         }}
-
+    
         .linkedin-btn:hover {{
             background-color: #005582;
             cursor: pointer;
         }}
-
+    
         /* Tooltip Styling */
         .linkedin-btn::after {{
             content: "{hover_text}";
@@ -80,13 +80,13 @@ def display_floating_linkedin_button(
             visibility: hidden;
             transition: opacity 0.3s ease-in-out, visibility 0.3s;
         }}
-
+    
         .linkedin-btn:hover::after {{
             opacity: 1;
             visibility: visible;
         }}
         </style>
-
+    
         <a href="{linkedin_url}" target="_blank" class="linkedin-btn">
             <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png">
         </a>
