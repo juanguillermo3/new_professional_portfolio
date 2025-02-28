@@ -37,7 +37,7 @@ SECTIONS = {
     "RecSys": recsys,
     "Services&Rates": services,
     "Curriculum Vitae": cv,
-    "Socials": socials,
+    #"Socials": socials,
     "Testimonials": testimonials
 }
 
