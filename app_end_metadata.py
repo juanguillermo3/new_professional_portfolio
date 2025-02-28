@@ -1,4 +1,10 @@
-# app_end_metadata.py
+"""
+title: APP End Metadata
+description: A lightweight storage for additional metadata related to portfolio repositories. It helps front-end 
+             engineers include extra information about different projects, such as tags, milestones, and completion 
+             status. More specialized in displaying engaging information that complements essential project data.
+"""
+
 def load_repos_metadata():
     return [
         {
