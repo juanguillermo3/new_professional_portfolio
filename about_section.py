@@ -1,6 +1,7 @@
 """
-title: About section
-description: 
+title: About Section
+description: Portfolio section designed to display housekeeping information and important messages. It helps users
+             understand the purpose of the web application.
 """
 
 import streamlit as st
