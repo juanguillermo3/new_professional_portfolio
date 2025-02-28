@@ -12,7 +12,7 @@ def display_floating_whatsapp_button(
     horizontal_position: str = "65%"
 ):
     """
-    Displays a floating WhatsApp button in Streamlit.
+    Displays a floating WhatsApp button in Streamlit with a hover message.
 
     Parameters:
         whatsapp_number (str, optional): The WhatsApp number in international format (e.g., +1234567890).
@@ -47,6 +47,7 @@ def display_floating_whatsapp_button(
             justify-content: center;
             align-items: center;
             z-index: 9999;
+            transition: all 0.3s ease-in-out;
         }}
 
         .whatsapp-btn img {{
@@ -58,9 +59,33 @@ def display_floating_whatsapp_button(
             background-color: #1EBEA5;
             cursor: pointer;
         }}
+
+        /* Tooltip Styling */
+        .whatsapp-btn::after {{
+            content: "Let's Connect!";
+            position: absolute;
+            bottom: {button_radius + 10}px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-size: 14px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s;
+        }}
+
+        .whatsapp-btn:hover::after {{
+            opacity: 1;
+            visibility: visible;
+        }}
         </style>
 
         <a href="{whatsapp_url}" target="_blank" class="whatsapp-btn">
             <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png">
         </a>
     """, unsafe_allow_html=True)
+
