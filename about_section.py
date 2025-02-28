@@ -22,7 +22,7 @@ def exceptional_but_subtle_quote(markdown_text: str):
     subtle_style = f"""
         <div style="
             padding: 10px;
-            border-left: 3px solid #DDD;
+            margin-left: 5%;
             border-radius: 6px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
             display: flex;
