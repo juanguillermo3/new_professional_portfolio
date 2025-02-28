@@ -10,27 +10,27 @@ from about_section_data_loader import (
 
 import streamlit as st
 
-def exceptional_quote(markdown_text: str):
+def exceptional_but_subtle_quote(markdown_text: str):
     """
-    Render a notable quote with a distinctive styling:
+    Render a subtle notable quote:
     - 5% indentation on the left.
-    - Rounded borders.
-    - Shadow effect on bottom and right for depth.
+    - Very soft shadow effect on bottom and right.
+    - No special font styling, blends with the text naturally.
     """
-    quote_style = """
+    subtle_style = """
         <div style="
-            padding: 15px;
+            padding: 10px;
             margin-left: 5%;
-            border-left: 4px solid #FFD700;
-            border-radius: 10px;
-            background-color: rgba(255, 255, 204, 0.2);
-            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+            border-left: 3px solid #DDD;
+            border-radius: 6px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
         ">
-            <p style="font-style: italic; font-size: 1.1em; margin: 0;">{}</p>
+            <p style="margin: 0;">{}</p>
         </div>
     """.format(markdown_text)
 
-    st.markdown(quote_style, unsafe_allow_html=True)
+    st.markdown(subtle_style, unsafe_allow_html=True)
+
 
 
 class AboutSection(PortfolioSection):
@@ -53,9 +53,9 @@ class AboutSection(PortfolioSection):
     def render(self):
         """Render the about section with notable quotes."""
         self._render_headers()
-        exceptional_quote(load_key_interest())
-        exceptional_quote(load_key_hypothesis())
-        exceptional_quote(load_dev_environment())
+        exceptional_but_subtle_quote(load_key_interest())
+        exceptional_but_subtle_quote(load_key_hypothesis())
+        exceptional_but_subtle_quote(load_dev_environment())
 
 # Instantiation
 about = AboutSection()
