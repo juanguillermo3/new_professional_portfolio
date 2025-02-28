@@ -1,5 +1,5 @@
 """
-title: Professional Bio
+title: Services
 description: A portfolio section designed to clarify the main services offered by the system owner. It is structured 
              around a set of service items, which can be retrieved from proprietary systems. It is advisable to include 
              complementary details such as pricing (hourly rates, fixed fees) and engagement terms, as well as a clear 
