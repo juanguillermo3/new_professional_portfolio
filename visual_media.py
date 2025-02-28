@@ -261,6 +261,4 @@ class VisualContentGallery:
             unsafe_allow_html=True
         )
 
-)
-
         
