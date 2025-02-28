@@ -20,6 +20,7 @@ def exceptional_but_subtle_quote(markdown_text: str):
     """
     subtle_style = f"""
         <div style="
+            padding: 10px;
             margin-left: 5%;
             margin-bottom: 10px;
             border-left: 3px solid #DDD;
