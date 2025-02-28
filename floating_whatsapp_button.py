@@ -9,7 +9,7 @@ import streamlit as st
 
 def display_floating_whatsapp_button(
     whatsapp_number: str = None,
-    button_radius: int = 110,
+    button_radius: int = 75,
     horizontal_position: str = "65%",
     salutation: str = "I want to know more about your services",
     hover_text: str = "Juan says: Let's connect"
