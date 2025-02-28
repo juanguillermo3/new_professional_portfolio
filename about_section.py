@@ -17,18 +17,24 @@ def exceptional_but_subtle_quote(markdown_text: str):
     - No special font styling (blends naturally).
     - Properly parsed markdown inside the styled container.
     - Minimal spacing at the bottom for clarity.
+    - Vertically centered text.
     """
     subtle_style = f"""
         <div style="
-            padding: 5px;
+            padding: 10px;
             border-left: 3px solid #DDD;
             border-radius: 6px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            min-height: 60px;
         ">
             {markdown_text}
+        </div>
     """
     
     st.markdown(subtle_style, unsafe_allow_html=True)
+
 
 
 
