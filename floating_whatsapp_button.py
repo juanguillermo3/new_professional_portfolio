@@ -1,6 +1,6 @@
 """
 title: Floating Whatsapp Button
-description: Current implementation of the RecSys, featuring a vanilla ranking that sorts items by the most recently updated, filters by query (exact matching), and allows filtering by project.
+description: Renders a floating component for whatsapp communication. Servers as a contant invitiation to the client to stablish a connection.
 """
 
 import os
@@ -62,7 +62,7 @@ def display_floating_whatsapp_button(
 
         /* Tooltip Styling */
         .whatsapp-btn::after {{
-            content: "Let's Connect!";
+            content: "Juan says: Let's Connect!";
             position: absolute;
             bottom: {button_radius + 10}px;
             left: 50%;
