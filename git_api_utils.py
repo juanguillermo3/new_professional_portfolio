@@ -1,3 +1,11 @@
+"""
+title: Git API Utils
+description: This module leverages advanced features of the Git API to gather metadata on projects (repositories) 
+             and application modules (individual files). With the right credentials, it builds a pipeline that 
+             combines custom metadata with GitHub-provided insights, transforming a Git account into a powerful 
+             repository of portfolio intelligence across multiple projects.
+"""
+                                       
 import os
 import re
 import ast
