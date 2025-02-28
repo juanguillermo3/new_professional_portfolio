@@ -11,6 +11,8 @@ def load_quote():
         "I am Juan Guillermo, a professional economist. "
         "I have built my career developing data analysis and software application scripts "
         "for research and operational environments. "
+        "I consider that my business is discovering the more powerfull abstractions and mental models across the information cycle, "
+        "to effectivelly work with data, and information more generally. "
         "My broader professional vision is to interconnect all the technologies essential for modern data analysis—"
         "spanning data mining, artificial intelligence models, algorithms, software engineering workflows, "
         "and information tools—into a cohesive and holistic framework."
