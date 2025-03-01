@@ -96,13 +96,16 @@ class HeroArea:
 
     def _render_biopic_section(self):
         """Renders the avatar, caption, hashtags, and contact details with a fun tooltip."""
-        st.markdown('<div class="hero-avatar-container">', unsafe_allow_html=True)
-        
-        # Avatar Image with RPG-style tooltip
         avatar_id = "biopic-avatar"
-        st.markdown(f'<div id="{avatar_id}">', unsafe_allow_html=True)
-        st.image(f"assets/{self.avatar_image}", use_container_width=True)
-        st.markdown("</div>", unsafe_allow_html=True)
+        
+        st.markdown('<div class="hero-avatar-container">', unsafe_allow_html=True)
+    
+        # Directly apply the tooltip on the image
+        st.markdown(f"""
+        <div id="{avatar_id}" style="display: flex; justify-content: center;">
+            <img src="assets/{self.avatar_image}" width="100%" style="border-radius: 50%;" />
+        </div>
+        """, unsafe_allow_html=True)
     
         apply_custom_tooltip(avatar_id, "I am 15% less good-looking but 25% greater worker than I appear. 🎭💪")
     
@@ -121,6 +124,7 @@ class HeroArea:
         self.render_contact_details()
     
         st.markdown('</div>', unsafe_allow_html=True)
+
       
     def render(self):
         col1, col2 = st.columns([2, 1])
