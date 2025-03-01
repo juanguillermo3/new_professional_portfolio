@@ -5,6 +5,7 @@ description: Contains various utilities for design across portfolio sections.
 
 import streamlit as st
 import random
+from exceptional_ui import apply_custom_tooltip
 
 #
 def tags_in_twitter_style(tags, color_palette=None):
