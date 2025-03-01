@@ -15,6 +15,7 @@ from hero_area_data_loader import (
 )
 from front_end_utils import tags_in_twitter_style
 from dotenv import load_dotenv
+from exceptional_ui import apply_custom_tooltip
 
 # Load environment variables
 load_dotenv()
@@ -42,27 +43,28 @@ class HeroArea:
         self.professional_offering = professional_offering
         self.detailed_offering = detailed_offering
 
-    def render_code_samples(self):
-        st.markdown(f'<p class="code-samples-intro">{self.code_samples_intro}</p>', unsafe_allow_html=True)
-        st.markdown("<div style='display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px;'>", unsafe_allow_html=True)
-        for sample in self.code_samples:
-            st.markdown(f"""
-            <a href="{sample['url']}" target="_blank">
-                <button style="background-color: #24292f; color: white; border: 1px solid white; padding: 10px 20px; font-size: 14px; border-radius: 5px; text-align: center; width: 100%;">
-                    {sample['title']}
-                </button>
-            </a>
-            """, unsafe_allow_html=True)
-        st.markdown("</div>", unsafe_allow_html=True)
-
-    def render_contact_details(self):
-        contact_html = f"""
-        <div style="text-align: left; font-size: 0.9em; color: #444; line-height: 1.2;">
-            <p style="padding-left: 20px;">📱 {self.whatsapp_number}</p>
-            <p style="padding-left: 20px;">📧 {' | '.join(DEFAULT_EMAILS)}</p>
-        </div>
-        """
-        st.markdown(contact_html, unsafe_allow_html=True)
+  def render_code_samples(self):
+      st.markdown(f'<p class="code-samples-intro">{self.code_samples_intro}</p>', unsafe_allow_html=True)
+      
+      st.markdown("<div style='display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px;'>", unsafe_allow_html=True)
+      
+      for i, sample in enumerate(self.code_samples):
+          element_id = f"code-sample-{i}"  # Unique ID for each button
+          tooltip_text = f"View {sample['title']} example"
+  
+          # Render the button with an ID
+          st.markdown(f"""
+          <a href="{sample['url']}" target="_blank">
+              <button id="{element_id}" style="background-color: #24292f; color: white; border: 1px solid white; padding: 10px 20px; font-size: 14px; border-radius: 5px; text-align: center; width: 100%;">
+                  {sample['title']}
+              </button>
+          </a>
+          """, unsafe_allow_html=True)
+  
+          # Apply the tooltip
+          apply_custom_tooltip(element_id, tooltip_text)
+      
+      st.markdown("</div>", unsafe_allow_html=True)
 
     def render_contact_button(self):
         if not self.whatsapp_number:
