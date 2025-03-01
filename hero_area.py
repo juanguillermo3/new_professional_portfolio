@@ -93,17 +93,22 @@ class HeroArea:
             </button>
         </a>
         """, unsafe_allow_html=True)
-
+    
     def _render_biopic_section(self):
         """Renders the avatar, caption, hashtags, and contact details with a fun tooltip."""
         avatar_id = "biopic-avatar"
-        
-        st.markdown('<div class="hero-avatar-container">', unsafe_allow_html=True)
     
-        # Directly apply the tooltip on the image
+        st.markdown('<div class="hero-avatar-container" style="position: relative;">', unsafe_allow_html=True)
+    
+        # Actual image (keeps working properly)
+        st.image(f"assets/{self.avatar_image}", use_container_width=True)
+    
+        # Invisible div positioned over the image
         st.markdown(f"""
-        <div id="{avatar_id}" style="display: flex; justify-content: center;">
-            <img src="assets/{self.avatar_image}" width="100%" style="border-radius: 50%;" />
+        <div id="{avatar_id}" style="
+            position: absolute; 
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: transparent;">
         </div>
         """, unsafe_allow_html=True)
     
@@ -124,6 +129,7 @@ class HeroArea:
         self.render_contact_details()
     
         st.markdown('</div>', unsafe_allow_html=True)
+
 
       
     def render(self):
