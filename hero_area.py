@@ -43,28 +43,28 @@ class HeroArea:
         self.professional_offering = professional_offering
         self.detailed_offering = detailed_offering
 
-  def render_code_samples(self):
-      st.markdown(f'<p class="code-samples-intro">{self.code_samples_intro}</p>', unsafe_allow_html=True)
-      
-      st.markdown("<div style='display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px;'>", unsafe_allow_html=True)
-      
-      for i, sample in enumerate(self.code_samples):
-          element_id = f"code-sample-{i}"  # Unique ID for each button
-          tooltip_text = f"View {sample['title']} example"
-  
-          # Render the button with an ID
-          st.markdown(f"""
-          <a href="{sample['url']}" target="_blank">
-              <button id="{element_id}" style="background-color: #24292f; color: white; border: 1px solid white; padding: 10px 20px; font-size: 14px; border-radius: 5px; text-align: center; width: 100%;">
-                  {sample['title']}
-              </button>
-          </a>
-          """, unsafe_allow_html=True)
-  
-          # Apply the tooltip
-          apply_custom_tooltip(element_id, tooltip_text)
-      
-      st.markdown("</div>", unsafe_allow_html=True)
+    def render_code_samples(self):
+        st.markdown(f'<p class="code-samples-intro">{self.code_samples_intro}</p>', unsafe_allow_html=True)
+        
+        st.markdown("<div style='display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px;'>", unsafe_allow_html=True)
+        
+        for i, sample in enumerate(self.code_samples):
+            element_id = f"code-sample-{i}"  # Unique ID for each button
+            tooltip_text = f"View {sample['title']} example"
+    
+            # Render the button with an ID
+            st.markdown(f"""
+            <a href="{sample['url']}" target="_blank">
+                <button id="{element_id}" style="background-color: #24292f; color: white; border: 1px solid white; padding: 10px 20px; font-size: 14px; border-radius: 5px; text-align: center; width: 100%;">
+                    {sample['title']}
+                </button>
+            </a>
+            """, unsafe_allow_html=True)
+    
+            # Apply the tooltip
+            apply_custom_tooltip(element_id, tooltip_text)
+        
+        st.markdown("</div>", unsafe_allow_html=True)
 
     def render_contact_button(self):
         if not self.whatsapp_number:
