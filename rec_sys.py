@@ -28,6 +28,7 @@ from media_carousel import MediaCarousel  # Assuming this is the correct import
 from visual_media import  VisualContentGallery
 from front_end_for_recommended_content import html_for_item_data, html_for_milestones_from_project_metadata
 from portfolio_section import PortfolioSection
+from exceptional_ui import apply_custom_tooltip
 
 #
 # (0) ancillary function to merge metadata about underlyng items
