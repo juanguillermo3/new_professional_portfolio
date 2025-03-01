@@ -50,7 +50,7 @@ class HeroArea:
         
         for i, sample in enumerate(self.code_samples):
             element_id = f"code-sample-{i}"  # Unique ID for each button
-            tooltip_text = f"View {sample['title']} example"
+            tooltip_text = "Check out this example! ✨"  # Enthusiastic, positive vibe
     
             # Render the button with an ID
             st.markdown(f"""
