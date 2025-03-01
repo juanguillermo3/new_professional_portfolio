@@ -22,10 +22,11 @@ def load_general_info():
         str: A brief description of the portfolio's purpose and scope.
     """
     return (
-        f"This portfolio showcases code samples I have developed over more than {num_years} years as a Data Analyst "
-        "and ML Consultant across various projects. You'll likely find my work quite eclectic, as I have explored topics "
-        "as varied as the impact of gender on the Colombian labor market and scientific research on monkey behavior "
-        "to high-performance sales forecasting for food delivery services."
+        "This portfolio showcases code samples I have developed over more than {num_years} years as a Data Analyst "
+        "and ML Consultant across various projects. You'll likely find my work quite eclectic, as I have worked on a range "
+        "of subjects as varied as the role of gender in the Colombian labor market, ethology research on monkey behavior, "
+        "sales forecasting for delivery services, recommendation of optimal store placement, setup of key dashboards/reporting "
+        "for financial departments, and more."
     )
 
 def load_key_interest():
