@@ -46,15 +46,18 @@ def _custom_tooltip_html(element_id: str, tooltip_text: str) -> str:
     </style>
     """
 
-def apply_custom_tooltip(element_id: str, tooltip_text: str):
+def apply_custom_tooltip(element_id: str, tooltip_text: str, sys_prompt: str = "Juan says:"):
     """
     Applies a tooltip to an existing Streamlit component with hover scaling.
     
     Args:
         element_id (str): The ID of the element to attach the tooltip to.
         tooltip_text (str): The tooltip content.
+        sys_prompt (str, optional): A prefix for the tooltip text. Defaults to "Juan says:".
     
     Usage:
         apply_custom_tooltip("my_button", "Click to submit")
     """
-    st.markdown(_custom_tooltip_html(element_id, tooltip_text), unsafe_allow_html=True)
+    full_tooltip_text = f"{sys_prompt} {tooltip_text}"
+    st.markdown(_custom_tooltip_html(element_id, full_tooltip_text), unsafe_allow_html=True)
+
