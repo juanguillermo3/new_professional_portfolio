@@ -1,0 +1,60 @@
+import streamlit as st
+
+def _custom_tooltip_html(element_id: str, tooltip_text: str) -> str:
+    """
+    Generates the HTML + CSS for a tooltip applied to an existing component.
+    
+    Args:
+        element_id (str): The ID of the element to attach the tooltip to.
+        tooltip_text (str): The tooltip content.
+    
+    Returns:
+        str: The formatted CSS and HTML for the tooltip.
+    """
+    return f"""
+    <style>
+    #{element_id} {{
+        position: relative;
+        display: inline-block;
+    }}
+
+    #{element_id}::after {{
+        content: "{tooltip_text}";
+        position: absolute;
+        bottom: 120%;
+        left: 50%;
+        transform: translateX(-50%) scale(1);
+        background-color: #333;
+        color: white;
+        padding: 6px 10px;
+        border-radius: 5px;
+        font-size: 14px;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transition: 
+            opacity 0.3s ease-in-out, 
+            visibility 0.3s, 
+            transform 0.2s ease-in-out;
+    }}
+
+    #{element_id}:hover::after {{
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) scale(1.1); /* Slightly enlarges on hover */
+    }}
+    </style>
+    """
+
+def apply_custom_tooltip(element_id: str, tooltip_text: str):
+    """
+    Applies a tooltip to an existing Streamlit component with hover scaling.
+    
+    Args:
+        element_id (str): The ID of the element to attach the tooltip to.
+        tooltip_text (str): The tooltip content.
+    
+    Usage:
+        apply_custom_tooltip("my_button", "Click to submit")
+    """
+    st.markdown(_custom_tooltip_html(element_id, tooltip_text), unsafe_allow_html=True)
