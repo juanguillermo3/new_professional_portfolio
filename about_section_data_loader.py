@@ -51,12 +51,16 @@ def load_key_hypothesis():
         str: The key hypothesis text.
     """
     return f"""
-    🔬 Ongoing research explores leveraging emerging technologies like **Recommendation Systems (RecSys)** 
-    and **LLM-powered applications (LLM apps)** to create **practical software solutions** for professionals. 
-    One key area of interest is **efficiently displaying content** to potential clients or employers. 
-    Features such as the **RecSys** are still under development, and related research can be found on my 
-    <a href="{LINKEDIN_PROFILE}" target="_blank" style="color: #1f77b4; text-decoration: none;">**LinkedIn profile**</a>. 
+    🔬 This portfolio was created with two key goals in mind. First, it brings to life a **Recommendation System (RecSys)** 
+    as a core feature to showcase my work to interested parties. More broadly, as a **heterodox economist** concerned with 
+    the smooth functioning of the labor market, this project allows me to assess the value of emerging technologies—such as 
+    **RecSys**, **LLM-powered applications (LLM apps)**, and **software-based automation**—in addressing common struggles 
+    faced by workers. My key empirical hypothesis is that **RecSys can serve dynamic, context-dependent representations of a 
+    professional portfolio**, mitigating trade-offs between specialization and market penetration. Features such as the **RecSys** 
+    are still under development, and related research can be found on my 
+    <a href="{LINKEDIN_PROFILE}" target="_blank" style="color: #1f77b4; text-decoration: none;">**LinkedIn profile**</a>.
     """
+
 
 def load_dev_environment():
     """
