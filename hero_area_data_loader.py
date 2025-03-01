@@ -3,7 +3,7 @@ def load_quote():
     return [
         "Modern data analysis requires engaging with and developing substantial software, "
         "such as data gathering and information processing  applications. "
-        "Moreover, software automation is essential for distributing inferences from statistical analysis, "
+        "Moreover, software automation is key for distributing inferences from statistical analysis, "
         "whether derived from econometric models or machine learning predictions. "
         "Bottom line: I recognize the deep connection between data analysis and software development, "
         "hence my effort to serve them within a unified framework.",
@@ -12,7 +12,7 @@ def load_quote():
         "I have built my career developing data analysis and software application scripts "
         "for research and operational environments. "
         "My business is discovering the more powerfull abstractions to effectivelly work with data. "
-        "My broader professional vision is to interconnect all the technologies essential for modern data analysis—"
+        "My broader professional vision interconnects all the technologies essential for modern data analysis—"
         "spanning data mining, artificial intelligence models, algorithms, software engineering workflows, "
         "and information tools—into a cohesive and holistic framework."
     ]
