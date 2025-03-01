@@ -94,57 +94,66 @@ class HeroArea:
         </a>
         """, unsafe_allow_html=True)
 
-
-    def render(self):
-        col1, col2 = st.columns([2, 1])
-        with col1:
-            st.markdown("""<style>
-            .hero-quote {
-                font-style: italic;
-                font-size: 1.5em;
-                line-height: 1.8;
-                margin: 0 auto;
-                max-width: 800px;
-                color: #333333;
-                text-align: justify;
-                padding-bottom: 20px;
-            }
-            .hero-avatar-container {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100%;
-                text-align: center;
-                padding: 0;
-            }
-            </style>""", unsafe_allow_html=True)
-            for paragraph in self.quote:
-                st.markdown(f'<p class="hero-quote">{paragraph}</p>', unsafe_allow_html=True)
-
-        if self.avatar_image:
-            with col2:
-                st.markdown('<div class="hero-avatar-container">', unsafe_allow_html=True)
-                st.image(f"assets/{self.avatar_image}", use_container_width=True)
-                tags_html = tags_in_twitter_style(self.avatar_tags)
-                st.markdown(
-                    f"""
-                    <div style="text-align: center; font-size: 1.1em; color: #444;">
-                        <p>{self.avatar_caption} {tags_html}</p>
-                    </div>
-                    """,
-                    unsafe_allow_html=True,
-                )
-                self.render_contact_details()
-                st.markdown('</div>', unsafe_allow_html=True)
-
-        expander_label = "Explore more (details)"
-        with st.expander(expander_label, expanded=True):
-            st.markdown(self.detailed_offering, unsafe_allow_html=True)
-            self.render_code_samples()
+    def _render_biopic_section(self):
+        """Renders the avatar, caption, hashtags, and contact details with a fun tooltip."""
+        st.markdown('<div class="hero-avatar-container">', unsafe_allow_html=True)
         
-        # Render the contact button at the bottom
-        #self.render_contact_button()
-
+        # Avatar Image with RPG-style tooltip
+        avatar_id = "biopic-avatar"
+        st.markdown(f'<div id="{avatar_id}">', unsafe_allow_html=True)
+        st.image(f"assets/{self.avatar_image}", use_container_width=True)
+        st.markdown("</div>", unsafe_allow_html=True)
+    
+        apply_custom_tooltip(avatar_id, "I am 15% less good-looking but 25% greater worker than I appear. 🎭💪")
+    
+        # Caption and Hashtags
+        tags_html = tags_in_twitter_style(self.avatar_tags)
+        st.markdown(
+            f"""
+            <div style="text-align: center; font-size: 1.1em; color: #444;">
+                <p>{self.avatar_caption} {tags_html}</p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    
+        # Contact Details
+        self.render_contact_details()
+    
+        st.markdown('</div>', unsafe_allow_html=True)
+      
+  def render(self):
+      col1, col2 = st.columns([2, 1])
+      
+      # Render Quote Section
+      with col1:
+          st.markdown("""<style>
+          .hero-quote {
+              font-style: italic;
+              font-size: 1.5em;
+              line-height: 1.8;
+              margin: 0 auto;
+              max-width: 800px;
+              color: #333333;
+              text-align: justify;
+              padding-bottom: 20px;
+          }
+          </style>""", unsafe_allow_html=True)
+  
+          for paragraph in self.quote:
+              st.markdown(f'<p class="hero-quote">{paragraph}</p>', unsafe_allow_html=True)
+  
+      # Render Biopic Section
+      if self.avatar_image:
+          with col2:
+              self._render_biopic_section()
+  
+      # Expandable Detailed Offering Section
+      expander_label = "Explore more (details)"
+      with st.expander(expander_label, expanded=True):
+          st.markdown(self.detailed_offering, unsafe_allow_html=True)
+          self.render_code_samples()
+  
         
 # Instantiate and render HeroArea with data loaded from the loader functions
 hero = HeroArea(
