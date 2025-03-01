@@ -1,5 +1,13 @@
+"""
+title: Exceptional UI
+description: Implements beautiful front-end components using Streamlit, HTML, and CSS to create a smooth and delightful user experience.  
+"""
+
 import streamlit as st
 
+#
+# (0)
+#
 def _custom_tooltip_html(element_id: str, tooltip_text: str) -> str:
     """
     Generates the HTML + CSS for a tooltip applied to an existing component.
@@ -45,7 +53,9 @@ def _custom_tooltip_html(element_id: str, tooltip_text: str) -> str:
     }}
     </style>
     """
-
+#
+# (1)
+#
 def apply_custom_tooltip(element_id: str, tooltip_text: str, sys_prompt: str = "Juan says:"):
     """
     Applies a tooltip to an existing Streamlit component with hover scaling.
