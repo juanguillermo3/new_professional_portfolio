@@ -66,6 +66,15 @@ class HeroArea:
         
         st.markdown("</div>", unsafe_allow_html=True)
 
+    def render_contact_details(self):
+          contact_html = f"""
+          <div style="text-align: left; font-size: 0.9em; color: #444; line-height: 1.2;">
+              <p style="padding-left: 20px;">📱 {self.whatsapp_number}</p>
+              <p style="padding-left: 20px;">📧 {' | '.join(DEFAULT_EMAILS)}</p>
+          </div>
+          """
+          st.markdown(contact_html, unsafe_allow_html=True)
+
     def render_contact_button(self):
         if not self.whatsapp_number:
             st.warning("WhatsApp number is not available.")
