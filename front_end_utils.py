@@ -59,47 +59,68 @@ def prettify_title(title):
 
 #
 def render_external_link_button_as_train_ticket(url, label, bg_color):
-    """Helper method to render an external link button styled like a train ticket."""
+    """Render an external link button styled like a train ticket with a hover effect."""
     return f"""
-    <div style="display: flex; justify-content: center;">
+    <div style="display: flex; justify-content: center; margin: 0;">
         <a href="{url}" target="_blank" rel="noopener noreferrer"
            style="text-decoration: none;">
             <div style="
+                width: 80px;
+                height: 140px;
+                background-color: {bg_color};
+                border-radius: 12px;
+                position: relative;
+                transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                width: 120px;
-                height: 180px;
-                background-color: {bg_color};
-                color: white;
-                font-size: 16px;
-                font-weight: bold;
-                text-align: center;
-                border-radius: 10px;
-                position: relative;
-                transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             " 
-            onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.3)';"
-            onmouseout="this.style.transform='translateY(0px)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.2)';">
+            onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 6px 12px rgba(0, 0, 0, 0.3)';"
+            onmouseout="this.style.transform='translateY(0px)'; this.style.boxShadow='0 2px 6px rgba(0, 0, 0, 0.2)';">
+                
+                <!-- Top cut-out -->
                 <div style="
-                    padding: 20px 0;
-                    width: 100%;
-                    height: 100%;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                    border-top-left-radius: 10px;
-                    border-top-right-radius: 10px;
-                    position: relative;">
-                    {label}
-                </div>
+                    position: absolute;
+                    top: -6px;
+                    left: 50%;
+                    width: 16px;
+                    height: 12px;
+                    background-color: white;
+                    border-radius: 50%;
+                    transform: translateX(-50%);
+                "></div>
+                
+                <!-- Middle dashed line -->
+                <div style="
+                    width: 60%;
+                    height: 1px;
+                    background: repeating-linear-gradient(
+                        to right, 
+                        white, white 3px, transparent 3px, transparent 6px
+                    );
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                "></div>
+                
+                <!-- Bottom cut-out -->
+                <div style="
+                    position: absolute;
+                    bottom: -6px;
+                    left: 50%;
+                    width: 16px;
+                    height: 12px;
+                    background-color: white;
+                    border-radius: 50%;
+                    transform: translateX(-50%);
+                "></div>
             </div>
         </a>
     </div>
     """
+
 
 
 
