@@ -331,6 +331,7 @@ class RecommendationSystem(PortfolioSection):
                 self.handle_galleria_click(rec)
         
         st.markdown("<br><br>", unsafe_allow_html=True)
+    
 
 
     def apply_transition_styles(self):
