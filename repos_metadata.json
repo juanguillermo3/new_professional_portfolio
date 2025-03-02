@@ -30,8 +30,9 @@
     },
     {
     "title": "new_professional_portfolio",
-    "description": "This project focuses on developing a **modern professional portfolio** that is **highly specialized** yet **dynamically adaptable** to **contextually relevant** professional needs. The goal is to create a portfolio that is both **deeply insightful** and **broadly applicable**, catering to **highly skilled professionals**. It is part of a **larger research effort** exploring **emerging technologies**—such as **recommendation systems**, **LLM-powered applications**, and **software-based automation**—to address common **challenges** faced by workers in the **labor market**.",
+    "description": "This project aims to develop a **modern professional portfolio** that serves as a **highly specialized**, yet **dynamically adaptable**, **contextually relevant** representation of an **underlying professional portfolio**. The goal is to achieve **profound yet relevant professional offerings**. It is contextualized within a **larger research effort** exploring **emerging technologies** such as **recommendation systems**, **LLM-powered applications**, and **software-based automation** to mitigate common **struggles** faced by workers in the **labor market**.",
     "image": "https://raw.githubusercontent.com/juanguillermo3/new_professional_portfolio/main/project_image.png",
     "url": "https://github.com/juanguillermo3/new_professional_portfolio"
     }
+
 ]
