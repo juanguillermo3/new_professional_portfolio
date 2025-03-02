@@ -61,7 +61,6 @@ def load_key_hypothesis():
     <a href="{LINKEDIN_PROFILE}" target="_blank" style="color: #1f77b4; text-decoration: none;">**LinkedIn profile**</a>.
     """
 
-
 def load_dev_environment():
     """
     Load the development environment description.
@@ -70,10 +69,12 @@ def load_dev_environment():
         str: The development environment description.
     """
     return """
-    🛠️ This portfolio is a **Python/Streamlit web application** with a **modular design** inspired by **microservice 
-    architecture**, adapted for a professional site. It follows **OOP principles** and **SOLID design patterns**, 
-    with modules organized by responsibility. The **full codebase** is available on 
+    🛠️ On a technical note, I implemented this portfolio as a **web application** based on **Python/Streamlit**. 
+    I aimed for a **modular design**, loosely inspired by **microservices** and **layered architectures**, but adapted 
+    for a professional portfolio application, making the **RecSys** its core feature. The implementation follows **OOP** 
+    **design patterns**. Interested parties can find the full codebase on 
     <a href="https://github.com/juanguillermo3/new_professional_portfolio/tree/main" 
-    target="_blank" style="color: #1f77b4; text-decoration: none;">**GitHub**</a>. 
+    target="_blank" style="color: #1f77b4; text-decoration: none;">**GitHub**</a>.
     """
+
 
