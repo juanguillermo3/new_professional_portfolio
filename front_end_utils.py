@@ -80,7 +80,6 @@ def render_external_link_button_as_train_ticket(url, label, bg_color):
             onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 6px 12px rgba(0, 0, 0, 0.3)';"
             onmouseout="this.style.transform='translateY(0px)'; this.style.boxShadow='0 2px 6px rgba(0, 0, 0, 0.2)';">
                 
-                <!-- Top cut-out -->
                 <div style="
                     position: absolute;
                     top: -6px;
@@ -92,7 +91,6 @@ def render_external_link_button_as_train_ticket(url, label, bg_color):
                     transform: translateX(-50%);
                 "></div>
                 
-                <!-- Middle dashed line -->
                 <div style="
                     width: 60%;
                     height: 1px;
@@ -105,7 +103,6 @@ def render_external_link_button_as_train_ticket(url, label, bg_color):
                     transform: translateY(-50%);
                 "></div>
                 
-                <!-- Bottom cut-out -->
                 <div style="
                     position: absolute;
                     bottom: -6px;
