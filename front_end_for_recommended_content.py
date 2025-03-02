@@ -73,12 +73,25 @@ import hashlib
 from html import escape
 import re
 
+def get_hashed_id(title: str, repo_name: str) -> str:
+    """
+    Generate a unique hashed ID based on the title and repo name.
+
+    Parameters:
+    - title (str): The title of the item.
+    - repo_name (str): The repository/source name.
+
+    Returns:
+    - str: A short hashed ID.
+    """
+    return f"item_{hashlib.md5(f'{title}_{repo_name}'.encode()).hexdigest()[:8]}"
+
 def html_for_item_data(
     rec,
     outstanding_content_regex=re.compile(r"^(galleria|highlighted_content|image_path)$", re.IGNORECASE),
     background_color="#f4f4f4",
     border_style="1px solid #ddd",
-    padding="8px 12px",
+    padding="10px",
 ):
     """
     Generate a compact HTML snippet for a recommended item, containing only the title.
@@ -98,26 +111,27 @@ def html_for_item_data(
     - str: A formatted HTML string representing the title box.
     """
 
-    # Ensure title and repo_name exist for ID generation
+    # Extract title and repo_name
     title = rec.get("title", "Untitled")
     repo_name = rec.get("repo_name", "default_repo")
 
-    # Create a unique ID by hashing title + repo_name
-    unique_id = f"item_{hashlib.md5(f'{title}_{repo_name}'.encode()).hexdigest()[:8]}"
+    # Generate a consistent ID
+    unique_id = get_hashed_id(title, repo_name)
 
     # Check for outstanding content
     is_outstanding = any(outstanding_content_regex.match(key) and rec.get(key) for key in rec)
     display_title = f"⭐ {title}" if is_outstanding else title
 
-    # Return the minimal rounded-box design
+    # Return the minimal rounded-box design with full width
     return f"""
         <div id="{unique_id}" style="background-color: {background_color}; border: {border_style}; 
                     border-radius: 15px; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); 
                     padding: {padding}; font-size: 16px; font-weight: bold; 
-                    text-align: center; display: inline-block;">
+                    text-align: center; width: 100%; max-width: 100%; box-sizing: border-box;">
             {escape(display_title)}
         </div>
     """
+
 
 
 
