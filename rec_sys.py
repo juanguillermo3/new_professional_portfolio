@@ -1,8 +1,9 @@
 """
-title: Front-End for Recommended Data
-description: Provides the front-end representation of items displayed by the recommendation system (RecSys). 
-             It focuses on creating elegant and informative components by combining Streamlit’s built-in features 
-             with custom styling.
+title: Recommendation System
+description: Implements a portfolio section to display recommended content (projects, code samples) from an  
+             underlying professional portfolio. Assuming key project metadata is provided by external services  
+             (i.e., the collector is external), this class applies the ranker and serves portions of a RecSys  
+             system. Moreover, it creates visually appealing representations of the recommended content.  
 """
 
 # Standard Library Imports
