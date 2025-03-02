@@ -470,7 +470,7 @@ class RecommendationSystem(PortfolioSection):
         st.markdown(sample_html, unsafe_allow_html=True)
     
         # Media placeholder
-        st.markdown("<br>", unsafe_allow_html=True)
+        #st.markdown("<br>", unsafe_allow_html=True)
         self.media_placeholder = st.empty()
     
         # Render media content
