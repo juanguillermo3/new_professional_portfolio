@@ -244,6 +244,80 @@ class RecommendationSystem(PortfolioSection):
 
         st.markdown("<br><br>", unsafe_allow_html=True)
 
+    def render_card(self, rec, **kwargs):
+      """Render a single recommendation card with a vertical ticket-style button layout."""
+      import streamlit as st
+      import hashlib
+      
+      st.markdown(html_for_item_data(rec), unsafe_allow_html=True)
+      
+      # Generate a unique hash for button ID
+      unique_hash = hashlib.md5(rec['title'].encode()).hexdigest()
+      button_id = f"galleria_{unique_hash}"
+      
+      # External link buttons (styled as tickets)
+      buttons = []
+      if "url" in rec and rec["url"]:
+          buttons.append(("GitHub", rec["url"], "#333"))
+      if "report_url" in rec and rec["report_url"]:
+          buttons.append(("Sheets", rec["report_url"], "#34A853"))
+      if "colab_url" in rec and rec["colab_url"]:
+          buttons.append(("Colab Notebook", rec["colab_url"], "#F9AB00"))
+      
+      if buttons:
+          st.markdown("""
+              <style>
+              .ticket-button {
+                  display: block;
+                  background-color: var(--color);
+                  color: white;
+                  text-align: center;
+                  padding: 8px;
+                  margin: 5px auto;
+                  width: 80%;
+                  border-radius: 8px;
+                  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+                  font-size: 14px;
+                  font-weight: bold;
+                  text-decoration: none;
+                  transition: transform 0.1s ease-in-out;
+              }
+              .ticket-button:hover {
+                  transform: scale(1.05);
+              }
+              </style>
+          """, unsafe_allow_html=True)
+          
+          for label, url, color in buttons:
+              st.markdown(f'<a href="{url}" class="ticket-button" style="--color: {color};" target="_blank">{label}</a>', unsafe_allow_html=True)
+      
+      # Galleria button
+      if "image_path" in rec:
+          st.markdown("""
+              <style>
+              .galleria-button {
+                  background-color: gold;
+                  color: white;
+                  border: none;
+                  padding: 10px 20px;
+                  font-size: 14px;
+                  cursor: pointer;
+                  border-radius: 5px;
+                  width: 60%;
+                  margin: 10px auto;
+                  display: block;
+              }
+              .galleria-button:hover {
+                  background-color: #ffd700;
+              }
+              </style>
+          """, unsafe_allow_html=True)
+          
+          if st.button("See Galleria", key=button_id):
+              self.handle_galleria_click(rec)
+      
+      st.markdown("<br><br>", unsafe_allow_html=True)
+
     def apply_transition_styles(self):
         """Apply the CSS transition styles to the media placeholder."""
         st.markdown(
