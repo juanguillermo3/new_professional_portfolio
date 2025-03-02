@@ -57,6 +57,49 @@ def prettify_title(title):
     """Prettify the title by removing underscores and capitalizing words."""
     return " ".join(word.capitalize() for word in title.replace("_", " ").split())
 
+#
+def render_external_link_button_as_train_ticket(url, label, bg_color):
+    """Helper method to render an external link button styled like a train ticket."""
+    return f"""
+    <div style="display: flex; justify-content: center;">
+        <a href="{url}" target="_blank" rel="noopener noreferrer"
+           style="text-decoration: none;">
+            <div style="
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 120px;
+                height: 180px;
+                background-color: {bg_color};
+                color: white;
+                font-size: 16px;
+                font-weight: bold;
+                text-align: center;
+                border-radius: 10px;
+                position: relative;
+                transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            " 
+            onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.3)';"
+            onmouseout="this.style.transform='translateY(0px)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.2)';">
+                <div style="
+                    padding: 20px 0;
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    border-top-left-radius: 10px;
+                    border-top-right-radius: 10px;
+                    position: relative;">
+                    {label}
+                </div>
+            </div>
+        </a>
+    </div>
+    """
 
 
 
