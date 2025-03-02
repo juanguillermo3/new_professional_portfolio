@@ -589,7 +589,10 @@
       "rec_sys",
       "os",
       "hero_area"
-    ]
+    ],
+    "galleria": "True",
+    "image_path": "assets/new_professional_portfolio_network_plot.html",
+    "forced_rank": "1",
   },
   {
     "title": "Curriculum Vitae",
