@@ -497,62 +497,6 @@ class RecommendationSystem(PortfolioSection):
         st.session_state["project_event"] = "ACTIVE_PROJECT_INTERACTED"
 
 
-    #
-    # front end representation of items
-    #
-    def render_card(self, rec, **kwargs):
-        """Render a single recommendation card with dynamic HTML generation."""
-        st.markdown(html_for_item_data(rec), unsafe_allow_html=True)
-    
-        unique_hash = hashlib.md5(rec['title'].encode()).hexdigest()
-        button_id = f"galleria_{unique_hash}"
-    
-        if "image_path" in rec:
-            st.markdown(
-                """
-                <style>
-                div[data-testid="stButton"] > button {
-                    background-color: gold !important;
-                    color: white !important;
-                    border: none;
-                    padding: 10px 20px;
-                    font-size: 14px;
-                    cursor: pointer;
-                    border-radius: 5px;
-                    width: 60% !important;
-                    margin: 5px auto;
-                    display: block;
-                }
-                div[data-testid="stButton"] > button:hover {
-                    background-color: #ffd700 !important;
-                }
-                </style>
-                """,
-                unsafe_allow_html=True
-            )
-    
-            if st.button("See Galleria", key=button_id):
-                self.handle_galleria_click(rec)
-
-        buttons = []
-        if "url" in rec and rec["url"]:
-            buttons.append(("GitHub", rec["url"], "#333"))
-        if "report_url" in rec and rec["report_url"]:
-            buttons.append(("Sheets", rec["report_url"], "#34A853"))
-        if "colab_url" in rec and rec["colab_url"]:
-            buttons.append(("Colab Notebook", rec["colab_url"], "#F9AB00"))
-
-        button_cols = st.columns(len(buttons)) if buttons else []
-
-        for col, (label, url, color) in zip(button_cols, buttons):
-            with col:
-                st.markdown(render_external_link_button_as_train_ticket(url, label, color), unsafe_allow_html=True)
-
-        st.markdown("<br><br>", unsafe_allow_html=True)
-
-    
-    
-
 # Example usage
 # Initialize RecSys with custom header and description
 recsys = RecommendationSystem(
