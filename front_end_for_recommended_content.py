@@ -78,24 +78,24 @@ def html_for_item_data(
     outstanding_content_regex=re.compile(r"^(galleria|highlighted_content|image_path)$", re.IGNORECASE),
     background_color="#f4f4f4",
     border_style="1px solid #ddd",
-    card_height="150px",
+    padding="8px 12px",
 ):
     """
-    Generate an HTML snippet for a recommended item card dynamically.
+    Generate a compact HTML snippet for a recommended item, containing only the title.
 
     Parameters:
-    - rec (dict): A dictionary containing item metadata with the following fields:
-        - "title" (str, optional): The title of the recommended item. Defaults to "Untitled".
+    - rec (dict): A dictionary containing item metadata with:
+        - "title" (str, optional): The title of the item. Defaults to "Untitled".
         - "repo_name" (str, optional): A unique identifier for the repository/source.
         - "highlighted_content" (bool, optional): Marks outstanding content.
 
     - outstanding_content_regex (re.Pattern): A regex pattern to detect keys marking outstanding content.
-    - background_color (str): Background color of the card.
+    - background_color (str): Background color of the box.
     - border_style (str): CSS style for the border.
-    - card_height (str): Height of the card.
+    - padding (str): Padding inside the box.
 
     Returns:
-    - str: A formatted HTML string representing the item card.
+    - str: A formatted HTML string representing the title box.
     """
 
     # Ensure title and repo_name exist for ID generation
@@ -109,18 +109,13 @@ def html_for_item_data(
     is_outstanding = any(outstanding_content_regex.match(key) and rec.get(key) for key in rec)
     display_title = f"⭐ {title}" if is_outstanding else title
 
-    # Return the simplified HTML structure
+    # Return the minimal rounded-box design
     return f"""
         <div id="{unique_id}" style="background-color: {background_color}; border: {border_style}; 
-                    border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
-                    padding: 10px; text-align: center; height: {card_height}; 
-                    position: relative; overflow: hidden;">
-            <div style="position: absolute; top: 0; left: 0; right: 0; 
-                        background-color: rgba(255, 255, 255, 0.7); 
-                        padding: 5px 10px; border-radius: 10px 10px 0 0; 
-                        font-size: 16px; font-weight: bold; z-index: 10;">
-                {escape(display_title)}
-            </div>
+                    border-radius: 15px; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); 
+                    padding: {padding}; font-size: 16px; font-weight: bold; 
+                    text-align: center; display: inline-block;">
+            {escape(display_title)}
         </div>
     """
 
