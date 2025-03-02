@@ -9,6 +9,7 @@ from front_end_utils import prettify_title
 import re
 import hashlib
 from html import escape
+from exceptional_ui import _custom_tooltip_html
 
 def html_for_item_data(
     rec,
