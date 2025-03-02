@@ -8,11 +8,6 @@ description: A lightweight storage for additional metadata related to portfolio 
 def load_repos_metadata():
     return [
         {
-            "title": "new_professional_portfolio",
-            "ongoing": True,
-            "tags": ["online portfolio", "application development", "streamlit", "Recommendation Systems", "LLM apps"]
-        },
-        {
             "title": "predictive_analytics",
             "tags": ["Neural Networks", "Genetic Algorithms", "Ensemble Learning"]
         },
@@ -76,5 +71,30 @@ def load_repos_metadata():
                 "Develop a calibration service for optimal hyperparameter selection.",
                 "Conduct analysis on key labor market segments of interest."
             ]
-        }
+        },
+      ,
+    {
+        "title": "new_professional_portfolio",
+        "ongoing": True,
+        "tags": [
+            "online portfolio",
+            "application development",
+            "streamlit",
+            "Recommendation Systems",
+            "LLM apps",
+            "front-end development",
+            "web design",
+            "metadata aggregation"
+        ],
+        "achieved_milestones": [
+            "Developed a front-end web application for a professional portfolio with multiple sections.",
+            "Developed classes for a hero area, RecSys, services, and curriculum vitae sections, following web application and marketing patterns.",
+            "Implemented core RecSys logic to serve recommendations on projects and code samples.",
+            "Implemented key workflows to collect and harmonize project metadata from multiple sources.",
+            "Worked on visually appealing representation of recommended content and other front-end components."
+        ],
+        "next_milestones": [
+            "Explore a more flexible, NLP-based query matching system for the RecSys."
+        ]
+    }
     ]
