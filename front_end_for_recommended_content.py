@@ -69,6 +69,52 @@ def html_for_item_data(
         </div>
     """
 
+import hashlib
+from html import escape
+
+def _custom_tooltip_html(element_id: str, tooltip_text: str) -> str:
+    """
+    Generates the HTML + CSS for a tooltip applied to an existing component.
+    
+    Args:
+        element_id (str): The ID of the element to attach the tooltip to.
+        tooltip_text (str): The tooltip content.
+    
+    Returns:
+        str: The formatted CSS and HTML for the tooltip.
+    """
+    return f"""
+    <style>
+    #{element_id} {{
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        padding: 5px;
+    }}
+
+    #{element_id} .tooltip-content {{
+        display: none;
+        position: absolute;
+        bottom: 110%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: rgba(50, 50, 50, 0.9);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 5px;
+        font-size: 13px;
+        white-space: normal;
+        max-width: 250px;
+        text-align: left;
+        z-index: 10;
+    }}
+
+    #{element_id}:hover .tooltip-content {{
+        display: block;
+    }}
+    </style>
+    """
+
 def html_for_item_data(
     rec,
     outstanding_content_regex=re.compile(r"^(galleria|highlighted_content|image_path)$", re.IGNORECASE),
@@ -109,10 +155,12 @@ def html_for_item_data(
         {tooltip_html} <!-- Inject tooltip CSS -->
         <div id="{unique_id}" style="display: flex; align-items: center; 
                      padding: 5px 10px; border-bottom: 1px solid #ddd; 
-                     font-size: 14px; cursor: pointer;">
-            {display_title} <!-- Hovering over this triggers the tooltip -->
+                     font-size: 14px; cursor: pointer; position: relative;">
+            {escape(display_title)}
+            <div class="tooltip-content">{escape(description)}</div>
         </div>
     """
+
 
 
 
