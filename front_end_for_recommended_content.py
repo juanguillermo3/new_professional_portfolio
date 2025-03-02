@@ -7,6 +7,8 @@ import hashlib
 import streamlit as st
 from front_end_utils import prettify_title
 import re
+import hashlib
+from html import escape
 
 def html_for_item_data(
     rec,
@@ -65,6 +67,54 @@ def html_for_item_data(
             </div>
         </div>
     """
+
+def html_for_item_data(
+    rec,
+    outstanding_content_regex=re.compile(r"^(galleria|highlighted_content|image_path)$", re.IGNORECASE),
+):
+    """
+    Generate a compact HTML snippet for a recommended item card dynamically, 
+    using a tooltip for descriptions.
+
+    Parameters:
+    - rec (dict): A dictionary containing item metadata with the following fields:
+        - "title" (str, optional): The title of the recommended item. Defaults to "Untitled".
+        - "description" (str, optional): A short descriptive text for the item.
+        - "repo_name" (str, optional): A unique identifier for the repository/source.
+        - "highlighted_content" (bool, optional): Marks outstanding content.
+
+    - outstanding_content_regex (re.Pattern): A regex pattern to detect keys marking outstanding content.
+
+    Returns:
+    - str: A formatted HTML string representing the item card.
+    """
+
+    # Ensure title and repo_name exist for ID generation
+    title = rec.get("title", "Untitled")
+    repo_name = rec.get("repo_name", "default_repo")
+    
+    # Create a unique ID by hashing title + repo_name
+    unique_id = f"item_{hashlib.md5(f'{title}_{repo_name}'.encode()).hexdigest()[:8]}"
+
+    # Check for outstanding content
+    is_outstanding = any(outstanding_content_regex.match(key) and rec.get(key) for key in rec)
+    display_title = f"⭐ {title}" if is_outstanding else title
+
+    # Tooltip for description
+    description = rec.get("description", "No description available.")
+    tooltip_html = _custom_tooltip_html(unique_id, description)
+
+    return f"""
+        {tooltip_html} <!-- Inject tooltip CSS -->
+        <div id="{unique_id}" style="display: flex; align-items: center; 
+                     padding: 5px 10px; border-bottom: 1px solid #ddd; 
+                     font-size: 14px; cursor: pointer;">
+            {display_title} <!-- Hovering over this triggers the tooltip -->
+        </div>
+    """
+
+
+
 
 def html_for_milestones_from_project_metadata(project_metadata, num_displayed=3 ):
     milestone_html = []
