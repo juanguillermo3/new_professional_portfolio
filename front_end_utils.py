@@ -65,8 +65,8 @@ def render_external_link_button_as_train_ticket(url, label, bg_color):
         <a href="{url}" target="_blank" rel="noopener noreferrer"
            style="text-decoration: none;">
             <div style="
-                width: 80px;
-                height: 140px;
+                width: 60px;
+                height: 120px;
                 background-color: {bg_color};
                 border-radius: 12px;
                 position: relative;
@@ -76,23 +76,27 @@ def render_external_link_button_as_train_ticket(url, label, bg_color):
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
+                overflow: hidden;
             " 
             onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 6px 12px rgba(0, 0, 0, 0.3)';"
             onmouseout="this.style.transform='translateY(0px)'; this.style.boxShadow='0 2px 6px rgba(0, 0, 0, 0.2)';">
                 
+                <!-- Top cut-out -->
                 <div style="
                     position: absolute;
                     top: -6px;
                     left: 50%;
-                    width: 16px;
+                    width: 20px;
                     height: 12px;
                     background-color: white;
                     border-radius: 50%;
                     transform: translateX(-50%);
+                    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
                 "></div>
                 
+                <!-- Middle dashed line -->
                 <div style="
-                    width: 60%;
+                    width: 80%;
                     height: 1px;
                     background: repeating-linear-gradient(
                         to right, 
@@ -103,21 +107,22 @@ def render_external_link_button_as_train_ticket(url, label, bg_color):
                     transform: translateY(-50%);
                 "></div>
                 
+                <!-- Bottom cut-out -->
                 <div style="
                     position: absolute;
                     bottom: -6px;
                     left: 50%;
-                    width: 16px;
+                    width: 20px;
                     height: 12px;
                     background-color: white;
                     border-radius: 50%;
                     transform: translateX(-50%);
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                 "></div>
             </div>
         </a>
     </div>
     """
-
 
 
 
