@@ -71,66 +71,28 @@ def html_for_item_data(
 
 import hashlib
 from html import escape
-
-def _custom_tooltip_html(element_id: str, tooltip_text: str) -> str:
-    """
-    Generates the HTML + CSS for a tooltip applied to an existing component.
-    
-    Args:
-        element_id (str): The ID of the element to attach the tooltip to.
-        tooltip_text (str): The tooltip content.
-    
-    Returns:
-        str: The formatted CSS and HTML for the tooltip.
-    """
-    return f"""
-    <style>
-    #{element_id} {{
-        position: relative;
-        display: inline-block;
-        cursor: pointer;
-        padding: 5px;
-    }}
-
-    #{element_id} .tooltip-content {{
-        display: none;
-        position: absolute;
-        bottom: 110%;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: rgba(50, 50, 50, 0.9);
-        color: white;
-        padding: 8px 12px;
-        border-radius: 5px;
-        font-size: 13px;
-        white-space: normal;
-        max-width: 250px;
-        text-align: left;
-        z-index: 10;
-    }}
-
-    #{element_id}:hover .tooltip-content {{
-        display: block;
-    }}
-    </style>
-    """
+import re
 
 def html_for_item_data(
     rec,
     outstanding_content_regex=re.compile(r"^(galleria|highlighted_content|image_path)$", re.IGNORECASE),
+    background_color="#f4f4f4",
+    border_style="1px solid #ddd",
+    card_height="150px",
 ):
     """
-    Generate a compact HTML snippet for a recommended item card dynamically, 
-    using a tooltip for descriptions.
+    Generate an HTML snippet for a recommended item card dynamically.
 
     Parameters:
     - rec (dict): A dictionary containing item metadata with the following fields:
         - "title" (str, optional): The title of the recommended item. Defaults to "Untitled".
-        - "description" (str, optional): A short descriptive text for the item.
         - "repo_name" (str, optional): A unique identifier for the repository/source.
         - "highlighted_content" (bool, optional): Marks outstanding content.
 
     - outstanding_content_regex (re.Pattern): A regex pattern to detect keys marking outstanding content.
+    - background_color (str): Background color of the card.
+    - border_style (str): CSS style for the border.
+    - card_height (str): Height of the card.
 
     Returns:
     - str: A formatted HTML string representing the item card.
@@ -139,7 +101,7 @@ def html_for_item_data(
     # Ensure title and repo_name exist for ID generation
     title = rec.get("title", "Untitled")
     repo_name = rec.get("repo_name", "default_repo")
-    
+
     # Create a unique ID by hashing title + repo_name
     unique_id = f"item_{hashlib.md5(f'{title}_{repo_name}'.encode()).hexdigest()[:8]}"
 
@@ -147,17 +109,18 @@ def html_for_item_data(
     is_outstanding = any(outstanding_content_regex.match(key) and rec.get(key) for key in rec)
     display_title = f"⭐ {title}" if is_outstanding else title
 
-    # Tooltip for description
-    description = rec.get("description", "No description available.")
-    tooltip_html = _custom_tooltip_html(unique_id, description)
-
+    # Return the simplified HTML structure
     return f"""
-        {tooltip_html} <!-- Inject tooltip CSS -->
-        <div id="{unique_id}" style="display: flex; align-items: center; 
-                     padding: 5px 10px; border-bottom: 1px solid #ddd; 
-                     font-size: 14px; cursor: pointer; position: relative;">
-            {escape(display_title)}
-            <div class="tooltip-content">{escape(description)}</div>
+        <div id="{unique_id}" style="background-color: {background_color}; border: {border_style}; 
+                    border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+                    padding: 10px; text-align: center; height: {card_height}; 
+                    position: relative; overflow: hidden;">
+            <div style="position: absolute; top: 0; left: 0; right: 0; 
+                        background-color: rgba(255, 255, 255, 0.7); 
+                        padding: 5px 10px; border-radius: 10px 10px 0 0; 
+                        font-size: 16px; font-weight: bold; z-index: 10;">
+                {escape(display_title)}
+            </div>
         </div>
     """
 
