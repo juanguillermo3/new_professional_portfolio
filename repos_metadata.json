@@ -29,10 +29,27 @@
     "url": "https://github.com/juanguillermo3/lab_market_trends"
     },
     {
-    "title": "new_professional_portfolio",
-    "description": "This project aims to develop a **modern professional portfolio** that serves as a **highly specialized**, yet **dynamically adaptable**, **contextually relevant** representation of an **underlying professional portfolio**. The goal is to achieve **profound yet relevant professional offerings**. It is contextualized within a **larger research effort** exploring **emerging technologies** such as **recommendation systems**, **LLM-powered applications**, and **software-based automation** to mitigate common **struggles** faced by workers in the **labor market**.",
-    "image": "https://raw.githubusercontent.com/juanguillermo3/new_professional_portfolio/main/project_image.png",
-    "url": "https://github.com/juanguillermo3/new_professional_portfolio"
+        "title": "new_professional_portfolio",
+        "ongoing": True,
+        "tags": [
+            "online portfolio",
+            "application development",
+            "streamlit",
+            "Recommendation Systems",
+            "LLM apps",
+            "front-end development",
+            "web design",
+            "metadata aggregation"
+        ],
+        "achieved_milestones": [
+            "Developed a front-end web application for a professional portfolio with multiple sections.",
+            "Developed classes for a hero area, RecSys, services, and curriculum vitae sections, following web application and marketing patterns.",
+            "Implemented core RecSys logic to serve recommendations on projects and code samples.",
+            "Implemented key workflows to collect and harmonize project metadata from multiple sources.",
+            "Worked on visually appealing representation of recommended content and other front-end components."
+        ],
+        "next_milestones": [
+            "Explore a more flexible, NLP-based query matching system for the RecSys."
+        ]
     }
-
 ]
