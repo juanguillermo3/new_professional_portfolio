@@ -12,12 +12,6 @@
         "url": "https://github.com/juanguillermo3/monkey_research"
     },
     {
-        "title": "new_professional_portfolio",
-        "description": "to experiment new ideas to serve a professional portfolio",
-        "image": "https://raw.githubusercontent.com/juanguillermo3/new_professional_portfolio/main/project_image.png",
-        "url": "https://github.com/juanguillermo3/new_professional_portfolio"
-    },
-    {
         "title": "predictive_analytics",
         "description": "A house specialty, the series of predictive analytics groups several consultancies focused on the development of high-performance ML systems, with a component of research and development on algorithms to boost performance through maximum hyperparameter configuration.",
         "image": "https://raw.githubusercontent.com/juanguillermo3/predictive_analytics/main/project_image.png",
@@ -33,5 +27,11 @@
     "description": "This project aims to **automatically detect and analyze** emerging trends in the demand side of the Colombian **labor market** through **Natural Language Processing (NLP)** applied to job vacancies published on the **Servicio Público de Empleo (SPE)** platform. A **web scraping service** gathers job posting texts from the SPE site, while a **pseudo-regression approach** within a **machine learning (ML)** framework models wages based on keywords. **Feature importance metrics** identify keywords correlated with wage drivers.",
     "image": "https://raw.githubusercontent.com/juanguillermo3/lab_market_trends/main/project_image.png",
     "url": "https://github.com/juanguillermo3/lab_market_trends"
+    },
+    {
+    "title": "new_professional_portfolio",
+    "description": "This project focuses on developing a **modern professional portfolio** that is **highly specialized** yet **dynamically adaptable** to **contextually relevant** professional needs. The goal is to create a portfolio that is both **deeply insightful** and **broadly applicable**, catering to **highly skilled professionals**. It is part of a **larger research effort** exploring **emerging technologies**—such as **recommendation systems**, **LLM-powered applications**, and **software-based automation**—to address common **challenges** faced by workers in the **labor market**.",
+    "image": "https://raw.githubusercontent.com/juanguillermo3/new_professional_portfolio/main/project_image.png",
+    "url": "https://github.com/juanguillermo3/new_professional_portfolio"
     }
 ]
