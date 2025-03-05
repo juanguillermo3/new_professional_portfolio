@@ -27,10 +27,6 @@ FILE_TYPE_ICONS = {
 # Google Colab icon
 COLAB_ICON_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Google_Colab_Logo.svg/50px-Google_Colab_Logo.svg.png"
 
-def prettify_title(title):
-    """Helper function to format titles properly."""
-    return html.escape(title.title())  # Escape HTML for safety and capitalize words
-
 def apply_badges_to_item_title(metadata, badge_rules=None):
     """
     Applies multiple badges (emoji + file icons) to the title based on metadata.
