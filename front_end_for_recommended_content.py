@@ -31,9 +31,6 @@ def apply_badges_to_item_title(metadata, badge_rules=None):
     - metadata (dict): Dictionary containing item metadata.
     - badge_rules (list of tuples, optional): Each tuple contains:
         (regex (str), emoji (str), keys (list of str))
-        - regex: Regex pattern to match values in metadata.
-        - emoji: Emoji badge to prepend when condition is met.
-        - keys: List of metadata keys to check.
 
     Returns:
     - str: Title string with appropriate badges (including HTML img for file icons).
@@ -51,8 +48,13 @@ def apply_badges_to_item_title(metadata, badge_rules=None):
         if any(key in metadata and re.search(regex, str(metadata[key])) for key in keys):
             badges.append(emoji)
 
-    # Process file-type badges (icons)
-    file_type = metadata.get("file_type", "").lower()
+    # **Auto-detect file type from "file_path"**
+    file_type = ""
+    file_path = metadata.get("file_path", "").strip().lower()
+    if file_path:
+        file_type = os.path.splitext(file_path)[1]  # Extract file extension (includes the dot)
+
+    # **Process file-type badges**
     if file_type in FILE_TYPE_ICONS:
         icon_url = FILE_TYPE_ICONS[file_type]
         file_icon = f'<img src="{icon_url}" style="width: 16px; height: 16px; vertical-align: middle;">'
