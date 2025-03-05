@@ -1,6 +1,7 @@
 import re
 import os
 import html
+from front_end_utils import prettify_title
 
 # File-type to icon mapping
 FILE_TYPE_ICONS = {
