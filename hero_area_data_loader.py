@@ -12,7 +12,7 @@ def load_quote():
         "I have built my career developing data analysis and software application scripts "
         "for research and operational environments. "
         "My business is discovering the more powerfull abstractions to effectivelly work with data, "
-        "implementing them with **software engineering standards** to follow insights in key social/corporate systems. "
+        "implementing them with <b>software engineering standards</b> to follow insights in key social/corporate systems. "
         "My broader professional vision interconnects all the technologies essential for modern data analysis—"
         "spanning data mining, artificial intelligence models, algorithms, software engineering workflows, "
         "and information tools—into a cohesive and holistic framework."
