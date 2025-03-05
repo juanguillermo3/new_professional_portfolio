@@ -102,50 +102,6 @@ def html_for_item_data(
         </div>
     """
 
-
-
-def html_for_item_data(
-    rec,
-    outstanding_content_regex=re.compile(r"^(galleria|highlighted_content|image_path)$", re.IGNORECASE),
-    background_color="#f4f4f4",
-    border_style="1px solid #ddd",
-    card_height="150px",
-    overflow_style="overflow-y: auto;"
-):
-    """
-    Generate an HTML snippet for a recommended item card dynamically.
-
-    Parameters:
-    - rec (dict): Dictionary containing item metadata.
-
-    Returns:
-    - str: A formatted HTML string representing the item card.
-    """
-    
-    # Apply the badge system for outstanding content
-    title = apply_badges_to_item_title(rec, outstanding_content_regex)
-
-    # Default description if missing
-    description = html.escape(rec.get('description', 'No description available.'))  # Escape for safety
-
-    # Return the HTML structure
-    return f"""
-        <div style="background-color: {background_color}; border: {border_style}; 
-                    border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
-                    padding: 10px; height: {card_height}; {overflow_style}; 
-                    display: flex; flex-direction: column; justify-content: space-between;">
-            <div style="background-color: rgba(255, 255, 255, 0.7); 
-                        padding: 5px 10px; border-radius: 10px 10px 0 0; 
-                        font-size: 16px; font-weight: bold; text-align: center;">
-                {title}
-            </div>
-            <div style="flex-grow: 1; padding: 10px; overflow-y: auto; text-align: justify;">
-                {description}
-            </div>
-        </div>
-    """
-
-
 def html_for_milestones_from_project_metadata(project_metadata, num_displayed=3 ):
     milestone_html = []
 
