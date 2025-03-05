@@ -11,6 +11,33 @@ import hashlib
 from html import escape
 from exceptional_ui import _custom_tooltip_html
 
+import re
+import html
+
+def prettify_title(title):
+    """Helper function to format titles properly."""
+    return html.escape(title.title())  # Escape HTML for safety and capitalize words
+
+def apply_badges_to_item_title(metadata, outstanding_content_regex):
+    """
+    Applies the outstanding content badge (⭐) to the title based on metadata conditions.
+
+    Parameters:
+    - metadata (dict): Dictionary containing item metadata.
+    - outstanding_content_regex (re.Pattern): Regex pattern to detect outstanding content keys.
+
+    Returns:
+    - str: Title string with appropriate badges prepended.
+    """
+    # Check if any key matches the regex AND has a truthy value
+    is_outstanding = any(outstanding_content_regex.search(key) and metadata.get(key) for key in metadata)
+
+    # Get the title and format it
+    title = prettify_title(metadata.get('title', 'Untitled'))
+
+    # Prepend badge if outstanding content is detected
+    return f"⭐ {title}" if is_outstanding else title
+
 def html_for_item_data(
     rec,
     outstanding_content_regex=re.compile(r"^(galleria|highlighted_content|image_path)$", re.IGNORECASE),
@@ -23,51 +50,35 @@ def html_for_item_data(
     Generate an HTML snippet for a recommended item card dynamically.
 
     Parameters:
-    - rec (dict): A dictionary containing item metadata with the following fields:
-        - "title" (str, optional): The title of the recommended item. Defaults to "Untitled".
-        - "description" (str, optional): A short descriptive text for the item. Defaults to "No description available."
-        - "galleria" (bool, optional, legacy): Marks outstanding content (deprecated).
-        - "highlighted_content" (bool, optional, preferred): Marks outstanding content.
-
-    - outstanding_content_regex (re.Pattern): A regex pattern to detect keys marking outstanding content.
-    - background_color (str): Background color of the card.
-    - border_style (str): CSS style for the border.
-    - card_height (str): Height of the card.
-    - overflow_style (str): CSS for overflow handling.
+    - rec (dict): Dictionary containing item metadata.
 
     Returns:
     - str: A formatted HTML string representing the item card.
     """
     
-    # Check for outstanding content using the provided regex
-    is_outstanding = any(outstanding_content_regex.match(key) and rec.get(key) for key in rec)
+    # Apply the badge system for outstanding content
+    title = apply_badges_to_item_title(rec, outstanding_content_regex)
 
-    # Apply title transformation with a default value
-    title = prettify_title(rec.get('title', 'Untitled'))
-    if is_outstanding:
-        title = f"⭐ {title}"  # Highlight special items
-    
     # Default description if missing
-    description = rec.get('description', 'No description available.')
+    description = html.escape(rec.get('description', 'No description available.'))  # Escape for safety
 
     # Return the HTML structure
     return f"""
         <div style="background-color: {background_color}; border: {border_style}; 
                     border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
-                    padding: 10px; text-align: center; height: {card_height}; {overflow_style}; 
-                    position: relative; overflow: hidden;">
-            <div style="position: absolute; top: 0; left: 0; right: 0; 
-                        background-color: rgba(255, 255, 255, 0.7); 
+                    padding: 10px; height: {card_height}; {overflow_style}; 
+                    display: flex; flex-direction: column; justify-content: space-between;">
+            <div style="background-color: rgba(255, 255, 255, 0.7); 
                         padding: 5px 10px; border-radius: 10px 10px 0 0; 
-                        font-size: 16px; font-weight: bold; z-index: 10;">
+                        font-size: 16px; font-weight: bold; text-align: center;">
                 {title}
             </div>
-            <div style="margin-top: 40px; padding: 0 10px; overflow-y: auto; 
-                        height: calc(100% - 40px); text-align: justify;">
+            <div style="flex-grow: 1; padding: 10px; overflow-y: auto; text-align: justify;">
                 {description}
             </div>
         </div>
     """
+
 
 def html_for_milestones_from_project_metadata(project_metadata, num_displayed=3 ):
     milestone_html = []
