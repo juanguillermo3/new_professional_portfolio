@@ -30,7 +30,7 @@ def apply_badges_to_item_title(metadata, badge_rules=None):
     Parameters:
     - metadata (dict): Dictionary containing item metadata.
     - badge_rules (list of tuples, optional): Each tuple contains:
-        (regex (re.Pattern), emoji (str), keys (list of str))
+        (regex (str), emoji (str), keys (list of str))
         - regex: Regex pattern to match values in metadata.
         - emoji: Emoji badge to prepend when condition is met.
         - keys: List of metadata keys to check.
@@ -40,16 +40,15 @@ def apply_badges_to_item_title(metadata, badge_rules=None):
     """
     if badge_rules is None:
         badge_rules = [
-            (re.compile(r".*"), "⭐", ["galleria", "highlighted_content", "image_path"]),  # Outstanding content
+            (".*", "⭐", ["galleria", "highlighted_content", "image_path"]),  # Outstanding content
         ]
 
     title = prettify_title(metadata.get('title', 'Untitled'))
     badges = []
 
     # Process emoji-based badges
-    for rule in badge_rules:
-        regex, emoji, keys = rule  # Explicitly unpack tuple
-        if any(key in metadata and regex.search(str(metadata[key])) for key in keys):
+    for regex, emoji, keys in badge_rules:
+        if any(key in metadata and re.search(regex, str(metadata[key])) for key in keys):
             badges.append(emoji)
 
     # Process file-type badges (icons)
