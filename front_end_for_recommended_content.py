@@ -13,17 +13,23 @@ from exceptional_ui import _custom_tooltip_html
 
 
 import re
+import os
 import html
-import os 
-from front_end_utils import prettify_title
 
-# File-type to icon mapping (URL-based or local file paths)
+# File-type to icon mapping
 FILE_TYPE_ICONS = {
     ".r": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/R_logo.svg/50px-R_logo.svg.png",
     ".py": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/50px-Python-logo-notext.svg.png",
     ".ipynb": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Jupyter_logo.svg/50px-Jupyter_logo.svg.png",
     ".csv": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/CSV_Icon.svg/50px-CSV_Icon.svg.png",
 }
+
+# Google Colab icon
+COLAB_ICON_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Google_Colab_Logo.svg/50px-Google_Colab_Logo.svg.png"
+
+def prettify_title(title):
+    """Helper function to format titles properly."""
+    return html.escape(title.title())  # Escape HTML for safety and capitalize words
 
 def apply_badges_to_item_title(metadata, badge_rules=None):
     """
@@ -61,6 +67,11 @@ def apply_badges_to_item_title(metadata, badge_rules=None):
         icon_url = FILE_TYPE_ICONS[file_type]
         file_icon = f'<img src="{icon_url}" style="width: 16px; height: 16px; vertical-align: middle;">'
         badges.append(file_icon)
+
+    # **Check for Colab-specific case**
+    if "colab_url" in metadata:
+        colab_icon = f'<img src="{COLAB_ICON_URL}" style="width: 16px; height: 16px; vertical-align: middle;">'
+        badges.append(colab_icon)
 
     # Generate the final decorated title
     return f"{' '.join(badges)} {title}" if badges else title
