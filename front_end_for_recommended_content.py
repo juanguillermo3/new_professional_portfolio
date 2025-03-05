@@ -8,6 +8,7 @@ import streamlit as st
 from front_end_utils import prettify_title
 import re
 import hashlib
+import html
 from html import escape
 from exceptional_ui import _custom_tooltip_html
 from badges_for_item_data import apply_badges_to_item_title
