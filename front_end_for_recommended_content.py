@@ -14,6 +14,8 @@ from exceptional_ui import _custom_tooltip_html
 
 import re
 import html
+import os 
+from front_end_utils import prettify_title
 
 # File-type to icon mapping (URL-based or local file paths)
 FILE_TYPE_ICONS = {
