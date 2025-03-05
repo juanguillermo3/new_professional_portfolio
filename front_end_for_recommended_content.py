@@ -11,12 +11,6 @@ import hashlib
 from html import escape
 from exceptional_ui import _custom_tooltip_html
 
-import re
-import html
-
-def prettify_title(title):
-    """Helper function to format titles properly."""
-    return html.escape(title.title())  # Escape HTML for safety and capitalize words
 
 def apply_badges_to_item_title(metadata, outstanding_content_regex):
     """
