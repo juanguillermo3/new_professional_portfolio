@@ -12,25 +12,97 @@ from html import escape
 from exceptional_ui import _custom_tooltip_html
 
 
-def apply_badges_to_item_title(metadata, outstanding_content_regex):
+import re
+import html
+
+# File-type to icon mapping (URL-based or local file paths)
+FILE_TYPE_ICONS = {
+    ".r": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/R_logo.svg/50px-R_logo.svg.png",
+    ".py": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/50px-Python-logo-notext.svg.png",
+    ".ipynb": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Jupyter_logo.svg/50px-Jupyter_logo.svg.png",
+    ".csv": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/CSV_Icon.svg/50px-CSV_Icon.svg.png",
+}
+
+def apply_badges_to_item_title(metadata, badge_rules=None):
     """
-    Applies the outstanding content badge (⭐) to the title based on metadata conditions.
+    Applies multiple badges (emoji + file icons) to the title based on metadata.
 
     Parameters:
     - metadata (dict): Dictionary containing item metadata.
-    - outstanding_content_regex (re.Pattern): Regex pattern to detect outstanding content keys.
+    - badge_rules (list of tuples, optional): Each tuple contains:
+        (regex, emoji, [keys])
+        - regex (re.Pattern): Regex pattern to match values in metadata.
+        - emoji (str): Emoji badge to prepend when condition is met.
+        - keys (list): Metadata keys to check.
 
     Returns:
-    - str: Title string with appropriate badges prepended.
+    - str: Title string with appropriate badges (including HTML img for file icons).
     """
-    # Check if any key matches the regex AND has a truthy value
-    is_outstanding = any(outstanding_content_regex.search(key) and metadata.get(key) for key in metadata)
+    if badge_rules is None:
+        badge_rules = [
+            (re.compile(r".*"), "⭐", ["galleria", "highlighted_content", "image_path"]),  # Outstanding content
+        ]
 
-    # Get the title and format it
     title = prettify_title(metadata.get('title', 'Untitled'))
+    badges = []
 
-    # Prepend badge if outstanding content is detected
-    return f"⭐ {title}" if is_outstanding else title
+    # Process emoji-based badges
+    for regex, emoji, keys in badge_rules:
+        if any(key in metadata and regex.search(str(metadata[key])) for key in keys):
+            badges.append(emoji)
+
+    # Process file-type badges (icons)
+    file_type = metadata.get("file_type", "").lower()
+    if file_type in FILE_TYPE_ICONS:
+        icon_url = FILE_TYPE_ICONS[file_type]
+        file_icon = f'<img src="{icon_url}" style="width: 16px; height: 16px; vertical-align: middle;">'
+        badges.append(file_icon)
+
+    # Generate the final decorated title
+    return f"{' '.join(badges)} {title}" if badges else title
+
+def html_for_item_data(
+    rec,
+    badge_rules=None,
+    background_color="#f4f4f4",
+    border_style="1px solid #ddd",
+    card_height="150px",
+    overflow_style="overflow-y: auto;"
+):
+    """
+    Generate an HTML snippet for a recommended item card dynamically.
+
+    Parameters:
+    - rec (dict): Dictionary containing item metadata.
+
+    Returns:
+    - str: A formatted HTML string representing the item card.
+    """
+    
+    # Apply the badge system with default rules inside apply_badges_to_item_title
+    title = apply_badges_to_item_title(rec, badge_rules)
+
+    # Default description if missing
+    description = html.escape(rec.get('description', 'No description available.'))  # Escape for safety
+
+    # Return the HTML structure
+    return f"""
+        <div style="background-color: {background_color}; border: {border_style}; 
+                    border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+                    padding: 10px; height: {card_height}; {overflow_style}; 
+                    display: flex; flex-direction: column; justify-content: space-between;">
+            <div style="background-color: rgba(255, 255, 255, 0.7); 
+                        padding: 5px 10px; border-radius: 10px 10px 0 0; 
+                        font-size: 16px; font-weight: bold; text-align: center;">
+                {title}
+            </div>
+            <div style="flex-grow: 1; padding: 10px; overflow-y: auto; text-align: justify;">
+                {description}
+            </div>
+        </div>
+    """
+
+
 
 def html_for_item_data(
     rec,
