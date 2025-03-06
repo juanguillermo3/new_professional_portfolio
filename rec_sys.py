@@ -321,8 +321,8 @@ class RecommendationSystem(PortfolioSection):
             visible_text = description[:first_period_index + 1]  # Include the period
             details_text = description[first_period_index + 1:].strip()  # Remove extra spaces
             description_html = html_for_paragraph_with_expandable_details(
-                markdown.markdown(visible_text),
-                markdown.markdown(details_text),
+                visible_text,
+                details_text,
                 summary_label="Read more"
             )
         else:
