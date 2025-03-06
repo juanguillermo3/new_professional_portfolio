@@ -367,8 +367,31 @@ class RecommendationSystem(PortfolioSection):
         st.session_state["project_event"] = "ACTIVE_PROJECT_INTERACTED"
 
     def _render_control_panel(self):
-        """Render the control panel with project selection and search input."""
+        """Render the control panel with sticky positioning inside its section."""
+        
+        # Inject CSS to make the control panel sticky
+        st.markdown(
+            """
+            <style>
+            .control-panel {
+                position: sticky;
+                top: 10px;  /* Controls how soon it sticks */
+                background: white;
+                padding: 15px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                z-index: 1000;  /* Ensures it stays above other elements */
+                border-radius: 8px;
+            }
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+    
+        # Render control panel inside a styled div
+        st.markdown('<div class="control-panel">', unsafe_allow_html=True)
+    
         cols = st.columns(2)
+    
         with cols[0]:
             prettified_titles = [prettify_title(title) for title in self.project_titles]
             selected_pretty_project = st.selectbox(
@@ -381,18 +404,21 @@ class RecommendationSystem(PortfolioSection):
             project_changed = previous_project != selected_project
             
             st.session_state.last_active_project = selected_project  # Update state
-    
-            # Emit event (differentiate project change vs. interaction)
+            
+            # Emit event
             event_type = "ACTIVE_PROJECT_CHANGED" if project_changed else "ACTIVE_PROJECT_INTERACTED"
             st.session_state.project_event = f"{event_type}: {selected_project}"
-        
+    
         with cols[1]:
             query = st.text_input(
                 "🔍 Search for by keyword/library (e.g., Python, R):",
                 placeholder="Type a keyword and press Enter",
             )
-        
+    
+        st.markdown('</div>', unsafe_allow_html=True)  # Close the control panel div
+    
         return selected_project, query
+
 
                   
     def render(self):
