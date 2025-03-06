@@ -312,7 +312,24 @@ class RecommendationSystem(PortfolioSection):
         video_path = os.path.join('assets', video_filename)
         
         tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
-        description_html = markdown.markdown(f"{project_metadata['description']} {tags_html}")
+        description = project_metadata.get('description', 'No description available.')
+
+        # Chunk description at the first period
+        first_period_index = description.find('.')
+        
+        if first_period_index != -1 and first_period_index < len(description) - 1:
+            visible_text = description[:first_period_index + 1]  # Include the period
+            details_text = description[first_period_index + 1:].strip()  # Remove extra spaces
+            description_html = html_for_paragraph_with_expandable_details(
+                markdown.markdown(visible_text),
+                markdown.markdown(details_text),
+                summary_label="Read more"
+            )
+        else:
+            description_html = f"<p>{markdown.markdown(description)}</p>"
+    
+        # Append hashtags at the end
+        description_html += f"<p>{tags_html}</p>"
     
         # Title and description
         st.markdown(
