@@ -18,6 +18,7 @@ from testimonials import testimonials
 from floating_whatsapp_button import  display_floating_whatsapp_button
 from floating_linkedin_button import display_floating_linkedin_button
 from floating_buttons import display_floating_buttons_container, close_floating_buttons_container
+from front_end_utils import html_for_paragraph_with_expandable_details
 
 # Load environment variables
 load_dotenv(override=True)
@@ -95,3 +96,8 @@ for section_name, module in SECTIONS.items():
     if section_name in selected_sections:
         module.render()
         render_section_separator()
+
+html_for_paragraph_with_expandable_details(
+    "This is visible text.",
+    "This is **hidden content** that appears when you click anywhere."
+)
