@@ -314,8 +314,6 @@ class RecommendationSystem(PortfolioSection):
         tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
         description_html = markdown.markdown(f"{project_metadata['description']} {tags_html}")
     
-        # Append hashtags at the end
-        description_html += f"<p>{tags_html}</p>"
     
         # Title and description
         st.markdown(
