@@ -419,18 +419,33 @@ class RecommendationSystem(PortfolioSection):
     
         return selected_project, query
 
-
-                  
-    def render(self):
-        """Render method with Galleria callback integration and smooth media transitions."""
+    def _render_control_panel(self):
+        """Render the control panel with sticky positioning inside its section."""
         
-        self._render_headers()  # Render headers from the portfolio section class
+        # Inject CSS to make the control panel sticky
+        st.markdown(
+            """
+            <style>
+            .control-panel {
+                position: sticky;
+                top: 10px;  /* Controls how soon it sticks */
+                background: white;
+                padding: 15px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                z-index: 1000;  /* Ensures it stays above other elements */
+                border-radius: 8px;
+                margin-bottom: 20px;  /* Ensure spacing below the control panel */
+            }
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
     
-        # Display the ranker's logic
-        st.markdown(f'{self.RANKER_LOGIC}', unsafe_allow_html=True)
+        # Render control panel inside a styled div
+        st.markdown('<div class="control-panel">', unsafe_allow_html=True)
     
-        # Display control widgets as a grid
         cols = st.columns(2)
+    
         with cols[0]:
             prettified_titles = [prettify_title(title) for title in self.project_titles]
             selected_pretty_project = st.selectbox(
@@ -443,16 +458,32 @@ class RecommendationSystem(PortfolioSection):
             project_changed = previous_project != selected_project
             
             st.session_state.last_active_project = selected_project  # Update state
-    
-            # Emit event (differentiate project change vs. interaction)
+            
+            # Emit event
             event_type = "ACTIVE_PROJECT_CHANGED" if project_changed else "ACTIVE_PROJECT_INTERACTED"
             st.session_state.project_event = f"{event_type}: {selected_project}"
     
         with cols[1]:
             query = st.text_input(
-                "🔍 Search for by keyword/library (e.g., Python, R):",
+                "🔍 Search by keyword/library (e.g., Python, R):",
                 placeholder="Type a keyword and press Enter",
             )
+    
+        st.markdown('</div>', unsafe_allow_html=True)  # Close the control panel div
+    
+        return selected_project, query
+
+    
+    def render(self):
+        """Render method with Galleria callback integration and smooth media transitions."""
+        
+        self._render_headers()  # Render headers from the portfolio section class
+    
+        # Display the ranker's logic
+        st.markdown(f'{self.RANKER_LOGIC}', unsafe_allow_html=True)
+    
+        # Render the sticky control panel and retrieve user selections
+        selected_project, query = self._render_control_panel()
     
         # Fetch recommendations
         recommendations = self.rank_items(query, selected_project)
@@ -482,6 +513,7 @@ class RecommendationSystem(PortfolioSection):
             for col, rec in zip(cols, recommendations[i: i + self.num_columns]):
                 with col:
                     self.render_card(rec, is_project=rec.get("is_project", False))
+
 
 
 # Example usage
