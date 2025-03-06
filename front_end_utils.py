@@ -151,15 +151,15 @@ def html_for_paragraph_with_expandable_details(visible_text, details_text, summa
 
 import markdown
 
-def html_for_paragraph_with_expandable_details(visible_text, details_text, summary_label=" See more"):
+import markdown
+
+def html_for_paragraph_with_expandable_details(visible_text, details_text):
     """
-    Returns HTML for an inline expandable paragraph section where the "See more" label 
-    always appears at the end of the full text (visible + hidden content), and expands on click.
-    Markdown syntax is processed inside the visible and hidden text.
+    Returns HTML for an inline expandable paragraph section where clicking anywhere expands the hidden text.
+    The 'See more' label is appended at the end of the full text.
 
     :param visible_text: The portion of text that remains visible (supports Markdown).
     :param details_text: The portion hidden inside the expandable section (supports Markdown).
-    :param summary_label: The text for the clickable "See more" button.
     :return: HTML string with Markdown-rendered content.
     """
     visible_html = markdown.markdown(visible_text)
@@ -171,15 +171,12 @@ def html_for_paragraph_with_expandable_details(visible_text, details_text, summa
     return f"""
     <p style="display: inline;">
         {visible_html}
-        <details style="display: inline;">
-            <summary style="display: inline; cursor: pointer; color: #0073e6; 
-                           text-decoration: underline; margin: 0; padding: 0; display: inline;">
-                <span style="display: inline;">{summary_label}</span>
-            </summary>
+        <details style="display: inline; cursor: pointer; color: #0073e6; text-decoration: underline;">
             <span style="display: inline;"> {details_html} </span>
         </details>
     </p>
     """
+
 
 
 
