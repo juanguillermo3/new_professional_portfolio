@@ -41,7 +41,7 @@ def apply_badges_to_item_title(metadata, badge_rules=None, recent_fix_hours=72, 
     - str: Title string with appropriate badges (including HTML img for file icons).
     """
     # **Determine "recently updated" status (🔧)**
-    recently_fixed = False
+    metadata["recently_fixed"] = "False"
     last_updated_str = metadata.get("last_updated")
 
     if last_updated_str:
@@ -49,12 +49,12 @@ def apply_badges_to_item_title(metadata, badge_rules=None, recent_fix_hours=72, 
             last_updated_dt = datetime.fromisoformat(last_updated_str.replace("Z", "+00:00"))
             now_dt = datetime.now(timezone.utc)
             hours_elapsed = (now_dt - last_updated_dt).total_seconds() / 3600
-            recently_fixed = hours_elapsed < recent_fix_hours
+            metadata["recently_fixed"] = str(hours_elapsed < recent_fix_hours)
         except ValueError:
             pass  # Ignore invalid date formats
 
     # **Determine "recently created" status (🍞)**
-    freshly_baked = False
+    metadata[freshly_baked] = "False"
     creation_date_str = metadata.get("creation_date")
 
     if creation_date_str:
@@ -62,7 +62,7 @@ def apply_badges_to_item_title(metadata, badge_rules=None, recent_fix_hours=72, 
             creation_date_dt = datetime.fromisoformat(creation_date_str.replace("Z", "+00:00"))
             now_dt = datetime.now(timezone.utc)
             hours_elapsed = (now_dt - creation_date_dt).total_seconds() / 3600
-            freshly_baked = hours_elapsed < recent_creation_hours
+            metadata[freshly_baked] = str(hours_elapsed < recent_creation_hours)
         except ValueError:
             pass  # Ignore invalid date formats
 
@@ -70,8 +70,8 @@ def apply_badges_to_item_title(metadata, badge_rules=None, recent_fix_hours=72, 
     if badge_rules is None:
         badge_rules = [
             (".*", "⭐", ["galleria", "highlighted_content", "image_path"]),  # Outstanding content
-            (".*", "🔧", ["recently_fixed"]),  # Recently updated content
-            (".*", "🍞", ["freshly_baked"]),  # Recently created content
+            ("True", "🔧", ["recently_fixed"]),  # Recently updated content
+            ("True", "🍞", ["freshly_baked"]),  # Recently created content
         ]
 
     title = prettify_title(metadata.get('title', 'Untitled'))  # Ensure prettify_title exists
@@ -80,9 +80,7 @@ def apply_badges_to_item_title(metadata, badge_rules=None, recent_fix_hours=72, 
     # **Process emoji-based badges**
     for regex, emoji, keys in badge_rules:
         if any(
-            re.search(regex, str(metadata.get(key, ""))) or
-            (key == "recently_fixed" and recently_fixed) or
-            (key == "freshly_baked" and freshly_baked)
+            re.search(regex, str(metadata.get(key, ""))) 
             for key in keys
         ):
             badges.append(emoji)
