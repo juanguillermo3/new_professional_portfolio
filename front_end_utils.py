@@ -149,6 +149,32 @@ def html_for_paragraph_with_expandable_details(visible_text, details_text, summa
     </p>
     """
 
+def html_for_paragraph_with_expandable_details(visible_text, details_text, summary_label=" See more"):
+    """
+    Returns HTML for an inline expandable paragraph section where the "See more" label 
+    always appears at the end of the full text (visible + hidden content), and expands on click.
+
+    :param visible_text: The portion of text that remains visible.
+    :param details_text: The portion hidden inside the expandable section.
+    :param summary_label: The text for the clickable "See more" button.
+    :return: HTML string for an inline expandable section.
+    """
+    if not details_text:  # If no hidden content, return only the visible text
+        return f"<p>{visible_text}</p>"
+
+    return f"""
+    <p style="display: inline;">
+        {visible_text}
+        <details style="display: inline;">
+            <summary style="display: inline; cursor: pointer; color: #0073e6; 
+                           text-decoration: underline; margin: 0; padding: 0; white-space: nowrap;">
+                {summary_label}
+            </summary>
+            <span style="display: inline;"> {details_text} </span>
+        </details>
+    </p>
+    """
+
 
 
 
