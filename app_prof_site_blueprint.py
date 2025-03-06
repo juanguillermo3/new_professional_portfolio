@@ -17,7 +17,7 @@ from socials_section import socials
 from testimonials import testimonials
 from floating_whatsapp_button import  display_floating_whatsapp_button
 from floating_linkedin_button import display_floating_linkedin_button
-from floating_buttons import display_floating_buttons_container
+from floating_buttons import display_floating_buttons_container, close_floating_buttons_container
 
 # Load environment variables
 load_dotenv(override=True)
