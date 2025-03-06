@@ -127,22 +127,26 @@ def render_external_link_button_as_train_ticket(url, label, bg_color):
 
 def html_for_paragraph_with_expandable_details(visible_text, details_text, summary_label=" See more"):
     """
-    Returns HTML for an inline expandable paragraph section, keeping the text as a single flowing paragraph.
+    Returns HTML for an inline expandable paragraph section.
     
     :param visible_text: The portion of text that remains visible.
     :param details_text: The portion hidden inside the expandable section.
-    :param summary_label: The text for the clickable "See more" trigger.
+    :param summary_label: The text for the clickable "See more" button.
     :return: HTML string for an inline expandable section.
     """
     if not details_text:  # If no hidden content, return only the visible text
         return f"<p>{visible_text}</p>"
 
     return f"""
-    <p>
+    <p style="display: inline;">
         {visible_text}
         <details style="display: inline;">
-            <summary style="display: inline; cursor: pointer; color: #0073e6; text-decoration: underline;">{summary_label}</summary>
-            <span style="display: inline;"> {details_text}</span>
+            <summary style="display: inline; cursor: pointer; color: #0073e6; text-decoration: underline; margin: 0; padding: 0; white-space: nowrap;">
+                {summary_label}
+            </summary>
+            <span style="display: inline; white-space: normal;">
+                {details_text}
+            </span>
         </details>
     </p>
     """
