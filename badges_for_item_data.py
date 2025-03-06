@@ -13,7 +13,7 @@ FILE_TYPE_ICONS = {
 }
 
 # Google Colab icon
-COLAB_ICON_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Google_Colab_Logo.svg/50px-Google_Colab_Logo.svg.png"
+COLAB_ICON_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Google_Colaboratory_SVG_Logo.svg/50px-Google_Colaboratory_SVG_Logo.svg.png"
 
 def apply_badges_to_item_title(metadata, badge_rules=None):
     """
