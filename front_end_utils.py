@@ -135,14 +135,12 @@ def html_for_paragraph_with_expandable_details(visible_text, details_text, summa
     :param summary_label: The text for the clickable "See more" button.
     :return: HTML string for an inline expandable section.
     """
-    if not details_text:  # If no hidden content, return only the visible text
-        return f"<p>{visible_text}</p>"
+    full_text = f"{visible_text} {details_text}" if details_text else visible_text
 
     return f"""
     <p style="display: inline;">
-        {visible_text}
+        {full_text}
         <details style="display: inline;">
-            <span style="display: inline;"> {details_text} </span>
             <summary style="display: inline; cursor: pointer; color: #0073e6; 
                            text-decoration: underline; margin: 0; padding: 0; white-space: nowrap;">
                 {summary_label}
@@ -150,6 +148,7 @@ def html_for_paragraph_with_expandable_details(visible_text, details_text, summa
         </details>
     </p>
     """
+
 
 
 
