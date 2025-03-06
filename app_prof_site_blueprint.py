@@ -39,6 +39,11 @@ SECTIONS = {
     "Testimonials": testimonials
 }
 
+html_for_paragraph_with_expandable_details(
+    "This is visible text.",
+    "This is **hidden content** that appears when you click anywhere."
+)
+
 # **Title Section**
 st.markdown("""
     <style>
