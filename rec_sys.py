@@ -366,7 +366,35 @@ class RecommendationSystem(PortfolioSection):
         # Reset project event to avoid unnecessary re-triggers
         st.session_state["project_event"] = "ACTIVE_PROJECT_INTERACTED"
 
+    def _render_control_panel(self):
+        """Render the control panel with project selection and search input."""
+        cols = st.columns(2)
+        with cols[0]:
+            prettified_titles = [prettify_title(title) for title in self.project_titles]
+            selected_pretty_project = st.selectbox(
+                "📂 Filter by project:", prettified_titles, index=0, key="active_project"
+            )
+            selected_project = self.title_mapping[selected_pretty_project]
+    
+            # Ensure event propagation always occurs
+            previous_project = st.session_state.get("last_active_project", None)
+            project_changed = previous_project != selected_project
+            
+            st.session_state.last_active_project = selected_project  # Update state
+    
+            # Emit event (differentiate project change vs. interaction)
+            event_type = "ACTIVE_PROJECT_CHANGED" if project_changed else "ACTIVE_PROJECT_INTERACTED"
+            st.session_state.project_event = f"{event_type}: {selected_project}"
+        
+        with cols[1]:
+            query = st.text_input(
+                "🔍 Search for by keyword/library (e.g., Python, R):",
+                placeholder="Type a keyword and press Enter",
+            )
+        
+        return selected_project, query
 
+                  
     def render(self):
         """Render method with Galleria callback integration and smooth media transitions."""
         
