@@ -84,5 +84,73 @@ def html_for_milestones_from_project_metadata(project_metadata, num_displayed=3 
     return ''.join(milestone_html)
 
 
+def html_for_milestones_from_project_metadata(project_metadata):
+    milestone_html = []
+
+    achieved_milestones = project_metadata.get('achieved_milestones', [])
+    next_milestones = project_metadata.get('next_milestones', [])
+
+    all_milestones = (
+        [f'<div class="milestone-item achieved">✅ {m}</div>' for m in achieved_milestones] +
+        [f'<div class="milestone-item upcoming">🚧 {m}</div>' for m in next_milestones]
+    )
+
+    if all_milestones:
+        first_milestone = all_milestones[0]
+        all_milestones_html = ''.join(all_milestones)
+
+        milestone_html.append(f"""
+        <style>
+          .milestone-container {{
+              display: inline-block;
+              position: relative;
+              padding: 8px 12px;
+              border: 1px solid #ccc;
+              border-radius: 6px;
+              background: #f9f9f9;
+              cursor: pointer;
+              font-size: 14px;
+          }}
+
+          .milestone-popup {{
+              display: none;
+              position: absolute;
+              left: 0;
+              top: 100%;
+              min-width: 200px;
+              background: white;
+              border: 1px solid #ccc;
+              border-radius: 6px;
+              box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+              padding: 10px;
+              z-index: 100;
+          }}
+
+          .milestone-container:hover .milestone-popup {{
+              display: block;
+          }}
+
+          .milestone-item {{
+              margin: 5px 0;
+              font-size: 14px;
+              white-space: nowrap;
+          }}
+
+          .achieved {{ color: green; }}
+          .upcoming {{ color: #FFB300; }}
+        </style>
+
+        <div class="milestone-container">
+            {first_milestone}
+            <div class="milestone-popup">
+                {all_milestones_html}
+            </div>
+        </div>
+        """)
+
+    return ''.join(milestone_html)
+
+
+
 
 
