@@ -167,13 +167,14 @@ def html_for_paragraph_with_expandable_details(visible_text, details_text, summa
         {visible_text}
         <details style="display: inline;">
             <summary style="display: inline; cursor: pointer; color: #0073e6; 
-                           text-decoration: underline; margin: 0; padding: 0; white-space: nowrap;">
-                {summary_label}
+                           text-decoration: underline; margin: 0; padding: 0; display: inline;">
+                <span style="display: inline;">{summary_label}</span>
             </summary>
             <span style="display: inline;"> {details_text} </span>
         </details>
     </p>
     """
+
 
 
 
