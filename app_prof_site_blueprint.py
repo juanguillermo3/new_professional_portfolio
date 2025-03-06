@@ -50,10 +50,10 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-display_floating_buttons_container()
+#display_floating_buttons_container()
 #display_floating_linkedin_button( linkedin_url=LINKEDIN_PROFILE)
 display_floating_whatsapp_button( whatsapp_number=WHATSAPP_NUMBER)
-close_floating_buttons_container()
+#close_floating_buttons_container()
 
 st.title("Welcome to My Professional Site")
 
