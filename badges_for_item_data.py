@@ -54,7 +54,7 @@ def apply_badges_to_item_title(metadata, badge_rules=None, recent_fix_hours=72, 
             pass  # Ignore invalid date formats
 
     # **Determine "recently created" status (🍞)**
-    metadata[freshly_baked] = "False"
+    metadata["freshly_baked"] = "False"
     creation_date_str = metadata.get("creation_date")
 
     if creation_date_str:
