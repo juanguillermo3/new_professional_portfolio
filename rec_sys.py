@@ -388,7 +388,7 @@ class RecommendationSystem(PortfolioSection):
         )
     
         # Render control panel inside a styled div
-        st.markdown('<div class="control-panel">', unsafe_allow_html=True)
+        #st.markdown('<div class="control-panel">', unsafe_allow_html=True)
     
         cols = st.columns(2)
     
