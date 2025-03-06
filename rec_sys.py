@@ -265,74 +265,6 @@ class RecommendationSystem(PortfolioSection):
         )
         
 
-
-
-    #
-    # Updated render method
-    #
-    def render(self):
-        """Render method with Galleria callback integration and smooth media transitions."""
-        
-        self._render_headers()  # Render headers from the portfolio section class
-    
-        # Display the ranker's logic
-        st.markdown(f'{self.RANKER_LOGIC}', unsafe_allow_html=True)
-    
-        # Display control widgets as a grid
-        cols = st.columns(2)
-        with cols[0]:
-            prettified_titles = [prettify_title(title) for title in self.project_titles]
-            selected_pretty_project = st.selectbox(
-                "📂 Filter by project:", prettified_titles, index=0, key="active_project"
-            )
-            selected_project = self.title_mapping[selected_pretty_project]
-    
-            # Ensure event propagation always occurs
-            previous_project = st.session_state.get("last_active_project", None)
-            project_changed = previous_project != selected_project
-            
-            st.session_state.last_active_project = selected_project  # Update state
-    
-            # Emit event (differentiate project change vs. interaction)
-            event_type = "ACTIVE_PROJECT_CHANGED" if project_changed else "ACTIVE_PROJECT_INTERACTED"
-            st.session_state.project_event = f"{event_type}: {selected_project}"
-    
-        with cols[1]:
-            query = st.text_input(
-                "🔍 Search for by keyword/library (e.g., Python, R):",
-                placeholder="Type a keyword and press Enter",
-            )
-    
-        # Fetch recommendations
-        recommendations = self.rank_items(query, selected_project)
-    
-        # Display project metadata if applicable
-        project_metadata = next(
-            (repo for repo in self.repos_metadata if repo["title"].lower() == selected_project.lower()), 
-            None
-        ) if selected_project != "All Projects" else None
-    
-        if project_metadata:
-            self.render_project_metadata(project_metadata)
-    
-        # Render filtering message
-        filter_message = f"Showing all results for project {prettify_title(selected_project)}"
-        if query:
-            filter_message += f" (and for keyword: {query})"
-    
-        st.markdown(
-            f'<p style="font-style: italic; color: #555; font-size: 105%; font-weight: 550;">{filter_message}</p>',
-            unsafe_allow_html=True
-        )
-    
-        # Render recommendations in a grid
-        for i in range(0, len(recommendations), self.num_columns):
-            cols = st.columns(self.num_columns)
-            for col, rec in zip(cols, recommendations[i: i + self.num_columns]):
-                with col:
-                    self.render_card(rec, is_project=rec.get("is_project", False))
-    
-
     def handle_galleria_click(self, rec):
         """
         Handle the click event for the galleria item and display its content.
@@ -372,68 +304,6 @@ class RecommendationSystem(PortfolioSection):
         with st.spinner("Loading media..."):
             with self.media_placeholder.container():
                 st.session_state["active_galleria"].render()
-
-    def render(self):
-        """Render method with Galleria callback integration and smooth media transitions."""
-        
-        self._render_headers()  # Render headers from the portfolio section class
-    
-        # Display the ranker's logic
-        st.markdown(f'{self.RANKER_LOGIC}', unsafe_allow_html=True)
-    
-        # Display control widgets as a grid
-        cols = st.columns(2)
-        with cols[0]:
-            prettified_titles = [prettify_title(title) for title in self.project_titles]
-            selected_pretty_project = st.selectbox(
-                "📂 Filter by project:", prettified_titles, index=0, key="active_project"
-            )
-            selected_project = self.title_mapping[selected_pretty_project]
-    
-            # Ensure event propagation always occurs
-            previous_project = st.session_state.get("last_active_project", None)
-            project_changed = previous_project != selected_project
-            
-            st.session_state.last_active_project = selected_project  # Update state
-    
-            # Emit event (differentiate project change vs. interaction)
-            event_type = "ACTIVE_PROJECT_CHANGED" if project_changed else "ACTIVE_PROJECT_INTERACTED"
-            st.session_state.project_event = f"{event_type}: {selected_project}"
-    
-        with cols[1]:
-            query = st.text_input(
-                "🔍 Search for by keyword/library (e.g., Python, R):",
-                placeholder="Type a keyword and press Enter",
-            )
-    
-        # Fetch recommendations
-        recommendations = self.rank_items(query, selected_project)
-    
-        # Display project metadata if applicable
-        project_metadata = next(
-            (repo for repo in self.repos_metadata if repo["title"].lower() == selected_project.lower()), 
-            None
-        ) if selected_project != "All Projects" else None
-    
-        if project_metadata:
-            self.render_project_metadata(project_metadata)
-    
-        # Render filtering message
-        filter_message = f"Showing all results for project {prettify_title(selected_project)}"
-        if query:
-            filter_message += f" (and for keyword: {query})"
-    
-        st.markdown(
-            f'<p style="font-style: italic; color: #555; font-size: 105%; font-weight: 550;">{filter_message}</p>',
-            unsafe_allow_html=True
-        )
-    
-        # Render recommendations in a grid
-        for i in range(0, len(recommendations), self.num_columns):
-            cols = st.columns(self.num_columns)
-            for col, rec in zip(cols, recommendations[i: i + self.num_columns]):
-                with col:
-                    self.render_card(rec, is_project=rec.get("is_project", False))
 
     def render_project_metadata(self, project_metadata, display_milestones=True, margin_percent=10):
         """Render project title, description, tags, milestones, code sample count, and media content."""
@@ -495,6 +365,69 @@ class RecommendationSystem(PortfolioSection):
         
         # Reset project event to avoid unnecessary re-triggers
         st.session_state["project_event"] = "ACTIVE_PROJECT_INTERACTED"
+
+
+    def render(self):
+        """Render method with Galleria callback integration and smooth media transitions."""
+        
+        self._render_headers()  # Render headers from the portfolio section class
+    
+        # Display the ranker's logic
+        st.markdown(f'{self.RANKER_LOGIC}', unsafe_allow_html=True)
+    
+        # Display control widgets as a grid
+        cols = st.columns(2)
+        with cols[0]:
+            prettified_titles = [prettify_title(title) for title in self.project_titles]
+            selected_pretty_project = st.selectbox(
+                "📂 Filter by project:", prettified_titles, index=0, key="active_project"
+            )
+            selected_project = self.title_mapping[selected_pretty_project]
+    
+            # Ensure event propagation always occurs
+            previous_project = st.session_state.get("last_active_project", None)
+            project_changed = previous_project != selected_project
+            
+            st.session_state.last_active_project = selected_project  # Update state
+    
+            # Emit event (differentiate project change vs. interaction)
+            event_type = "ACTIVE_PROJECT_CHANGED" if project_changed else "ACTIVE_PROJECT_INTERACTED"
+            st.session_state.project_event = f"{event_type}: {selected_project}"
+    
+        with cols[1]:
+            query = st.text_input(
+                "🔍 Search for by keyword/library (e.g., Python, R):",
+                placeholder="Type a keyword and press Enter",
+            )
+    
+        # Fetch recommendations
+        recommendations = self.rank_items(query, selected_project)
+    
+        # Display project metadata if applicable
+        project_metadata = next(
+            (repo for repo in self.repos_metadata if repo["title"].lower() == selected_project.lower()), 
+            None
+        ) if selected_project != "All Projects" else None
+    
+        if project_metadata:
+            self.render_project_metadata(project_metadata)
+    
+        # Render filtering message
+        filter_message = f"Showing all results for project {prettify_title(selected_project)}"
+        if query:
+            filter_message += f" (and for keyword: {query})"
+    
+        st.markdown(
+            f'<p style="font-style: italic; color: #555; font-size: 105%; font-weight: 550;">{filter_message}</p>',
+            unsafe_allow_html=True
+        )
+    
+        # Render recommendations in a grid
+        for i in range(0, len(recommendations), self.num_columns):
+            cols = st.columns(self.num_columns)
+            for col, rec in zip(cols, recommendations[i: i + self.num_columns]):
+                with col:
+                    self.render_card(rec, is_project=rec.get("is_project", False))
 
 
 # Example usage
