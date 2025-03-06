@@ -1,8 +1,8 @@
 """
-title: Badges for Items
-description: The badges system distributes visual cues based on emojisto the front end representations of the recommmended items.
-             The badges are provided according to rules on item metadata. They help to convey more rich information about items in
-             a subtle manner, thus enhancing further experience.
+Title: Badges for Items  
+Description: This badge system applies visual cues using emojis to enhance the front-end representation of recommended items.  
+             Badges are assigned based on predefined rules applied to item metadata, providing subtle yet meaningful  
+             additional context. This helps improve the user experience by making item information more visually intuitive.
 """
 
 import re
