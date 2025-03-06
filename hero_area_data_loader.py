@@ -5,7 +5,7 @@ def load_quote():
         "such as <b>data gathering, processing, and visualization applications</b>. "  
         "Moreover, <b>software automation</b> is key for <b>distributing inferences</b> from <b>statistical analysis</b>, "  
         "whether derived from <b>econometric models</b> or <b>machine learning predictions</b>. "  
-        "<b>Bottom line:</b> I recognize the deep connection between <b>data analysis</b> and <b>software development</b>, "  
+        "Bottom line: I recognize the deep connection between <b>data analysis</b> and <b>software development</b>, "  
         "hence my effort to <b>serve them within a unified framework</b>." ,
             
         "I am Juan Guillermo, a professional economist. "  
