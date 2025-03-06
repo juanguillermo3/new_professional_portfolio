@@ -121,9 +121,9 @@ class RecommendationSystem(PortfolioSection):
         self.default_project = self.repos_metadata[0]["title"] if self.repos_metadata else "No Projects"
 
     RANKER_LOGIC = """
-    ⚙️ The RecSys engine recommends application modules from larger projects I have worked on. Code samples are ranked on criteria such as
-       visual prominence (having media content available) and freshness. It currently supports groupping by project and filtering by exact
-       keyword matching on code metadata (titles/descriptions) and library namess for Python and R code samples.
+    ⚙️ The recommendation system (RecSys) in my professional portfolio suggests application modules from larger projects I’ve worked on. 
+    Code samples are ranked based on criteria such as visual prominence (availability of media content) and freshness. 
+    The system currently supports grouping by project and filtering through exact keyword matches in code metadata (titles/descriptions) and library names for Python and R code samples.
     """
     #
     # ranking logic aspect of the RecSys
