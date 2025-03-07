@@ -141,8 +141,6 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
 
 import html
 
-import html
-
 def html_for_milestones_from_project_metadata(project_metadata, milestone_type="achieved_milestones"):
     """
     Generates an HTML snippet for displaying milestones with a tooltip.
@@ -154,7 +152,7 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
     Returns:
         - str: HTML snippet containing the milestone and tooltip.
     """
-    # Define milestone properties with improved contrast
+    # Define milestone properties with optimized contrast
     milestone_labels = {
         "achieved_milestones": ("Achieved Milestones", "#2E7D32", "✅"),  # Dark green
         "next_milestones": ("Upcoming Milestones", "#C28F00", "🚧"),  # Gold-ish yellow
@@ -180,7 +178,7 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
     # Unique ID for the tooltip
     element_id = f"tooltip-{milestone_type}"
 
-    # Return formatted HTML with tooltip and improved frosted background
+    # Return formatted HTML with refined frosted effect
     return f"""
     <div style="position: relative; display: inline-block;">
         <span id="{element_id}" style="border-bottom: 1px dashed gray; cursor: pointer;" class="hover-trigger">
@@ -200,8 +198,8 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
                 opacity 0.3s ease-in-out, 
                 visibility 0.3s ease-in-out, 
                 transform 0.3s ease-in-out;
-            background-color: rgba(240, 240, 240, 0.85); /* Improved frosted glass effect */
-            backdrop-filter: blur(8px);
+            background-color: rgba(240, 240, 240, 0.75); /* Softer frosted effect */
+            backdrop-filter: blur(10px); /* Stronger blur for a glassy look */
             color: black;
             text-align: left;
             padding: 10px;
@@ -213,7 +211,7 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
             min-width: 100%;
             max-width: 400px;
             z-index: 1;
-            border: 1px solid rgba(200, 200, 200, 0.7);
+            border: 1px solid rgba(200, 200, 200, 0.5); /* Softer border */
             transform-origin: top center;
         }}
 
@@ -224,6 +222,7 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
         }}
     </style>
     """
+
 
 
 
