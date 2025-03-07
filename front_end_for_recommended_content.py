@@ -120,8 +120,7 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
             border-radius: 5px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             position: absolute;
-            left: 50%;
-            top: 120%;
+            left: 120%;
             min-width: 100%;
             max-width: 400px;
             z-index: 1;
