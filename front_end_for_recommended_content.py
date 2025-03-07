@@ -84,7 +84,7 @@ def html_for_milestones_from_project_metadata(project_metadata, num_displayed=3 
     return ''.join(milestone_html)
 
 
-def html_for_milestones_from_project_metadata(project_metadata):
+def  html_for_milestones_from_project_metadata(project_metadata):
     # Extract milestone lists safely
     achieved_milestones = project_metadata.get("achieved_milestones", [])
     next_milestones = project_metadata.get("next_milestones", [])
@@ -101,12 +101,12 @@ def html_for_milestones_from_project_metadata(project_metadata):
         format_full_milestone_list(next_milestones, "#FFB300", "🚧", "Upcoming Milestones")
     )
 
-    # Define the summary text (first milestone styled the same way as in the tooltip)
+    # Define the summary text (styled first milestone + label)
     achieved_summary = (
-        f'<div style="color:green;">✅ {html.escape(achieved_milestones[0])}</div> and {len(achieved_milestones) - 1} more achieved milestones'
-        if achieved_milestones else "No achieved milestones"
+        f'<strong>Achieved Milestones:</strong> <span style="color:green;">✅ {html.escape(achieved_milestones[0])}</span> and {len(achieved_milestones) - 1} more achieved milestones'
+        if achieved_milestones else "<strong>Achieved Milestones:</strong> No achieved milestones"
     )
-    
+
     # Tooltip hoverable component
     return f"""
     <div style="position: relative; display: inline-block;">
