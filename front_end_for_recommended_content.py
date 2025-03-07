@@ -54,8 +54,6 @@ def html_for_item_data(
         </div>
     """
 
-import html
-
 def html_for_milestones_from_project_metadata(project_metadata, milestone_type="achieved_milestones"):
     """
     Generates an HTML snippet for displaying milestones with a tooltip.
@@ -83,7 +81,7 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
     # Format milestone summary (first milestone + count)
     first_milestone = html.escape(milestones[0])
     summary = f"({len(milestones) - 1} more)" if len(milestones) > 1 else ""
-    visible_milestone = f'{icon} {first_milestone} {summary}'
+    visible_milestone = f'<div style="color:{color};">{icon} {first_milestone} {summary}</div>'
 
     # Tooltip content (full milestone list)
     tooltip_content = "".join(
@@ -93,43 +91,46 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
     # Unique ID for the tooltip
     element_id = f"tooltip-{milestone_type}"
 
-    # Return formatted HTML with improved tooltip behavior
+    # Return formatted HTML with tooltip
     return f"""
     <div style="position: relative; display: inline-block;">
-        <div id="{element_id}" class="hover-trigger" style="border-bottom: 1px dashed gray; cursor: pointer;">
+        <span id="{element_id}" style="border-bottom: 1px dashed gray; cursor: pointer;" class="hover-trigger">
             {visible_milestone}
-            <div class="tooltip">
-                <strong>{label}:</strong>
-                {tooltip_content}
-            </div>
+        </span>
+        <div class="tooltip">
+            <strong>{label}:</strong>
+            {tooltip_content}
         </div>
     </div>
     <style>
         .tooltip {{
             visibility: hidden;
             opacity: 0;
-            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out;
+            transform: translateY(5px) scale(0.95);
+            transition: 
+                opacity 0.3s ease-in-out, 
+                visibility 0.3s ease-in-out, 
+                transform 0.3s ease-in-out;
             background-color: white;
             color: black;
             text-align: left;
             padding: 10px;
             border-radius: 5px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             position: absolute;
-            left: 50%;
-            top: 100%;
-            min-width: 150px;
+            left: 25%;
+            top: 120%;
+            min-width: 100%;
             max-width: 400px;
-            z-index: 999;
+            z-index: 1;
             border: 1px solid #ddd;
-            transform: translateX(-50%) translateY(5px) scale(0.95);
             transform-origin: top center;
         }}
 
-        .hover-trigger:hover .tooltip {{
+        #{element_id}:hover + .tooltip {{
             visibility: visible;
             opacity: 1;
-            transform: translateX(-50%) translateY(0px) scale(1);
+            transform: translateY(0px) scale(1.1);
         }}
     </style>
     """
