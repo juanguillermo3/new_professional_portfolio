@@ -116,7 +116,7 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
             text-align: left;
             padding: 10px;
             border-radius: 5px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
             position: absolute;
             left: 25%;
             top: 120%;
