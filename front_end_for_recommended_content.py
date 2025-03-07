@@ -127,8 +127,14 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
         </div>
     </div>
     <style>
-        .tooltip {{
+        .tooltip {
             visibility: hidden;
+            opacity: 0;
+            transform: translateY(5px) scale(0.95); /* Initial subtle shift and shrink */
+            transition: 
+                opacity 0.3s ease-in-out, 
+                visibility 0.3s ease-in-out, 
+                transform 0.3s ease-in-out;
             background-color: white;
             color: black;
             text-align: left;
@@ -136,18 +142,20 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
             border-radius: 5px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             position: absolute;
-            left: 0;
+            left: 50%;
             top: 120%;
             min-width: 100%;
             max-width: 400px;
             z-index: 1;
             border: 1px solid #ddd;
-        }}
-        .hover-trigger:hover + .tooltip {{
+            transform-origin: top center;
+        }
+    
+        .hover-trigger:hover + .tooltip {
             visibility: visible;
-            width: auto;
-            min-width: 100%;
-        }}
+            opacity: 1;
+            transform: translateY(0px) scale(1.1); /* Appears slightly enlarged */
+        }
     </style>
     """
 
