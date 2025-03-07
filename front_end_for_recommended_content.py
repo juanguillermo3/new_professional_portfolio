@@ -141,6 +141,8 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
 
 import html
 
+import html
+
 def html_for_milestones_from_project_metadata(project_metadata, milestone_type="achieved_milestones"):
     """
     Generates an HTML snippet for displaying milestones with a tooltip.
@@ -152,10 +154,10 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
     Returns:
         - str: HTML snippet containing the milestone and tooltip.
     """
-    # Define milestone properties
+    # Define milestone properties with improved contrast
     milestone_labels = {
-        "achieved_milestones": ("Achieved Milestones", "green", "✅"),
-        "next_milestones": ("Upcoming Milestones", "#FFB300", "🚧")
+        "achieved_milestones": ("Achieved Milestones", "#2E7D32", "✅"),  # Dark green
+        "next_milestones": ("Upcoming Milestones", "#C28F00", "🚧"),  # Gold-ish yellow
     }
     
     label, color, icon = milestone_labels.get(milestone_type, ("Milestones", "black", "📌"))
@@ -168,17 +170,17 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
     # Format milestone summary (first milestone + count)
     first_milestone = html.escape(milestones[0])
     summary = f"({len(milestones) - 1} more)" if len(milestones) > 1 else ""
-    visible_milestone = f'<div style="color:{color}; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">{icon} {first_milestone} {summary}</div>'
+    visible_milestone = f'<div style="color:{color};">{icon} {first_milestone} {summary}</div>'
 
     # Tooltip content (full milestone list)
     tooltip_content = "".join(
-        f'<div style="color:{color}; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">{icon} {html.escape(m)}</div>' for m in milestones
+        f'<div style="color:{color};">{icon} {html.escape(m)}</div>' for m in milestones
     )
 
     # Unique ID for the tooltip
     element_id = f"tooltip-{milestone_type}"
 
-    # Return formatted HTML with tooltip and frosted glass effect
+    # Return formatted HTML with tooltip and improved frosted background
     return f"""
     <div style="position: relative; display: inline-block;">
         <span id="{element_id}" style="border-bottom: 1px dashed gray; cursor: pointer;" class="hover-trigger">
@@ -198,8 +200,8 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
                 opacity 0.3s ease-in-out, 
                 visibility 0.3s ease-in-out, 
                 transform 0.3s ease-in-out;
-            background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent background */
-            backdrop-filter: blur(8px); /* Frosted glass effect */
+            background-color: rgba(240, 240, 240, 0.85); /* Improved frosted glass effect */
+            backdrop-filter: blur(8px);
             color: black;
             text-align: left;
             padding: 10px;
@@ -211,7 +213,7 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
             min-width: 100%;
             max-width: 400px;
             z-index: 1;
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(200, 200, 200, 0.7);
             transform-origin: top center;
         }}
 
@@ -222,6 +224,7 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
         }}
     </style>
     """
+
 
 
     
