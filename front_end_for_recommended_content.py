@@ -154,11 +154,11 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
     """
     # Define milestone properties
     milestone_labels = {
-        "achieved_milestones": ("Achieved Milestones", "lime", "✅"),
+        "achieved_milestones": ("Achieved Milestones", "green", "✅"),
         "next_milestones": ("Upcoming Milestones", "#FFB300", "🚧")
     }
     
-    label, color, icon = milestone_labels.get(milestone_type, ("Milestones", "white", "📌"))
+    label, color, icon = milestone_labels.get(milestone_type, ("Milestones", "black", "📌"))
     milestones = project_metadata.get(milestone_type, [])
 
     # Handle empty milestone case
@@ -178,10 +178,10 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
     # Unique ID for the tooltip
     element_id = f"tooltip-{milestone_type}"
 
-    # Return formatted HTML with tooltip
+    # Return formatted HTML with tooltip and frosted glass effect
     return f"""
     <div style="position: relative; display: inline-block;">
-        <span id="{element_id}" style="border-bottom: 1px dashed {color}; cursor: pointer;" class="hover-trigger">
+        <span id="{element_id}" style="border-bottom: 1px dashed gray; cursor: pointer;" class="hover-trigger">
             {visible_milestone}
         </span>
         <div class="tooltip">
@@ -198,32 +198,31 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
                 opacity 0.3s ease-in-out, 
                 visibility 0.3s ease-in-out, 
                 transform 0.3s ease-in-out;
-            
-            background: rgba(30, 50, 60, 0.6); /* Sci-fi dark glass */
-            backdrop-filter: blur(8px); /* Frosted effect */
-            color: #00ffff; /* Neon cyan text */
-            font-family: 'Orbitron', sans-serif;
+            background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
+            backdrop-filter: blur(8px); /* Frosted glass effect */
+            color: black; /* Keeping text color */
             text-align: left;
-            padding: 12px;
-            border-radius: 8px;
-            box-shadow: 0px 0px 20px rgba(0, 255, 255, 0.4); /* Glowing */
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
             position: absolute;
-            left: 50%;
+            left: 25%;
             top: 120%;
-            min-width: 120%;
-            max-width: 450px;
+            min-width: 100%;
+            max-width: 400px;
             z-index: 1;
-            border: 1px solid rgba(0, 255, 255, 0.6); /* Subtle neon */
+            border: 1px solid rgba(255, 255, 255, 0.4); /* Subtle border */
             transform-origin: top center;
         }}
 
         #{element_id}:hover + .tooltip {{
             visibility: visible;
             opacity: 1;
-            transform: translateY(0px) scale(1.05);
+            transform: translateY(0px) scale(1.1);
         }}
     </style>
     """
+
     
 
 
