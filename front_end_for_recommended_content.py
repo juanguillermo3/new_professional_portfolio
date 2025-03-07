@@ -58,8 +58,8 @@ import html
 
 def html_for_milestones_from_project_metadata(project_metadata, milestone_type="achieved_milestones"):
     """
-    Generates an HTML snippet for displaying milestones with a tooltip positioned to the right.
-
+    Generates an HTML snippet for displaying milestones with a tooltip.
+    
     Parameters:
         - project_metadata (dict): Contains milestone information.
         - milestone_type (str): The type of milestone to display ('achieved_milestones' or 'next_milestones').
@@ -83,7 +83,7 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
     # Format milestone summary (first milestone + count)
     first_milestone = html.escape(milestones[0])
     summary = f"({len(milestones) - 1} more)" if len(milestones) > 1 else ""
-    visible_milestone = f'<span style="color:{color};">{icon} {first_milestone} {summary}</span>'
+    visible_milestone = f'<div style="color:{color};">{icon} {first_milestone} {summary}</div>'
 
     # Tooltip content (full milestone list)
     tooltip_content = "".join(
@@ -93,10 +93,10 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
     # Unique ID for the tooltip
     element_id = f"tooltip-{milestone_type}"
 
-    # Return formatted HTML with right-aligned tooltip
+    # Return formatted HTML with tooltip
     return f"""
-    <div style="display: flex; align-items: center; position: relative;">
-        <span id="{element_id}" style="border-bottom: 1px dashed gray; cursor: pointer; flex-shrink: 0;">
+    <div style="position: relative; display: inline-block;">
+        <span id="{element_id}" style="border-bottom: 1px dashed gray; cursor: pointer;" class="hover-trigger">
             {visible_milestone}
         </span>
         <div class="tooltip">
@@ -108,7 +108,7 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
         .tooltip {{
             visibility: hidden;
             opacity: 0;
-            transform: translateX(10px) scale(0.95);
+            transform: translateY(5px) scale(0.95);
             transition: 
                 opacity 0.3s ease-in-out, 
                 visibility 0.3s ease-in-out, 
@@ -120,22 +120,23 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
             border-radius: 5px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             position: absolute;
-            left: 105%;
-            top: 50%;
-            transform-origin: left center;
-            min-width: 200px;
+            left: 50%;
+            top: 120%;
+            min-width: 100%;
             max-width: 400px;
+            z-index: 1;
             border: 1px solid #ddd;
-            white-space: nowrap;
+            transform-origin: top center;
         }}
 
         #{element_id}:hover + .tooltip {{
             visibility: visible;
             opacity: 1;
-            transform: translateX(0px) scale(1.1);
+            transform: translateY(0px) scale(1.1);
         }}
     </style>
     """
+
 
 
 
