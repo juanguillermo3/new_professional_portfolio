@@ -87,50 +87,58 @@ def html_for_milestones_from_project_metadata(project_metadata, num_displayed=3 
 import html
 
 def html_for_milestones_from_project_metadata(project_metadata, milestone_type="achieved_milestones"):
+    """
+    Generates an HTML snippet for displaying milestones with a tooltip.
+    
+    Parameters:
+        - project_metadata (dict): Contains milestone information.
+        - milestone_type (str): The type of milestone to display ('achieved_milestones' or 'next_milestones').
+
+    Returns:
+        - str: HTML snippet containing the milestone and tooltip.
+    """
     # Define milestone properties
-    milestone_config = {
-        "achieved_milestones": {"color": "green", "icon": "✅", "label": "Achieved Milestones"},
-        "next_milestones": {"color": "#FFB300", "icon": "🚧", "label": "Upcoming Milestones"}
+    milestone_labels = {
+        "achieved_milestones": ("Achieved Milestones", "green", "✅"),
+        "next_milestones": ("Upcoming Milestones", "#FFB300", "🚧")
     }
     
-    config = milestone_config.get(milestone_type, milestone_config["achieved_milestones"])
-    
-    # Extract the correct milestone list
+    label, color, icon = milestone_labels.get(milestone_type, ("Milestones", "black", "📌"))
     milestones = project_metadata.get(milestone_type, [])
 
-    # Define the tooltip content (full milestone lists with details)
-    def format_full_milestone_list(milestones, color, icon, label):
-        if not milestones:
-            return ""
-        safe_milestones = [f'<div style="color:{color};">{icon} {html.escape(m)}</div>' for m in milestones]
-        return f"<strong>{label}:</strong>" + "".join(safe_milestones)
+    # Handle empty milestone case
+    if not milestones:
+        return f'<div style="color:gray;">No {label.lower()}</div>'
 
-    tooltip_content = format_full_milestone_list(milestones, config["color"], config["icon"], config["label"])
+    # Format milestone summary (first milestone + count)
+    first_milestone = html.escape(milestones[0])
+    summary = f"({len(milestones) - 1} more)" if len(milestones) > 1 else ""
+    visible_milestone = f'<div style="color:{color};">{icon} {first_milestone} {summary}</div>'
 
-    # Precompute summarizing label
-    summary_label = f"{len(milestones) - 1} more {config['label'].lower()}" if len(milestones) > 1 else "only milestone"
-
-    # Define the summary text (first milestone with parenthesized summary)
-    milestone_summary = (
-        f'<span style="color:{config["color"]};">{config["icon"]} {html.escape(milestones[0])} ({summary_label})</span>'
-        if milestones else f"No {config['label'].lower()}"
+    # Tooltip content (full milestone list)
+    tooltip_content = "".join(
+        f'<div style="color:{color};">{icon} {html.escape(m)}</div>' for m in milestones
     )
 
-    # Tooltip hoverable component
+    # Unique ID for the tooltip
+    element_id = f"tooltip-{milestone_type}"
+
+    # Return formatted HTML with tooltip
     return f"""
     <div style="position: relative; display: inline-block;">
-        <span style="border-bottom: 1px dashed gray; cursor: pointer;" class="hover-trigger">
-            {milestone_summary}
+        <span id="{element_id}" style="border-bottom: 1px dashed gray; cursor: pointer;" class="hover-trigger">
+            {visible_milestone}
         </span>
         <div class="tooltip">
+            <strong>{label}:</strong>
             {tooltip_content}
         </div>
     </div>
     <style>
-        .tooltip {
+        .tooltip {{
             visibility: hidden;
             opacity: 0;
-            transform: translateY(5px) scale(0.95); /* Initial subtle shift and shrink */
+            transform: translateY(5px) scale(0.95);
             transition: 
                 opacity 0.3s ease-in-out, 
                 visibility 0.3s ease-in-out, 
@@ -149,15 +157,16 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
             z-index: 1;
             border: 1px solid #ddd;
             transform-origin: top center;
-        }
-    
-        .hover-trigger:hover + .tooltip {
+        }}
+
+        #{element_id}:hover + .tooltip {{
             visibility: visible;
             opacity: 1;
-            transform: translateY(0px) scale(1.1); /* Appears slightly enlarged */
-        }
+            transform: translateY(0px) scale(1.1);
+        }}
     </style>
     """
+
 
 
 
