@@ -84,57 +84,40 @@ def html_for_milestones_from_project_metadata(project_metadata, num_displayed=3 
     return ''.join(milestone_html)
 
 import html
+
 def html_for_milestones_from_project_metadata(project_metadata):
     # Extract milestone lists safely
     achieved_milestones = project_metadata.get("achieved_milestones", [])
-    pending_milestones = project_metadata.get("next_milestones", [])
+    next_milestones = project_metadata.get("next_milestones", [])
 
-    # Function to format both visible and hidden milestone elements
-    def format_milestone(milestone, color, icon):
-        return f'<div style="color:{color};">{icon} {html.escape(milestone)}</div>'
-
-    # Function to generate the tooltip content
-    def format_tooltip(milestones, color, icon, label):
+    # Define the tooltip content (full milestone lists with details)
+    def format_full_milestone_list(milestones, color, icon, label):
         if not milestones:
             return ""
-        formatted_milestones = "".join(format_milestone(m, color, icon) for m in milestones)
-        return f"<strong>{label}:</strong> {formatted_milestones}"
+        safe_milestones = [f'<div style="color:{color};">{icon} {html.escape(m)}</div>' for m in milestones]
+        return f"<strong>{label}:</strong>" + "".join(safe_milestones)
 
-    # Handle Achieved Milestones
-    if achieved_milestones:
-        first_achieved = format_milestone(achieved_milestones[0], "green", "✅")
-        achieved_label = f'and a {len(achieved_milestones) - 1} more achieved milestones' if len(achieved_milestones) > 1 else ""
-        achieved_tooltip = format_tooltip(achieved_milestones, "green", "✅", "Achieved Milestones")
-    else:
-        first_achieved = "No achieved milestones"
-        achieved_label = ""
-        achieved_tooltip = ""
+    tooltip_content = (
+        format_full_milestone_list(achieved_milestones, "green", "✅", "Achieved Milestones") +
+        format_full_milestone_list(next_milestones, "#FFB300", "🚧", "Upcoming Milestones")
+    )
 
-    # Handle Pending Milestones
-    if pending_milestones:
-        first_pending = format_milestone(pending_milestones[0], "#FFB300", "🚧")
-        pending_label = f'and a {len(pending_milestones) - 1} more pending milestones' if len(pending_milestones) > 1 else ""
-        pending_tooltip = format_tooltip(pending_milestones, "#FFB300", "🚧", "Upcoming Milestones")
-    else:
-        first_pending = "No pending milestones"
-        pending_label = ""
-        pending_tooltip = ""
-
+    # Define the summary text (first milestone + count)
+    achieved_summary = (
+        f'"{achieved_milestones[0]}" and {len(achieved_milestones)} achieved milestones'
+        if achieved_milestones else "No achieved milestones"
+    )
+    
+    # Tooltip hoverable component
     return f"""
-    <div style="display: flex; gap: 15px; align-items: center;">
-        <!-- Achieved Milestones Section -->
-        <div style="position: relative; display: inline-block;">
-            <span class="hover-trigger">{first_achieved} {achieved_label}</span>
-            <div class="tooltip">{achieved_tooltip}</div>
-        </div>
-
-        <!-- Pending Milestones Section -->
-        <div style="position: relative; display: inline-block;">
-            <span class="hover-trigger">{first_pending} {pending_label}</span>
-            <div class="tooltip">{pending_tooltip}</div>
+    <div style="position: relative; display: inline-block;">
+        <span style="border-bottom: 1px dashed gray; cursor: pointer;" class="hover-trigger">
+            {achieved_summary}
+        </span>
+        <div class="tooltip">
+            {tooltip_content}
         </div>
     </div>
-
     <style>
         .tooltip {{
             visibility: hidden;
@@ -147,21 +130,17 @@ def html_for_milestones_from_project_metadata(project_metadata):
             position: absolute;
             left: 0;
             top: 120%;
-            min-width: 100%;
-            max-width: 300px;
+            width: 300px;
             z-index: 1;
             border: 1px solid #ddd;
-        }}
-        .hover-trigger {{
-            border-bottom: 1px dashed gray;
-            cursor: pointer;
-            display: inline-block;
         }}
         .hover-trigger:hover + .tooltip {{
             visibility: visible;
         }}
     </style>
     """
+
+
 
 
 
