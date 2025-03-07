@@ -326,13 +326,26 @@ class RecommendationSystem(PortfolioSection):
     
         # Milestones section
         milestone_margin = margin_percent * 1.5  
+        
         if display_milestones:
-            milestone_html = html_for_milestones_from_project_metadata(project_metadata)
-            if milestone_html:  
+            # Render achieved milestones
+            achieved_html = html_for_milestones_from_project_metadata(project_metadata, milestone_type="achieved_milestones")
+            if achieved_html:
                 st.markdown(
-                    f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{milestone_html}</div>",
+                    f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{achieved_html}</div>",
                     unsafe_allow_html=True
                 )
+        
+            # Render upcoming milestones
+            upcoming_html = html_for_milestones_from_project_metadata(project_metadata, milestone_type="next_milestones")
+            if upcoming_html:
+                st.markdown(
+                    f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{upcoming_html}</div>",
+                    unsafe_allow_html=True
+                )
+
+
+              
     
         # Code sample count section
         project_title = project_metadata['title'].lower()
