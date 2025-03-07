@@ -83,6 +83,61 @@ def html_for_milestones_from_project_metadata(project_metadata, num_displayed=3 
 
     return ''.join(milestone_html)
 
+import html
 
+def html_for_milestones_from_project_metadata(project_metadata):
+    # Extract milestone lists safely
+    achieved_milestones = project_metadata.get("achieved_milestones", [])
+    next_milestones = project_metadata.get("next_milestones", [])
+
+    # Define the tooltip content (full milestone lists with details)
+    def format_full_milestone_list(milestones, color, icon, label):
+        if not milestones:
+            return ""
+        safe_milestones = [f'<div style="color:{color};">{icon} {html.escape(m)}</div>' for m in milestones]
+        return f"<strong>{label}:</strong>" + "".join(safe_milestones)
+
+    tooltip_content = (
+        format_full_milestone_list(achieved_milestones, "green", "✅", "Achieved Milestones") +
+        format_full_milestone_list(next_milestones, "#FFB300", "🚧", "Upcoming Milestones")
+    )
+
+    # Define the summary text (first milestone + count)
+    achieved_summary = (
+        f'"{achieved_milestones[0]}" and {len(achieved_milestones)} achieved milestones'
+        if achieved_milestones else "No achieved milestones"
+    )
+    
+    # Tooltip hoverable component
+    return f"""
+    <div style="position: relative; display: inline-block;">
+        <span style="border-bottom: 1px dashed gray; cursor: pointer;" class="hover-trigger">
+            {achieved_summary}
+        </span>
+        <div class="tooltip">
+            {tooltip_content}
+        </div>
+    </div>
+    <style>
+        .tooltip {{
+            visibility: hidden;
+            background-color: white;
+            color: black;
+            text-align: left;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            left: 0;
+            top: 120%;
+            width: 300px;
+            z-index: 1;
+            border: 1px solid #ddd;
+        }}
+        .hover-trigger:hover + .tooltip {{
+            visibility: visible;
+        }}
+    </style>
+    """
 
 
