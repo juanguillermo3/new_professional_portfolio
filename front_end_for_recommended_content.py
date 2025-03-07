@@ -95,7 +95,7 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
 
     # Return formatted HTML with tooltip
     return f"""
-    <div style="position: relative; display: inline-block;">
+    <div style="position: relative; display: flex; align-items: center;">
         <span id="{element_id}" style="border-bottom: 1px dashed gray; cursor: pointer;" class="hover-trigger">
             {visible_milestone}
         </span>
@@ -105,8 +105,7 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
         </div>
     </div>
     <style>
-    
-        .tooltip {
+        .tooltip {{
             visibility: hidden;
             opacity: 0;
             transform: translateX(10px) translateY(-50%) scale(0.95);
@@ -121,22 +120,23 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
             border-radius: 5px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             position: absolute;
-            left: 105%;
+            left: 110%;
             top: 50%;
             transform-origin: left center;
             min-width: 200px;
             max-width: 400px;
             border: 1px solid #ddd;
             white-space: nowrap;
-        }
+        }}
 
-        #{element_id}:hover + .tooltip {{
+        .hover-trigger:hover + .tooltip {{
             visibility: visible;
             opacity: 1;
-            transform: translateY(0px) scale(1.1);
+            transform: translateX(0px) translateY(-50%) scale(1.1);
         }}
     </style>
     """
+
 
 
 
