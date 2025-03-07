@@ -199,7 +199,7 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
                 visibility 0.3s ease-in-out, 
                 transform 0.3s ease-in-out;
             background-color: rgba(240, 240, 240, 0.75); /* Softer frosted effect */
-            backdrop-filter: blur(10px); /* Stronger blur for a glassy look */
+            backdrop-filter: blur(3px); /* Stronger blur for a glassy look */
             color: black;
             text-align: left;
             padding: 10px;
