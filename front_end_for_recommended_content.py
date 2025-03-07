@@ -111,27 +111,31 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
                 opacity 0.3s ease-in-out, 
                 visibility 0.3s ease-in-out, 
                 transform 0.3s ease-in-out;
-            background-color: white;
-            color: black;
+            
+            background: rgba(30, 50, 60, 0.6); /* Sci-fi dark glass effect */
+            backdrop-filter: blur(8px); /* Frosted glass */
+            color: #00ffff; /* Neon cyan text */
+            font-family: 'Orbitron', sans-serif; /* Futuristic font */
             text-align: left;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 20px rgba(0, 255, 255, 0.4); /* Neon glow */
             position: absolute;
-            left: 25%;
+            left: 50%;
             top: 120%;
-            min-width: 100%;
-            max-width: 400px;
+            min-width: 120%;
+            max-width: 450px;
             z-index: 1;
-            border: 1px solid #ddd;
+            border: 1px solid rgba(0, 255, 255, 0.6); /* Subtle neon border */
             transform-origin: top center;
         }}
-
+        
         #{element_id}:hover + .tooltip {{
             visibility: visible;
             opacity: 1;
-            transform: translateY(0px) scale(1.1);
+            transform: translateY(0px) scale(1.05);
         }}
+
     </style>
     """
 
