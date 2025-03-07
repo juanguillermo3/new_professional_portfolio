@@ -83,7 +83,7 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
     # Format milestone summary (first milestone + count)
     first_milestone = html.escape(milestones[0])
     summary = f"({len(milestones) - 1} more)" if len(milestones) > 1 else ""
-    visible_milestone = f'<div style="color:{color};">{icon} {first_milestone} {summary}</div>'
+    visible_milestone = f'{icon} {first_milestone} {summary}'
 
     # Tooltip content (full milestone list)
     tooltip_content = "".join(
@@ -93,49 +93,48 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
     # Unique ID for the tooltip
     element_id = f"tooltip-{milestone_type}"
 
-    # Return formatted HTML with tooltip
+    # Return formatted HTML with improved tooltip behavior
     return f"""
-    <div style="position: relative; display: flex; align-items: center;">
-        <span id="{element_id}" style="border-bottom: 1px dashed gray; cursor: pointer;" class="hover-trigger">
+    <div style="position: relative; display: inline-block;">
+        <div id="{element_id}" class="hover-trigger" style="border-bottom: 1px dashed gray; cursor: pointer;">
             {visible_milestone}
-        </span>
-        <div class="tooltip">
-            <strong>{label}:</strong>
-            {tooltip_content}
+            <div class="tooltip">
+                <strong>{label}:</strong>
+                {tooltip_content}
+            </div>
         </div>
     </div>
     <style>
         .tooltip {{
             visibility: hidden;
             opacity: 0;
-            transform: translateX(10px) translateY(-50%) scale(0.95);
-            transition: 
-                opacity 0.3s ease-in-out, 
-                visibility 0.3s ease-in-out, 
-                transform 0.3s ease-in-out;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out;
             background-color: white;
             color: black;
             text-align: left;
             padding: 10px;
             border-radius: 5px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
             position: absolute;
-            left: 110%;
-            top: 50%;
-            transform-origin: left center;
-            min-width: 200px;
+            left: 50%;
+            top: 100%;
+            min-width: 150px;
             max-width: 400px;
+            z-index: 999;
             border: 1px solid #ddd;
-            white-space: nowrap;
+            transform: translateX(-50%) translateY(5px) scale(0.95);
+            transform-origin: top center;
         }}
 
-        .hover-trigger:hover + .tooltip {{
+        .hover-trigger:hover .tooltip {{
             visibility: visible;
             opacity: 1;
-            transform: translateX(0px) translateY(-50%) scale(1.1);
+            transform: translateX(-50%) translateY(0px) scale(1);
         }}
     </style>
     """
+
+
 
 
 
