@@ -198,7 +198,7 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
                 opacity 0.3s ease-in-out, 
                 visibility 0.3s ease-in-out, 
                 transform 0.3s ease-in-out;
-            background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
+            background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent background */
             backdrop-filter: blur(8px); /* Frosted glass effect */
             color: black; /* Keeping text color */
             text-align: left;
@@ -206,7 +206,7 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
             border-radius: 5px;
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
             position: absolute;
-            left: 25%;
+            left: 50%;
             top: 120%;
             min-width: 100%;
             max-width: 400px;
