@@ -131,32 +131,6 @@ def html_for_milestones_from_project_metadata(project_metadata):
 
     </div>
 
-    <style>
-        .tooltip {{
-            visibility: hidden;
-            background-color: white;
-            color: black;
-            text-align: left;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            position: absolute;
-            left: 0;
-            top: 120%;
-            min-width: 100%;
-            max-width: 300px;
-            z-index: 1;
-            border: 1px solid #ddd;
-        }}
-        .hover-trigger {{
-            border-bottom: 1px dashed gray;
-            cursor: pointer;
-            display: inline-block;
-        }}
-        .hover-trigger:hover + .tooltip {{
-            visibility: visible;
-        }}
-    </style>
     """
 
 
