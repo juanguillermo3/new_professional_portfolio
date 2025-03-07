@@ -86,58 +86,57 @@ def html_for_milestones_from_project_metadata(project_metadata, num_displayed=3 
 import html
 
 def html_for_milestones_from_project_metadata(project_metadata):
-    # Extract milestone lists safely
-    achieved_milestones = project_metadata.get("achieved_milestones", [])
-    pending_milestones = project_metadata.get("next_milestones", [])
+    milestone_html = []
 
-    # Function to format both visible and hidden milestone elements
-    def format_milestone(milestone, color, icon):
-        return f'<div style="color:{color};">{icon} {html.escape(milestone)}</div>'
+    if 'achieved_milestones' in project_metadata and project_metadata['achieved_milestones']:
+        achieved_milestones = project_metadata['achieved_milestones']
+        first_achieved = f'<span style="color:green;">✅ {achieved_milestones[0]}</span>'
+        num_achieved = len(achieved_milestones) - 1
 
-    # Function to generate the tooltip content
-    def format_tooltip(milestones, color, icon, label):
-        if not milestones:
-            return ""
-        formatted_milestones = "".join(format_milestone(m, color, icon) for m in milestones)
-        return f"<strong>{label}:</strong> {formatted_milestones}"
+        achieved_tooltip = ''.join(
+            f'<div style="color:green;">✅ {m}</div>' for m in achieved_milestones
+        )
 
-    # Handle Achieved Milestones
-    if achieved_milestones:
-        first_achieved = format_milestone(achieved_milestones[0], "green", "✅")
-        achieved_label = f'and a {len(achieved_milestones) - 1} more achieved milestones' if len(achieved_milestones) > 1 else ""
-        achieved_tooltip = format_tooltip(achieved_milestones, "green", "✅", "Achieved Milestones")
-    else:
-        first_achieved = "No achieved milestones"
-        achieved_label = ""
-        achieved_tooltip = ""
+        milestone_html.append(
+            f"""
+            <div style="position: relative; display: inline-block;">
+                <div class="hover-trigger">
+                    {first_achieved} and {num_achieved} more achieved milestones
+                </div>
+                <div class="tooltip">
+                    <strong>Achieved Milestones:</strong>
+                    {achieved_tooltip}
+                </div>
+            </div>
+            """
+        )
 
-    # Handle Pending Milestones
-    if pending_milestones:
-        first_pending = format_milestone(pending_milestones[0], "#FFB300", "🚧")
-        pending_label = f'and a {len(pending_milestones) - 1} more pending milestones' if len(pending_milestones) > 1 else ""
-        pending_tooltip = format_tooltip(pending_milestones, "#FFB300", "🚧", "Upcoming Milestones")
-    else:
-        first_pending = "No pending milestones"
-        pending_label = ""
-        pending_tooltip = ""
+    if 'next_milestones' in project_metadata and project_metadata['next_milestones']:
+        next_milestones = project_metadata['next_milestones']
+        first_next = f'<span style="color:#FFB300;">🚧 {next_milestones[0]}</span>'
+        num_next = len(next_milestones) - 1
 
-    return f"""
-    <div style="display: flex; gap: 15px; align-items: center;">
-        <!-- Achieved Milestones Section -->
-        <div style="position: relative; display: inline-block;">
-            <span class="hover-trigger">{first_achieved} {achieved_label}</span>
-            <div class="tooltip">{achieved_tooltip}</div>
-        </div>
+        next_tooltip = ''.join(
+            f'<div style="color:#FFB300;">🚧 {m}</div>' for m in next_milestones
+        )
 
-        <!-- Pending Milestones Section -->
-        <div style="position: relative; display: inline-block;">
-            <span class="hover-trigger">{first_pending} {pending_label}</span>
-            <div class="tooltip">{pending_tooltip}</div>
-        </div>
-    </div>
+        milestone_html.append(
+            f"""
+            <div style="position: relative; display: inline-block; margin-left: 15px;">
+                <div class="hover-trigger">
+                    {first_next} and {num_next} more pending milestones
+                </div>
+                <div class="tooltip">
+                    <strong>Upcoming Milestones:</strong>
+                    {next_tooltip}
+                </div>
+            </div>
+            """
+        )
 
+    return ''.join(milestone_html) + """
     <style>
-        .tooltip {{
+        .tooltip {
             visibility: hidden;
             background-color: white;
             color: black;
@@ -152,17 +151,18 @@ def html_for_milestones_from_project_metadata(project_metadata):
             max-width: 300px;
             z-index: 1;
             border: 1px solid #ddd;
-        }}
-        .hover-trigger {{
+        }
+        .hover-trigger {
             border-bottom: 1px dashed gray;
             cursor: pointer;
             display: inline-block;
-        }}
-        .hover-trigger:hover + .tooltip {{
+        }
+        .hover-trigger:hover + .tooltip {
             visibility: visible;
-        }}
+        }
     </style>
     """
+
 
 
 
