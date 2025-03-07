@@ -86,10 +86,17 @@ def html_for_milestones_from_project_metadata(project_metadata, num_displayed=3 
 
 import html
 
-def html_for_milestones_from_project_metadata(project_metadata):
-    # Extract milestone lists safely
-    achieved_milestones = project_metadata.get("achieved_milestones", [])
-    next_milestones = project_metadata.get("next_milestones", [])
+def html_for_milestones_from_project_metadata(project_metadata, milestone_type="achieved_milestones"):
+    # Define milestone properties
+    milestone_config = {
+        "achieved_milestones": {"color": "green", "icon": "✅", "label": "Achieved Milestones"},
+        "next_milestones": {"color": "#FFB300", "icon": "🚧", "label": "Upcoming Milestones"}
+    }
+    
+    config = milestone_config.get(milestone_type, milestone_config["achieved_milestones"])
+    
+    # Extract the correct milestone list
+    milestones = project_metadata.get(milestone_type, [])
 
     # Define the tooltip content (full milestone lists with details)
     def format_full_milestone_list(milestones, color, icon, label):
@@ -98,25 +105,22 @@ def html_for_milestones_from_project_metadata(project_metadata):
         safe_milestones = [f'<div style="color:{color};">{icon} {html.escape(m)}</div>' for m in milestones]
         return f"<strong>{label}:</strong>" + "".join(safe_milestones)
 
-    tooltip_content = (
-        format_full_milestone_list(achieved_milestones, "green", "✅", "Achieved Milestones") +
-        format_full_milestone_list(next_milestones, "#FFB300", "🚧", "Upcoming Milestones")
-    )
+    tooltip_content = format_full_milestone_list(milestones, config["color"], config["icon"], config["label"])
 
     # Precompute summarizing label
-    summary_label = f"{len(achieved_milestones) - 1} more achieved milestones" if len(achieved_milestones) > 1 else "only milestone"
-    
+    summary_label = f"{len(milestones) - 1} more {config['label'].lower()}" if len(milestones) > 1 else "only milestone"
+
     # Define the summary text (first milestone with parenthesized summary)
-    achieved_summary = (
-        f'<span style="color:green;">✅ {html.escape(achieved_milestones[0])} ({summary_label})</span>'
-        if achieved_milestones else "No achieved milestones"
+    milestone_summary = (
+        f'<span style="color:{config["color"]};">{config["icon"]} {html.escape(milestones[0])} ({summary_label})</span>'
+        if milestones else f"No {config['label'].lower()}"
     )
 
     # Tooltip hoverable component
     return f"""
     <div style="position: relative; display: inline-block;">
         <span style="border-bottom: 1px dashed gray; cursor: pointer;" class="hover-trigger">
-            {achieved_summary}
+            {milestone_summary}
         </span>
         <div class="tooltip">
             {tooltip_content}
@@ -146,6 +150,7 @@ def html_for_milestones_from_project_metadata(project_metadata):
         }}
     </style>
     """
+
 
 
 
