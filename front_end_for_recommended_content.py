@@ -198,15 +198,15 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
                 opacity 0.3s ease-in-out, 
                 visibility 0.3s ease-in-out, 
                 transform 0.3s ease-in-out;
-            background-color: rgba(240, 240, 240, 0.75); /* Softer frosted effect */
-            backdrop-filter: blur(3px); /* Stronger blur for a glassy look */
+            background-color: rgba(240, 240, 240, 0.6); /* Softer frosted effect */
+            backdrop-filter: blur(2px); /* Stronger blur for a glassy look */
             color: black;
             text-align: left;
             padding: 10px;
             border-radius: 5px;
-            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
             position: absolute;
-            left: 50%;
+            left: 75%;
             top: 120%;
             min-width: 100%;
             max-width: 400px;
