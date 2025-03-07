@@ -168,11 +168,11 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
     # Format milestone summary (first milestone + count)
     first_milestone = html.escape(milestones[0])
     summary = f"({len(milestones) - 1} more)" if len(milestones) > 1 else ""
-    visible_milestone = f'<div style="color:{color};">{icon} {first_milestone} {summary}</div>'
+    visible_milestone = f'<div style="color:{color}; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">{icon} {first_milestone} {summary}</div>'
 
     # Tooltip content (full milestone list)
     tooltip_content = "".join(
-        f'<div style="color:{color};">{icon} {html.escape(m)}</div>' for m in milestones
+        f'<div style="color:{color}; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">{icon} {html.escape(m)}</div>' for m in milestones
     )
 
     # Unique ID for the tooltip
@@ -200,7 +200,7 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
                 transform 0.3s ease-in-out;
             background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent background */
             backdrop-filter: blur(8px); /* Frosted glass effect */
-            color: black; /* Keeping text color */
+            color: black;
             text-align: left;
             padding: 10px;
             border-radius: 5px;
@@ -211,7 +211,7 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
             min-width: 100%;
             max-width: 400px;
             z-index: 1;
-            border: 1px solid rgba(255, 255, 255, 0.4); /* Subtle border */
+            border: 1px solid rgba(255, 255, 255, 0.4);
             transform-origin: top center;
         }}
 
@@ -222,6 +222,7 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
         }}
     </style>
     """
+
 
     
 
