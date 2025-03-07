@@ -54,9 +54,6 @@ def html_for_item_data(
         </div>
     """
 
-import html
-import uuid
-
 def html_for_milestones_from_project_metadata(project_metadata, milestone_type="achieved_milestones"):
     """
     Generates an HTML snippet for displaying milestones with a tooltip.
@@ -92,7 +89,7 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
     )
 
     # Unique ID for the tooltip
-    element_id = f"tooltip-{uuid.uuid4().hex}"
+    element_id = f"tooltip-{milestone_type}"
 
     # Return formatted HTML with tooltip
     return f"""
@@ -121,17 +118,16 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
             border-radius: 5px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             position: absolute;
-            left: 50%;
+            left: 25%;
             top: 120%;
-            min-width: 200px;
+            min-width: 100%;
             max-width: 400px;
             z-index: 1;
             border: 1px solid #ddd;
             transform-origin: top center;
-            white-space: nowrap;
         }}
 
-        .hover-trigger:hover + .tooltip {{
+        #{element_id}:hover + .tooltip {{
             visibility: visible;
             opacity: 1;
             transform: translateY(0px) scale(1.1);
