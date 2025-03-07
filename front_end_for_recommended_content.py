@@ -85,7 +85,9 @@ def html_for_milestones_from_project_metadata(project_metadata, num_displayed=3 
 
 import html
 
-def html_for_milestones_from_project_metadata(project_metadata):
+import html
+
+def html_for_milestones_tooltip(project_metadata):
     # Extract milestone lists safely
     achieved_milestones = project_metadata.get("achieved_milestones", [])
     pending_milestones = project_metadata.get("next_milestones", [])
@@ -129,9 +131,41 @@ def html_for_milestones_from_project_metadata(project_metadata):
             <div class="tooltip">{achieved_tooltip}</div>
         </div>
 
+        <!-- Pending Milestones Section -->
+        <div style="position: relative; display: inline-block;">
+            <span class="hover-trigger">{first_pending} {pending_label}</span>
+            <div class="tooltip">{pending_tooltip}</div>
+        </div>
     </div>
 
+    <style>
+        .tooltip {{
+            visibility: hidden;
+            background-color: white;
+            color: black;
+            text-align: left;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            left: 0;
+            top: 120%;
+            min-width: 100%;
+            max-width: 300px;
+            z-index: 1;
+            border: 1px solid #ddd;
+        }}
+        .hover-trigger {{
+            border-bottom: 1px dashed gray;
+            cursor: pointer;
+            display: inline-block;
+        }}
+        .hover-trigger:hover + .tooltip {{
+            visibility: visible;
+        }}
+    </style>
     """
+
 
 
 
