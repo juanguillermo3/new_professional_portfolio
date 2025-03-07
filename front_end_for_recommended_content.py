@@ -129,11 +129,6 @@ def html_for_milestones_from_project_metadata(project_metadata):
             <div class="tooltip">{achieved_tooltip}</div>
         </div>
 
-        <!-- Pending Milestones Section -->
-        <div style="position: relative; display: inline-block;">
-            <span class="hover-trigger">{first_pending} {pending_label}</span>
-            <div class="tooltip">{pending_tooltip}</div>
-        </div>
     </div>
 
     <style>
