@@ -224,6 +224,7 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
         }}
     </style>
     """
+    
 
 
 
