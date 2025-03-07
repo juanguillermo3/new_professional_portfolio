@@ -85,9 +85,7 @@ def html_for_milestones_from_project_metadata(project_metadata, num_displayed=3 
 
 import html
 
-import html
-
-def html_for_milestones_tooltip(project_metadata):
+def html_for_milestones_from_project_metadata(project_metadata):
     # Extract milestone lists safely
     achieved_milestones = project_metadata.get("achieved_milestones", [])
     pending_milestones = project_metadata.get("next_milestones", [])
@@ -165,7 +163,6 @@ def html_for_milestones_tooltip(project_metadata):
         }}
     </style>
     """
-
 
 
 
