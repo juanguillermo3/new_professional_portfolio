@@ -83,7 +83,6 @@ def html_for_milestones_from_project_metadata(project_metadata, num_displayed=3 
 
     return ''.join(milestone_html)
 
-import html
 
 def html_for_milestones_from_project_metadata(project_metadata):
     # Extract milestone lists safely
@@ -102,9 +101,9 @@ def html_for_milestones_from_project_metadata(project_metadata):
         format_full_milestone_list(next_milestones, "#FFB300", "🚧", "Upcoming Milestones")
     )
 
-    # Define the summary text (first milestone + count)
+    # Define the summary text (first milestone styled the same way as in the tooltip)
     achieved_summary = (
-        f'"{achieved_milestones[0]}" and {len(achieved_milestones)} achieved milestones'
+        f'<div style="color:green;">✅ {html.escape(achieved_milestones[0])}</div> and {len(achieved_milestones) - 1} more achieved milestones'
         if achieved_milestones else "No achieved milestones"
     )
     
@@ -142,6 +141,7 @@ def html_for_milestones_from_project_metadata(project_metadata):
         }}
     </style>
     """
+
 
 
 
