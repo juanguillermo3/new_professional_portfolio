@@ -165,7 +165,7 @@ def _custom_tooltip_with_frost_glass_html(element_id: str, tooltip_text: str, **
     # Default design parameters
     default_params = {
         "tooltip_bg": "rgba(240, 240, 240, 0.3)",  # More transparency for better frosted effect
-        "tooltip_blur": "4px",  # Stronger blur for depth
+        "tooltip_blur": "10px",  # Stronger blur for depth
         "text_color": "black",
         "padding": "12px",
         "border_radius": "12px",
