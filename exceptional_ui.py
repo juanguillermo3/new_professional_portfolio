@@ -74,17 +74,40 @@ def apply_custom_tooltip(element_id: str, tooltip_text: str, sys_prompt: str = "
 #
 # (2)
 #
-def _custom_tooltip_with_frost_glass_html(element_id: str, tooltip_text: str) -> str:
+def _custom_tooltip_with_frost_glass_html(element_id: str, tooltip_text: str, **design_params) -> str:
     """
-    Generates the HTML + CSS for a frosted glass tooltip applied to an existing component.
+    Generates the HTML + CSS for a frosted glass tooltip with customizable design parameters.
     
     Args:
         element_id (str): The ID of the element to attach the tooltip to.
         tooltip_text (str): The tooltip content.
+        **design_params: Dictionary containing aesthetic parameters to override defaults.
     
     Returns:
         str: The formatted CSS and HTML for the tooltip with a frosted glass effect.
     """
+    
+    # Default design parameters
+    default_params = {
+        "tooltip_bg": "rgba(240, 240, 240, 0.7)",
+        "tooltip_blur": "3px",
+        "text_color": "black",
+        "padding": "10px",
+        "border_radius": "8px",
+        "font_size": "14px",
+        "box_shadow": "0px 4px 15px rgba(0, 0, 0, 0.1)",
+        "border": "1px solid rgba(200, 200, 200, 0.5)",
+        "opacity": "0",
+        "visibility": "hidden",
+        "transition": "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out",
+        "hover_opacity": "1",
+        "hover_transform": "translateX(-50%) scale(1.05)",
+        "default_transform": "translateX(-50%) scale(0.95)",
+    }
+    
+    # Override defaults with user-supplied values
+    params = {**default_params, **design_params}
+    
     return f"""
     <style>
     #{element_id} {{
@@ -98,29 +121,26 @@ def _custom_tooltip_with_frost_glass_html(element_id: str, tooltip_text: str) ->
         position: absolute;
         bottom: 120%;
         left: 50%;
-        transform: translateX(-50%) scale(0.95);
-        background: rgba(240, 240, 240, 0.7); /* Frosted effect */
-        backdrop-filter: blur(3px); /* Stronger blur for a glassy look */
-        color: black;
-        padding: 10px;
-        border-radius: 8px;
-        font-size: 14px;
+        transform: {params["default_transform"]};
+        background: {params["tooltip_bg"]};
+        backdrop-filter: blur({params["tooltip_blur"]});
+        color: {params["text_color"]};
+        padding: {params["padding"]};
+        border-radius: {params["border_radius"]};
+        font-size: {params["font_size"]};
         white-space: nowrap;
-        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-        border: 1px solid rgba(200, 200, 200, 0.5);
-        opacity: 0;
-        visibility: hidden;
-        transition: 
-            opacity 0.3s ease-in-out, 
-            visibility 0.3s ease-in-out, 
-            transform 0.3s ease-in-out;
-        pointer-events: none; /* Prevents accidental hover issues */
+        box-shadow: {params["box_shadow"]};
+        border: {params["border"]};
+        opacity: {params["opacity"]};
+        visibility: {params["visibility"]};
+        transition: {params["transition"]};
+        pointer-events: none;
     }}
 
     #{element_id}:hover::after {{
-        opacity: 1;
+        opacity: {params["hover_opacity"]};
         visibility: visible;
-        transform: translateX(-50%) scale(1.05); /* Slightly enlarges on hover */
+        transform: {params["hover_transform"]};
     }}
     </style>
     """
