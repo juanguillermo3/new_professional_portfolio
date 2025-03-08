@@ -185,7 +185,13 @@ class HeroArea:
         """
         tooltip_html = ""
         for element_id, tooltip_text in self.tooltip_content.items():
-            tooltip_html += _custom_tooltip_with_frost_glass_html(element_id, tooltip_text)
+            tooltip_html += _custom_tooltip_with_frost_glass_html(
+            element_id,
+            tooltip_text,
+            tooltip_top_pos="100%",  # Places it below the element
+            tooltip_bottom_pos="auto",  # Removes default positioning
+            tooltip_left_pos="60%",  # Moves it slightly to the right
+            )
         return tooltip_html
 
   
