@@ -190,7 +190,7 @@ class HeroArea:
             tooltip_text,
             tooltip_top_pos="100%",  # Places it below the element
             tooltip_bottom_pos="auto",  # Removes default positioning
-            tooltip_left_pos="60%",  # Moves it slightly to the right
+            tooltip_left_pos="80%",  # Moves it slightly to the right
             )
         return tooltip_html
 
