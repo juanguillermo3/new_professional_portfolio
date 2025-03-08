@@ -58,7 +58,7 @@ st.markdown("""
 #display_floating_whatsapp_button( whatsapp_number=WHATSAPP_NUMBER, horizontal_position= "65%",)
 #close_floating_buttons_container()
 
-st.title("Welcome to My Professional Site")
+st.title("Juan Guillermo Osío J")
 
 # **Hero Section (Always Rendered)**
 hero.render()
