@@ -89,9 +89,9 @@ def _custom_tooltip_with_frost_glass_html(element_id: str, tooltip_text: str, **
     
     # Default design parameters
     default_params = {
-        "tooltip_bottom_pos": "120%",  # Default: above the element
-        "tooltip_left_pos": "50%",  # Default: centered
-        "tooltip_top_pos": "auto",  # Auto unless overridden
+        "tooltip_bottom_pos": "120%",  
+        "tooltip_left_pos": "50%",  
+        "tooltip_top_pos": "auto",  
         "tooltip_bg": "rgba(240, 240, 240, 0.3)",
         "tooltip_blur": "10px",
         "text_color": "black",
@@ -108,6 +108,7 @@ def _custom_tooltip_with_frost_glass_html(element_id: str, tooltip_text: str, **
         "default_transform": "translateX(-50%) scale(0.95) translateZ(0)",
         "tooltip_width": "66%",
         "background_gradient": "radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 100%)",
+        "z_index": "9999",  # Ensures tooltip appears on top
     }
     
     # Override defaults with user-supplied values
@@ -144,6 +145,7 @@ def _custom_tooltip_with_frost_glass_html(element_id: str, tooltip_text: str, **
         visibility: {params["visibility"]};
         transition: {params["transition"]};
         pointer-events: none;
+        z-index: {params["z_index"]};  /* Tooltip stays on top */
     }}
 
     #{element_id}:hover::after {{
@@ -167,6 +169,7 @@ def _custom_tooltip_with_frost_glass_html(element_id: str, tooltip_text: str, **
     }}
     </style>
     """
+
 
 
 
