@@ -27,19 +27,19 @@ def load_detailed_offering():
     offering = """
     <h3>(5+1) Key Differentials of My Professional Offering</h3>
     <ol style="padding-left: 20px;">
-        <li style="background-color: #f0f0f0; padding: 8px; border-radius: 4px;">
+        <li id="offering-1" style="background-color: #f0f0f0; padding: 8px; border-radius: 4px;">
             <strong>High-Performance Predictive Analytics</strong>: I research and implement techniques for regression, classification, and forecasting use cases, 
             with applications ranging from macroeconomic and financial forecasting to microdata predictions in various systems.
         </li>
-        <li style="background-color: #ffffff; padding: 8px; border-radius: 4px;">
+        <li id="offering-2" style="background-color: #ffffff; padding: 8px; border-radius: 4px;">
             <strong>Software for Inference Distribution</strong>: I develop applications (batch scripts, APIs, dashboards, web applications) to distribute insights 
             and predictions across corporate environments.
         </li>
-        <li style="background-color: #f0f0f0; padding: 8px; border-radius: 4px;">
+        <li id="offering-3" style="background-color: #f0f0f0; padding: 8px; border-radius: 4px;">
             <strong>Data Transformation Expertise</strong>: As my former boss Susana Martinez Restrepo said, "I can perform data miracles." This refers to my 
             ability to clean and organize datasets from complex, multi-source environments for research and model development.
         </li>
-        <li style="background-color: #ffffff; padding: 8px; border-radius: 4px;">
+        <li id="offering-4" style="background-color: #ffffff; padding: 8px; border-radius: 4px;">
             <strong>Holistic Understanding of Modern Tooling</strong>: I integrate tools and technologies for modern data analysis, committing to research the 
             unique purposes of each tool and efficiently write workflows around them using GPT.
             <ul style="list-style-type: none; padding-left: 0;">
@@ -48,10 +48,10 @@ def load_detailed_offering():
                 <li><strong>Currently Learning:</strong> Docker, Kubernetes, GitHub, Big Data Cloud tools, SQLAlchemy, Django</li>
             </ul>
         </li>
-        <li style="background-color: #f0f0f0; padding: 8px; border-radius: 4px;">
+        <li id="offering-5" style="background-color: #f0f0f0; padding: 8px; border-radius: 4px;">
             <strong>AI & LLM Disruption in Software Development</strong>: I prepare myself by means of self-learning for the disruption of Artificial Intelligence in software development and the rise of LLM-powered applications.
         </li>
-        <li style="background-color: #ffffff; padding: 8px; border-radius: 4px;">
+        <li id="offering-6" style="background-color: #ffffff; padding: 8px; border-radius: 4px;">
             <strong>Bonus: Rigorous Economic Mindset</strong>: As a professional economist, I over-simplify complex social phenomena by casually referencing supply and demand (kidding!).  
             But really, I approach data analysis with a focus on causal reasoning, marginal effects, and counterfactual analysis.
         </li>
@@ -59,6 +59,7 @@ def load_detailed_offering():
     """
     
     return offering
+
 
 def load_code_samples():
     return [
