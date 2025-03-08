@@ -103,6 +103,7 @@ def _custom_tooltip_with_frost_glass_html(element_id: str, tooltip_text: str, **
         "hover_opacity": "1",
         "hover_transform": "translateX(-50%) scale(1.05)",
         "default_transform": "translateX(-50%) scale(0.95)",
+        "tooltip_width": "80%",  # Default width as percentage of the parent
     }
     
     # Override defaults with user-supplied values
@@ -128,7 +129,10 @@ def _custom_tooltip_with_frost_glass_html(element_id: str, tooltip_text: str, **
         padding: {params["padding"]};
         border-radius: {params["border_radius"]};
         font-size: {params["font_size"]};
-        white-space: nowrap;
+        white-space: normal;
+        word-wrap: break-word;
+        width: {params["tooltip_width"]};
+        text-align: center;
         box-shadow: {params["box_shadow"]};
         border: {params["border"]};
         opacity: {params["opacity"]};
@@ -144,4 +148,5 @@ def _custom_tooltip_with_frost_glass_html(element_id: str, tooltip_text: str, **
     }}
     </style>
     """
+
 
