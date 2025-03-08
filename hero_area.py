@@ -159,10 +159,10 @@ class HeroArea:
                 self._render_biopic_section()
     
         # Expandable Detailed Offering Section
-        expander_label = "Explore more (details)"
-        with st.expander(expander_label, expanded=True):
-            st.markdown(self.detailed_offering, unsafe_allow_html=True)
-            self.render_code_samples()
+        #expander_label = "Explore more (details)"
+        #with st.expander(expander_label, expanded=True):
+        #    st.markdown(self.detailed_offering, unsafe_allow_html=True)
+        #    self.render_code_samples()
   
         
 # Instantiate and render HeroArea with data loaded from the loader functions
