@@ -89,24 +89,25 @@ def _custom_tooltip_with_frost_glass_html(element_id: str, tooltip_text: str, **
     
     # Default design parameters
     default_params = {
-        "tooltip_bottom_pos": "120%",  # Tooltip position relative to the element
-        "tooltip_left_pos": "50%",
-        "tooltip_bg": "rgba(240, 240, 240, 0.3)",  # More transparency for better frosted effect
-        "tooltip_blur": "10px",  # Stronger blur for depth
+        "tooltip_bottom_pos": "120%",  # Default: above the element
+        "tooltip_left_pos": "50%",  # Default: centered
+        "tooltip_top_pos": "auto",  # Auto unless overridden
+        "tooltip_bg": "rgba(240, 240, 240, 0.3)",
+        "tooltip_blur": "10px",
         "text_color": "black",
         "padding": "12px",
         "border_radius": "12px",
         "font_size": "14px",
-        "box_shadow": "0px 12px 30px rgba(0, 0, 0, 0.2), 0px 2px 4px rgba(255, 255, 255, 0.2)",  # Layered shadows
+        "box_shadow": "0px 12px 30px rgba(0, 0, 0, 0.2), 0px 2px 4px rgba(255, 255, 255, 0.2)",
         "border": "1px solid rgba(200, 200, 200, 0.3)",
         "opacity": "0",
         "visibility": "hidden",
         "transition": "opacity 0.3s ease-in-out, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)",
         "hover_opacity": "1",
-        "hover_transform": "translateX(-50%) scale(1.08)",  # Slight hover magnification
-        "default_transform": "translateX(-50%) scale(0.95) translateZ(0)",  # Simulates 3D presence
+        "hover_transform": "translateX(-50%) scale(1.08)",
+        "default_transform": "translateX(-50%) scale(0.95) translateZ(0)",
         "tooltip_width": "66%",
-        "background_gradient": "radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 100%)",  # Light depth effect
+        "background_gradient": "radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 100%)",
     }
     
     # Override defaults with user-supplied values
@@ -123,6 +124,7 @@ def _custom_tooltip_with_frost_glass_html(element_id: str, tooltip_text: str, **
     #{element_id}::after {{
         content: '{tooltip_text}';
         position: absolute;
+        top: {params["tooltip_top_pos"]};
         bottom: {params["tooltip_bottom_pos"]};
         left: {params["tooltip_left_pos"]};
         transform: {params["default_transform"]};
@@ -165,6 +167,7 @@ def _custom_tooltip_with_frost_glass_html(element_id: str, tooltip_text: str, **
     }}
     </style>
     """
+
 
 
 
