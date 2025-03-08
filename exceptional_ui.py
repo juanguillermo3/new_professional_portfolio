@@ -178,7 +178,7 @@ def _custom_tooltip_with_frost_glass_html(element_id: str, tooltip_text: str, **
         "hover_opacity": "1",
         "hover_transform": "translateX(-50%) scale(1.08)",  # Slight hover magnification
         "default_transform": "translateX(-50%) scale(0.95) translateZ(0)",  # Simulates 3D presence
-        "tooltip_width": "40%",
+        "tooltip_width": "66%",
         "background_gradient": "radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 100%)",  # Light depth effect
     }
     
