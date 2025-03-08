@@ -11,11 +11,12 @@ from hero_area_data_loader import (
     load_quote, 
     load_avatar_caption, 
     load_code_samples, 
-    load_detailed_offering
+    load_detailed_offering,
+    load_tooltips_for_detailed_offerings
 )
 from front_end_utils import tags_in_twitter_style
 from dotenv import load_dotenv
-from exceptional_ui import apply_custom_tooltip
+from exceptional_ui import apply_custom_tooltip, _custom_tooltip_with_frost_glass_html
 
 # Load environment variables
 load_dotenv()
@@ -26,12 +27,19 @@ DEFAULT_EMAILS = [
 ]
 
 class HeroArea:
-    def __init__(self, quote, avatar_image: str = None, avatar_caption: str = "", avatar_tags: list = None,
-                 code_samples: list = None, code_samples_intro: str = "I’ve highlighted the following code samples from my ML consulting projects as examples of my work.",
+    def __init__(self, 
+                 quote, 
+                 avatar_image: str = None, 
+                 avatar_caption: str = "", 
+                 avatar_tags: list = None,
+                 code_samples: list = None, 
+                 code_samples_intro: str = "I’ve highlighted the following code samples from my ML consulting projects as examples of my work.",
                  whatsapp_number: str = WHATSAPP_NUMBER, 
                  contact_button_intro: str = "Interested in collaborating? Let's discuss how I can bring value to your project. I'm ready to help when you are.",
                  professional_offering: str = "Professional offering description.",
-                 detailed_offering: str = "Detailed offering description"):
+                 detailed_offering: str = "Detailed offering description.",
+                 tooltip_content: dict = None):  # Added tooltip content loader
+        
         self.quote = quote if isinstance(quote, list) else [quote]
         self.avatar_image = avatar_image
         self.avatar_caption = avatar_caption
@@ -42,6 +50,7 @@ class HeroArea:
         self.contact_button_intro = contact_button_intro
         self.professional_offering = professional_offering
         self.detailed_offering = detailed_offering
+        self.tooltip_content = tooltip_content if tooltip_content is not None else load_tooltips_for_detailed_offerings()  # Load tooltips
 
     def render_code_samples(self):
         st.markdown(f'<p class="code-samples-intro">{self.code_samples_intro}</p>', unsafe_allow_html=True)
@@ -130,11 +139,10 @@ class HeroArea:
     
         st.markdown('</div>', unsafe_allow_html=True)
 
-
       
     def render(self):
         col1, col2 = st.columns([2, 1])
-        
+    
         # Render Quote Section
         with col1:
             st.markdown("""<style>
@@ -163,6 +171,23 @@ class HeroArea:
         with st.expander(expander_label, expanded=True):
             st.markdown(self.detailed_offering, unsafe_allow_html=True)
             self.render_code_samples()
+    
+            # Generate and apply custom tooltips
+            tooltip_html = self._generate_tooltip_html()
+            st.markdown(tooltip_html, unsafe_allow_html=True)
+    
+    def _generate_tooltip_html(self) -> str:
+        """
+        Generates the HTML + CSS for tooltips based on the loaded tooltip content.
+        
+        Returns:
+            str: The formatted CSS and HTML for the tooltips.
+        """
+        tooltip_html = ""
+        for element_id, tooltip_text in self.tooltip_content.items():
+            tooltip_html += _custom_tooltip_with_frost_glass_html(element_id, tooltip_text)
+        return tooltip_html
+
   
         
 # Instantiate and render HeroArea with data loaded from the loader functions
