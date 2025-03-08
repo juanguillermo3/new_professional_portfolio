@@ -230,10 +230,10 @@ def _custom_tooltip_with_frost_glass_html(element_id: str, tooltip_text: str, **
 
     @keyframes floatingTooltip {{
         0% {{
-            transform: translateX(-50%) translateY(0) scale(1.08);
+            transform: translateX(-50%) translateY(0) scale(1.06);
         }}
         100% {{
-            transform: translateX(-50%) translateY(-2px) scale(1.1);
+            transform: translateX(-50%) translateY(-1px) scale(1.06);
         }}
     }}
     </style>
