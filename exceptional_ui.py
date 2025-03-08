@@ -121,10 +121,11 @@ def _custom_tooltip_with_frost_glass_html(element_id: str, tooltip_text: str, **
     }}
 
     #{element_id}::after {{
+
         content: '{tooltip_text}';
         position: absolute;
-        bottom: : {params["tooltip_bottom_pos"]}; 
-        left: {params["tooltip_left_pos"]};
+        bottom: 120%;
+        left: 50%;
         transform: {params["default_transform"]};
         background: {params["tooltip_bg"]}, {params["background_gradient"]};
         backdrop-filter: blur({params["tooltip_blur"]});
