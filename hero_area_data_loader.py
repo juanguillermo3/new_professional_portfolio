@@ -1,3 +1,4 @@
+import json
 
 def load_quote():
     return [
@@ -60,6 +61,19 @@ def load_detailed_offering():
     
     return offering
 
+def load_tooltips_for_detailed_offerings():
+    tooltips = {
+        "offering-1": "Predictive analytics involves using statistical techniques and machine learning to forecast future outcomes based on historical data.",
+        "offering-2": "Inference distribution ensures that insights generated from models reach stakeholders via APIs, dashboards, or batch reports.",
+        "offering-3": "Data transformation converts raw, unstructured data into a structured, usable format for analysis and machine learning.",
+        "offering-4": "Modern data tooling involves integrating various technologies to create efficient, scalable workflows for data-driven decision-making.",
+        "offering-5": "AI and large language models (LLMs) are reshaping software development by automating coding, debugging, and decision-making.",
+        "offering-6": "An economic mindset applies principles like supply & demand, marginal effects, and counterfactual analysis to data interpretation.",
+        "offering-999": "This is a non-existent tooltip for testing error handling.",  # Mock non-existent ID
+        "offering-X": "Another non-existent tooltip to ensure system robustness."  # Mock non-existent ID
+    }
+    
+    return json.dumps(tooltips, indent=4)
 
 def load_code_samples():
     return [
