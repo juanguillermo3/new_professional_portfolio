@@ -73,7 +73,7 @@ def load_tooltips_for_detailed_offerings():
         "offering-X": "Another non-existent tooltip to ensure system robustness."  # Mock non-existent ID
     }
     
-    return json.dumps(tooltips, indent=4)
+    return tooltips 
 
 def load_code_samples():
     return [
