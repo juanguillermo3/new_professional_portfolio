@@ -89,8 +89,8 @@ def _custom_tooltip_with_frost_glass_html(element_id: str, tooltip_text: str, **
     
     # Default design parameters
     default_params = {
-        "tooltip_bottom_pos":"120%", 
-        "tooltip_left_pos":"50%",
+        "tooltip_bottom_pos": "120%",  # Tooltip position relative to the element
+        "tooltip_left_pos": "50%",
         "tooltip_bg": "rgba(240, 240, 240, 0.3)",  # More transparency for better frosted effect
         "tooltip_blur": "10px",  # Stronger blur for depth
         "text_color": "black",
@@ -121,11 +121,10 @@ def _custom_tooltip_with_frost_glass_html(element_id: str, tooltip_text: str, **
     }}
 
     #{element_id}::after {{
-
         content: '{tooltip_text}';
         position: absolute;
-        bottom: 120%;
-        left: 50%;
+        bottom: {params["tooltip_bottom_pos"]};
+        left: {params["tooltip_left_pos"]};
         transform: {params["default_transform"]};
         background: {params["tooltip_bg"]}, {params["background_gradient"]};
         backdrop-filter: blur({params["tooltip_blur"]});
@@ -166,4 +165,6 @@ def _custom_tooltip_with_frost_glass_html(element_id: str, tooltip_text: str, **
     }}
     </style>
     """
+
+
 
