@@ -196,7 +196,8 @@ hero = HeroArea(
     avatar_image="jg_pick.jpg",
     avatar_caption="",
     avatar_tags=["Economist", "Data Analyst", "ML Engineer", "Data Engineer", "Application Developer"],
-    detailed_offering=load_detailed_offering()
+    detailed_offering=load_detailed_offering(),
+    tooltip_content=load_tooltips_for_detailed_offerings()
 )
 
 
