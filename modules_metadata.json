@@ -977,7 +977,7 @@
   {
     "title": "Perform Exploratory Analysis",
     "description": "Merges the data sources for spatial analysis and produces exploratory plots",
-    "image_path": "{assets/stores_summary.html,assets/plot_store_location_*}",
+    "image_path": "assets/stores_summary.html",
     "libraries": [
       "dotenv",
       "plotly_styles",
