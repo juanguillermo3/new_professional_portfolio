@@ -539,7 +539,7 @@
     "file_path": "behavioural_analysis.R",
     "repo_name": "monkey_research",
     "galleria": "True",
-    "file_type": ".r" 
+    "file_type": ".r"
   },
   {
     "title": "Bootstrapping",
@@ -958,5 +958,171 @@
     "url": "https://github.com/juanguillermo3/sales_forecasting_with_genetic_neural_networks/blob/main/plot_sales.py",
     "file_path": "plot_sales.py",
     "repo_name": "sales_forecasting_with_genetic_neural_networks"
+  },
+  {
+    "title": "Data Manager",
+    "description": "Handles ingestion merge and exploratory plottin of 3 data sources              for spatial analysis.",
+    "libraries": [
+      "geopandas",
+      "pandas",
+      "numpy",
+      "folium",
+      "plotly"
+    ],
+    "last_updated": "2025-03-09T07:08:43Z",
+    "url": "https://github.com/juanguillermo3/site_recommendation_system/blob/main/data_manager.py",
+    "file_path": "data_manager.py",
+    "repo_name": "site_recommendation_system"
+  },
+  {
+    "title": "Perform Exploratory Analysis",
+    "description": "Merges the data sources for spatial analysis and produces exploratory plots",
+    "image_path": "{stores_summary.html,plot_store_location_*}",
+    "libraries": [
+      "dotenv",
+      "plotly_styles",
+      "os",
+      "data_manager",
+      "spatial_features",
+      "spatial_frame",
+      "stores_placements"
+    ],
+    "last_updated": "2025-03-09T07:08:43Z",
+    "url": "https://github.com/juanguillermo3/site_recommendation_system/blob/main/perform_exploratory_analysis.py",
+    "file_path": "perform_exploratory_analysis.py",
+    "repo_name": "site_recommendation_system"
+  },
+  {
+    "title": "Perform Spatial Baseline",
+    "description": "Performs the training of baseline model to predict store placements from underlyng              zip data",
+    "image_path": "plot_probabilities_*",
+    "libraries": [
+      "dotenv",
+      "plotly_styles",
+      "spatial_baseline",
+      "os",
+      "spatial_features",
+      "spatial_frame",
+      "stores_placements"
+    ],
+    "last_updated": "2025-03-09T07:08:43Z",
+    "url": "https://github.com/juanguillermo3/site_recommendation_system/blob/main/perform_spatial_baseline.py",
+    "file_path": "perform_spatial_baseline.py",
+    "repo_name": "site_recommendation_system"
+  },
+  {
+    "title": "Perform Spatial Correlation Analysis",
+    "description": "Performs the Spatial Correlation Analysis",
+    "image_path": "{correlation_bars.html,plot_store_location_with_proximity_*}",
+    "libraries": [
+      "dotenv",
+      "plotly_styles",
+      "spatial_correlation",
+      "os",
+      "spatial_features",
+      "spatial_frame",
+      "stores_placements"
+    ],
+    "last_updated": "2025-03-09T07:08:43Z",
+    "url": "https://github.com/juanguillermo3/site_recommendation_system/blob/main/perform_spatial_correlation_analysis.py",
+    "file_path": "perform_spatial_correlation_analysis.py",
+    "repo_name": "site_recommendation_system"
+  },
+  {
+    "title": "plot styles",
+    "description": "Defines several decorators to distributes a custom styles across the plotly figures of a project,              thus providing standardization and a cohesive style. Full suport on plotly. Partial support on Folium              maps",
+    "libraries": [
+      "textwrap",
+      "folium",
+      "plotly",
+      "functools"
+    ],
+    "last_updated": "2025-03-09T07:08:43Z",
+    "url": "https://github.com/juanguillermo3/site_recommendation_system/blob/main/plot_styles.py",
+    "file_path": "plot_styles.py",
+    "repo_name": "site_recommendation_system"
+  },
+  {
+    "title": "Spatial Baseline",
+    "description": "Elaborates SpatialBaseline. It provides a baseline ML model to predict store placements              from underlyng data about the zip codes.",
+    "libraries": [
+      "warnings",
+      "geopandas",
+      "pandas",
+      "sklearn",
+      "spatial_correlation",
+      "branca",
+      "shapely",
+      "numpy",
+      "folium",
+      "plotly"
+    ],
+    "last_updated": "2025-03-09T07:08:43Z",
+    "url": "https://github.com/juanguillermo3/site_recommendation_system/blob/main/spatial_baseline.py",
+    "file_path": "spatial_baseline.py",
+    "repo_name": "site_recommendation_system"
+  },
+  {
+    "title": "Spatial Correlation",
+    "description": "Elaborates StoreLocationDataManager. It provides methods to asses the correlation pattern              between zip level features and the stores location.",
+    "libraries": [
+      "warnings",
+      "geopandas",
+      "dotenv",
+      "pandas",
+      "sklearn",
+      "os",
+      "data_manager",
+      "shapely",
+      "folium",
+      "plotly"
+    ],
+    "last_updated": "2025-03-09T07:08:43Z",
+    "url": "https://github.com/juanguillermo3/site_recommendation_system/blob/main/spatial_correlation.py",
+    "file_path": "spatial_correlation.py",
+    "repo_name": "site_recommendation_system"
+  },
+  {
+    "title": "Spatial Features",
+    "description": "Provides a dataframe with zip level spatial features from the US",
+    "libraries": [
+      "os",
+      "dotenv",
+      "pandas",
+      "re"
+    ],
+    "last_updated": "2025-03-09T07:08:43Z",
+    "url": "https://github.com/juanguillermo3/site_recommendation_system/blob/main/spatial_features.py",
+    "file_path": "spatial_features.py",
+    "repo_name": "site_recommendation_system"
+  },
+  {
+    "title": "Spatial Frame Processing",
+    "description": "This script processes spatial data from shapefiles and standardizes ZIP codes.",
+    "libraries": [
+      "geopandas",
+      "os",
+      "dotenv"
+    ],
+    "last_updated": "2025-03-09T07:08:43Z",
+    "url": "https://github.com/juanguillermo3/site_recommendation_system/blob/main/spatial_frame.py",
+    "file_path": "spatial_frame.py",
+    "repo_name": "site_recommendation_system"
+  },
+  {
+    "title": "Store Placements Processing",
+    "description": "This script processes store locations and standardizes ZIP codes.",
+    "libraries": [
+      "geopandas",
+      "dotenv",
+      "pandas",
+      "os",
+      "numpy",
+      "plotly"
+    ],
+    "last_updated": "2025-03-09T07:08:43Z",
+    "url": "https://github.com/juanguillermo3/site_recommendation_system/blob/main/stores_placements.py",
+    "file_path": "stores_placements.py",
+    "repo_name": "site_recommendation_system"
   }
 ]
