@@ -58,7 +58,7 @@ def html_for_item_data(
         <div style="background-color: {background_color}; border: {border_style}; 
                     border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
                     padding: 10px; height: {card_height}; 
-                    overflow: visible; /* Allow tooltip visibility */
+                    overflow: visible; 
                     display: flex; flex-direction: column; justify-content: space-between; 
                     position: relative;">
                     
