@@ -58,9 +58,8 @@ def html_for_item_data(
         <div style="background-color: {background_color}; border: {border_style}; 
                     border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
                     padding: 10px; height: {card_height}; 
-                    overflow: visible; 
                     display: flex; flex-direction: column; justify-content: space-between; 
-                    position: relative;">
+                    position: relative; overflow: visible; /* Allow tooltip to be visible */">
                     
             <div style="background-color: rgba(255, 255, 255, 0.7); 
                         padding: 5px 10px; border-radius: 10px 10px 0 0; 
@@ -69,8 +68,8 @@ def html_for_item_data(
             </div>
             
             <div id="{card_id}" 
-                 style="flex-grow: 1; padding: 10px; overflow: visible; /* Fix tooltip visibility */
-                        text-align: justify; position: relative;">
+                 style="flex-grow: 1; padding: 10px; overflow-y: auto; 
+                        text-align: justify; position: relative; max-height: calc({card_height} - 50px);">
                 {description}
             </div>
         </div>
