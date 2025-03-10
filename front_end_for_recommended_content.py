@@ -26,7 +26,9 @@ def id_from_item_data(rec):
     unique_hash = hashlib.md5((rec.get('title', '') + rec.get('description', '')).encode()).hexdigest()
     return unique_hash
 
- def html_for_item_data(
+
+
+def html_for_item_data(
     rec,
     badge_rules=None,
     background_color="#f4f4f4",
@@ -70,7 +72,6 @@ def id_from_item_data(rec):
             </div>
         </div>
     """
-
 
 
 def html_for_milestones_from_project_metadata(project_metadata, milestone_type="achieved_milestones"):
