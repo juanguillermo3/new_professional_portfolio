@@ -120,7 +120,12 @@ def html_for_item_data(
         </div>
     """ + _custom_tooltip_with_frost_glass_html(
         card_id,
-        f"{rec['title']}",
+        f"{
+            rec['title']+rec['description']
+        }",
+        tooltip_top_pos="100%",  # Places it below the element
+        tooltip_bottom_pos="auto",  # Removes default positioning
+        tooltip_left_pos="80%",  # Moves it slightly to the right
     )
 
 def html_for_milestones_from_project_metadata(project_metadata, milestone_type="achieved_milestones"):
