@@ -133,7 +133,7 @@ def frost_glass_mosaic(element_id: str, tooltip_texts: list[str], **design_param
         "tooltip_width": "66%",
         "background_gradient": "radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 100%)",
         "z_index": "9999",
-        "gap": "6px"  # Spacing between stacked tooltips
+        "gap": "8px"  # Adjusted spacing between stacked tooltips
     }
     
     # Override defaults with user-supplied values
@@ -144,7 +144,7 @@ def frost_glass_mosaic(element_id: str, tooltip_texts: list[str], **design_param
         f"""
         #{element_id} .tooltip-{i} {{
             position: absolute;
-            top: {i * 120}%;
+            top: {i * (100 + int(params['gap'].replace('px', '')))}%;
             left: 50%;
             transform: {params["default_transform"]};
             background: {params["tooltip_bg"]}, {params["background_gradient"]};
@@ -194,3 +194,4 @@ def frost_glass_mosaic(element_id: str, tooltip_texts: list[str], **design_param
         {tooltips_html}
     </div>
     """
+
