@@ -120,7 +120,10 @@ def html_for_item_data(
         </div>
     """ + _custom_tooltip_with_frost_glass_html(
         card_id,
-        f"<b>{rec['title']}</b><br>{html.escape(rec.get('description', 'No description available.'))}"
+        f"<b>{rec['title']}</b><br>{html.escape(rec.get('description', 'No description available.'))}",
+        tooltip_top_pos="100%",  # Places it below the element
+        tooltip_bottom_pos="auto",  # Removes default positioning
+        tooltip_left_pos="80%",  # Moves it slightly to the right
     )
 
 
