@@ -9,16 +9,16 @@ import html
 def _custom_tooltip_with_frost_glass_html(element_id: str, tooltip_text: str, **design_params) -> str:
     """
     Generates the HTML + CSS for a frosted glass tooltip with customizable design parameters.
-
+    
     Args:
         element_id (str): The ID of the element to attach the tooltip to.
         tooltip_text (str): The tooltip content.
         **design_params: Dictionary containing aesthetic parameters to override defaults.
-
+    
     Returns:
         str: The formatted CSS and HTML for the tooltip with a frosted glass effect.
     """
-
+    
     # Default design parameters
     default_params = {
         "tooltip_bottom_pos": "120%",  
@@ -42,13 +42,10 @@ def _custom_tooltip_with_frost_glass_html(element_id: str, tooltip_text: str, **
         "background_gradient": "radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 100%)",
         "z_index": "9999",  # Ensures tooltip appears on top
     }
-
+    
     # Override defaults with user-supplied values
     params = {**default_params, **design_params}
-
-    # Escape tooltip text for safe HTML rendering
-    escaped_tooltip_text = html.escape(tooltip_text)
-
+    
     return f"""
     <style>
     #{element_id} {{
@@ -58,7 +55,7 @@ def _custom_tooltip_with_frost_glass_html(element_id: str, tooltip_text: str, **
     }}
 
     #{element_id}::after {{
-        content: attr(data-tooltip);
+        content: '{tooltip_text}';
         position: absolute;
         top: {params["tooltip_top_pos"]};
         bottom: {params["tooltip_bottom_pos"]};
@@ -103,12 +100,7 @@ def _custom_tooltip_with_frost_glass_html(element_id: str, tooltip_text: str, **
         }}
     }}
     </style>
-    
-    <script>
-    document.getElementById('{element_id}').setAttribute('data-tooltip', `{escaped_tooltip_text}`);
-    </script>
     """
-
 
 
 #
