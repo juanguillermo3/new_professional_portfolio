@@ -120,9 +120,7 @@ def html_for_item_data(
         </div>
     """ + frost_glass_mosaic(
         card_id,
-        [
-        rec['title'], rec.get('description', 'No description available.')
-        ]
+        [rec['title'], rec.get('description', 'No description available.')]
         tooltip_top_pos="100%",  # Places it below the element
         tooltip_bottom_pos="auto",  # Removes default positioning
         tooltip_left_pos="80%",  # Moves it slightly to the right
