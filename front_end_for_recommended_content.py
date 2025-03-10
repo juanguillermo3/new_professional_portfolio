@@ -120,7 +120,7 @@ def html_for_item_data(
         </div>
     """ + _custom_tooltip_with_frost_glass_html(
         card_id,
-        f"{rec['title'] + "\n" +rec.get('description', 'No description available.')}",
+        f"{rec['title']}",
     )
 
 def html_for_milestones_from_project_metadata(project_metadata, milestone_type="achieved_milestones"):
