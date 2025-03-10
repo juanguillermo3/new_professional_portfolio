@@ -69,7 +69,7 @@ def id_from_item_data(rec):
                 {description}
             </div>
         </div>
-    ""
+    """
 
 
 
