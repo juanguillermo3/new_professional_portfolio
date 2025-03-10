@@ -49,7 +49,7 @@ def html_for_item_data(
     title = apply_badges_to_item_title(rec, badge_rules)
 
     # Default description if missing
-    description = html.escape(rec.get('description', 'No description available.'))  # Escape for safety
+    description = rec.get("description", "No description available.")  # Removed html.escape()
 
     # Generate unique ID
     card_id = id_from_item_data(rec) + post_fix
