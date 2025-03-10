@@ -70,7 +70,20 @@ def html_for_item_data(
                 {description}
             </div>
         </div>
-    """
+    """+_custom_tooltip_with_frost_glass_html(
+         card_id, 
+         rec['title'],
+         tooltip_bottom_pos="105%",  # Move tooltip higher
+         tooltip_left_pos="50%",  # Center it on the element
+         tooltip_top_pos="auto",  # Ensure it's not overriding the bottom position
+         tooltip_blur="12px",  # Slightly stronger blur for the glass effect
+         tooltip_width="max-content",  # Prevents cutting off text
+         padding="10px 15px",  # Slightly larger padding for better visibility
+         font_size="13px",  # Adjust font size for readability
+         hover_transform="translateX(-50%) translateY(-5px) scale(1.05)",  # Proper hover effect
+         default_transform="translateX(-50%) translateY(0) scale(1)",  # Default appearance
+         z_index="10000"  # Ensure it appears above all elements
+         )
     
 def html_for_milestones_from_project_metadata(project_metadata, milestone_type="achieved_milestones"):
     """
