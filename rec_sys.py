@@ -31,6 +31,11 @@ from front_end_for_recommended_content import html_for_item_data, html_for_miles
 from portfolio_section import PortfolioSection
 from exceptional_ui import apply_custom_tooltip
 
+import os
+from dotenv import load_dotenv
+load_dotenv()
+MOCK_INFO_PREFIX = os.getenv("MOCK_INFO", "[MOCK INFO]")
+
 #
 # (0) ancillary function to merge metadata about underlyng items
 #
@@ -197,6 +202,17 @@ class RecommendationSystem(PortfolioSection):
     def render_card(self, rec, **kwargs):
         """Render a single recommendation card with dynamic HTML generation."""
         st.markdown(html_for_item_data(rec), unsafe_allow_html=True)
+        
+        st.markdown("<br><br>", unsafe_allow_html=True)
+        
+        card_id = id_from_card_data(rec) + "_card"
+        MOCK_INFO_PREFIX = "Info: "
+        texts = [
+            f"{MOCK_INFO_PREFIX} {rec['title']}"
+        ] + [
+            f"{MOCK_INFO_PREFIX} {rec['description']}"
+        ]
+        st.markdown(frost_glass_mosaic(card_id, texts), unsafe_allow_html=True)
     
         unique_hash = hashlib.md5(rec['title'].encode()).hexdigest()
         button_id = f"galleria_{unique_hash}"
