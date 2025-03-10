@@ -56,7 +56,7 @@ def html_for_item_data(
 
     # Return the HTML structure
     return f"""
-        <div  id="{card_id}" style="background-color: {background_color}; border: {border_style}; 
+        <divstyle="background-color: {background_color}; border: {border_style}; 
                     border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
                     padding: 10px; height: {card_height}; {overflow_style}; 
                     display: flex; flex-direction: column; justify-content: space-between;">
@@ -65,7 +65,7 @@ def html_for_item_data(
                         font-size: 16px; font-weight: bold; text-align: center;">
                 {title}
             </div>
-            <div style="flex-grow: 1; padding: 10px; overflow-y: auto; text-align: justify;">
+            <div   id="{card_id}"  style="flex-grow: 1; padding: 10px; overflow-y: auto; text-align: justify;">
                 {description}
             </div>
         </div>
