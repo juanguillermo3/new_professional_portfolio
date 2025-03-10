@@ -62,12 +62,16 @@ def html_for_item_data(
                     border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
                     padding: 10px; height: {card_height}; 
                     display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: visible;"">
+
             <div style="background-color: rgba(255, 255, 255, 0.7); 
                         padding: 5px 10px; border-radius: 10px 10px 0 0; 
                         font-size: 16px; font-weight: bold; text-align: center;">
                 {title}
             </div>
-            <div   id="{card_id}"  style="flex-grow: 1; padding: 10px; overflow-y: auto; text-align: justify;">
+
+            <div id="{card_id}"  
+                 style="flex-grow: 1; padding: 10px; {overflow_style}; 
+                        text-align: justify; position: relative; z-index: 1;">
                 {description}
             </div>
         </div>
