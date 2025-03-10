@@ -204,7 +204,7 @@ class RecommendationSystem(PortfolioSection):
         """Render a single recommendation card with dynamic HTML generation."""
         st.markdown(html_for_item_data(rec), unsafe_allow_html=True)
         
-        st.markdown("<br><br>", unsafe_allow_html=True)
+        #st.markdown("<br><br>", unsafe_allow_html=True)
 
         if False:
           card_id = id_from_item_data(rec) + "_card"
