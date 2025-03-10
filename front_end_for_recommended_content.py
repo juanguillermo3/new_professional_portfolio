@@ -73,7 +73,6 @@ def html_for_item_data(
         </div>
     """
 
-
 def html_for_milestones_from_project_metadata(project_metadata, milestone_type="achieved_milestones"):
     """
     Generates an HTML snippet for displaying milestones with a tooltip.
