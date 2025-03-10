@@ -38,7 +38,7 @@ def _custom_tooltip_with_frost_glass_html(element_id: str, tooltip_text: str, **
         "default_transform": "translateX(-50%) scale(0.95) translateZ(0)",
         "tooltip_width": "66%",
         "background_gradient": "radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 100%)",
-        "z_index": "99999",  # Ensures tooltip appears on top
+        "z_index": "9999",  # Ensures tooltip appears on top
     }
     
     # Override defaults with user-supplied values
