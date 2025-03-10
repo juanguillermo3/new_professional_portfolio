@@ -211,7 +211,7 @@ class RecommendationSystem(PortfolioSection):
         st.markdown(_custom_tooltip_with_frost_glass_html(
         card_id, 
         rec['title'],
-        tooltip_bottom_pos="130%",  # Move tooltip higher
+        tooltip_bottom_pos="105%",  # Move tooltip higher
         tooltip_left_pos="50%",  # Center it on the element
         tooltip_top_pos="auto",  # Ensure it's not overriding the bottom position
         tooltip_blur="12px",  # Slightly stronger blur for the glass effect
