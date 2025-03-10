@@ -118,14 +118,20 @@ def html_for_item_data(
                     cursor: pointer;">
             {title}
         </div>
-    """ + frost_glass_mosaic(
+    """ + _custom_tooltip_with_frost_glass_html(
         card_id,
-        [rec['title'], rec.get('description', 'No description available.')],
-        tooltip_top_pos="100%",  # Places it below the element
-        tooltip_bottom_pos="auto",  # Removes default positioning
-        tooltip_left_pos="80%",  # Moves it slightly to the right
+        f"<b>{rec['title']}</b><br>{html.escape(rec.get('description', 'No description available.'))}",
+        tooltip_bottom_pos="105%",
+        tooltip_left_pos="50%",
+        tooltip_top_pos="auto",
+        tooltip_blur="12px",
+        tooltip_width="max-content",
+        padding="10px 15px",
+        font_size="13px",
+        hover_transform="translateX(-50%) translateY(-5px) scale(1.05)",
+        default_transform="translateX(-50%) translateY(0) scale(1)",
+        z_index="10000"
     )
-
 
 def html_for_milestones_from_project_metadata(project_metadata, milestone_type="achieved_milestones"):
     """
