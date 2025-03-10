@@ -72,7 +72,7 @@ def html_for_item_data(
                 {description}
             </div>
         </div>
-    """+st.markdown(_custom_tooltip_with_frost_glass_html(
+    """+_custom_tooltip_with_frost_glass_html(
         card_id, 
         rec['title'],
         tooltip_bottom_pos="105%",  # Move tooltip higher
@@ -85,7 +85,7 @@ def html_for_item_data(
         hover_transform="translateX(-50%) translateY(-5px) scale(1.05)",  # Proper hover effect
         default_transform="translateX(-50%) translateY(0) scale(1)",  # Default appearance
         z_index="10000"  # Ensure it appears above all elements
-        ), unsafe_allow_html=True)
+        )
 
     
 def html_for_milestones_from_project_metadata(project_metadata, milestone_type="achieved_milestones"):
