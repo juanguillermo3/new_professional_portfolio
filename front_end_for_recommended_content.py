@@ -84,7 +84,56 @@ def html_for_item_data(
          default_transform="translateX(-50%) translateY(0) scale(1)",  # Default appearance
          z_index="10000"  # Ensure it appears above all elements
          )
-    
+
+def html_for_item_data(
+    rec,
+    badge_rules=None,
+    card_height="150px",
+    card_width="250px",
+    post_fix="_card"
+):
+    """
+    Generate a minimal HTML snippet for a recommended item card with a tooltip.
+
+    Parameters:
+    - rec (dict): Dictionary containing item metadata.
+
+    Returns:
+    - str: A formatted HTML string representing the item card.
+    """
+
+    # Apply badges to title
+    title = apply_badges_to_item_title(rec, badge_rules)
+
+    # Generate unique ID
+    card_id = id_from_item_data(rec) + post_fix
+
+    # Return minimal card structure with tooltip
+    return f"""
+        <div id="{card_id}" style="width: {card_width}; height: {card_height}; 
+                    display: flex; align-items: center; justify-content: center; 
+                    border: 1px solid #ddd; border-radius: 10px; 
+                    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+                    font-size: 16px; font-weight: bold; text-align: center; 
+                    cursor: pointer;">
+            {title}
+        </div>
+    """ + _custom_tooltip_with_frost_glass_html(
+        card_id,
+        f"<b>{rec['title']}</b><br>{html.escape(rec.get('description', 'No description available.'))}",
+        tooltip_bottom_pos="105%",
+        tooltip_left_pos="50%",
+        tooltip_top_pos="auto",
+        tooltip_blur="12px",
+        tooltip_width="max-content",
+        padding="10px 15px",
+        font_size="13px",
+        hover_transform="translateX(-50%) translateY(-5px) scale(1.05)",
+        default_transform="translateX(-50%) translateY(0) scale(1)",
+        z_index="10000"
+    )
+
+
 def html_for_milestones_from_project_metadata(project_metadata, milestone_type="achieved_milestones"):
     """
     Generates an HTML snippet for displaying milestones with a tooltip.
