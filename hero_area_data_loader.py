@@ -8,20 +8,6 @@ load_dotenv()
 # Retrieve the mock prefix from the environment, defaulting to "[MOCK TOOLTIP]" if not set
 MOCK_INFO_PREFIX = os.getenv("MOCK_INFO", "[MOCK INFO]")
 
-def load_tooltips_for_detailed_offerings():
-    tooltips = {
-        "offering-1": f"{MOCK_INFO_PREFIX} Predictive analytics involves using statistical techniques and machine learning to forecast future outcomes based on historical data.",
-        "offering-2": f"{MOCK_INFO_PREFIX} Inference distribution ensures that insights generated from models reach stakeholders via APIs, dashboards, or batch reports.",
-        "offering-3": f"{MOCK_INFO_PREFIX} Data transformation converts raw, unstructured data into a structured, usable format for analysis and machine learning.",
-        "offering-4": f"{MOCK_INFO_PREFIX} Modern data tooling involves integrating various technologies to create efficient, scalable workflows for data-driven decision-making.",
-        "offering-5": f"{MOCK_INFO_PREFIX} AI and large language models (LLMs) are reshaping software development by automating coding, debugging, and decision-making.",
-        "offering-6": f"{MOCK_INFO_PREFIX} An economic mindset applies principles like supply & demand, marginal effects, and counterfactual analysis to data interpretation.",
-        "offering-999": f"{MOCK_INFO_PREFIX} This is a non-existent tooltip for testing error handling.",  # Mock non-existent ID
-        "offering-X": f"{MOCK_INFO_PREFIX} Another non-existent tooltip to ensure system robustness."  # Mock non-existent ID
-    }
-    
-    return tooltips
-
 def load_quote():
     return [
         "<b>Modern data analysis</b> requires engaging with and developing <b>substantial software</b>, "  
@@ -85,14 +71,14 @@ def load_detailed_offering():
 
 def load_tooltips_for_detailed_offerings():
     tooltips = {
-        "offering-1": "[MOCK TOOLTIP] Predictive analytics involves using statistical techniques and machine learning to forecast future outcomes based on historical data.",
-        "offering-2": "[MOCK TOOLTIP] Inference distribution ensures that insights generated from models reach stakeholders via APIs, dashboards, or batch reports.",
-        "offering-3": "[MOCK TOOLTIP] Data transformation converts raw, unstructured data into a structured, usable format for analysis and machine learning.",
-        "offering-4": "[MOCK TOOLTIP] Modern data tooling involves integrating various technologies to create efficient, scalable workflows for data-driven decision-making.",
-        "offering-5": "[MOCK TOOLTIP] AI and large language models (LLMs) are reshaping software development by automating coding, debugging, and decision-making.",
-        "offering-6": "[MOCK TOOLTIP] An economic mindset applies principles like supply & demand, marginal effects, and counterfactual analysis to data interpretation.",
-        "offering-999": "[MOCK TOOLTIP] This is a non-existent tooltip for testing error handling.",  # Mock non-existent ID
-        "offering-X": "[MOCK TOOLTIP] Another non-existent tooltip to ensure system robustness."  # Mock non-existent ID
+        "offering-1": f"{MOCK_INFO_PREFIX} Predictive analytics involves using statistical techniques and machine learning to forecast future outcomes based on historical data.",
+        "offering-2": f"{MOCK_INFO_PREFIX} Inference distribution ensures that insights generated from models reach stakeholders via APIs, dashboards, or batch reports.",
+        "offering-3": f"{MOCK_INFO_PREFIX} Data transformation converts raw, unstructured data into a structured, usable format for analysis and machine learning.",
+        "offering-4": f"{MOCK_INFO_PREFIX} Modern data tooling involves integrating various technologies to create efficient, scalable workflows for data-driven decision-making.",
+        "offering-5": f"{MOCK_INFO_PREFIX} AI and large language models (LLMs) are reshaping software development by automating coding, debugging, and decision-making.",
+        "offering-6": f"{MOCK_INFO_PREFIX} An economic mindset applies principles like supply & demand, marginal effects, and counterfactual analysis to data interpretation.",
+        "offering-999": f"{MOCK_INFO_PREFIX} This is a non-existent tooltip for testing error handling.",  # Mock non-existent ID
+        "offering-X": f"{MOCK_INFO_PREFIX} Another non-existent tooltip to ensure system robustness."  # Mock non-existent ID
     }
     
     return tooltips
