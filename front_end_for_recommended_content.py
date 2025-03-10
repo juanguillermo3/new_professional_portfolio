@@ -13,13 +13,27 @@ from html import escape
 from exceptional_ui import _custom_tooltip_html
 from badges_for_item_data import apply_badges_to_item_title
 
+def id_from_item_data(rec):
+    """
+    Generate a unique ID for an item based on its title and description.
+    
+    Parameters:
+    - rec (dict): Dictionary containing item metadata.
+    
+    Returns:
+    - str: A unique hashed ID for the item.
+    """
+    unique_hash = hashlib.md5((rec.get('title', '') + rec.get('description', '')).encode()).hexdigest()
+    return unique_hash
+
 def html_for_item_data(
     rec,
     badge_rules=None,
     background_color="#f4f4f4",
     border_style="1px solid #ddd",
     card_height="150px",
-    overflow_style="overflow-y: auto;"
+    overflow_style="overflow-y: auto;",
+    post_fix="_card"
 ):
     """
     Generate an HTML snippet for a recommended item card dynamically.
@@ -36,10 +50,13 @@ def html_for_item_data(
 
     # Default description if missing
     description = html.escape(rec.get('description', 'No description available.'))  # Escape for safety
+    
+    # Generate unique ID
+    card_id = id_from_item_data(rec) + post_fix
 
     # Return the HTML structure
     return f"""
-        <div style="background-color: {background_color}; border: {border_style}; 
+        <div id="{card_id}" style="background-color: {background_color}; border: {border_style}; 
                     border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
                     padding: 10px; height: {card_height}; {overflow_style}; 
                     display: flex; flex-direction: column; justify-content: space-between;">
