@@ -120,7 +120,7 @@ def html_for_item_data(
         </div>
     """ + _custom_tooltip_with_frost_glass_html(
         card_id,
-        f"{rec['title']}<br>{description}",
+        f"{description}",
         tooltip_top_pos="100%",  # Places it below the element
         tooltip_bottom_pos="auto",  # Removes default positioning
         tooltip_width="120%"
