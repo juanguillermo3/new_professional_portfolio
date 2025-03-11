@@ -107,6 +107,8 @@ def html_for_item_data(
     # Generate unique ID
     card_id = id_from_item_data(rec) + post_fix
 
+    print(card_id)
+
     # Return the HTML structure
     return f"""
         <div id="{card_id}" style="background-color: {background_color}; border: {border_style}; 
@@ -129,92 +131,6 @@ def html_for_item_data(
     )
 
 
-
-
-def html_for_milestones_from_project_metadata(project_metadata, milestone_type="achieved_milestones"):
-    """
-    Generates an HTML snippet for displaying milestones with a tooltip.
-    
-    Parameters:
-        - project_metadata (dict): Contains milestone information.
-        - milestone_type (str): The type of milestone to display ('achieved_milestones' or 'next_milestones').
-
-    Returns:
-        - str: HTML snippet containing the milestone and tooltip.
-    """
-    # Define milestone properties
-    milestone_labels = {
-        "achieved_milestones": ("Achieved Milestones", "green", "✅"),
-        "next_milestones": ("Upcoming Milestones", "#FFB300", "🚧")
-    }
-    
-    label, color, icon = milestone_labels.get(milestone_type, ("Milestones", "black", "📌"))
-    milestones = project_metadata.get(milestone_type, [])
-
-    # Handle empty milestone case
-    if not milestones:
-        return f'<div style="color:gray;">No {label.lower()}</div>'
-
-    # Format milestone summary (first milestone + count)
-    first_milestone = html.escape(milestones[0])
-    summary = f"({len(milestones) - 1} more)" if len(milestones) > 1 else ""
-    visible_milestone = f'<div style="color:{color};">{icon} {first_milestone} {summary}</div>'
-
-    # Tooltip content (full milestone list)
-    tooltip_content = "".join(
-        f'<div style="color:{color};">{icon} {html.escape(m)}</div>' for m in milestones
-    )
-
-    # Unique ID for the tooltip
-    element_id = f"tooltip-{milestone_type}"
-
-    # Return formatted HTML with tooltip
-    return f"""
-    <div style="position: relative; display: inline-block;">
-        <span id="{element_id}" style="border-bottom: 1px dashed gray; cursor: pointer;" class="hover-trigger">
-            {visible_milestone}
-        </span>
-        <div class="tooltip">
-            <strong>{label}:</strong>
-            {tooltip_content}
-        </div>
-    </div>
-    <style>
-        .tooltip {{
-            visibility: hidden;
-            opacity: 0;
-            transform: translateY(5px) scale(0.95);
-            transition: 
-                opacity 0.3s ease-in-out, 
-                visibility 0.3s ease-in-out, 
-                transform 0.3s ease-in-out;
-            
-            background: rgba(30, 50, 60, 0.6); /* Sci-fi dark glass effect */
-            backdrop-filter: blur(8px); /* Frosted glass */
-            color: #00ffff; /* Neon cyan text */
-            font-family: 'Orbitron', sans-serif; /* Futuristic font */
-            text-align: left;
-            padding: 12px;
-            border-radius: 8px;
-            box-shadow: 0px 0px 20px rgba(0, 255, 255, 0.4); /* Neon glow */
-            position: absolute;
-            left: 50%;
-            top: 120%;
-            min-width: 120%;
-            max-width: 450px;
-            z-index: 1;
-            border: 1px solid rgba(0, 255, 255, 0.6); /* Subtle neon border */
-            transform-origin: top center;
-        }}
-        
-        #{element_id}:hover + .tooltip {{
-            visibility: visible;
-            opacity: 1;
-            transform: translateY(0px) scale(1.05);
-        }}
-
-    </style>
-    """
 
 import html
 
