@@ -24,7 +24,7 @@ def id_from_item_data(rec):
     Returns:
     - str: A unique hashed ID for the item.
     """
-    unique_hash = hashlib.md5( rec.get("title") + rec.get("description") ).encode() .hexdigest()
+    unique_hash = hashlib.md5( rec.get("title") + rec.get("description").encode() ).hexdigest()
     return unique_hash
 
 import html
