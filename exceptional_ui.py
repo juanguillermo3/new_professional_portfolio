@@ -214,9 +214,8 @@ def html_for_tooltip_from_large_list(items, label, color="#555", emoji=None):
             {tooltip_content}
         </div>
     </div>
-    
     <style>
-        #{element_id}:hover {{
+        .tooltip {{
             visibility: hidden;
             opacity: 0;
             transform: translateY(5px) scale(0.95);
@@ -236,6 +235,9 @@ def html_for_tooltip_from_large_list(items, label, color="#555", emoji=None):
             z-index: 1;
             border: 1px solid rgba(200, 200, 200, 0.5);
             transform-origin: top center;
+        }}
+
+        #{element_id}:hover + .tooltip {{
             visibility: visible;
             opacity: 1;
             transform: translateY(0px) scale(1.1);
