@@ -207,16 +207,6 @@ class RecommendationSystem(PortfolioSection):
         
         #st.markdown("<br><br>", unsafe_allow_html=True)
 
-        card_id = id_from_item_data(rec) + "_card"
-        st.markdown(
-        _custom_tooltip_with_frost_glass_html(
-           card_id,
-           f"{rec['title']}",
-           tooltip_top_pos="100%",  # Places it below the element
-           tooltip_bottom_pos="auto",  # Removes default positioning
-           tooltip_width="120%"
-         ), unsafe_allow_html=True)
-
         unique_hash = hashlib.md5(rec['title'].encode()).hexdigest()
         button_id = f"galleria_{unique_hash}"
     
@@ -485,7 +475,20 @@ class RecommendationSystem(PortfolioSection):
             f'<p style="font-style: italic; color: #555; font-size: 105%; font-weight: 550;">{filter_message}</p>',
             unsafe_allow_html=True
         )
-    
+
+        tooltip_html = ""
+        for rec in recommendations:
+            card_id = id_from_item_data(rec) + "_card"
+            tooltip_text=f"{rec['title']}"
+            tooltip_html += _custom_tooltip_with_frost_glass_html(
+              element_id,
+              tooltip_text,
+              tooltip_top_pos="100%",  # Places it below the element
+              tooltip_bottom_pos="auto",  # Removes default positioning
+              tooltip_width="120%"
+            )
+        st.markdown(tooltip_html, unsafe_allow_html=True)
+      
         # Render recommendations in a grid
         for i in range(0, len(recommendations), self.num_columns):
             cols = st.columns(self.num_columns)
