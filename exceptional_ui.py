@@ -249,6 +249,9 @@ def html_for_tooltip_from_large_list(items, label, color="#555", emoji=None):
 import uuid
 import html
 
+import uuid
+import html
+
 def html_for_tooltip_from_large_list(items, label, color="#555", emoji=None):
     """
     Generates an HTML tooltip for displaying a large list with a summarized preview.
@@ -289,47 +292,10 @@ def html_for_tooltip_from_large_list(items, label, color="#555", emoji=None):
             {tooltip_content}
         </div>
     </div>
-    
-    <style>
-        .tooltip-container {{
-            position: relative;
-            display: inline-block;
-        }}
 
-        .hover-trigger {{
-            border-bottom: 1px dashed gray;
-            cursor: pointer;
-        }}
-
-        .tooltip {{
-            visibility: hidden;
-            opacity: 0;
-            transform: translateY(5px) scale(0.95);
-            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-            background-color: rgba(240, 240, 240, 0.85);
-            backdrop-filter: blur(2px);
-            color: black;
-            text-align: left;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            position: absolute;
-            left: 50%;
-            top: 110%;
-            transform-origin: top center;
-            min-width: 200px;
-            max-width: 400px;
-            border: 1px solid rgba(200, 200, 200, 0.5);
-            z-index: 10;
-        }}
-
-        .tooltip-container:hover .tooltip {{
-            visibility: visible;
-            opacity: 1;
-            transform: translateY(0px) scale(1);
-        }}
-    </style>
     """
+
+
 
 
 
