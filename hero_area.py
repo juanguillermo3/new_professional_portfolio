@@ -174,7 +174,7 @@ class HeroArea:
     
             # Generate and apply custom tooltips
             tooltip_html = self._generate_tooltip_html()
-            st.markdown(tooltip_html, unsafe_allow_html=True)
+            #st.markdown(tooltip_html, unsafe_allow_html=True)
     
     def _generate_tooltip_html(self) -> str:
         """
