@@ -104,19 +104,19 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
             "title": "Software & Application Development for Inference Distribution",
             "description": "I develop applications (batch scripts, APIs, dashboards, web applications) to distribute insights \
             and predictions across corporate environments.",
-            "skills": ["API Development", "Asynchronous Programming"]
+            #"skills": ["API Development", "Asynchronous Programming"]
         },
         {
             "title": "Data Engineering",
             "description": "As my former boss Susana Martinez Restrepo said, 'I can perform data miracles.' This refers to my \
             ability to clean and organize datasets from complex, multi-source environments for research and model development.",
-            "skills": ["ETL Pipelines", "Data Warehousing"]
+            #"skills": ["ETL Pipelines", "Data Warehousing"]
         },
         {
             "title": "Holistic Understanding of Modern Tooling",
             "description": "I integrate tools and technologies for modern data analysis, committing to research the \
             unique purposes of each tool and efficiently write workflows around them using GPT.",
-            "skills": ["Cloud Computing", "Containerization"],
+            #"skills": ["Cloud Computing", "Containerization"],
             "subitems": [
                 "<strong>Excellence Tier (I know the code line by heart):</strong> Python, R Studio, Stata, GPT",
                 "<strong>Proficiency Tier:</strong> Airflow, SQL, Spark, Bash scripting",
