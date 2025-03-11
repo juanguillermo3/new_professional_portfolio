@@ -169,7 +169,8 @@ def _custom_tooltip_with_frost_glass_html(element_id: str, tooltip_text: str, **
     }}
     </style>
     """
-
+import html
+import hashlib
 
 def html_for_tooltip_from_large_list(items, label, color="#555", emoji=None):
     """
