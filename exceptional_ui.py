@@ -214,7 +214,6 @@ def html_for_tooltip_from_large_list(items, label, color="#555", emoji=None):
             {tooltip_content}
         </div>
     </div>
-
     """ 
 
 
