@@ -245,46 +245,40 @@ def html_for_tooltip_from_large_list(items, label, color="#555", emoji=None):
     </style>
     """ 
 
-
-import uuid
 import html
+import hashlib
 
-import uuid
-import html
-
-def html_for_tooltip_from_large_list(items, label, color="#555", emoji=None):
+def html_for_tooltip_from_large_list(items, label, color="#555", emoji=None, include_style=False):
     """
     Generates an HTML tooltip for displaying a large list with a summarized preview.
-
+    
     Parameters:
         - items (list of str): The list of items to display.
         - label (str): Describes the type of items being enumerated.
         - color (str): Color for the tooltip text (default: neutral gray #555).
         - emoji (str, optional): Emoji prepended to each listed item.
-
+        - include_style (bool): Whether to include the tooltip CSS (default: False, should be added once globally).
+    
     Returns:
         - str: HTML snippet containing the summarized text and a tooltip for full details.
     """
     if not items:
         return f'<div style="color:gray;">No {label.lower()} listed</div>'
-
-    # Generate a unique tooltip ID
-    element_id = f"tooltip-{uuid.uuid4().hex}"
-
-    # Escape and format first item
+    
+    element_id = f"tooltip-{hashlib.md5(label.encode()).hexdigest()}"
+    
     first_item = html.escape(items[0])
     summary = f"(and {len(items) - 1} more listed {label.lower()})" if len(items) > 1 else ""
     visible_text = f'<div style="color:{color};">{first_item} {summary}</div>'
-
-    # Generate full tooltip content
+    
     tooltip_content = "".join(
         f'<div style="color:{color};">{(emoji + " " if emoji else "")}{html.escape(item)}</div>'
         for item in items
     )
 
-    return f"""
-    <div class="tooltip-container">
-        <span id="{element_id}" class="hover-trigger">
+    tooltip_html = f"""
+    <div style="position: relative; display: inline-block;">
+        <span id="{element_id}" style="border-bottom: 1px dashed gray; cursor: pointer;" class="hover-trigger">
             {visible_text}
         </span>
         <div class="tooltip">
@@ -293,6 +287,41 @@ def html_for_tooltip_from_large_list(items, label, color="#555", emoji=None):
         </div>
     </div>
     """
+    
+    style_html = """
+    <style>
+        .tooltip {
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(5px) scale(0.95);
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out;
+            background-color: rgba(240, 240, 240, 0.7);
+            backdrop-filter: blur(1px);
+            color: black;
+            text-align: left;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            left: 75%;
+            top: 120%;
+            min-width: 100%;
+            max-width: 400px;
+            z-index: 1;
+            border: 1px solid rgba(200, 200, 200, 0.5);
+            transform-origin: top center;
+        }
+
+        .hover-trigger:hover + .tooltip {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0px) scale(1.1);
+        }
+    </style>
+    """ if include_style else ""
+    
+    return style_html + tooltip_html
+
 
 
 
