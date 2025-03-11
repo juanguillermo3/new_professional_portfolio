@@ -208,13 +208,14 @@ class RecommendationSystem(PortfolioSection):
         #st.markdown("<br><br>", unsafe_allow_html=True)
 
         card_id = id_from_item_data(rec) + "_card"
+        st.markdown(
         _custom_tooltip_with_frost_glass_html(
            card_id,
            f"{rec['title']}",
            tooltip_top_pos="100%",  # Places it below the element
            tooltip_bottom_pos="auto",  # Removes default positioning
            tooltip_width="120%"
-         )
+         ), unsafe_allow_html=True)
 
         unique_hash = hashlib.md5(rec['title'].encode()).hexdigest()
         button_id = f"galleria_{unique_hash}"
