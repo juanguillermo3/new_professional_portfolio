@@ -20,13 +20,15 @@ def load_general_info():
     
     Returns:
         str: A brief description of the portfolio's purpose and scope.
+        
+    as varied as the role of gender in the Colombian labor market, ethology research on monkey behavior, "
+        "sales forecasting for delivery services, recommendation of optimal store placement, setup of key dashboards/reporting "
+        "for financial departments, and more.
     """
     return (
         f"This portfolio showcases code samples I have developed over more than {num_years} years as a Data Analyst "
         "and ML Consultant across various projects. You'll likely find my work quite eclectic, as I have worked on a range "
-        "of subjects as varied as the role of gender in the Colombian labor market, ethology research on monkey behavior, "
-        "sales forecasting for delivery services, recommendation of optimal store placement, setup of key dashboards/reporting "
-        "for financial departments, and more."
+        "of subjects in many verticals."
     )
 
 def load_key_interest():
@@ -51,14 +53,10 @@ def load_key_hypothesis():
         str: The key hypothesis text.
     """
     return f"""
-    🔬 This portfolio was created with two key goals in mind. First, it brings to life a **Recommendation System (RecSys)** 
-    as a core feature to showcase my work to interested parties. More broadly, as a **heterodox economist** concerned with 
-    the smooth functioning of the labor market, this project allows me to assess the value of emerging technologies—such as 
+    🔬 This portfolio brings to life a **Recommendation System (RecSys)** as a core feature to showcase my work. More broadly, as 
+    a **heterodox economist** concerned with the smooth functioning of the labor market, this project allows me to assess the value of emerging technologies—such as 
     **RecSys**, **LLM-powered applications (LLM apps)**, and **software-based automation**—in addressing common struggles 
-    faced by workers. My key empirical hypothesis is that **RecSys can serve dynamic, context-dependent representations of a 
-    professional portfolio**, mitigating trade-offs between specialization and market penetration. Features such as the **RecSys** 
-    are still under development, and related research can be found on my 
-    <a href="{LINKEDIN_PROFILE}" target="_blank" style="color: #1f77b4; text-decoration: none;">**LinkedIn profile**</a>.
+    faced by workers at the laboral market. <a href="{LINKEDIN_PROFILE}" target="_blank" style="color: #1f77b4; text-decoration: none;">**LinkedIn profile**</a>.
     """
 
 def load_dev_environment():
