@@ -162,7 +162,7 @@ def html_for_item_data(
      )
  
  
- def html_for_item_data(
+def html_for_item_data(
      rec,
      badge_rules=None,
      background_color="#f4f4f4",
