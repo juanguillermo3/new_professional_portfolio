@@ -264,7 +264,58 @@ def html_for_item_data(
          tooltip_bottom_pos="auto",  # Removes default positioning
          tooltip_width="120%"
      )
+
+import time
+import html
+
+def html_for_item_data(
+     rec,
+     badge_rules=None,
+     background_color="#f4f4f4",
+     border_style="1px solid #ddd",
+     card_height="150px",
+     post_fix="_card"
+ ):
+     """
+     Generate an HTML snippet for a recommended item card dynamically.
  
+     Parameters:
+     - rec (dict): Dictionary containing item metadata.
+ 
+     Returns:
+     - str: A formatted HTML string representing the item card.
+     """
+
+     # Unique ID based on timestamp hash
+     card_id = f"card_{hash(time.time())}"
+ 
+     # Apply the badge system
+     title = apply_badges_to_item_title(rec, badge_rules)
+
+     # Escape description to prevent HTML injection
+     description = html.escape(rec.get("description", "No description available."))
+ 
+     # Return the HTML structure
+     return f"""
+         <div id="{card_id}" style="background-color: {background_color}; border: {border_style}; 
+                     border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+                     height: {card_height}; 
+                     display: flex; align-items: center; justify-content: center;
+                     padding: 10px; text-align: center; font-size: 16px; 
+                     font-weight: bold; cursor: pointer; margin: 10px;">
+             <div style="background-color: rgba(255, 255, 255, 0.7); 
+                         padding: 5px 10px; border-radius: 10px; width: auto; max-width: 100%;">
+                 {title}
+             </div>
+         </div>
+     """ + _custom_tooltip_with_frost_glass_html(
+         card_id,
+         description,
+         tooltip_top_pos="100%",  # Places it below the element
+         tooltip_bottom_pos="auto",  # Removes default positioning
+         tooltip_width="120%"
+     )
+
 
 
 
