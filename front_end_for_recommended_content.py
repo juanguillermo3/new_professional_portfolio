@@ -56,6 +56,8 @@ def html_for_item_data(
     # Generate unique ID
     card_id = id_from_item_data(rec) + post_fix
 
+    print(card_id)
+
     # Return the HTML structure
     return f"""
         <div id="{card_id}" style="background-color: {background_color}; border: {border_style}; 
