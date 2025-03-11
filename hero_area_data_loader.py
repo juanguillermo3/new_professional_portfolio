@@ -80,7 +80,7 @@ def load_detailed_offering():
             and predictions across corporate environments.
         """},
         {"element_id": "offering-3", "html": """
-            <strong>3. Data Engineering </strong>: As my former boss Susana Martinez Restrepo said, "I can perform data miracles." This refers to my 
+            <strong>3. Data Engineering and Pipelining </strong>: As my former boss Susana Martinez Restrepo said, "I can perform data miracles." This refers to my 
             ability to clean and organize datasets from complex, multi-source environments for research and model development.
         """},
         {"element_id": "offering-4", "html": """
