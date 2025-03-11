@@ -348,5 +348,64 @@ def html_for_tooltip_from_large_list(items, label, color="#555", emoji=None):
     """
 
 
+import html
+import hashlib
+
+def html_for_tooltip_from_large_list(items, label, color="#555", emoji=None):
+    """
+    Generates an HTML tooltip for displaying a large list with a summarized preview.
+    """
+    if not items:
+        return f'<div style="color:gray;">No {label.lower()} listed</div>'
+    
+    # Generate a unique ID based on the label (avoiding `time.time()`)
+    element_id = f"tooltip-{hashlib.md5(label.encode()).hexdigest()[:8]}"
+    
+    # Prepare first item and summary
+    first_item = html.escape(items[0])
+    summary = f"(and {len(items) - 1} more {label.lower()} listed)" if len(items) > 1 else ""
+    visible_text = f'<div style="color:{color};">{first_item} {summary}</div>'
+    
+    # Full tooltip content
+    tooltip_content = "".join(
+        f'<div style="color:{color};">{(emoji + " " if emoji else "")}{html.escape(item)}</div>'
+        for item in items
+    )
+    
+    return f"""
+    <div style="position: relative; display: inline-block;">
+        <span id="{element_id}" style="border-bottom: 1px dashed gray; cursor: pointer;" class="hover-trigger">
+            {visible_text}
+        </span>
+        <div class="tooltip" id="{element_id}-content">
+            <strong>All {label} listed:</strong>
+            {tooltip_content}
+        </div>
+    </div>
+    <style>
+        .tooltip {{
+            display: none;
+            position: absolute;
+            background-color: rgba(240, 240, 240, 0.9);
+            backdrop-filter: blur(2px);
+            color: black;
+            text-align: left;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            left: 50%;
+            top: 120%;
+            transform: translateX(-50%);
+            min-width: 200px;
+            max-width: 400px;
+            z-index: 10;
+            border: 1px solid rgba(200, 200, 200, 0.5);
+        }}
+
+        .hover-trigger:hover + .tooltip {{
+            display: block;
+        }}
+    </style>
+    """
 
 
