@@ -215,9 +215,7 @@ def html_for_tooltip_from_large_list(items, label, color="#555", emoji=None):
         </div>
     </div>
     <style>
-        .tooltip {{
 
-        }}
 
         #{element_id}:hover + .tooltip {{
             visibility: visible;
