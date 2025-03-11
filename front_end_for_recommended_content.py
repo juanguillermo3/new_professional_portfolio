@@ -15,17 +15,17 @@ from badges_for_item_data import apply_badges_to_item_title
 from biotech_lab import frost_glass_mosaic, _custom_tooltip_with_frost_glass_html, frost_glass_mosaic
 
 def id_from_item_data(rec):
-    """
-    Generate a unique ID for an item based on its title and description.
-    
-    Parameters:
-    - rec (dict): Dictionary containing item metadata.
-    
-    Returns:
-    - str: A unique hashed ID for the item.
-    """
-    unique_hash = hashlib.md5( rec.get("title", "") + rec.get("description", "").encode() ).hexdigest()
-    return unique_hash
+     """
+     Generate a unique ID for an item based on its title and description.
+     
+     Parameters:
+     - rec (dict): Dictionary containing item metadata.
+     
+     Returns:
+     - str: A unique hashed ID for the item.
+     """
+     unique_hash = hashlib.md5((rec.get('title', '') + rec.get('description', '')).encode()).hexdigest()
+     return unique_hash
 
 import html
 
