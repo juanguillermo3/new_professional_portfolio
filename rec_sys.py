@@ -478,7 +478,7 @@ class RecommendationSystem(PortfolioSection):
 
         tooltip_html = ""
         for rec in recommendations:
-            card_id = id_from_item_data(rec) + "_card"
+            element_id = id_from_item_data(rec) + "_card"
             tooltip_text=f"{rec['title']}"
             tooltip_html += _custom_tooltip_with_frost_glass_html(
               element_id,
