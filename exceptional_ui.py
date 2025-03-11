@@ -4,6 +4,7 @@ description: Implements beautiful front-end components using Streamlit, HTML, an
 """
 
 import streamlit as st
+import time
 
 #
 # (0)
