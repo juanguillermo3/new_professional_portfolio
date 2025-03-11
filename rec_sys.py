@@ -208,18 +208,14 @@ class RecommendationSystem(PortfolioSection):
         #st.markdown("<br><br>", unsafe_allow_html=True)
 
         card_id = id_from_item_data(rec) + "_card"
+        _custom_tooltip_with_frost_glass_html(
+           card_id,
+           f"{rec['title']}",
+           tooltip_top_pos="100%",  # Places it below the element
+           tooltip_bottom_pos="auto",  # Removes default positioning
+           tooltip_width="120%"
+         )
 
-
-        if False:
-          card_id = id_from_item_data(rec) + "_card"
-          MOCK_INFO_PREFIX = "Info: "
-          texts = [
-              f"{MOCK_INFO_PREFIX} {rec['title']}"
-          ] + [
-              f"{MOCK_INFO_PREFIX} {rec['description']}"
-          ]
-          st.markdown(frost_glass_mosaic(card_id, texts), unsafe_allow_html=True)
-    
         unique_hash = hashlib.md5(rec['title'].encode()).hexdigest()
         button_id = f"galleria_{unique_hash}"
     
