@@ -170,8 +170,6 @@ def _custom_tooltip_with_frost_glass_html(element_id: str, tooltip_text: str, **
     }}
     </style>
     """
-import html
-import hashlib
 
 import html
 import hashlib
@@ -192,10 +190,8 @@ def html_for_tooltip_from_large_list(items, label, color="#555", emoji=None):
     if not items:
         return f'<div style="color:gray;">No {label.lower()} listed</div>'
     
-    # Generate a unique identifier based on the label
-    hash_id = hashlib.md5(label.encode()).hexdigest()[:8]
-    element_id = f"tooltip-{hash_id}"
-    unique_class = f"tooltip-style-{hash_id}"  # Unique class for isolated styling
+    # Generate a unique tooltip ID based on the current time
+    element_id = f"tooltip-{hashlib.md5(str(label).encode()).hexdigest()[:8]}"
     
     # Escape and format first item
     first_item = html.escape(items[0])
@@ -213,13 +209,13 @@ def html_for_tooltip_from_large_list(items, label, color="#555", emoji=None):
         <span id="{element_id}" style="border-bottom: 1px dashed gray; cursor: pointer;" class="hover-trigger">
             {visible_text}
         </span>
-        <div class="tooltip {unique_class}">
+        <div class="tooltip">
             <strong>All {label} listed:</strong>
             {tooltip_content}
         </div>
     </div>
     <style>
-        .{element_id} {{
+        .tooltip {{
             visibility: hidden;
             opacity: 0;
             transform: translateY(5px) scale(0.95);
@@ -241,15 +237,12 @@ def html_for_tooltip_from_large_list(items, label, color="#555", emoji=None):
             transform-origin: top center;
         }}
 
-        #{element_id}:hover + .{element_id} {{
+        #{element_id}:hover + .tooltip {{
             visibility: visible;
             opacity: 1;
             transform: translateY(0px) scale(1.1);
         }}
     </style>
-    """
-
-
-
+    """ 
 
 
