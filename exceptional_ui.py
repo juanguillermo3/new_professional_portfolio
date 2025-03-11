@@ -245,3 +245,51 @@ def html_for_tooltip_from_large_list(items, label, color="#555", emoji=None):
     """ 
 
 
+
+import html
+import hashlib
+
+def html_for_tooltip_from_large_list(items, label, color="#555", emoji=None):
+    """
+    Generates an HTML tooltip for displaying a large list with a summarized preview.
+    
+    Parameters:
+        - items (list of str): The list of items to display.
+        - label (str): Describes the type of items being enumerated.
+        - color (str): Color for the tooltip text (default: neutral gray #555).
+        - emoji (str, optional): Emoji prepended to each listed item.
+    
+    Returns:
+        - str: HTML snippet containing the summarized text and a tooltip for full details.
+    """
+    if not items:
+        return f'<div style="color:gray;">No {label.lower()} listed</div>'
+    
+    # Generate a unique tooltip ID based on the current time
+    element_id = f"tooltip-{hashlib.md5(str(time.time()).encode()).hexdigest()[:8]}"
+    
+    # Escape and format first item
+    first_item = html.escape(items[0])
+    summary = f"(and {len(items) - 1} more listed {label.lower()})" if len(items) > 1 else ""
+    visible_text = f'<div style="color:{color};">{first_item} {summary}</div>'
+    
+    # Generate full tooltip content
+    tooltip_content = "".join(
+        f'<div style="color:{color};">{(emoji + " " if emoji else "")}{html.escape(item)}</div>'
+        for item in items
+    )
+    
+    return f"""
+    <div style="position: relative; display: inline-block;">
+        <span id="{element_id}" style="border-bottom: 1px dashed gray; cursor: pointer;" class="hover-trigger">
+            {visible_text}
+        </span>
+        <div class="tooltip">
+            <strong>All {label} listed:</strong>
+            {tooltip_content}
+        </div>
+    </div>
+    <style>
+    </style>
+    """ 
+
