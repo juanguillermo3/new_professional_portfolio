@@ -246,9 +246,6 @@ def html_for_tooltip_from_large_list(items, label, color="#555", emoji=None):
 
 
 
-import html
-import hashlib
-
 def html_for_tooltip_from_large_list(items, label, color="#555", emoji=None):
     """
     Generates an HTML tooltip for displaying a large list with a summarized preview.
@@ -281,7 +278,7 @@ def html_for_tooltip_from_large_list(items, label, color="#555", emoji=None):
     
     return f"""
     <div style="position: relative; display: inline-block;">
-        <span id="{element_id}" style="border-bottom: 1px dashed gray; cursor: pointer;" class="hover-trigger">
+        <span id="{label}" style="border-bottom: 1px dashed gray; cursor: pointer;" class="hover-trigger">
             {visible_text}
         </span>
         <div class="tooltip">
@@ -290,6 +287,32 @@ def html_for_tooltip_from_large_list(items, label, color="#555", emoji=None):
         </div>
     </div>
     <style>
+        .tooltip {{
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(5px) scale(0.95);
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out;
+            background-color: rgba(240, 240, 240, 0.7);
+            backdrop-filter: blur(1px);
+            color: black;
+            text-align: left;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            left: 75%;
+            top: 120%;
+            min-width: 100%;
+            max-width: 400px;
+            z-index: 1;
+            border: 1px solid rgba(200, 200, 200, 0.5);
+            transform-origin: top center;
+        }}
+
+        #{label}:hover + .tooltip {{
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0px) scale(1.1);
+        }}
     </style>
     """ 
-
