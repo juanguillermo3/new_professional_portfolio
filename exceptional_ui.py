@@ -190,7 +190,7 @@ def html_for_tooltip_from_large_list(items, label, color="#555", emoji=None):
         return f'<div style="color:gray;">No {label.lower()} listed</div>'
     
     # Generate a unique tooltip ID based on the current time
-    element_id = f"tooltip-{hashlib.md5(str(time.time()).encode()).hexdigest()[:8]}"
+    element_id = f"tooltip-{hashlib.md5(str(label).encode()).hexdigest()[:8]}"
     
     # Escape and format first item
     first_item = html.escape(items[0])
