@@ -13,6 +13,9 @@ from html import escape
 from exceptional_ui import _custom_tooltip_html
 from badges_for_item_data import apply_badges_to_item_title
 from biotech_lab import frost_glass_mosaic, _custom_tooltip_with_frost_glass_html, frost_glass_mosaic
+import time
+import html
+
 
 def id_from_item_data(rec, fields=["title", "description"]):
     """
@@ -121,152 +124,6 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
     </style>
     """
 
- 
- 
-def html_for_item_data(
-     rec,
-     badge_rules=None,
-     background_color="#f4f4f4",
-     border_style="1px solid #ddd",
-     card_height="150px",
-     post_fix="_card"
- ):
-     """
-     Generate an HTML snippet for a recommended item card dynamically.
- 
-     Parameters:
-     - rec (dict): Dictionary containing item metadata.
- 
-     Returns:
-     - str: A formatted HTML string representing the item card.
-     """
- 
-     # Apply the badge system with default rules inside apply_badges_to_item_title
-     title = apply_badges_to_item_title(rec, badge_rules)
- 
-     # Escape description to prevent HTML injection
-     description = html.escape(rec.get("description", "No description available."))
- 
-     # Generate unique ID
-     card_id = id_from_item_data(rec) + post_fix
- 
-     print(card_id)
- 
-     # Return the HTML structure
-     return f"""
-         <div id="{card_id}" style="background-color: {background_color}; border: {border_style}; 
-                     border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
-                     height: {card_height}; 
-                     display: flex; align-items: center; justify-content: center;
-                     padding: 10px; text-align: center; font-size: 16px; 
-                     font-weight: bold; cursor: pointer; margin: 10px;">
-             <div style="background-color: rgba(255, 255, 255, 0.7); 
-                         padding: 5px 10px; border-radius: 10px; width: auto; max-width: 100%;">
-                 {title}
-             </div>
-         </div>
-     """  + _custom_tooltip_with_frost_glass_html(
-         card_id,
-         f"{description}",
-         tooltip_top_pos="100%",  # Places it below the element
-         tooltip_bottom_pos="auto",  # Removes default positioning
-         tooltip_width="120%"
-     )
-
-def html_for_item_data(
-     rec,
-     badge_rules=None,
-     background_color="#f4f4f4",
-     border_style="1px solid #ddd",
-     card_height="150px",
-     overflow_style="overflow-y: auto;"
- ):
-     """
-     Generate an HTML snippet for a recommended item card dynamically.
- 
-     Parameters:
-     - rec (dict): Dictionary containing item metadata.
- 
-     Returns:
-     - str: A formatted HTML string representing the item card.
-     """
- 
-     # Apply the badge system with default rules inside apply_badges_to_item_title
-     title = apply_badges_to_item_title(rec, badge_rules)
- 
-     # Default description if missing
-     description = html.escape(rec.get('description', 'No description available.'))  # Escape for safety
- 
-     # Return the HTML structure
-     return f"""
-         <div style="background-color: {background_color}; border: {border_style}; 
-                     border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
-                     padding: 10px; height: {card_height}; {overflow_style}; 
-                     display: flex; flex-direction: column; justify-content: space-between;">
-             <div style="background-color: rgba(255, 255, 255, 0.7); 
-                         padding: 5px 10px; border-radius: 10px 10px 0 0; 
-                         font-size: 16px; font-weight: bold; text-align: center;">
-                 {title}
-             </div>
-             <div style="flex-grow: 1; padding: 10px; overflow-y: auto; text-align: justify;">
-                 {description}
-             </div>
-         </div>
-     """
-
-
-def html_for_item_data(
-     rec,
-     badge_rules=None,
-     background_color="#f4f4f4",
-     border_style="1px solid #ddd",
-     card_height="150px",
-     post_fix="_card"
- ):
-     """
-     Generate an HTML snippet for a recommended item card dynamically.
- 
-     Parameters:
-     - rec (dict): Dictionary containing item metadata.
- 
-     Returns:
-     - str: A formatted HTML string representing the item card.
-     """
- 
-     # Apply the badge system with default rules inside apply_badges_to_item_title
-     title = apply_badges_to_item_title(rec, badge_rules)
- 
-     # Escape description to prevent HTML injection
-     description = html.escape(rec.get("description", "No description available."))
- 
-     # Generate unique ID
-     card_id = id_from_item_data(rec) + post_fix
- 
-     print(card_id)
- 
-     # Return the HTML structure
-     return f"""
-         <div id="{card_id}" style="background-color: {background_color}; border: {border_style}; 
-                     border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
-                     height: {card_height}; 
-                     display: flex; align-items: center; justify-content: center;
-                     padding: 10px; text-align: center; font-size: 16px; 
-                     font-weight: bold; cursor: pointer; margin: 10px;">
-             <div style="background-color: rgba(255, 255, 255, 0.7); 
-                         padding: 5px 10px; border-radius: 10px; width: auto; max-width: 100%;">
-                 {title}
-             </div>
-         </div>
-     """  + _custom_tooltip_with_frost_glass_html(
-         card_id,
-         f"{description}",
-         tooltip_top_pos="100%",  # Places it below the element
-         tooltip_bottom_pos="auto",  # Removes default positioning
-         tooltip_width="120%"
-     )
-
-import time
-import html
 
 def html_for_item_data(
      rec,
@@ -318,6 +175,80 @@ def html_for_item_data(
 
 
 
+import html
+import hashlib
+import time
+
+def html_for_tooltip_from_large_list(items, label, color="#555", emoji=None):
+    """
+    Generates an HTML tooltip for displaying a large list with a summarized preview.
+    
+    Parameters:
+        - items (list of str): The list of items to display.
+        - label (str): Describes the type of items being enumerated.
+        - color (str): Color for the tooltip text (default: neutral gray #555).
+        - emoji (str, optional): Emoji prepended to each listed item.
+    
+    Returns:
+        - str: HTML snippet containing the summarized text and a tooltip for full details.
+    """
+    if not items:
+        return f'<div style="color:gray;">No {label.lower()} listed</div>'
+    
+    # Generate a unique tooltip ID based on the current time
+    element_id = f"tooltip-{hashlib.md5(str(time.time()).encode()).hexdigest()[:8]}"
+    
+    # Escape and format first item
+    first_item = html.escape(items[0])
+    summary = f"(and {len(items) - 1} more listed {label.lower()})" if len(items) > 1 else ""
+    visible_text = f'<div style="color:{color};">{first_item} {summary}</div>'
+    
+    # Generate full tooltip content
+    tooltip_content = "".join(
+        f'<div style="color:{color};">{(emoji + " " if emoji else "")}{html.escape(item)}</div>'
+        for item in items
+    )
+    
+    return f"""
+    <div style="position: relative; display: inline-block;">
+        <span id="{element_id}" style="border-bottom: 1px dashed gray; cursor: pointer;" class="hover-trigger">
+            {visible_text}
+        </span>
+        <div class="tooltip">
+            <strong>All {label} listed:</strong>
+            {tooltip_content}
+        </div>
+    </div>
+    <style>
+        .tooltip {{
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(5px) scale(0.95);
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out;
+            background-color: rgba(240, 240, 240, 0.7);
+            backdrop-filter: blur(1px);
+            color: black;
+            text-align: left;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            left: 75%;
+            top: 120%;
+            min-width: 100%;
+            max-width: 400px;
+            z-index: 1;
+            border: 1px solid rgba(200, 200, 200, 0.5);
+            transform-origin: top center;
+        }}
+
+        #{element_id}:hover + .tooltip {{
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0px) scale(1.1);
+        }}
+    </style>
+    """
 
 
 
