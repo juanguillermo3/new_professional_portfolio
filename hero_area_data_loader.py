@@ -98,22 +98,26 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
         {
             "title": "Inferential Statistics & High-Performance Predictive Analytics",
             "description": "I research and implement techniques for regression, classification, and forecasting use cases, \
-            with applications ranging from macroeconomic and financial forecasting to microdata predictions in various systems."
+            with applications ranging from macroeconomic and financial forecasting to microdata predictions in various systems.",
+            "skills": ["Bayesian Inference", "Hypothesis Testing"]
         },
         {
             "title": "Software & Application Development for Inference Distribution",
             "description": "I develop applications (batch scripts, APIs, dashboards, web applications) to distribute insights \
-            and predictions across corporate environments."
+            and predictions across corporate environments.",
+            "skills": ["API Development", "Asynchronous Programming"]
         },
         {
             "title": "Data Engineering",
             "description": "As my former boss Susana Martinez Restrepo said, 'I can perform data miracles.' This refers to my \
-            ability to clean and organize datasets from complex, multi-source environments for research and model development."
+            ability to clean and organize datasets from complex, multi-source environments for research and model development.",
+            "skills": ["ETL Pipelines", "Data Warehousing"]
         },
         {
             "title": "Holistic Understanding of Modern Tooling",
             "description": "I integrate tools and technologies for modern data analysis, committing to research the \
             unique purposes of each tool and efficiently write workflows around them using GPT.",
+            "skills": ["Cloud Computing", "Containerization"],
             "subitems": [
                 "<strong>Excellence Tier (I know the code line by heart):</strong> Python, R Studio, Stata, GPT",
                 "<strong>Proficiency Tier:</strong> Airflow, SQL, Spark, Bash scripting",
@@ -122,14 +126,17 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
         },
         {
             "title": "Research effort on AI & LLM powered applications",
-            "description": "I prepare myself by means of self-learning for the disruption of Artificial Intelligence in software development and the rise of LLM-powered applications."
+            "description": "I prepare myself by means of self-learning for the disruption of Artificial Intelligence in software development and the rise of LLM-powered applications.",
+            "skills": ["Prompt Engineering", "Fine-Tuning LLMs"]
         },
         {
             "title": "Bonus: Rigorous Economic Mindset",
             "description": "As a professional economist, I over-simplify complex social phenomena by casually referencing supply and demand (kidding!).  \
-            But really, I approach data analysis with a focus on causal reasoning, marginal effects, and counterfactual analysis."
+            But really, I approach data analysis with a focus on causal reasoning, marginal effects, and counterfactual analysis.",
+            "skills": ["Causal Inference", "Time Series Analysis"]
         }
     ]
+
 
     offering_html = '<h3>(5+1) Key Differentials of My Professional Offering</h3>'
     offering_html += '<ol style="padding-left: 20px;">'
@@ -164,6 +171,9 @@ def load_tooltips_for_detailed_offerings():
     }
     
     return tooltips
+
+
+
 
 
 
