@@ -219,7 +219,7 @@ def html_for_tooltip_from_large_list(items, label, color="#555", emoji=None):
         </div>
     </div>
     <style>
-        .{unique_class} {{
+        .{element_id} {{
             visibility: hidden;
             opacity: 0;
             transform: translateY(5px) scale(0.95);
@@ -241,13 +241,14 @@ def html_for_tooltip_from_large_list(items, label, color="#555", emoji=None):
             transform-origin: top center;
         }}
 
-        #{element_id}:hover + .{unique_class} {{
+        #{element_id}:hover + .{element_id} {{
             visibility: visible;
             opacity: 1;
             transform: translateY(0px) scale(1.1);
         }}
     </style>
     """
+
 
 
 
