@@ -214,15 +214,7 @@ def html_for_tooltip_from_large_list(items, label, color="#555", emoji=None):
             {tooltip_content}
         </div>
     </div>
-    <style>
 
-
-        #{element_id}:hover + .tooltip {{
-            visibility: visible;
-            opacity: 1;
-            transform: translateY(0px) scale(1.1);
-        }}
-    </style>
     """ 
 
 
