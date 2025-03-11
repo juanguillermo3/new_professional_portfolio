@@ -153,8 +153,8 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
             offering_html += '</ul>'
 
         # Insert the tooltip for the list of technical skills
-        #if "skills" in offer:
-        #    offering_html += html_for_tooltip_from_large_list(offer["skills"], label="Technical Skills", color="#555", emoji="🛠️")
+        if "skills" in offer:
+            offering_html += f'<span>{html_for_tooltip_from_large_list(offer["skills"], label="Technical Skills", color="#555", emoji="🛠️")}</span>'
 
         offering_html += '</li>'
     
