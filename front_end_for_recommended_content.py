@@ -35,7 +35,6 @@ def html_for_item_data(
     background_color="#f4f4f4",
     border_style="1px solid #ddd",
     card_height="150px",
-    overflow_style="overflow-y: auto;",
     post_fix="_card"
 ):
     """
@@ -47,32 +46,37 @@ def html_for_item_data(
     Returns:
     - str: A formatted HTML string representing the item card.
     """
-    
+
     # Apply the badge system with default rules inside apply_badges_to_item_title
     title = apply_badges_to_item_title(rec, badge_rules)
 
-    # Default description if missing
-    description = html.escape(rec.get('description', 'No description available.'))  # Escape for safety
-    
+    # Escape description to prevent HTML injection
+    description = html.escape(rec.get("description", "No description available."))
+
     # Generate unique ID
     card_id = id_from_item_data(rec) + post_fix
 
     # Return the HTML structure
     return f"""
-        <div style="background-color: {background_color}; border: {border_style}; 
+        <div id="{card_id}" style="background-color: {background_color}; border: {border_style}; 
                     border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
-                    padding: 10px; height: {card_height}; {overflow_style}; 
-                    display: flex; flex-direction: column; justify-content: space-between;">
+                    height: {card_height}; 
+                    display: flex; align-items: center; justify-content: center;
+                    padding: 10px; text-align: center; font-size: 16px; 
+                    font-weight: bold; cursor: pointer; margin: 10px;">
             <div style="background-color: rgba(255, 255, 255, 0.7); 
-                        padding: 5px 10px; border-radius: 10px 10px 0 0; 
-                        font-size: 16px; font-weight: bold; text-align: center;">
+                        padding: 5px 10px; border-radius: 10px; width: auto; max-width: 100%;">
                 {title}
             </div>
-            <div   id="{card_id}"  style="flex-grow: 1; padding: 10px; overflow-y: auto; text-align: justify;">
-                {description}
-            </div>
         </div>
-    """
+    """ + _custom_tooltip_with_frost_glass_html(
+        card_id,
+        f"{rec['title']}<br>{description}",
+        tooltip_top_pos="100%",  # Places it below the element
+        tooltip_bottom_pos="auto",  # Removes default positioning
+        tooltip_width="120%"
+    )
+
     
 def html_for_item_data(
     rec,
