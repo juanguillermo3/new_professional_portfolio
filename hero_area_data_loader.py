@@ -7,13 +7,6 @@ from exceptional_ui import (
     install_tooltip_triggering_logic
 )
 
-def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
-    offerings = [
-        {
-            "title": "Inferential Statistics & High-Performance Predictive Analytics",
-            "descriptio
-
-
 # Load environment variables
 load_dotenv()
 
