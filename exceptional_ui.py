@@ -273,8 +273,8 @@ def install_tooltip_styling(style_prefix="", **design_params):
         "position": "absolute",
         "left": "25%",  # Tooltip starts shifted left
         "top": "110%",  # Tooltip is positioned below the element
-        "tooltip_width": "auto",
-        "tooltip_max_width": "420px",
+        "tooltip_width": "350px",
+        "tooltip_max_width": "350px",
         "z_index": "15",
         "border": "1px solid rgba(255, 255, 255, 0.2)",  # Subtle highlight border
         "transform_origin": "top center",
