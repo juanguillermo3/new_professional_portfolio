@@ -287,10 +287,12 @@ def html_for_tooltip_from_large_list(items, label, element_id, color="#007BFF", 
 
     # Define tooltip HTML (both elements inside a common div)
     tooltip_html = f"""
-        <div   style="position: relative; display: inline-block; max-width: 100%;">
+        <div style="position: relative; display: inline-block; max-width: 100%;">
             <div class="tooltip-container-{unique_id}" style="display: inline-block; position: relative;">
                 {visible_text}
                 <div class="skills_tooltip-{unique_id}" style="
+                    visibility: hidden;
+                    opacity: 0;
                     background: rgba(20, 20, 20, 0.9);
                     color: #ffffff;
                     padding: 12px;
@@ -325,6 +327,5 @@ def html_for_tooltip_from_large_list(items, label, element_id, color="#007BFF", 
     """, unsafe_allow_html=True)
 
     return tooltip_html
-
 
 
