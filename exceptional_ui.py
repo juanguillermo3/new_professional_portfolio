@@ -359,8 +359,9 @@ def html_for_tooltip_from_large_list(items, label, element_id, style_prefix="", 
     # Escape and format first item
     first_item = html.escape(items[0])
     summary = f"(and {len(items) - 1} more {label.lower()})" if len(items) > 1 else ""
-    visible_text = f'<div style="color:{color};">{first_item} {summary}</div>'
+    visible_text = f'<div style="color:{color}; border-bottom: 1px dashed {color} ">{first_item} {summary}</div>'
 
+    """
     # Updated visible text styling
     visible_text = f"""
     <span id="{element_id}" style="
@@ -372,6 +373,7 @@ def html_for_tooltip_from_large_list(items, label, element_id, style_prefix="", 
         transition: color 0.3s ease-in-out;">
         {first_item} {summary}
     </span>
+    """
     """
     
     # Generate full tooltip content
