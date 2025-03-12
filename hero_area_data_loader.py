@@ -134,15 +134,14 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
                 offer["skills"], label="Technical Skills", element_id=element_id, color="#555", emoji="🏅"
             )
             offering_html += tooltip_html
-            tooltip_ids.append(unique_id)  # Store unique ID for setup
+            
+            # Inject tooltip behaviors
+            st.markdown(setup_tooltip_behavior(unique_id), unsafe_allow_html=True)
 
         offering_html += '</li>'
     
     offering_html += '</ol>'
 
-    # Inject tooltip behaviors
-    for unique_id in tooltip_ids:
-        st.markdown(setup_tooltip_behavior(unique_id), unsafe_allow_html=True)
-
+        
     return offering_html
 
