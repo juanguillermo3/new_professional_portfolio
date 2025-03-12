@@ -38,155 +38,6 @@ def load_quote():
 def load_avatar_caption():
     return "God told me I could either be good-looking or an excellent worker."
 
-def load_detailed_offering():
-    offering = """
-    <h3>(5+1) Key Differentials of My Professional Offering</h3>
-    <ol style="padding-left: 20px;">
-        <li id="offering-1" style="background-color: #f0f0f0; padding: 8px; border-radius: 4px;">
-            <strong>1. Inferential Statistics & High-Performance Predictive Analytics</strong>: I research and implement techniques for regression, classification, and forecasting use cases, 
-            with applications ranging from macroeconomic and financial forecasting to microdata predictions in various systems.
-        </li>
-        <li id="offering-2" style="background-color: #ffffff; padding: 8px; border-radius: 4px;">
-            <strong>2. Software & Application Development for Inference Distribution</strong>: I develop applications (batch scripts, APIs, dashboards, web applications) to distribute insights 
-            and predictions across corporate environments.
-        </li>
-        <li id="offering-3" style="background-color: #f0f0f0; padding: 8px; border-radius: 4px;">
-            <strong>3. Data Engineering </strong>: As my former boss Susana Martinez Restrepo said, "I can perform data miracles." This refers to my 
-            ability to clean and organize datasets from complex, multi-source environments for research and model development.
-        </li>
-        <li id="offering-4" style="background-color: #ffffff; padding: 8px; border-radius: 4px;">
-            <strong>4. Holistic Understanding of Modern Tooling</strong>: I integrate tools and technologies for modern data analysis, committing to research the 
-            unique purposes of each tool and efficiently write workflows around them using GPT.
-            <ul style="list-style-type: none; padding-left: 0;">
-                <li><strong>Excellence Tier (I know the code line by heart):</strong> Python, R Studio, Stata, GPT</li>
-                <li><strong>Proficiency Tier:</strong> Airflow, SQL, Spark, Bash scripting</li>
-                <li><strong>Currently Learning:</strong> Docker, Kubernetes, GitHub, Big Data Cloud tools, SQLAlchemy, Django</li>
-            </ul>
-        </li>
-        <li id="offering-5" style="background-color: #f0f0f0; padding: 8px; border-radius: 4px;">
-            <strong>5. Research effort on AI & LLM powered applications </strong>: I prepare myself by means of self-learning for the disruption of Artificial Intelligence in software development and the rise of LLM-powered applications.
-        </li>
-        <li id="offering-6" style="background-color: #ffffff; padding: 8px; border-radius: 4px;">
-            <strong>Bonus: Rigorous Economic Mindset</strong>: As a professional economist, I over-simplify complex social phenomena by casually referencing supply and demand (kidding!).  
-            But really, I approach data analysis with a focus on causal reasoning, marginal effects, and counterfactual analysis.
-        </li>
-    </ol>
-    """
-    
-    return offering
-
-def load_detailed_offering():
-    offerings = [
-        {"id": "offering-1", "bg_color": "#f0f0f0", "content": "<strong>1. Inferential Statistics & High-Performance Predictive Analytics</strong>: I research and implement techniques for regression, classification, and forecasting use cases, with applications ranging from macroeconomic and financial forecasting to microdata predictions in various systems."},
-        {"id": "offering-2", "bg_color": "#ffffff", "content": "<strong>2. Software & Application Development for Inference Distribution</strong>: I develop applications (batch scripts, APIs, dashboards, web applications) to distribute insights and predictions across corporate environments."},
-        {"id": "offering-3", "bg_color": "#f0f0f0", "content": "<strong>3. Data Engineering</strong>: As my former boss Susana Martinez Restrepo said, \"I can perform data miracles.\" This refers to my ability to clean and organize datasets from complex, multi-source environments for research and model development."},
-        {"id": "offering-4", "bg_color": "#ffffff", "content": "<strong>4. Holistic Understanding of Modern Tooling</strong>: I integrate tools and technologies for modern data analysis, committing to research the unique purposes of each tool and efficiently write workflows around them using GPT.<ul style='list-style-type: none; padding-left: 0;'><li><strong>Excellence Tier (I know the code line by heart):</strong> Python, R Studio, Stata, GPT</li><li><strong>Proficiency Tier:</strong> Airflow, SQL, Spark, Bash scripting</li><li><strong>Currently Learning:</strong> Docker, Kubernetes, GitHub, Big Data Cloud tools, SQLAlchemy, Django</li></ul>"},
-        {"id": "offering-5", "bg_color": "#f0f0f0", "content": "<strong>5. Research effort on AI & LLM powered applications</strong>: I prepare myself by means of self-learning for the disruption of Artificial Intelligence in software development and the rise of LLM-powered applications."},
-        {"id": "offering-6", "bg_color": "#ffffff", "content": "<strong>Bonus: Rigorous Economic Mindset</strong>: As a professional economist, I over-simplify complex social phenomena by casually referencing supply and demand (kidding!). But really, I approach data analysis with a focus on causal reasoning, marginal effects, and counterfactual analysis."}
-    ]
-
-    offering_html = """
-    <h3>(5+1) Key Differentials of My Professional Offering</h3>
-    <ol style="padding-left: 20px;">
-    """
-    
-    for offering in offerings:
-        offering_html += f'<li id="{offering["id"]}" style="background-color: {offering["bg_color"]}; padding: 8px; border-radius: 4px;">{offering["content"]}</li>'
-    
-    offering_html += "</ol>"
-    
-    return offering_html
-
-
-def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
-    offerings = [
-        {
-            "title": "Inferential Statistics & High-Performance Predictive Analytics",
-            "description": "I research and implement techniques for regression, classification, and forecasting use cases, \
-            with applications ranging from macroeconomic and financial forecasting to microdata predictions in various systems.",
-            "skills": [
-                "Training in Regression, Forecasting, Machine Learning and Artificial Intelligence", 
-                "Development of algorithms for high-performance Machine Learning",
-                "Deep Learning"
-            ]
-        },
-        {
-            "title": "Software & Application Development for Inference Distribution",
-            "description": "I develop applications (batch scripts, APIs, dashboards, web applications) to distribute insights \
-            and predictions across corporate environments.",
-            #"skills": ["API Development", "Asynchronous Programming"]
-        },
-        {
-            "title": "Data Engineering",
-            "description": "As my former boss Susana Martinez Restrepo said, 'I can perform data miracles.' This refers to my \
-            ability to clean and organize datasets from complex, multi-source environments for research and model development.",
-            #"skills": ["ETL Pipelines", "Data Warehousing"]
-        },
-        {
-            "title": "Holistic Understanding of Modern Tooling",
-            "description": "I integrate tools and technologies for modern data analysis, committing to research the \
-            unique purposes of each tool and efficiently write workflows around them using GPT.",
-            #"skills": ["Cloud Computing", "Containerization"],
-            "subitems": [
-                "<strong>Excellence Tier (I know the code line by heart):</strong> Python, R Studio, Stata, GPT",
-                "<strong>Proficiency Tier:</strong> Airflow, SQL, Spark, Bash scripting",
-                "<strong>Currently Learning:</strong> Docker, Kubernetes, GitHub, Big Data Cloud tools, SQLAlchemy, Django"
-            ]
-        },
-        {
-            "title": "Research effort on AI & LLM powered applications",
-            "description": "I prepare myself by means of self-learning for the disruption of Artificial Intelligence in software development and the rise of LLM-powered applications.",
-            "skills": ["Prompt Engineering", "Fine-Tuning LLMs"]
-        },
-        {
-            "title": "Bonus: Rigorous Economic Mindset",
-            "description": "As a professional economist, I over-simplify complex social phenomena by casually referencing supply and demand (kidding!).  \
-            But really, I approach data analysis with a focus on causal reasoning, marginal effects, and counterfactual analysis.",
-            "skills": ["Causal Inference", "Time Series Analysis"]
-        }
-    ]
-
-
-    offering_html = '<h3>(5+1) Key Differentials of My Professional Offering</h3>'
-    offering_html += '<ol style="padding-left: 20px;">'
-    
-    for i, offer in enumerate(offerings):
-        bg_color = colors[i % len(colors)]
-        offering_html += f'<li id="{id_pattern.format(i+1)}" style="background-color: {bg_color}; padding: 8px; border-radius: 4px;">'
-        offering_html += f'<strong>{i+1}. {offer["title"]}</strong>: {offer["description"]}'
-
-        if "subitems" in offer:
-            offering_html += '<ul style="list-style-type: none; padding-left: 0;">'
-            for subitem in offer["subitems"]:
-                offering_html += f'<li>{subitem}</li>'
-            offering_html += '</ul>'
-
-        # Insert the tooltip for the list of technical skills
-        if "skills" in offer:
-            #offering_html += f'<span>{html_for_tooltip_from_large_list(offer["skills"], label="Technical Skills", element_id=element_id color="#555", emoji="🛠️")}</span>'
-            pass
-
-        offering_html += '</li>'
-    
-    offering_html += '</ol>'
-    
-    return offering_html
-
-def load_tooltips_for_detailed_offerings():
-    tooltips = {
-        "offering-1": f"{MOCK_INFO_PREFIX} Predictive analytics involves using statistical techniques and machine learning to forecast future outcomes based on historical data.",
-        "offering-2": f"{MOCK_INFO_PREFIX} Inference distribution ensures that insights generated from models reach stakeholders via APIs, dashboards, or batch reports.",
-        "offering-3": f"{MOCK_INFO_PREFIX} Data transformation converts raw, unstructured data into a structured, usable format for analysis and machine learning.",
-        "offering-4": f"{MOCK_INFO_PREFIX} Modern data tooling involves integrating various technologies to create efficient, scalable workflows for data-driven decision-making.",
-        "offering-5": f"{MOCK_INFO_PREFIX} AI and large language models (LLMs) are reshaping software development by automating coding, debugging, and decision-making.",
-        "offering-6": f"{MOCK_INFO_PREFIX} An economic mindset applies principles like supply & demand, marginal effects, and counterfactual analysis to data interpretation.",
-        "offering-999": f"{MOCK_INFO_PREFIX} This is a non-existent tooltip for testing error handling.",  # Mock non-existent ID
-        "offering-X": f"{MOCK_INFO_PREFIX} Another non-existent tooltip to ensure system robustness."  # Mock non-existent ID
-    }
-    
-    return tooltips
-
-
 def load_code_samples():
     return [
         {"title": "🚀 Genetic Algorithms for forecasting app sales", "url": "https://colab.research.google.com/drive/1QKFY5zfiRkUUPrnhlsOrtRlqGJ14oFf3#scrollTo=sxBOaWZ9uabz"},
@@ -211,7 +62,12 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
             "title": "Software & Application Development for Inference Distribution",
             "description": "I develop applications (batch scripts, APIs, dashboards, web applications) to distribute insights \
             and predictions across corporate environments.",
-            #"skills": ["API Development", "Asynchronous Programming"]
+            "skills": [
+                "Understanding of software engineering methodologies, architectural and design patterns.", 
+                "Implementation of design patterns for Imperative, Object Oriented and Functional Programming for analytical skills.", 
+                "Expertise on Python an R´s development ecosystem across all stages of data analysis.", 
+                "Expert use of key libraries for application development",  
+            ]
         },
         {
             "title": "Data Engineering",
