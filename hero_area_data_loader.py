@@ -63,10 +63,10 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
             "description": "I develop applications (batch scripts, APIs, dashboards, web applications) to distribute insights \
             and predictions across corporate environments.",
             "skills": [
-                "Understanding of software engineering methodologies, architectural and design patterns.", 
-                "Implementation of design patterns for Imperative, Object Oriented and Functional Programming for analytical skills.", 
-                "Expertise on Python an R´s development ecosystem across all stages of data analysis.", 
-                "Expert use of key libraries for application development",  
+                "Strong understanding of software engineering. ", 
+                "Familiarity witg software engineering methodologies, architectural and design patterns. ", 
+                "Expertise with development of code using Object Oriented, Functional and Asyncrhonous styles. ", 
+                "High adaptability to using key libraries for application development. ",  
             ]
         },
         {
