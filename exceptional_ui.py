@@ -309,14 +309,16 @@ def install_tooltip_styling(style_prefix="off", **design_params):
     
 import html
 
+import html
+
 def html_for_tooltip_from_large_list(items, label, element_id, color="#007BFF", emoji=None):
     """
-    Generates an HTML snippet displaying a summarized preview of a list with inline-styled tooltip.
+    Generates an HTML snippet displaying a summarized preview of a list with a hidden tooltip.
 
     Parameters:
         - items (list of str): The list of items to display.
         - label (str): Describes the type of items being enumerated.
-        - element_id (str): The ID of the element (not used for interaction).
+        - element_id (str): The ID of the element (used for reference, not for interaction).
         - color (str): Color for the summary text (default: #007BFF).
         - emoji (str, optional): Emoji prepended to each listed item.
 
@@ -338,7 +340,9 @@ def html_for_tooltip_from_large_list(items, label, element_id, color="#007BFF", 
     return f"""
         <div style="position: relative; display: inline-block; max-width: 100%;">
             {visible_text}
-            <div style="
+            <div id="{element_id}" style="
+                visibility: hidden;
+                opacity: 0;
                 background: rgba(20, 20, 20, 0.9);
                 color: #ffffff;
                 padding: 12px;
