@@ -271,7 +271,7 @@ def install_tooltip_styling(style_prefix="", **design_params):
         "border_radius": "5px",
         "box_shadow": "0px 0px 15px rgba(0, 0, 0, 0.1)",
         "position": "absolute",
-        "left": "75%",
+        "left": "50%",
         "top": "120%",
         "tooltip_width": "100%",
         "tooltip_max_width": "400px",
