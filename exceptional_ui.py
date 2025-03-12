@@ -310,10 +310,11 @@ def install_tooltip_styling(style_prefix="off", **design_params):
 import html
 import hashlib
 import datetime
+import streamlit as st
 
 def html_for_tooltip_from_large_list(items, label, element_id, color="#007BFF", emoji=None):
     """
-    Generates an HTML snippet displaying a summarized preview of a list with a hidden tooltip.
+    Generates an HTML snippet displaying a summarized preview of a list with a tooltip that appears on hover.
 
     Parameters:
         - items (list of str): The list of items to display.
@@ -334,17 +335,18 @@ def html_for_tooltip_from_large_list(items, label, element_id, color="#007BFF", 
 
     first_item = html.escape(items[0])
     summary = f"(and {len(items) - 1} more {label.lower()})" if len(items) > 1 else ""
-    visible_text = f'<span style="color:{color}; border-bottom: 1px dashed {color};">{first_item} {summary}</span>'
+    visible_text = f'<span id="{unique_id}" style="color:{color}; border-bottom: 1px dashed {color}; cursor: pointer;">{first_item} {summary}</span>'
 
     tooltip_content = "".join(
         f'<div style="color:{color}; margin-bottom: 4px;">{(emoji + " " if emoji else "")}{html.escape(item)}</div>'
         for item in items
     )
 
-    return f"""
+    # Define tooltip HTML
+    tooltip_html = f"""
         <div style="position: relative; display: inline-block; max-width: 100%;">
             {visible_text}
-            <div id="{unique_id}" style="
+            <div class="skills_tooltip" style="
                 visibility: hidden;
                 opacity: 0;
                 background: rgba(20, 20, 20, 0.9);
@@ -359,13 +361,28 @@ def html_for_tooltip_from_large_list(items, label, element_id, color="#007BFF", 
                 text-align: left;
                 z-index: 10;
                 border: 1px solid rgba(255, 255, 255, 0.2);
-                transform: translateX(-50%);
+                transform: translateX(-50%) translateY(5px);
+                transition: visibility 0.3s ease-out, opacity 0.3s ease-out, transform 0.3s ease-out;
             ">
                 <strong>All {label} listed:</strong>
                 {tooltip_content}
             </div>
         </div>
     """
+
+    # Inject CSS for hover-triggering logic
+    st.markdown(f"""
+    <style>
+        #{unique_id}:hover + .skills_tooltip {{
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(-50%) translateY(0px) scale(1.05);
+        }}
+    </style>
+    """, unsafe_allow_html=True)
+
+    return tooltip_html
+
 
 
 
