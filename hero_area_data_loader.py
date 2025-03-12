@@ -45,7 +45,7 @@ def load_code_samples():
     ]
 
 
-def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
+def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffee00"]):
     offerings = [
         {
             "title": "Inferential Statistics & High-Performance Predictive Analytics",
