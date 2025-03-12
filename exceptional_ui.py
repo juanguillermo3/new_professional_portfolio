@@ -241,247 +241,6 @@ def install_tooltip_triggering_logic(element_id, style_prefix=""):
     </style>
     """
 
-
-def install_tooltip_styling(style_prefix="", **design_params):
-    """
-    Returns a CSS block defining the general appearance of tooltips with optional customization.
-    
-    Args:
-        style_prefix (str): A prefix to prepend to the tooltip class for styling multiple tooltip variations.
-        **design_params: Dictionary of CSS properties to override default styling.
-        
-    Returns:
-        str: A CSS style block for consistent tooltip styling.
-    """
-    
-    # Ensure the style class is correctly formatted
-    tooltip_class = f".{style_prefix}-tooltip" if style_prefix else ".tooltip"
-
-    # Default design parameters
-    default_params = {
-        "tooltip_visibility": "hidden",
-        "tooltip_opacity": "0",
-        "tooltip_transform": "translateY(5px) scale(0.95)",
-        "tooltip_transition": "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out",
-        "tooltip_bg": "rgba(240, 240, 240, 0.7)",
-        "tooltip_blur": "1px",
-        "text_color": "black",
-        "text_align": "left",
-        "padding": "10px",
-        "border_radius": "5px",
-        "box_shadow": "0px 0px 15px rgba(0, 0, 0, 0.1)",
-        "position": "absolute",
-        "left": "50%",
-        "top": "120%",
-        "tooltip_width": "100%",
-        "tooltip_max_width": "400px",
-        "z_index": "1",
-        "border": "1px solid rgba(200, 200, 200, 0.5)",
-        "transform_origin": "top center"
-    }
-    
-    # Override defaults with user-supplied values
-    params = {**default_params, **design_params}
-    
-    # Construct the CSS style block dynamically
-    css_style = f"""
-    <style>
-        {tooltip_class} {{
-            visibility: {params["tooltip_visibility"]};
-            opacity: {params["tooltip_opacity"]};
-            transform: {params["tooltip_transform"]};
-            transition: {params["tooltip_transition"]};
-            background-color: {params["tooltip_bg"]};
-            backdrop-filter: blur({params["tooltip_blur"]});
-            color: {params["text_color"]};
-            text-align: {params["text_align"]};
-            padding: {params["padding"]};
-            border-radius: {params["border_radius"]};
-            box-shadow: {params["box_shadow"]};
-            position: {params["position"]};
-            left: {params["left"]};
-            top: {params["top"]};
-            min-width: {params["tooltip_width"]};
-            max-width: {params["tooltip_max_width"]};
-            z-index: {params["z_index"]};
-            border: {params["border"]};
-            transform-origin: {params["transform_origin"]};
-        }}
-    </style>
-    """
-    
-    return css_style
-
-
-def install_tooltip_styling(style_prefix="", **design_params):
-    """
-    Returns a CSS block defining the general appearance of tooltips with optional customization.
-    
-    Args:
-        style_prefix (str): A prefix to prepend to the tooltip class for styling multiple tooltip variations.
-        **design_params: Dictionary of CSS properties to override default styling.
-        
-    Returns:
-        str: A CSS style block for consistent tooltip styling.
-    """
-    
-    tooltip_class = f".{style_prefix}-tooltip" if style_prefix else ".tooltip"
-    
-    default_params = {
-        "tooltip_visibility": "hidden",
-        "tooltip_opacity": "0",
-        "tooltip_transform": "translateY(5px) scale(0.95)",
-        "tooltip_transition": "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out",
-        "tooltip_bg": "rgba(240, 240, 240, 0.7)",
-        "tooltip_blur": "10px",
-        "text_color": "black",
-        "text_align": "left",
-        "padding": "12px",
-        "border_radius": "8px",
-        "box_shadow": "0px 6px 12px rgba(0, 0, 0, 0.25), 0px -3px 6px rgba(255, 255, 255, 0.15)",
-        "position": "absolute",
-        "left": "50%",
-        "top": "120%",
-        "tooltip_width": "auto",
-        "tooltip_max_width": "400px",
-        "z_index": "10",
-        "border": "1px solid rgba(200, 200, 200, 0.5)",
-        "transform_origin": "top center"
-    }
-    
-    params = {**default_params, **design_params}
-    
-    return f"""
-    <style>
-        {tooltip_class} {{
-            visibility: {params["tooltip_visibility"]};
-            opacity: {params["tooltip_opacity"]};
-            transform: {params["tooltip_transform"]};
-            transition: {params["tooltip_transition"]};
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(220, 220, 220, 0.15) 100%);
-            backdrop-filter: blur({params["tooltip_blur"]});
-            color: {params["text_color"]};
-            text-align: {params["text_align"]};
-            padding: {params["padding"]};
-            border-radius: {params["border_radius"]};
-            box-shadow: {params["box_shadow"]};
-            position: {params["position"]};
-            left: {params["left"]};
-            top: {params["top"]};
-            min-width: {params["tooltip_width"]};
-            max-width: {params["tooltip_max_width"]};
-            z-index: {params["z_index"]};
-            border: {params["border"]};
-            transform-origin: {params["transform_origin"]};
-            overflow: hidden;
-            animation: floatEffect 4s ease-in-out infinite;
-        }}
-        
-        {tooltip_class}::before {{
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.35) 10%, transparent 70%);
-            pointer-events: none;
-            mix-blend-mode: overlay;
-        }}
-        
-        @keyframes floatEffect {{
-            0% {{ transform: translateY(3px); }}
-            50% {{ transform: translateY(-3px); }}
-            100% {{ transform: translateY(3px); }}
-        }}
-    </style>
-    """
-
-def install_tooltip_styling(style_prefix="", **design_params):
-    """
-    Returns a CSS block defining the general appearance of tooltips with optional customization.
-    
-    Args:
-        style_prefix (str): A prefix to prepend to the tooltip class for styling multiple tooltip variations.
-        **design_params: Dictionary of CSS properties to override default styling.
-        
-    Returns:
-        str: A CSS style block for consistent tooltip styling.
-    """
-    
-    tooltip_class = f".{style_prefix}-tooltip" if style_prefix else ".tooltip"
-    
-    default_params = {
-        "tooltip_visibility": "hidden",
-        "tooltip_opacity": "0",
-        "tooltip_transform": "translateY(5px) scale(0.95)",
-        "tooltip_transition": "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out",
-        "tooltip_bg": "rgba(30, 30, 30, 0.7)",  # Dark frosted background
-        "tooltip_blur": "12px",
-        "text_color": "#ffffff",  # White text for contrast
-        "text_align": "left",
-        "padding": "12px",
-        "border_radius": "8px",
-        "box_shadow": "0px 6px 12px rgba(0, 0, 0, 0.4)",  # Stronger shadow for depth
-        "position": "absolute",
-        "left": "50%",
-        "top": "120%",
-        "tooltip_width": "auto",
-        "tooltip_max_width": "400px",
-        "z_index": "10",
-        "border": "1px solid rgba(255, 255, 255, 0.3)",  # Subtle light border
-        "transform_origin": "top center"
-    }
-    
-    params = {**default_params, **design_params}
-    
-    return f"""
-    <style>
-        {tooltip_class} {{
-            visibility: {params["tooltip_visibility"]};
-            opacity: {params["tooltip_opacity"]};
-            transform: {params["tooltip_transform"]};
-            transition: {params["tooltip_transition"]};
-            background: {params["tooltip_bg"]};
-            backdrop-filter: blur({params["tooltip_blur"]});
-            color: {params["text_color"]};
-            text-align: {params["text_align"]};
-            padding: {params["padding"]};
-            border-radius: {params["border_radius"]};
-            box-shadow: {params["box_shadow"]};
-            position: {params["position"]};
-            left: {params["left"]};
-            top: {params["top"]};
-            min-width: {params["tooltip_width"]};
-            max-width: {params["tooltip_max_width"]};
-            z-index: {params["z_index"]};
-            border: {params["border"]};
-            transform-origin: {params["transform_origin"]};
-            overflow: hidden;
-            animation: floatEffect 4s ease-in-out infinite;
-        }}
-        
-        {tooltip_class}::before {{
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 10%, transparent 70%);
-            pointer-events: none;
-            mix-blend-mode: overlay;
-        }}
-        
-        @keyframes floatEffect {{
-            0% {{ transform: translateY(3px); }}
-            50% {{ transform: translateY(-3px); }}
-            100% {{ transform: translateY(3px); }}
-        }}
-    </style>
-    """
-
-
 def install_tooltip_styling(style_prefix="", **design_params):
     """
     Returns a CSS block defining the general appearance of tooltips with optional customization.
@@ -513,7 +272,7 @@ def install_tooltip_styling(style_prefix="", **design_params):
         "top": "120%",
         "tooltip_width": "100%",
         "tooltip_max_width": "400px",
-        "z_index": "1",
+        "z_index": "10",
         "border": "1px solid rgba(200, 200, 200, 0.5)",
         "transform_origin": "top center"
     }
@@ -551,8 +310,19 @@ def install_tooltip_styling(style_prefix="", **design_params):
             width: 100vw;
             height: 100vh;
             backdrop-filter: blur({params["background_blur"]});
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
             pointer-events: none;
-            z-index: -1;
+            z-index: {int(params["z_index"]) - 1};
+        }}
+
+        /* Show tooltip and blur background when active */
+        {tooltip_class}.active,
+        {tooltip_class}.active::before {{
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0) scale(1);
         }}
     </style>
     """
