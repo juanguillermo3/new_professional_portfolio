@@ -373,7 +373,7 @@ def html_for_tooltip_from_large_list(items, label, element_id, style_prefix="", 
 
     return f"""
     <div style="position: relative; display: inline-block;">
-        <span id="{element_id}" style="border-bottom: 1px dashed gray; cursor: pointer;" class="hover-trigger">
+        <span id="{element_id}" style="border-bottom: 1px dashed gray; cursor: pointer; display: inline-block; transition: color 0.3s ease-in-out;" class="hover-trigger">
             {visible_text}
         </span>
         <div class="{tooltip_class}">
@@ -383,3 +383,5 @@ def html_for_tooltip_from_large_list(items, label, element_id, style_prefix="", 
     </div>
     """
 
+        
+        
