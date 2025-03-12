@@ -278,7 +278,7 @@ def html_for_tooltip_from_large_list(items, label, element_id, color="#007BFF", 
 
     first_item = html.escape(items[0])
     summary = f"(and {len(items) - 1} more {label.lower()})" if len(items) > 1 else ""
-    visible_text = f'<span id="{unique_id}" style="color:{color}; border-bottom: 1px dashed {color}; cursor: pointer;">{first_item} {summary}</span>'
+    visible_text = f'<span style="color:{color}; border-bottom: 1px dashed {color}; cursor: pointer;">{first_item} {summary}</span>'
 
     tooltip_content = "".join(
         f'<div style="color:{color}; margin-bottom: 4px;">{(emoji + " " if emoji else "")}{html.escape(item)}</div>'
@@ -287,7 +287,7 @@ def html_for_tooltip_from_large_list(items, label, element_id, color="#007BFF", 
 
     # Define tooltip HTML (both elements inside a common div)
     tooltip_html = f"""
-        <div style="position: relative; display: inline-block; max-width: 100%;">
+        <div  id="{unique_id}"  style="position: relative; display: inline-block; max-width: 100%;">
             <div class="tooltip-container-{unique_id}" style="display: inline-block; position: relative;">
                 {visible_text}
                 <div class="skills_tooltip-{unique_id}" style="
