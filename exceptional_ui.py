@@ -248,6 +248,8 @@ def html_for_tooltip_from_large_list(items, label, element_id, color="#007BFF", 
     return tooltip_html
 
 
+
+
 import html
 import hashlib
 import datetime
@@ -270,7 +272,7 @@ def html_for_tooltip_from_large_list(items, label, element_id, color="#007BFF", 
     if not items:
         return f'<div style="color:gray;">No {label.lower()} listed</div>'
 
-    # Generate a unique ID by hashing element_id with the current date
+    # Generate a unique identifier by hashing element_id with the system date
     unique_hash = hashlib.md5(f"{element_id}_{datetime.datetime.now().isoformat()}".encode()).hexdigest()[:10]
     unique_id = f"{element_id}_{unique_hash}"
 
@@ -286,9 +288,9 @@ def html_for_tooltip_from_large_list(items, label, element_id, color="#007BFF", 
     # Define tooltip HTML (both elements inside a common div)
     tooltip_html = f"""
         <div style="position: relative; display: inline-block; max-width: 100%;">
-            <div class="tooltip-container" style="display: inline-block; position: relative;">
+            <div class="tooltip-container-{unique_id}" style="display: inline-block; position: relative;">
                 {visible_text}
-                <div class="skills_tooltip" style="
+                <div class="skills_tooltip-{unique_id}" style="
                     visibility: hidden;
                     opacity: 0;
                     background: rgba(20, 20, 20, 0.9);
@@ -313,10 +315,10 @@ def html_for_tooltip_from_large_list(items, label, element_id, color="#007BFF", 
         </div>
     """
 
-    # Inject CSS for hover-triggering logic (apply hover to the parent container)
+    # Inject CSS for unique tooltip behavior
     st.markdown(f"""
     <style>
-        .tooltip-container:hover .skills_tooltip {{
+        .tooltip-container-{unique_id}:hover .skills_tooltip-{unique_id} {{
             visibility: visible;
             opacity: 1;
             transform: translateX(-50%) translateY(0px) scale(1.05);
@@ -325,7 +327,6 @@ def html_for_tooltip_from_large_list(items, label, element_id, color="#007BFF", 
     """, unsafe_allow_html=True)
 
     return tooltip_html
-
 
 
         
