@@ -104,6 +104,11 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
             "title": "Inferential Statistics & High-Performance Predictive Analytics",
             "description": "I research and implement techniques for regression, classification, and forecasting use cases, \
             with applications ranging from macroeconomic and financial forecasting to microdata predictions in various systems.",
+            "skills": [
+                "Training in Regression, Forecasting, Machine Learning and Artificial Intelligence", 
+                "Development of algorithms for high-performance Machine Learning",
+                "Deep Learning"
+            ]
         },
         {
             "title": "Software & Application Development for Inference Distribution",
