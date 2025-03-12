@@ -327,4 +327,95 @@ def install_tooltip_styling(style_prefix="", **design_params):
 
 
 
+def install_tooltip_styling(style_prefix="", **design_params):
+    """
+    Returns a CSS block defining the general appearance of tooltips with an enhanced depth effect.
+    
+    Args:
+        style_prefix (str): A prefix to prepend to the tooltip class for styling multiple tooltip variations.
+        **design_params: Dictionary of CSS properties to override default styling.
+        
+    Returns:
+        str: A CSS style block for consistent tooltip styling.
+    """
+    
+    tooltip_class = f".{style_prefix}-tooltip" if style_prefix else ".tooltip"
+    
+    default_params = {
+        "tooltip_visibility": "hidden",
+        "tooltip_opacity": "0",
+        "tooltip_transform": "translateY(5px) scale(0.95)",  # Slight shrink for initial effect
+        "tooltip_transition": "opacity 0.4s ease-out, transform 0.4s ease-out, visibility 0.4s ease-out",
+        "tooltip_bg": "rgba(20, 20, 20, 0.85)",  # Darker and slightly more opaque
+        "text_color": "#ffffff",  # Bright contrast
+        "text_align": "left",
+        "padding": "14px",
+        "border_radius": "10px",
+        "box_shadow": "0px 12px 30px rgba(0, 0, 0, 0.6)",  # Stronger shadow for depth
+        "position": "absolute",
+        "left": "50%",
+        "top": "120%",
+        "tooltip_width": "auto",
+        "tooltip_max_width": "420px",
+        "z_index": "15",
+        "border": "1px solid rgba(255, 255, 255, 0.2)",  # Subtle highlight border
+        "transform_origin": "top center",
+        "bg_blur": "18px",  # Stronger blur effect
+        "glow_effect": "0px 0px 8px rgba(255, 255, 255, 0.4)",  # Light glow around text
+        "hover_scale": "scale(1.05)",  # Expands slightly when active
+        "animation_intensity": "6px"  # More pronounced floating effect
+    }
+    
+    params = {**default_params, **design_params}
+    
+    return f"""
+    <style>
+        {tooltip_class} {{
+            visibility: {params["tooltip_visibility"]};
+            opacity: {params["tooltip_opacity"]};
+            transform: {params["tooltip_transform"]};
+            transition: {params["tooltip_transition"]};
+            background: {params["tooltip_bg"]};
+            color: {params["text_color"]};
+            text-align: {params["text_align"]};
+            padding: {params["padding"]};
+            border-radius: {params["border_radius"]};
+            box-shadow: {params["box_shadow"]};
+            position: {params["position"]};
+            left: {params["left"]};
+            top: {params["top"]};
+            min-width: {params["tooltip_width"]};
+            max-width: {params["tooltip_max_width"]};
+            z-index: {params["z_index"]};
+            border: {params["border"]};
+            transform-origin: {params["transform_origin"]};
+            overflow: hidden;
+            animation: floatEffect 5s ease-in-out infinite;
+            text-shadow: {params["glow_effect"]};
+        }}
+
+        {tooltip_class}:hover {{
+            transform: {params["hover_scale"]};
+        }}
+
+        {tooltip_class}::before {{
+            content: "";
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: calc(100% + 30px);
+            height: calc(100% + 30px);
+            background: inherit;
+            filter: blur({params["bg_blur"]});
+            z-index: -1;
+            border-radius: inherit;
+        }}
+
+        @keyframes floatEffect {{
+            0% {{ transform: translateY({params["animation_intensity"]}); }}
+            50% {{ transform: translateY(-{params["animation_intensity"]}); }}
+            100% {{ transform: translateY({params["animation_intensity"]}); }}
+        }}
+    </style>
+    """
 
