@@ -91,7 +91,7 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
             "title": "Holistic Understanding of Modern Tooling",
             "description": "I integrate tools and technologies for modern data analysis, committing to research the \
             unique purposes of each tool and efficiently write workflows around them using GPT.",
-            "skills": ["Cloud Computing", "Containerization"],
+            #"skills": ["Cloud Computing", "Containerization"],
             "subitems": [
                 "<strong>Excellence Tier (I know the code line by heart):</strong> Python, R Studio, Stata, GPT",
                 "<strong>Proficiency Tier:</strong> Airflow, SQL, Spark, Bash scripting",
@@ -101,13 +101,13 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
         {
             "title": "Research effort on AI & LLM powered applications",
             "description": "I prepare myself by means of self-learning for the disruption of Artificial Intelligence in software development and the rise of LLM-powered applications.",
-            "skills": ["Prompt Engineering", "Fine-Tuning LLMs"]
+            #"skills": ["Prompt Engineering", "Fine-Tuning LLMs"]
         },
         {
             "title": "Bonus: Rigorous Economic Mindset",
             "description": "As a professional economist, I over-simplify complex social phenomena by casually referencing supply and demand (kidding!).  \
             But really, I approach data analysis with a focus on causal reasoning, marginal effects, and counterfactual analysis.",
-            "skills": ["Causal Inference", "Time Series Analysis"]
+            #"skills": ["Causal Inference", "Time Series Analysis"]
         }
     ]
 
