@@ -247,3 +247,112 @@ def html_for_tooltip_from_large_list(items, label, color="#555", emoji=None):
 
 
 
+
+#
+# (0)
+#
+import hashlib
+import html
+#
+# (1)
+#
+def html_for_tooltip_from_large_list(items, label, element_id, color="#555", emoji=None):
+    """
+    Generates an HTML tooltip for displaying a large list with a summarized preview.
+
+    Parameters:
+        - items (list of str): The list of items to display.
+        - label (str): Describes the type of items being enumerated.
+        - element_id (str): The ID of the element that will trigger the tooltip.
+        - color (str): Color for the tooltip text (default: neutral gray #555).
+        - emoji (str, optional): Emoji prepended to each listed item.
+
+    Returns:
+        - str: HTML snippet containing the summarized text and a tooltip for full details.
+    """
+    if not items:
+        return f'<div style="color:gray;">No {label.lower()} listed</div>'
+    
+    # Escape and format first item
+    first_item = html.escape(items[0])
+    summary = f"(and {len(items) - 1} more listed {label.lower()})" if len(items) > 1 else ""
+    visible_text = f'<div style="color:{color};">{first_item} {summary}</div>'
+    
+    # Generate full tooltip content
+    tooltip_content = "".join(
+        f'<div style="color:{color};">{(emoji + " " if emoji else "")}{html.escape(item)}</div>'
+        for item in items
+    )
+
+    return f"""
+    <div style="position: relative; display: inline-block;">
+        <span id="{element_id}" style="border-bottom: 1px dashed gray; cursor: pointer;" class="hover-trigger">
+            {visible_text}
+        </span>
+        <div class="tooltip">
+            <strong>All {label} listed:</strong>
+            {tooltip_content}
+        </div>
+    </div>
+    """
+#
+# (2)
+#
+def install_tooltip_triggering_logic(element_id):
+    """
+    Generates the CSS logic for triggering a tooltip when hovering over the given element.
+
+    Parameters:
+        - element_id (str): The ID of the element that will trigger the tooltip.
+
+    Returns:
+        - str: A CSS style block that enables hover-based tooltip visibility.
+    """
+    return f"""
+    <style>
+        #{element_id}:hover + .tooltip {{
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0px) scale(1.1);
+        }}
+    </style>
+    """
+#
+# (3)
+#
+def install_tooltip_styling():
+    """
+    Returns a CSS block defining the general appearance of tooltips.
+
+    Returns:
+        - str: A CSS style block for consistent tooltip styling.
+    """
+    return """
+    <style>
+        .tooltip {
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(5px) scale(0.95);
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out;
+            background-color: rgba(240, 240, 240, 0.7);
+            backdrop-filter: blur(1px);
+            color: black;
+            text-align: left;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            left: 75%;
+            top: 120%;
+            min-width: 100%;
+            max-width: 400px;
+            z-index: 1;
+            border: 1px solid rgba(200, 200, 200, 0.5);
+            transform-origin: top center;
+        }
+    </style>
+    """
+
+
+
+
