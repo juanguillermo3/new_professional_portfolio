@@ -11,8 +11,7 @@ from hero_area_data_loader import (
     load_quote, 
     load_avatar_caption, 
     load_code_samples, 
-    load_detailed_offering,
-    load_tooltips_for_detailed_offerings
+    load_detailed_offering
 )
 from front_end_utils import tags_in_twitter_style
 from dotenv import load_dotenv
