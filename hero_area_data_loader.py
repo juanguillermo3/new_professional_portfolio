@@ -112,9 +112,8 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
     offering_html = '<h3>(5+1) Key Differentials of My Professional Offering</h3>'
     offering_html += '<ol style="padding-left: 20px;">'
     
-    # Collect element IDs for tooltips
-    tooltip_elements = []
-    
+    tooltip_ids = []  # Store unique IDs for tooltips
+
     # Generate offering list
     for i, offer in enumerate(offerings):
         element_id = id_pattern.format(i+1)
@@ -130,14 +129,19 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
 
         # Insert the tooltip for the list of technical skills
         if "skills" in offer:
-            offering_html += html_for_tooltip_from_large_list(
+            tooltip_html, unique_id = html_for_tooltip_from_large_list(
                 offer["skills"], label="Technical Skills", element_id=element_id, color="#555", emoji="🏅"
             )
-            tooltip_elements.append(element_id)  # Store the ID for hover logic
+            offering_html += tooltip_html
+            tooltip_ids.append(unique_id)  # Store unique ID for setup
 
         offering_html += '</li>'
     
     offering_html += '</ol>'
-    
+
+    # Inject tooltip behaviors
+    for unique_id in tooltip_ids:
+        setup_tooltip_behavior(unique_id)
+
     return offering_html
 
