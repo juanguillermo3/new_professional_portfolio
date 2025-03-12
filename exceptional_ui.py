@@ -315,60 +315,51 @@ def install_tooltip_styling(style_prefix="", **design_params):
 
 def install_tooltip_styling(style_prefix="", **design_params):
     """
-    Returns a CSS block defining the general appearance of tooltips with a high-tech, biotech-inspired look.
+    Returns a CSS block defining the general appearance of tooltips with optional customization.
     
     Args:
         style_prefix (str): A prefix to prepend to the tooltip class for styling multiple tooltip variations.
         **design_params: Dictionary of CSS properties to override default styling.
         
     Returns:
-        str: A CSS style block for a futuristic, biotech-style tooltip.
+        str: A CSS style block for consistent tooltip styling.
     """
     
-    # Ensure the style class is correctly formatted
     tooltip_class = f".{style_prefix}-tooltip" if style_prefix else ".tooltip"
-
-    # Default design parameters for a high-tech aesthetic
+    
     default_params = {
         "tooltip_visibility": "hidden",
         "tooltip_opacity": "0",
         "tooltip_transform": "translateY(5px) scale(0.95)",
-        "tooltip_transition": "opacity 0.4s ease-out, visibility 0.4s ease-out, transform 0.3s ease-out",
-        "tooltip_bg": "rgba(20, 50, 60, 0.85)",  # Dark glassy blue-green
-        "tooltip_blur": "10px",  # Frosted glass effect
-        "text_color": "#b8ffe4",  # Light neon cyan
-        "text_font": "'Orbitron', sans-serif",  # Sci-fi typeface
-        "text_align": "center",
-        "padding": "12px",
+        "tooltip_transition": "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out",
+        "tooltip_blur": "8px",
+        "text_color": "#ffffff",
+        "text_align": "left",
+        "padding": "10px",
         "border_radius": "8px",
-        "box_shadow": "0px 0px 15px rgba(0, 255, 255, 0.2)",  # Subtle neon glow
+        "box_shadow": "0px 4px 10px rgba(0, 0, 0, 0.2), 0px -2px 5px rgba(255, 255, 255, 0.1)",
         "position": "absolute",
         "left": "50%",
         "top": "120%",
-        "tooltip_width": "200px",
+        "tooltip_width": "100%",
         "tooltip_max_width": "400px",
         "z_index": "10",
-        "border": "1px solid rgba(0, 255, 255, 0.4)",  # Thin neon border
-        "transform_origin": "top center",
-        "glow_animation": "pulseGlow 1.5s infinite alternate",  # Pulsing glow effect
-        "scan_line_animation": "scanLine 2s linear infinite",  # Moving scan line
+        "border": "1px solid rgba(255, 255, 255, 0.2)",
+        "transform_origin": "top center"
     }
     
-    # Override defaults with user-supplied values
     params = {**default_params, **design_params}
     
-    # Construct the CSS style block dynamically
-    css_style = f"""
+    return f"""
     <style>
         {tooltip_class} {{
             visibility: {params["tooltip_visibility"]};
             opacity: {params["tooltip_opacity"]};
             transform: {params["tooltip_transform"]};
             transition: {params["tooltip_transition"]};
-            background-color: {params["tooltip_bg"]};
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(200, 200, 200, 0.15) 100%);
             backdrop-filter: blur({params["tooltip_blur"]});
             color: {params["text_color"]};
-            font-family: {params["text_font"]};
             text-align: {params["text_align"]};
             padding: {params["padding"]};
             border-radius: {params["border_radius"]};
@@ -381,42 +372,30 @@ def install_tooltip_styling(style_prefix="", **design_params):
             z-index: {params["z_index"]};
             border: {params["border"]};
             transform-origin: {params["transform_origin"]};
-            animation: {params["glow_animation"]};
+            overflow: hidden;
         }}
-
-        /* Floating tooltip effect */
-        @keyframes pulseGlow {{
-            0% {{ box-shadow: 0px 0px 15px rgba(0, 255, 255, 0.2); }}
-            100% {{ box-shadow: 0px 0px 25px rgba(0, 255, 255, 0.5); }}
-        }}
-
-        /* Scan line effect */
-        {tooltip_class}::after {{
+        
+        {tooltip_class}::before {{
             content: "";
             position: absolute;
-            width: 90%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, cyan, transparent);
             top: 0;
-            left: 5%;
-            animation: {params["scan_line_animation"]};
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 10%, transparent 70%);
+            pointer-events: none;
+            mix-blend-mode: overlay;
         }}
-
-        @keyframes scanLine {{
-            0% {{ top: 0%; opacity: 0.2; }}
-            50% {{ top: 50%; opacity: 0.5; }}
-            100% {{ top: 100%; opacity: 0.2; }}
+        
+        @keyframes floatEffect {{
+            0% {{ transform: translateY(3px); }}
+            50% {{ transform: translateY(-3px); }}
+            100% {{ transform: translateY(3px); }}
         }}
-
-        /* Hover effect to activate tooltip */
-        {tooltip_class}-trigger:hover + {tooltip_class} {{
-            visibility: visible;
-            opacity: 1;
-            transform: translateY(0px) scale(1.05);
+        {tooltip_class}:hover {{
+            animation: floatEffect 2s ease-in-out infinite;
         }}
     </style>
     """
-    
-    return css_style
 
 
