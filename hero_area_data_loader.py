@@ -3,7 +3,8 @@ import os
 import json
 from dotenv import load_dotenv
 from exceptional_ui import (
-    html_for_tooltip_from_large_list
+    html_for_tooltip_from_large_list,
+    setup_tooltip_behavior
 )
 
 # Load environment variables
