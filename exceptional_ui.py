@@ -372,15 +372,15 @@ def html_for_tooltip_from_large_list(items, label, element_id, style_prefix="", 
     tooltip_class = f"{style_prefix}-tooltip" if style_prefix else "tooltip"
 
     return f"""
-    <span style="position: relative; display: inline;">
-        <span id="{element_id}" style="border-bottom: 1px dashed gray; cursor: pointer; display: inline; transition: color 0.3s ease-in-out;" class="hover-trigger">
+    <div style="position: relative; display: inline-block;">
+        <span id="{element_id}" style="border-bottom: 1px dashed gray; cursor: pointer; display: inline-block; transition: color 0.3s ease-in-out;" class="hover-trigger">
             {visible_text}
         </span>
         <div class="{tooltip_class}">
             <strong>All {label} listed:</strong>
             {tooltip_content}
         </div>
-    </span>
+    </div>
     """
 
 
