@@ -299,8 +299,8 @@ def html_for_tooltip_from_large_list(items, label, element_id, color="#007BFF", 
             {first_item} {summary}
         </span>
         <div class="skills_tooltip-{unique_id}" style="
-            visibility: visible;
-            opacity: 1;
+            visibility: hidden;
+            opacity: 0;
             background: rgba(20, 20, 20, 0.9);
             color: #ffffff;
             padding: 12px;
