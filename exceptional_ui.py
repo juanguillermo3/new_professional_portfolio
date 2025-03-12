@@ -198,6 +198,11 @@ def install_tooltip_triggering_logic(element_id, style_prefix="off"):
     </style>
     """
 
+
+
+
+
+
 def html_for_tooltip_from_large_list(items, label, element_id, style_prefix="off", color="#007BFF", emoji=None):
     """
     Generates an HTML tooltip for displaying a large list with a summarized preview.
@@ -240,7 +245,7 @@ def html_for_tooltip_from_large_list(items, label, element_id, style_prefix="off
             </div>
         </div>
     """
-    
+
 def install_tooltip_styling(style_prefix="off", **design_params):
     """
     Returns a CSS block defining the general appearance of tooltips with an enhanced depth effect.
@@ -301,8 +306,58 @@ def install_tooltip_styling(style_prefix="off", **design_params):
         }})();
     </script>
     """
+    
+import html
 
+def html_for_tooltip_from_large_list(items, label, element_id, color="#007BFF", emoji=None):
+    """
+    Generates an HTML snippet displaying a summarized preview of a list with inline-styled tooltip.
 
+    Parameters:
+        - items (list of str): The list of items to display.
+        - label (str): Describes the type of items being enumerated.
+        - element_id (str): The ID of the element (not used for interaction).
+        - color (str): Color for the summary text (default: #007BFF).
+        - emoji (str, optional): Emoji prepended to each listed item.
+
+    Returns:
+        - str: HTML snippet containing the summarized text and a tooltip for full details.
+    """
+    if not items:
+        return f'<div style="color:gray;">No {label.lower()} listed</div>'
+    
+    first_item = html.escape(items[0])
+    summary = f"(and {len(items) - 1} more {label.lower()})" if len(items) > 1 else ""
+    visible_text = f'<span style="color:{color}; border-bottom: 1px dashed {color};">{first_item} {summary}</span>'
+
+    tooltip_content = "".join(
+        f'<div style="color:{color}; margin-bottom: 4px;">{(emoji + " " if emoji else "")}{html.escape(item)}</div>'
+        for item in items
+    )
+
+    return f"""
+        <div style="position: relative; display: inline-block; max-width: 100%;">
+            {visible_text}
+            <div style="
+                background: rgba(20, 20, 20, 0.9);
+                color: #ffffff;
+                padding: 12px;
+                border-radius: 8px;
+                box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
+                position: absolute;
+                left: 50%;
+                top: 120%;
+                width: 300px;
+                text-align: left;
+                z-index: 10;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                transform: translateX(-50%);
+            ">
+                <strong>All {label} listed:</strong>
+                {tooltip_content}
+            </div>
+        </div>
+    """
 
 
 
