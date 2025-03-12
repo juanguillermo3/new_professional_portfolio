@@ -243,7 +243,7 @@ def install_tooltip_triggering_logic(element_id, style_prefix=""):
 
 def install_tooltip_styling(style_prefix="", **design_params):
     """
-    Returns a CSS block defining the general appearance of tooltips with an enhanced depth effect.
+    Returns a CSS block defining the general appearance of tooltips with optional customization.
     
     Args:
         style_prefix (str): A prefix to prepend to the tooltip class for styling multiple tooltip variations.
@@ -258,26 +258,23 @@ def install_tooltip_styling(style_prefix="", **design_params):
     default_params = {
         "tooltip_visibility": "hidden",
         "tooltip_opacity": "0",
-        "tooltip_transform": "translateY(5px) scale(0.95)",  # Slight shrink for initial effect
-        "tooltip_transition": "opacity 0.4s ease-out, transform 0.4s ease-out, visibility 0.4s ease-out",
-        "tooltip_bg": "rgba(20, 20, 20, 0.85)",  # Darker and slightly more opaque
-        "text_color": "#ffffff",  # Bright contrast
+        "tooltip_transform": "translateX(-25%) translateY(5px) scale(0.95)",  # Added 25% left offset
+        "tooltip_transition": "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out",
+        "tooltip_bg": "rgba(30, 30, 30, 0.7)",  # Dark frosted background
+        "tooltip_blur": "12px",  # Background blur effect
+        "text_color": "#ffffff",
         "text_align": "left",
-        "padding": "14px",
-        "border_radius": "10px",
-        "box_shadow": "0px 12px 30px rgba(0, 0, 0, 0.6)",  # Stronger shadow for depth
+        "padding": "12px",
+        "border_radius": "8px",
+        "box_shadow": "0px 8px 20px rgba(0, 0, 0, 0.5)",  # Stronger shadow for depth
         "position": "absolute",
-        "left": "25%",
-        "top": "120%",
+        "left": "50%",  # Base center alignment
+        "top": "110%",  # Tooltip appears just below the element
         "tooltip_width": "auto",
-        "tooltip_max_width": "420px",
-        "z_index": "15",
-        "border": "1px solid rgba(255, 255, 255, 0.2)",  # Subtle highlight border
-        "transform_origin": "top center",
-        "bg_blur": "18px",  # Stronger blur effect
-        "glow_effect": "0px 0px 8px rgba(255, 255, 255, 0.4)",  # Light glow around text
-        "hover_scale": "scale(1.05)",  # Expands slightly when active
-        "animation_intensity": "6px"  # More pronounced floating effect
+        "tooltip_max_width": "400px",
+        "z_index": "10",
+        "border": "1px solid rgba(255, 255, 255, 0.3)",
+        "transform_origin": "top center"
     }
     
     params = {**default_params, **design_params}
@@ -290,6 +287,7 @@ def install_tooltip_styling(style_prefix="", **design_params):
             transform: {params["tooltip_transform"]};
             transition: {params["tooltip_transition"]};
             background: {params["tooltip_bg"]};
+            backdrop-filter: blur({params["tooltip_blur"]});
             color: {params["text_color"]};
             text-align: {params["text_align"]};
             padding: {params["padding"]};
@@ -304,33 +302,28 @@ def install_tooltip_styling(style_prefix="", **design_params):
             border: {params["border"]};
             transform-origin: {params["transform_origin"]};
             overflow: hidden;
-            animation: floatEffect 5s ease-in-out infinite;
-            text-shadow: {params["glow_effect"]};
+            animation: floatEffect 4s ease-in-out infinite;
         }}
-
-        {tooltip_class}:hover {{
-            transform: {params["hover_scale"]};
-        }}
-
+        
         {tooltip_class}::before {{
             content: "";
             position: absolute;
-            top: -15px;
-            left: -15px;
-            width: calc(100% + 30px);
-            height: calc(100% + 30px);
-            background: inherit;
-            filter: blur({params["bg_blur"]});
-            z-index: -1;
-            border-radius: inherit;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 10%, transparent 70%);
+            pointer-events: none;
+            mix-blend-mode: overlay;
         }}
-
+        
         @keyframes floatEffect {{
-            0% {{ transform: translateY({params["animation_intensity"]}); }}
-            50% {{ transform: translateY(-{params["animation_intensity"]}); }}
-            100% {{ transform: translateY({params["animation_intensity"]}); }}
+            0% {{ transform: translateX(-25%) translateY(3px) scale(1); }}
+            50% {{ transform: translateX(-25%) translateY(-3px) scale(1.05); }}
+            100% {{ transform: translateX(-25%) translateY(3px) scale(1); }}
         }}
     </style>
     """
+
 
 
