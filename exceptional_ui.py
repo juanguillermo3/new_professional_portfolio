@@ -194,7 +194,7 @@ def html_for_tooltip_from_large_list(items, label, element_id, style_prefix="", 
     
     # Escape and format first item
     first_item = html.escape(items[0])
-    summary = f"(and {len(items) - 1} more listed {label.lower()})" if len(items) > 1 else ""
+    summary = f"(and {len(items) - 1} more {label.lower()})" if len(items) > 1 else ""
     visible_text = f'<div style="color:{color};">{first_item} {summary}</div>'
 
     # Generate full tooltip content
