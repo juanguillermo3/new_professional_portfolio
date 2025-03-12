@@ -171,7 +171,7 @@ class HeroArea:
             self.render_code_samples()
     
             # Generate and apply custom tooltips
-            tooltip_html = self._generate_tooltip_html()
+            #tooltip_html = self._generate_tooltip_html()
             #st.markdown(tooltip_html, unsafe_allow_html=True)
     
         
