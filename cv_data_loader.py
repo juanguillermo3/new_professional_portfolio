@@ -193,4 +193,60 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
 
     return offering_html
 
+from datetime import datetime
+import hashlib
+import streamlit as st
+
+def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
+    system_date = datetime.now().strftime("%Y-%m-%d")  # Ensure correct date format
+    
+    offerings = [
+        {
+            "title": "Inferential Statistics & High-Performance Predictive Analytics",
+            "description": "I research and implement techniques for regression, classification, and forecasting use cases...",
+            "skills": [
+                "Strong understanding of linear regression.", 
+                "Expertise in machine learning pattern detection.",
+            ]
+        },
+        {
+            "title": "Software & Application Development for Inference Distribution",
+            "description": "I develop applications (batch scripts, APIs, dashboards, web applications)...",
+            "skills": [
+                "Strong understanding of software engineering.",
+                "Expertise in architectural and design patterns.",
+            ]
+        }
+    ]
+
+    # Hash the element ID with date to force unique identifiers
+    offering_html = '<h3>(5+1) Key Differentials of My Professional Offering</h3><ol style="padding-left: 20px;">'
+    tooltip_elements = []
+
+    for i, offer in enumerate(offerings):
+        raw_element_id = id_pattern.format(i + 1)
+        hashed_element_id = hashlib.md5(f"{raw_element_id}-{system_date}".encode()).hexdigest()[:10]
+
+        bg_color = colors[i % len(colors)]
+        offering_html += f'<li id="{hashed_element_id}" style="background-color: {bg_color}; padding: 8px; border-radius: 4px;">'
+        offering_html += f'<strong>{i+1}. {offer["title"]}</strong>: {offer["description"]}'
+
+        if "skills" in offer:
+            tooltip_html = html_for_tooltip_from_large_list(
+                offer["skills"], label="Technical Skills", element_id=hashed_element_id, color="#555", emoji="🏅"
+            )
+            offering_html += tooltip_html
+            tooltip_elements.append(hashed_element_id)
+
+        offering_html += '</li>'
+
+    offering_html += '</ol>'
+
+    # Ensure fresh tooltip styles and scripts are reloaded each time
+    st.markdown("<style id='tooltip-style'>"+install_tooltip_styling()+"</style>", unsafe_allow_html=True)
+
+    for element_id in tooltip_elements:
+        st.markdown(f"<script id='tooltip-script-{element_id}'>"+install_tooltip_triggering_logic(element_id)+"</script>", unsafe_allow_html=True)
+
+    return offering_html
 
