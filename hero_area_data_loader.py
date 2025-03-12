@@ -134,7 +134,7 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
         # Insert the tooltip for the list of technical skills
         if "skills" in offer:
             offering_html += html_for_tooltip_from_large_list(
-                offer["skills"], label="Technical Skills", element_id=element_id, color="#555", emoji="🏅", style_prefix=style_prefix
+                offer["skills"], label="Technical Skills", element_id=element_id, color="#555", emoji="🏅"
             )
             tooltip_elements.append(element_id)  # Store the ID for hover logic
 
@@ -143,11 +143,11 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
     offering_html += '</ol>'
     
     # Include tooltip styling once
-    st.markdown(install_tooltip_styling(style_prefix=style_prefix), unsafe_allow_html=True)
+    st.markdown(install_tooltip_styling(), unsafe_allow_html=True)
     
     # Add tooltip hover logic for all elements
     for element_id in tooltip_elements:
-        st.markdown(install_tooltip_triggering_logic(element_id, style_prefix=style_prefix), unsafe_allow_html=True)
+        st.markdown(install_tooltip_triggering_logic(element_id), unsafe_allow_html=True)
     
     return offering_html
 
