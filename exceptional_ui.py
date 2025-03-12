@@ -338,7 +338,7 @@ def install_tooltip_styling(style_prefix="", **design_params):
     """
 
 
-def html_for_tooltip_from_large_list(items, label, element_id, style_prefix="", color="#555", emoji=None):
+def html_for_tooltip_from_large_list(items, label, element_id, style_prefix="", color="#007BFF", emoji=None):
     """
     Generates an HTML tooltip for displaying a large list with a summarized preview.
 
