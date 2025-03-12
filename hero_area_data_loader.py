@@ -3,9 +3,7 @@ import os
 import json
 from dotenv import load_dotenv
 from exceptional_ui import (
-    html_for_tooltip_from_large_list,
-    install_tooltip_styling,
-    install_tooltip_triggering_logic
+    html_for_tooltip_from_large_list
 )
 
 # Load environment variables
@@ -140,13 +138,6 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
         offering_html += '</li>'
     
     offering_html += '</ol>'
-    
-    # Include tooltip styling once
-    st.markdown(install_tooltip_styling(), unsafe_allow_html=True)
-    
-    # Add tooltip hover logic for all elements
-    for element_id in tooltip_elements:
-        st.markdown(install_tooltip_triggering_logic(element_id), unsafe_allow_html=True)
     
     return offering_html
 
