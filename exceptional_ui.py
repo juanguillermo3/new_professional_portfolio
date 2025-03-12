@@ -174,7 +174,9 @@ def _custom_tooltip_with_frost_glass_html(element_id: str, tooltip_text: str, **
 import hashlib
 import html
 
-def html_for_tooltip_from_large_list(items, label, element_id, style_prefix="", color="#555", emoji=None):
+import html
+
+def html_for_tooltip_from_large_list(items, label, element_id, style_prefix="", color="#007BFF", emoji=None):
     """
     Generates an HTML tooltip for displaying a large list with a summarized preview.
 
@@ -183,11 +185,11 @@ def html_for_tooltip_from_large_list(items, label, element_id, style_prefix="", 
         - label (str): Describes the type of items being enumerated.
         - element_id (str): The ID of the element that will trigger the tooltip.
         - style_prefix (str): Prefix for tooltip CSS class to allow variations in design.
-        - color (str): Color for the tooltip text (default: neutral gray #555).
+        - color (str): Color for the tooltip text (default: navigable blue #007BFF).
         - emoji (str, optional): Emoji prepended to each listed item.
 
     Returns:
-        - str: HTML snippet containing the summarized text and a tooltip for full details.
+        - str: HTML snippet containing the summarized text.
     """
     if not items:
         return f'<div style="color:gray;">No {label.lower()} listed</div>'
@@ -195,27 +197,26 @@ def html_for_tooltip_from_large_list(items, label, element_id, style_prefix="", 
     # Escape and format first item
     first_item = html.escape(items[0])
     summary = f"(and {len(items) - 1} more {label.lower()})" if len(items) > 1 else ""
-    visible_text = f'<div style="color:{color};">{first_item} {summary}</div>'
-
-    # Generate full tooltip content
-    tooltip_content = "".join(
-        f'<div style="color:{color};">{(emoji + " " if emoji else "")}{html.escape(item)}</div>'
-        for item in items
-    )
-
-    tooltip_class = f"{style_prefix}-tooltip" if style_prefix else "tooltip"
+    
+    # Updated visible text styling
+    visible_text = f"""
+    <span id="{element_id}" style="
+        color: {color};
+        border-bottom: 1px dashed {color};
+        cursor: pointer;
+        font-weight: bold;
+        display: inline-block;
+        transition: color 0.3s ease-in-out;">
+        {first_item} {summary}
+    </span>
+    """
 
     return f"""
     <div style="position: relative; display: inline-block;">
-        <span id="{element_id}" style="border-bottom: 1px dashed gray; cursor: pointer;" class="hover-trigger">
-            {visible_text}
-        </span>
-        <div class="{tooltip_class}">
-            <strong>All {label} listed:</strong>
-            {tooltip_content}
-        </div>
+        {visible_text}
     </div>
     """
+
 
 
 def install_tooltip_triggering_logic(element_id, style_prefix=""):
