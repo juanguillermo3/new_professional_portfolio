@@ -142,8 +142,10 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
     
     offering_html += '</ol>'
     
-    # Include tooltip styling once
-    st.markdown(install_tooltip_styling(), unsafe_allow_html=True)
+    if "tooltip_style_installed" not in st.session_state:
+        st.markdown(install_tooltip_styling(), unsafe_allow_html=True)
+        st.session_state["tooltip_style_installed"] = True
+
     
     # Add tooltip hover logic for all elements
     for element_id in tooltip_elements:
