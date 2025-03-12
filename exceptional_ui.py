@@ -448,32 +448,30 @@ def html_for_tooltip_from_large_list(items, label, element_id, color="#007BFF", 
 
     # Tooltip HTML (without CSS)
     tooltip_html = f"""
-        <div style="position: relative; display: inline-block; max-width: 100%;">
-            <div class="tooltip-container-{unique_id}" style="display: inline-block; position: relative;">
-                {visible_text}
-                <div class="skills_tooltip-{unique_id}" style="
-                    visibility: hidden;
-                    opacity: 0;
-                    background: rgba(20, 20, 20, 0.9);
-                    color: #ffffff;
-                    padding: 12px;
-                    border-radius: 8px;
-                    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
-                    position: absolute;
-                    left: 50%;
-                    top: 120%;
-                    max-width: 350px;
-                    text-align: left;
-                    z-index: 10;
-                    border: 1px solid rgba(255, 255, 255, 0.2);
-                    transform: translateX(-50%) translateY(5px);
-                    transition: visibility 0.2s ease-out, opacity 0.2s ease-out, transform 0.2s ease-out;
-                    overflow-wrap: break-word;
-                ">
-                    <strong>All {label} listed:</strong>
-                    {tooltip_content}
-                </div>
-            </div>
+        <span id="{unique_id}" style="color:{color}; border-bottom: 1px dashed {color}; cursor: pointer;">
+            {first_item} {summary}
+        </span>
+        <div class="skills_tooltip-{unique_id}" style="
+            visibility: hidden;
+            opacity: 0;
+            background: rgba(20, 20, 20, 0.9);
+            color: #ffffff;
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
+            position: absolute;
+            left: 50%;
+            top: 120%;
+            max-width: 350px;
+            text-align: left;
+            z-index: 10;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transform: translateX(-50%) translateY(5px);
+            transition: visibility 0.2s ease-out, opacity 0.2s ease-out, transform 0.2s ease-out;
+            overflow-wrap: break-word;
+        ">
+            <strong>All {label} listed:</strong>
+            {tooltip_content}
         </div>
     """
 
@@ -495,13 +493,14 @@ def setup_tooltip_behavior(unique_id):
 
     tooltip_css = f"""
     <style>
-        .tooltip-container-{unique_id}:hover .skills_tooltip-{unique_id} {{
+        #{unique_id}:hover + .skills_tooltip-{unique_id} {{
             visibility: visible;
             opacity: 1;
-            transform: translateX(-50%) translateY(0px) scale(1.05);
+            transform: translateY(0px) scale(1.1);
         }}
     </style>
     """
     
     st.markdown(tooltip_css, unsafe_allow_html=True)
+
 
