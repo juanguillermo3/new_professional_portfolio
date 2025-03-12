@@ -201,7 +201,7 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
             "description": "I research and implement techniques for regression, classification, and forecasting use cases, \
             with applications ranging from macroeconomic and financial forecasting to microdata predictions in various systems.",
             "skills": [
-                "Strong grip on the ML and predictive analytics development cycle", 
+                "Strong grips on major ML algorithms", 
                 "Foundations on Artificial Intelligence for predictive models using Neural Networks", 
                 "Development of search algorithms to discover most performant algorithms" 
             ]
