@@ -400,6 +400,7 @@ def html_for_tooltip_from_large_list(items, label, color="#007BFF", emoji=None):
     return tooltip_html, unique_id
 
 
+@st.cache_data  # Ensure this function always recomputes when called
 def setup_tooltip_behavior(unique_id):
     """
     Injects the required CSS and behavior into Streamlit to activate the tooltip.
