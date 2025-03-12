@@ -308,8 +308,8 @@ def install_tooltip_styling(style_prefix="off", **design_params):
     """
     
 import html
-
-import html
+import hashlib
+import datetime
 
 def html_for_tooltip_from_large_list(items, label, element_id, color="#007BFF", emoji=None):
     """
@@ -318,7 +318,7 @@ def html_for_tooltip_from_large_list(items, label, element_id, color="#007BFF", 
     Parameters:
         - items (list of str): The list of items to display.
         - label (str): Describes the type of items being enumerated.
-        - element_id (str): The ID of the element (used for reference, not for interaction).
+        - element_id (str): The base ID of the element.
         - color (str): Color for the summary text (default: #007BFF).
         - emoji (str, optional): Emoji prepended to each listed item.
 
@@ -327,7 +327,11 @@ def html_for_tooltip_from_large_list(items, label, element_id, color="#007BFF", 
     """
     if not items:
         return f'<div style="color:gray;">No {label.lower()} listed</div>'
-    
+
+    # Generate a unique ID by hashing element_id with the current date
+    unique_hash = hashlib.md5(f"{element_id}_{datetime.datetime.now().isoformat()}".encode()).hexdigest()[:10]
+    unique_id = f"{element_id}_{unique_hash}"
+
     first_item = html.escape(items[0])
     summary = f"(and {len(items) - 1} more {label.lower()})" if len(items) > 1 else ""
     visible_text = f'<span style="color:{color}; border-bottom: 1px dashed {color};">{first_item} {summary}</span>'
@@ -340,7 +344,7 @@ def html_for_tooltip_from_large_list(items, label, element_id, color="#007BFF", 
     return f"""
         <div style="position: relative; display: inline-block; max-width: 100%;">
             {visible_text}
-            <div id="{element_id}" style="
+            <div id="{unique_id}" style="
                 visibility: hidden;
                 opacity: 0;
                 background: rgba(20, 20, 20, 0.9);
@@ -362,8 +366,6 @@ def html_for_tooltip_from_large_list(items, label, element_id, color="#007BFF", 
             </div>
         </div>
     """
-
-
 
 
 
