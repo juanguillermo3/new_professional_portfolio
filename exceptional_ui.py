@@ -254,39 +254,39 @@ def install_tooltip_styling(style_prefix="", **design_params):
     """
     
     tooltip_class = f".{style_prefix}-tooltip" if style_prefix else ".tooltip"
-
+    
     default_params = {
         "tooltip_visibility": "hidden",
         "tooltip_opacity": "0",
         "tooltip_transform": "translateY(5px) scale(0.95)",
         "tooltip_transition": "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out",
-        "tooltip_bg": "rgba(240, 240, 240, 0.9)",
-        "background_blur": "5px",
-        "text_color": "black",
+        "tooltip_bg": "rgba(30, 30, 30, 0.9)",  # Dark background with high opacity
+        "text_color": "#ffffff",  # White text for contrast
         "text_align": "left",
-        "padding": "10px",
-        "border_radius": "5px",
-        "box_shadow": "0px 0px 15px rgba(0, 0, 0, 0.1)",
+        "padding": "12px",
+        "border_radius": "8px",
+        "box_shadow": "0px 6px 12px rgba(0, 0, 0, 0.4)",  # Stronger shadow for depth
         "position": "absolute",
         "left": "50%",
         "top": "120%",
-        "tooltip_width": "100%",
+        "tooltip_width": "auto",
         "tooltip_max_width": "400px",
         "z_index": "10",
-        "border": "1px solid rgba(200, 200, 200, 0.5)",
-        "transform_origin": "top center"
+        "border": "1px solid rgba(255, 255, 255, 0.3)",  # Subtle light border
+        "transform_origin": "top center",
+        "bg_blur": "12px"  # Blur effect applied to the background
     }
     
     params = {**default_params, **design_params}
     
-    css_style = f"""
+    return f"""
     <style>
         {tooltip_class} {{
             visibility: {params["tooltip_visibility"]};
             opacity: {params["tooltip_opacity"]};
             transform: {params["tooltip_transform"]};
             transition: {params["tooltip_transition"]};
-            background-color: {params["tooltip_bg"]};
+            background: {params["tooltip_bg"]};
             color: {params["text_color"]};
             text-align: {params["text_align"]};
             padding: {params["padding"]};
@@ -300,34 +300,30 @@ def install_tooltip_styling(style_prefix="", **design_params):
             z-index: {params["z_index"]};
             border: {params["border"]};
             transform-origin: {params["transform_origin"]};
+            overflow: hidden;
+            animation: floatEffect 4s ease-in-out infinite;
         }}
 
         {tooltip_class}::before {{
             content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            backdrop-filter: blur({params["background_blur"]});
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-            pointer-events: none;
-            z-index: {int(params["z_index"]) - 1};
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: calc(100% + 20px);
+            height: calc(100% + 20px);
+            background: inherit;
+            filter: blur({params["bg_blur"]});
+            z-index: -1;
+            border-radius: inherit;
         }}
 
-        /* Show tooltip and blur background when active */
-        {tooltip_class}.active,
-        {tooltip_class}.active::before {{
-            visibility: visible;
-            opacity: 1;
-            transform: translateY(0) scale(1);
+        @keyframes floatEffect {{
+            0% {{ transform: translateY(3px); }}
+            50% {{ transform: translateY(-3px); }}
+            100% {{ transform: translateY(3px); }}
         }}
     </style>
     """
-    
-    return css_style
 
 
 
