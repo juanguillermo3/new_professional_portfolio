@@ -131,7 +131,7 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
         # Insert the tooltip for the list of technical skills
         if "skills" in offer:
             tooltip_html, unique_id = html_for_tooltip_from_large_list(
-                offer["skills"], label="Technical Skills", element_id=element_id, color="#555", emoji="🏅"
+                offer["skills"], label="Technical Skills",  color="#555", emoji="🏅"
             )
             offering_html += tooltip_html
             
