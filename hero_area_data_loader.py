@@ -73,7 +73,12 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
             "title": "Data Engineering",
             "description": "As my former boss Susana Martinez Restrepo said, 'I can perform data miracles.' This refers to my \
             ability to clean and organize datasets from complex, multi-source environments for research and model development.",
-            #"skills": ["ETL Pipelines", "Data Warehousing"]
+            "skills": [
+                "Facility to engage with structured and unstructured sources . ", 
+                "Foundations on NLP, GIS, and network analysis. ",  
+                "High expertise designing advanced merges and data sources. ", 
+                "Expertise using text-minning and NLP for information processing . ", 
+            ]
         },
         {
             "title": "Holistic Understanding of Modern Tooling",
