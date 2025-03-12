@@ -260,7 +260,7 @@ def install_tooltip_styling(style_prefix="", **design_params):
         "tooltip_opacity": "0",
         "tooltip_transform": "translateX(-25%) translateY(5px) scale(0.95)",  # 25% left offset
         "tooltip_transition": "opacity 0.4s ease-out, transform 0.4s ease-out, visibility 0.4s ease-out",
-        "tooltip_bg": "rgba(20, 20, 20, 0.85)",  # Darker and slightly more opaque
+        "tooltip_bg": "rgba(20, 20, 20, 0.75)",  # Darker and slightly more opaque
         "text_color": "#ffffff",  # Bright contrast
         "text_align": "left",
         "padding": "14px",
