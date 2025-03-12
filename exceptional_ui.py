@@ -174,53 +174,6 @@ def _custom_tooltip_with_frost_glass_html(element_id: str, tooltip_text: str, **
 import hashlib
 import html
 
-import html
-
-import html
-
-def html_for_tooltip_from_large_list(items, label, element_id, style_prefix="", color="#007BFF", emoji=None):
-    """
-    Generates an HTML tooltip for displaying a large list with a summarized preview.
-
-    Parameters:
-        - items (list of str): The list of items to display.
-        - label (str): Describes the type of items being enumerated.
-        - element_id (str): The ID of the element that will trigger the tooltip.
-        - style_prefix (str): Prefix for tooltip CSS class to allow variations in design.
-        - color (str): Color for the tooltip text (default: navigable blue #007BFF).
-        - emoji (str, optional): Emoji prepended to each listed item.
-
-    Returns:
-        - str: HTML snippet containing the summarized text.
-    """
-    if not items:
-        return f'<div style="color:gray;">No {label.lower()} listed</div>'
-    
-    # Escape and format first item
-    first_item = html.escape(items[0])
-    summary = f"(and {len(items) - 1} more {label.lower()})" if len(items) > 1 else ""
-    
-    # Updated visible text styling
-    visible_text = f"""
-    <span id="{element_id}" style="
-        color: {color};
-        border-bottom: 1px dashed {color};
-        cursor: pointer;
-        font-weight: bold;
-        display: inline-block;
-        transition: color 0.3s ease-in-out;">
-        {first_item} {summary}
-    </span>
-    """
-
-    return f"""
-    <div style="position: relative; display: inline-block;">
-        {visible_text}
-    </div>
-    """
-
-
-
 
 def install_tooltip_triggering_logic(element_id, style_prefix=""):
     """
@@ -243,156 +196,6 @@ def install_tooltip_triggering_logic(element_id, style_prefix=""):
             transform: translateY(0px) scale(1.1);
         }}
     </style>
-    """
-
-def install_tooltip_styling(style_prefix="", **design_params):
-    """
-    Returns a CSS block defining the general appearance of tooltips with an enhanced depth effect.
-    
-    Args:
-        style_prefix (str): A prefix to prepend to the tooltip class for styling multiple tooltip variations.
-        **design_params: Dictionary of CSS properties to override default styling.
-        
-    Returns:
-        str: A CSS style block for consistent tooltip styling.
-    """
-    
-    tooltip_class = f".{style_prefix}-tooltip" if style_prefix else ".tooltip"
-    
-    default_params = {
-        "tooltip_visibility": "hidden",
-        "tooltip_opacity": "0",
-        "tooltip_transform": "translateX(-25%) translateY(5px) scale(0.95)",  # 25% left offset
-        "tooltip_transition": "opacity 0.4s ease-out, transform 0.4s ease-out, visibility 0.4s ease-out",
-        "tooltip_bg": "rgba(20, 20, 20, 0.75)",  # Darker and slightly more opaque
-        "text_color": "#ffffff",  # Bright contrast
-        "text_align": "left",
-        "padding": "14px",
-        "border_radius": "10px",
-        "box_shadow": "0px 12px 30px rgba(0, 0, 0, 0.6)",  # Stronger shadow for depth
-        "position": "absolute",
-        "left": "25%",  # Tooltip starts shifted left
-        "top": "110%",  # Tooltip is positioned below the element
-        "tooltip_width": "350px",
-        "tooltip_max_width": "350px",
-        "z_index": "15",
-        "border": "1px solid rgba(255, 255, 255, 0.2)",  # Subtle highlight border
-        "transform_origin": "top center",
-        "bg_blur": "18px",  # Stronger blur effect
-        "glow_effect": "0px 0px 8px rgba(255, 255, 255, 0.4)",  # Light glow around text
-        "hover_scale": "scale(1.05)",  # Expands slightly when active
-        "animation_intensity": "6px"  # More pronounced floating effect
-    }
-    
-    params = {**default_params, **design_params}
-    
-    return f"""
-    <style>
-        {tooltip_class} {{
-            visibility: {params["tooltip_visibility"]};
-            opacity: {params["tooltip_opacity"]};
-            transform: {params["tooltip_transform"]};
-            transition: {params["tooltip_transition"]};
-            background: {params["tooltip_bg"]};
-            color: {params["text_color"]};
-            text-align: {params["text_align"]};
-            padding: {params["padding"]};
-            border-radius: {params["border_radius"]};
-            box-shadow: {params["box_shadow"]};
-            position: {params["position"]};
-            left: {params["left"]};
-            top: {params["top"]};
-            min-width: {params["tooltip_width"]};
-            max-width: {params["tooltip_max_width"]};
-            z-index: {params["z_index"]};
-            border: {params["border"]};
-            transform-origin: {params["transform_origin"]};
-            overflow: hidden;
-            animation: floatEffect 5s ease-in-out infinite;
-            text-shadow: {params["glow_effect"]};
-        }}
-
-        {tooltip_class}:hover {{
-            transform: {params["hover_scale"]};
-        }}
-
-        {tooltip_class}::before {{
-            content: "";
-            position: absolute;
-            top: -15px;
-            left: -15px;
-            width: calc(100% + 30px);
-            height: calc(100% + 30px);
-            background: inherit;
-            filter: blur({params["bg_blur"]});
-            z-index: -1;
-            border-radius: inherit;
-        }}
-
-        @keyframes floatEffect {{
-            0% {{ transform: translateX(-25%) translateY({params["animation_intensity"]}); }}
-            50% {{ transform: translateX(-25%) translateY(-{params["animation_intensity"]}); }}
-            100% {{ transform: translateX(-25%) translateY({params["animation_intensity"]}); }}
-        }}
-    </style>
-    """
-
-
-def html_for_tooltip_from_large_list(items, label, element_id, style_prefix="", color="#007BFF", emoji=None):
-    """
-    Generates an HTML tooltip for displaying a large list with a summarized preview.
-
-    Parameters:
-        - items (list of str): The list of items to display.
-        - label (str): Describes the type of items being enumerated.
-        - element_id (str): The ID of the element that will trigger the tooltip.
-        - style_prefix (str): Prefix for tooltip CSS class to allow variations in design.
-        - color (str): Color for the tooltip text (default: neutral gray #555).
-        - emoji (str, optional): Emoji prepended to each listed item.
-
-    Returns:
-        - str: HTML snippet containing the summarized text and a tooltip for full details.
-    """
-    if not items:
-        return f'<div style="color:gray;">No {label.lower()} listed</div>'
-    
-    # Escape and format first item
-    first_item = html.escape(items[0])
-    summary = f"(and {len(items) - 1} more {label.lower()})" if len(items) > 1 else ""
-    visible_text = f'<div style="color:{color}; border-bottom: 1px dashed {color};">{first_item} {summary}</div>'
-
-
-    
-    # Generate full tooltip content
-    tooltip_content = "".join(
-        f'<div style="color:{color};">{(emoji + " " if emoji else "")}{html.escape(item)}</div>'
-        for item in items
-    )
-
-    tooltip_class = f"{style_prefix}-tooltip" if style_prefix else "tooltip"
-
-    return f"""
-        <div style="position: relative; display: inline-block; max-width: 100%;">
-            <span id="{element_id}" style="border-bottom: 1px dashed gray; cursor: pointer; display: inline; transition: color 0.3s ease-in-out;" class="hover-trigger">
-                {visible_text}
-            </span>
-            <div class="{tooltip_class}">
-                <strong>All {label} listed:</strong>
-                {tooltip_content}
-            </div>
-        </div>
-        """
-
-    return f"""
-    <div style="position: relative; display: inline-block;">
-        <span id="{element_id}" style="border-bottom: 1px dashed gray; cursor: pointer; display: inline-block; transition: color 0.3s ease-in-out;" class="hover-trigger">
-            {visible_text}
-        </span>
-        <div class="{tooltip_class}">
-            <strong>All {label} listed:</strong>
-            {tooltip_content}
-        </div>
-    </div>
     """
 
 def html_for_tooltip_from_large_list(items, label, element_id, style_prefix="", color="#007BFF", emoji=None):
@@ -441,92 +244,64 @@ def html_for_tooltip_from_large_list(items, label, element_id, style_prefix="", 
 def install_tooltip_styling(style_prefix="", **design_params):
     """
     Returns a CSS block defining the general appearance of tooltips with an enhanced depth effect.
-    
+    Ensures that styles are only injected once to prevent duplication.
+
     Args:
         style_prefix (str): A prefix to prepend to the tooltip class for styling multiple tooltip variations.
         **design_params: Dictionary of CSS properties to override default styling.
-        
+
     Returns:
-        str: A CSS style block for consistent tooltip styling.
+        str: A JavaScript script that safely injects the CSS only if it's not present.
     """
-    
     tooltip_class = f".{style_prefix}-tooltip" if style_prefix else ".tooltip"
-    
-    default_params = {
-        "tooltip_visibility": "hidden",
-        "tooltip_opacity": "0",
-        "tooltip_transform": "translateX(-50%) translateY(5px) scale(0.95)",  # Centered properly
-        "tooltip_transition": "opacity 0.4s ease-out, transform 0.4s ease-out, visibility 0.4s ease-out",
-        "tooltip_bg": "rgba(20, 20, 20, 0.75)",  # Darker and slightly more opaque
-        "text_color": "#ffffff",  # Bright contrast
-        "text_align": "left",
-        "padding": "14px",
-        "border_radius": "10px",
-        "box_shadow": "0px 12px 30px rgba(0, 0, 0, 0.6)",  # Stronger shadow for depth
-        "position": "absolute",
-        "left": "50%",  # Ensures centering
-        "top": "110%",  # Tooltip is positioned below the element
-        "tooltip_width": "350px",  # Fixed width
-        "z_index": "15",
-        "border": "1px solid rgba(255, 255, 255, 0.2)",  # Subtle highlight border
-        "transform_origin": "top center",
-        "bg_blur": "18px",  # Stronger blur effect
-        "glow_effect": "0px 0px 8px rgba(255, 255, 255, 0.4)",  # Light glow around text
-        "hover_scale": "scale(1.05)",  # Expands slightly when active
-        "animation_intensity": "6px"  # More pronounced floating effect
-    }
-    
-    params = {**default_params, **design_params}
-    
-    return f"""
-    <style>
+
+    # Construct the CSS block
+    css_block = f"""
         {tooltip_class} {{
-            visibility: {params["tooltip_visibility"]};
-            opacity: {params["tooltip_opacity"]};
-            transform: {params["tooltip_transform"]};
-            transition: {params["tooltip_transition"]};
-            background: {params["tooltip_bg"]};
-            color: {params["text_color"]};
-            text-align: {params["text_align"]};
-            padding: {params["padding"]};
-            border-radius: {params["border_radius"]};
-            box-shadow: {params["box_shadow"]};
-            position: {params["position"]};
-            left: {params["left"]};
-            top: {params["top"]};
-            width: {params["tooltip_width"]};  /* Enforce fixed width */
-            z-index: {params["z_index"]};
-            border: {params["border"]};
-            transform-origin: {params["transform_origin"]};
+            visibility: hidden;
+            opacity: 0;
+            transform: translateX(-50%) translateY(5px) scale(0.95);
+            transition: opacity 0.4s ease-out, transform 0.4s ease-out, visibility 0.4s ease-out;
+            background: rgba(20, 20, 20, 0.75);
+            color: #ffffff;
+            text-align: left;
+            padding: 14px;
+            border-radius: 10px;
+            box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.6);
+            position: absolute;
+            left: 50%;
+            top: 110%;
+            width: 350px;
+            z-index: 15;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transform-origin: top center;
             overflow: hidden;
             animation: floatEffect 5s ease-in-out infinite;
-            text-shadow: {params["glow_effect"]};
-        }}
-
-        {tooltip_class}:hover {{
-            transform: {params["hover_scale"]};
-        }}
-
-        {tooltip_class}::before {{
-            content: "";
-            position: absolute;
-            top: -15px;
-            left: -15px;
-            width: calc(100% + 30px);
-            height: calc(100% + 30px);
-            background: inherit;
-            filter: blur({params["bg_blur"]});
-            z-index: -1;
-            border-radius: inherit;
+            text-shadow: 0px 0px 8px rgba(255, 255, 255, 0.4);
         }}
 
         @keyframes floatEffect {{
-            0% {{ transform: translateX(-50%) translateY({params["animation_intensity"]}); }}
-            50% {{ transform: translateX(-50%) translateY(-{params["animation_intensity"]}); }}
-            100% {{ transform: translateX(-50%) translateY({params["animation_intensity"]}); }}
+            0% {{ transform: translateX(-50%) translateY(6px); }}
+            50% {{ transform: translateX(-50%) translateY(-6px); }}
+            100% {{ transform: translateX(-50%) translateY(6px); }}
         }}
-    </style>
     """
+
+    # Inject CSS only if it hasn't been added
+    return f"""
+    <script>
+        (function() {{
+            let existingStyle = document.getElementById('{style_prefix}-tooltip-style');
+            if (!existingStyle) {{
+                let styleTag = document.createElement('style');
+                styleTag.id = '{style_prefix}-tooltip-style';
+                styleTag.innerHTML = `{css_block}`;
+                document.head.appendChild(styleTag);
+            }}
+        }})();
+    </script>
+    """
+
 
 
 
