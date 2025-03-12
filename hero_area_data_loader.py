@@ -48,6 +48,10 @@ def load_code_samples():
 import hashlib
 import datetime
 
+import hashlib
+import datetime
+import streamlit as st
+
 def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
     # Generate a hash from the system date
     system_date = datetime.datetime.now().strftime("%Y-%m-%d")
@@ -59,10 +63,10 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
             "description": "I research and implement techniques for regression, classification, and forecasting use cases, \
             with applications ranging from macroeconomic and financial forecasting to microdata predictions in various systems.",
             "skills": [
-                "Strong understanding of linear regression. ", 
-                "Strong understanding of Machine Learning algorithm for pattern detection. ", 
-                "Strong grips on the development cycle of predictive models for regression, classification and forecasting. ", 
-                "Expertise developing search and optimization algorithms to discover best models. " 
+                "Strong understanding of linear regression.", 
+                "Strong understanding of Machine Learning algorithms for pattern detection.", 
+                "Strong grips on the development cycle of predictive models for regression, classification, and forecasting.", 
+                "Expertise developing search and optimization algorithms to discover best models." 
             ]
         },
         {
@@ -70,66 +74,31 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
             "description": "I develop applications (batch scripts, APIs, dashboards, web applications) to distribute insights \
             and predictions across corporate environments.",
             "skills": [
-                "Strong understanding of software engineering. ", 
-                "Familiarity with software engineering methodologies, architectural and design patterns. ", 
-                "Expertise with development of code using Object Oriented, Functional and Asynchronous styles. ", 
-                "High adaptability to using key libraries for application development. ",  
+                "Strong understanding of software engineering.", 
+                "Familiarity with software engineering methodologies, architectural and design patterns.", 
+                "Expertise with development of code using Object-Oriented, Functional, and Asynchronous styles.", 
+                "High adaptability to using key libraries for application development."  
             ]
-        },
-        {
-            "title": "Data Engineering",
-            "description": "As my former boss Susana Martinez Restrepo said, 'I can perform data miracles.' This refers to my \
-            ability to clean and organize datasets from complex, multi-source environments for research and model development.",
-            "skills": [
-                "Facility to engage with structured and unstructured sources. ", 
-                "Foundations on NLP, GIS, and network analysis. ",  
-                "High expertise designing advanced merges and data sources. ", 
-                "Expertise using text-mining and NLP for information processing. ", 
-            ]
-        },
-        {
-            "title": "Holistic Understanding of Modern Tooling",
-            "description": "I integrate tools and technologies for modern data analysis, committing to research the \
-            unique purposes of each tool and efficiently write workflows around them using GPT.",
-            #"skills": ["Cloud Computing", "Containerization"],
-            "subitems": [
-                "<strong>Excellence Tier (I know the code line by heart):</strong> Python, R Studio, Stata, GPT",
-                "<strong>Proficiency Tier:</strong> Airflow, SQL, Spark, Bash scripting",
-                "<strong>Currently Learning:</strong> Docker, Kubernetes, GitHub, Big Data Cloud tools, SQLAlchemy, Django"
-            ]
-        },
-        {
-            "title": "Research effort on AI & LLM powered applications",
-            "description": "I prepare myself by means of self-learning for the disruption of Artificial Intelligence in software development and the rise of LLM-powered applications.",
-            #"skills": ["Prompt Engineering", "Fine-Tuning LLMs"]
-        },
-        {
-            "title": "Bonus: Rigorous Economic Mindset",
-            "description": "As a professional economist, I over-simplify complex social phenomena by casually referencing supply and demand (kidding!).  \
-            But really, I approach data analysis with a focus on causal reasoning, marginal effects, and counterfactual analysis.",
-            #"skills": ["Causal Inference", "Time Series Analysis"]
         }
     ]
 
+    # Initialize session state variables safely
+    if "installed_tooltips" not in st.session_state:
+        st.session_state["installed_tooltips"] = set()
+    
+    if "tooltip_style_installed" not in st.session_state:
+        st.session_state["tooltip_style_installed"] = False
+    
     # Initialize HTML output
     offering_html = '<h3>(5+1) Key Differentials of My Professional Offering</h3>'
     offering_html += '<ol style="padding-left: 20px;">'
-    
-    # Collect element IDs for tooltips
-    tooltip_elements = []
-    
+
     # Generate offering list
     for i, offer in enumerate(offerings):
         element_id = id_pattern.format(i+1)
         bg_color = colors[i % len(colors)]
         offering_html += f'<li id="{element_id}" style="background-color: {bg_color}; padding: 8px; border-radius: 4px;">'
         offering_html += f'<strong>{i+1}. {offer["title"]}</strong>: {offer["description"]}'
-
-        if "subitems" in offer:
-            offering_html += '<ul style="list-style-type: none; padding-left: 0;">'
-            for subitem in offer["subitems"]:
-                offering_html += f'<li>{subitem}</li>'
-            offering_html += '</ul>'
 
         # Insert tooltip for technical skills (only if not installed before)
         if "skills" in offer and element_id not in st.session_state["installed_tooltips"]:
@@ -143,14 +112,15 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
     
     offering_html += '</ol>'
     
-    if "tooltip_style_installed" not in st.session_state:
+    # Install tooltip styling once
+    if not st.session_state["tooltip_style_installed"]:
         st.markdown(install_tooltip_styling(), unsafe_allow_html=True)
         st.session_state["tooltip_style_installed"] = True
-
     
-    # Add tooltip hover logic for all elements
-    for element_id in tooltip_elements:
+    # Apply tooltip logic dynamically only for new tooltips
+    for element_id in st.session_state["installed_tooltips"]:
         st.markdown(install_tooltip_triggering_logic(element_id), unsafe_allow_html=True)
-    
+
     return offering_html
+
 
