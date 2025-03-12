@@ -325,10 +325,8 @@ def install_tooltip_styling(style_prefix="", **design_params):
         str: A CSS style block for consistent tooltip styling.
     """
     
-    # Ensure the style class is correctly formatted
     tooltip_class = f".{style_prefix}-tooltip" if style_prefix else ".tooltip"
 
-    # Default design parameters
     default_params = {
         "tooltip_visibility": "hidden",
         "tooltip_opacity": "0",
@@ -342,27 +340,17 @@ def install_tooltip_styling(style_prefix="", **design_params):
         "border_radius": "5px",
         "box_shadow": "0px 0px 15px rgba(0, 0, 0, 0.1)",
         "position": "absolute",
+        "left": "50%",
+        "top": "120%",
         "tooltip_width": "100%",
         "tooltip_max_width": "400px",
         "z_index": "1",
         "border": "1px solid rgba(200, 200, 200, 0.5)",
-        "transform_origin": "top center",
-        "tooltip_position": "top"
+        "transform_origin": "top center"
     }
     
-    # Override defaults with user-supplied values
     params = {**default_params, **design_params}
     
-    # Position mapping
-    position_mapping = {
-        "top": "bottom: 120%; left: 50%; transform: translateX(-50%)",
-        "bottom": "top: 120%; left: 50%; transform: translateX(-50%)",
-        "left": "right: 110%; top: 50%; transform: translateY(-50%)",
-        "right": "left: 110%; top: 50%; transform: translateY(-50%)",
-    }
-    tooltip_position = position_mapping.get(params["tooltip_position"], position_mapping["top"])
-    
-    # Construct the CSS style block dynamically
     css_style = f"""
     <style>
         {tooltip_class} {{
@@ -378,12 +366,13 @@ def install_tooltip_styling(style_prefix="", **design_params):
             border-radius: {params["border_radius"]};
             box-shadow: {params["box_shadow"]};
             position: {params["position"]};
+            left: {params["left"]};
+            top: {params["top"]};
             min-width: {params["tooltip_width"]};
             max-width: {params["tooltip_max_width"]};
             z-index: {params["z_index"]};
             border: {params["border"]};
             transform-origin: {params["transform_origin"]};
-            {tooltip_position};
         }}
     </style>
     """
