@@ -410,3 +410,98 @@ def html_for_tooltip_from_large_list(items, label, element_id, color="#007BFF", 
     st.markdown(tooltip_css, unsafe_allow_html=True)
 
     return tooltip_html
+
+
+import hashlib
+import html
+import streamlit as st
+
+def html_for_tooltip_from_large_list(items, label, element_id, color="#007BFF", emoji=None):
+    """
+    Generates an HTML snippet displaying a summarized preview of a list with a tooltip that appears on hover.
+
+    Parameters:
+        - items (list of str): The list of items to display.
+        - label (str): Describes the type of items being enumerated.
+        - element_id (str): The base ID of the element.
+        - color (str): Color for the summary text (default: #007BFF).
+        - emoji (str, optional): Emoji prepended to each listed item.
+
+    Returns:
+        - tuple: (HTML snippet, unique tooltip ID)
+    """
+    if not items:
+        return f'<div style="color:gray;">No {label.lower()} listed</div>', None
+
+    # Generate a unique ID
+    unique_hash = hashlib.md5(element_id.encode()).hexdigest()[:10]
+    unique_id = f"{element_id}_{unique_hash}"
+
+    first_item = html.escape(items[0])
+    summary = f"(and {len(items) - 1} more {label.lower()})" if len(items) > 1 else ""
+    visible_text = f'<span id="{unique_id}" style="color:{color}; border-bottom: 1px dashed {color}; cursor: pointer;">{first_item} {summary}</span>'
+
+    tooltip_content = "".join(
+        f'<div style="color:{color}; margin-bottom: 4px;">{(emoji + " " if emoji else "")}{html.escape(item)}</div>'
+        for item in items
+    )
+
+    # Tooltip HTML (without CSS)
+    tooltip_html = f"""
+        <div style="position: relative; display: inline-block; max-width: 100%;">
+            <div class="tooltip-container-{unique_id}" style="display: inline-block; position: relative;">
+                {visible_text}
+                <div class="skills_tooltip-{unique_id}" style="
+                    visibility: hidden;
+                    opacity: 0;
+                    background: rgba(20, 20, 20, 0.9);
+                    color: #ffffff;
+                    padding: 12px;
+                    border-radius: 8px;
+                    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
+                    position: absolute;
+                    left: 50%;
+                    top: 120%;
+                    max-width: 350px;
+                    text-align: left;
+                    z-index: 10;
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    transform: translateX(-50%) translateY(5px);
+                    transition: visibility 0.2s ease-out, opacity 0.2s ease-out, transform 0.2s ease-out;
+                    overflow-wrap: break-word;
+                ">
+                    <strong>All {label} listed:</strong>
+                    {tooltip_content}
+                </div>
+            </div>
+        </div>
+    """
+
+    return tooltip_html, unique_id
+
+
+def setup_tooltip_behavior(unique_id):
+    """
+    Injects the required CSS and behavior into Streamlit to activate the tooltip.
+
+    Parameters:
+        - unique_id (str): The unique tooltip identifier.
+
+    Returns:
+        - None
+    """
+    if not unique_id:
+        return
+
+    tooltip_css = f"""
+    <style>
+        .tooltip-container-{unique_id}:hover .skills_tooltip-{unique_id} {{
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(-50%) translateY(0px) scale(1.05);
+        }}
+    </style>
+    """
+    
+    st.markdown(tooltip_css, unsafe_allow_html=True)
+
