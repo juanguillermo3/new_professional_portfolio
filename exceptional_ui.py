@@ -501,25 +501,21 @@ def install_tooltip_styling(style_prefix="", **design_params):
         "tooltip_opacity": "0",
         "tooltip_transform": "translateY(5px) scale(0.95)",
         "tooltip_transition": "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out",
-        "tooltip_bg": "rgba(30, 30, 30, 0.8)",  # Dark frosted background
-        "tooltip_blur": "14px",
-        "text_color": "#FFD700",  # Gold text for a premium look
+        "tooltip_bg": "rgba(30, 30, 30, 0.7)",  # Dark frosted background
+        "tooltip_blur": "12px",
+        "text_color": "#ffffff",  # White text for contrast
         "text_align": "left",
-        "font_size": "14px",  # Slightly refined for sharpness
-        "font_weight": "500",  # Medium weight to enhance clarity
-        "padding": "14px",
-        "border_radius": "10px",
-        "box_shadow": "0px 6px 14px rgba(0, 0, 0, 0.5)",  # Stronger depth
+        "padding": "12px",
+        "border_radius": "8px",
+        "box_shadow": "0px 6px 12px rgba(0, 0, 0, 0.4)",  # Stronger shadow for depth
         "position": "absolute",
         "left": "50%",
         "top": "120%",
         "tooltip_width": "auto",
         "tooltip_max_width": "400px",
         "z_index": "10",
-        "border": "1px solid rgba(255, 215, 0, 0.3)",  # Gold accent border
-        "transform_origin": "top center",
-        "text_shadow": "0px 1px 3px rgba(255, 215, 0, 0.4)",  # Soft glow for readability
-        "font_smoothing": "antialiased"
+        "border": "1px solid rgba(255, 255, 255, 0.3)",  # Subtle light border
+        "transform_origin": "top center"
     }
     
     params = {**default_params, **design_params}
@@ -535,10 +531,6 @@ def install_tooltip_styling(style_prefix="", **design_params):
             backdrop-filter: blur({params["tooltip_blur"]});
             color: {params["text_color"]};
             text-align: {params["text_align"]};
-            font-size: {params["font_size"]};
-            font-weight: {params["font_weight"]};
-            text-shadow: {params["text_shadow"]};
-            -webkit-font-smoothing: {params["font_smoothing"]};
             padding: {params["padding"]};
             border-radius: {params["border_radius"]};
             box-shadow: {params["box_shadow"]};
@@ -561,7 +553,7 @@ def install_tooltip_styling(style_prefix="", **design_params):
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, rgba(255, 215, 0, 0.15) 10%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 10%, transparent 70%);
             pointer-events: none;
             mix-blend-mode: overlay;
         }}
