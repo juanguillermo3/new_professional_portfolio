@@ -175,7 +175,7 @@ import hashlib
 import html
 
 
-def install_tooltip_triggering_logic(element_id, style_prefix=""):
+def install_tooltip_triggering_logic(element_id, style_prefix="off"):
     """
     Generates the CSS logic for triggering a tooltip when hovering over the given element.
 
@@ -198,7 +198,7 @@ def install_tooltip_triggering_logic(element_id, style_prefix=""):
     </style>
     """
 
-def html_for_tooltip_from_large_list(items, label, element_id, style_prefix="", color="#007BFF", emoji=None):
+def html_for_tooltip_from_large_list(items, label, element_id, style_prefix="off", color="#007BFF", emoji=None):
     """
     Generates an HTML tooltip for displaying a large list with a summarized preview.
 
@@ -241,7 +241,7 @@ def html_for_tooltip_from_large_list(items, label, element_id, style_prefix="", 
         </div>
     """
     
-def install_tooltip_styling(style_prefix="", **design_params):
+def install_tooltip_styling(style_prefix="off"", **design_params):
     """
     Returns a CSS block defining the general appearance of tooltips with an enhanced depth effect.
     Ensures that styles are only injected once to prevent duplication.
