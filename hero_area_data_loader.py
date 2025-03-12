@@ -142,7 +142,7 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
 
     # Inject tooltip behaviors
     for unique_id in tooltip_ids:
-        setup_tooltip_behavior(unique_id)
+        st.markdown(setup_tooltip_behavior(unique_id), unsafe_allow_html=True)
 
     return offering_html
 
