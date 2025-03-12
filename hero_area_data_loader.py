@@ -265,7 +265,7 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
     st.markdown(install_tooltip_styling())
     
     # Add tooltip hover logic for all elements
-    #for element_id in tooltip_elements:
+    for element_id in tooltip_elements:
         st.markdown(install_tooltip_triggering_logic(element_id))
     
     return offering_html
