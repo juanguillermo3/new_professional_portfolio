@@ -332,19 +332,20 @@ def install_tooltip_styling(style_prefix="", **design_params):
         "tooltip_opacity": "0",
         "tooltip_transform": "translateY(5px) scale(0.95)",
         "tooltip_transition": "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out",
-        "tooltip_blur": "8px",
-        "text_color": "#ffffff",
+        "tooltip_bg": "rgba(240, 240, 240, 0.7)",
+        "tooltip_blur": "10px",
+        "text_color": "black",
         "text_align": "left",
-        "padding": "10px",
+        "padding": "12px",
         "border_radius": "8px",
-        "box_shadow": "0px 4px 10px rgba(0, 0, 0, 0.2), 0px -2px 5px rgba(255, 255, 255, 0.1)",
+        "box_shadow": "0px 6px 12px rgba(0, 0, 0, 0.25), 0px -3px 6px rgba(255, 255, 255, 0.15)",
         "position": "absolute",
         "left": "50%",
         "top": "120%",
-        "tooltip_width": "100%",
+        "tooltip_width": "auto",
         "tooltip_max_width": "400px",
         "z_index": "10",
-        "border": "1px solid rgba(255, 255, 255, 0.2)",
+        "border": "1px solid rgba(200, 200, 200, 0.5)",
         "transform_origin": "top center"
     }
     
@@ -357,7 +358,7 @@ def install_tooltip_styling(style_prefix="", **design_params):
             opacity: {params["tooltip_opacity"]};
             transform: {params["tooltip_transform"]};
             transition: {params["tooltip_transition"]};
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(200, 200, 200, 0.15) 100%);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(220, 220, 220, 0.15) 100%);
             backdrop-filter: blur({params["tooltip_blur"]});
             color: {params["text_color"]};
             text-align: {params["text_align"]};
@@ -373,6 +374,7 @@ def install_tooltip_styling(style_prefix="", **design_params):
             border: {params["border"]};
             transform-origin: {params["transform_origin"]};
             overflow: hidden;
+            animation: floatEffect 4s ease-in-out infinite;
         }}
         
         {tooltip_class}::before {{
@@ -382,7 +384,7 @@ def install_tooltip_styling(style_prefix="", **design_params):
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 10%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.35) 10%, transparent 70%);
             pointer-events: none;
             mix-blend-mode: overlay;
         }}
@@ -392,10 +394,8 @@ def install_tooltip_styling(style_prefix="", **design_params):
             50% {{ transform: translateY(-3px); }}
             100% {{ transform: translateY(3px); }}
         }}
-        {tooltip_class}:hover {{
-            animation: floatEffect 2s ease-in-out infinite;
-        }}
     </style>
     """
+
 
 
