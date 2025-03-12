@@ -49,7 +49,6 @@ class HeroArea:
         self.contact_button_intro = contact_button_intro
         self.professional_offering = professional_offering
         self.detailed_offering = detailed_offering
-        self.tooltip_content = tooltip_content if tooltip_content is not None else load_tooltips_for_detailed_offerings()  # Load tooltips
 
     def render_code_samples(self):
         st.markdown(f'<p class="code-samples-intro">{self.code_samples_intro}</p>', unsafe_allow_html=True)
