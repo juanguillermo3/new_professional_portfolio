@@ -138,4 +138,67 @@ def professional_statement():
     )
 
 
+import hashlib
+import datetime
+import streamlit as st
+
+def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
+    # Generate a unique system date string
+    system_date = datetime.datetime.now().strftime("%Y-%m-%d")
+
+    offerings = [
+        {
+            "title": "Inferential Statistics & High-Performance Predictive Analytics",
+            "description": "I research and implement techniques for regression, classification, and forecasting use cases, \
+            with applications ranging from macroeconomic and financial forecasting to microdata predictions in various systems.",
+            "skills": [
+                "Strong understanding of linear regression.", 
+                "Strong understanding of Machine Learning algorithms for pattern detection.", 
+                "Strong grips on the development cycle of predictive models for regression, classification, and forecasting.", 
+                "Expertise developing search and optimization algorithms to discover best models." 
+            ]
+        },
+        {
+            "title": "Software & Application Development for Inference Distribution",
+            "description": "I develop applications (batch scripts, APIs, dashboards, web applications) to distribute insights \
+            and predictions across corporate environments.",
+            "skills": [
+                "Strong understanding of software engineering.", 
+                "Familiarity with software engineering methodologies, architectural and design patterns.", 
+                "Expertise with development of code using Object Oriented, Functional, and Asynchronous styles.", 
+                "High adaptability to using key libraries for application development.",  
+            ]
+        }
+    ]
+
+    offering_html = '<h3>(5+1) Key Differentials of My Professional Offering</h3>'
+    offering_html += '<ol style="padding-left: 20px;">'
+    
+    tooltip_elements = []
+
+    for i, offer in enumerate(offerings):
+        raw_element_id = id_pattern.format(i + 1)
+        hashed_element_id = hashlib.md5(f"{raw_element_id}-{system_date}".encode()).hexdigest()[:10]
+
+        bg_color = colors[i % len(colors)]
+        offering_html += f'<li id="{hashed_element_id}" style="background-color: {bg_color}; padding: 8px; border-radius: 4px;">'
+        offering_html += f'<strong>{i+1}. {offer["title"]}</strong>: {offer["description"]}'
+
+        if "skills" in offer:
+            tooltip_html = html_for_tooltip_from_large_list(
+                offer["skills"], label="Technical Skills", element_id=hashed_element_id, color="#555", emoji="🏅"
+            )
+            offering_html += tooltip_html
+            tooltip_elements.append(hashed_element_id)
+
+        offering_html += '</li>'
+    
+    offering_html += '</ol>'
+
+    st.markdown(install_tooltip_styling(), unsafe_allow_html=True)
+
+    for element_id in tooltip_elements:
+        st.markdown(install_tooltip_triggering_logic(element_id), unsafe_allow_html=True)
+
+    return offering_html
 
