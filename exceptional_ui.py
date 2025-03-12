@@ -241,7 +241,7 @@ def html_for_tooltip_from_large_list(items, label, element_id, style_prefix="off
         </div>
     """
     
-def install_tooltip_styling(style_prefix="off"", **design_params):
+def install_tooltip_styling(style_prefix="off", **design_params):
     """
     Returns a CSS block defining the general appearance of tooltips with an enhanced depth effect.
     Ensures that styles are only injected once to prevent duplication.
