@@ -416,41 +416,43 @@ def setup_tooltip_behavior(unique_id):
     tooltip_css = f"""
     <style>
         .tooltip-trigger {{
-            color: #007BFF;
-            border-bottom: 1px dashed #007BFF;
-            cursor: pointer;
-            position: relative;
+            color: #007BFF !important;
+            border-bottom: 1px dashed #007BFF !important;
+            cursor: pointer !important;
+            position: relative !important;
         }}
 
         .skills_tooltip-{unique_id} {{
-            visibility: hidden;
-            opacity: 0;
-            background: rgba(20, 20, 20, 0.9);
-            color: #ffffff;
-            padding: 12px;
-            border-radius: 8px;
-            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
-            position: absolute;
-            left: 50%;
-            top: 120%;
-            max-width: 350px;
-            text-align: left;
-            z-index: 10;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transform: translateX(-50%) translateY(5px);
-            transition: visibility 0.2s ease-out, opacity 0.2s ease-out, transform 0.2s ease-out;
-            overflow-wrap: break-word;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            background: rgba(20, 20, 20, 0.9) !important;
+            color: #ffffff !important;
+            padding: 12px !important;
+            border-radius: 8px !important;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5) !important;
+            position: absolute !important;
+            left: 50% !important;
+            top: 120% !important;
+            max-width: 350px !important;
+            text-align: left !important;
+            z-index: 10 !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            transform: translateX(-50%) translateY(5px) !important;
+            transition: visibility 0.2s ease-out, opacity 0.2s ease-out, transform 0.2s ease-out !important;
+            overflow-wrap: break-word !important;
+            display: none !important; /* Ensure tooltip starts hidden */
         }}
 
         .tooltip-trigger:hover + .skills_tooltip-{unique_id} {{
-            visibility: visible;
-            opacity: 1;
-            transform: translateY(0px) scale(1.1);
+            visibility: visible !important;
+            opacity: 1 !important;
+            transform: translateY(0px) scale(1.1) !important;
+            display: block !important;
         }}
 
         .tooltip-item {{
-            color: #007BFF;
-            margin-bottom: 4px;
+            color: #007BFF !important;
+            margin-bottom: 4px !important;
         }}
     </style>
     """
