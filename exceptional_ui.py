@@ -338,3 +338,46 @@ def install_tooltip_styling(style_prefix="", **design_params):
     """
 
 
+def html_for_tooltip_from_large_list(items, label, element_id, style_prefix="", color="#555", emoji=None):
+    """
+    Generates an HTML tooltip for displaying a large list with a summarized preview.
+
+    Parameters:
+        - items (list of str): The list of items to display.
+        - label (str): Describes the type of items being enumerated.
+        - element_id (str): The ID of the element that will trigger the tooltip.
+        - style_prefix (str): Prefix for tooltip CSS class to allow variations in design.
+        - color (str): Color for the tooltip text (default: neutral gray #555).
+        - emoji (str, optional): Emoji prepended to each listed item.
+
+    Returns:
+        - str: HTML snippet containing the summarized text and a tooltip for full details.
+    """
+    if not items:
+        return f'<div style="color:gray;">No {label.lower()} listed</div>'
+    
+    # Escape and format first item
+    first_item = html.escape(items[0])
+    summary = f"(and {len(items) - 1} more {label.lower()})" if len(items) > 1 else ""
+    visible_text = f'<div style="color:{color};">{first_item} {summary}</div>'
+
+    # Generate full tooltip content
+    tooltip_content = "".join(
+        f'<div style="color:{color};">{(emoji + " " if emoji else "")}{html.escape(item)}</div>'
+        for item in items
+    )
+
+    tooltip_class = f"{style_prefix}-tooltip" if style_prefix else "tooltip"
+
+    return f"""
+    <div style="position: relative; display: inline-block;">
+        <span id="{element_id}" style="border-bottom: 1px dashed gray; cursor: pointer;" class="hover-trigger">
+            {visible_text}
+        </span>
+        <div class="{tooltip_class}">
+            <strong>All {label} listed:</strong>
+            {tooltip_content}
+        </div>
+    </div>
+    """
+
