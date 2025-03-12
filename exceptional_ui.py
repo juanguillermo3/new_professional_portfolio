@@ -428,7 +428,7 @@ def html_for_tooltip_from_large_list(items, label, element_id, style_prefix="", 
 
     return f"""
     <div style="position: relative; display: inline-flex; max-width: 100%; flex-wrap: wrap; align-items: baseline;">
-        <span id="{element_id}" style="cursor: pointer; display: inline; transition: color 0.3s ease-in-out; word-break: break-word; white-space: normal;" class="hover-trigger">
+        <span id="{element_id}" style="cursor: pointer; display: inline-flex; transition: color 0.3s ease-in-out; word-break: break-word; white-space: normal;" class="hover-trigger">
             {visible_text}
         </span>
         <div class="{tooltip_class}">
