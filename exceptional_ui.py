@@ -278,7 +278,7 @@ def html_for_tooltip_from_large_list(items, label, element_id, color="#007BFF", 
 
     first_item = html.escape(items[0])
     summary = f"(and {len(items) - 1} more {label.lower()})" if len(items) > 1 else ""
-    visible_text = f'<span style="color:{color}; border-bottom: 1px dashed {color}; cursor: pointer;">{first_item} {summary}</span>'
+    visible_text = f'<span id="{unique_id}" style="color:{color}; border-bottom: 1px dashed {color}; cursor: pointer;">{first_item} {summary}</span>'
 
     tooltip_content = "".join(
         f'<div style="color:{color}; margin-bottom: 4px;">{(emoji + " " if emoji else "")}{html.escape(item)}</div>'
@@ -287,12 +287,10 @@ def html_for_tooltip_from_large_list(items, label, element_id, color="#007BFF", 
 
     # Define tooltip HTML (both elements inside a common div)
     tooltip_html = f"""
-        <div  id="{unique_id}"  style="position: relative; display: inline-block; max-width: 100%;">
+        <div   style="position: relative; display: inline-block; max-width: 100%;">
             <div class="tooltip-container-{unique_id}" style="display: inline-block; position: relative;">
                 {visible_text}
                 <div class="skills_tooltip-{unique_id}" style="
-                    visibility: hidden;
-                    opacity: 0;
                     background: rgba(20, 20, 20, 0.9);
                     color: #ffffff;
                     padding: 12px;
@@ -329,70 +327,4 @@ def html_for_tooltip_from_large_list(items, label, element_id, color="#007BFF", 
     return tooltip_html
 
 
-
-import html
-import hashlib
-import datetime
-import streamlit as st
-
-def html_for_tooltip_from_large_list(items, label, element_id, color="#007BFF", emoji=None):
-    """
-    Generates an HTML snippet displaying a summarized preview of a list with a tooltip that appears on hover.
-
-    Parameters:
-        - items (list of str): The list of items to display.
-        - label (str): Describes the type of items being enumerated.
-        - element_id (str): The base ID of the element.
-        - color (str): Color for the summary text (default: #007BFF).
-        - emoji (str, optional): Emoji prepended to each listed item.
-
-    Returns:
-        - str: HTML snippet containing the summarized text and a tooltip for full details.
-    """
-    if not items:
-        return f'<div style="color:gray;">No {label.lower()} listed</div>'
-
-    # Generate a unique identifier by hashing element_id with the system date
-    unique_hash = hashlib.md5(f"{element_id}_{datetime.datetime.now().isoformat()}".encode()).hexdigest()[:10]
-    unique_id = f"{element_id}_{unique_hash}"
-
-    first_item = html.escape(items[0])
-    summary = f"(and {len(items) - 1} more {label.lower()})" if len(items) > 1 else ""
-    visible_text = f'<span style="color:{color}; border-bottom: 1px dashed {color}; cursor: pointer;">{first_item} {summary}</span>'
-
-    tooltip_content = "".join(
-        f'<div style="color:{color}; margin-bottom: 4px;">{(emoji + " " if emoji else "")}{html.escape(item)}</div>'
-        for item in items
-    )
-
-    # Define tooltip HTML (fully styled in the element)
-    tooltip_html = f"""
-        <div style="position: relative; display: inline-block; max-width: 100%;">
-            <div style="display: inline-block; position: relative;">
-                {visible_text}
-                <div style="
-                    background: rgba(20, 20, 20, 0.9);
-                    color: #ffffff;
-                    padding: 12px;
-                    border-radius: 8px;
-                    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
-                    position: absolute;
-                    left: 50%;
-                    top: 120%;
-                    width: 300px;
-                    text-align: left;
-                    z-index: 10;
-                    border: 1px solid rgba(255, 255, 255, 0.2);
-                    transform: translateX(-50%) translateY(5px);
-                    transition: visibility 0.3s ease-out, opacity 0.3s ease-out, transform 0.3s ease-out;
-                " onmouseover="this.style.visibility='visible'; this.style.opacity='1'; this.style.transform='translateX(-50%) translateY(0px) scale(1.05)';"
-                   onmouseout="this.style.visibility='hidden'; this.style.opacity='0'; this.style.transform='translateX(-50%) translateY(5px)';">
-                    <strong>All {label} listed:</strong>
-                    {tooltip_content}
-                </div>
-            </div>
-        </div>
-    """
-
-    return tooltip_html
 
