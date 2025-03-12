@@ -157,7 +157,8 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
 
         # Insert the tooltip for the list of technical skills
         if "skills" in offer:
-            offering_html += f'<span>{html_for_tooltip_from_large_list(offer["skills"], label="Technical Skills", color="#555", emoji="🛠️")}</span>'
+            #offering_html += f'<span>{html_for_tooltip_from_large_list(offer["skills"], label="Technical Skills", element_id=element_id color="#555", emoji="🛠️")}</span>'
+            pass
 
         offering_html += '</li>'
     
@@ -252,7 +253,7 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
 
         # Insert the tooltip for the list of technical skills
         if "skills" in offer:
-            tooltip_html = html_for_tooltip_from_large_list(offer["skills"], label="Technical Skills", color="#555", emoji="🛠️")
+            tooltip_html = html_for_tooltip_from_large_list(offer["skills"], label="Technical Skills", element_id=element_id, color="#555", emoji="🛠️")
             offering_html += f'<span>{tooltip_html}</span>'
             tooltip_elements.append(element_id)  # Store the ID for hover logic
 
