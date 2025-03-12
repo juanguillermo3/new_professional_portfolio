@@ -189,7 +189,7 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
     st.markdown(install_tooltip_styling(), unsafe_allow_html=True)
 
     for element_id in tooltip_elements:
-        st.markdown(install_tooltip_triggering_logic(element_id), unsafe_allow_html=True)
+        st.markdown(install_tooltip_triggering_logic(hashed_element_id), unsafe_allow_html=True)
 
     return offering_html
 
