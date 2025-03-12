@@ -201,9 +201,10 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
             "description": "I research and implement techniques for regression, classification, and forecasting use cases, \
             with applications ranging from macroeconomic and financial forecasting to microdata predictions in various systems.",
             "skills": [
-                "Strong grips on major ML algorithms", 
-                "Foundations on Artificial Intelligence for predictive models using Neural Networks", 
-                "Development of search algorithms to discover most performant algorithms" 
+                "Strong grips on Regresion Analysis", 
+                "Understanding of several algorithms for detection of predictive patterns", 
+                "Stron grips on the development cycle for predictive models for regression , classification and forecasting use cases", 
+                "Implementation of search & optimization algorithms to create high performance systems" 
             ]
         },
         {
