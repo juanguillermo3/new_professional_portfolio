@@ -371,7 +371,6 @@ def html_for_tooltip_from_large_list(items, label, element_id, color="#007BFF", 
             <div style="display: inline-block; position: relative;">
                 {visible_text}
                 <div style="
-                    visibility: hidden;
                     opacity: 0;
                     background: rgba(20, 20, 20, 0.9);
                     color: #ffffff;
