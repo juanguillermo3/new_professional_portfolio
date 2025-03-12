@@ -174,25 +174,6 @@ class HeroArea:
             tooltip_html = self._generate_tooltip_html()
             #st.markdown(tooltip_html, unsafe_allow_html=True)
     
-    def _generate_tooltip_html(self) -> str:
-        """
-        Generates the HTML + CSS for tooltips based on the loaded tooltip content.
-        
-        Returns:
-            str: The formatted CSS and HTML for the tooltips.
-        """
-        tooltip_html = ""
-        for element_id, tooltip_text in self.tooltip_content.items():
-            tooltip_html += _custom_tooltip_with_frost_glass_html(
-            element_id,
-            tooltip_text,
-            tooltip_top_pos="100%",  # Places it below the element
-            tooltip_bottom_pos="auto",  # Removes default positioning
-            tooltip_left_pos="80%",  # Moves it slightly to the right
-            )
-        return tooltip_html
-
-  
         
 # Instantiate and render HeroArea with data loaded from the loader functions
 hero = HeroArea(
