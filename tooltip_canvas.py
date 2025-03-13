@@ -62,7 +62,6 @@ class TooltipCanvas:
         """Private method to generate the tooltip HTML."""
         return f"""
         <div class="tc-tooltip-container">
-            <span id="{unique_id}" class="tc-tooltip-trigger">Hover me</span>
             <div class="tc-tooltip-content tc-tooltip-{unique_id}">
                 {content}
             </div>
