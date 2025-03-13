@@ -400,7 +400,7 @@ def html_for_tooltip_from_large_list(items, label, color="#007BFF", emoji=None):
     return tooltip_html, unique_id
 
 
-import datetime
+from datetime import datetime
 
 def setup_tooltip_behavior(unique_id):
     """
