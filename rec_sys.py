@@ -84,8 +84,6 @@ class RecommendationSystem(PortfolioSection):
                      
         self.num_recommended_items = num_recommended_items
         self.num_columns = num_columns
-        #self.section_header = section_header
-        #self.section_description = section_description
         
         self.repos_metadata = combine_metadata()  
         self.metadata_list = load_modules_metadata()  
@@ -314,6 +312,7 @@ class RecommendationSystem(PortfolioSection):
             with self.media_placeholder.container():
                 st.session_state["active_galleria"].render()
 
+    #
     def render_project_metadata(self, project_metadata, display_milestones=True, margin_percent=10):
         """Render project title, description, tags, milestones, code sample count, and media content."""
         
@@ -337,6 +336,7 @@ class RecommendationSystem(PortfolioSection):
         milestone_margin = margin_percent * 1.5  
         
         if display_milestones:
+          
             # Render achieved milestones
             achieved_html = html_for_milestones_from_project_metadata(project_metadata, milestone_type="achieved_milestones")
             if achieved_html:
@@ -352,9 +352,41 @@ class RecommendationSystem(PortfolioSection):
                     f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{upcoming_html}</div>",
                     unsafe_allow_html=True
                 )
+        
+            # Fetch and render code samples from repository
+            code_samples = _fetch_files(project_metadata["repo_name"])
+            code_samples_html = html_for_milestones(milestones=code_samples, milestone_type="code_samples")
+            if code_samples_html:
+                st.markdown(
+                    f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{code_samples_html}</div>",
+                    unsafe_allow_html=True
+                )
+    #
+    def _fetch_files(self, repo_name):
+        """Fetches all files from a given repository name.
+        
+        Parameters:
+            - repo_name (str): The name of the repository.
+        
+        Returns:
+            - list: A list of file paths relative to the repository.
+        """
+        repo_metadata = next((repo for repo in self.repos_metadata if repo["title"].lower() == repo_name.lower()), None)
+        
+        if not repo_metadata:
+            return []
 
+        repo_path = repo_metadata.get("local_path")  # Assuming the repo's local path is stored in metadata
+        
+        if not repo_path or not os.path.exists(repo_path):
+            return []
 
-              
+        file_list = []
+        for root, _, files in os.walk(repo_path):
+            for file in files:
+                file_list.append(os.path.relpath(os.path.join(root, file), repo_path))
+
+        return file_list
     
         # Code sample count section
         project_title = project_metadata['title'].lower()
