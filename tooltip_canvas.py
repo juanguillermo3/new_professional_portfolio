@@ -522,7 +522,15 @@ class TooltipCanvas:
             }}
         </style>
         """
+    
+    def apply_tooltip(self, element_id, content):
+        """Applies the tooltip with user-defined content."""
+        tooltip_html = self._define_tooltip(content, element_id)
+        tooltip_css = self._generate_tooltip_css(element_id)
 
+        st.markdown(tooltip_css, unsafe_allow_html=True)
+        st.markdown(tooltip_html, unsafe_allow_html=True)
+        
     def render_test_case(self, test_content=None):
         """Render a default test case with customizable tooltip content."""
         test_id = "test-tooltip"
