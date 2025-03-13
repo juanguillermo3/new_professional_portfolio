@@ -355,7 +355,7 @@ class RecommendationSystem(PortfolioSection):
         
             # Fetch and render code samples from repository
             code_samples = self._fetch_files(project_metadata['title'])
-            code_samples_html = html_for_milestones(milestones=code_samples, milestone_type="code_samples")
+            code_samples_html = html_for_milestones_from_project_metadata(milestones=code_samples, milestone_type="code_samples")
             if code_samples_html:
                 st.markdown(
                     f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{code_samples_html}</div>",
