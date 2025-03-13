@@ -133,15 +133,19 @@ class TooltipCanvas:
             unsafe_allow_html=True
         )
 
-    def _define_tooltip_html(self, unique_id: str, content: str):
-        """Generates the tooltip HTML, without a trigger element."""
+    def _define_tooltip(self, content: str, unique_id: str):
+        """Private method to generate the tooltip HTML."""
+        tooltip_class = f"tc-tooltip-{unique_id}"
         return f"""
-        <div id="{unique_id}" class="tc-tooltip-content">{content}</div>
+        <div class="{tooltip_class}">
+            {content}
+        </div>
         """
 
     def _generate_tooltip_css(self, element_id: str):
         """Generates the CSS styles, applying user-defined overrides."""
-        tooltip_styles = "; ".join(f"{k}: {v};" for k, v in self.tooltip_styles.items())
+        tooltip_class = f"tc-tooltip-{element_id}"
+        tooltip_styles = "; ".join(f"{k}: {v}" for k, v in self.tooltip_styles.items())
         animation_styles = self.animation_styles["animation"]
         keyframes = self.animation_styles["keyframes"]
 
@@ -150,21 +154,20 @@ class TooltipCanvas:
             /* Timestamp {self.timestamp} to force refresh */
             {keyframes}
 
-            #{element_id} {{
+            .tc-tooltip-container {{
+                display: inline;
                 position: relative;
-                cursor: pointer;
             }}
 
-            #{element_id} .tc-tooltip-content {{
-                {tooltip_styles};
-                display: none;
-                position: absolute;
-            }}
-
-            #{element_id}:hover .tc-tooltip-content {{
+            #{element_id}:hover + .{tooltip_class} {{
                 visibility: visible;
                 opacity: 1;
                 transform: translateX(-50%) translateY(0px);
+            }}
+
+            .{tooltip_class} {{
+                {tooltip_styles};
+                animation: {animation_styles};
             }}
         </style>
         """
