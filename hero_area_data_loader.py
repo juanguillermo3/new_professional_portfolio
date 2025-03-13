@@ -78,14 +78,17 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
             ]
         },
         {
-            "title": "3. Data Engineering",
-            "description": "As my former boss Susana Martinez Restrepo said, 'I can perform data miracles.' This refers to my \
-            ability to clean and organize datasets from complex, multi-source environments for research and model development.",
+            "title": "Data Engineering",
+            "description": 'As my former boss '
+                           '<a href="https://www.linkedin.com/in/susana-mart%C3%ADnez-restrepo-ph-d-1314b137/" target="_blank" style="color: #0073b1; text-decoration: none;">'
+                           'Susana Martinez Restrepo</a> said, <em>"I can perform data miracles."</em> '
+                           'This refers to my ability to clean and organize datasets from complex, multi-source environments '
+                           'for research and model development.',
             "skills": [
-                "Facility to engage with structured and unstructured sources.", 
-                "Foundations in NLP, GIS, and network analysis.",  
-                "High expertise in designing advanced merges and data sources.", 
-                "Expertise in using text-mining and NLP for information processing." 
+                "Facility to engage with structured and unstructured sources.",
+                "Foundations in NLP, GIS, and network analysis.",
+                "High expertise in designing advanced merges and data sources.",
+                "Expertise in using text-mining and NLP for information processing."
             ]
         },
         {
