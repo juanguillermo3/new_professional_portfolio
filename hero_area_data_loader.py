@@ -56,7 +56,7 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
 
     offerings = [
         {
-            "title": "Inferential Statistics & High-Performance Predictive Analytics",
+            "title": "1. Inferential Statistics & High-Performance Predictive Analytics",
             "description": "I research and implement techniques for regression, classification, and forecasting use cases, \
             with applications ranging from macroeconomic and financial forecasting to microdata predictions in various systems.",
             "skills": [
@@ -67,7 +67,7 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
             ]
         },
         {
-            "title": "Software & Application Development for Inference Distribution",
+            "title": "2. Software & Application Development for Inference Distribution",
             "description": "I develop applications (batch scripts, APIs, dashboards, web applications) to distribute insights \
             and predictions across corporate environments.",
             "skills": [
@@ -78,7 +78,7 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
             ]
         },
         {
-            "title": "Data Engineering",
+            "title": "3. Data Engineering",
             "description": "As my former boss Susana Martinez Restrepo said, 'I can perform data miracles.' This refers to my \
             ability to clean and organize datasets from complex, multi-source environments for research and model development.",
             "skills": [
@@ -89,7 +89,7 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
             ]
         },
         {
-            "title": "Holistic Understanding of Modern Tooling",
+            "title": "4. Holistic Understanding of Modern Tooling",
             "description": "I integrate tools and technologies for modern data analysis, committing to research the \
             unique purposes of each tool and efficiently write workflows around them using GPT.",
             "subitems": [
@@ -99,11 +99,11 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
             ]
         },
         {
-            "title": "Research effort on AI & LLM powered applications",
+            "title": "5. Research effort on AI & LLM powered applications",
             "description": "I prepare myself by means of self-learning for the disruption of Artificial Intelligence in software development and the rise of LLM-powered applications.",
         },
         {
-            "title": "Bonus: Rigorous Economic Mindset",
+            "title": "(Bonus) Rigorous Economic Mindset",
             "description": "As a professional economist, I over-simplify complex social phenomena by casually referencing supply and demand (kidding!).  \
             But really, I approach data analysis with a focus on causal reasoning, marginal effects, and counterfactual analysis.",
         }
