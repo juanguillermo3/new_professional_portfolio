@@ -402,9 +402,6 @@ class TooltipCanvas:
 import streamlit as st
 import time
 
-import streamlit as st
-import time
-
 class TooltipCanvas:
     # Default tooltip styles
     DEFAULT_TOOLTIP_STYLES = {
@@ -525,6 +522,7 @@ class TooltipCanvas:
             </style>
             """, unsafe_allow_html=True)
         
+
 
 
 
