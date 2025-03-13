@@ -497,12 +497,6 @@ class TooltipCanvas:
         st.markdown(f'<div id="{test_id}" class="tc-test-box">Hover over me!</div>', unsafe_allow_html=True)
         self.apply_tooltip(test_id, test_content)
         
-        st.markdown("""
-        <style>
-            .tc-test-box {
-            }
-        </style>
-        """, unsafe_allow_html=True)
         
         self.apply_tooltip(test_id, test_content)
 
