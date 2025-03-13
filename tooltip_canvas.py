@@ -399,4 +399,120 @@ class TooltipCanvas:
         )
 
 
+import streamlit as st
+import time
+
+class TooltipCanvas:
+    # Default tooltip styles
+    DEFAULT_TOOLTIP_STYLES = {
+        "width": "300px",
+        "background": "rgba(23, 33, 43, 0.5)",
+        "color": "#ffffff",
+        "padding": "8px",
+        "border-radius": "5px",
+        "position": "absolute",
+        "left": "50%",
+        "top": "100%",
+        "white-space": "nowrap",
+        "visibility": "hidden",
+        "opacity": "0",
+        "transition": "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out",
+        "backdrop-filter": "blur(5px)",
+        "text-align": "center",
+    }
+
+    # Default animation styles
+    DEFAULT_ANIMATION_STYLES = {
+        "name": "floatTooltip",
+        "animation": "floatTooltip 1.5s ease-in-out infinite alternate",
+        "keyframes": """
+        @keyframes floatTooltip {
+            0% { transform: translateX(-50%) translateY(0px); }
+            50% { transform: translateX(-50%) translateY(4px); }
+            100% { transform: translateX(-50%) translateY(0px); }
+        }
+    }
+
+    def __init__(self, tooltip_styles=None, animation_styles=None):
+        """
+        Initializes the TooltipCanvas with optional styling overrides.
+        :param tooltip_styles: Dictionary to override default tooltip styles.
+        :param animation_styles: Dictionary to override default animation styles.
+        """
+        self.timestamp = int(time.time())  # Ensure fresh styles on each reload
+        self.tooltip_styles = {**self.DEFAULT_TOOLTIP_STYLES, **(tooltip_styles or {})}
+        self.animation_styles = {**self.DEFAULT_ANIMATION_STYLES, **(animation_styles or {})}
+
+    def _define_tooltips(self, contents, unique_id):
+        """Generates multiple tooltips inside a single container."""
+        if isinstance(contents, str):
+            contents = [contents]  # Convert single string to list
+
+        tooltips_html = "\n".join([
+            f'<span class="tc-tooltip" id="{unique_id}-{i}">{item}</span>'
+            for i, item in enumerate(contents)
+        ])
+        
+        return f"""
+        <div class="tc-tooltip-container" id="container-{unique_id}">
+            {tooltips_html}
+        </div>
+        """
+    
+    def _generate_tooltip_css(self, unique_id, num_tooltips):
+        """Generates CSS for all tooltips in the given content list."""
+        tooltip_css = "\n".join([f".tc-tooltip-container:hover #{unique_id}-{i} {{ visibility: visible; opacity: 1; }}"
+                                   for i in range(len(self.tooltip_list))])
+        
+        tooltip_styles = "".join([f"#{unique_id}-{i} {{ {'; '.join([f'{k}: {v}' for k, v in self.tooltip_styles.items()])} }}" for i in range(len(self.tooltip_styles))])
+        
+        keyframes = self.animation_styles["keyframes"]
+        return f"""
+        <style>
+            {keyframes}
+            {tooltip_css}
+            {tooltip_styles}
+        </style>
+        """
+
+    def apply_tooltips(self, element_id: str, content):
+        """Applies multiple tooltips to an element by injecting the required HTML & CSS."""
+        # Convert content to list if it's a string
+        if isinstance(content, str):
+            content = [content]
+        self.content_list = content
+        
+        tooltip_html = self._define_tooltips(contents=content, unique_id=element_id)
+        tooltip_css = self._generate_tooltip_css(element_id=element_id)
+        
+        # Inject CSS
+        st.markdown(tooltip_css, unsafe_allow_html=True)
+        st.markdown(tooltip_html, unsafe_allow_html=True)
+
+    def render_test_case(self):
+        """Renders a test case for visual verification of multiple tooltips."""
+        test_id = f"test-{int(time.time())}"
+        test_content = ["Tooltip One", "Tooltip Two", "Another one!", "Final Tooltip"]
+        
+        st.markdown(f'<div id="{test_id}" class="tc-test-box">Hover over me!</div>', unsafe_allow_html=True)
+        self.apply_tooltip(test_id, test_content)
+        
+        st.markdown("""
+        <style>
+            .tc-test-box {
+                display: inline-block;
+                background: #ddd;
+                padding: 15px;
+                border-radius: 8px;
+                text-align: center;
+                margin-top: 20px;
+                cursor: pointer;
+            }
+        </style>
+        """, unsafe_allow_html=True)
+        
+        self.apply_tooltip(test_id, test_content)
+
+
+
 
