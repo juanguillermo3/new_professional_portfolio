@@ -136,7 +136,7 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
             offering_html += tooltip_html
             
             # Inject tooltip behaviors
-            tooltips_ids.append(unique_id)
+            tooltip_ids.append(unique_id)
             #st.markdown(setup_tooltip_behavior(unique_id), unsafe_allow_html=True)
 
         offering_html += '</li>'
@@ -144,6 +144,6 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
     offering_html += '</ol>'
 
         
-    return offering_html, tooltips_ids
+    return offering_html, tooltip_ids
 
 
