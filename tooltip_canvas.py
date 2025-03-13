@@ -85,21 +85,15 @@ class TooltipCanvas:
                 position: relative;
             }}
 
-            .tc-tooltip-trigger {{
-                color: rgb(0, 115, 177);
-                border-bottom: 1px dashed rgb(0, 115, 177);
-                cursor: pointer;
-            }}
-
             .tc-tooltip-content {{
                 {tooltip_styles};
                 animation: {animation_styles};
             }}
 
-            .tc-tooltip-container:hover .tc-tooltip-{element_id} {{
+            #{element_id}:hover + .tc-tooltip-container .tc-tooltip-content {{
                 visibility: visible;
                 opacity: 1;
-                transform: translateX(-50%) translateY(0px);
+                transform: translateX(-50%) translateY(0);
             }}
         </style>
         """
