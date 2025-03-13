@@ -11,88 +11,102 @@ import time
 import html
 import streamlit as st
 
+import streamlit as st
+import time
+
 class TooltipCanvas:
     def __init__(self):
-        self.unique_id = hashlib.md5(str(time.time()).encode()).hexdigest()[:10]
+        """Initializes the tooltip canvas system."""
+        self.timestamp = int(time.time())  # Forces CSS refresh
 
-    def _define_tooltip(self, content: str) -> str:
-        """
-        Generates the tooltip HTML structure.
-        """
-        return f'''
-        <div class="tooltip-container">
-            <div id="tooltip-{self.unique_id}" class="tooltip-content">
-                {html.escape(content)}
+    def _define_tooltip(self, content: str, unique_id: str):
+        """Private method to generate the tooltip HTML."""
+        return f"""
+        <div class="tc-tooltip-container">
+            <span id="{unique_id}" class="tc-tooltip-trigger">Hover me</span>
+            <div class="tc-tooltip-content tc-tooltip-{unique_id}">
+                {content}
             </div>
         </div>
-        '''
+        """
 
     def apply_tooltip(self, element_id: str, content: str):
-        """
-        Injects the tooltip styling and behavior into the DOM for a given element.
-        """
-        tooltip_html = self._define_tooltip(content)
-        
-        tooltip_css = f'''
+        """Applies a tooltip to an existing element by injecting the required HTML & CSS."""
+        tooltip_html = self._define_tooltip(content, element_id)
+        tooltip_css = f"""
         <style>
-            .tooltip-container {{
+            /* Timestamp {self.timestamp} to force refresh */
+            .tc-tooltip-container {{
+                display: inline;
                 position: relative;
-                display: inline-block;
             }}
-            
-            .tooltip-content {{
+
+            .tc-tooltip-trigger {{
+                color: rgb(0, 115, 177);
+                border-bottom: 1px dashed rgb(0, 115, 177);
+                cursor: pointer;
+            }}
+
+            .tc-tooltip-content {{
                 visibility: hidden;
                 opacity: 0;
                 width: 300px;
-                background: rgba(23, 33, 43, 0.8);
-                color: white;
-                text-align: center;
+                background: rgba(23, 33, 43, 0.5);
+                color: #ffffff;
                 padding: 10px;
                 border-radius: 8px;
+                box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.1);
                 position: absolute;
                 left: 50%;
                 top: 100%;
                 transform: translateX(-50%) translateY(-5px);
-                transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out;
+                transition: opacity 0.3s ease-in-out, 
+                            visibility 0.3s ease-in-out, 
+                            transform 0.3s ease-in-out;
+                backdrop-filter: blur(6px);
                 z-index: 10;
+                border: 2px solid rgba(255, 255, 255, 0.9);
             }}
-            
-            @keyframes floatTooltip {{
-                0%   {{ transform: translateX(-50%) translateY(-5px); }}
-                50%  {{ transform: translateX(-50%) translateY(0px); }}
-                100% {{ transform: translateX(-50%) translateY(-5px); }}
-            }}
-            
-            #{element_id}:hover + .tooltip-container .tooltip-content {{
+
+            .tc-tooltip-container:hover .tc-tooltip-{element_id} {{
                 visibility: visible;
                 opacity: 1;
-                animation: floatTooltip 2.5s infinite alternate ease-in-out;
+                transform: translateX(-50%) translateY(0px);
             }}
         </style>
-        '''
-        
+        """
         st.markdown(tooltip_css, unsafe_allow_html=True)
         st.markdown(tooltip_html, unsafe_allow_html=True)
 
     def render_test_case(self):
-        """
-        Renders a test case with a styled box and an attached tooltip.
-        """
-        test_element_id = f"test-box-{self.unique_id}"
+        """Renders a test case for visual verification of tooltips."""
+        test_id = "test-tooltip"
         
-        test_box_html = f'''
-        <div id="{test_element_id}" style="
-            display: inline-block;
-            padding: 15px 20px;
-            background: gray;
-            color: white;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            text-align: center;">
-            I have a tooltip attached
-        </div>
-        '''
-        
-        st.markdown(test_box_html, unsafe_allow_html=True)
-        self.apply_tooltip(test_element_id, "I am the tooltip")
+        # Render a visible component
+        st.markdown(
+            f'<div id="{test_id}" class="tc-test-box">I have a tooltip attached</div>',
+            unsafe_allow_html=True
+        )
+
+        # Apply tooltip to the test element
+        self.apply_tooltip(test_id, "I am the tooltip!")
+
+        # Additional styling for the test box
+        st.markdown(
+            """
+            <style>
+                .tc-test-box {
+                    background: #ddd;
+                    padding: 15px;
+                    border-radius: 8px;
+                    text-align: center;
+                    color: #333;
+                    font-weight: bold;
+                    display: inline-block;
+                    margin-top: 20px;
+                }
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+
