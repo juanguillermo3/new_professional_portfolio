@@ -271,3 +271,68 @@ def setup_tooltip_behavior(unique_id):
     </style>
     """
     return tooltip_css
+
+
+def setup_tooltip_behavior(unique_id):
+    """
+    Injects the required CSS and behavior into Streamlit to activate the tooltip.
+    Includes a floating effect and refined vertical positioning.
+    """
+    import time
+    if not unique_id:
+        return ""
+
+    timestamp = int(time.time())  # Forces Streamlit to refresh styles
+
+    tooltip_css = f"""
+    <style>
+        /* Timestamp {timestamp} to force refresh */
+        .tooltip-trigger {{
+            color: #007BFF;
+            border-bottom: 1px dashed #007BFF;
+            cursor: pointer;
+            position: relative;
+        }}
+
+        .skills_tooltip-{unique_id} {{
+            visibility: hidden;
+            opacity: 0;
+            background: rgba(20, 20, 20, 0.9);
+            color: #ffffff;
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
+            position: absolute;
+            left: 50%;
+            top: 110%;  /* Closer placement */
+            max-width: 350px;
+            text-align: left;
+            z-index: 10;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transform: translateX(-50%) translateY(5px);
+            transition: visibility 0.2s ease-out, opacity 0.2s ease-out, transform 0.3s ease-out;
+            overflow-wrap: break-word;
+        }}
+
+        /* Floating animation */
+        @keyframes floatTooltip {{
+            0% {{ transform: translateX(-50%) translateY(5px); }}
+            100% {{ transform: translateX(-50%) translateY(7px); }}
+        }}
+
+        .tooltip-trigger:hover + .skills_tooltip-{unique_id},
+        .skills_tooltip-{unique_id}:hover {{
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(-50%) translateY(0px);
+            animation: floatTooltip 2s infinite alternate ease-in-out;
+        }}
+
+        .tooltip-item {{
+            color: #007BFF;
+            margin-bottom: 4px;
+        }}
+    </style>
+    """
+    return tooltip_css
+
