@@ -99,6 +99,14 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
                 "<strong>Excellence Tier (I know the code line by heart):</strong> Python, R Studio, Stata, GPT",
                 "<strong>Proficiency Tier:</strong> Airflow, SQL, Spark, Bash scripting",
                 "<strong>Currently Learning:</strong> Docker, Kubernetes, GitHub, Big Data Cloud tools, SQLAlchemy, Django"
+            ],
+            "skills": [
+                "Expert use of Python, R Studio and Stata for applied statistical analysis. ",
+                "Profficient implementation of Object Oriented programming in Python (Core Features, OOP), Functional Programming in R (dplyr, ggplot, shiny, regex). ",
+                "Profficient implementation of analytical queries using SQL. ",
+                "Profficient implementation of distributed computing (PySpark) and workflow orchestration (Airflow). ",
+                "Expertise developing and mantaining code in AI accelerated environments (GPT and Copilot). "
+                "Fast pace of research/assimilation of new tools. "
             ]
         },
         {
