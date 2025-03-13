@@ -366,14 +366,11 @@ def setup_tooltip_behavior(unique_id):
             z-index: 10;
             border: 1px solid rgba(255, 255, 255, 0.2);
             transform: translateX(-50%) translateY(5px);
-            transition: visibility 0.2s ease-out, opacity 0.2s ease-out, transform 0.3s ease-out;
+            transition: 
+                opacity 0.3s ease-in-out, 
+                visibility 0.3s ease-in-out, 
+                transform 0.3s ease-in-out;
             overflow-wrap: break-word;
-        }}
-
-        /* Floating animation */
-        @keyframes floatTooltip {{
-            0% {{ transform: translateX(-50%) translateY(5px); }}
-            100% {{ transform: translateX(-50%) translateY(7px); }}
         }}
 
         .tooltip-container:hover .skills_tooltip-{unique_id},
@@ -381,7 +378,6 @@ def setup_tooltip_behavior(unique_id):
             visibility: visible;
             opacity: 1;
             transform: translateX(-50%) translateY(0px);
-            animation: floatTooltip 2s infinite alternate ease-in-out;
         }}
 
         .tooltip-item {{
