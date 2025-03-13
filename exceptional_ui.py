@@ -251,23 +251,23 @@ def setup_tooltip_behavior(unique_id):
             visibility: hidden;
             opacity: 0;
             width: 400px; /* Fixed width */
-            background: rgba(23, 33, 43, 0.85); /* Telegram Night Mode Blue with transparency */
+            background: rgba(23, 33, 43, 0.65); /* Increased transparency for a natural light effect */
             color: #ffffff; /* White text for contrast */
             padding: 12px;
             border-radius: 12px;
-            box-shadow: none; /* No neon glow */
+            box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.1); /* Soft glow for a floating effect */
             position: absolute;
             left: 50%;
             top: 100%;
             text-align: left;
             z-index: 10;
-            border: 1px solid rgba(255, 255, 255, 0.2); /* Soft white border */
+            border: 2px solid rgba(255, 255, 255, 0.8); /* Solid white border for a crisp edge */
             transform: translateX(-50%) translateY(-5px);
             transition: opacity 0.3s ease-in-out, 
                         visibility 0.3s ease-in-out, 
                         transform 0.3s ease-in-out;
             overflow-wrap: break-word;
-            backdrop-filter: blur(12px); /* Frosted glass effect */
+            backdrop-filter: blur(16px); /* Increased blur for a stronger frosted effect */
         }}
 
 
