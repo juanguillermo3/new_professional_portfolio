@@ -6,6 +6,7 @@ from exceptional_ui import (
     html_for_tooltip_from_large_list,
     setup_tooltip_behavior
 )
+from front_end_utils import render_section_separator
 
 # Load environment variables
 load_dotenv()
@@ -45,9 +46,6 @@ def load_code_samples():
 
 import hashlib
 import datetime
-
-import datetime
-import hashlib
 
 def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
     # Generate a hash from the system date
@@ -141,6 +139,7 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
             )
             offering_html += tooltip_html
             tooltip_ids.append(unique_id)
+            offering_html +="<br>"
 
         if "subitems" in offer:
             offering_html += '<ul style="list-style-type: none; padding-left: 0;">'
