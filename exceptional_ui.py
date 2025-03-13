@@ -267,7 +267,7 @@ def setup_tooltip_behavior(unique_id):
                         visibility 0.3s ease-in-out, 
                         transform 0.3s ease-in-out;
             overflow-wrap: break-word;
-            backdrop-filter: blur(12px); /* Increased blur for a stronger frosted effect */
+            backdrop-filter: blur(6px); /* Increased blur for a stronger frosted effect */
         }}
 
 
