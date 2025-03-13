@@ -361,6 +361,14 @@ class RecommendationSystem(PortfolioSection):
                     f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{code_samples_html}</div>",
                     unsafe_allow_html=True
                 )
+
+            # Media placeholder
+            #st.markdown("<br>", unsafe_allow_html=True)
+            self.media_placeholder = st.empty()
+        
+            # Render media content
+            self._render_media_content(video_path)
+      
     #
     def _fetch_files(self, repo_name):
         """Fetches all file paths associated with a given repository name.
