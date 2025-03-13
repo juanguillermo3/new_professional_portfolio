@@ -105,7 +105,7 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
                 "Profficient implementation of Object Oriented programming in Python (Core Features, OOP), Functional Programming in R (dplyr, ggplot, shiny, regex). ",
                 "Profficient implementation of analytical queries using SQL. ",
                 "Profficient implementation of distributed computing (PySpark) and workflow orchestration (Airflow). ",
-                "Expertise developing and mantaining code in AI accelerated environments (GPT and Copilot). "
+                "Expertise developing and mantaining code in AI accelerated environments (GPT and Copilot). ",
                 "Fast pace of research/assimilation of new tools. "
             ]
         },
