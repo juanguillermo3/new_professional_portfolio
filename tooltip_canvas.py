@@ -14,7 +14,7 @@ import streamlit as st
 #
 #
 #
- class TooltipCanvas:
+class TooltipCanvas:
     # Default tooltip content styling
     DEFAULT_TOOLTIP_STYLES = {
         "visibility": "hidden",
