@@ -397,3 +397,155 @@ class TooltipCanvas:
             """,
             unsafe_allow_html=True
         )
+
+
+
+import streamlit as st
+
+class TooltipCanvas:
+    DEFAULT_TOOLTIP_STYLES = {
+        "tc-tooltip-content": {
+            "background": "rgba(0, 0, 0, 0.8)",
+            "color": "#ffffff",
+            "padding": "10px",
+            "border-radius": "8px",
+            "text-align": "center",
+        },
+        "tc-tooltip-grid": {
+            "display": "grid",
+            "grid-template-columns": "repeat(auto-fill, minmax(120px, 1fr))",
+            "gap": "6px",
+            "padding": "6px",
+        },
+    }
+
+    DEFAULT_ANIMATION_STYLES = {
+        "name": "floatTooltip",
+        "keyframes": """
+        0%   { transform: translateX(-50%) translateY(0px); opacity: 0.8; }
+        50%  { transform: translateX(-50%) translateY(-6px); opacity: 1; }
+        100% { transform: translateX(-50%) translateY(0px); opacity: 1; }
+        """,
+        "animation": "floatTooltip 1.5s infinite ease-in-out",
+    }
+
+    HARD_CODED_STYLES = {
+        "tc-tooltip-container": {
+            "position": "absolute",
+            "left": "50%",
+            "top": "100%",
+            "transform": "translateX(-50%)",
+            "visibility": "hidden",
+            "opacity": "0",
+            "transition": "opacity 0.2s",
+        },
+        "tc-tooltip-grid": {
+            "display": "grid",
+            "grid-template-columns": "repeat(auto-fill, minmax(120px, 1fr))",
+            "gap": "6px",
+            "padding": "6px",
+        },
+        "tc-tooltip-content": {
+            "padding": "8px",
+            "border-radius": "4px",
+            "text-align": "center",
+            "font-size": "14px",
+            "min-width": "100px",
+            "max-width": "150px",
+            "white-space": "nowrap",
+        },
+    }
+
+    def __init__(self, tooltip_styles=None, animation_styles=None):
+        """Allow overriding tooltip content styles and animations."""
+        self.tooltip_styles = {**self.DEFAULT_TOOLTIP_STYLES, **(tooltip_styles or {}).get("tc-tooltip-content", {})}
+        self.animation_styles = {**self.DEFAULT_ANIMATION_STYLES, **(animation_styles or {})}
+
+    def _define_tooltip(self, content, unique_id):
+        """Generates a single or multiple tooltips in a grid layout."""
+        if isinstance(content, str):
+            tooltip_content = f'<div class="tc-tooltip-content">{content}</div>'
+        else:  
+            tooltip_content = '<div class="tc-tooltip-grid">'
+            for item in content:
+                tooltip_style = "; ".join(f"{k}: {v}" for k, v in self.tooltip_styles["tc-tooltip-content"].items())
+                tooltip_content += f'<div class="tc-tooltip-content" style="{tooltip_style}">{item}</div>'
+            tooltip_content += "</div>"
+
+        return f"""
+        <div class="tc-tooltip-container">
+            <span id="{unique_id}" class="tc-tooltip-trigger">[?]</span>
+            {tooltip_content}
+        </div>
+        """
+
+    def _generate_tooltip_css(self):
+        """Generates CSS styles dynamically based on class settings."""
+        tooltip_styles = self.tooltip_styles["tc-tooltip-content"]
+        tooltip_content_style = "; ".join(f"{k}: {v}" for k, v in tooltip_styles.items())
+        grid_styles = "; ".join(f"{k}: {v}" for k, v in self.tooltip_styles["tc-tooltip-grid"].items())
+        animation_name = self.animation_styles["name"]
+        animation_css = self.animation_styles["animation"]
+        keyframes_css = self.animation_styles["keyframes"]
+
+        return f"""
+        <style>
+            {animation_name} {{
+                {animation_css}
+            }}
+
+            .tc-tooltip-container {{
+                position: relative;
+                display: inline-block;
+                cursor: pointer;
+            }}
+
+            .tc-tooltip-trigger {{
+                text-decoration: underline;
+                color: #0077cc;
+                cursor: pointer;
+            }}
+
+            .tc-tooltip-content {{
+                {tooltip_content_style}
+                animation: {animation_name};
+            }}
+
+            .tc-tooltip-grid {{
+                {grid_styles}
+            }}
+
+            .tc-tooltip-container:hover .tc-tooltip-content {{
+                visibility: visible;
+                opacity: 1;
+                transform: translateX(-50%) translateY(0px);
+            }}
+        </style>
+        """
+
+    def render_test_case(self, test_content=None):
+        """Render a default test case with customizable tooltip content."""
+        test_id = "test-tooltip"
+        test_content = test_content or ["Tooltip A", "Tooltip B"]
+
+        # Render the test box
+        st.markdown('<div class="tc-test-box">I have a tooltip attached</div>', unsafe_allow_html=True)
+        self.apply_tooltip(test_id, test_content)
+
+        # Additional test box styling
+        st.markdown(
+            """
+            <style>
+                .tc-test-box {
+                    background: #ccc;
+                    padding: 15px;
+                    border-radius: 8px;
+                    text-align: center;
+                    color: #333;
+                    font-weight: bold;
+                    display: inline-block;
+                }
+            </style>
+            """,
+            unsafe_allow_html=True,
+        )
