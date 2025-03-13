@@ -5,6 +5,9 @@ description: Implements beautiful front-end components using Streamlit, HTML, an
 
 import streamlit as st
 import time
+import hashlib
+import html
+from datetime import datetime
 
 #
 # (0)
@@ -351,15 +354,6 @@ def setup_tooltip_behavior(unique_id):
     return tooltip_css 
 
 
-
-
-
-
-
-import hashlib
-import html
-from datetime import datetime
-
 def html_for_tooltip_from_large_list(items, label, color="#007BFF", emoji=None):
     """
     Generates an HTML snippet displaying a summarized preview of a list with a tooltip that appears on hover.
@@ -399,8 +393,6 @@ def html_for_tooltip_from_large_list(items, label, color="#007BFF", emoji=None):
 
     return tooltip_html, unique_id
 
-
-import time
 
 def setup_tooltip_behavior(unique_id):
     """
