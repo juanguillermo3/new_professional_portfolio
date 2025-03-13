@@ -592,10 +592,56 @@ def html_for_tooltip_from_large_list(items, label, color="#007BFF", emoji=None):
     return tooltip_html, unique_id
 
 
+import hashlib
+import html
+from datetime import datetime
+
+def html_for_tooltip_from_large_list(items, label, color="#00AEEF", emoji=None):
+    """
+    Generates an HTML snippet displaying a summarized preview of a list with a tooltip that appears on hover.
+
+    Parameters:
+        - items (list of str): The list of items to display.
+        - label (str): Describes the type of items being enumerated.
+        - color (str): Color for the summary text (default: #00AEEF, a neon blue).
+        - emoji (str, optional): Emoji prepended to each listed item.
+
+    Returns:
+        - tuple: (HTML snippet, unique tooltip ID)
+    """
+    if not items:
+        return f'<div style="color:gray;">No {label.lower()} listed</div>', None
+
+    # Generate a unique ID for tooltip association
+    unique_id = hashlib.md5(datetime.now().isoformat().encode()).hexdigest()[:10]
+
+    first_item = html.escape(items[0])
+    summary = f"(and {len(items) - 1} more {label.lower()})" if len(items) > 1 else ""
+
+    visible_text = f'<span id="{unique_id}" class="tooltip-trigger">{first_item} {summary}</span>'
+
+    tooltip_content = "".join(
+        f'<div class="tooltip-item">{(emoji + " " if emoji else "")}{html.escape(item)}</div>'
+        for item in items
+    )
+
+    tooltip_html = f"""
+    <div class="tooltip-container">
+        {visible_text}
+        <div class="skills_tooltip-{unique_id}">
+            <strong>All {label} listed:</strong>
+            {tooltip_content}
+        </div>
+    </div>
+    """
+
+    return tooltip_html, unique_id
+
+
 def setup_tooltip_behavior(unique_id):
     """
     Injects the required CSS and behavior into Streamlit to activate the tooltip.
-    Includes a floating effect and refined vertical positioning.
+    Includes a frosted glass effect for a high-tech look.
     """
     import time
     if not unique_id:
@@ -612,8 +658,8 @@ def setup_tooltip_behavior(unique_id):
         }}
 
         .tooltip-trigger {{
-            color: #007BFF;
-            border-bottom: 1px dashed #007BFF;
+            color: #00AEEF;  /* Neon blue for a tech feel */
+            border-bottom: 1px dashed #00AEEF;
             cursor: pointer;
             position: relative;
         }}
@@ -622,22 +668,23 @@ def setup_tooltip_behavior(unique_id):
             visibility: hidden;
             opacity: 0;
             width: 400px; /* Fixed width */
-            background: rgba(20, 20, 20, 0.9);
-            color: #ffffff; /* White font restored */
+            background: rgba(0, 40, 90, 0.75); /* Deep blue with slight transparency */
+            color: #ffffff; /* White font */
             padding: 12px;
-            border-radius: 8px;
-            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
+            border-radius: 12px;
+            box-shadow: 0px 10px 30px rgba(0, 170, 255, 0.4); /* Subtle neon glow */
             position: absolute;
             left: 50%;
-            top: 100%; /* Start just below the trigger */
+            top: 100%;
             text-align: left;
             z-index: 10;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(0, 170, 255, 0.2);
             transform: translateX(-50%) translateY(-5px);
             transition: opacity 0.3s ease-in-out, 
                         visibility 0.3s ease-in-out, 
                         transform 0.3s ease-in-out;
             overflow-wrap: break-word;
+            backdrop-filter: blur(10px); /* Frosted glass effect */
         }}
 
         /* Floating animation */
@@ -661,4 +708,5 @@ def setup_tooltip_behavior(unique_id):
     </style>
     """
     return tooltip_css
+
 
