@@ -47,95 +47,94 @@ DEFAULT_ANIMATION_STYLES = {
 }
 
 class TooltipCanvas:
-    def __init__(
-        self, 
-        tooltip_styles=DEFAULT_TOOLTIP_STYLES, 
-        animation_styles=DEFAULT_ANIMATION_STYLES
-    ):
+    def __init__(self, tooltip_styles=None, animation_styles=None):
         """
         Initializes the TooltipCanvas with optional styling overrides.
-        :param tooltip_styles: Dictionary of CSS properties for .tc-tooltip elements.
-        :param animation_styles: Dictionary of animation styles.
+        :param tooltip_styles: Dictionary of CSS properties for .tc-tooltip-content.
+        :param animation_styles: Dictionary to override tooltip animation styles.
         """
-        self.timestamp = int(time.time())  # Forces CSS refresh
+        self.timestamp = time.time()  # Forces CSS refresh
         self.tooltip_styles = {**DEFAULT_TOOLTIP_STYLES, **(tooltip_styles or {})}
         self.animation_styles = {**DEFAULT_ANIMATION_STYLES, **(animation_styles or {})}
 
-    def _define_tooltip(self, content, unique_id):
+    def _define_tooltip(self, unique_id: str, content: str):
         """Private method to generate the tooltip HTML."""
         return f"""
         <div class="tc-tooltip-container">
             <span id="{unique_id}" class="tc-tooltip-trigger">Hover me</span>
-            <div class="tc-tooltip-content tc-tooltip-{unique_id}">
-                {content}
-            </div>
+            <div class="tc-tooltip-content tc-tooltip-{unique_id}">{content}</div>
         </div>
         """
-    
-    def _generate_tooltip_css(self, element_id):
-        """Generates the CSS styles for the tooltip."""
-        tooltip_styles = "\n".join(
-            [f".tc-tooltip-{element_id} {{ {k}: {v}; }}" for k, v in self.tooltip_styles.items()]
-        )
+
+    def _generate_tooltip_css(self, element_id: str):
+        """Generates the CSS styles, applying user-defined overrides."""
+        tooltip_styles = "; ".join(f"{k}: {v}" for k, v in self.tooltip_styles.items())
+        animation_styles = self.animation_styles["animation"]
         keyframes = self.animation_styles["keyframes"]
-        animation_styles = f".tc-tooltip-{element_id} {{ animation: {self.animation_styles['name']} 1s ease-in-out infinite alternate; }}"
-        
+
         return f"""
         <style>
+            /* Timestamp {self.timestamp} to force refresh */
             {keyframes}
-            {tooltip_css}
-            {animation_styles}
-            .tc-tooltip-container {{ position: relative; display: inline-block; cursor: pointer; }}
-            .tc-tooltip-trigger {{ color: rgb(0, 115, 177); border-bottom: 1px dashed rgb(0, 115, 177); }}
-            .tc-tooltip-container:hover .tc-tooltip-{element_id} {{
+
+            .tc-tooltip-container {{
+                display: inline;
+                position: relative;
+            }}
+
+            .tc-tooltip-trigger {{
+                color: rgb(0, 115, 177);
+                border-bottom: 1px dashed rgb(0, 115, 177);
+                cursor: pointer;
+            }}
+
+            .tc-tooltip-content {{
+                {tooltip_styles};
+                animation: {animation_styles['animation']};
+            }}
+
+            .tc-tooltip-container:hover .tc-tooltip-{unique_id} {{
                 visibility: visible;
                 opacity: 1;
                 transform: translateX(-50%) translateY(0px);
             }}
         </style>
         """
-    
+
     def apply_tooltip(self, element_id: str, content: str):
         """Applies a tooltip to an existing element by injecting the required HTML & CSS."""
-        tooltip_html = self._define_tooltip(content, element_id)
+        tooltip_html = self._define_tooltip(element_id, content)
         tooltip_css = self._generate_tooltip_css(element_id)
-        
+
         st.markdown(tooltip_css, unsafe_allow_html=True)
         st.markdown(tooltip_html, unsafe_allow_html=True)
 
     def render_test_case(self):
         """Renders a test case for visual verification of tooltips."""
         test_id = "test-tooltip"
-        
+
+        # Render a visible component
         st.markdown(
-            f"""<div class="tc-tooltip-container">
-                <span id="{test_id}" class="tc-tooltip-trigger">I am a tooltip trigger</span>
-                <div class="tc-tooltip-{test_id}">I am a tooltip attached</div>
-            </div>""",
+            f'<div id="{test_id}" class="tc-test-box">I have a tooltip attached</div>',
             unsafe_allow_html=True
         )
-        
-        st.markdown(self._generate_tooltip_css(test_id), unsafe_allow_html=True)
-        
+
+        # Apply tooltip to the test element
+        self.apply_tooltip(test_id, "I am the tooltip!")
+
+        # Additional styling for the test box
         st.markdown(
             """
             <style>
-                .tc-tooltip-container {{ position: relative; display: inline-block; cursor: pointer; }}
-                .tc-test-tooltip {{
+                .tc-test-box {
+                    color: black;
+                    border: 1px solid #333;
                     background: #ddd;
-                    padding: 15px;
-                    border-radius: 8px;
-                    text-align: center;
-                    color: #333;
-                    font-weight: bold;
-                    text-align: center;
+                    padding: 8px;
+                    display: inline-block;
                     margin-top: 20px;
-                }}
+                }
             </style>
-            <div class="tc-test-tooltip">Hover over me to see tooltip</div>
             """,
             unsafe_allow_html=True
         )
-        
-        # Apply tooltip to the test element
-        self.apply_tooltip(test_id, "I am a tooltip attached")
