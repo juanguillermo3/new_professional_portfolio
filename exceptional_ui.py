@@ -400,17 +400,18 @@ def html_for_tooltip_from_large_list(items, label, color="#007BFF", emoji=None):
     return tooltip_html, unique_id
 
 
-@st.cache_data  # Ensure this function always recomputes when called
+import datetime
+
 def setup_tooltip_behavior(unique_id):
     """
     Injects the required CSS and behavior into Streamlit to activate the tooltip.
-
-    Parameters:
-        - unique_id (str): The unique tooltip identifier.
-
-    Returns:
-        - str: The CSS to be injected into Streamlit
+    The inclusion of a dynamic timestamp forces Streamlit to recompute this function.
     """
+    if not unique_id:
+        return ""
+
+    timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S%f")  # Unique ID per execution
+    
     if not unique_id:
         return ""
 
