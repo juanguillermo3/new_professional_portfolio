@@ -242,3 +242,158 @@ class TooltipCanvas:
             """,
             unsafe_allow_html=True
         )
+
+
+import streamlit as st
+import time
+
+class TooltipCanvas:
+    # Default tooltip content styling
+    DEFAULT_TOOLTIP_STYLES = {
+        "background": "rgba(23, 33, 43, 0.85)",
+        "color": "#ffffff",
+        "padding": "10px",
+        "border-radius": "8px",
+        "box-shadow": "0px 4px 10px rgba(0, 0, 0, 0.3)",
+        "position": "absolute",
+        "left": "50%",
+        "top": "100%",
+        "transform": "translateX(-50%)",
+        "z-index": "10",
+        "display": "grid",
+        "grid-template-columns": "repeat(auto-fill, minmax(120px, 1fr))",
+        "gap": "4px",
+        "animation": "floatTooltip 1.5s infinite ease-in-out",
+    }
+
+    # Default animation styles
+    DEFAULT_ANIMATION_STYLES = {
+        "name": "floatTooltip",
+        "keyframes": """
+        @keyframes floatTooltip {
+            0%   { transform: translateX(-50%) translateY(0px); }
+            50%  { transform: translateX(-50%) translateY(4px); }
+            100% { transform: translateX(-50%) translateY(0px); }
+        }
+        """,
+        "animation": "floatTooltip 1.5s infinite ease-in-out",
+    }
+
+    def __init__(self, tooltip_styles=None, animation_styles=None):
+        """
+        Initializes the TooltipCanvas with optional styling overrides.
+        :param tooltip_styles: Dictionary of CSS properties for .tc-tooltip-content.
+        :param animation_styles: Dictionary for custom animations.
+        """
+        self.tooltip_styles = {**self.DEFAULT_TOOLTIP_STYLES, **(tooltip_styles or {})}
+        self.animation_styles = {**self.DEFAULT_ANIMATION_STYLES, **(animation_styles or {})}
+
+    def _define_tooltip(self, content, unique_id):
+        """Private method to generate the HTML structure for a single or multiple tooltips."""
+        if isinstance(content, str):  
+            # Single tooltip
+            tooltip_content = f'<div class="tc-tooltip-content">{content}</div>'
+        elif isinstance(content, list):
+            # Create a column-major grid for multiple tooltips
+            tooltip_content = '<div class="tc-tooltip-grid">'
+            tooltip_content += "".join(
+                f'<div class="tc-tooltip-item">{item}</div>' for item in content
+            )
+            tooltip_content += "</div>"
+        else:
+            raise ValueError("Content should be either a string or a list of strings.")
+
+        return f"""
+        <div class="tc-tooltip-container">
+            <span id="{content}" class="tc-tooltip-trigger">Hover me</span>
+            {tooltip_content}
+        </div>
+        """
+
+    def _generate_tooltip_css(self, element_id: str):
+        """Generates the CSS styles, applying user-defined tooltip and animation settings."""
+        tooltip_styles = "; ".join(f"{k}: {v}" for k, v in self.tooltip_styles.items())
+        animation_name = self.animation_styles["name"]
+        keyframes = self.animation_styles["keyframes"]
+        grid_columns = self.tooltip_styles.get("grid-template-columns", "repeat(auto-fill, minmax(100px, 1fr))")
+
+        return f"""
+        <style>
+            /* Force refresh with timestamp */
+            {keyframes}
+
+            .tc-tooltip-container {{
+                position: relative;
+                display: inline-block;
+                cursor: pointer;
+            }}
+
+            .tc-tooltip-trigger {{
+                text-decoration: underline;
+                color: #0077cc;
+                cursor: pointer;
+            }}
+
+            .tc-tooltip-content {{
+                {tooltip_styles}
+                animation: {animation_name};
+            }}
+
+            .tc-tooltip-item {{
+                background: rgba(0, 0, 0, 0.7);
+                padding: 8px;
+                margin: 2px;
+                border-radius: 4px;
+                text-align: center;
+                font-size: 14px;
+            }}
+
+            .tc-tooltip-container:hover .tc-tooltip-content {{
+                visibility: visible;
+                opacity: 1;
+                transform: translateX(-50%) translateY(0px);
+            }}
+        </style>
+        """
+
+    def apply_tooltip(self, element_id, content):
+        """Applies the tooltip with user-defined content."""
+        tooltip_html = self._define_tooltip(content, element_id)
+        tooltip_css = self._generate_tooltip_css(element_id)
+
+        st.markdown(tooltip_css, unsafe_allow_html=True)
+        st.markdown(tooltip_html, unsafe_allow_html=True)
+
+    def render_test_case(self, test_content=None):
+        """Renders a test case for debugging tooltips visually."""
+        test_id = "test-tooltip"
+        if test_content is None:
+            test_content = ["Tooltip part 1", "Tooltip part 2"]
+
+        # Render the test box
+        st.markdown(
+            f'<div class="tc-test-box">I have a tooltip attached</div>',
+            unsafe_allow_html=True
+        )
+
+        # Apply tooltip using the provided content
+        self.apply_tooltip(test_id, test_content)
+
+        # Additional test box styling
+        st.markdown(
+            """
+            <style>
+                .tc-test-box {
+                    background: #ccc;
+                    padding: 15px;
+                    border-radius: 8px;
+                    text-align: center;
+                    color: #333;
+                    font-weight: bold;
+                    display: inline-block;
+                    margin-top: 20px;
+                }
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
