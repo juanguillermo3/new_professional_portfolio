@@ -251,7 +251,7 @@ def setup_tooltip_behavior(unique_id):
             visibility: hidden;
             opacity: 0;
             width: 400px; /* Fixed width */
-            background: rgba(23, 33, 43, 0.65); /* Increased transparency for a natural light effect */
+            background: rgba(23, 33, 43, 0.45); /* Increased transparency for a natural light effect */
             color: #ffffff; /* White text for contrast */
             padding: 12px;
             border-radius: 12px;
@@ -261,7 +261,7 @@ def setup_tooltip_behavior(unique_id):
             top: 100%;
             text-align: left;
             z-index: 10;
-            border: 2px solid rgba(255, 255, 255, 0.8); /* Solid white border for a crisp edge */
+            border: 2px solid rgba(255, 255, 255, 0.9); /* Solid white border for a crisp edge */
             transform: translateX(-50%) translateY(-5px);
             transition: opacity 0.3s ease-in-out, 
                         visibility 0.3s ease-in-out, 
