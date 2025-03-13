@@ -338,7 +338,7 @@ class RecommendationSystem(PortfolioSection):
         if display_milestones:
           
             # Render achieved milestones
-            achieved_html = html_for_milestones_from_project_metadata(project_metadata, milestone_type="achieved_milestones")
+            achieved_html = html_for_milestones_from_project_metadata(project_metadata=project_metadata, milestone_type="achieved_milestones")
             if achieved_html:
                 st.markdown(
                     f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{achieved_html}</div>",
@@ -346,7 +346,7 @@ class RecommendationSystem(PortfolioSection):
                 )
         
             # Render upcoming milestones
-            upcoming_html = html_for_milestones_from_project_metadata(project_metadata, milestone_type="next_milestones")
+            upcoming_html = html_for_milestones_from_project_metadata(project_metadata=project_metadata, milestone_type="next_milestones")
             if upcoming_html:
                 st.markdown(
                     f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{upcoming_html}</div>",
