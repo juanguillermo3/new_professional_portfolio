@@ -43,13 +43,16 @@ def id_from_item_data(rec, fields=["title", "description"]):
 import html
 
 
-def html_for_milestones_from_project_metadata(project_metadata, milestone_type="achieved_milestones"):
+import html
+
+def html_for_milestones(milestones=None, project_metadata=None, milestone_type="achieved_milestones"):
     """
     Generates an HTML snippet for displaying milestones with a tooltip.
-    
+
     Parameters:
-        - project_metadata (dict): Contains milestone information.
-        - milestone_type (str): The type of milestone to display ('achieved_milestones' or 'next_milestones').
+        - milestones (list, optional): An explicit list of milestones to display.
+        - project_metadata (dict, optional): Contains milestone information (used if milestones is not provided).
+        - milestone_type (str): The type of milestone to display ('achieved_milestones', 'next_milestones', or 'code_samples').
 
     Returns:
         - str: HTML snippet containing the milestone and tooltip.
@@ -58,10 +61,14 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
     milestone_labels = {
         "achieved_milestones": ("Achieved Milestones", "#2E7D32", "✅"),  # Dark green
         "next_milestones": ("Upcoming Milestones", "#C28F00", "🚧"),  # Gold-ish yellow
+        "code_samples": ("Code Samples", "#1565C0", "💾")  # Deep blue for code-related milestones
     }
     
     label, color, icon = milestone_labels.get(milestone_type, ("Milestones", "black", "📌"))
-    milestones = project_metadata.get(milestone_type, [])
+    
+    # Use explicitly provided milestones or fall back to project_metadata
+    if milestones is None:
+        milestones = project_metadata.get(milestone_type, []) if project_metadata else []
 
     # Handle empty milestone case
     if not milestones:
@@ -124,11 +131,6 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
         }}
     </style>
     """
-
-
-
-
-
 
 
 def html_for_item_data(
