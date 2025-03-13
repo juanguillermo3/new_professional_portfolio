@@ -93,6 +93,112 @@ class CurriculumVitae(PortfolioSection):
                 </div>
             </div>""", unsafe_allow_html=True)
 
+class CurriculumVitae(PortfolioSection):
+    
+    EARLY_DEVELOPMENT_STAGE = False
+    DATA_VERIFIED = True  
+
+    # Class-level constants for circle colors
+    CIRCLE_COLOR = "#1c7bba"
+    SHADOW_CIRCLE_COLOR = "rgba(28, 123, 186, 0.2)"
+    CURRENT_CIRCLE_COLOR = "#ff6f00"
+    SHADOW_CURRENT_CIRCLE_COLOR = "rgba(255, 111, 0, 0.2)"
+
+    MAIN_STATEMENT = """
+    My recurring interest nevertheless has always been the **modernization** of the **data analysis pipeline** through **cutting-edge techniques**, such as **flexible ML-based inference**, **software and algorithmic automation**, **assimilation of data-related technology**, using **NLP** in **latent semantic spaces**, and, more recently, solving **data analysis tasks** through **agency formation** within **LLM applications**.
+    """
+
+    def __init__(self, title="Curriculum Vitae 📜", section_description=professional_statement()):
+        super().__init__(
+            title=title,
+            description=section_description,
+            verified=self.DATA_VERIFIED,
+            early_dev=self.EARLY_DEVELOPMENT_STAGE,
+            ai_content=not self.DATA_VERIFIED
+        )
+
+        self.statement = professional_statement()
+        self.work_experience = load_experience_items()
+        self.education = load_education_items()
+
+        # Sort by most recent first
+        self.work_experience.sort(key=lambda x: parse_as_datetime(x['date_range'][1]), reverse=True)
+        self.education.sort(key=lambda x: parse_as_datetime(x['date_range'][1]), reverse=True)
+
+    def render(self):
+        self._render_headers()
+        st.markdown(f'{self.MAIN_STATEMENT}', unsafe_allow_html=True)
+
+        st.markdown("#### Work Experience 🔧")
+        self._render_experience()
+
+        st.markdown("#### Education 🎓")
+        self._render_education()
+
+    def _render_experience(self):
+        for experience in self.work_experience:
+            start_date, end_date = experience['date_range']
+            is_current_job = CURRENT_JOB_KEYWORD.strip().lower() == end_date.strip().lower()
+            circle_color = self.CURRENT_CIRCLE_COLOR if is_current_job else self.CIRCLE_COLOR
+            shadow_color = self.SHADOW_CURRENT_CIRCLE_COLOR if is_current_job else self.SHADOW_CIRCLE_COLOR
+            date_range_str = f"{format_date_for_frontend(start_date)} - {format_date_for_frontend(end_date)}"
+
+            st.markdown(f"""<div style='margin-bottom: 0.5rem; display: flex; align-items: flex-start;'>
+                <div class="animated-circle" style='background-color: {circle_color}; box-shadow: 0 0 0 5px {shadow_color};'></div>
+                <div style="max-width: 500px;">
+                    <strong>{experience['title']}</strong><br> 
+                    <em>{experience['company']}</em><br> 
+                    <p>{experience['description']}</p>
+                    <p style='font-style: italic;'>{date_range_str}</p>
+                </div>
+            </div>""", unsafe_allow_html=True)
+
+    def _render_education(self):
+        for edu in self.education:
+            start_date, end_date = edu['date_range']
+            date_range_str = f"{format_date_for_frontend(start_date)} - {format_date_for_frontend(end_date)}"
+
+            st.markdown(f"""<div style='margin-bottom: 0.5rem; display: flex; align-items: flex-start;'>
+                <div class="animated-circle" style='background-color: {self.CIRCLE_COLOR}; box-shadow: 0 0 0 5px {self.SHADOW_CIRCLE_COLOR};'></div>
+                <div style="max-width: 500px;">
+                    <strong>{edu['title']}</strong><br> 
+                    <em>{edu['institution']}</em><br> 
+                    <p>{edu['description']}</p>
+                    <p style='font-style: italic;'>{date_range_str}</p>
+                </div>
+            </div>""", unsafe_allow_html=True)
+
+    # Include CSS in the Streamlit app
+    def include_custom_css():
+        st.markdown("""
+        <style>
+            .animated-circle {
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                position: relative;
+                margin-right: 10px;
+                margin-top: 2px;
+                animation: inflate 6s ease-in-out infinite alternate, shine 8s linear infinite;
+                overflow: hidden;
+            }
+
+            /* Pulse effect */
+            @keyframes inflate {
+                0% { transform: scale(1); }
+                100% { transform: scale(1.05); }
+            }
+
+            /* Shine effect */
+            @keyframes shine {
+                0% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); }
+                50% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.5); }
+                100% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); }
+            }
+        </style>
+        """, unsafe_allow_html=True)
+
+
 cv = CurriculumVitae(
 
 )
