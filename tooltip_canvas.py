@@ -47,22 +47,57 @@ DEFAULT_ANIMATION_STYLES = {
 }
 
 class TooltipCanvas:
+    # Default tooltip content styling
+    DEFAULT_TOOLTIP_STYLES = {
+        "visibility": "hidden",
+        "opacity": "0",
+        "width": "300px",
+        "background": "rgba(23, 33, 43, 0.5)",
+        "color": "#ffffff",
+        "padding": "10px",
+        "border-radius": "8px",
+        "box-shadow": "0px 4px 20px rgba(255, 255, 255, 0.1)",
+        "position": "absolute",
+        "left": "50%",
+        "top": "100%",
+        "transform": "translateX(-50%) translateY(-5px)",
+        "transition": "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out",
+        "backdrop-filter": "blur(6px)",
+        "z-index": "10",
+        "border": "2px solid rgba(255, 255, 255, 0.9)"
+    }
+
+    # Default animation styles
+    DEFAULT_ANIMATION_STYLES = {
+        "name": "floatTooltip",
+        "keyframes": """
+        @keyframes floatTooltip {
+            0%   { transform: translateX(-50%) translateY(0px); }
+            50%  { transform: translateX(-50%) translateY(4px); }
+            100% { transform: translateX(-50%) translateY(0px); }
+        }
+        """,
+        "animation": "floatTooltip 2s infinite ease-in-out"
+    }
+
     def __init__(self, tooltip_styles=None, animation_styles=None):
         """
         Initializes the TooltipCanvas with optional styling overrides.
         :param tooltip_styles: Dictionary of CSS properties for .tc-tooltip-content.
         :param animation_styles: Dictionary to override tooltip animation styles.
         """
-        self.timestamp = time.time()  # Forces CSS refresh
-        self.tooltip_styles = {**DEFAULT_TOOLTIP_STYLES, **(tooltip_styles or {})}
-        self.animation_styles = {**DEFAULT_ANIMATION_STYLES, **(animation_styles or {})}
+        self.timestamp = int(time.time())  # Forces CSS refresh
+        self.tooltip_styles = {**self.DEFAULT_TOOLTIP_STYLES, **(tooltip_styles or {})}
+        self.animation_styles = {**self.DEFAULT_ANIMATION_STYLES, **(animation_styles or {})}
 
-    def _define_tooltip(self, unique_id: str, content: str):
+    def _define_tooltip(self, content: str, unique_id: str):
         """Private method to generate the tooltip HTML."""
         return f"""
         <div class="tc-tooltip-container">
             <span id="{unique_id}" class="tc-tooltip-trigger">Hover me</span>
-            <div class="tc-tooltip-content tc-tooltip-{unique_id}">{content}</div>
+            <div class="tc-tooltip-content tc-tooltip-{unique_id}">
+                {content}
+            </div>
         </div>
         """
 
@@ -90,10 +125,10 @@ class TooltipCanvas:
 
             .tc-tooltip-content {{
                 {tooltip_styles};
-                animation: {animation_styles['animation']};
+                animation: {animation_styles};
             }}
 
-            .tc-tooltip-container:hover .tc-tooltip-{unique_id} {{
+            .tc-tooltip-container:hover .tc-tooltip-{element_id} {{
                 visibility: visible;
                 opacity: 1;
                 transform: translateX(-50%) translateY(0px);
@@ -103,7 +138,7 @@ class TooltipCanvas:
 
     def apply_tooltip(self, element_id: str, content: str):
         """Applies a tooltip to an existing element by injecting the required HTML & CSS."""
-        tooltip_html = self._define_tooltip(element_id, content)
+        tooltip_html = self._define_tooltip(content, element_id)
         tooltip_css = self._generate_tooltip_css(element_id)
 
         st.markdown(tooltip_css, unsafe_allow_html=True)
@@ -127,10 +162,12 @@ class TooltipCanvas:
             """
             <style>
                 .tc-test-box {
-                    color: black;
-                    border: 1px solid #333;
                     background: #ddd;
-                    padding: 8px;
+                    padding: 15px;
+                    border-radius: 8px;
+                    text-align: center;
+                    color: #333;
+                    font-weight: bold;
                     display: inline-block;
                     margin-top: 20px;
                 }
