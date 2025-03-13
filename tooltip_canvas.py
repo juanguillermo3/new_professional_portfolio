@@ -502,7 +502,6 @@ class TooltipCanvas:
             .tc-test-box {
                 display: inline-block;
                 background: #ddd;
-                padding: 15px;
                 border-radius: 8px;
                 text-align: center;
                 margin-top: 20px;
