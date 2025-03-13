@@ -139,7 +139,7 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
             )
             offering_html += tooltip_html
             tooltip_ids.append(unique_id)
-            offering_html +="<br>"
+        offering_html +="<br>"
 
         if "subitems" in offer:
             offering_html += '<ul style="list-style-type: none; padding-left: 0;">'
