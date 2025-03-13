@@ -56,9 +56,9 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
 
     offerings = [
         {
-            "title": "1. Inferential Statistics & High-Performance Predictive Analytics",
-            "description": "I research and implement techniques for regression, classification, and forecasting use cases, \
-            with applications ranging from macroeconomic and financial forecasting to microdata predictions in various systems.",
+            "title": "⚡ 1. Inferential Statistics & High-Performance Predictive Analytics",
+            "description": "I research and implement techniques for regression, classification, and forecasting use cases, "
+                           "with applications ranging from macroeconomic and financial forecasting to microdata predictions in various systems.",
             "skills": [
                 "Strong understanding of linear regression.", 
                 "Strong understanding of Machine Learning algorithms for pattern detection.", 
@@ -67,9 +67,9 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
             ]
         },
         {
-            "title": "2. Software & Application Development for Inference Distribution",
-            "description": "I develop applications (batch scripts, APIs, dashboards, web applications) to distribute insights \
-            and predictions across corporate environments.",
+            "title": "🔌 2. Software & Application Development for Inference Distribution",
+            "description": "I develop applications (batch scripts, APIs, dashboards, web applications) to distribute insights "
+                           "and predictions across corporate environments.",
             "skills": [
                 "Strong understanding of software engineering.", 
                 "Familiarity with software engineering methodologies, architectural and design patterns.", 
@@ -78,7 +78,7 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
             ]
         },
         {
-            "title": "Data Engineering",
+            "title": "🧩 3. Data Engineering",
             "description": 'As my former boss '
                            '<a href="https://www.linkedin.com/in/susana-mart%C3%ADnez-restrepo-ph-d-1314b137/" target="_blank" style="color: #0073b1; text-decoration: none;">'
                            'Susana Martinez Restrepo</a> said, <em>"I can perform data miracles."</em> '
@@ -92,9 +92,9 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
             ]
         },
         {
-            "title": "4. Holistic Understanding of Modern Tooling",
-            "description": "I integrate tools and technologies for modern data analysis, committing to research the \
-            unique purposes of each tool and efficiently write workflows around them using GPT.",
+            "title": "🛠️ 4. Holistic Understanding of Modern Tooling",
+            "description": "I integrate tools and technologies for modern data analysis, committing to research the "
+                           "unique purposes of each tool and efficiently write workflows around them using GPT.",
             "subitems": [
                 "<strong>Excellence Tier (I know the code line by heart):</strong> Python, R Studio, Stata, GPT",
                 "<strong>Proficiency Tier:</strong> Airflow, SQL, Spark, Bash scripting",
@@ -102,15 +102,16 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
             ]
         },
         {
-            "title": "5. Research effort on AI & LLM powered applications",
+            "title": "🛸 5. Research Effort on AI & LLM-Powered Applications",
             "description": "I prepare myself by means of self-learning for the disruption of Artificial Intelligence in software development and the rise of LLM-powered applications.",
         },
         {
-            "title": "(Bonus) Rigorous Economic Mindset",
-            "description": "As a professional economist, I over-simplify complex social phenomena by casually referencing supply and demand (kidding!).  \
-            But really, I approach data analysis with a focus on causal reasoning, marginal effects, and counterfactual analysis.",
+            "title": "⚖️ (Bonus) Rigorous Economic Mindset",
+            "description": "As a professional economist, I over-simplify complex social phenomena by casually referencing supply and demand (kidding!). "
+                           "But really, I approach data analysis with a focus on causal reasoning, marginal effects, and counterfactual analysis.",
         }
     ]
+    
 
     # Initialize HTML output
     offering_html = '<h3>(5+1) Key Differentials of My Professional Offering</h3>'
