@@ -99,8 +99,3 @@ for section_name, module in SECTIONS.items():
         module.render()
         render_section_separator()
 
-content=html_for_paragraph_with_expandable_details(
-    "This is visible text.",
-    "This is **hidden content** that appears when you click anywhere."
-)
-st.markdown(content, unsafe_allow_html=True)  # Close the control panel div
