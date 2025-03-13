@@ -251,7 +251,7 @@ def setup_tooltip_behavior(unique_id):
             visibility: hidden;
             opacity: 0;
             width: 400px; /* Fixed width */
-            background: rgba(0, 100, 180, 0.45); /* Lighter blue with increased transparency */
+            background: rgba(23, 33, 43, 0.85); /* Telegram Night Mode Blue with transparency */
             color: #ffffff; /* White text for contrast */
             padding: 12px;
             border-radius: 12px;
@@ -269,6 +269,7 @@ def setup_tooltip_behavior(unique_id):
             overflow-wrap: break-word;
             backdrop-filter: blur(12px); /* Frosted glass effect */
         }}
+
 
         /* Floating animation */
         @keyframes floatTooltip {{
