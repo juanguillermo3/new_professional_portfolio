@@ -402,116 +402,129 @@ class TooltipCanvas:
 import streamlit as st
 import time
 
+import streamlit as st
+import time
+
 class TooltipCanvas:
     # Default tooltip styles
     DEFAULT_TOOLTIP_STYLES = {
         "width": "300px",
         "background": "rgba(23, 33, 43, 0.5)",
         "color": "#ffffff",
-        "padding": "8px",
+        "padding": "5px",
         "border-radius": "5px",
         "position": "absolute",
         "left": "50%",
-        "top": "100%",
-        "white-space": "nowrap",
+        "transform": "translateX(-50%)",
         "visibility": "hidden",
         "opacity": "0",
-        "transition": "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out",
-        "backdrop-filter": "blur(5px)",
-        "text-align": "center",
+        "transition": "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out"
     }
 
     # Default animation styles
     DEFAULT_ANIMATION_STYLES = {
         "name": "floatTooltip",
-        "animation": "floatTooltip 1.5s ease-in-out infinite alternate",
+        "animation": "floatTooltip 1.5s infinite",
         "keyframes": """
-        @keyframes floatTooltip {
-            0% { transform: translateX(-50%) translateY(0px); }
-            50% { transform: translateX(-50%) translateY(4px); }
-            100% { transform: translateX(-50%) translateY(0px); }
-        }
+            @keyframes floatTooltip {
+                0%   { transform: translateX(-50%) translateY(0px); }
+                50%  { transform: translateX(-50%) translateY(4px); }
+                100% { transform: translateX(-50%) translateY(0px); }
+            }
+        """
     }
 
     def __init__(self, tooltip_styles=None, animation_styles=None):
         """
         Initializes the TooltipCanvas with optional styling overrides.
-        :param tooltip_styles: Dictionary to override default tooltip styles.
-        :param animation_styles: Dictionary to override default animation styles.
+        :param tooltip_styles: Dictionary with CSS styles for the tooltip content.
+        :param animation_styles: Dictionary with animation styles.
         """
-        self.timestamp = int(time.time())  # Ensure fresh styles on each reload
+        self.timestamp = int(time.time())  # Force CSS refresh
         self.tooltip_styles = {**self.DEFAULT_TOOLTIP_STYLES, **(tooltip_styles or {})}
         self.animation_styles = {**self.DEFAULT_ANIMATION_STYLES, **(animation_styles or {})}
 
-    def _define_tooltips(self, contents, unique_id):
-        """Generates multiple tooltips inside a single container."""
-        if isinstance(contents, str):
-            contents = [contents]  # Convert single string to list
+    def _generate_tooltip_css(self, element_id: str):
+        """Generates the CSS styles for tooltips."""
+        tooltip_styles = "".join([f"{key}: {value};" for key, value in self.tooltip_styles.items()])
+        animation_styles = self.animation_styles["animation"]
+        keyframes = self.animation_styles["keyframes"]
 
-        tooltips_html = "\n".join([
-            f'<span class="tc-tooltip" id="{unique_id}-{i}">{item}</span>'
-            for i, item in enumerate(contents)
-        ])
-        
         return f"""
-        <div class="tc-tooltip-container" id="container-{unique_id}">
-            {tooltips_html}
+        <style>
+            /* Tooltip Container */
+            .tc-tooltip-container-{element_id} {{
+                position: relative;
+                display: inline-block;
+            }}
+
+            /* Tooltip Styling */
+            .tc-tooltip-{element_id} {{
+                {tooltip_styles}
+                display: none;
+            }}
+
+            .tc-tooltip-container-{element_id}:hover .tc-tooltip-content-{element_id} {{
+                visibility: visible;
+                opacity: 1;
+                transform: translateX(-50%) translateY(4px);
+                animation: {animation_styles};
+            }}
+
+            {self.animation_styles["keyframes"]}
+        </style>
+        """
+
+    def _define_tooltips(self, contents, element_id: str):
+        """Generates multiple tooltip spans inside the same container."""
+        if isinstance(content, str):
+            contents = [content]
+        else:
+            contents = content  # Assume it's already a list
+
+        tooltip_spans = "".join(f'<span class="tc-tooltip-content-{element_id}" style="{self._style_inline()}">{c}</span>' for c in contents)
+        return f"""
+        <div class="tc-tooltip-container-{element_id}">
+            {tooltip_spans}
         </div>
         """
-    
-    def _generate_tooltip_css(self, unique_id, num_tooltips):
-        """Generates CSS for all tooltips in the given content list."""
-        tooltip_css = "\n".join([f".tc-tooltip-container:hover #{unique_id}-{i} {{ visibility: visible; opacity: 1; }}"
-                                   for i in range(len(self.tooltip_list))])
-        
-        tooltip_styles = "".join([f"#{unique_id}-{i} {{ {'; '.join([f'{k}: {v}' for k, v in self.tooltip_styles.items()])} }}" for i in range(len(self.tooltip_styles))])
-        
-        keyframes = self.animation_styles["keyframes"]
-        return f"""
-        <style>
-            {keyframes}
-            {tooltip_css}
-            {tooltip_styles}
-        </style>
-        """
+
+    def _get_style_string(self):
+        return f"/* Timestamp: {self.timestamp} */" + self._generate_tooltip_css("tooltip")
 
     def apply_tooltips(self, element_id: str, content):
-        """Applies multiple tooltips to an element by injecting the required HTML & CSS."""
-        # Convert content to list if it's a string
+        """
+        Applies tooltips to an element.
+        :param element_id: Unique identifier for the target element.
+        :param content: List of tooltip texts or a single string.
+        """
         if isinstance(content, str):
             content = [content]
-        self.content_list = content
         
-        tooltip_html = self._define_tooltips(contents=content, unique_id=element_id)
-        tooltip_css = self._generate_tooltip_css(element_id=element_id)
+        tooltip_html = self._define_tooltips(content, element_id)
         
-        # Inject CSS
-        st.markdown(tooltip_css, unsafe_allow_html=True)
+        st.markdown(self._generate_tooltip_css(element_id), unsafe_allow_html=True)
         st.markdown(tooltip_html, unsafe_allow_html=True)
-
+    
     def render_test_case(self):
-        """Renders a test case for visual verification of multiple tooltips."""
-        test_id = f"test-{int(time.time())}"
-        test_content = ["Tooltip One", "Tooltip Two", "Another one!", "Final Tooltip"]
-        
-        st.markdown(f'<div id="{test_id}" class="tc-test-box">Hover over me!</div>', unsafe_allow_html=True)
-        self.apply_tooltip(test_id, test_content)
-        
+        """Renders a test case for visual verification of tooltips.""
+        test_id = "test"
+        st.markdown(f'<div id="{test_id}" class="tc-test-box">Hover over me for multiple tooltips</div>', unsafe_allow_html=True)
+        self.apply_tooltips(test_id, ["First Tooltip", "Second Tooltip", "Third Tooltip"])
+
+        # Test box styles
         st.markdown("""
-        <style>
-            .tc-test-box {
-                display: inline-block;
-                background: #ddd;
-                padding: 15px;
-                border-radius: 8px;
-                text-align: center;
-                margin-top: 20px;
-                cursor: pointer;
-            }
-        </style>
-        """, unsafe_allow_html=True)
+            <style>
+                .tc-test-box {
+                    background: #ddd;
+                    padding: 15px;
+                    border-radius: 8px;
+                    text-align: center;
+                    cursor: pointer;
+                }
+            </style>
+            """, unsafe_allow_html=True)
         
-        self.apply_tooltip(test_id, test_content)
 
 
 
