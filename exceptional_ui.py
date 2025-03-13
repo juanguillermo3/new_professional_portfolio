@@ -246,7 +246,7 @@ def setup_tooltip_behavior(unique_id):
             box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
             position: absolute;
             left: 50%;
-            top: 110%;  /* Closer placement */
+            top: 100%;  /* Closer placement */
             max-width: 350px;
             text-align: left;
             z-index: 10;
