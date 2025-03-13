@@ -638,6 +638,52 @@ def html_for_tooltip_from_large_list(items, label, color="#00AEEF", emoji=None):
     return tooltip_html, unique_id
 
 
+import hashlib
+import html
+from datetime import datetime
+
+def html_for_tooltip_from_large_list(items, label, color="#00AEEF", emoji=None):
+    """
+    Generates an HTML snippet displaying a summarized preview of a list with a tooltip that appears on hover.
+
+    Parameters:
+        - items (list of str): The list of items to display.
+        - label (str): Describes the type of items being enumerated.
+        - color (str): Color for the summary text (default: #00AEEF, a neon blue).
+        - emoji (str, optional): Emoji prepended to each listed item.
+
+    Returns:
+        - tuple: (HTML snippet, unique tooltip ID)
+    """
+    if not items:
+        return f'<div style="color:gray;">No {label.lower()} listed</div>', None
+
+    # Generate a unique ID for tooltip association
+    unique_id = hashlib.md5(datetime.now().isoformat().encode()).hexdigest()[:10]
+
+    first_item = html.escape(items[0])
+    summary = f"(and {len(items) - 1} more {label.lower()})" if len(items) > 1 else ""
+
+    visible_text = f'<span id="{unique_id}" class="tooltip-trigger">{first_item} {summary}</span>'
+
+    tooltip_content = "".join(
+        f'<div class="tooltip-item">{(emoji + " " if emoji else "")}{html.escape(item)}</div>'
+        for item in items
+    )
+
+    tooltip_html = f"""
+    <div class="tooltip-container">
+        {visible_text}
+        <div class="skills_tooltip-{unique_id}">
+            <strong>All {label} listed:</strong>
+            {tooltip_content}
+        </div>
+    </div>
+    """
+
+    return tooltip_html, unique_id
+
+
 def setup_tooltip_behavior(unique_id):
     """
     Injects the required CSS and behavior into Streamlit to activate the tooltip.
@@ -708,5 +754,6 @@ def setup_tooltip_behavior(unique_id):
     </style>
     """
     return tooltip_css
+
 
 
