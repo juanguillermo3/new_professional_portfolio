@@ -42,13 +42,15 @@ def id_from_item_data(rec, fields=["title", "description"]):
 
 import html
 
+import html
+
 def html_for_milestones_from_project_metadata(project_metadata, milestone_type="achieved_milestones"):
     """
     Generates an HTML snippet for displaying milestones with a tooltip.
     
     Parameters:
         - project_metadata (dict): Contains milestone information.
-        - milestone_type (str): The type of milestone to display ('achieved_milestones' or 'next_milestones').
+        - milestone_type (str): The type of milestone to display ('achieved_milestones', 'next_milestones', or 'code_samples').
 
     Returns:
         - str: HTML snippet containing the milestone and tooltip.
@@ -57,6 +59,7 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
     milestone_labels = {
         "achieved_milestones": ("Achieved Milestones", "#2E7D32", "✅"),  # Dark green
         "next_milestones": ("Upcoming Milestones", "#C28F00", "🚧"),  # Gold-ish yellow
+        "code_samples": ("Code Samples", "#1565C0", "💾"),  # Deep blue for coding-related milestones
     }
     
     label, color, icon = milestone_labels.get(milestone_type, ("Milestones", "black", "📌"))
@@ -71,18 +74,19 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
     summary = f"({len(milestones) - 1} more)" if len(milestones) > 1 else ""
     visible_milestone = f'<div style="color:{color};">{icon} {first_milestone} {summary}</div>'
 
-    # Tooltip content (full milestone list)
+    # Limit to 5 milestones in the tooltip
+    displayed_milestones = milestones[:5]
+    hidden_count = max(len(milestones) - 5, 0)
     tooltip_content = "".join(
-        f'<div style="color:{color};">{icon} {html.escape(m)}</div>' for m in milestones
+        f'<div style="color:{color};">{icon} {html.escape(m)}</div>' for m in displayed_milestones
     )
-
-    # Unique ID for the tooltip
-    element_id = f"tooltip-{milestone_type}"
+    if hidden_count:
+        tooltip_content += f'<div style="color:gray;"><em>...and {hidden_count} more</em></div>'
 
     # Return formatted HTML with refined frosted effect
     return f"""
-    <div style="position: relative; display: inline-block;">
-        <span id="{element_id}" style="border-bottom: 1px dashed gray; cursor: pointer;" class="hover-trigger">
+    <div class="hover-container">
+        <span class="hover-trigger" style="border-bottom: 1px dashed gray; cursor: pointer;">
             {visible_milestone}
         </span>
         <div class="tooltip">
@@ -91,38 +95,44 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
         </div>
     </div>
     <style>
+        .hover-container {{
+            position: relative;
+            display: inline-block;
+        }}
+
         .tooltip {{
             visibility: hidden;
             opacity: 0;
             transform: translateY(5px) scale(0.95);
-            transition: 
-                opacity 0.3s ease-in-out, 
-                visibility 0.3s ease-in-out, 
-                transform 0.3s ease-in-out;
-            background-color: rgba(240, 240, 240, 0.7); /* Softer frosted effect */
-            backdrop-filter: blur(1px); /* Stronger blur for a glassy look */
+            transition: opacity 0.3s ease-in-out, 
+                        visibility 0.3s ease-in-out, 
+                        transform 0.3s ease-in-out;
+            background-color: rgba(240, 240, 240, 0.8);
+            backdrop-filter: blur(3px);
             color: black;
             text-align: left;
             padding: 10px;
             border-radius: 5px;
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
             position: absolute;
-            left: 75%;
+            left: 50%;
             top: 120%;
-            min-width: 100%;
+            min-width: 200px;
             max-width: 400px;
             z-index: 1;
-            border: 1px solid rgba(200, 200, 200, 0.5); /* Softer border */
+            border: 1px solid rgba(200, 200, 200, 0.5);
             transform-origin: top center;
+            white-space: nowrap;
         }}
 
-        #{element_id}:hover + .tooltip {{
+        .hover-container:hover .tooltip {{
             visibility: visible;
             opacity: 1;
             transform: translateY(0px) scale(1.1);
         }}
     </style>
     """
+
 
 
 def html_for_item_data(
