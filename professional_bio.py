@@ -46,7 +46,7 @@ class CurriculumVitae(PortfolioSection):
         self.education.sort(key=lambda x: parse_as_datetime(x['date_range'][1]), reverse=True)
 
     MAIN_STATEMENT = """
-    🔑 My recurring interest nevertheless has always been the **modernization** of the **data analysis pipeline** through **cutting-edge techniques**, such as **flexible ML-based inference**, **software and algorithmic automation**, **assimilation of data-related technology**, using **NLP** in **latent semantic spaces**, and, more recently, solving **data analysis tasks** through **agency formation** within **LLM applications**.
+    My recurring interest nevertheless has always been the **modernization** of the **data analysis pipeline** through **cutting-edge techniques**, such as **flexible ML-based inference**, **software and algorithmic automation**, **assimilation of data-related technology**, using **NLP** in **latent semantic spaces**, and, more recently, solving **data analysis tasks** through **agency formation** within **LLM applications**.
     """
 
 
