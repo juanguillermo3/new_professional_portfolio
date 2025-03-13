@@ -251,7 +251,7 @@ def setup_tooltip_behavior(unique_id):
             visibility: hidden;
             opacity: 0;
             width: 400px; /* Fixed width */
-            background: rgba(23, 33, 43, 0.35); /* Increased transparency for a natural light effect */
+            background: rgba(23, 33, 43, 0.25); /* Increased transparency for a natural light effect */
             color: #ffffff; /* White text for contrast */
             padding: 12px;
             border-radius: 12px;
@@ -267,7 +267,7 @@ def setup_tooltip_behavior(unique_id):
                         visibility 0.3s ease-in-out, 
                         transform 0.3s ease-in-out;
             overflow-wrap: break-word;
-            backdrop-filter: blur(16px); /* Increased blur for a stronger frosted effect */
+            backdrop-filter: blur(12px); /* Increased blur for a stronger frosted effect */
         }}
 
 
