@@ -178,7 +178,7 @@ class HeroArea:
         
             st.markdown(self.detailed_offering, unsafe_allow_html=True)
             for id in self.ids:
-                setup_tooltip_behavior(id )
+                st.markdown(setup_tooltip_behavior(id), unsafe_allow_html=True)
                 
             self.detailed_offering, self.ids 
             
