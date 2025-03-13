@@ -106,6 +106,6 @@ from tooltip_canvas import TooltipCanvas
 tooltip_system = TooltipCanvas()
 
 # Render the test case
-tooltip_system.render_test_case(["single case"])
+#tooltip_system.render_test_case(["single case"])
 
 tooltip_system.render_test_case()
