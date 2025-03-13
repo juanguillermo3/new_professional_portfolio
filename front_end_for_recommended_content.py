@@ -40,9 +40,8 @@ def id_from_item_data(rec, fields=["title", "description"]):
     
     return unique_hash
 
-import html
 
-def html_for_milestones(milestones=None, project_metadata=None, milestone_type="achieved_milestones"):
+def html_for_milestones_from_project_metadata(milestones=None, project_metadata=None, milestone_type="achieved_milestones"):
     """
     Generates an HTML snippet for displaying milestones with a tooltip.
 
