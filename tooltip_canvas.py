@@ -13,38 +13,38 @@ import streamlit as st
 import time
 import streamlit as st
 
-    # Default tooltip content styling
-    DEFAULT_TOOLTIP_STYLES = {
-        "visibility": "hidden",
-        "opacity": "0",
-        "width": "300px",
-        "background": "rgba(23, 33, 43, 0.5)",
-        "color": "#ffffff",
-        "padding": "10px",
-        "border-radius": "8px",
-        "box-shadow": "0px 4px 20px rgba(255, 255, 255, 0.1)",
-        "position": "absolute",
-        "left": "50%",
-        "top": "100%",
-        "transform": "translateX(-50%) translateY(-5px)",
-        "transition": "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out",
-        "backdrop-filter": "blur(6px)",
-        "z-index": "10",
-        "border": "2px solid rgba(255, 255, 255, 0.9)"
-    }
+# Default tooltip content styling
+DEFAULT_TOOLTIP_STYLES = {
+"visibility": "hidden",
+"opacity": "0",
+"width": "300px",
+"background": "rgba(23, 33, 43, 0.5)",
+"color": "#ffffff",
+"padding": "10px",
+"border-radius": "8px",
+"box-shadow": "0px 4px 20px rgba(255, 255, 255, 0.1)",
+"position": "absolute",
+"left": "50%",
+"top": "100%",
+"transform": "translateX(-50%) translateY(-5px)",
+"transition": "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out",
+"backdrop-filter": "blur(6px)",
+"z-index": "10",
+"border": "2px solid rgba(255, 255, 255, 0.9)"
+}
 
-    # Default animation styles
-    DEFAULT_ANIMATION_STYLES = {
-        "name": "floatTooltip",
-        "keyframes": """
-        @keyframes floatTooltip {
-            0%   { transform: translateX(-50%) translateY(0px); }
-            50%  { transform: translateX(-50%) translateY(4px); }
-            100% { transform: translateX(-50%) translateY(0px); }
-        }
-        """,
-        "animation": "floatTooltip 2s infinite ease-in-out"
-    }
+# Default animation styles
+DEFAULT_ANIMATION_STYLES = {
+"name": "floatTooltip",
+"keyframes": """
+@keyframes floatTooltip {
+   0%   { transform: translateX(-50%) translateY(0px); }
+   50%  { transform: translateX(-50%) translateY(4px); }
+   100% { transform: translateX(-50%) translateY(0px); }
+}
+""",
+"animation": "floatTooltip 2s infinite ease-in-out"
+}
 
 class TooltipCanvas:
 
