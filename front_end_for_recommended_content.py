@@ -43,6 +43,90 @@ def id_from_item_data(rec, fields=["title", "description"]):
 import html
 
 
+def html_for_milestones_from_project_metadata(project_metadata, milestone_type="achieved_milestones"):
+    """
+    Generates an HTML snippet for displaying milestones with a tooltip.
+    
+    Parameters:
+        - project_metadata (dict): Contains milestone information.
+        - milestone_type (str): The type of milestone to display ('achieved_milestones' or 'next_milestones').
+
+    Returns:
+        - str: HTML snippet containing the milestone and tooltip.
+    """
+    # Define milestone properties with optimized contrast
+    milestone_labels = {
+        "achieved_milestones": ("Achieved Milestones", "#2E7D32", "✅"),  # Dark green
+        "next_milestones": ("Upcoming Milestones", "#C28F00", "🚧"),  # Gold-ish yellow
+    }
+    
+    label, color, icon = milestone_labels.get(milestone_type, ("Milestones", "black", "📌"))
+    milestones = project_metadata.get(milestone_type, [])
+
+    # Handle empty milestone case
+    if not milestones:
+        return f'<div style="color:gray;">No {label.lower()}</div>'
+
+    # Format milestone summary (first milestone + count)
+    first_milestone = html.escape(milestones[0])
+    summary = f"({len(milestones) - 1} more)" if len(milestones) > 1 else ""
+    visible_milestone = f'<div style="color:{color};">{icon} {first_milestone} {summary}</div>'
+
+    # Tooltip content (full milestone list)
+    tooltip_content = "".join(
+        f'<div style="color:{color};">{icon} {html.escape(m)}</div>' for m in milestones
+    )
+
+    # Unique ID for the tooltip
+    element_id = f"tooltip-{milestone_type}"
+
+    # Return formatted HTML with refined frosted effect
+    return f"""
+    <div style="position: relative; display: inline-block;">
+        <span id="{element_id}" style="border-bottom: 1px dashed gray; cursor: pointer;" class="hover-trigger">
+            {visible_milestone}
+        </span>
+        <div class="tooltip">
+            <strong>{label}:</strong>
+            {tooltip_content}
+        </div>
+    </div>
+    <style>
+        .tooltip {{
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(5px) scale(0.95);
+            transition: 
+                opacity 0.3s ease-in-out, 
+                visibility 0.3s ease-in-out, 
+                transform 0.3s ease-in-out;
+            background-color: rgba(240, 240, 240, 0.7); /* Softer frosted effect */
+            backdrop-filter: blur(1px); /* Stronger blur for a glassy look */
+            color: black;
+            text-align: left;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            left: 75%;
+            top: 120%;
+            min-width: 100%;
+            max-width: 400px;
+            z-index: 1;
+            border: 1px solid rgba(200, 200, 200, 0.5); /* Softer border */
+            transform-origin: top center;
+        }}
+
+        #{element_id}:hover + .tooltip {{
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0px) scale(1.1);
+        }}
+    </style>
+    """
+
+
+
 
 
 
