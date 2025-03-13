@@ -134,12 +134,6 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
         offering_html += f'<li id="{element_id}" style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px;">'
         offering_html += f'<strong>{offer["title"]}</strong>: {offer["description"]}'
 
-        if "subitems" in offer:
-            offering_html += '<ul style="list-style-type: none; padding-left: 0;">'
-            for subitem in offer["subitems"]:
-                offering_html += f'<li>{subitem}</li>'
-            offering_html += '</ul>'
-
         # Insert the tooltip for the list of technical skills
         if "skills" in offer:
             tooltip_html, unique_id = html_for_tooltip_from_large_list(
@@ -147,6 +141,12 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
             )
             offering_html += tooltip_html
             tooltip_ids.append(unique_id)
+
+        if "subitems" in offer:
+            offering_html += '<ul style="list-style-type: none; padding-left: 0;">'
+            for subitem in offer["subitems"]:
+                offering_html += f'<li>{subitem}</li>'
+            offering_html += '</ul>'
 
         offering_html += '</li>'
     
