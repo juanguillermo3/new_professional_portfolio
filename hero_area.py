@@ -1,8 +1,11 @@
+
 """
 title: Hero Section
 description: A subtle yet impactful hero section for a professional portfolio. Styled as a book quote with a bio picture, 
              it presents essential information and key call-to-action elements.
 """
+
+
 
 
 import streamlit as st
@@ -15,7 +18,12 @@ from hero_area_data_loader import (
 )
 from front_end_utils import tags_in_twitter_style
 from dotenv import load_dotenv
-from exceptional_ui import apply_custom_tooltip, _custom_tooltip_with_frost_glass_html
+from exceptional_ui import apply_custom_tooltip, _custom_tooltip_with_frost_glass_html,  setup_tooltip_behavior
+from exceptional_ui import (
+    html_for_tooltip_from_large_list,
+    setup_tooltip_behavior
+)
+
 
 # Load environment variables
 load_dotenv()
@@ -48,7 +56,7 @@ class HeroArea:
         self.whatsapp_number = whatsapp_number
         self.contact_button_intro = contact_button_intro
         self.professional_offering = professional_offering
-        self.detailed_offering = detailed_offering
+        self.detailed_offering, self.ids = detailed_offering
 
     def render_code_samples(self):
         st.markdown(f'<p class="code-samples-intro">{self.code_samples_intro}</p>', unsafe_allow_html=True)
@@ -167,7 +175,13 @@ class HeroArea:
         # Expandable Detailed Offering Section
         expander_label = "Explore more (details)"
         with st.expander(expander_label, expanded=True):
+        
             st.markdown(self.detailed_offering, unsafe_allow_html=True)
+            for id in self.ids:
+                setup_tooltip_behavior(id )
+                
+            self.detailed_offering, self.ids 
+            
             self.render_code_samples()
     
             # Generate and apply custom tooltips
