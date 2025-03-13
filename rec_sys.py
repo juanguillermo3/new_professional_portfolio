@@ -354,7 +354,7 @@ class RecommendationSystem(PortfolioSection):
                 )
         
             # Fetch and render code samples from repository
-            code_samples = _fetch_files(project_metadata["repo_name"])
+            code_samples = self._fetch_files(project_metadata["repo_name"])
             code_samples_html = html_for_milestones(milestones=code_samples, milestone_type="code_samples")
             if code_samples_html:
                 st.markdown(
