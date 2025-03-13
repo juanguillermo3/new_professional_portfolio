@@ -500,12 +500,6 @@ class TooltipCanvas:
         st.markdown("""
         <style>
             .tc-test-box {
-                display: inline-block;
-                background: #ddd;
-                border-radius: 8px;
-                text-align: center;
-                margin-top: 20px;
-                cursor: pointer;
             }
         </style>
         """, unsafe_allow_html=True)
