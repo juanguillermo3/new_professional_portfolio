@@ -278,6 +278,9 @@ def setup_tooltip_behavior(unique_id):
     """
     return tooltip_css
 
+import hashlib
+import html
+from datetime import datetime
 
 def html_for_tooltip_from_large_list(items, label, color="#007BFF", emoji=None):
     """
@@ -295,25 +298,98 @@ def html_for_tooltip_from_large_list(items, label, color="#007BFF", emoji=None):
     if not items:
         return f'<div style="color:gray;">No {label.lower()} listed</div>', None
 
-    # Generate a unique ID for each tooltip
+    # Generate a unique ID for tooltip association
     unique_id = hashlib.md5(datetime.now().isoformat().encode()).hexdigest()[:10]
 
     first_item = html.escape(items[0])
     summary = f"(and {len(items) - 1} more {label.lower()})" if len(items) > 1 else ""
 
-    # Tooltip trigger inside a uniquely identified container
-    html_snippet = f"""
+    visible_text = f'<span id="{unique_id}" class="tooltip-trigger">{first_item} {summary}</span>'
+
+    tooltip_content = "".join(
+        f'<div class="tooltip-item">{(emoji + " " if emoji else "")}{html.escape(item)}</div>'
+        for item in items
+    )
+
+    tooltip_html = f"""
     <div class="tooltip-container">
-        <span id="{unique_id}" class="tooltip-trigger">{first_item} {summary}</span>
+        {visible_text}
         <div class="skills_tooltip-{unique_id}">
             <strong>All {label} listed:</strong>
-            {"".join(
-                f'<div class="tooltip-item">{(emoji + " " if emoji else "")}{html.escape(item)}</div>'
-                for item in items
-            )}
+            {tooltip_content}
         </div>
     </div>
     """
 
-    return html_snippet, unique_id
+    return tooltip_html, unique_id
+
+
+def setup_tooltip_behavior(unique_id):
+    """
+    Injects the required CSS and behavior into Streamlit to activate the tooltip.
+    Includes a floating effect and refined vertical positioning.
+    """
+    import time
+    if not unique_id:
+        return ""
+
+    timestamp = int(time.time())  # Forces Streamlit to refresh styles
+
+    tooltip_css = f"""
+    <style>
+        /* Timestamp {timestamp} to force refresh */
+        .tooltip-container {{
+            position: relative;
+            display: inline-block;
+        }}
+
+        .tooltip-trigger {{
+            color: #007BFF;
+            border-bottom: 1px dashed #007BFF;
+            cursor: pointer;
+            position: relative;
+        }}
+
+        .skills_tooltip-{unique_id} {{
+            visibility: hidden;
+            opacity: 0;
+            background: rgba(20, 20, 20, 0.9);
+            color: #ffffff;
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
+            position: absolute;
+            left: 50%;
+            top: 100%;  /* Closer placement */
+            max-width: 350px;
+            text-align: left;
+            z-index: 10;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transform: translateX(-50%) translateY(5px);
+            transition: visibility 0.2s ease-out, opacity 0.2s ease-out, transform 0.3s ease-out;
+            overflow-wrap: break-word;
+        }}
+
+        /* Floating animation */
+        @keyframes floatTooltip {{
+            0% {{ transform: translateX(-50%) translateY(5px); }}
+            100% {{ transform: translateX(-50%) translateY(7px); }}
+        }}
+
+        .tooltip-container:hover .skills_tooltip-{unique_id},
+        .skills_tooltip-{unique_id}:hover {{
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(-50%) translateY(0px);
+            animation: floatTooltip 2s infinite alternate ease-in-out;
+        }}
+
+        .tooltip-item {{
+            color: #007BFF;
+            margin-bottom: 4px;
+        }}
+    </style>
+    """
+    return tooltip_css
+
 
