@@ -58,17 +58,6 @@ class TooltipCanvas:
         self.tooltip_styles = {**DEFAULT_TOOLTIP_STYLES, **(tooltip_styles or {})}
         self.animation_styles = {**DEFAULT_ANIMATION_STYLES, **(animation_styles or {})}
 
-    def _define_tooltip(self, content: str, unique_id: str):
-        """Private method to generate the tooltip HTML."""
-        return f"""
-        <div class="tc-tooltip-container">
-            <span id="{unique_id}" class="tc-tooltip-trigger">Hover me</span>
-            <div class="tc-tooltip-content tc-tooltip-{unique_id}">
-                {content}
-            </div>
-        </div>
-        """
-
     def _generate_tooltip_css(self, element_id: str):
         """Generates the CSS styles, applying user-defined overrides."""
         tooltip_styles = "; ".join(f"{k}: {v}" for k, v in self.tooltip_styles.items())
