@@ -371,11 +371,11 @@ class RecommendationSystem(PortfolioSection):
         Returns:
             - list: A list of file paths belonging to the given repository.
         """
-        return [
-            item.get("file_path")  # Safely get file_path, returns None if missing
+        return [ _ for _ in  [
+            item.get("file_path", False)  # Safely get file_path, returns None if missing
             for item in self.metadata_list
-            if item.get("repo_name", "").lower() == repo_name.lower() and "file_path" in item
-        ]
+            if item.get("repo_name", "").lower() == repo_name.lower() 
+        ] if _ ]
     
     def _render_media_content(self, video_path):
         """Handles the rendering of media content (either Galleria or Video)."""
