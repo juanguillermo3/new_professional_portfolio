@@ -133,7 +133,7 @@ class TooltipCanvas:
             unsafe_allow_html=True
         )
 
-    def _define_tooltip(self, content: str, unique_id: str):
+    def _define_tooltip_html(self, content: str, unique_id: str):
         """Private method to generate the tooltip HTML."""
         tooltip_class = f"tc-tooltip-{unique_id}"
         return f"""
