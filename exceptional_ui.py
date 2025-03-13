@@ -642,14 +642,18 @@ import hashlib
 import html
 from datetime import datetime
 
-def html_for_tooltip_from_large_list(items, label, color="#00AEEF", emoji=None):
+import hashlib
+import html
+from datetime import datetime
+
+def html_for_tooltip_from_large_list(items, label, color="#007ACC", emoji=None):
     """
     Generates an HTML snippet displaying a summarized preview of a list with a tooltip that appears on hover.
 
     Parameters:
         - items (list of str): The list of items to display.
         - label (str): Describes the type of items being enumerated.
-        - color (str): Color for the summary text (default: #00AEEF, a neon blue).
+        - color (str): Color for the summary text (default: #007ACC, a soft blue).
         - emoji (str, optional): Emoji prepended to each listed item.
 
     Returns:
@@ -658,7 +662,6 @@ def html_for_tooltip_from_large_list(items, label, color="#00AEEF", emoji=None):
     if not items:
         return f'<div style="color:gray;">No {label.lower()} listed</div>', None
 
-    # Generate a unique ID for tooltip association
     unique_id = hashlib.md5(datetime.now().isoformat().encode()).hexdigest()[:10]
 
     first_item = html.escape(items[0])
@@ -687,7 +690,7 @@ def html_for_tooltip_from_large_list(items, label, color="#00AEEF", emoji=None):
 def setup_tooltip_behavior(unique_id):
     """
     Injects the required CSS and behavior into Streamlit to activate the tooltip.
-    Includes a frosted glass effect for a high-tech look.
+    Adjusted for a frosted glass effect with a subtle light blue theme.
     """
     import time
     if not unique_id:
@@ -704,8 +707,8 @@ def setup_tooltip_behavior(unique_id):
         }}
 
         .tooltip-trigger {{
-            color: #00AEEF;  /* Neon blue for a tech feel */
-            border-bottom: 1px dashed #00AEEF;
+            color: #007ACC;  /* Soft blue for readability */
+            border-bottom: 1px dashed #007ACC;
             cursor: pointer;
             position: relative;
         }}
@@ -714,29 +717,23 @@ def setup_tooltip_behavior(unique_id):
             visibility: hidden;
             opacity: 0;
             width: 400px; /* Fixed width */
-            background: rgba(0, 40, 90, 0.75); /* Deep blue with slight transparency */
-            color: #ffffff; /* White font */
+            background: rgba(0, 100, 180, 0.55); /* Lighter blue with increased transparency */
+            color: #ffffff; /* White text for contrast */
             padding: 12px;
             border-radius: 12px;
-            box-shadow: 0px 10px 30px rgba(0, 170, 255, 0.4); /* Subtle neon glow */
+            box-shadow: none; /* Removed neon glow */
             position: absolute;
             left: 50%;
             top: 100%;
             text-align: left;
             z-index: 10;
-            border: 1px solid rgba(0, 170, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Soft white border */
             transform: translateX(-50%) translateY(-5px);
             transition: opacity 0.3s ease-in-out, 
                         visibility 0.3s ease-in-out, 
                         transform 0.3s ease-in-out;
             overflow-wrap: break-word;
-            backdrop-filter: blur(10px); /* Frosted glass effect */
-        }}
-
-        /* Floating animation */
-        @keyframes floatTooltip {{
-            0% {{ transform: translateX(-50%) translateY(0px); }}
-            100% {{ transform: translateX(-50%) translateY(5px); }}
+            backdrop-filter: blur(12px); /* Increased blur for a refined frosted glass effect */
         }}
 
         .tooltip-container:hover .skills_tooltip-{unique_id},
@@ -744,11 +741,10 @@ def setup_tooltip_behavior(unique_id):
             visibility: visible;
             opacity: 1;
             transform: translateX(-50%) translateY(0px);
-            animation: floatTooltip 2s infinite alternate ease-in-out;
         }}
 
         .tooltip-item {{
-            color: #ffffff; /* Ensures text inside tooltip is white */
+            color: #ffffff;
             margin-bottom: 4px;
         }}
     </style>
