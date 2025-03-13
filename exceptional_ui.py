@@ -251,7 +251,7 @@ def setup_tooltip_behavior(unique_id):
             visibility: hidden;
             opacity: 0;
             width: 400px; /* Fixed width */
-            background: rgba(23, 33, 43, 0.9); /* Increased transparency for a natural light effect */
+            background: rgba(23, 33, 43, 0.5); /* Increased transparency for a natural light effect */
             color: #ffffff; /* White text for contrast */
             padding: 12px;
             border-radius: 12px;
