@@ -478,51 +478,43 @@ class TooltipCanvas:
             {tooltip_content}
         </div>
         """
-
-    def _generate_tooltip_css(self):
-        """Generates CSS styles dynamically based on class settings."""
-        tooltip_styles = self.tooltip_styles["tc-tooltip-content"]
-        tooltip_content_style = "; ".join(f"{k}: {v}" for k, v in tooltip_styles.items())
-        grid_styles = "; ".join(f"{k}: {v}" for k, v in self.tooltip_styles["tc-tooltip-grid"].items())
-        animation_name = self.animation_styles["name"]
-        animation_css = self.animation_styles["animation"]
-        keyframes_css = self.animation_styles["keyframes"]
-
-        return f"""
-        <style>
-            {animation_name} {{
-                {animation_css}
-            }}
-
-            .tc-tooltip-container {{
-                position: relative;
-                display: inline-block;
-                cursor: pointer;
-            }}
-
-            .tc-tooltip-trigger {{
-                text-decoration: underline;
-                color: #0077cc;
-                cursor: pointer;
-            }}
-
-            .tc-tooltip-content {{
-                {tooltip_content_style}
-                animation: {animation_name};
-            }}
-
-            .tc-tooltip-grid {{
-                {grid_styles}
-            }}
-
-            .tc-tooltip-container:hover .tc-tooltip-content {{
-                visibility: visible;
-                opacity: 1;
-                transform: translateX(-50%) translateY(0px);
-            }}
-        </style>
-        """
-    
+         def _generate_tooltip_css(self, element_id: str) -> str:
+             """Generate the CSS styles for the tooltip, scoped to the specific element_id."""
+             tooltip_class = f".{element_id}-tooltip"
+             tooltip_content_class = f".{element_id}-tooltip-content"
+         
+             return f"""
+                 <style>
+                     {tooltip_class} {{
+                         position: relative;
+                         display: inline-block;
+                     }}
+                     {tooltip_class} .tooltip-content {{
+                         position: absolute;
+                         background-color: {self.styles["background-color"]};
+                         color: {self.styles["color"]};
+                         padding: {self.styles["padding"]};
+                         border-radius: {self.styles["border-radius"]};
+                         box-shadow: {self.styles["box-shadow"]};
+                         text-align: center;
+                         visibility: hidden;
+                         opacity: 0;
+                         transition: opacity {self.styles["transition"]};
+                         transform: translateX(-50%) translateY(0px);
+                     }}
+                     {tooltip_class}:hover .tooltip-content {{
+                         visibility: visible;
+                         opacity: 1;
+                         animation: floatTooltip {self.animation_styles["duration"]} infinite;
+                     }}
+                     @keyframes floatTooltip {{
+                         0%   {{ transform: translateX(-50%) translateY(0px); }}
+                         50%  {{ transform: translateX(-50%) translateY({self.animation_styles["float-distance"]}); }}
+                         100% {{ transform: translateX(-50%) translateY(0px); }}
+                     }}
+                 </style>
+             """
+             return css_code    
     def apply_tooltip(self, element_id, content):
         """Applies the tooltip with user-defined content."""
         tooltip_html = self._define_tooltip(content, element_id)
@@ -557,3 +549,42 @@ class TooltipCanvas:
             """,
             unsafe_allow_html=True,
         )
+
+
+    def _generate_tooltip_css(self, element_id: str) -> str:
+        """Generate the CSS styles for the tooltip, scoped to the specific element_id."""
+        tooltip_class = f".{element_id}-tooltip"
+        tooltip_content_class = f".{element_id}-tooltip-content"
+
+        return f"""
+            <style>
+            {tooltip_class} {{
+                position: relative;
+                display: inline-block;
+            }}
+            {tooltip_class} .tooltip-content {{
+                position: absolute;
+                background-color: {self.styles["background-color"]};
+                color: {self.styles["color"]};
+                padding: {self.styles["padding"]};
+                border-radius: {self.styles["border-radius"]};
+                box-shadow: {self.styles["box-shadow"]};
+                text-align: center;
+                visibility: hidden;
+                opacity: 0;
+                transition: opacity {self.styles["transition"]};
+                transform: translateX(-50%) translateY(0px);
+            }}
+            {tooltip_class}:hover .tooltip-content {{
+                visibility: visible;
+                opacity: 1;
+                animation: floatTooltip {self.animation_styles["duration"]} infinite;
+            }}
+            @keyframes floatTooltip {{
+                0%   {{ transform: translateX(-50%) translateY(0px); }}
+                50%  {{ transform: translateX(-50%) translateY({self.animation_styles["float-distance"]}); }}
+                100% {{ transform: translateX(-50%) translateY(0px); }}
+            }}
+        </style>
+        """
+        return css_code
