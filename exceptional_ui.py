@@ -241,8 +241,8 @@ def setup_tooltip_behavior(unique_id):
         }}
 
         .tooltip-trigger {{
-            color: #007ACC;  /* Soft blue for readability */
-            border-bottom: 1px dashed #007ACC;
+            color: #17212B;  /* Telegram Night Mode Blue */
+            border-bottom: 1px dashed #17212B; /* Same color for a subtle underline */
             cursor: pointer;
             position: relative;
         }}
