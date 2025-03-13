@@ -363,43 +363,20 @@ class RecommendationSystem(PortfolioSection):
                 )
     #
     def _fetch_files(self, repo_name):
-        """Fetches all files from a given repository name.
+        """Fetches all file paths associated with a given repository name.
         
         Parameters:
             - repo_name (str): The name of the repository.
         
         Returns:
-            - list: A list of file paths relative to the repository.
+            - list: A list of file paths belonging to the given repository.
         """
-        repo_metadata = next((repo for repo in self.repos_metadata if repo["title"].lower() == repo_name.lower()), None)
-        
-        if not repo_metadata:
-            return []
+        return [
+            item["file_path"]
+            for item in self.metadata_list
+            if item["repo_name"].lower() == repo_name.lower()
+        ]
 
-        repo_path = repo_metadata.get("local_path")  # Assuming the repo's local path is stored in metadata
-        
-        if not repo_path or not os.path.exists(repo_path):
-            return []
-
-        file_list = []
-        for root, _, files in os.walk(repo_path):
-            for file in files:
-                file_list.append(os.path.relpath(os.path.join(root, file), repo_path))
-
-        return file_list
-    
-        # Code sample count section
-        project_title = project_metadata['title'].lower()
-        sample_count = self.project_item_counts.get(project_title, 0)
-        sample_html = f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%; color:#3A86FF; font-size:105%; font-weight:95%;'>💾 {sample_count} code samples indexed</div>"
-        st.markdown(sample_html, unsafe_allow_html=True)
-    
-        # Media placeholder
-        #st.markdown("<br>", unsafe_allow_html=True)
-        self.media_placeholder = st.empty()
-    
-        # Render media content
-        self._render_media_content(video_path)
     
     def _render_media_content(self, video_path):
         """Handles the rendering of media content (either Galleria or Video)."""
