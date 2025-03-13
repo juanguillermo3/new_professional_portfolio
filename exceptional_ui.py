@@ -176,6 +176,10 @@ import hashlib
 import html
 from datetime import datetime
 
+import hashlib
+import html
+from datetime import datetime
+
 def html_for_tooltip_from_large_list(items, label, color="#007ACC", emoji=None):
     """
     Generates an HTML snippet displaying a summarized preview of a list with a tooltip that appears on hover.
@@ -199,12 +203,7 @@ def html_for_tooltip_from_large_list(items, label, color="#007ACC", emoji=None):
 
     summary = f"(and {len(items) - 1} more {label.lower()})" if len(items) > 1 else ""
 
-    # Allow text wrapping by making display inline with `word-wrap: break-word;`
-    visible_text = f"""
-    <span id="{unique_id}" class="tooltip-trigger" style="display: inline; word-wrap: break-word;">
-        {first_item} {summary}
-    </span>
-    """
+    visible_text = f'<span id="{unique_id}" class="tooltip-trigger">{first_item} {summary}</span>'
 
     tooltip_content = "".join(
         f'<div class="tooltip-item">{(emoji + " " if emoji else "")}{html.escape(item)}</div>'
@@ -222,6 +221,7 @@ def html_for_tooltip_from_large_list(items, label, color="#007ACC", emoji=None):
     """
 
     return tooltip_html, unique_id
+
 
 
 
