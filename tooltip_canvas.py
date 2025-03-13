@@ -159,16 +159,18 @@ class TooltipCanvas:
                 position: relative;
             }}
 
-            #{element_id}:hover + .{tooltip_class} {{
+            .{tooltip_class} {{
+                {tooltip_styles};
+                animation: {animation_styles};
+            }}
+            
+            #{element_id}:hover ~ .{tooltip_class} {{
                 visibility: visible;
                 opacity: 1;
                 transform: translateX(-50%) translateY(0px);
             }}
 
-            .{tooltip_class} {{
-                {tooltip_styles};
-                animation: {animation_styles};
-            }}
+
             
         </style>
         """
