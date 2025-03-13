@@ -108,10 +108,10 @@ class TooltipCanvas:
         test_id = "test-tooltip"
         
         st.markdown(
-            f'<div class="tc-tooltip-container">
+            f"""<div class="tc-tooltip-container">
                 <span id="{test_id}" class="tc-tooltip-trigger">I am a tooltip trigger</span>
                 <div class="tc-tooltip-{test_id}">I am a tooltip attached</div>
-            </div>',
+            </div>""",
             unsafe_allow_html=True
         )
         
