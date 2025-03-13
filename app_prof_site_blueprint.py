@@ -99,3 +99,11 @@ for section_name, module in SECTIONS.items():
         module.render()
         render_section_separator()
 
+
+from tooltip_canvas import TooltipCanvas
+
+# Instantiate the tooltip system
+tooltip_system = TooltipCanvas()
+
+# Render the test case
+tooltip_system.render_test_case()
