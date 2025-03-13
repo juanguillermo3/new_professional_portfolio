@@ -95,7 +95,7 @@ class TooltipCanvas:
 
     def apply_tooltip(self, element_id: str, content: str):
         """Applies a tooltip to an existing element by injecting the required HTML & CSS."""
-        tooltip_html = self._define_tooltip(content, element_id)
+        tooltip_html = self. _define_tooltip_html(content, element_id)
         tooltip_css = self._generate_tooltip_css(element_id)
 
         st.markdown(tooltip_css, unsafe_allow_html=True)
