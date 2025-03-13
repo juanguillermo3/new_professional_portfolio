@@ -13,40 +13,6 @@ import streamlit as st
 import time
 import streamlit as st
 
-# Default tooltip content styling
-DEFAULT_TOOLTIP_STYLES = {
-    "visibility": "hidden",
-    "opacity": "0",
-    "width": "300px",
-    "background": "rgba(23, 33, 43, 0.5)",
-    "color": "#ffffff",
-    "padding": "10px",
-    "position": "absolute",
-    "border": "1px solid rgba(255, 255, 255, 0.9)",
-    "border-radius": "5px",
-    "box-shadow": "0px 4px 20px rgba(255, 255, 255, 0.1)",
-    "left": "50%",
-    "top": "100%",
-    "transform": "translateX(-50%) translateY(-5px)",
-    "transition": "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out",
-    "opacity": "0",
-    "position": "absolute",
-}
-
-# Default animation styles
-DEFAULT_ANIMATION_STYLES = {
-    "name": "tooltip-fade",
-    "animation": "floatTooltip 1.5s ease-in-out infinite",
-    "keyframes": """
-    @keyframes tooltipFloat {
-        0%   { transform: translateX(-50%) translateY(0px); }
-        50%  { transform: translateX(-50%) translateY(4px); }
-        100% { transform: translateX(-50%) translateY(0px); }
-    }
-    """
-}
-
-class TooltipCanvas:
     # Default tooltip content styling
     DEFAULT_TOOLTIP_STYLES = {
         "visibility": "hidden",
@@ -80,6 +46,8 @@ class TooltipCanvas:
         "animation": "floatTooltip 2s infinite ease-in-out"
     }
 
+class TooltipCanvas:
+
     def __init__(self, tooltip_styles=None, animation_styles=None):
         """
         Initializes the TooltipCanvas with optional styling overrides.
@@ -87,8 +55,8 @@ class TooltipCanvas:
         :param animation_styles: Dictionary to override tooltip animation styles.
         """
         self.timestamp = int(time.time())  # Forces CSS refresh
-        self.tooltip_styles = {**self.DEFAULT_TOOLTIP_STYLES, **(tooltip_styles or {})}
-        self.animation_styles = {**self.DEFAULT_ANIMATION_STYLES, **(animation_styles or {})}
+        self.tooltip_styles = {**DEFAULT_TOOLTIP_STYLES, **(tooltip_styles or {})}
+        self.animation_styles = {**DEFAULT_ANIMATION_STYLES, **(animation_styles or {})}
 
     def _define_tooltip(self, content: str, unique_id: str):
         """Private method to generate the tooltip HTML."""
