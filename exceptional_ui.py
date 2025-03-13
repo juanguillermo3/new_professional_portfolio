@@ -324,6 +324,45 @@ def html_for_tooltip_from_large_list(items, label, color="#007BFF", emoji=None):
     return tooltip_html, unique_id
 
 
+def html_for_tooltip_from_large_list(items, label, color="#007BFF", emoji=None):
+    """
+    Generates an HTML snippet displaying a summarized preview of a list with a tooltip that appears on hover.
+
+    Parameters:
+        - items (list of str): The list of items to display.
+        - label (str): Describes the type of items being enumerated.
+        - color (str): Color for the summary text (default: #007BFF).
+        - emoji (str, optional): Emoji prepended to each listed item.
+
+    Returns:
+        - tuple: (HTML snippet, unique tooltip ID)
+    """
+    if not items:
+        return f'<div style="color:gray;">No {label.lower()} listed</div>', None
+
+    # Compute a runtime unique hash based on the current timestamp
+    unique_id = hashlib.md5(datetime.now().isoformat().encode()).hexdigest()[:10]
+
+    first_item = html.escape(items[0])
+    summary = f"(and {len(items) - 1} more {label.lower()})" if len(items) > 1 else ""
+
+    visible_text = f'<span id="{unique_id}" class="tooltip-trigger">{first_item} {summary}</span>'
+
+    tooltip_content = "".join(
+        f'<div class="tooltip-item">{(emoji + " " if emoji else "")}{html.escape(item)}</div>'
+        for item in items
+    )
+
+    tooltip_html = f"""
+        {visible_text}
+        <div class="skills_tooltip-{unique_id}">
+            <strong>All {label} listed:</strong>
+            {tooltip_content}
+        </div>
+    """
+
+    return tooltip_html, unique_id
+
 def setup_tooltip_behavior(unique_id):
     """
     Injects the required CSS and behavior into Streamlit to activate the tooltip.
@@ -338,11 +377,6 @@ def setup_tooltip_behavior(unique_id):
     tooltip_css = f"""
     <style>
         /* Timestamp {timestamp} to force refresh */
-        .tooltip-container {{
-            position: relative;
-            display: inline-block;
-        }}
-
         .tooltip-trigger {{
             color: #007BFF;
             border-bottom: 1px dashed #007BFF;
@@ -361,31 +395,34 @@ def setup_tooltip_behavior(unique_id):
             position: absolute;
             left: 50%;
             top: 100%;  /* Closer placement */
-            max-width: 350px;
+            width: 400px; /* Fixed width policy */
             text-align: left;
             z-index: 10;
             border: 1px solid rgba(255, 255, 255, 0.2);
-            transform: translateX(-50%) translateY(5px);
-            transition: 
-                opacity 0.3s ease-in-out, 
-                visibility 0.3s ease-in-out, 
-                transform 0.3s ease-in-out;
+            transform: translateX(-50%) translateY(-10px) scale(0.95);
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out;
             overflow-wrap: break-word;
         }}
 
-        .tooltip-container:hover .skills_tooltip-{unique_id},
+        /* Floating animation */
+        @keyframes floatTooltip {{
+            0% {{ transform: translateX(-50%) translateY(0px); }}
+            100% {{ transform: translateX(-50%) translateY(5px); }}
+        }}
+
+        .tooltip-trigger:hover + .skills_tooltip-{unique_id},
         .skills_tooltip-{unique_id}:hover {{
             visibility: visible;
             opacity: 1;
-            transform: translateX(-50%) translateY(0px);
+            transform: translateX(-50%) translateY(0px) scale(1.0);
+            animation: floatTooltip 2s infinite alternate ease-in-out;
         }}
 
         .tooltip-item {{
-            color: #007BFF;
+            color: #ffffff; /* White font color */
             margin-bottom: 4px;
         }}
     </style>
     """
     return tooltip_css
-
 
