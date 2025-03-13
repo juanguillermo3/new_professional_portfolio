@@ -110,8 +110,8 @@ class TooltipCanvas:
             unsafe_allow_html=True
         )
 
-import streamlit as st
 import time
+import streamlit as st
 
 class TooltipCanvas:
     # Default tooltip content styling
@@ -158,13 +158,10 @@ class TooltipCanvas:
         self.animation_styles = {**self.DEFAULT_ANIMATION_STYLES, **(animation_styles or {})}
 
     def _define_tooltip(self, content: str, unique_id: str):
-        """Private method to generate the tooltip HTML."""
+        """Generates the tooltip HTML. The trigger element is assumed to exist."""
         return f"""
-        <div class="tc-tooltip-container">
-            <span id="{unique_id}" class="tc-tooltip-trigger">Hover me</span>
-            <div class="tc-tooltip-content tc-tooltip-{unique_id}">
-                {content}
-            </div>
+        <div class="tc-tooltip-content tc-tooltip-{unique_id}">
+            {content}
         </div>
         """
 
@@ -179,23 +176,12 @@ class TooltipCanvas:
             /* Timestamp {self.timestamp} to force refresh */
             {keyframes}
 
-            .tc-tooltip-container {{
-                display: inline;
-                position: relative;
-            }}
-
-            .tc-tooltip-trigger {{
-                color: rgb(0, 115, 177);
-                border-bottom: 1px dashed rgb(0, 115, 177);
-                cursor: pointer;
-            }}
-
             .tc-tooltip-content {{
                 {tooltip_styles};
                 animation: {animation_styles};
             }}
 
-            .tc-tooltip-container:hover .tc-tooltip-{element_id} {{
+            #{element_id}:hover + .tc-tooltip-{element_id} {{
                 visibility: visible;
                 opacity: 1;
                 transform: translateX(-50%) translateY(0px);
@@ -215,9 +201,9 @@ class TooltipCanvas:
         """Renders a test case for visual verification of tooltips."""
         test_id = "test-tooltip"
 
-        # Render a visible component
+        # Render a visible component that acts as the trigger
         st.markdown(
-            f'<div id="{test_id}" class="tc-test-box">I have a tooltip attached</div>',
+            f'<div id="{test_id}" class="tc-test-box">Hover over me!</div>',
             unsafe_allow_html=True
         )
 
@@ -242,9 +228,6 @@ class TooltipCanvas:
             """,
             unsafe_allow_html=True
         )
-
-
-
 
 
 
