@@ -165,6 +165,10 @@ class TooltipCanvas:
                 transform: translateX(-50%) translateY(0px);
             }}
 
-
+            .{tooltip_class} {{
+                {tooltip_styles};
+                animation: {animation_styles};
+            }}
+            
         </style>
         """
