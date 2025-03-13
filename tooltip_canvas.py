@@ -144,34 +144,4 @@ class TooltipCanvas:
             unsafe_allow_html=True
         )
 
-    def _define_tooltip(self, content: str, unique_id: str):
-        """Private method to generate only the tooltip HTML (excluding the trigger)."""
-        return f"""
-        <div class="tc-tooltip-content tc-tooltip-{unique_id}">
-            {content}
-        </div>
-        """
 
-    def _generate_tooltip_css(self, element_id: str):
-        """Generates the CSS styles, assuming the provided element_id is the hover trigger."""
-        tooltip_styles = "; ".join(f"{k}: {v}" for k, v in self.tooltip_styles.items())
-        animation_styles = self.animation_styles["animation"]
-        keyframes = self.animation_styles["keyframes"]
-
-        return f"""
-        <style>
-            /* Timestamp {self.timestamp} to force refresh */
-            {keyframes}
-
-        .    tc-tooltip-content {{
-                {tooltip_styles};
-                animation: {animation_styles};
-            }}
-
-            #{element_id}:hover + .tc-tooltip-content {{
-                visibility: visible;
-                opacity: 1;
-                transform: translateX(-50%) translateY(0px);
-            }}
-        </style>
-        """
