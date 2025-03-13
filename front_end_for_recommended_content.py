@@ -125,111 +125,53 @@ def html_for_milestones_from_project_metadata(project_metadata, milestone_type="
     """
 
 
-def html_for_tooltip_from_large_list(items, label, color="#007BFF", emoji=None):
-    """
-    Generates an HTML snippet displaying a summarized preview of a list with a tooltip that appears on hover.
+def html_for_item_data(
+     rec,
+     badge_rules=None,
+     background_color="#f4f4f4",
+     border_style="1px solid #ddd",
+     card_height="150px",
+     post_fix="_card"
+ ):
+     """
+     Generate an HTML snippet for a recommended item card dynamically.
+ 
+     Parameters:
+     - rec (dict): Dictionary containing item metadata.
+ 
+     Returns:
+     - str: A formatted HTML string representing the item card.
+     """
 
-    Parameters:
-        - items (list of str): The list of items to display.
-        - label (str): Describes the type of items being enumerated.
-        - color (str): Color for the summary text (default: #007BFF).
-        - emoji (str, optional): Emoji prepended to each listed item.
+     # Unique ID based on timestamp hash
+     card_id = f"card_{hash(time.time())}"
+ 
+     # Apply the badge system
+     title = apply_badges_to_item_title(rec, badge_rules)
 
-    Returns:
-        - tuple: (HTML snippet, unique tooltip ID)
-    """
-    if not items:
-        return f'<div style="color:gray;">No {label.lower()} listed</div>', None
-
-    # Compute a runtime unique hash based on the current timestamp
-    unique_id = hashlib.md5(datetime.now().isoformat().encode()).hexdigest()[:10]
-
-    first_item = html.escape(items[0])
-    summary = f"(and {len(items) - 1} more {label.lower()})" if len(items) > 1 else ""
-
-    visible_text = f'<span id="trigger-{unique_id}" class="tooltip-trigger">{first_item} {summary}</span>'
-
-    tooltip_content = "".join(
-        f'<div class="tooltip-item">{(emoji + " " if emoji else "")}{html.escape(item)}</div>'
-        for item in items
-    )
-
-    tooltip_html = f"""
-        <div style="position: relative; display: inline-block;">
-            {visible_text}
-            <div id="tooltip-{unique_id}" class="skills_tooltip">
-                <strong>All {label} listed:</strong>
-                {tooltip_content}
-            </div>
-        </div>
-    """
-
-    return tooltip_html, unique_id
-
-def setup_tooltip_behavior(unique_id):
-    """
-    Injects the required CSS and behavior into Streamlit to activate the tooltip.
-    """
-    import time
-    if not unique_id:
-        return ""
-
-    timestamp = int(time.time())  # Forces Streamlit to refresh styles
-
-    tooltip_css = f"""
-    <style>
-        /* Timestamp {timestamp} to force refresh */
-        .tooltip-trigger {{
-            color: #007BFF;
-            border-bottom: 1px dashed #007BFF;
-            cursor: pointer;
-            position: relative;
-        }}
-
-        #tooltip-{unique_id} {{
-            visibility: hidden;
-            opacity: 0;
-            width: 400px;
-            background: rgba(20, 20, 20, 0.9);
-            color: white;
-            padding: 12px;
-            border-radius: 8px;
-            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
-            position: absolute;
-            left: 50%;
-            top: 100%;  /* Start just below trigger */
-            text-align: left;
-            z-index: 10;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transform: translateX(-50%) translateY(-5px);
-            transition: 
-                opacity 0.3s ease-in-out, 
-                visibility 0.3s ease-in-out, 
-                transform 0.3s ease-in-out;
-            overflow-wrap: break-word;
-        }}
-
-        /* Floating animation */
-        @keyframes floatTooltip {{
-            0% {{ transform: translateX(-50%) translateY(0px); }}
-            100% {{ transform: translateX(-50%) translateY(5px); }}
-        }}
-
-        #trigger-{unique_id}:hover + #tooltip-{unique_id},
-        #tooltip-{unique_id}:hover {{
-            visibility: visible;
-            opacity: 1;
-            transform: translateX(-50%) translateY(0px);
-            animation: floatTooltip 2s infinite alternate ease-in-out;
-        }}
-
-        .tooltip-item {{
-            color: #007BFF;
-            margin-bottom: 4px;
-        }}
-    </style>
-    """
-    return tooltip_css
+     # Escape description to prevent HTML injection
+     description = html.escape(rec.get("description", "No description available."))
+ 
+     # Return the HTML structure
+     return f"""
+         <div id="{card_id}" style="background-color: {background_color}; border: {border_style}; 
+                     border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+                     height: {card_height}; 
+                     display: flex; align-items: center; justify-content: center;
+                     padding: 10px; text-align: center; font-size: 16px; 
+                     font-weight: bold; cursor: pointer; margin: 10px;">
+             <div style="background-color: rgba(255, 255, 255, 0.7); 
+                         padding: 5px 10px; border-radius: 10px; width: auto; max-width: 100%;">
+                 {title}
+             </div>
+         </div>
+     """ + _custom_tooltip_with_frost_glass_html(
+         card_id,
+         description,
+         tooltip_top_pos="100%",  # Places it below the element
+         tooltip_bottom_pos="auto",  # Removes default positioning
+         tooltip_width="120%"
+     )
 
 
 
