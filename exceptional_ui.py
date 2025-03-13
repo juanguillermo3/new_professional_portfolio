@@ -239,9 +239,11 @@ def setup_tooltip_behavior(unique_id):
     tooltip_css = f"""
     <style>
         /* Timestamp {timestamp} to force refresh */
+        
         .tooltip-container {{
-            position: relative;
-            display: inline-block;
+            display: inline;  /* Allows sentence wrapping */
+            position: relative;  /* Ensures tooltip positioning */
+            word-wrap: break-word; /* Ensures long words wrap properly */
         }}
 
         .tooltip-trigger {{
