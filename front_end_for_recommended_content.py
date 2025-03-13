@@ -42,9 +42,6 @@ def id_from_item_data(rec, fields=["title", "description"]):
 
 import html
 
-
-import html
-
 def html_for_milestones(milestones=None, project_metadata=None, milestone_type="achieved_milestones"):
     """
     Generates an HTML snippet for displaying milestones with a tooltip.
@@ -131,6 +128,7 @@ def html_for_milestones(milestones=None, project_metadata=None, milestone_type="
         }}
     </style>
     """
+
 
 
 def html_for_item_data(
