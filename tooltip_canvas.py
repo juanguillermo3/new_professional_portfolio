@@ -14,7 +14,7 @@ import streamlit as st
 #
 #
 #
-class TooltipCanvas:
+ class TooltipCanvas:
     # Default tooltip content styling
     DEFAULT_TOOLTIP_STYLES = {
         "visibility": "hidden",
@@ -62,6 +62,7 @@ class TooltipCanvas:
         """Private method to generate the tooltip HTML."""
         return f"""
         <div class="tc-tooltip-container">
+            <span id="{unique_id}" class="tc-tooltip-trigger">Hover me</span>
             <div class="tc-tooltip-content tc-tooltip-{unique_id}">
                 {content}
             </div>
@@ -84,15 +85,21 @@ class TooltipCanvas:
                 position: relative;
             }}
 
+            .tc-tooltip-trigger {{
+                color: rgb(0, 115, 177);
+                border-bottom: 1px dashed rgb(0, 115, 177);
+                cursor: pointer;
+            }}
+
             .tc-tooltip-content {{
                 {tooltip_styles};
                 animation: {animation_styles};
             }}
 
-            #{element_id}:hover + .tc-tooltip-container .tc-tooltip-content-{unique_id} {{
+            .tc-tooltip-container:hover .tc-tooltip-{element_id} {{
                 visibility: visible;
                 opacity: 1;
-                transform: translateX(-50%) translateY(0);
+                transform: translateX(-50%) translateY(0px);
             }}
         </style>
         """
@@ -136,5 +143,4 @@ class TooltipCanvas:
             """,
             unsafe_allow_html=True
         )
-
 
