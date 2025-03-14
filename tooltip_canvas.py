@@ -107,46 +107,6 @@ class TooltipCanvas:
         st.markdown(tooltip_css, unsafe_allow_html=True)
         st.markdown(tooltip_html, unsafe_allow_html=True)
 
-    def render_test_case(self):
-        """Renders a test case for visual verification of tooltips with grid layout."""
-        test_id = "test-tooltip"
-    
-        # Define test data (list of lists for grid structure)
-        test_content = [
-            ["First Column - Row 1", "First Column - Row 2"],
-            ["Second Column - Row 1", "Second Column - Row 2", "Second Column - Row 3"],
-            ["Third Column - Row 1"]
-        ]
-    
-        # Render a visible test component
-        st.markdown(
-            f'<div id="{test_id}" class="tc-test-box">Hover over me for a tooltip grid!</div>',
-            unsafe_allow_html=True
-        )
-    
-        # Apply tooltip with grid structure
-        self.apply_tooltip(test_id, test_content)
-    
-        # Additional styling for the test box and layout
-        st.markdown(
-            """
-            <style>
-                .tc-test-box {
-                    background: #ddd;
-                    padding: 15px;
-                    border-radius: 8px;
-                    text-align: center;
-                    color: #333;
-                    font-weight: bold;
-                    display: inline-block;
-                    margin-top: 20px;
-                    cursor: pointer;
-                }
-            </style>
-            """,
-            unsafe_allow_html=True
-        )
-    
 
     def _define_tooltip(self, content: Union[str, List[Union[str, List[str]]]], element_id: str):
         """Generates the tooltip HTML, supporting multiple lists rendered in a flexible grid layout."""
@@ -252,3 +212,55 @@ class TooltipCanvas:
             unsafe_allow_html=True
         )
 
+            def _generate_tooltip_trigger(self, element_id: str, visible_text: str = "Hover me") -> str:
+        """Generates the HTML for the visible tooltip trigger element."""
+        return f'<span id="{element_id}" class="tc-tooltip-trigger">{visible_text}</span>'
+
+    def _define_tooltip(self, content: Union[str, List[Union[str, List[str]]]], element_id: str, visible_text: str = "Hover me") -> str:
+        """Generates the tooltip HTML, supporting multiple lists rendered in a flexible grid layout."""
+        
+        # Ensure content is always a list of lists
+        if isinstance(content, str):
+            content = [[content]]  # Wrap in a nested list
+        elif isinstance(content, list) and all(isinstance(item, str) for item in content):
+            content = [content]  # Wrap in a single column
+    
+        # Generate HTML for the tooltip grid
+        grid_columns = "".join(
+            f'<div class="tc-tooltip-column">{" ".join(f"<div class=\'tc-tooltip-item\'>{item}</div>" for item in sublist)}</div>'
+            for sublist in content
+        )
+        
+        return f'''
+        <div class="tc-tooltip-container">
+            {self._generate_tooltip_trigger(element_id, visible_text)}
+            <div class="tc-tooltip-content tc-tooltip-{element_id}">
+                <div class="tc-tooltip-grid">
+                    {grid_columns}
+                </div>
+            </div>
+        </div>
+        '''
+        
+    def apply_tooltip(self, element_id: str, content: str, visible_text: str = "Hover me"):
+        """Applies a tooltip to an existing element by injecting the required HTML & CSS."""
+        tooltip_html = self._define_tooltip(content, element_id, visible_text)
+        tooltip_css = self._generate_tooltip_css(element_id)
+
+        st.markdown(tooltip_css, unsafe_allow_html=True)
+        st.markdown(tooltip_html, unsafe_allow_html=True)
+
+    def render_test_case(self):
+        """Renders a test case for visual verification of tooltips with grid layout."""
+        test_id = "test-tooltip"
+    
+        # Define test data (list of lists for grid structure)
+        test_content = [
+            ["First Column - Row 1", "First Column - Row 2"],
+            ["Second Column - Row 1", "Second Column - Row 2", "Second Column - Row 3"],
+            ["Third Column - Row 1"]
+        ]
+    
+        # Apply tooltip with grid structure
+        self.apply_tooltip(test_id, test_content, visible_text="Hoover to show the tooltip")
+    
