@@ -1,6 +1,6 @@
 import streamlit as st
 
-def html_for_media_carousel(media_items, carousel_id="media-carousel"):
+def media_carousel(media_items, carousel_id="media-carousel"):
     """
     Generates a simple HTML and CSS-based media carousel with navigation.
 
@@ -8,27 +8,28 @@ def html_for_media_carousel(media_items, carousel_id="media-carousel"):
     :param carousel_id: Unique ID for the carousel container.
     :return: HTML string for the carousel.
     """
-    # Generate carousel slides
+    num_items = len(media_items)
+    if num_items == 0:
+        return "<p>No media available</p>"
+
+    # Generate radio inputs and carousel items
     slides_html = "".join([
-        f'<input type="radio" name="carousel" id="slide{i}" {"checked" if i == 0 else ""}>'
-        f'<div class="carousel-item"><img src="{item["src"]}" alt="{item.get("alt", "Media Image")}"></div>'
+        f'<input type="radio" id="{carousel_id}-slide{i}" name="{carousel_id}-radio" '
+        f'{"checked" if i == 0 else ""}><div class="carousel-item">'
+        f'<img src="{item["src"]}" alt="{item.get("alt", f"Image {i+1}")}"></div>'
         for i, item in enumerate(media_items)
     ])
 
-    # Generate navigation labels
+    # Generate navigation buttons
     nav_html = "".join([
-        f'<label for="slide{i}" class="nav-btn"></label>'
-        for i in range(len(media_items))
+        f'<label for="{carousel_id}-slide{i}" class="nav-btn"></label>'
+        for i in range(num_items)
     ])
 
     return f"""
     <div class="carousel-container">
-        <div class="carousel-track">
-            {slides_html}
-        </div>
-        <div class="carousel-nav">
-            {nav_html}
-        </div>
+        {slides_html}
+        <div class="carousel-nav">{nav_html}</div>
     </div>
 
     <style>
@@ -42,14 +43,7 @@ def html_for_media_carousel(media_items, carousel_id="media-carousel"):
             text-align: center;
         }}
 
-        .carousel-track {{
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-            width: 100%;
-        }}
-
         .carousel-item {{
-            flex: 0 0 100%;
             display: none;
         }}
 
@@ -59,16 +53,15 @@ def html_for_media_carousel(media_items, carousel_id="media-carousel"):
             border-radius: 10px;
         }}
 
-        input[name="carousel"] {{
+        input[name="{carousel_id}-radio"] {{
             display: none;
         }}
 
         /* Show the selected slide */
-        input[name="carousel"]:nth-of-type(1):checked ~ .carousel-track .carousel-item:nth-of-type(1),
-        input[name="carousel"]:nth-of-type(2):checked ~ .carousel-track .carousel-item:nth-of-type(2),
-        input[name="carousel"]:nth-of-type(3):checked ~ .carousel-track .carousel-item:nth-of-type(3) {{
-            display: block;
-        }}
+        {''.join([
+            f'input[id="{carousel_id}-slide{i}"]:checked ~ .carousel-item:nth-of-type({i+1}) {{ display: block; }}'
+            for i in range(num_items)
+        ])}
 
         /* Navigation buttons */
         .carousel-nav {{
@@ -90,13 +83,13 @@ def html_for_media_carousel(media_items, carousel_id="media-carousel"):
         }}
 
         /* Selected indicator */
-        input[name="carousel"]:nth-of-type(1):checked ~ .carousel-nav label:nth-of-type(1),
-        input[name="carousel"]:nth-of-type(2):checked ~ .carousel-nav label:nth-of-type(2),
-        input[name="carousel"]:nth-of-type(3):checked ~ .carousel-nav label:nth-of-type(3) {{
-            background: black;
-        }}
+        {''.join([
+            f'input[id="{carousel_id}-slide{i}"]:checked ~ .carousel-nav label:nth-of-type({i+1}) {{ background: black; }}'
+            for i in range(num_items)
+        ])}
     </style>
     """
+
 
 # Example usage:
 dummy_media_list = [
