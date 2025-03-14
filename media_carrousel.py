@@ -1,6 +1,6 @@
 import streamlit as st
 
-def media_carousel(media_items, carousel_id="media-carousel"):
+def html_for_media_carousel(media_items, carousel_id="media-carousel"):
     """
     Generates a simple HTML and CSS-based media carousel with navigation.
 
