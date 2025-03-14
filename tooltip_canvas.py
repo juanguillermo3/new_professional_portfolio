@@ -13,7 +13,7 @@ import streamlit as st
 import time
 import streamlit as st
 from typing import Union, List
-from media_carrousel import html_for_media_carousel
+from media_carrousel import html_for_media_carousel, dummy_media_list 
          
 # Default tooltip content styling
 DEFAULT_TOOLTIP_STYLES = {
@@ -219,10 +219,7 @@ class TooltipCanvas:
             [
                 "<span style='color: blue;'>Second Column - Row 1</span>",
                 "<u>Second Column - Row 2</u>",
-                html_for_media_carousel([
-                         {"src": "https://archive.org/download/placeholder-image/placeholder-image.jpg", "alt": "Placeholder Image"},
-                         {"src": "https://media.istockphoto.com/id/1226328537/vector/image-place-holder-with-a-gray-camera-icon.jpg", "alt": "iStock Placeholder"}
-                ])
+                html_for_media_carousel([ dummy_media_list ])
             ],
             ["<button onclick='alert(\"Clicked!\")'>Click Me</button>"]
         ]
