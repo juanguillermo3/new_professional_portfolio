@@ -137,7 +137,7 @@ class TooltipCanvas:
         )
 
         # Apply tooltip to the test element
-        self.apply_tooltip(test_id, "I am the tooltip!")
+        self.apply_tooltip(test_id, ["I am the tooltip!",["I am a second tooltip!"] )
 
         # Additional styling for the test box
         st.markdown(
