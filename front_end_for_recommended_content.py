@@ -10,11 +10,15 @@ import re
 import hashlib
 import html
 from html import escape
-from exceptional_ui import _custom_tooltip_html
-from badges_for_item_data import apply_badges_to_item_title
-#from biotech_lab import frost_glass_mosaic, _custom_tooltip_with_frost_glass_html, frost_glass_mosaic
 import time
 import html
+
+from exceptional_ui import _custom_tooltip_html
+from badges_for_item_data import apply_badges_to_item_title
+from tooltip_canvas import TooltipCanvas
+
+# Instantiate the tooltip system
+tooltip_system = TooltipCanvas()
 
 
 def id_from_item_data(rec, fields=["title", "description"]):
@@ -156,6 +160,14 @@ def html_for_item_data(
 
      # Escape description to prevent HTML injection
      description = html.escape(rec.get("description", "No description available."))
+
+     tooltip_html, tooltip_styles = tooltip_system.html_to_apply_tooltip(
+         element_id: "card_id"
+         content=[
+             [title, description]
+         ],
+         visible_text = "See more"
+         )
  
      # Return the HTML structure
      return f"""
@@ -170,7 +182,9 @@ def html_for_item_data(
                  {title}
              </div>
          </div>
-     """ 
+     """ + tooltip_html + tooltip_styles
+
+     
 
 
 
