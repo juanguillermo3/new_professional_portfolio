@@ -173,3 +173,38 @@ class TooltipCanvas:
         </div>
         """
 
+    def _generate_tooltip_css(self, element_id: str):
+        """Generates the CSS styles, applying user-defined overrides."""
+        tooltip_styles = "; ".join(f"{k}: {v}" for k, v in self.tooltip_styles.items())
+        animation_styles = self.animation_styles["animation"]
+        keyframes = self.animation_styles["keyframes"]
+
+        return f"""
+        <style>
+            /* Timestamp {self.timestamp} to force refresh */
+            {keyframes}
+
+            .tc-tooltip-container {{
+                display: inline;
+                position: relative;
+            }}
+
+            .tc-tooltip-trigger {{
+                color: rgb(0, 115, 177);
+                border-bottom: 1px dashed rgb(0, 115, 177);
+                cursor: pointer;
+            }}
+
+            .tc-tooltip-item {{
+                {tooltip_styles};
+                animation: {animation_styles};
+            }}
+
+            .tc-tooltip-container:hover .tc-tooltip-item {{
+                visibility: visible;
+                opacity: 1;
+                transform: translateX(-50%) translateY(0px);
+            }}
+        </style>
+        """
+
