@@ -184,33 +184,10 @@ class TooltipCanvas:
             ["<button onclick='alert(\"Clicked!\")'>Click Me</button>"]
         ]
     
-        # Render a visible test component
-        st.markdown(
-            f'<div id="{test_id}" class="tc-test-box">Hover over me for a tooltip grid!</div>',
-            unsafe_allow_html=True
-        )
     
         # Apply tooltip with grid structure
         self.apply_tooltip(test_id, test_content)
-    
-        # Additional styling for the test box and layout
-        st.markdown(
-            """
-            <style>
-                .tc-test-box {
-                    background: #ddd;
-                    padding: 15px;
-                    border-radius: 8px;
-                    text-align: center;
-                    color: #333;
-                    font-weight: bold;
-                    margin-top: 20px;
-                    cursor: pointer;
-                }
-            </style>
-            """,
-            unsafe_allow_html=True
-        )
+
 
     def _generate_tooltip_trigger(self, element_id: str, visible_text: str = "Hover me") -> str:
         """Generates the HTML for the visible tooltip trigger element."""
@@ -249,19 +226,4 @@ class TooltipCanvas:
 
         st.markdown(tooltip_css, unsafe_allow_html=True)
         st.markdown(tooltip_html, unsafe_allow_html=True)
-
-
-        # Define test data (arbitrary HTML content)
-        test_content = [
-            ["<strong>First Column - Row 1</strong>", "<em>First Column - Row 2</em>"],
-            [
-                "<span style='color: blue;'>Second Column - Row 1</span>",
-                "<u>Second Column - Row 2</u>",
-                html_for_media_carousel(dummy_media_list )
-            ],
-            ["<button onclick='alert(\"Clicked!\")'>Click Me</button>"]
-        ]
-    
-        # Apply tooltip with grid structure
-        self.apply_tooltip(test_id, test_content, visible_text="Hoover to show the tooltip")
     
