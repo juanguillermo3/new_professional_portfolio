@@ -55,6 +55,7 @@ class TooltipCanvas:
         :param animation_styles: Dictionary to override tooltip animation styles.
         """
         self.timestamp = int(time.time())  # Forces CSS refresh
+             
         self.tooltip_styles = {**DEFAULT_TOOLTIP_STYLES, **(tooltip_styles or {})}
         self.animation_styles = {**DEFAULT_ANIMATION_STYLES, **(animation_styles or {})}
 
@@ -85,11 +86,12 @@ class TooltipCanvas:
                 animation: {animation_styles};
             }}
 
-            .tc-tooltip-container:hover .tc-tooltip-{element_id} {{
+            #{element_id}:hover + .tc-tooltip-{element_id}{{
                 visibility: visible;
                 opacity: 1;
                 transform: translateX(-50%) translateY(0px);
             }}
+            
         </style>
         """
 
@@ -135,7 +137,9 @@ class TooltipCanvas:
 
     def _define_tooltip_html(self, content: str, unique_id: str):
         """Private method to generate the tooltip HTML."""
+             
         tooltip_class = f"tc-tooltip-{unique_id}"
+        
         return f"""
         <div class="{tooltip_class}">
             {content}
@@ -144,8 +148,11 @@ class TooltipCanvas:
 
     def _generate_tooltip_css(self, element_id: str):
         """Generates the CSS styles, applying user-defined overrides."""
+        
         tooltip_class = f"tc-tooltip-{element_id}"
+        
         tooltip_styles = "; ".join(f"{k}: {v}" for k, v in self.tooltip_styles.items())
+        
         animation_styles = self.animation_styles["animation"]
         keyframes = self.animation_styles["keyframes"]
 
