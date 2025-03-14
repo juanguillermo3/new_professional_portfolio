@@ -93,8 +93,8 @@ def html_for_media_carousel(media_items, carousel_id="media-carousel"):
 
 # Example usage:
 dummy_media_list = [
-    {"src": "https://archive.org/download/placeholder-image/placeholder-image.jpg", "alt": "Placeholder Image"},
-    {"src": "https://media.istockphoto.com/id/1226328537/vector/image-place-holder-with-a-gray-camera-icon.jpg", "alt": "iStock Placeholder"}
+    {"src": "https://media.istockphoto.com/id/1226328537/vector/image-place-holder-with-a-gray-camera-icon.jpg", "alt": "iStock Placeholder"},
+    {"src": "https://archive.org/download/placeholder-image/placeholder-image.jpg", "alt": "Placeholder Image"}
 ]
 
 #st.markdown(html_for_media_carousel(dummy_media_list), unsafe_allow_html=True)
