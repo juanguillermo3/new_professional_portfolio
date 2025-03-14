@@ -1,22 +1,34 @@
 import streamlit as st
 
-def html_for_media_carousel(media_items):
+def media_carousel(media_items, carousel_id="media-carousel"):
     """
-    Generates an HTML string for a simple media carousel with hardcoded inline styles.
-    
+    Generates a simple HTML and CSS-based media carousel with navigation.
+
     :param media_items: List of dictionaries with media properties (src, alt).
-    :return: String containing the carousel HTML.
+    :param carousel_id: Unique ID for the carousel container.
+    :return: HTML string for the carousel.
     """
+    # Generate carousel slides
     slides_html = "".join([
+        f'<input type="radio" name="carousel" id="slide{i}" {"checked" if i == 0 else ""}>'
         f'<div class="carousel-item"><img src="{item["src"]}" alt="{item.get("alt", "Media Image")}"></div>'
-        for item in media_items
+        for i, item in enumerate(media_items)
+    ])
+
+    # Generate navigation labels
+    nav_html = "".join([
+        f'<label for="slide{i}" class="nav-btn"></label>'
+        for i in range(len(media_items))
     ])
 
     return f"""
     <div class="carousel-container">
-        <div class="carousel-track">{slides_html}</div>
-        <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
-        <button class="next" onclick="moveSlide(1)">&#10095;</button>
+        <div class="carousel-track">
+            {slides_html}
+        </div>
+        <div class="carousel-nav">
+            {nav_html}
+        </div>
     </div>
 
     <style>
@@ -27,15 +39,18 @@ def html_for_media_carousel(media_items):
             overflow: hidden;
             border-radius: 10px;
             box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+            text-align: center;
         }}
 
         .carousel-track {{
             display: flex;
             transition: transform 0.5s ease-in-out;
+            width: 100%;
         }}
 
         .carousel-item {{
-            min-width: 100%;
+            flex: 0 0 100%;
+            display: none;
         }}
 
         .carousel-item img {{
@@ -44,24 +59,53 @@ def html_for_media_carousel(media_items):
             border-radius: 10px;
         }}
 
-        .prev, .next {{
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            cursor: pointer;
-            font-size: 18px;
-            border-radius: 50%;
+        input[name="carousel"] {{
+            display: none;
         }}
 
-        .prev {{ left: 10px; }}
-        .next {{ right: 10px; }}
+        /* Show the selected slide */
+        input[name="carousel"]:nth-of-type(1):checked ~ .carousel-track .carousel-item:nth-of-type(1),
+        input[name="carousel"]:nth-of-type(2):checked ~ .carousel-track .carousel-item:nth-of-type(2),
+        input[name="carousel"]:nth-of-type(3):checked ~ .carousel-track .carousel-item:nth-of-type(3) {{
+            display: block;
+        }}
+
+        /* Navigation buttons */
+        .carousel-nav {{
+            margin-top: 10px;
+        }}
+
+        .nav-btn {{
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            margin: 0 5px;
+            background: gray;
+            border-radius: 50%;
+            cursor: pointer;
+        }}
+
+        .nav-btn:hover {{
+            background: black;
+        }}
+
+        /* Selected indicator */
+        input[name="carousel"]:nth-of-type(1):checked ~ .carousel-nav label:nth-of-type(1),
+        input[name="carousel"]:nth-of-type(2):checked ~ .carousel-nav label:nth-of-type(2),
+        input[name="carousel"]:nth-of-type(3):checked ~ .carousel-nav label:nth-of-type(3) {{
+            background: black;
+        }}
     </style>
     """
 
+# Example usage:
+media_items = [
+    {"src": "https://via.placeholder.com/600x400", "alt": "Image 1"},
+    {"src": "https://via.placeholder.com/600x400/FF5733", "alt": "Image 2"},
+    {"src": "https://via.placeholder.com/600x400/33FF57", "alt": "Image 3"},
+]
+
+st.markdown(media_carousel(media_items), unsafe_allow_html=True)
 
 
 # Example usage:
