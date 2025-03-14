@@ -182,7 +182,7 @@ def html_for_item_data(
                  {title}
              </div>
          </div>
-     """ + tooltip_html + tooltip_styles
+     """, tooltip_html, tooltip_styles
 
      
 
