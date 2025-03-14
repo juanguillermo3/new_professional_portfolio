@@ -135,7 +135,7 @@ class TooltipCanvas:
                 animation: {animation_styles};
             }}
 
-         .tc-test-box:hover #test {{
+         .tc-test-box:hover .tc-tooltip-test-tooltip {{
              visibility: hidden;
              opacity: 0;
              transform: translateX(-50%) translateY(0px);
