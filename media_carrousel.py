@@ -1,6 +1,6 @@
 import streamlit as st
 
-def media_carousel(media_items, carousel_id="media-carousel"):
+def html_for_media_carousel(media_items, carousel_id="media-carousel"):
     """
     Generates a simple HTML and CSS-based media carousel with navigation.
 
@@ -97,16 +97,6 @@ def media_carousel(media_items, carousel_id="media-carousel"):
         }}
     </style>
     """
-
-# Example usage:
-media_items = [
-    {"src": "https://via.placeholder.com/600x400", "alt": "Image 1"},
-    {"src": "https://via.placeholder.com/600x400/FF5733", "alt": "Image 2"},
-    {"src": "https://via.placeholder.com/600x400/33FF57", "alt": "Image 3"},
-]
-
-st.markdown(media_carousel(media_items), unsafe_allow_html=True)
-
 
 # Example usage:
 dummy_media_list = [
