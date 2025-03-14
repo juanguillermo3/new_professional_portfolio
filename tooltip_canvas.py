@@ -136,8 +136,8 @@ class TooltipCanvas:
             }}
 
          #{element_id}:hover .{tooltip_class} {{
-             visibility: visible;
-             opacity: 1;
+             visibility: hidden;
+             opacity: 0;
              transform: translateX(-50%) translateY(0px);
          }}
             
