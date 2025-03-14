@@ -113,7 +113,7 @@ class TooltipCanvas:
                 animation: {animation_styles};
             }}
 
-            .tc-tooltip-container:hover .tc-tooltip-{element_id} {{
+            .tc-tooltip-container:hover .tc-tooltip-item {{
                 visibility: visible;
                 opacity: 1;
                 transform: translateX(-50%) translateY(0px);
