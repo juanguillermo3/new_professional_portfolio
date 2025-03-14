@@ -243,7 +243,6 @@ class TooltipCanvas:
                     text-align: center;
                     color: #333;
                     font-weight: bold;
-                    display: inline-block;
                     margin-top: 20px;
                     cursor: pointer;
                 }
