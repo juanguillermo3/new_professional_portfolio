@@ -117,25 +117,29 @@ def html_for_media_carousel(media_items):
     </style>
     """
 
-def html_for_media_carousel(media_items):
-    """
-    Generates an HTML string for a simple media carousel with inline styles.
-    
-    :param media_items: List of dictionaries with media properties (src, alt).
-    :return: String containing the carousel HTML.
-    """
+def html_for_media_carousel_with_auto_scroll(media_items):
     slides_html = "".join([
         f'<div class="carousel-item" style="flex: 0 0 100%;"><img src="{item["src"]}" alt="{item.get("alt", "Media Image")}" style="width: 100%; height: auto; border-radius: 10px;"></div>'
         for item in media_items
     ])
 
     return f"""
-    <div style="position: relative; width: 60%; max-width: 600px; overflow: hidden; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0,0,0,0.2);">
-        <div class="carousel-track" style="display: flex; transition: transform 0.5s ease-in-out;">{slides_html}</div>
-        <button class="prev" onclick="moveSlide(-1)" style="position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 10px 15px; cursor: pointer; font-size: 18px; border-radius: 50%; left: 10px;">&#10094;</button>
-        <button class="next" onclick="moveSlide(1)" style="position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 10px 15px; cursor: pointer; font-size: 18px; border-radius: 50%; right: 10px;">&#10095;</button>
+    <div id="carousel-container" style="position: relative; width: 60%; max-width: 600px; overflow: hidden; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0,0,0,0.2);">
+        <div id="carousel-track" style="display: flex; transition: transform 0.5s ease-in-out;">{slides_html}</div>
     </div>
+
+    <script>
+        let index = 0;
+        function autoSlide() {{
+            let track = document.getElementById("carousel-track");
+            let totalItems = track.children.length;
+            index = (index + 1) % totalItems;
+            track.style.transform = "translateX(-" + (index * 100) + "%)";
+        }}
+        setInterval(autoSlide, 3000);  // Change slide every 3 seconds
+    </script>
     """
+
 
 
 
