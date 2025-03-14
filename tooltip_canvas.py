@@ -207,4 +207,48 @@ class TooltipCanvas:
             }}
         </style>
         """
+    
+    def render_test_case(self):
+        """Renders a test case for visual verification of tooltips with grid layout."""
+        test_id = "test-tooltip"
+    
+        # Define test data (arbitrary HTML content)
+        test_content = [
+            ["<strong>First Column - Row 1</strong>", "<em>First Column - Row 2</em>"],
+            [
+                "<span style='color: blue;'>Second Column - Row 1</span>",
+                "<u>Second Column - Row 2</u>",
+                "<img src='https://via.placeholder.com/50' alt='Placeholder Image'>"
+            ],
+            ["<button onclick='alert(\"Clicked!\")'>Click Me</button>"]
+        ]
+    
+        # Render a visible test component
+        st.markdown(
+            f'<div id="{test_id}" class="tc-test-box">Hover over me for a tooltip grid!</div>',
+            unsafe_allow_html=True
+        )
+    
+        # Apply tooltip with grid structure
+        self.apply_tooltip(test_id, test_content)
+    
+        # Additional styling for the test box and layout
+        st.markdown(
+            """
+            <style>
+                .tc-test-box {
+                    background: #ddd;
+                    padding: 15px;
+                    border-radius: 8px;
+                    text-align: center;
+                    color: #333;
+                    font-weight: bold;
+                    display: inline-block;
+                    margin-top: 20px;
+                    cursor: pointer;
+                }
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
 
