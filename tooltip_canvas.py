@@ -55,13 +55,58 @@ class TooltipCanvas:
         :param animation_styles: Dictionary to override tooltip animation styles.
         """
         self.timestamp = int(time.time())  # Forces CSS refresh
-             
         self.tooltip_styles = {**DEFAULT_TOOLTIP_STYLES, **(tooltip_styles or {})}
         self.animation_styles = {**DEFAULT_ANIMATION_STYLES, **(animation_styles or {})}
 
+    def _define_tooltip(self, content: str, unique_id: str):
+        """Private method to generate the tooltip HTML."""
+        return f"""
+        <div class="tc-tooltip-container">
+            <span id="{unique_id}" class="tc-tooltip-trigger">Hover me</span>
+            <div class="tc-tooltip-content tc-tooltip-{unique_id}">
+                {content}
+            </div>
+        </div>
+        """
+
+    def _generate_tooltip_css(self, element_id: str):
+        """Generates the CSS styles, applying user-defined overrides."""
+        tooltip_styles = "; ".join(f"{k}: {v}" for k, v in self.tooltip_styles.items())
+        animation_styles = self.animation_styles["animation"]
+        keyframes = self.animation_styles["keyframes"]
+
+        return f"""
+        <style>
+            /* Timestamp {self.timestamp} to force refresh */
+            {keyframes}
+
+            .tc-tooltip-container {{
+                display: inline;
+                position: relative;
+            }}
+
+            .tc-tooltip-trigger {{
+                color: rgb(0, 115, 177);
+                border-bottom: 1px dashed rgb(0, 115, 177);
+                cursor: pointer;
+            }}
+
+            .tc-tooltip-content {{
+                {tooltip_styles};
+                animation: {animation_styles};
+            }}
+
+            .tc-tooltip-container:hover .tc-tooltip-{element_id} {{
+                visibility: visible;
+                opacity: 1;
+                transform: translateX(-50%) translateY(0px);
+            }}
+        </style>
+        """
+
     def apply_tooltip(self, element_id: str, content: str):
         """Applies a tooltip to an existing element by injecting the required HTML & CSS."""
-        tooltip_html = self. _define_tooltip_html(content, element_id)
+        tooltip_html = self._define_tooltip(content, element_id)
         tooltip_css = self._generate_tooltip_css(element_id)
 
         st.markdown(tooltip_css, unsafe_allow_html=True)
@@ -98,43 +143,3 @@ class TooltipCanvas:
             """,
             unsafe_allow_html=True
         )
-
-    def _define_tooltip_html(self, content: str, unique_id: str):
-        """Generates the tooltip HTML, ensuring it's a sibling of the trigger element."""
-        
-        tooltip_class = f"tc-tooltip-{unique_id}"
-    
-        return f"""
-        <div data-tooltip-for="{"test-tooltip"}" class="{tooltip_class}">
-            {content}
-        </div>
-        """
-    
-    
-    def _generate_tooltip_css(self, element_id: str):
-        """Generates the CSS styles, ensuring the tooltip is controlled by the trigger element."""
-    
-        tooltip_class = f"tc-tooltip-{element_id}"
-        tooltip_styles = "; ".join(f"{k}: {v}" for k, v in self.tooltip_styles.items())
-        
-        animation_styles = self.animation_styles["animation"]
-        keyframes = self.animation_styles["keyframes"]
-    
-        return f"""
-        <style>
-            /* Timestamp {self.timestamp} to force refresh */
-            {keyframes}
-    
-            .{tooltip_class} {{
-                {tooltip_styles};
-                animation: {animation_styles};
-            }}
-    
-            #{element_id}:hover ~ [data-tooltip-for="{element_id}"],
-            #{element_id}:focus ~ [data-tooltip-for="{element_id}"] {{
-                visibility: hidden;
-                opacity: 0;
-                transform: translateX(-50%) translateY(0px);
-            }}
-        </style>
-        """
