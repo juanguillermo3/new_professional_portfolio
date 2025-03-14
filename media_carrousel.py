@@ -93,6 +93,31 @@ def html_for_media_carousel(media_items, index_key="carousel_index"):
     </style>
     """
 
+def html_for_media_carousel(media_items):
+    slides_html = ""
+    nav_html = ""
+
+    for i, item in enumerate(media_items):
+        slide_id = f"slide{i+1}"
+        checked = "checked" if i == 0 else ""
+
+        slides_html += f'<input type="radio" name="carousel" id="{slide_id}" {checked}>'
+        slides_html += f'<div class="carousel-item"><img src="{item["src"]}" alt="{item.get("alt", "Media Image")}"></div>'
+        nav_html += f'<label for="{slide_id}"></label>'
+
+    return f"""
+    <div class="carousel-container">
+        {slides_html}
+        <div class="carousel-track">{slides_html}</div>
+        <div class="carousel-nav">{nav_html}</div>
+    </div>
+    
+    <style>
+        /* (Include the same CSS as above) */
+    </style>
+    """
+
+
 # Example usage:
 dummy_media_list = [
     {"src": "https://archive.org/download/placeholder-image/placeholder-image.jpg", "alt": "Placeholder Image"},
