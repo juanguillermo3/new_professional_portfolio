@@ -108,7 +108,7 @@ class TooltipCanvas:
                 cursor: pointer;
             }}
 
-            .tc-tooltip-content {{
+            .tc-tooltip-item {{
                 {tooltip_styles};
                 animation: {animation_styles};
             }}
@@ -185,7 +185,6 @@ class TooltipCanvas:
             for sublist in content
         )
         
-            
         return f"""
         <div class="tc-tooltip-container">
             <span id="{element_id}" class="tc-tooltip-trigger">Hover me</span>
