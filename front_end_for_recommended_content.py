@@ -12,7 +12,7 @@ import html
 from html import escape
 from exceptional_ui import _custom_tooltip_html
 from badges_for_item_data import apply_badges_to_item_title
-from biotech_lab import frost_glass_mosaic, _custom_tooltip_with_frost_glass_html, frost_glass_mosaic
+#from biotech_lab import frost_glass_mosaic, _custom_tooltip_with_frost_glass_html, frost_glass_mosaic
 import time
 import html
 
@@ -170,13 +170,7 @@ def html_for_item_data(
                  {title}
              </div>
          </div>
-     """ + _custom_tooltip_with_frost_glass_html(
-         card_id,
-         description,
-         tooltip_top_pos="100%",  # Places it below the element
-         tooltip_bottom_pos="auto",  # Removes default positioning
-         tooltip_width="120%"
-     )
+     """ 
 
 
 
