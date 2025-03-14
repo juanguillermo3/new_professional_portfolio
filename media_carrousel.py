@@ -101,4 +101,4 @@ dummy_media_list = [
 
 #st.markdown(html_for_media_carousel(dummy_media_list), unsafe_allow_html=True)
 
-carousel_html = html_for_media_carousel(media_list)
+#carousel_html = html_for_media_carousel(media_list)
