@@ -82,59 +82,34 @@ class TooltipCanvas:
         </div>
         """
 
-    
+
     def _generate_tooltip_css(self, element_id: str):
-        """Generates the CSS styles for tooltip grids, ensuring correct column alignment."""
+        """Generates the CSS styles, applying user-defined overrides."""
         tooltip_styles = "; ".join(f"{k}: {v}" for k, v in self.tooltip_styles.items())
         animation_styles = self.animation_styles["animation"]
         keyframes = self.animation_styles["keyframes"]
-    
+
         return f"""
         <style>
             /* Timestamp {self.timestamp} to force refresh */
             {keyframes}
-    
+
             .tc-tooltip-container {{
-                display: inline-block;
+                display: inline;
                 position: relative;
             }}
-    
+
             .tc-tooltip-trigger {{
                 color: rgb(0, 115, 177);
                 border-bottom: 1px dashed rgb(0, 115, 177);
                 cursor: pointer;
             }}
-    
+
             .tc-tooltip-content {{
                 {tooltip_styles};
                 animation: {animation_styles};
             }}
-    
-            /* Ensure tooltips align in a grid format */
-            .tc-tooltip-grid {{
-                display: flex;   /* Arrange columns in a row */
-                flex-wrap: wrap; /* Wrap to prevent overflow */
-                gap: 16px;       /* Space between columns */
-                padding: 8px;
-                justify-content: center;
-            }}
-    
-            .tc-tooltip-column {{
-                display: flex;
-                flex-direction: column; /* Stack rows within each column */
-                align-items: center;
-                gap: 6px; /* Space between rows */
-            }}
-    
-            .tc-tooltip-item {{
-                background: rgba(255, 255, 255, 0.9);
-                padding: 5px 10px;
-                border-radius: 4px;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-                text-align: center;
-                white-space: nowrap;
-            }}
-    
+
             .tc-tooltip-container:hover .tc-tooltip-{element_id} {{
                 visibility: visible;
                 opacity: 1;
@@ -192,4 +167,29 @@ class TooltipCanvas:
         )
     
 
+    def _define_tooltip(self, content: Union[str, List[Union[str, List[str]]]], element_id: str):
+        """Generates the tooltip HTML, supporting multiple lists rendered in a flexible grid layout."""
+        
+        # Ensure content is always a list of lists
+        if isinstance(content, str):
+            content = [[content]]  # Wrap in a nested list
+        elif isinstance(content, list) and all(isinstance(item, str) for item in content):
+            content = [content]  # Wrap in a single column
+    
+        # Generate HTML for the tooltip grid
+        grid_columns = "".join(
+            f'<div class="tc-tooltip-column">{" ".join(f"<div class=\'tc-tooltip-item\'>{item}</div>" for item in sublist)}</div>'
+            for sublist in content
+        )
+    
+        return f"""
+        <div class="tc-tooltip-container">
+            <span id="{element_id}" class="tc-tooltip-trigger">Hover me</span>
+            <div class="tc-tooltip-content tc-tooltip-{element_id}">
+                <div class="tc-tooltip-grid">
+                    {grid_columns}
+                </div>
+            </div>
+        </div>
+        """
 
