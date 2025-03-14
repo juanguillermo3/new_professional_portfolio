@@ -251,15 +251,15 @@ class TooltipCanvas:
         st.markdown(tooltip_html, unsafe_allow_html=True)
 
 
-    def render_test_case(self):
-        """Renders a test case for visual verification of tooltips with grid layout."""
-        test_id = "test-tooltip"
-    
-        # Define test data (list of lists for grid structure)
+        # Define test data (arbitrary HTML content)
         test_content = [
-            ["First Column - Row 1", "First Column - Row 2"],
-            ["Second Column - Row 1", "Second Column - Row 2", "Second Column - Row 3"],
-            ["Third Column - Row 1"]
+            ["<strong>First Column - Row 1</strong>", "<em>First Column - Row 2</em>"],
+            [
+                "<span style='color: blue;'>Second Column - Row 1</span>",
+                "<u>Second Column - Row 2</u>",
+                html_for_media_carousel(dummy_media_list )
+            ],
+            ["<button onclick='alert(\"Clicked!\")'>Click Me</button>"]
         ]
     
         # Apply tooltip with grid structure
