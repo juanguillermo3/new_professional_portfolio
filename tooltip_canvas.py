@@ -105,7 +105,7 @@ class TooltipCanvas:
         tooltip_class = f"tc-tooltip-{unique_id}"
     
         return f"""
-        <div data-tooltip-for="{test-tooltip}" class="{tooltip_class}">
+        <div data-tooltip-for="{"test-tooltip"}" class="{tooltip_class}">
             {content}
         </div>
         """
