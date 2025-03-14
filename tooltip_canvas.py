@@ -132,8 +132,8 @@ class TooltipCanvas:
     
             #{element_id}:hover ~ [data-tooltip-for="{element_id}"],
             #{element_id}:focus ~ [data-tooltip-for="{element_id}"] {{
-                visibility: visible;
-                opacity: 1;
+                visibility: hidden;
+                opacity: 0;
                 transform: translateX(-50%) translateY(0px);
             }}
         </style>
