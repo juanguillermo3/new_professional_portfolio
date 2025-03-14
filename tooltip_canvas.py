@@ -212,7 +212,7 @@ class TooltipCanvas:
             unsafe_allow_html=True
         )
 
-            def _generate_tooltip_trigger(self, element_id: str, visible_text: str = "Hover me") -> str:
+    def _generate_tooltip_trigger(self, element_id: str, visible_text: str = "Hover me") -> str:
         """Generates the HTML for the visible tooltip trigger element."""
         return f'<span id="{element_id}" class="tc-tooltip-trigger">{visible_text}</span>'
 
@@ -249,6 +249,7 @@ class TooltipCanvas:
 
         st.markdown(tooltip_css, unsafe_allow_html=True)
         st.markdown(tooltip_html, unsafe_allow_html=True)
+
 
     def render_test_case(self):
         """Renders a test case for visual verification of tooltips with grid layout."""
