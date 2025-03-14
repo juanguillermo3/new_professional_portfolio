@@ -105,7 +105,7 @@ class TooltipCanvas:
         tooltip_class = f"tc-tooltip-{unique_id}"
         
         return f"""
-        <div class="{tooltip_class}">
+        <div id="test" class="{tooltip_class}">
             {content}
         </div>
         """
@@ -135,7 +135,7 @@ class TooltipCanvas:
                 animation: {animation_styles};
             }}
 
-         .tc-test-box .tc-tooltip-test-tooltip {{
+         .tc-test-box:hover #test {{
              visibility: hidden;
              opacity: 0;
              transform: translateX(-50%) translateY(0px);
