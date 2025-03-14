@@ -198,7 +198,13 @@ class TooltipCanvas:
             </div>
         </div>
         '''
-        
+
+    def html_to_apply_tooltip(self, element_id: str, content: str, visible_text: str = "Hover me"):
+        """Returns the HTML and CSS required to apply a tooltip to an element."""
+        tooltip_html = self._define_tooltip(content, element_id, visible_text)
+        tooltip_css = self._generate_tooltip_css(element_id)
+        return tooltip_html, tooltip_css
+
     def apply_tooltip(self, element_id: str, content: str, visible_text: str = "Hover me"):
         """Applies a tooltip to an existing element by injecting the required HTML & CSS."""
         tooltip_html = self._define_tooltip(content, element_id, visible_text)
