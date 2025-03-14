@@ -218,7 +218,7 @@ class TooltipCanvas:
             [
                 "<span style='color: blue;'>Second Column - Row 1</span>",
                 "<u>Second Column - Row 2</u>",
-                "<img src='https://via.placeholder.com/50' alt='Placeholder Image'>"
+                "<img src='https://archive.org/download/placeholder-image/placeholder-image.jpg' alt='Placeholder Image'>"
             ],
             ["<button onclick='alert(\"Clicked!\")'>Click Me</button>"]
         ]
