@@ -59,42 +59,6 @@ class TooltipCanvas:
         self.tooltip_styles = {**DEFAULT_TOOLTIP_STYLES, **(tooltip_styles or {})}
         self.animation_styles = {**DEFAULT_ANIMATION_STYLES, **(animation_styles or {})}
 
-    def _generate_tooltip_css(self, element_id: str):
-        """Generates the CSS styles, applying user-defined overrides."""
-        tooltip_styles = "; ".join(f"{k}: {v}" for k, v in self.tooltip_styles.items())
-        animation_styles = self.animation_styles["animation"]
-        keyframes = self.animation_styles["keyframes"]
-
-        return f"""
-        <style>
-            /* Timestamp {self.timestamp} to force refresh */
-            {keyframes}
-
-            .tc-tooltip-container {{
-                display: inline;
-                position: relative;
-            }}
-
-            .tc-tooltip-trigger {{
-                color: rgb(0, 115, 177);
-                border-bottom: 1px dashed rgb(0, 115, 177);
-                cursor: pointer;
-            }}
-
-            .tc-tooltip-content {{
-                {tooltip_styles};
-                animation: {animation_styles};
-            }}
-
-            #{element_id}:hover + .tc-tooltip-{element_id}{{
-                visibility: visible;
-                opacity: 1;
-                transform: translateX(-50%) translateY(0px);
-            }}
-            
-        </style>
-        """
-
     def apply_tooltip(self, element_id: str, content: str):
         """Applies a tooltip to an existing element by injecting the required HTML & CSS."""
         tooltip_html = self. _define_tooltip_html(content, element_id)
