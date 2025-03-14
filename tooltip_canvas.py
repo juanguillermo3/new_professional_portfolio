@@ -13,7 +13,7 @@ import streamlit as st
 import time
 import streamlit as st
 from typing import Union, List
-from media_carrousel html_for_media_carousel
+from media_carrousel import html_for_media_carousel
          
 # Default tooltip content styling
 DEFAULT_TOOLTIP_STYLES = {
