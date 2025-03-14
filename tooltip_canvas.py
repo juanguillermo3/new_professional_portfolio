@@ -31,7 +31,10 @@ DEFAULT_TOOLTIP_STYLES = {
 "transition": "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out",
 "backdrop-filter": "blur(6px)",
 "z-index": "10",
-"border": "2px solid rgba(255, 255, 255, 0.9)"
+"border": "2px solid rgba(255, 255, 255, 0.9)",
+    
+# ADDITIONAL SPACING CONTROL:
+"margin": "8px",  # Adds space between tooltips (vertical & horizontal spacing)
 }
 
 # Default animation styles
