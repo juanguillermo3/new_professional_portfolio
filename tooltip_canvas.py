@@ -179,16 +179,9 @@ class TooltipCanvas:
         elif isinstance(content, list) and all(isinstance(item, str) for item in content):
             content = [content]  # Wrap in a single column
     
-        # Generate HTML for the tooltip grid with inline margin
+        # Generate HTML for the tooltip grid
         grid_columns = "".join(
-            f'''
-            <div class="tc-tooltip-column" style="margin: 8px 12px;">
-                {" ".join(
-                    f"<div class='tc-tooltip-item' style='margin: 6px 10px;'>{item}</div>" 
-                    for item in sublist
-                )}
-            </div>
-            ''' 
+            f'<div class="tc-tooltip-column">{" ".join(f"<div class=\'tc-tooltip-item\'>{item}</div>" for item in sublist)}</div>'
             for sublist in content
         )
         
