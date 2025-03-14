@@ -15,8 +15,8 @@ import streamlit as st
 
 # Default tooltip content styling
 DEFAULT_TOOLTIP_STYLES = {
-"visibility": "hidden",
-"opacity": "0",
+#"visibility": "hidden",
+#"opacity": "0",
 "width": "300px",
 "background": "rgba(23, 33, 43, 0.5)",
 "color": "#ffffff",
