@@ -127,19 +127,26 @@ class TooltipCanvas:
         st.markdown(tooltip_html, unsafe_allow_html=True)
 
     def render_test_case(self):
-        """Renders a test case for visual verification of tooltips."""
+        """Renders a test case for visual verification of tooltips with grid layout."""
         test_id = "test-tooltip"
-
-        # Render a visible component
+    
+        # Define test data (list of lists for grid structure)
+        test_content = [
+            ["First Column - Row 1", "First Column - Row 2"],
+            ["Second Column - Row 1", "Second Column - Row 2", "Second Column - Row 3"],
+            ["Third Column - Row 1"]
+        ]
+    
+        # Render a visible test component
         st.markdown(
-            f'<div id="{test_id}" class="tc-test-box">I have a tooltip attached</div>',
+            f'<div id="{test_id}" class="tc-test-box">Hover over me for a tooltip grid!</div>',
             unsafe_allow_html=True
         )
-
-        # Apply tooltip to the test element
-        self.apply_tooltip(test_id, ["I am the tooltip!","I am a second tooltip!"] )
-
-        # Additional styling for the test box
+    
+        # Apply tooltip with grid structure
+        self.apply_tooltip(test_id, test_content)
+    
+        # Additional styling for the test box and layout
         st.markdown(
             """
             <style>
@@ -152,11 +159,13 @@ class TooltipCanvas:
                     font-weight: bold;
                     display: inline-block;
                     margin-top: 20px;
+                    cursor: pointer;
                 }
             </style>
             """,
             unsafe_allow_html=True
         )
+    
 
     def _define_tooltip(self, content: Union[str, List[Union[str, List[str]]]], element_id: str):
         """Generates the tooltip HTML, supporting multiple lists rendered in a flexible grid layout."""
