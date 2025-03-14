@@ -189,8 +189,8 @@ class TooltipCanvas:
         return f"""
         <div class="tc-tooltip-container">
             <span id="{element_id}" class="tc-tooltip-trigger">Hover me</span>
-            <div class="tc-tooltip-{element_id}">
-                <div class="tc-tooltip-grid tc-tooltip-content">
+            <div class="tc-tooltip-content tc-tooltip-{element_id}">
+                <div class="tc-tooltip-grid">
                     {grid_columns}
                 </div>
             </div>
