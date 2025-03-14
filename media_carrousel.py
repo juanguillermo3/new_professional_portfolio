@@ -117,6 +117,27 @@ def html_for_media_carousel(media_items):
     </style>
     """
 
+def html_for_media_carousel(media_items):
+    """
+    Generates an HTML string for a simple media carousel with inline styles.
+    
+    :param media_items: List of dictionaries with media properties (src, alt).
+    :return: String containing the carousel HTML.
+    """
+    slides_html = "".join([
+        f'<div class="carousel-item" style="flex: 0 0 100%;"><img src="{item["src"]}" alt="{item.get("alt", "Media Image")}" style="width: 100%; height: auto; border-radius: 10px;"></div>'
+        for item in media_items
+    ])
+
+    return f"""
+    <div style="position: relative; width: 60%; max-width: 600px; overflow: hidden; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0,0,0,0.2);">
+        <div class="carousel-track" style="display: flex; transition: transform 0.5s ease-in-out;">{slides_html}</div>
+        <button class="prev" onclick="moveSlide(-1)" style="position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 10px 15px; cursor: pointer; font-size: 18px; border-radius: 50%; left: 10px;">&#10094;</button>
+        <button class="next" onclick="moveSlide(1)" style="position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 10px 15px; cursor: pointer; font-size: 18px; border-radius: 50%; right: 10px;">&#10095;</button>
+    </div>
+    """
+
+
 
 # Example usage:
 dummy_media_list = [
