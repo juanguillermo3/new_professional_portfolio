@@ -24,7 +24,7 @@ DEFAULT_TOOLTIP_STYLES = {
 "padding": "10px",
 "border-radius": "8px",
 "box-shadow": "0px 4px 20px rgba(255, 255, 255, 0.1)",
-"position": "absolute",
+#"position": "absolute",
 "left": "50%",
 "top": "100%",
 "transform": "translateX(-50%) translateY(-5px)",
