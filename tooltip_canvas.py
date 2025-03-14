@@ -130,8 +130,8 @@ class TooltipCanvas:
                 animation: {animation_styles};
             }}
     
-            #{test-tooltip}:hover ~ [data-tooltip-for="{test-tooltip}"],
-            #{test-tooltip}:focus ~ [data-tooltip-for="{test-tooltip}"] {{
+            #{test-tooltip}:hover ~ [data-tooltip-for="{"test-tooltip"}"],
+            #{test-tooltip}:focus ~ [data-tooltip-for="{"test-tooltip"}"] {{
                 visibility: hidden;
                 opacity: 0;
                 transform: translateX(-50%) translateY(0px);
