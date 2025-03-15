@@ -45,9 +45,9 @@ def load_quote():
 
         "I am Juan Guillermo, a professional economist. "  
         "I have built my career developing <b>data analysis</b> and <b>software application</b> scripts "  
-        "for <b>research<b> and <b>operational environments</b>. "  
-        "My business is discovering the best <b> abstractions</b> to <b>effectively work with data</b>, "  
-        "implementing them with <b>software engineering standards</b> to <b>build up data-driven intelligence</b> "  
+        "for <b>research</b> and <b>operational environments</b>. "  
+        "My business is discovering the best <b>abstractions</b> to <b>effectively work with data</b>, "  
+        "implementing them with <b>software engineering standards</b> to build up <b>data-driven intelligence</b> "  
         "for key corporate and social systems. ",
         
         "My broader professional vision interconnects all the technologies essential for modern data analysis—"  
