@@ -103,6 +103,7 @@ class TooltipCanvas:
                 visibility: hidden;
                 opacity: 0;
                 transition: opacity 0.2s ease-in-out;
+                z-index: 9999;
             }}
 
             .tc-tooltip-container:hover .tc-tooltip-content.tc-tooltip-{element_id} {{
