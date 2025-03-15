@@ -28,7 +28,8 @@ def load_quote():
         "for <b>research</b> and <b>operational environments</b>. "  
         "My business is discovering the best <b>abstractions</b> to <b>effectively work with data</b>, "  
         "implementing them with <b>software engineering standards</b> to build up <b>data-driven intelligence</b> "  
-        "for key corporate and social systems. ",
+        "for key corporate and social systems. "
+        "I can solve data engineering, statistical modelling, and software application tasks",
         
         "My broader professional vision interconnects all the technologies essential for modern data analysis—"  
         "spanning <b>data mining</b>, <b>artificial intelligence models</b>, <b>algorithms</b>, <b>software engineering workflows</b>, "  
