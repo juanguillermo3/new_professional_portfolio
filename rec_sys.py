@@ -204,7 +204,7 @@ class RecommendationSystem(PortfolioSection):
         card_html, tooltip_html, tooltip_styles=html_for_item_data(rec)
         st.markdown(card_html, unsafe_allow_html=True)
         st.markdown(tooltip_html, unsafe_allow_html=True)
-        st.markdown(card_html, tooltip_styles=True)
+        st.markdown(tooltip_styles=True, unsafe_allow_html=True)
         
         #st.markdown("<br><br>", unsafe_allow_html=True)
 
