@@ -83,6 +83,7 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
                            'This refers to my ability to clean and organize datasets from complex, multi-source environments '
                            'for research and model development.',
             "skills": [
+                "Implementation of data pipelines for research & operational environments. ",
                 "Facility to engage with structured and unstructured sources.",
                 "Foundations in NLP, GIS, and network analysis.",
                 "High expertise in designing advanced merges and data sources.",
