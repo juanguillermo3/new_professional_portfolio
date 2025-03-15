@@ -96,8 +96,8 @@ def html_for_media_carousel(media_items, carousel_id="media-carousel"):
     <style>
         .carousel-container {{
             position: relative;
-            width: 60%;
-            max-width: 600px;
+            width: 600px; /* Fixed width */
+            height: auto; /* Auto height based on image aspect ratio */
             overflow: hidden;
             border-radius: 10px;
             box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
