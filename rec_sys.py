@@ -200,8 +200,11 @@ class RecommendationSystem(PortfolioSection):
     #
     def render_card(self, rec, **kwargs):
         """Render a single recommendation card with dynamic HTML generation."""
-      
-        st.markdown(html_for_item_data(rec), unsafe_allow_html=True)
+
+        card_html, tooltip_html, tooltip_styles=html_for_item_data(rec)
+        st.markdown(card_html, unsafe_allow_html=True)
+        st.markdown(tooltip_html, unsafe_allow_html=True)
+        st.markdown(card_html, tooltip_styles=True)
         
         #st.markdown("<br><br>", unsafe_allow_html=True)
 
