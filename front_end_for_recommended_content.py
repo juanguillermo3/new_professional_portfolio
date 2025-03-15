@@ -179,7 +179,7 @@ def html_for_item_data(
                     display: flex; flex-direction: column; align-items: center; 
                     justify-content: center; padding: 10px; text-align: center; 
                     font-size: 16px; font-weight: bold; cursor: pointer; margin: 10px; 
-                    position: relative; z-index: -1;>
+                    position: relative; z-index: 0;>
             <div style="background-color: rgba(255, 255, 255, 0.7); 
                         padding: 5px 10px; border-radius: 10px; width: auto; max-width: 100%;">
                 {title}
