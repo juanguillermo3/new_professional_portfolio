@@ -184,9 +184,11 @@ def html_for_item_data(
                         padding: 5px 10px; border-radius: 10px; width: auto; max-width: 100%;">
                 {title}
             </div>
-            <div style="position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);">
+            
+            <div style="display: flex; justify-content: center;">
                 {tooltip_html}
             </div>
+
         </div>
     """
 
