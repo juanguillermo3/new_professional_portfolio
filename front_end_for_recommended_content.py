@@ -119,7 +119,7 @@ def html_for_milestones_from_project_metadata(milestones=None, project_metadata=
             top: 120%;
             min-width: 100%;
             max-width: 400px;
-            z-index: 1;
+            z-index: 0;
             border: 1px solid rgba(200, 200, 200, 0.5); /* Softer border */
             transform-origin: top center;
         }}
