@@ -185,9 +185,7 @@ def html_for_item_data(
                 {title}
             </div>
             
-            <div style="display: flex; justify-content: center;">
-                {tooltip_html}
-            </div>
+            {tooltip_html}
 
         </div>
     """
