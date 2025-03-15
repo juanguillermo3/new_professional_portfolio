@@ -167,7 +167,7 @@ def html_for_item_data(
     # Generate tooltip
     tooltip_html, tooltip_styles = tooltip_system.html_to_apply_tooltip(
         element_id=card_id,
-        content=[[title, description]],
+        content=[[description]],
         visible_text="See more"
     )
 
