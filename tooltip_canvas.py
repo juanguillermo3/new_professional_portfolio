@@ -186,7 +186,8 @@ class TooltipCanvas:
             [
                 "<span style='color: blue;'>Second Column - Row 1</span>",
                 "<u>Second Column - Row 2</u>",
-                html_for_media_carousel(dummy_media_list )
+                html_for_media_carousel(dummy_media_list ),
+                html_for_media_carousel([{'src': 'assets/wages.png', 'alt': 'Media 1'}] )
             ],
             ["<button onclick='alert(\"Clicked!\")'>Click Me</button>"]
         ]
