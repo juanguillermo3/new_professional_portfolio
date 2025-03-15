@@ -1,5 +1,66 @@
-import streamlit as st
+"""
+title: Media Carousel
+description: Implements `html_for_media_carousel` to generate an HTML-based media carousel from media files. 
+             It returns raw HTML, enhancing composability with other components. 
+             The carousel works in tandem with `flexible_file_discovery`, a service that discovers valid media files 
+             that can be processed by the media carousel.
+"""
 
+import streamlit as st
+import glob
+import re
+import os
+
+# Global configuration for valid media files
+VALID_MEDIA_FILES = {".jpg", ".jpeg", ".png", ".gif", ".mp4", ".webm"}
+
+#
+# (1)
+#
+def flexible_file_discovery(file_pattern, valid_files=None, search_dir="assets"):
+    """
+    Discover files matching a flexible pattern using both glob and regex filtering.
+
+    :param file_pattern: The pattern to match files (supports both glob and regex).
+    :param valid_files: Set of valid file extensions (defaults to global VALID_MEDIA_FILES).
+    :param search_dir: Directory to search in.
+    :return: List of discovered file paths.
+    """
+    valid_files = valid_files or VALID_MEDIA_FILES  # Use global config if not provided
+
+    # Adjust search_dir if file_pattern already includes a directory
+    if os.path.sep in file_pattern:
+        search_dir = os.path.dirname(file_pattern)
+        file_pattern = os.path.basename(file_pattern)
+
+    # Step 1: Glob-based discovery
+    glob_pattern = os.path.join(search_dir, "**", file_pattern)
+    glob_matches = glob.glob(glob_pattern, recursive=True)
+
+    # Step 2: Convert file pattern to regex if it doesn’t contain glob characters
+    regex_pattern = None
+    if not any(char in file_pattern for char in "*?[]"):
+        regex_pattern = re.compile(file_pattern)
+
+    # Step 3: Filter results
+    filtered_files = []
+    for file_path in glob_matches:
+        file_name = os.path.basename(file_path)
+
+        # Validate against regex pattern
+        if regex_pattern and not regex_pattern.match(file_name):
+            continue
+
+        # Validate against valid file types
+        if valid_files and not any(file_name.lower().endswith(ext) for ext in valid_files):
+            continue
+
+        filtered_files.append(file_path)
+
+    return filtered_files
+#
+# (2)
+#
 def html_for_media_carousel(media_items, carousel_id="media-carousel"):
     """
     Generates a simple HTML and CSS-based media carousel with navigation.
