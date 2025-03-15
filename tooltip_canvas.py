@@ -92,7 +92,6 @@ class TooltipCanvas:
                 position: absolute;
                 left: 50%;
                 top: 100%;
-                transform: translateX(-50%);
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
                 gap: 8px;
