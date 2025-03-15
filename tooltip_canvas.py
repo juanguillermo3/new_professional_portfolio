@@ -97,7 +97,7 @@ class TooltipCanvas:
                 grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
                 gap: 8px;
                 padding: 8px;
-                background: rgba(0, 0, 0, 0.75);
+                background: rgba(0, 0, 0, 0.0);
                 border-radius: 5px;
                 color: white;
                 visibility: hidden;
@@ -123,7 +123,14 @@ class TooltipCanvas:
                 {tooltip_styles};
                 animation: {animation_styles};
             }}
-            
+
+            .tc-tooltip-trigger {{
+                color: rgb(0, 115, 177);
+                border-bottom: 1px dashed rgb(0, 115, 177);
+                cursor: pointer;
+                font-weight: normal;
+            }}
+
         </style>
         """
 
