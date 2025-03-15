@@ -163,9 +163,10 @@ def image_to_base64(image_path):
     with open(image_path, "rb") as image_file:
         return f"data:image/png;base64,{base64.b64encode(image_file.read()).decode()}"
 
+
 def html_for_media_carousel(media_items, carousel_id="media-carousel"):
     """
-    Generates a simple HTML and CSS-based media carousel with hover-based navigation.
+    Generates a simple HTML and CSS-based media carousel with Base64 embedded images.
 
     :param media_items: List of dictionaries with media properties (src, alt).
     :param carousel_id: Unique ID for the carousel container.
@@ -174,11 +175,16 @@ def html_for_media_carousel(media_items, carousel_id="media-carousel"):
     num_items = len(media_items)
     if num_items == 0:
         return "<p>No media available</p>"
-
+    
+    # Convert local images to base64
+    for item in media_items:
+        if os.path.isfile(item['src']):  # If it's a local file
+            item['src'] = image_to_base64(item['src']) or ""
+    
     # Generate radio inputs and carousel items
     slides_html = "".join([
-        f'<input type="radio" id="{carousel_id}-slide{i}" name="{carousel_id}-radio">'
-        f'<div class="carousel-item">'
+        f'<input type="radio" id="{carousel_id}-slide{i}" name="{carousel_id}-radio" '
+        f'{'checked' if i == 0 else ''}><div class="carousel-item">'
         f'<img src="{item["src"]}" alt="{item.get("alt", f"Image {i+1}")}"></div>'
         for i, item in enumerate(media_items)
     ])
@@ -198,8 +204,8 @@ def html_for_media_carousel(media_items, carousel_id="media-carousel"):
     <style>
         .carousel-container {{
             position: relative;
-            width: 600px;
-            height: auto;
+            width: 600px; /* Fixed width */
+            height: auto; /* Auto height based on image aspect ratio */
             overflow: hidden;
             border-radius: 10px;
             box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
@@ -220,24 +226,22 @@ def html_for_media_carousel(media_items, carousel_id="media-carousel"):
             display: none;
         }}
 
-        /* Show the selected slide on hover */
+        /* Show the selected slide */
         {''.join([
-            f'.carousel-nav label:nth-of-type({i+1}):hover ~ input[id="{carousel_id}-slide{i}"] ~ .carousel-item:nth-of-type({i+1}) {{ display: block; }}'
+            f'input[id="{carousel_id}-slide{i}"]:checked ~ .carousel-item:nth-of-type({i+1}) {{ display: block; }}'
             for i in range(num_items)
         ])}
 
         /* Navigation buttons */
         .carousel-nav {{
             margin-top: 10px;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
         }}
 
         .nav-btn {{
             display: inline-block;
-            width: 48px; /* 4x larger */
-            height: 48px; /* 4x larger */
+            width: 24px;
+            height: 24px;
+            margin: 0 5px;
             background: gray;
             border-radius: 50%;
             cursor: pointer;
@@ -249,12 +253,11 @@ def html_for_media_carousel(media_items, carousel_id="media-carousel"):
 
         /* Selected indicator */
         {''.join([
-            f'.carousel-nav label:nth-of-type({i+1}):hover {{ background: black; }}'
+            f'input[id="{carousel_id}-slide{i}"]:checked ~ .carousel-nav label:nth-of-type({i+1}) {{ background: black; }}'
             for i in range(num_items)
         ])}
     </style>
     """
-
 
 
 # Example usage:
