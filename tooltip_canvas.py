@@ -105,23 +105,25 @@ class TooltipCanvas:
                 transition: opacity 0.2s ease-in-out;
             }}
 
-            .tc-tooltip-trigger {{
-                color: rgb(0, 115, 177);
-                border-bottom: 1px dashed rgb(0, 115, 177);
-                cursor: pointer;
-                font-weight: normal;
+            .tc-tooltip-container:hover .tc-tooltip-content.tc-tooltip-{element_id} {{
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(-50%) translateY(0px);
             }}
-
+            
+            .tc-tooltip-item {{
+            position: relative;  /* Remove absolute positioning */
+            text-align: center;
+            padding: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            }}
+            
             .tc-tooltip-item {{
                 {tooltip_styles};
                 animation: {animation_styles};
             }}
-
-            .tc-tooltip-container:hover .tc-tooltip-item {{
-                visibility: visible;
-                opacity: 1;
-                transform: translateX(-50%) translateY(0px);
-            }}
+            
         </style>
         """
 
