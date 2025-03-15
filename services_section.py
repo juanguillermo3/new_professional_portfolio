@@ -89,9 +89,10 @@ class ServicesSection(PortfolioSection):
             for i, service in enumerate(services_to_render):
                 with service_cols[i % 3]:
                     # Generate HTML using the shared item data structure
-                    service_html = html_for_item_data(service)
+                    service_html, styles_html = html_for_item_data(service)
                     st.markdown(service_html, unsafe_allow_html=True)
-                
+                    st.markdown(styles_html, unsafe_allow_html=True)
+                  
                 # Add vertical spacing between rows (after every 3rd item)
                 if (i + 1) % 3 == 0 and i + 1 != len(services_to_render):
                     st.markdown("<br><br>", unsafe_allow_html=True)  # Adding vertical margin between rows
