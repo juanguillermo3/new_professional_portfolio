@@ -134,55 +134,65 @@ def html_for_milestones_from_project_metadata(milestones=None, project_metadata=
 
 
 
+import time
+import html
+
 def html_for_item_data(
-     rec,
-     badge_rules=None,
-     background_color="#f4f4f4",
-     border_style="1px solid #ddd",
-     card_height="150px",
-     post_fix="_card"
- ):
-     """
-     Generate an HTML snippet for a recommended item card dynamically.
- 
-     Parameters:
-     - rec (dict): Dictionary containing item metadata.
- 
-     Returns:
-     - str: A formatted HTML string representing the item card.
-     """
+    rec,
+    badge_rules=None,
+    background_color="#f4f4f4",
+    border_style="1px solid #ddd",
+    card_height="150px",
+    post_fix="_card"
+):
+    """
+    Generate an HTML snippet for a recommended item card dynamically.
 
-     # Unique ID based on timestamp hash
-     card_id = f"card_{hash(time.time())}"
- 
-     # Apply the badge system
-     title = apply_badges_to_item_title(rec, badge_rules)
+    Parameters:
+    - rec (dict): Dictionary containing item metadata.
 
-     # Escape description to prevent HTML injection
-     description = html.escape(rec.get("description", "No description available."))
+    Returns:
+    - tuple: (card_html, styles_html)
+    """
 
-     tooltip_html, tooltip_styles = tooltip_system.html_to_apply_tooltip(
-         element_id="card_id",
-         content=[
-             [title, description]
-         ],
-         visible_text = "See more"
-         )
- 
-     # Return the HTML structure
-     return f"""
-         <div id="{card_id}" style="background-color: {background_color}; border: {border_style}; 
-                     border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
-                     height: {card_height}; 
-                     display: flex; align-items: center; justify-content: center;
-                     padding: 10px; text-align: center; font-size: 16px; 
-                     font-weight: bold; cursor: pointer; margin: 10px;">
-             <div style="background-color: rgba(255, 255, 255, 0.7); 
-                         padding: 5px 10px; border-radius: 10px; width: auto; max-width: 100%;">
-                 {title}
-             </div>
-         </div>
-     """, tooltip_html, tooltip_styles
+    # Unique ID based on timestamp hash
+    card_id = f"card_{hash(time.time())}"
+
+    # Apply the badge system
+    title = apply_badges_to_item_title(rec, badge_rules)
+
+    # Escape description to prevent HTML injection
+    description = html.escape(rec.get("description", "No description available."))
+
+    # Generate tooltip
+    tooltip_html, tooltip_styles = tooltip_system.html_to_apply_tooltip(
+        element_id=card_id,
+        content=[[title, description]],
+        visible_text="See more"
+    )
+
+    # Card HTML with tooltip embedded at the bottom center
+    card_html = f"""
+        <div id="{card_id}" style="background-color: {background_color}; border: {border_style}; 
+                    border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+                    height: {card_height}; width: 200px;
+                    display: flex; flex-direction: column; align-items: center; 
+                    justify-content: center; padding: 10px; text-align: center; 
+                    font-size: 16px; font-weight: bold; cursor: pointer; margin: 10px; 
+                    position: relative;">
+            <div style="background-color: rgba(255, 255, 255, 0.7); 
+                        padding: 5px 10px; border-radius: 10px; width: auto; max-width: 100%;">
+                {title}
+            </div>
+            <div style="position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);">
+                {tooltip_html}
+            </div>
+        </div>
+    """
+
+    # Return card HTML and styles
+    return card_html, tooltip_styles
+
 
      
 
