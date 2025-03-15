@@ -4,48 +4,112 @@ description: Implements the front-end representation of items displayed by the R
 """
 
 import hashlib
-import streamlit as st
-from front_end_utils import prettify_title
+import html
 import re
-import hashlib
-import html
-from html import escape
 import time
-import html
 
-from exceptional_ui import _custom_tooltip_html
+import streamlit as st
 from badges_for_item_data import apply_badges_to_item_title
+from exceptional_ui import _custom_tooltip_html
+from flexible_file_discovery import flexible_file_discovery, html_for_media_carousel
+from front_end_utils import prettify_title, render_external_link_button
 from tooltip_canvas import TooltipCanvas
-from front_end_utils import render_external_link_button
-
-            
 
 # Instantiate the tooltip system
 tooltip_system = TooltipCanvas()
 
 
-def id_from_item_data(rec, fields=["title", "description"]):
+def html_for_item_data(
+    rec,
+    badge_rules=None,
+    background_color="#f4f4f4",
+    border_style="1px solid #ddd",
+    card_height="150px",
+    post_fix="_card",
+    search_dir="assets"  # Default search directory for media files
+):
     """
-    Generate a unique ID for an item based on specified fields.
+    Generate an HTML snippet for a recommended item card dynamically.
 
     Parameters:
     - rec (dict): Dictionary containing item metadata.
-    - fields (list): List of field names to be used for generating the ID.
+    - badge_rules (dict, optional): Rules for applying badges to the item title.
+    - background_color (str, optional): Background color of the card.
+    - border_style (str, optional): CSS border style.
+    - card_height (str, optional): Height of the card.
+    - post_fix (str, optional): Suffix for card ID.
+    - search_dir (str, optional): Base directory for media file discovery.
 
     Returns:
-    - str: A unique hashed ID for the item.
-
-    Raises:
-    - KeyError: If any required field is missing from `rec`.
+    - tuple: (card_html, styles_html)
     """
-    missing_fields = [field for field in fields if field not in rec]
-    if missing_fields:
-        raise KeyError(f"Missing required fields: {', '.join(missing_fields)}")
-    
-    unique_string = "".join(str(rec[field]) for field in fields)
-    unique_hash = hashlib.md5(unique_string.encode()).hexdigest()
-    
-    return unique_hash
+
+    # Unique ID based on timestamp hash
+    card_id = f"card_{hash(time.time())}"
+
+    # Apply the badge system
+    title = apply_badges_to_item_title(rec, badge_rules)
+
+    # Escape description to prevent HTML injection
+    description = html.escape(rec.get("description", "No description available."))
+
+    # Generate buttons for the tooltip
+    buttons = []
+    if "url" in rec and rec["url"]:
+        buttons.append(("GitHub", rec["url"], "#333"))
+    if "report_url" in rec and rec["report_url"]:
+        buttons.append(("Sheets", rec["report_url"], "#34A853"))
+    if "colab_url" in rec and rec["colab_url"]:
+        buttons.append(("Colab Notebook", rec["colab_url"], "#F9AB00"))
+
+    # Construct buttons HTML
+    buttons_html = "".join(
+        f'<a href="{url}" target="_blank" style="display: block; margin: 5px 0; padding: 5px 10px; '
+        f'background-color: {color}; color: white; border-radius: 5px; text-decoration: none;">{label}</a>'
+        for label, url, color in buttons
+    )
+
+    # Prepare tooltip content
+    tooltip_content = [[title, description]]
+    if buttons:
+        tooltip_content.append(["Resources:", buttons_html])
+
+    # If the card metadata includes an image path, discover media files
+    if "image_path" in rec:
+        discovered_media = flexible_file_discovery(rec["image_path"], search_dir=search_dir)
+        if discovered_media:
+            media_items = [{"src": path, "alt": f"Media {i+1}"} for i, path in enumerate(discovered_media)]
+            media_carousel = html_for_media_carousel(media_items)
+            tooltip_content.append(["Media Preview:", media_carousel])
+
+    # Generate tooltip
+    tooltip_html, tooltip_styles = tooltip_system.html_to_apply_tooltip(
+        element_id=card_id,
+        content=tooltip_content,
+        visible_text="See more"
+    )
+
+    # Card HTML with tooltip embedded at the bottom center
+    card_html = f"""
+        <div id="{card_id}" style="background-color: {background_color}; border: {border_style}; 
+                    border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+                    height: {card_height}; width: 200px;
+                    display: flex; flex-direction: column; align-items: center; 
+                    justify-content: center; padding: 10px; text-align: center; 
+                    font-size: 16px; font-weight: bold; cursor: pointer; margin: 10px; 
+                    position: relative;">
+            <div style="background-color: rgba(255, 255, 255, 0.7); 
+                        padding: 5px 10px; border-radius: 10px; width: auto; max-width: 100%;">
+                {title}
+            </div>
+            
+            {tooltip_html}
+        </div>
+    """
+
+    # Return card HTML and styles
+    return card_html, tooltip_styles
+
 
 
 def html_for_milestones_from_project_metadata(milestones=None, project_metadata=None, milestone_type="achieved_milestones"):
@@ -134,141 +198,6 @@ def html_for_milestones_from_project_metadata(milestones=None, project_metadata=
         }}
     </style>
     """
-
-
-
-import time
-import html
-
-def html_for_item_data(
-    rec,
-    badge_rules=None,
-    background_color="#f4f4f4",
-    border_style="1px solid #ddd",
-    card_height="150px",
-    post_fix="_card"
-):
-    """
-    Generate an HTML snippet for a recommended item card dynamically.
-
-    Parameters:
-    - rec (dict): Dictionary containing item metadata.
-
-    Returns:
-    - tuple: (card_html, styles_html)
-    """
-
-    # Unique ID based on timestamp hash
-    card_id = f"card_{hash(time.time())}"
-
-    # Apply the badge system
-    title = apply_badges_to_item_title(rec, badge_rules)
-
-    # Escape description to prevent HTML injection
-    description = html.escape(rec.get("description", "No description available."))
-
-    # Generate tooltip
-    tooltip_html, tooltip_styles = tooltip_system.html_to_apply_tooltip(
-        element_id=card_id,
-        content=[[title, description]],
-        visible_text="See more"
-    )
-
-    # Card HTML with tooltip embedded at the bottom center
-    card_html = f"""
-        <div id="{card_id}" style="background-color: {background_color}; border: {border_style}; 
-                    border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
-                    height: {card_height}; width: 200px;
-                    display: flex; flex-direction: column; align-items: center; 
-                    justify-content: center; padding: 10px; text-align: center; 
-                    font-size: 16px; font-weight: bold; cursor: pointer; margin: 10px; 
-                    position: relative;">
-            <div style="background-color: rgba(255, 255, 255, 0.7); 
-                        padding: 5px 10px; border-radius: 10px; width: auto; max-width: 100%;">
-                {title}
-            </div>
-            
-            {tooltip_html}
-
-        </div>
-    """
-
-
-
-import time
-import html
-
-def html_for_item_data(
-    rec,
-    badge_rules=None,
-    background_color="#f4f4f4",
-    border_style="1px solid #ddd",
-    card_height="150px",
-    post_fix="_card"
-):
-    """
-    Generate an HTML snippet for a recommended item card dynamically.
-
-    Parameters:
-    - rec (dict): Dictionary containing item metadata.
-
-    Returns:
-    - tuple: (card_html, styles_html)
-    """
-
-    # Unique ID based on timestamp hash
-    card_id = f"card_{hash(time.time())}"
-
-    # Apply the badge system
-    title = apply_badges_to_item_title(rec, badge_rules)
-
-    # Escape description to prevent HTML injection
-    description = html.escape(rec.get("description", "No description available."))
-
-    # Generate buttons for the tooltip
-    buttons = []
-    if "url" in rec and rec["url"]:
-        buttons.append(("GitHub", rec["url"], "#333"))
-    if "report_url" in rec and rec["report_url"]:
-        buttons.append(("Sheets", rec["report_url"], "#34A853"))
-    if "colab_url" in rec and rec["colab_url"]:
-        buttons.append(("Colab Notebook", rec["colab_url"], "#F9AB00"))
-    
-    # Construct buttons HTML
-    buttons_html = "".join(
-        f'<a href="{url}" target="_blank" style="display: block; margin: 5px 0; padding: 5px 10px; '
-        f'background-color: {color}; color: white; border-radius: 5px; text-decoration: none;">{label}</a>'
-        for label, url, color in buttons
-    )
-    
-    # Generate tooltip
-    tooltip_content = [[title, description], ["Resources:", buttons_html]] if buttons else [[title, description]]
-    tooltip_html, tooltip_styles = tooltip_system.html_to_apply_tooltip(
-        element_id=card_id,
-        content=tooltip_content,
-        visible_text="See more"
-    )
-
-    # Card HTML with tooltip embedded at the bottom center
-    card_html = f"""
-        <div id="{card_id}" style="background-color: {background_color}; border: {border_style}; 
-                    border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
-                    height: {card_height}; width: 200px;
-                    display: flex; flex-direction: column; align-items: center; 
-                    justify-content: center; padding: 10px; text-align: center; 
-                    font-size: 16px; font-weight: bold; cursor: pointer; margin: 10px; 
-                    position: relative;">
-            <div style="background-color: rgba(255, 255, 255, 0.7); 
-                        padding: 5px 10px; border-radius: 10px; width: auto; max-width: 100%;">
-                {title}
-            </div>
-            
-            {tooltip_html}
-        </div>
-    """
-
-    # Return card HTML and styles
-    return card_html, tooltip_styles
 
     
 
