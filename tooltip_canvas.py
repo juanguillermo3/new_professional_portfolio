@@ -25,9 +25,9 @@ DEFAULT_TOOLTIP_STYLES = {
 "padding": "10px",
 "border-radius": "8px",
 "box-shadow": "0px 4px 20px rgba(255, 255, 255, 0.1)",
-"position": "absolute",
-"left": "50%",
-"top": "100%",
+ #"position": "absolute",
+ #"left": "50%",
+ #"top": "100%",
 "transform": "translateX(-50%) translateY(-5px)",
 "transition": "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out",
 "backdrop-filter": "blur(6px)",
@@ -67,7 +67,6 @@ class TooltipCanvas:
         self.tooltip_styles = {**DEFAULT_TOOLTIP_STYLES, **(tooltip_styles or {})}
         self.animation_styles = {**DEFAULT_ANIMATION_STYLES, **(animation_styles or {})}
 
-
     def _generate_tooltip_css(self, element_id: str):
         """Generates the CSS styles, applying user-defined overrides."""
         tooltip_styles = "; ".join(f"{k}: {v}" for k, v in self.tooltip_styles.items())
@@ -84,74 +83,26 @@ class TooltipCanvas:
                 position: relative;
             }}
 
-            .tc-tooltip-trigger {{
-                color: rgb(0, 115, 177);
-                border-bottom: 1px dashed rgb(0, 115, 177);
-                cursor: pointer;
-            }}
-
-            .tc-tooltip-item {{
-                {tooltip_styles};
-                animation: {animation_styles};
-            }}
-
-            .tc-tooltip-container:hover .tc-tooltip-item {{
-                visibility: visible;
-                opacity: 1;
-                transform: translateX(-50%) translateY(0px);
-            }}
-        </style>
-        """
-
-    def apply_tooltip(self, element_id: str, content: str):
-        """Applies a tooltip to an existing element by injecting the required HTML & CSS."""
-        tooltip_html = self._define_tooltip(content, element_id)
-        tooltip_css = self._generate_tooltip_css(element_id)
-
-        st.markdown(tooltip_css, unsafe_allow_html=True)
-        st.markdown(tooltip_html, unsafe_allow_html=True)
-
-
-    def _define_tooltip(self, content: Union[str, List[Union[str, List[str]]]], element_id: str):
-        """Generates the tooltip HTML, supporting multiple lists rendered in a flexible grid layout."""
-        
-        # Ensure content is always a list of lists
-        if isinstance(content, str):
-            content = [[content]]  # Wrap in a nested list
-        elif isinstance(content, list) and all(isinstance(item, str) for item in content):
-            content = [content]  # Wrap in a single column
-    
-        # Generate HTML for the tooltip grid
-        grid_columns = "".join(
-            f'<div class="tc-tooltip-column">{" ".join(f"<div class=\'tc-tooltip-item\'>{item}</div>" for item in sublist)}</div>'
-            for sublist in content
-        )
-        
-        return f"""
-        <div class="tc-tooltip-container">
-            <span id="{element_id}" class="tc-tooltip-trigger">Hover me</span>
-            <div class="tc-tooltip-content tc-tooltip-{element_id}">
-                <div class="tc-tooltip-grid">
-                    {grid_columns}
-                </div>
-            </div>
-        </div>
-        """
-
-    def _generate_tooltip_css(self, element_id: str):
-        """Generates the CSS styles, applying user-defined overrides."""
-        tooltip_styles = "; ".join(f"{k}: {v}" for k, v in self.tooltip_styles.items())
-        animation_styles = self.animation_styles["animation"]
-        keyframes = self.animation_styles["keyframes"]
-
-        return f"""
-        <style>
-            /* Timestamp {self.timestamp} to force refresh */
-            {keyframes}
-
             .tc-tooltip-container {{
                 display: inline;
                 position: relative;
+            }}
+
+            .tc-tooltip-content.tc-tooltip-{element_id} {{
+                position: absolute;
+                left: 50%;
+                top: 100%;
+                transform: translateX(-50%);
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+                gap: 8px;
+                padding: 8px;
+                background: rgba(0, 0, 0, 0.75);
+                border-radius: 5px;
+                color: white;
+                visibility: hidden;
+                opacity: 0;
+                transition: opacity 0.2s ease-in-out;
             }}
 
             .tc-tooltip-trigger {{
