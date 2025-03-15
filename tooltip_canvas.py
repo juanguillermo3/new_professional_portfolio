@@ -158,6 +158,7 @@ class TooltipCanvas:
                 color: rgb(0, 115, 177);
                 border-bottom: 1px dashed rgb(0, 115, 177);
                 cursor: pointer;
+                font-weight: normal;
             }}
 
             .tc-tooltip-item {{
