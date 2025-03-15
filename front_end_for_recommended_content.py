@@ -11,7 +11,7 @@ import time
 import streamlit as st
 from badges_for_item_data import apply_badges_to_item_title
 from exceptional_ui import _custom_tooltip_html
-from media_carrousel import flexible_file_discovery, html_for_media_carousel
+from media_carrousel import flexible_file_discovery, html_for_media_carousel, dummy_media_list
 from front_end_utils import prettify_title, render_external_link_button
 from tooltip_canvas import TooltipCanvas
 
@@ -79,7 +79,7 @@ def html_for_item_data(
         discovered_media = flexible_file_discovery(rec["image_path"], search_dir=search_dir)
         if discovered_media:
             media_items = [{"src": path, "alt": f"Media {i+1}"} for i, path in enumerate(discovered_media)]
-            media_carousel = html_for_media_carousel(media_items)
+            media_carousel = html_for_media_carousel(dummy_media_list)
             tooltip_content.append(["Media Preview:", media_carousel])
 
     # Generate tooltip
