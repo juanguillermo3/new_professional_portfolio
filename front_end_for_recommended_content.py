@@ -119,7 +119,7 @@ def html_for_milestones_from_project_metadata(milestones=None, project_metadata=
             top: 120%;
             min-width: 100%;
             max-width: 400px;
-            z-index: 0;
+            z-index: 1;
             border: 1px solid rgba(200, 200, 200, 0.5); /* Softer border */
             transform-origin: top center;
         }}
@@ -179,7 +179,7 @@ def html_for_item_data(
                     display: flex; flex-direction: column; align-items: center; 
                     justify-content: center; padding: 10px; text-align: center; 
                     font-size: 16px; font-weight: bold; cursor: pointer; margin: 10px; 
-                    position: relative;">
+                    position: relative; z-index: -1;>
             <div style="background-color: rgba(255, 255, 255, 0.7); 
                         padding: 5px 10px; border-radius: 10px; width: auto; max-width: 100%;">
                 {title}
