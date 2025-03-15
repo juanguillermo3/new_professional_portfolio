@@ -36,6 +36,10 @@ DEFAULT_TOOLTIP_STYLES = {
     
 # ADDITIONAL SPACING CONTROL:
 "margin": "8px",  # Adds space between tooltips (vertical & horizontal spacing)
+
+# Enforce non-bold text
+"font-weight": "normal"
+         
 }
 
 # Default animation styles
