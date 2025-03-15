@@ -24,11 +24,12 @@ def load_quote():
         "hence my effort to <b>serve them within a unified framework</b>." ,
             
         "I am Juan Guillermo, a professional economist. "  
-        "I have built my career developing data analysis and software application scripts "  
-        "for research and operational environments. "  
-        "My business is discovering the more <b>powerful abstractions</b> to <b>effectively work with data</b>, "  
+        "I have built my career developing <b>data analysis</b> and <b>software application</b> scripts "  
+        "for <b>research<b> and <b>operational environments</b>. "  
+        "My business is discovering the best <b> abstractions</b> to <b>effectively work with data</b>, "  
         "implementing them with <b>software engineering standards</b> to <b>build up data-driven intelligence</b> "  
-        "for key corporate and social systems. "  
+        "for key corporate and social systems. ",
+        
         "My broader professional vision interconnects all the technologies essential for modern data analysis—"  
         "spanning <b>data mining</b>, <b>artificial intelligence models</b>, <b>algorithms</b>, <b>software engineering workflows</b>, "  
         "and <b>information tools</b>—into a cohesive and holistic framework."  
