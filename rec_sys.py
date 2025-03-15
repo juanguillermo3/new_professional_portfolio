@@ -238,20 +238,6 @@ class RecommendationSystem(PortfolioSection):
             if st.button("See Galleria", key=button_id):
                 self.handle_galleria_click(rec)
 
-        buttons = []
-        if "url" in rec and rec["url"]:
-            buttons.append(("GitHub", rec["url"], "#333"))
-        if "report_url" in rec and rec["report_url"]:
-            buttons.append(("Sheets", rec["report_url"], "#34A853"))
-        if "colab_url" in rec and rec["colab_url"]:
-            buttons.append(("Colab Notebook", rec["colab_url"], "#F9AB00"))
-
-        button_cols = st.columns(len(buttons)) if buttons else []
-
-        for col, (label, url, color) in zip(button_cols, buttons):
-            with col:
-                st.markdown(render_external_link_button(url, label, color), unsafe_allow_html=True)
-
         st.markdown("<br><br>", unsafe_allow_html=True)
 
 
