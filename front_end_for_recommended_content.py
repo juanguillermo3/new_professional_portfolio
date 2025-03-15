@@ -194,7 +194,7 @@ def html_for_item_data(
     return card_html, tooltip_styles
 
 
-     
+    
 
 
 
