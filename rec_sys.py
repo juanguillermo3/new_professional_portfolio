@@ -27,7 +27,7 @@ from app_end_metadata import load_repos_metadata as load_app_metadata
 from front_end_utils import render_section_separator, render_external_link_button, prettify_title, tags_in_twitter_style, render_external_link_button_as_train_ticket, html_for_paragraph_with_expandable_details
 from media_carousel import MediaCarousel  # Assuming this is the correct import
 from visual_media import  VisualContentGallery
-from front_end_for_recommended_content import html_for_item_data, html_for_milestones_from_project_metadata,  id_from_item_data
+from front_end_for_recommended_content import html_for_item_data, html_for_milestones_from_project_metadata
 from portfolio_section import PortfolioSection
 from exceptional_ui import apply_custom_tooltip, _custom_tooltip_with_frost_glass_html
 from biotech_lab import frost_glass_mosaic, _custom_tooltip_with_frost_glass_html
