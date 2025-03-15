@@ -31,7 +31,7 @@ DEFAULT_TOOLTIP_STYLES = {
 "transform": "translateX(-50%) translateY(-5px)",
 "transition": "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out",
 "backdrop-filter": "blur(6px)",
-"z-index": "10",
+"z-index": "9999",
 "border": "2px solid rgba(255, 255, 255, 0.9)",
     
 # ADDITIONAL SPACING CONTROL:
