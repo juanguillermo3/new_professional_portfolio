@@ -205,8 +205,6 @@ class RecommendationSystem(PortfolioSection):
         st.markdown(card_html, unsafe_allow_html=True)
         st.markdown(tooltip_html, unsafe_allow_html=True)
         st.markdown(tooltip_styles, unsafe_allow_html=True)
-        
-        #st.markdown("<br><br>", unsafe_allow_html=True)
 
         unique_hash = hashlib.md5(rec['title'].encode()).hexdigest()
         button_id = f"galleria_{unique_hash}"
@@ -234,10 +232,6 @@ class RecommendationSystem(PortfolioSection):
                 """,
                 unsafe_allow_html=True
             )
-    
-            if st.button("See Galleria", key=button_id):
-                self.handle_galleria_click(rec)
-
 
 
     def apply_transition_styles(self):
@@ -259,46 +253,6 @@ class RecommendationSystem(PortfolioSection):
             unsafe_allow_html=True
         )
         
-
-    def handle_galleria_click(self, rec):
-        """
-        Handle the click event for the galleria item and display its content.
-        Instead of calling render_item_visual_content directly, use the GalleryCollection.
-        Syncs active galleria with session state.
-        """
-        
-        # Prepare galleria_params
-        galleria_params = {
-            'title': rec.get('title', None),
-            'description': rec.get('description', None),
-            'media_path': rec.get('image_path', None),
-            'width': self.MEDIA_CONTAINER_WIDTH,
-            'height': self.MEDIA_CONTAINER_HEIGHT
-        }
-    
-        # Validate that the required parameters are present
-        missing_params = [key for key, value in galleria_params.items() if value is None]
-        if missing_params:
-            # If any required parameters are missing, output a debug message
-            st.write(f"Debug: Missing parameters for Galleria - {', '.join(missing_params)}")
-            return  # Exit the function if the schema is not compliant
-    
-        # Create a new VisualContentGallery instance
-        st.session_state["active_galleria"] = VisualContentGallery(
-            title=rec['title'],
-            description=rec['description'],
-            media_path=rec['image_path'],
-            width=self.MEDIA_CONTAINER_WIDTH,
-            height=self.MEDIA_CONTAINER_HEIGHT
-        )
-    
-        # Clear the media placeholder
-        self.media_placeholder.empty()
-    
-        # Render the new gallery instance
-        with st.spinner("Loading media..."):
-            with self.media_placeholder.container():
-                st.session_state["active_galleria"].render()
 
     #
     def render_project_metadata(self, project_metadata, display_milestones=True, margin_percent=10):
