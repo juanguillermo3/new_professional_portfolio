@@ -238,7 +238,6 @@ class RecommendationSystem(PortfolioSection):
             if st.button("See Galleria", key=button_id):
                 self.handle_galleria_click(rec)
 
-        st.markdown("<br><br>", unsafe_allow_html=True)
 
 
     def apply_transition_styles(self):
