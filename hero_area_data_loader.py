@@ -40,7 +40,7 @@ def load_quote():
 
 def load_quote():
     return [
-        " My recurring interest has always been the  <b>modernization of data analysis</b> through cutting-edge techniques, "  
+        " My recurring interest has been the <b> modernization of data analysis</b> through cutting-edge techniques, "  
         "such as  flexible <b>ML-based inference</b>, software and  <b>algorithmic automation</b>, assimilation of  <b>data-related technology</b>, "  
         "using  <b>NLP</b> in latent semantic spaces, and, more recently, automating tasks through the  <b>agency of LLM applications </b>.",
 
