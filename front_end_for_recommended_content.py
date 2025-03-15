@@ -106,12 +106,10 @@ def html_for_item_data(
             
         </div>
 
-        {tooltip_html}
-
     """
 
     # Return card HTML and styles
-    return card_html, tooltip_styles
+    return card_html, tooltip_html, tooltip_styles
 
 
 
