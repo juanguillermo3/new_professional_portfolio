@@ -11,7 +11,7 @@ import time
 import streamlit as st
 from badges_for_item_data import apply_badges_to_item_title
 from exceptional_ui import _custom_tooltip_html
-from flexible_file_discovery import flexible_file_discovery, html_for_media_carousel
+from media_carrousel import flexible_file_discovery, html_for_media_carousel
 from front_end_utils import prettify_title, render_external_link_button
 from tooltip_canvas import TooltipCanvas
 
