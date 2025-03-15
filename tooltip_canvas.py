@@ -28,7 +28,6 @@ DEFAULT_TOOLTIP_STYLES = {
  #"position": "absolute",
  #"left": "50%",
  #"top": "100%",
-"transform": "translateX(-50%) translateY(-5px)",
 "transition": "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out",
 "backdrop-filter": "blur(6px)",
 "z-index": "9999",
@@ -108,7 +107,6 @@ class TooltipCanvas:
             .tc-tooltip-container:hover .tc-tooltip-content.tc-tooltip-{element_id} {{
             visibility: visible;
             opacity: 1;
-            transform: translateX(-50%) translateY(0px);
             }}
             
             .tc-tooltip-item {{
