@@ -80,7 +80,7 @@ def html_for_item_data(
         if discovered_media:
             media_items = [{"src": path, "alt": f"Media {i+1}"} for i, path in enumerate(discovered_media)]
             media_carousel = html_for_media_carousel(dummy_media_list)
-            tooltip_content.append(["Media Preview:", media_carousel])
+            tooltip_content.append(["Media Preview:", media_items ])
 
     # Generate tooltip
     tooltip_html, tooltip_styles = tooltip_system.html_to_apply_tooltip(
