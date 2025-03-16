@@ -117,6 +117,33 @@ class TooltipCanvas:
            </div>
        </div>
        '''
+
+    def _define_tooltip(self, content: Union[str, List[Union[str, List[str]]]], element_id: str, visible_text: str = "Hover me") -> str:
+        """Generates the tooltip HTML, supporting multiple lists rendered in a flexible grid layout."""
+        
+        # Ensure content is always a list of lists
+        if isinstance(content, str):
+            content = [[content]]  # Wrap in a nested list
+        elif isinstance(content, list) and all(isinstance(item, str) for item in content):
+            content = [content]  # Wrap in a single column
+    
+        # Generate HTML for the tooltip grid
+        grid_items = "".join(
+            f"<div class='tc-tooltip-item'>{item}</div>"
+            for sublist in content for item in sublist
+        )
+    
+        return f'''
+        <div class="tc-tooltip-container">
+            {self._generate_tooltip_trigger(element_id, visible_text)}
+            <div class="tc-tooltip-content tc-tooltip-{element_id}">
+                <div class="tc-tooltip-grid">
+                    {grid_items}
+                </div>
+            </div>
+        </div>
+        '''
+
                      
     def _generate_tooltip_css(self, element_id: str):
         """Generates the CSS styles, applying user-defined overrides."""
