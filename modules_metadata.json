@@ -571,25 +571,27 @@
     "description": "Streamlit based Front-End application for my professional portfolio.",
     "author": "Juan Guillermo",
     "field": "something",
-    "last_updated": "2025-02-28T06:41:12Z",
+    "last_updated": "2025-03-13T18:58:58Z",
     "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/app_prof_site_blueprint.py",
     "file_path": "app_prof_site_blueprint.py",
     "repo_name": "new_professional_portfolio",
     "libraries": [
-      "git_api_utils",
-      "professional_bio",
-      "services_section",
-      "front_end_utils",
-      "testimonials",
-      "floating_linkedin_button",
-      "about_section",
-      "streamlit",
       "dotenv",
-      "floating_whatsapp_button",
+      "professional_bio",
+      "streamlit",
       "socials_section",
-      "rec_sys",
+      "floating_buttons",
+      "git_api_utils",
+      "floating_whatsapp_button",
+      "floating_linkedin_button",
+      "testimonials",
       "os",
-      "hero_area"
+      "about_section",
+      "tooltip_canvas",
+      "front_end_utils",
+      "services_section",
+      "hero_area",
+      "rec_sys"
     ],
     "galleria": "True",
     "image_path": "assets/new_professional_portfolio_network_plot.html",
@@ -647,28 +649,22 @@
   },
   {
     "title": "Front-End for Recommended Data",
-    "description": "Provides the front-end representation of items displayed by the recommendation system (RecSys).               It focuses on creating elegant and informative components by combining Streamlit\u2019s built-in features               with custom styling.",
+    "description": "Implements the front-end representation of items displayed by the RecSys. It aims to create elegant and informative components by combining Streamlit built-ins with custom styling.",
     "libraries": [
-      "git_api_utils",
-      "datetime",
-      "front_end_utils",
-      "glob",
-      "app_end_metadata",
-      "random",
-      "media_carousel",
-      "visual_media",
-      "time",
       "streamlit",
-      "markdown",
-      "portfolio_section",
-      "re",
+      "time",
+      "html",
       "hashlib",
-      "front_end_for_recommended_content",
-      "os"
+      "media_carrousel",
+      "exceptional_ui",
+      "tooltip_canvas",
+      "front_end_utils",
+      "re",
+      "badges_for_item_data"
     ],
-    "last_updated": "2025-02-28T06:49:04Z",
-    "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/rec_sys.py",
-    "file_path": "rec_sys.py",
+    "last_updated": "2025-03-15T04:52:54Z",
+    "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/front_end_for_recommended_content.py",
+    "file_path": "front_end_for_recommended_content.py",
     "repo_name": "new_professional_portfolio"
   },
   {
@@ -686,12 +682,12 @@
     "title": "About Section",
     "description": "Portfolio section designed to display housekeeping information and important messages. It helps users              understand the purpose of the web application.",
     "libraries": [
-      "about_section_data_loader",
-      "streamlit",
+      "exceptional_quote",
       "portfolio_section",
-      "exceptional_quote"
+      "streamlit",
+      "about_section_data_loader"
     ],
-    "last_updated": "2025-02-28T05:28:57Z",
+    "last_updated": "2025-03-15T06:24:35Z",
     "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/about_section.py",
     "file_path": "about_section.py",
     "repo_name": "new_professional_portfolio"
@@ -700,7 +696,7 @@
     "title": "APP End Metadata",
     "description": "A lightweight storage for additional metadata related to portfolio repositories. It helps front-end               engineers include extra information about different projects, such as tags, milestones, and completion               status. More specialized in displaying engaging information that complements essential project data.",
     "libraries": [],
-    "last_updated": "2025-02-28T05:45:24Z",
+    "last_updated": "2025-03-02T01:07:52Z",
     "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/app_end_metadata.py",
     "file_path": "app_end_metadata.py",
     "repo_name": "new_professional_portfolio"
@@ -732,11 +728,11 @@
     "title": "Floating Whatsapp Button",
     "description": "Renders a floating component for whatsapp communication. Servers as a contant invitiation to the client to stablish a connection.",
     "libraries": [
-      "streamlit",
       "urllib",
+      "streamlit",
       "os"
     ],
-    "last_updated": "2025-02-28T01:42:48Z",
+    "last_updated": "2025-03-06T03:31:36Z",
     "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/floating_whatsapp_button.py",
     "file_path": "floating_whatsapp_button.py",
     "repo_name": "new_professional_portfolio"
@@ -745,10 +741,12 @@
     "title": "Front-End Utils",
     "description": "Contains various utilities for design across portfolio sections.",
     "libraries": [
-      "streamlit",
-      "random"
+      "exceptional_ui",
+      "markdown",
+      "random",
+      "streamlit"
     ],
-    "last_updated": "2025-02-28T05:49:47Z",
+    "last_updated": "2025-03-06T23:33:18Z",
     "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/front_end_utils.py",
     "file_path": "front_end_utils.py",
     "repo_name": "new_professional_portfolio"
@@ -757,13 +755,13 @@
     "title": "Git API Utils",
     "description": "This module leverages advanced features of the Git API to gather metadata on projects (repositories)               and application modules (individual files). With the right credentials, it builds a pipeline that               combines custom metadata with GitHub-provided insights, transforming a Git account into a powerful               repository of portfolio intelligence across multiple projects.",
     "libraries": [
-      "ast",
-      "dotenv",
+      "json",
       "logging",
-      "re",
       "requests",
+      "dotenv",
+      "ast",
       "os",
-      "json"
+      "re"
     ],
     "last_updated": "2025-02-28T06:11:01Z",
     "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/git_api_utils.py",
@@ -774,13 +772,14 @@
     "title": "Hero Section",
     "description": "A subtle yet impactful hero section for a professional portfolio. Styled as a book quote with a bio picture,               it presents essential information and key call-to-action elements.",
     "libraries": [
-      "front_end_utils",
-      "streamlit",
       "dotenv",
+      "streamlit",
+      "os",
+      "exceptional_ui",
       "hero_area_data_loader",
-      "os"
+      "front_end_utils"
     ],
-    "last_updated": "2025-02-28T06:42:32Z",
+    "last_updated": "2025-03-13T00:24:01Z",
     "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/hero_area.py",
     "file_path": "hero_area.py",
     "repo_name": "new_professional_portfolio"
@@ -828,6 +827,47 @@
     "last_updated": "2025-02-28T06:45:57Z",
     "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/visual_media.py",
     "file_path": "visual_media.py",
+    "repo_name": "new_professional_portfolio"
+  },
+  {
+    "title": "Badges for Items",
+    "description": "This badge system applies visual cues using emojis to enhance the front-end representation of recommended items.                Badges are assigned based on predefined rules applied to item metadata, providing subtle yet meaningful                additional context. This helps improve the user experience by making item information more visually intuitive.",
+    "libraries": [
+      "html",
+      "os",
+      "front_end_utils",
+      "datetime",
+      "re"
+    ],
+    "last_updated": "2025-03-06T01:06:58Z",
+    "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/badges_for_item_data.py",
+    "file_path": "badges_for_item_data.py",
+    "repo_name": "new_professional_portfolio"
+  },
+  {
+    "title": "Bio Tech Design",
+    "description": "",
+    "libraries": [
+      "html"
+    ],
+    "last_updated": "2025-03-13T08:03:05Z",
+    "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/biotech_lab.py",
+    "file_path": "biotech_lab.py",
+    "repo_name": "new_professional_portfolio"
+  },
+  {
+    "title": "Exceptional UI",
+    "description": "Implements beautiful front-end components using Streamlit, HTML, and CSS to create a smooth and delightful user experience.",
+    "libraries": [
+      "streamlit",
+      "html",
+      "time",
+      "hashlib",
+      "datetime"
+    ],
+    "last_updated": "2025-03-13T15:15:04Z",
+    "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/exceptional_ui.py",
+    "file_path": "exceptional_ui.py",
     "repo_name": "new_professional_portfolio"
   },
   {
@@ -963,11 +1003,11 @@
     "title": "Data Manager",
     "description": "Handles ingestion merge and exploratory plottin of 3 data sources              for spatial analysis.",
     "libraries": [
-      "geopandas",
-      "pandas",
-      "numpy",
       "folium",
-      "plotly"
+      "pandas",
+      "geopandas",
+      "plotly",
+      "numpy"
     ],
     "last_updated": "2025-03-09T07:08:43Z",
     "url": "https://github.com/juanguillermo3/site_recommendation_system/blob/main/data_manager.py",
@@ -977,15 +1017,15 @@
   {
     "title": "Perform Exploratory Analysis",
     "description": "Merges the data sources for spatial analysis and produces exploratory plots",
-    "image_path": "assets/stores_summary.html",
+    "image_path": "{stores_summary.html,plot_store_location_*}",
     "libraries": [
       "dotenv",
+      "stores_placements",
+      "spatial_features",
       "plotly_styles",
       "os",
       "data_manager",
-      "spatial_features",
-      "spatial_frame",
-      "stores_placements"
+      "spatial_frame"
     ],
     "last_updated": "2025-03-09T07:08:43Z",
     "url": "https://github.com/juanguillermo3/site_recommendation_system/blob/main/perform_exploratory_analysis.py",
@@ -995,15 +1035,15 @@
   {
     "title": "Perform Spatial Baseline",
     "description": "Performs the training of baseline model to predict store placements from underlyng              zip data",
-    "image_path": "assets/plot_probabilities_*",
+    "image_path": "plot_probabilities_*",
     "libraries": [
       "dotenv",
-      "plotly_styles",
-      "spatial_baseline",
-      "os",
+      "stores_placements",
       "spatial_features",
+      "plotly_styles",
+      "os",
       "spatial_frame",
-      "stores_placements"
+      "spatial_baseline"
     ],
     "last_updated": "2025-03-09T07:08:43Z",
     "url": "https://github.com/juanguillermo3/site_recommendation_system/blob/main/perform_spatial_baseline.py",
@@ -1013,15 +1053,15 @@
   {
     "title": "Perform Spatial Correlation Analysis",
     "description": "Performs the Spatial Correlation Analysis",
-    "image_path": "{assets/correlation_bars.html,assets/plot_store_location_with_proximity_*}",
+    "image_path": "{correlation_bars.html,plot_store_location_with_proximity_*}",
     "libraries": [
       "dotenv",
-      "plotly_styles",
-      "spatial_correlation",
-      "os",
+      "stores_placements",
       "spatial_features",
-      "spatial_frame",
-      "stores_placements"
+      "plotly_styles",
+      "os",
+      "spatial_correlation",
+      "spatial_frame"
     ],
     "last_updated": "2025-03-09T07:08:43Z",
     "url": "https://github.com/juanguillermo3/site_recommendation_system/blob/main/perform_spatial_correlation_analysis.py",
@@ -1032,10 +1072,10 @@
     "title": "plot styles",
     "description": "Defines several decorators to distributes a custom styles across the plotly figures of a project,              thus providing standardization and a cohesive style. Full suport on plotly. Partial support on Folium              maps",
     "libraries": [
-      "textwrap",
-      "folium",
+      "functools",
       "plotly",
-      "functools"
+      "folium",
+      "textwrap"
     ],
     "last_updated": "2025-03-09T07:08:43Z",
     "url": "https://github.com/juanguillermo3/site_recommendation_system/blob/main/plot_styles.py",
@@ -1046,16 +1086,16 @@
     "title": "Spatial Baseline",
     "description": "Elaborates SpatialBaseline. It provides a baseline ML model to predict store placements              from underlyng data about the zip codes.",
     "libraries": [
-      "warnings",
-      "geopandas",
-      "pandas",
       "sklearn",
+      "folium",
+      "pandas",
       "spatial_correlation",
       "branca",
+      "warnings",
       "shapely",
-      "numpy",
-      "folium",
-      "plotly"
+      "geopandas",
+      "plotly",
+      "numpy"
     ],
     "last_updated": "2025-03-09T07:08:43Z",
     "url": "https://github.com/juanguillermo3/site_recommendation_system/blob/main/spatial_baseline.py",
@@ -1066,16 +1106,16 @@
     "title": "Spatial Correlation",
     "description": "Elaborates StoreLocationDataManager. It provides methods to asses the correlation pattern              between zip level features and the stores location.",
     "libraries": [
-      "warnings",
-      "geopandas",
       "dotenv",
-      "pandas",
       "sklearn",
-      "os",
-      "data_manager",
-      "shapely",
       "folium",
-      "plotly"
+      "pandas",
+      "os",
+      "warnings",
+      "shapely",
+      "geopandas",
+      "plotly",
+      "data_manager"
     ],
     "last_updated": "2025-03-09T07:08:43Z",
     "url": "https://github.com/juanguillermo3/site_recommendation_system/blob/main/spatial_correlation.py",
@@ -1086,10 +1126,10 @@
     "title": "Spatial Features",
     "description": "Provides a dataframe with zip level spatial features from the US",
     "libraries": [
-      "os",
       "dotenv",
       "pandas",
-      "re"
+      "re",
+      "os"
     ],
     "last_updated": "2025-03-09T07:08:43Z",
     "url": "https://github.com/juanguillermo3/site_recommendation_system/blob/main/spatial_features.py",
@@ -1100,9 +1140,9 @@
     "title": "Spatial Frame Processing",
     "description": "This script processes spatial data from shapefiles and standardizes ZIP codes.",
     "libraries": [
+      "dotenv",
       "geopandas",
-      "os",
-      "dotenv"
+      "os"
     ],
     "last_updated": "2025-03-09T07:08:43Z",
     "url": "https://github.com/juanguillermo3/site_recommendation_system/blob/main/spatial_frame.py",
@@ -1113,16 +1153,27 @@
     "title": "Store Placements Processing",
     "description": "This script processes store locations and standardizes ZIP codes.",
     "libraries": [
-      "geopandas",
       "dotenv",
       "pandas",
       "os",
-      "numpy",
-      "plotly"
+      "geopandas",
+      "plotly",
+      "numpy"
     ],
     "last_updated": "2025-03-09T07:08:43Z",
     "url": "https://github.com/juanguillermo3/site_recommendation_system/blob/main/stores_placements.py",
     "file_path": "stores_placements.py",
+    "repo_name": "site_recommendation_system"
+  },
+  {
+    "title": "Spatial RecSys",
+    "author": "Juan Guillermo",
+    "description": "End-to-end implementation of a recommendation system for retail store placement. The system analyzes historical store locations and integrates fine-grained demographic and socioeconomic data from U.S. ZIP codes. Using machine learning, it predicts optimal locations for new stores by predicting ZIP codes with a high probability of a new opening. The underlying probability model ranks potential store locations in U.S. states not included in the training data.",
+    "image_path": "assets/site_recommendation_system_network_plot.html",
+    "libraries": [],
+    "last_updated": "2025-03-16T20:54:47Z",
+    "url": "https://github.com/juanguillermo3/site_recommendation_system/blob/main/spatial_recsys.ipynb",
+    "file_path": "spatial_recsys.ipynb",
     "repo_name": "site_recommendation_system"
   }
 ]
