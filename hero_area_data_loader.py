@@ -7,6 +7,8 @@ from exceptional_ui import (
     setup_tooltip_behavior
 )
 from front_end_utils import render_section_separator
+import hashlib
+import datetime
 
 # Load environment variables
 load_dotenv()
@@ -67,8 +69,7 @@ def load_code_samples():
         {"title": "🧩 Ensemble Learning for automated hiring in Human Resources", "url": "https://colab.research.google.com/drive/1sPdB-uoOEdw2xIKPQCx1aGp5QUuu1ooK#scrollTo=_Ycax1ucXvAO"}
     ]
 
-import hashlib
-import datetime
+
 
 def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
     # Generate a hash from the system date
@@ -77,9 +78,11 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
 
     offerings = [
         {
-            "title": "⚡ 1. Inferential Statistics & High-Performance Predictive Analytics",
+            "title": "⚡ 1. High-Performance Prediction of Key Business Outcomes",
             "description": "I research and implement techniques for regression, classification, and forecasting use cases, "
                            "with applications ranging from macroeconomic and financial forecasting to microdata predictions in various systems.",
+        
+            
             "skills": [
                 "Strong understanding of linear regression.", 
                 "Strong understanding of Machine Learning algorithms for pattern detection.", 
