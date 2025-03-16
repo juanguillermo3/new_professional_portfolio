@@ -169,7 +169,6 @@ class TooltipCanvas:
                 width: auto;
                 max-width: 1000px;
                 padding: 10px;
-                background: rgba(0, 0, 0, 0.8);
                 border-radius: 5px;
                 color: white;
                 visibility: hidden;
