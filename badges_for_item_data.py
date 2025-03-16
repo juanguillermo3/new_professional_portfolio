@@ -170,7 +170,7 @@ def apply_badges_to_item_title(metadata, badge_rules=None, recent_fix_hours=72, 
         ):
             badge_id = f"badge_{idx}"  # Unique ID for each badge tooltip
             badges.append(f'<span id="{badge_id}">{emoji}</span>')
-            apply_custom_tooltip(badge_id, tooltip_text)  # Render tooltip immediately
+            #apply_custom_tooltip(badge_id, tooltip_text)  # Render tooltip immediately
 
     # **Auto-detect file type from "file_path"**
     file_type = ""
