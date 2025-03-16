@@ -98,13 +98,7 @@ class TooltipCanvas:
             }}
 
             .tc-tooltip-grid {{
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Dynamic layout */
-            gap: 10px; /* Spacing between columns */
-            padding: 10px;
-            background: #fff;
-            border: 1px solid #ccc;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+                flex-direction: row;
             }}
 
             .tc-tooltip-container:hover .tc-tooltip-content.tc-tooltip-{element_id} {{
