@@ -80,7 +80,7 @@ def apply_badges_to_item_title(metadata, badge_rules=None, recent_fix_hours=72, 
     # **Process emoji-based badges**
     for regex, emoji, keys in badge_rules:
         if any(
-            re.search(regex, str(metadata.get(key, ""))) 
+            metadata.get(key) and re.search(regex, str(metadata[key]))  # Prevent empty matches
             for key in keys
         ):
             badges.append(emoji)
