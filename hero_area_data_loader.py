@@ -84,6 +84,7 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
                            " to predict key outcomes in macroeconomics, financial and microdata business settings.",
             
             "skills": [
+                "Familiarity with key algorithms for regression, classification and forecasting problems. ", 
                 "Strong understanding of linear regression.", 
                 "Strong understanding of Machine Learning algorithms for pattern detection.", 
                 "Strong grasp on the development cycle of predictive models for regression, classification, and forecasting.", 
