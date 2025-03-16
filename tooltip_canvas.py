@@ -150,11 +150,11 @@ class TooltipCanvas:
             }}
 
             .tc-tooltip-grid {{
-                display: flex; /* ✅ Use flexbox */
-                flex-direction: row; /* ✅ Ensures items are placed in a row */
-                flex-wrap: wrap; /* ✅ Allows wrapping into new rows if needed */
-                gap: 10px; /* ✅ Adds spacing between columns */
-                padding: 10px;
+               display: grid; /* ✅ Enable grid */
+               grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* ✅ Dynamic 300px-wide columns */
+               justify-content: center; /* ✅ Center columns */
+               gap: 10px; /* ✅ Ensure proper spacing */
+               padding: 10px;
             }}
 
 
