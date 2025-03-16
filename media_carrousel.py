@@ -223,12 +223,13 @@ def html_for_media_carousel(media_items, carousel_id="media-carousel"):
         f'{"checked" if i == 0 else ""}><div class="carousel-item">'
         + (
             f'<img src="{item["src"]}" alt="{item["alt"]}">' if item["type"] == "image"
-            else f'<iframe src="/assets/{os.path.basename(item["src"])}" '
-                 f'width="600" height="400" frameborder="0"></iframe>'
+            else f'<div class="embedded-html">{open(item["src"], "r", encoding="utf-8").read()}</div>'
+            if os.path.isfile(item["src"]) else f'<p>Could not load {item["src"]}</p>'
         )
         + '</div>'
         for i, item in enumerate(processed_items)
     ])
+
 
     # Generate navigation buttons
     nav_html = "".join([
