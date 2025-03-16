@@ -10,15 +10,21 @@ import os
 import html
 from html import escape
 from front_end_utils import prettify_title
-from exceptional_ui import _custom_tooltip_html
+import os
+import re
+from datetime import datetime, timezone
 
+# File-type to icon mapping
+FILE_TYPE_ICONS = {
+    ".r": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/R_logo.svg/50px-R_logo.svg.png",
+    ".py": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/50px-Python-logo-notext.svg.png",
+    ".ipynb": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Jupyter_logo.svg/50px-Jupyter_logo.svg.png",
+    ".csv": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/CSV_Icon.svg/50px-CSV_Icon.svg.png",
+}
 
 # Google Colab icon
 COLAB_ICON_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Google_Colaboratory_SVG_Logo.svg/50px-Google_Colaboratory_SVG_Logo.svg.png"
 
-import os
-import re
-from datetime import datetime, timezone
 
 def apply_badges_to_item_title(metadata, badge_rules=None, recent_fix_hours=72, recent_creation_hours=72):
     """
