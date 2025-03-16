@@ -20,7 +20,7 @@ DEFAULT_TOOLTIP_STYLES = {
     "width": "300px",
     "background": "rgba(23, 33, 43, 0.5)",
     "color": "#ffffff",
-    "padding": "5px 10px",  # Minimal padding: 5px top/bottom, 10px left/right
+    #"padding": "5px 10px",  # Minimal padding: 5px top/bottom, 10px left/right
     "border-radius": "8px",
     "box-shadow": "0px 4px 20px rgba(255, 255, 255, 0.1)",
     "transition": "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out",
@@ -35,7 +35,7 @@ DEFAULT_TOOLTIP_STYLES = {
     "font-weight": "normal",
 
     # Ensure justified text alignment
-    "text-align": "justify"
+    #"text-align": "justify"
 }
 
 
