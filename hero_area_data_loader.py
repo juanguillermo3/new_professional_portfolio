@@ -82,6 +82,8 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
             "description": "I research and implement techniques for regression, classification, and forecasting use cases, "
                            "with applications ranging from macroeconomic and financial forecasting to microdata predictions in various systems.",
         
+            "description": "I implement the start-of-the-art of statistical driven inference of predictive patterns, such as Machine Learning and Neural Networks, "
+               " to predict key outcomes in macroeconomics, financial and microdata business settings."
             
             "skills": [
                 "Strong understanding of linear regression.", 
