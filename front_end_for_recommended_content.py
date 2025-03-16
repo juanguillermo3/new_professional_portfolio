@@ -51,7 +51,7 @@ def html_for_item_data(
     title = apply_badges_to_item_title(rec, badge_rules)
 
     # Escape description to prevent HTML injection
-    description = html.escape(rec.get("description", "No description available."))
+    description = f'<div style="text-align: justify; margin: 0 5%;">{html.escape(rec.get("description", "No description available."))}</div>'
 
     # Generate buttons for the tooltip
     buttons = []
