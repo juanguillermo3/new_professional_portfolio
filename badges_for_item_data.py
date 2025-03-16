@@ -13,7 +13,7 @@ from front_end_utils import prettify_title
 import os
 import re
 from datetime import datetime, timezone
-from exceptional_ui import _custom_tooltip_html 
+from exceptional_ui import apply_custom_tooltip
 
 # File-type to icon mapping
 FILE_TYPE_ICONS = {
