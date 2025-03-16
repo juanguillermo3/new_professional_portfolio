@@ -103,7 +103,7 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
             ]
         },
         {
-            "title": "🧩 3. Data Engineering",
+            "title": "🧩 3. Forging Key Datasets from Primary Sources",
             "description": 'As my former boss '
                            '<a href="https://www.linkedin.com/in/susana-mart%C3%ADnez-restrepo-ph-d-1314b137/" target="_blank" style="color: #0073b1; text-decoration: none;">'
                            'Susana Martinez Restrepo</a> said, <em>"I can perform data miracles."</em> '
