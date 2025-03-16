@@ -298,6 +298,44 @@ def html_for_media_carousel(media_items, carousel_id="media-carousel"):
     """
 
 
+def html_for_media_carousel(media_items, carousel_id="media-carousel"):
+    num_items = len(media_items)
+    if num_items == 0:
+        return "<p>No media available</p>"
+    
+    processed_items = []
+    for item in media_items:
+        src = item["src"]
+        file_ext = os.path.splitext(src)[1].lower()
+
+        # If it's a local HTML file, read its contents
+        if file_ext == ".html" and os.path.isfile(src):
+            with open(src, "r", encoding="utf-8") as file:
+                src = file.read()
+            media_type = "html"
+        else:
+            media_type = "image"
+
+        processed_items.append({"src": src, "alt": item.get("alt", "Media"), "type": media_type})
+
+    slides_html = "".join([
+        f'<input type="radio" id="{carousel_id}-slide{i}" name="{carousel_id}-radio" '
+        f'{"checked" if i == 0 else ""}><div class="carousel-item">'
+        + (
+            item["src"] if item["type"] == "html" else f'<img src="{item["src"]}" alt="{item["alt"]}">'
+        )
+        + '</div>'
+        for i, item in enumerate(processed_items)
+    ])
+
+    return f"""
+    <div class="carousel-container">
+        {slides_html}
+        <div class="carousel-nav">
+            {''.join([f'<label for="{carousel_id}-slide{i}" class="nav-btn"></label>' for i in range(num_items)])}
+        </div>
+    </div>
+    """
 
 # Example usage:
 dummy_media_list = [
