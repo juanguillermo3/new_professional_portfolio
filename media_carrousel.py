@@ -230,6 +230,19 @@ def html_for_media_carousel(media_items, carousel_id="media-carousel"):
         for i, item in enumerate(processed_items)
     ])
 
+    slides_html = "".join([
+    f'<input type="radio" id="{carousel_id}-slide{i}" name="{carousel_id}-radio" '
+    f'{"checked" if i == 0 else ""}><div class="carousel-item">'
+    + (
+        f'<img src="{item["src"]}" alt="{item["alt"]}">' if item["type"] == "image"
+        else f'<div class="embedded-html">{open(item["src"], "r", encoding="utf-8").read()}</div>'
+        if os.path.isfile(item["src"]) else f'<p>Could not load {item["src"]}</p>'
+    )
+    + '</div>'
+    for i, item in enumerate(processed_items)
+    ])
+
+
     # Generate navigation buttons
     nav_html = "".join([
         f'<label for="{carousel_id}-slide{i}" class="nav-btn"></label>'
