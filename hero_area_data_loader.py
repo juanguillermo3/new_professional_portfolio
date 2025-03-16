@@ -136,7 +136,7 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
             ]
         },
         {
-            "title": "🛸 5. Research Effort on AI & LLM-Powered Applications",
+            "title": "🛸 5. Unpacking Artificial Intelligence for Data Analysis",
             "description": "I prepare myself by means of self-learning for the disruption of Artificial Intelligence in software development and the rise of LLM-powered applications.",
         },
         {
