@@ -84,8 +84,6 @@ class TooltipCanvas:
                 position: absolute;
                 left: 50%;
                 top: 100%;
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Ensure multiple columns */
                 gap: 8px;
                 padding: 8px;
                 background: rgba(0, 0, 0, 0.0);
@@ -99,6 +97,8 @@ class TooltipCanvas:
 
             .tc-tooltip-grid {{
                 flex-direction: row;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Ensure multiple columns */
             }}
 
             .tc-tooltip-container:hover .tc-tooltip-content.tc-tooltip-{element_id} {{
