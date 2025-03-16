@@ -17,29 +17,27 @@ from media_carrousel import html_for_media_carousel, dummy_media_list
          
 # Default tooltip content styling
 DEFAULT_TOOLTIP_STYLES = {
-#"visibility": "hidden",
-#"opacity": "0",
-"width": "300px",
-"background": "rgba(23, 33, 43, 0.5)",
-"color": "#ffffff",
-"padding": "10px",
-"border-radius": "8px",
-"box-shadow": "0px 4px 20px rgba(255, 255, 255, 0.1)",
- #"position": "absolute",
- #"left": "50%",
- #"top": "100%",
-"transition": "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out",
-"backdrop-filter": "blur(6px)",
-"z-index": "9999",
-"border": "2px solid rgba(255, 255, 255, 0.9)",
+    "width": "300px",
+    "background": "rgba(23, 33, 43, 0.5)",
+    "color": "#ffffff",
+    "padding": "5px 10px",  # Minimal padding: 5px top/bottom, 10px left/right
+    "border-radius": "8px",
+    "box-shadow": "0px 4px 20px rgba(255, 255, 255, 0.1)",
+    "transition": "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out",
+    "backdrop-filter": "blur(6px)",
+    "z-index": "9999",
+    "border": "2px solid rgba(255, 255, 255, 0.9)",
     
-# ADDITIONAL SPACING CONTROL:
-"margin": "8px",  # Adds space between tooltips (vertical & horizontal spacing)
+    # Additional spacing control:
+    "margin": "8px",  # Adds space between tooltips (vertical & horizontal spacing)
 
-# Enforce non-bold text
-"font-weight": "normal"
-         
+    # Enforce non-bold text
+    "font-weight": "normal",
+
+    # Ensure justified text alignment
+    "text-align": "justify"
 }
+
 
 # Default animation styles
 DEFAULT_ANIMATION_STYLES = {
