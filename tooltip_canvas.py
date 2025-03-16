@@ -149,12 +149,14 @@ class TooltipCanvas:
                 z-index: 9999;
             }}
 
-         .tc-tooltip-grid {
-             display: grid; /* ✅ Ensure it behaves as a grid */
-             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* ✅ Spread items into columns */
-             gap: 10px; /* ✅ Add spacing between items */
+         .tc-tooltip-grid {{
+             display: flex; /* ✅ Use flexbox */
+             flex-direction: row; /* ✅ Ensures items are placed in a row */
+             flex-wrap: wrap; /* ✅ Allows wrapping into new rows if needed */
+             gap: 10px; /* ✅ Adds spacing between columns */
              padding: 10px;
-         }
+         }}
+
 
             .tc-tooltip-container:hover .tc-tooltip-content.tc-tooltip-{element_id} {{
             visibility: visible;
