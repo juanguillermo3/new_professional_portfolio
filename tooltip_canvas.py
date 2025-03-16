@@ -193,3 +193,32 @@ class TooltipCanvas:
     
         # Apply tooltip with grid structure
         self.apply_tooltip(test_id, test_content, visible_text="Hoover me for more info")
+
+    def _define_tooltip(self, content: Union[str, List[Union[str, List[str]]]], element_id: str, visible_text: str = "Hover me") -> str:
+        """Generates the tooltip HTML, supporting multiple lists rendered in a flexible grid layout (column-major order)."""
+        
+        # Ensure content is always a list of lists
+        if isinstance(content, str):
+            content = [[content]]  # Wrap in a nested list
+        elif isinstance(content, list) and all(isinstance(item, str) for item in content):
+            content = [content]  # Wrap in a single column
+    
+        # Transpose the content to enforce column-major order
+        max_len = max(len(col) for col in content)
+        transposed_content = [[content[col][row] if row < len(content[col]) else "" for col in range(len(content))] for row in range(max_len)]
+    
+        # Generate HTML with column-major ordering
+        grid_items = "".join(
+            f'<div class="tc-tooltip-grid">{" ".join(f"<div class=\'tc-tooltip-item\'>{item}</div>" for item in row)}</div>'
+            for row in transposed_content
+        )
+        
+        return f'''
+        <div class="tc-tooltip-container">
+            {self._generate_tooltip_trigger(element_id, visible_text)}
+            <div class="tc-tooltip-content tc-tooltip-{element_id}">
+                {grid_items}
+            </div>
+        </div>
+        '''
+
