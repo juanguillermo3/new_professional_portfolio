@@ -84,7 +84,7 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
                            "and <em>Deep Learning</em> algorithms for prediction and forecasting settings. Applications range from forecasting "
                            "the macroeconomic/financial environment to <em>fine-grained predictions</em> from business micro-data (sales forecasting, churning/engagement models) ",                       
             "skills": [
-                "Familiarity with key algorithms for regression, classification and forecasting problems. ", 
+                "Familiarity with key predictive algorithms for regression, classification and forecasting problems. ", 
                 "Strong understanding of linear regression.", 
                 "Strong understanding of Machine Learning algorithms for pattern detection.", 
                 "Strong grasp on the development cycle of predictive models for regression, classification, and forecasting.", 
@@ -111,6 +111,7 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
                            'for research and model development.',
             "skills": [
                 "Implementation of data pipelines for research & operational environments. ",
+                "Using text-minning and Natural Language Processing tricks to engineer flexible information proessing heuristics. ",
                 "Facility to engage with structured and unstructured sources.",
                 "Foundations in NLP, GIS, and network analysis.",
                 "High expertise in designing advanced merges and data sources.",
