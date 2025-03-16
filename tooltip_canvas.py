@@ -80,11 +80,6 @@ class TooltipCanvas:
                 position: relative;
             }}
 
-            .tc-tooltip-container {{
-                display: inline;
-                position: relative;
-            }}
-
             .tc-tooltip-content.tc-tooltip-{element_id} {{
                 position: absolute;
                 left: 50%;
@@ -127,6 +122,68 @@ class TooltipCanvas:
                 font-weight: normal;
             }}
 
+        </style>
+        """
+
+    def _generate_tooltip_css(self, element_id: str):
+        """Generates the CSS styles, applying user-defined overrides."""
+        tooltip_styles = "; ".join(f"{k}: {v}" for k, v in self.tooltip_styles.items())
+        animation_styles = self.animation_styles["animation"]
+        keyframes = self.animation_styles["keyframes"]
+    
+        return f"""
+        <style>
+            /* Timestamp {self.timestamp} to force refresh */
+            {keyframes}
+    
+            .tc-tooltip-container {{
+                display: inline;
+                position: relative;
+            }}
+    
+            .tc-tooltip-content.tc-tooltip-{element_id} {{
+                position: absolute;
+                left: 50%;
+                top: 100%;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Ensure multiple columns */
+                gap: 10px;
+                padding: 8px;
+                background: rgba(0, 0, 0, 0.8);
+                border-radius: 5px;
+                color: white;
+                visibility: hidden;
+                opacity: 0;
+                transition: opacity 0.2s ease-in-out;
+                z-index: 9999;
+                transform: translateX(-50%);
+            }}
+    
+            .tc-tooltip-container:hover .tc-tooltip-content.tc-tooltip-{element_id} {{
+                visibility: visible;
+                opacity: 1;
+            }}
+    
+            .tc-tooltip-grid {{
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Adjusts dynamically */
+                gap: 10px;
+            }}
+    
+            .tc-tooltip-item {{
+                text-align: center;
+                padding: 5px;
+                background: rgba(255, 255, 255, 0.2);
+                border-radius: 3px;
+            }}
+            
+            .tc-tooltip-trigger {{
+                color: rgb(0, 115, 177);
+                border-bottom: 1px dashed rgb(0, 115, 177);
+                cursor: pointer;
+                font-weight: normal;
+            }}
+    
         </style>
         """
 
