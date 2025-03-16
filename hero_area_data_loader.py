@@ -80,9 +80,9 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
         {
             "title": "⚡ 1. High-Performance Prediction of Key Business Outcomes",
             
-            "description": "I implement statistical driven inference of predictive patterns powered by state-of-the-art Machine Learning "
-                           "and Deep Learning algorithms for prediction and forecasting settings. Applications range from forecasting "
-                           "the macroeconomic/financial environment to fine-grained predictions from business micro-data (sales forecasting, churning/engagement models) ",                       
+            "description": "I implement <em>statistical driven inference</em> of predictive patterns powered by state-of-the-art <em>Machine Learning</em> "
+                           "and <em>Deep Learning</em> algorithms for prediction and forecasting settings. Applications range from forecasting "
+                           "the macroeconomic/financial environment to <em>fine-grained predictions</em> from business micro-data (sales forecasting, churning/engagement models) ",                       
             "skills": [
                 "Familiarity with key algorithms for regression, classification and forecasting problems. ", 
                 "Strong understanding of linear regression.", 
@@ -106,7 +106,7 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
             "title": "🧩 3. Forging Key Datasets from Primary Sources",
             "description": 'As my former boss '
                            '<a href="https://www.linkedin.com/in/susana-mart%C3%ADnez-restrepo-ph-d-1314b137/" target="_blank" style="color: #0073b1; text-decoration: none;">'
-                           'Susana Martinez Restrepo</a> said, <em>"I can perform data miracles."</em> '
+                           'Susana Martinez Restrepo</a> said, <em>I can perform data miracles.</em> '
                            'This refers to my ability to clean and organize datasets from complex, multi-source environments '
                            'for research and model development.',
             "skills": [
