@@ -10,12 +10,14 @@ import streamlit as st
 import glob
 import re
 import os
+import base64
+import os
 
 # Global configuration for valid media files
 VALID_MEDIA_FILES = {".jpg", ".jpeg", ".png", ".gif", ".mp4", ".webm"}
 
 #
-# (1)
+# 1.
 #
 def flexible_file_discovery(file_pattern, valid_files=None, search_dir="assets"):
     """
@@ -59,102 +61,12 @@ def flexible_file_discovery(file_pattern, valid_files=None, search_dir="assets")
 
     return filtered_files
 #
-# (2)
+# 2.
 #
-def html_for_media_carousel(media_items, carousel_id="media-carousel"):
-    """
-    Generates a simple HTML and CSS-based media carousel with navigation.
 
-    :param media_items: List of dictionaries with media properties (src, alt).
-    :param carousel_id: Unique ID for the carousel container.
-    :return: HTML string for the carousel.
-    """
-    num_items = len(media_items)
-    if num_items == 0:
-        return "<p>No media available</p>"
-
-    # Generate radio inputs and carousel items
-    slides_html = "".join([
-        f'<input type="radio" id="{carousel_id}-slide{i}" name="{carousel_id}-radio" '
-        f'{"checked" if i == 0 else ""}><div class="carousel-item">'
-        f'<img src="{item["src"]}" alt="{item.get("alt", f"Image {i+1}")}"></div>'
-        for i, item in enumerate(media_items)
-    ])
-
-    # Generate navigation buttons
-    nav_html = "".join([
-        f'<label for="{carousel_id}-slide{i}" class="nav-btn"></label>'
-        for i in range(num_items)
-    ])
-
-    return f"""
-    <div class="carousel-container">
-        {slides_html}
-        <div class="carousel-nav">{nav_html}</div>
-    </div>
-
-    <style>
-        .carousel-container {{
-            position: relative;
-            width: 600px; /* Fixed width */
-            height: auto; /* Auto height based on image aspect ratio */
-            overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
-            text-align: center;
-        }}
-
-        .carousel-item {{
-            display: none;
-        }}
-
-        .carousel-item img {{
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-        }}
-
-        input[name="{carousel_id}-radio"] {{
-            display: none;
-        }}
-
-        /* Show the selected slide */
-        {''.join([
-            f'input[id="{carousel_id}-slide{i}"]:checked ~ .carousel-item:nth-of-type({i+1}) {{ display: block; }}'
-            for i in range(num_items)
-        ])}
-
-        /* Navigation buttons */
-        .carousel-nav {{
-            margin-top: 10px;
-        }}
-
-        .nav-btn {{
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            margin: 0 5px;
-            background: gray;
-            border-radius: 50%;
-            cursor: pointer;
-        }}
-
-        .nav-btn:hover {{
-            background: black;
-        }}
-
-        /* Selected indicator */
-        {''.join([
-            f'input[id="{carousel_id}-slide{i}"]:checked ~ .carousel-nav label:nth-of-type({i+1}) {{ background: black; }}'
-            for i in range(num_items)
-        ])}
-    </style>
-    """
-
-
-import base64
-import os
-
+#
+# 0
+#
 def image_to_base64(image_path):
     """Converts an image file to a base64 string."""
     if not os.path.exists(image_path):
@@ -162,8 +74,9 @@ def image_to_base64(image_path):
     
     with open(image_path, "rb") as image_file:
         return f"data:image/png;base64,{base64.b64encode(image_file.read()).decode()}"
-
-
+#
+# 1
+#
 def html_for_media_carousel(media_items, carousel_id="media-carousel"):
     """
     Generates a simple HTML and CSS-based media carousel with Base64 embedded images.
@@ -258,6 +171,132 @@ def html_for_media_carousel(media_items, carousel_id="media-carousel"):
         ])}
     </style>
     """
+
+
+import os
+import base64
+
+def image_to_base64(image_path):
+    """Convert a local image to a base64 string."""
+    try:
+        with open(image_path, "rb") as img_file:
+            return f"data:image/{image_path.split('.')[-1]};base64,{base64.b64encode(img_file.read()).decode()}"
+    except Exception:
+        return None
+
+def html_for_media_carousel(media_items, carousel_id="media-carousel"):
+    """
+    Generates an HTML and CSS-based media carousel supporting:
+      - Remote images (URLs)
+      - Local images (converted to Base64 or referenced in /assets/)
+      - Local HTML files (embedded as <iframe>)
+
+    :param media_items: List of dictionaries with media properties (src, alt).
+    :param carousel_id: Unique ID for the carousel container.
+    :return: HTML string for the carousel.
+    """
+    num_items = len(media_items)
+    if num_items == 0:
+        return "<p>No media available</p>"
+    
+    processed_items = []
+    for item in media_items:
+        src = item["src"]
+        file_ext = os.path.splitext(src)[1].lower()
+
+        # If it's a local image, convert to Base64 or use assets folder
+        if file_ext in (".png", ".jpg", ".jpeg", ".gif"):
+            if os.path.isfile(src):
+                src = image_to_base64(src) or f"/assets/{os.path.basename(src)}"
+            else:
+                src = f"/assets/{os.path.basename(src)}"
+
+        processed_items.append({
+            "src": src,
+            "alt": item.get("alt", "Media"),
+            "type": "html" if file_ext == ".html" else "image"
+        })
+
+    # Generate radio inputs and carousel items
+    slides_html = "".join([
+        f'<input type="radio" id="{carousel_id}-slide{i}" name="{carousel_id}-radio" '
+        f'{"checked" if i == 0 else ""}><div class="carousel-item">'
+        + (
+            f'<img src="{item["src"]}" alt="{item["alt"]}">' if item["type"] == "image"
+            else f'<iframe src="/assets/{os.path.basename(item["src"])}" '
+                 f'width="600" height="400" frameborder="0"></iframe>'
+        )
+        + '</div>'
+        for i, item in enumerate(processed_items)
+    ])
+
+    # Generate navigation buttons
+    nav_html = "".join([
+        f'<label for="{carousel_id}-slide{i}" class="nav-btn"></label>'
+        for i in range(num_items)
+    ])
+
+    return f"""
+    <div class="carousel-container">
+        {slides_html}
+        <div class="carousel-nav">{nav_html}</div>
+    </div>
+
+    <style>
+        .carousel-container {{
+            position: relative;
+            width: 600px;
+            height: auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+            text-align: center;
+        }}
+
+        .carousel-item {{
+            display: none;
+        }}
+
+        .carousel-item img, .carousel-item iframe {{
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }}
+
+        input[name="{carousel_id}-radio"] {{
+            display: none;
+        }}
+
+        {''.join([
+            f'input[id="{carousel_id}-slide{i}"]:checked ~ .carousel-item:nth-of-type({i+1}) {{ display: block; }}'
+            for i in range(num_items)
+        ])}
+
+        .carousel-nav {{
+            margin-top: 10px;
+        }}
+
+        .nav-btn {{
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            margin: 0 5px;
+            background: gray;
+            border-radius: 50%;
+            cursor: pointer;
+        }}
+
+        .nav-btn:hover {{
+            background: black;
+        }}
+
+        {''.join([
+            f'input[id="{carousel_id}-slide{i}"]:checked ~ .carousel-nav label:nth-of-type({i+1}) {{ background: black; }}'
+            for i in range(num_items)
+        ])}
+    </style>
+    """
+
 
 
 # Example usage:
