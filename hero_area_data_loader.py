@@ -91,7 +91,7 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
             ]
         },
         {
-            "title": "🔌 2. Software & Application Development for Inference Distribution",
+            "title": "🔌 2. Sharing Actionable Insights Through Software and Application Development",
             "description": "I develop applications (batch scripts, APIs, dashboards, web applications) to distribute insights "
                            "and predictions across corporate environments.",
             "skills": [
