@@ -118,7 +118,7 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
             ]
         },
         {
-            "title": "🛠️ 4. Holistic Understanding of Modern Tooling",
+            "title": "🛠️ 4. Fast Learning of Modern Data Stacks",
             "description": "I integrate tools and technologies for modern data analysis, committing to research the "
                            "unique purposes of each tool and efficiently write workflows around them using GPT.",
             "subitems": [
