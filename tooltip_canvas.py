@@ -180,9 +180,6 @@ class TooltipCanvas:
             .tc-tooltip-grid {{
                 display: grid;
                 grid-template-columns: repeat(auto-fill, 300px); /* ✅ Forces proper column layout */
-                gap: 10px;
-                justify-content: center;
-                padding: 10px;
             }}
     
             .tc-tooltip-container:hover .tc-tooltip-content.tc-tooltip-{element_id} {{
