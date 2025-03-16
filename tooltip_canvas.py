@@ -236,7 +236,6 @@ class TooltipCanvas:
                 width: auto; /* Let grid dictate width */
                 max-width: 1000px; /* Adjust if needed */
                 padding: 10px;
-                background: rgba(0, 0, 0, 0.8);
                 border-radius: 5px;
                 color: white;
                 visibility: hidden;
