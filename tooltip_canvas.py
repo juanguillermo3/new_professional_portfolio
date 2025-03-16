@@ -140,10 +140,6 @@ class TooltipCanvas:
             }}
             
             .tc-tooltip-item {{
-                text-align: center;
-                padding: 5px;
-                background: rgba(255, 255, 255, 0.2);
-                border-radius: 3px;
                 {tooltip_styles}; /* ✅ Apply custom styles */
                 animation: {animation_styles}; /* ✅ Apply animations */
             }}
