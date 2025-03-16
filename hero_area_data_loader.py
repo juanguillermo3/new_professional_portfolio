@@ -80,8 +80,9 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
         {
             "title": "⚡ 1. High-Performance Prediction of Key Business Outcomes",
             
-            "description": "I implement the start-of-the-art of statistical driven inference of predictive patterns, such as Machine Learning and Neural Networks, "
-                           " to predict key outcomes in macroeconomics, financial and microdata business settings.",
+            "description": "I implement statistical driven inference of predictive patterns powered by state-of-the-art Machine Learning ()"
+                           "and Deep Learning algorithms for prediction and forecasting settings. Applications comprehend predictions on key"
+                           "outcomes for macroeconomics, financial, and individual level data from business microdata."
             
             "skills": [
                 "Familiarity with key algorithms for regression, classification and forecasting problems. ", 
