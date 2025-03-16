@@ -113,7 +113,7 @@ from datetime import datetime, timezone
 
 def apply_badges_to_item_title(metadata, badge_rules=None, recent_fix_hours=72, recent_creation_hours=72):
     """
-    Applies multiple badges (emoji + file icons) to the title based on metadata, with tooltips for context.
+    Applies multiple badges (emoji + file icons) to the title based on metadata, with tooltips rendered in real-time.
 
     Parameters:
     - metadata (dict): Dictionary containing item metadata.
@@ -123,7 +123,7 @@ def apply_badges_to_item_title(metadata, badge_rules=None, recent_fix_hours=72, 
     - recent_creation_hours (int, optional): Hours threshold for considering an item recently created.
 
     Returns:
-    - str: Title string with appropriate badges (including tooltips & file icons).
+    - str: Title string with appropriate badges (including file icons).
     """
     # **Determine "recently updated" status (🔧)**
     metadata["recently_fixed"] = "False"
@@ -161,7 +161,6 @@ def apply_badges_to_item_title(metadata, badge_rules=None, recent_fix_hours=72, 
 
     title = prettify_title(metadata.get('title', 'Untitled'))  # Ensure prettify_title exists
     badges = []
-    tooltip_html = []
 
     # **Process emoji-based badges**
     for idx, (regex, emoji, keys, tooltip_text) in enumerate(badge_rules):
@@ -170,8 +169,8 @@ def apply_badges_to_item_title(metadata, badge_rules=None, recent_fix_hours=72, 
             for key in keys
         ):
             badge_id = f"badge_{idx}"  # Unique ID for each badge tooltip
-            tooltip_html.append(_custom_tooltip_html(badge_id, tooltip_text))
             badges.append(f'<span id="{badge_id}">{emoji}</span>')
+            apply_custom_tooltip(badge_id, tooltip_text)  # Render tooltip immediately
 
     # **Auto-detect file type from "file_path"**
     file_type = ""
@@ -191,4 +190,4 @@ def apply_badges_to_item_title(metadata, badge_rules=None, recent_fix_hours=72, 
         badges.append(colab_icon)
 
     # **Generate the final decorated title**
-    return f"{' '.join(badges)} {title} {''.join(tooltip_html)}" if badges else title
+    return f"{' '.join(badges)} {title}" if badges else title
