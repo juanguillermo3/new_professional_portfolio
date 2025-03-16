@@ -217,18 +217,27 @@ def html_for_media_carousel(media_items, carousel_id="media-carousel"):
             "type": "html" if file_ext == ".html" else "image"
         })
 
-    # Generate radio inputs and carousel items
     slides_html = "".join([
         f'<input type="radio" id="{carousel_id}-slide{i}" name="{carousel_id}-radio" '
         f'{"checked" if i == 0 else ""}><div class="carousel-item">'
         + (
+            # Case 1: Image Processing (No Changes)
             f'<img src="{item["src"]}" alt="{item["alt"]}">' if item["type"] == "image"
-            else f'<iframe src="/assets/{os.path.basename(item["src"])}" '
-                 f'width="600" height="400" frameborder="0"></iframe>'
+            
+            # Case 2: If the file exists and is an HTML file, read & embed content directly
+            else (
+                f'<div class="embedded-html">{open(item["src"], "r", encoding="utf-8").read()}</div>'
+                if os.path.isfile(item["src"])
+                
+                # Case 3: If the file doesn’t exist, fallback to iframe (assuming assets location)
+                else f'<iframe src="/assets/{os.path.basename(item["src"])}" '
+                     f'width="600" height="400" frameborder="0"></iframe>'
+            )
         )
         + '</div>'
         for i, item in enumerate(processed_items)
     ])
+
 
     slides_html = "".join([
     f'<input type="radio" id="{carousel_id}-slide{i}" name="{carousel_id}-radio" '
