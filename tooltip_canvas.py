@@ -137,12 +137,11 @@ class TooltipCanvas:
 
 
             .tc-tooltip-grid {{
-                display: flex;
-                flex-wrap: wrap;
-                gap: 10px;
-                min-width: 300px; /* Adjust as needed */
-                max-width: 900px; /* Prevents excessive width */
-                white-space: normal; /* Ensures wrapping */
+             display: grid;
+             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+             gap: 10px;
+             min-width: 300px;
+             max-width: 1200px;
             }}
             
             .tc-tooltip-column {{
