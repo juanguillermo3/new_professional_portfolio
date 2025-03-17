@@ -72,7 +72,7 @@ def html_for_item_data(
     # Prepare tooltip content
     tooltip_content = [[title, description]]
     if buttons:
-        tooltip_content[0].append(["Resources:", buttons_html])
+        tooltip_content.append(["Resources:", buttons_html])
 
     # If the card metadata includes an image path, discover media files
     if "image_path" in rec:
