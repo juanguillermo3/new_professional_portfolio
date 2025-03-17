@@ -141,12 +141,12 @@ class TooltipCanvas:
              grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
              gap: 10px;
              min-width: 300px;
-             max-width: 1200px;
+             max-width: 800px;
             }}
             
             .tc-tooltip-column {{
                 max-width: 900px; /* Prevents excessive growth */
-                min-width: 50px;
+                min-width: 250px;
                 flex: 1; /* Allows columns to distribute evenly */
             }}
 
