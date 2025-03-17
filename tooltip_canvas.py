@@ -150,15 +150,7 @@ class TooltipCanvas:
 
             .tc-tooltip-content.tc-tooltip-{element_id} {{
                 position: absolute;
-                left: 50%;
-                top: 100%;
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-                gap: 8px;
-                padding: 8px;
                 background: rgba(0, 0, 0, 0.0);
-                border-radius: 5px;
-                color: white;
                 visibility: hidden;
                 opacity: 0;
                 transition: opacity 0.2s ease-in-out;
