@@ -146,8 +146,13 @@ class TooltipCanvas:
             
             .tc-tooltip-column {{
                 max-width: 900px; /* Prevents excessive growth */
-                min-width: 250px;
+                min-width: 300px;
                 flex: 1; /* Allows columns to distribute evenly */
+            }}
+
+            .tc-tooltip-item {{
+            position: relative;  /* Remove absolute positioning */
+            max-width: 300px; /* Prevents excessive growth */
             }}
 
             .tc-tooltip-content.tc-tooltip-{element_id} {{
@@ -164,14 +169,6 @@ class TooltipCanvas:
             opacity: 1;
             }}
             
-            .tc-tooltip-item {{
-            position: relative;  /* Remove absolute positioning */
-            text-align: center;
-            padding: 5px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 3px;
-            max-width: 200px; /* Prevents excessive growth */
-            }}
             
             .tc-tooltip-item {{
                 {tooltip_styles};
