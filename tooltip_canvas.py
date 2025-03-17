@@ -132,9 +132,7 @@ class TooltipCanvas:
 
             .tc-tooltip-content.tc-tooltip-{element_id} {{
                 position: absolute;
-                background: rgba(0, 0, 0, 0.0);
                 visibility: hidden;
-                opacity: 0;
                 transition: opacity 0.2s ease-in-out;
                 z-index: 9999;
             }}
