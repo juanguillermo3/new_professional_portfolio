@@ -141,8 +141,9 @@ class TooltipCanvas:
                 flex-wrap: wrap;
                 gap: 10px;
             }}
+            
             .tc-tooltip-column {{
-                min-width: 300px;
+                min-width: 150px;
                 flex: 1; /* Allows columns to distribute evenly */
             }}
 
