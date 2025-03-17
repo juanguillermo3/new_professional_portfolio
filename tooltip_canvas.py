@@ -20,7 +20,7 @@ DEFAULT_TOOLTIP_STYLES = {
 #"visibility": "hidden",
 #"opacity": "0",
 "width": "300px",
-"background": "rgba(23, 33, 43, 0.5)",
+#"background": "rgba(23, 33, 43, 0.5)",
 "color": "#ffffff",
 "padding": "10px",
 "border-radius": "8px",
