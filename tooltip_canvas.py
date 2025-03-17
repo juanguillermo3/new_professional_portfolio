@@ -135,17 +135,15 @@ class TooltipCanvas:
                 position: relative;
             }}
 
-            .tc-tooltip-container {{
-                display: inline;
-                position: relative;
-            }}
 
             .tc-tooltip-grid {{
-               display: grid;
-               grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-               gap: 10px;
-               justify-content: center;
-               padding: 10px;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+            }}
+            .tc-tooltip-column {{
+                min-width: 150px;
+                flex: 1; /* Allows columns to distribute evenly */
             }}
 
             .tc-tooltip-content.tc-tooltip-{element_id} {{
