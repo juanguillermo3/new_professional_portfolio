@@ -96,10 +96,10 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
             "description": "I develop software applications (batch scripts, APIs, dashboards, web applications) to distribute insights "
                            "and predictions across corporate environments.",
             "skills": [
-                "Strong grasp of software engineering best practices", 
+                "Strong grasp of software engineering best practices.", 
                 "Familiarity with software engineering methodologies, architectural models, and design patterns.", 
-                "Expertise in developing code using Object-Oriented, Functional, and Asynchronous styles.", 
-                "Efficient at learnin and using new libraries for application development. "  
+                "Expertise in developing code using Object-Oriented, Functional, and Asynchronous programming styles.", 
+                "Efficient at learning and utilizing new libraries for application development."
             ]
         },
         {
