@@ -19,7 +19,7 @@ from media_carrousel import html_for_media_carousel, dummy_media_list
 DEFAULT_TOOLTIP_STYLES = {
 #"visibility": "hidden",
 #"opacity": "0",
-"width": "200px",
+#"width": "200px",
 #"background": "rgba(23, 33, 43, 0.5)",
 "color": "rgba(0,0,0,1)",
 "padding": "10px",
