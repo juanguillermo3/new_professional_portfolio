@@ -146,7 +146,11 @@ def html_for_item_data(
     title = apply_badges_to_item_title(rec, badge_rules)
 
     # Escape description to prevent HTML injection
-    description = f'<div class="item-tooltip description-tooltip">{html.escape(rec.get("description", "No description available."))}</div>'
+    description = (
+        f'<div class="item-tooltip description-tooltip" style="text-align: justify; margin: 0 5%;">'
+        f'{html.escape(rec.get("description", "No description available."))}'
+        f'</div>'
+    )
 
     # Generate buttons for the tooltip
     buttons = []
@@ -157,16 +161,20 @@ def html_for_item_data(
     if "colab_url" in rec and rec["colab_url"]:
         buttons.append(("Colab Notebook", rec["colab_url"], "#F9AB00"))
 
-    # Construct buttons HTML
+    # Construct buttons HTML (maintaining your original structure)
     buttons_html = "".join(
-        f'<a href="{url}" target="_blank" class="item-tooltip button-tooltip" '
-        f'style="background-color: {color}; color: white; text-decoration: none;">{label}</a>'
+        f'<a href="{url}" target="_blank" style="display: block; margin: 5px 0; padding: 5px 10px; '
+        f'background-color: {color}; color: white; border-radius: 5px; text-decoration: none;" '
+        f'class="item-tooltip button-tooltip">{label}</a>'
         for label, url, color in buttons
     )
 
-    # Prepare tooltip content with structured containers
+    # Prepare tooltip content
     tooltip_content = [
-        [f'<div class="item-tooltip title-tooltip">{title}</div>', description]
+        [
+            f'<div class="item-tooltip title-tooltip">{title}</div>', 
+            description
+        ]
     ]
 
     if buttons:
@@ -210,6 +218,7 @@ def html_for_item_data(
     """
 
     return card_html, tooltip_html, tooltip_styles
+
 
 
 def html_for_milestones_from_project_metadata(milestones=None, project_metadata=None, milestone_type="achieved_milestones"):
