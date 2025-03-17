@@ -143,7 +143,7 @@ class TooltipCanvas:
             }}
             
             .tc-tooltip-column {{
-                min-width: 150px;
+                min-width: 200px;
                 flex: 1; /* Allows columns to distribute evenly */
             }}
 
