@@ -43,9 +43,25 @@ DEFAULT_TOOLTIP_STYLES = {
 
 # Default tooltip content styling
 DEFAULT_TOOLTIP_STYLES = {
+#"visibility": "hidden",
+#"opacity": "0",
 "width": "300px",
-#"background": "rgba(23, 33, 43, 0.5)",
-"color": "rgba(0,0,0,1)",
+"background": "rgba(23, 33, 43, 0.5)",
+"color": "#ffffff",
+"padding": "10px",
+"border-radius": "8px",
+"box-shadow": "0px 4px 20px rgba(255, 255, 255, 0.1)",
+ #"position": "absolute",
+ #"left": "50%",
+ #"top": "100%",
+"transition": "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out",
+"backdrop-filter": "blur(6px)",
+"z-index": "9999",
+"border": "2px solid rgba(255, 255, 255, 0.9)",
+    
+# ADDITIONAL SPACING CONTROL:
+"margin": "8px",  # Adds space between tooltips (vertical & horizontal spacing)
+
 # Enforce non-bold text
 "font-weight": "normal"
          
