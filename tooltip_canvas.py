@@ -171,6 +171,7 @@ class TooltipCanvas:
             padding: 5px;
             background: rgba(255, 255, 255, 0.2);
             border-radius: 3px;
+            max-width: 150px; /* Prevents excessive growth */
             }}
             
             .tc-tooltip-item {{
