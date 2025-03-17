@@ -158,17 +158,17 @@ class TooltipCanvas:
         </style>
         """
 
-    def _generate_tooltip_trigger(self, element_id: str, visible_text: str = "Hover me") -> str:
-        """Generates the HTML for the visible tooltip trigger element."""
-        return f'<span id="{element_id}" class="tc-tooltip-trigger">{visible_text}</span>'
-
-
-
     def html_to_apply_tooltip(self, element_id: str, content: str, visible_text: str = "Hover me"):
         """Returns the HTML and CSS required to apply a tooltip to an element."""
         tooltip_html = self._define_tooltip(content, element_id, visible_text)
         tooltip_css = self._generate_tooltip_css(element_id)
         return tooltip_html, tooltip_css
+             
+    def _generate_tooltip_trigger(self, element_id: str, visible_text: str = "Hover me") -> str:
+        """Generates the HTML for the visible tooltip trigger element."""
+        return f'<span id="{element_id}" class="tc-tooltip-trigger">{visible_text}</span>'
+
+
 
     def apply_tooltip(self, element_id: str, content: str, visible_text: str = "Hover me"):
         """Applies a tooltip to an existing element by injecting the required HTML & CSS."""
