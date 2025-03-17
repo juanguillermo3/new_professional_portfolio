@@ -142,7 +142,7 @@ class TooltipCanvas:
 
             .tc-tooltip-grid {{
                display: grid;
-               grid-template-columns: repeat(auto-fill, 300px); /* ✅ Forces proper column layout */
+               grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
                gap: 10px;
                justify-content: center;
                padding: 10px;
