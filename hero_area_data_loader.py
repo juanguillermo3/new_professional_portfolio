@@ -51,7 +51,7 @@ def load_quote():
         "for <b>research</b> and <b>operational environments</b>. "  
         "My business is discovering the best <b>abstractions</b> to <b>effectively work with data</b>, "  
         "implementing them with <b>software engineering standards</b> to build up <b>data-driven intelligence</b> "  
-        "for key corporate and social systems. ",
+        "for key corporate and social systems. ", 
         
         "My broader professional vision interconnects all the key technologies for modern data analysis—"  
         "spanning <b>data mining</b>, <b>artificial intelligence models</b>, <b>algorithms</b>, <b>software engineering workflows</b>, "  
@@ -80,15 +80,15 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
         {
             "title": "⚡ 1. High-Performance Prediction of Key Business Outcomes",
             
-            "description": "I implement <em>statistical driven inference</em> of predictive patterns powered by state-of-the-art <em>Machine Learning</em> "
+            "description": "I implement <em>statistically driven inference</em> of predictive patterns powered by state-of-the-art <em>Machine Learning</em> "
                            "and <em>Deep Learning</em> algorithms for prediction and forecasting settings. Applications range from forecasting "
-                           "the macroeconomic/financial environment to <em>fine-grained predictions</em> from business micro-data (sales forecasting, churning/engagement models) ",                       
+                           "the macroeconomic/financial environment to <em>fine-grained predictions</em> from business micro-data (sales forecasting, churn modeling, engagement models).",                       
             "skills": [
-                "Familiarity with key predictive algorithms for regression, classification and forecasting problems. ", 
-                "Strong understanding of linear regression.", 
-                "Strong understanding of Machine Learning algorithms for pattern detection.", 
-                "Strong grasp on the development cycle of predictive models for regression, classification, and forecasting.", 
-                "Expertise in developing search and optimization algorithms to discover best models." 
+                "Familiarity with predictive algorithms for regression, classification, and forecasting problems.", 
+                "Strong grasp of Linear Regression.", 
+                "Deep understanding of Machine Learning algorithms for detecting predictive patterns.", 
+                "Mastery of the statistical learning workflow for implementing and calibrating predictive models.", 
+                "Expert in the development of search and optimization techniques to discover better predictive models."
             ]
         },
         {
