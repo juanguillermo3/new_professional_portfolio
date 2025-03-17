@@ -145,7 +145,7 @@ class TooltipCanvas:
             }}
             
             .tc-tooltip-column {{
-                max-width: 900px; /* Prevents excessive growth */
+                max-width: 300px; /* Prevents excessive growth */
                 min-width: 300px;
                 flex: 1; /* Allows columns to distribute evenly */
             }}
