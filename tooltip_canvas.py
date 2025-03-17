@@ -21,7 +21,7 @@ DEFAULT_TOOLTIP_STYLES = {
 #"opacity": "0",
 "width": "300px",
 #"background": "rgba(23, 33, 43, 0.5)",
-"color": "#ffffff",
+"color": rgba(0,0,0,1),
 "padding": "10px",
 "border-radius": "8px",
 "box-shadow": "0px 4px 20px rgba(255, 255, 255, 0.1)",
