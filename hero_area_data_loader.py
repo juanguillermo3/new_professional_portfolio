@@ -93,13 +93,13 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
         },
         {
             "title": "🔌 2. Sharing Actionable Insights Through Software and Application Development",
-            "description": "I develop applications (batch scripts, APIs, dashboards, web applications) to distribute insights "
+            "description": "I develop software applications (batch scripts, APIs, dashboards, web applications) to distribute insights "
                            "and predictions across corporate environments.",
             "skills": [
-                "Strong understanding of software engineering.", 
-                "Familiarity with software engineering methodologies, architectural and design patterns.", 
+                "Strong grasp of software engineering best practices", 
+                "Familiarity with software engineering methodologies, architectural models, and design patterns.", 
                 "Expertise in developing code using Object-Oriented, Functional, and Asynchronous styles.", 
-                "High adaptability in using key libraries for application development."  
+                "Efficient at learnin and using new libraries for application development. "  
             ]
         },
         {
@@ -110,8 +110,8 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
                            'This refers to my ability to clean and organize datasets from complex, multi-source environments '
                            'for research and model development.',
             "skills": [
-                "Implementation of data pipelines for research & operational environments. ",
-                "Using text-minning and Natural Language Processing tricks to engineer flexible information proessing heuristics. ",
+                "Skilled at developing custom data processing algorithms with bespoke logic. ",
+                "Capable of using text-minning and Natural Language Processing tricks to engineer flexible information proessing heuristics. ",
                 "Facility to engage with structured and unstructured sources.",
                 "Foundations in NLP, GIS, and network analysis.",
                 "High expertise in designing advanced merges and data sources.",
