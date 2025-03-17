@@ -41,6 +41,16 @@ DEFAULT_TOOLTIP_STYLES = {
          
 }
 
+# Default tooltip content styling
+DEFAULT_TOOLTIP_STYLES = {
+"width": "300px",
+#"background": "rgba(23, 33, 43, 0.5)",
+"color": "rgba(0,0,0,1)",
+# Enforce non-bold text
+"font-weight": "normal"
+         
+}
+
 # Default animation styles
 DEFAULT_ANIMATION_STYLES = {
 "name": "floatTooltip",
