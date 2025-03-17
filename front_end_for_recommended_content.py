@@ -70,7 +70,7 @@ def html_for_item_data(
     )
 
     # Prepare tooltip content
-    tooltip_content = [[title + "<br>" + description]]
+    tooltip_content = [[title, description]]
     if buttons:
         tooltip_content.append(["Resources:", buttons_html])
 
