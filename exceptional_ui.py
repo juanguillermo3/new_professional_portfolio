@@ -262,7 +262,7 @@ def setup_tooltip_behavior(unique_id):
             opacity: 0;
             width: 400px;
             max-height: 0px;
-            background: rgba(23, 33, 43, 0.5); /* Slightly lighter for readability */
+            background: rgba(23, 33, 43, 0.6); /* Slightly lighter for readability */
             color: #ffffff;
             padding: 0px 12px;
             border-radius: 12px;
@@ -273,7 +273,7 @@ def setup_tooltip_behavior(unique_id):
             text-align: left;
             z-index: 10;
             border: 2px solid rgba(255, 255, 255, 0.9);
-            transform: translateX( 0%) translateY(5px); /* Initial slight lift */
+            transform: translateX(-50%) translateY(5px); /* Fix tooltip alignment */
             transition: max-height 0.6s ease-out, 
                         opacity 0.6s ease-out, 
                         padding 0.6s ease-out, 
