@@ -288,7 +288,7 @@ def setup_tooltip_behavior(unique_id):
         }}
 
         /* Floating animation (active after unfolding) */
-        @keyframes GentleUp&DownfloatTooltip {{
+        @keyframes floatTooltip {{
             0%   {{ transform: translateX( 0%) translateY(5px); }}
             50%  {{ transform: translateX( 0%) translateY(8px); }}
             100% {{ transform: translateX( 0%) translateY(5px); }}
@@ -300,7 +300,7 @@ def setup_tooltip_behavior(unique_id):
             opacity: 1;
             max-height: 1000px;
             padding: 12px;
-            animation:  GentleUp&DownfloatTooltip 3s infinite alternate ease-in-out;
+            animation: floatTooltip 3s infinite alternate ease-in-out;
         }}
     </style>
     """
