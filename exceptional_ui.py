@@ -273,13 +273,13 @@ def setup_tooltip_behavior(unique_id):
             text-align: left;
             z-index: 10;
             border: 2px solid rgba(255, 255, 255, 0.9);
-            transform: translateX(-50%) translateY(5px); /* Initial slight lift */
+            transform: translateX( 0%) translateY(5px); /* Initial slight lift */
             transition: max-height 0.4s ease-out, 
                         opacity 0.3s ease-out, 
                         padding 0.3s ease-out, 
                         transform 0.3s ease-out;
             overflow: hidden;
-            backdrop-filter: blur(8px); /* Soft frosted glass effect */
+            backdrop-filter: blur(2px); /* Soft frosted glass effect */
         }}
 
         .tooltip-item {{
