@@ -274,10 +274,10 @@ def setup_tooltip_behavior(unique_id):
             z-index: 10;
             border: 2px solid rgba(255, 255, 255, 0.9);
             transform: translateX( 0%) translateY(5px); /* Initial slight lift */
-            transition: max-height 0.4s ease-out, 
-                        opacity 0.3s ease-out, 
-                        padding 0.3s ease-out, 
-                        transform 0.3s ease-out;
+            transition: max-height 0.6s ease-out, 
+                        opacity 0.6s ease-out, 
+                        padding 0.6s ease-out, 
+                        transform 0.6s ease-out;
             overflow: hidden;
             backdrop-filter: blur(4px); /* Soft frosted glass effect */
         }}
