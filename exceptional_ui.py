@@ -172,14 +172,15 @@ def _custom_tooltip_with_frost_glass_html(element_id: str, tooltip_text: str, **
     """
     
 
+#
+# (0)
+#
 import hashlib
 import html
 from datetime import datetime
-
-import hashlib
-import html
-from datetime import datetime
-
+#
+# (1)
+#
 def html_for_tooltip_from_large_list(items, label, color="#007ACC", emoji=None):
     """
     Generates an HTML snippet displaying a summarized preview of a list with a tooltip that appears on hover.
@@ -221,14 +222,13 @@ def html_for_tooltip_from_large_list(items, label, color="#007ACC", emoji=None):
     """
 
     return tooltip_html, unique_id
-
-
-
-
+#
+# (2)
+#
 def setup_tooltip_behavior(unique_id):
     """
     Injects the required CSS and behavior into Streamlit to activate the tooltip.
-    Includes a floating effect and refined vertical positioning.
+    Uses a top-to-bottom unfolding effect instead of a floating effect.
     """
     import time
     if not unique_id:
@@ -239,16 +239,16 @@ def setup_tooltip_behavior(unique_id):
     tooltip_css = f"""
     <style>
         /* Timestamp {timestamp} to force refresh */
-        
+
         .tooltip-container {{
-            display: inline;  /* Allows sentence wrapping */
-            position: relative;  /* Ensures tooltip positioning */
-            word-wrap: break-word; /* Ensures long words wrap properly */
+            display: inline;
+            position: relative;
+            word-wrap: break-word;
         }}
 
         .tooltip-trigger {{
-            color: rgb(0, 115, 177);  /* Telegram Night Mode Blue */
-            border-bottom: 1px dashed rgb(0, 115, 177); /* Same color for a subtle underline */
+            color: rgb(0, 115, 177);
+            border-bottom: 1px dashed rgb(0, 115, 177);
             cursor: pointer;
             position: relative;
         }}
@@ -256,45 +256,37 @@ def setup_tooltip_behavior(unique_id):
         .skills_tooltip-{unique_id} {{
             visibility: hidden;
             opacity: 0;
-            width: 400px; /* Fixed width */
-            background: rgba(23, 33, 43, 0.5); /* Increased transparency for a natural light effect */
-            color: #ffffff; /* White text for contrast */
-            padding: 12px;
+            width: 400px;
+            max-height: 0px; /* Start with zero height */
+            background: rgba(23, 33, 43, 0.8);
+            color: #ffffff;
+            padding: 0px 12px;
             border-radius: 12px;
-            box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.1); /* Soft glow for a floating effect */
+            box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.1);
             position: absolute;
             left: 50%;
             top: 100%;
             text-align: left;
             z-index: 10;
-            border: 2px solid rgba(255, 255, 255, 0.9); /* Solid white border for a crisp edge */
-            transform: translateX(-50%) translateY(-5px);
-            transition: opacity 0.3s ease-in-out, 
-                        visibility 0.3s ease-in-out, 
-                        transform 0.3s ease-in-out;
-            overflow-wrap: break-word;
-            backdrop-filter: blur(6px); /* Increased blur for a stronger frosted effect */
-        }}
-
-
-        /* Floating animation */
-        @keyframes floatTooltip {{
-            0%   {{ transform: translateX(-50%) translateY(0px); }}
-            50%  {{ transform: translateX(-50%) translateY(4px); }}
-            100% {{ transform: translateX(-50%) translateY(0px); }}
-        }}
-
-        .tooltip-container:hover .skills_tooltip-{unique_id},
-        .skills_tooltip-{unique_id}:hover {{
-            visibility: visible;
-            opacity: 1;
-            transform: translateX(-50%) translateY(0px);
-            animation: floatTooltip 2.5s infinite alternate ease-in-out;
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            transform: translateX(-50%);
+            transition: max-height 0.4s ease-out, 
+                        opacity 0.3s ease-out, 
+                        padding 0.3s ease-out;
+            overflow: hidden;
         }}
 
         .tooltip-item {{
             color: #ffffff;
             margin-bottom: 4px;
+        }}
+
+        /* Trigger unfolding animation */
+        .tooltip-container:hover .skills_tooltip-{unique_id} {{
+            visibility: visible;
+            opacity: 1;
+            max-height: 300px; /* Expands downward */
+            padding: 12px;
         }}
     </style>
     """
