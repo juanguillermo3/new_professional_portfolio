@@ -288,10 +288,10 @@ def setup_tooltip_behavior(unique_id):
         }}
 
         /* Floating animation (active after unfolding) */
-        @keyframes floatTooltip {{
-            0%   {{ transform: translateX(-50%) translateY(5px); }}
-            50%  {{ transform: translateX(-50%) translateY(8px); }}
-            100% {{ transform: translateX(-50%) translateY(5px); }}
+        @keyframes GentleUp&DownfloatTooltip {{
+            0%   {{ transform: translateX( 0%) translateY(5px); }}
+            50%  {{ transform: translateX( 0%) translateY(8px); }}
+            100% {{ transform: translateX( 0%) translateY(5px); }}
         }}
 
         /* Trigger unfolding + floating */
@@ -300,7 +300,7 @@ def setup_tooltip_behavior(unique_id):
             opacity: 1;
             max-height: 1000px;
             padding: 12px;
-            animation: floatTooltip 3s infinite alternate ease-in-out;
+            animation:  GentleUp&DownfloatTooltip 3s infinite alternate ease-in-out;
         }}
     </style>
     """
