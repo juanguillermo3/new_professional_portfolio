@@ -232,7 +232,7 @@ def html_for_tooltip_from_large_list(items, label, color="#007ACC", emoji=None):
 def setup_tooltip_behavior(unique_id):
     """
     Injects the required CSS and behavior into Streamlit to activate the tooltip.
-    Uses a top-to-bottom unfolding effect instead of a floating effect.
+    Combines an unfolding effect with a subtle floating animation and background blur.
     """
     import time
     if not unique_id:
@@ -261,8 +261,8 @@ def setup_tooltip_behavior(unique_id):
             visibility: hidden;
             opacity: 0;
             width: 400px;
-            max-height: 0px; /* Start with zero height */
-            background: rgba(23, 33, 43, 0.8);
+            max-height: 0px;
+            background: rgba(23, 33, 43, 0.7); /* Slightly lighter for readability */
             color: #ffffff;
             padding: 0px 12px;
             border-radius: 12px;
@@ -273,11 +273,13 @@ def setup_tooltip_behavior(unique_id):
             text-align: left;
             z-index: 10;
             border: 2px solid rgba(255, 255, 255, 0.9);
-            transform: translateX(-50%);
+            transform: translateX(-50%) translateY(5px); /* Initial slight lift */
             transition: max-height 0.4s ease-out, 
                         opacity 0.3s ease-out, 
-                        padding 0.3s ease-out;
+                        padding 0.3s ease-out, 
+                        transform 0.3s ease-out;
             overflow: hidden;
+            backdrop-filter: blur(8px); /* Soft frosted glass effect */
         }}
 
         .tooltip-item {{
@@ -285,12 +287,20 @@ def setup_tooltip_behavior(unique_id):
             margin-bottom: 4px;
         }}
 
-        /* Trigger unfolding animation */
+        /* Floating animation (active after unfolding) */
+        @keyframes floatTooltip {{
+            0%   {{ transform: translateX(-50%) translateY(5px); }}
+            50%  {{ transform: translateX(-50%) translateY(8px); }}
+            100% {{ transform: translateX(-50%) translateY(5px); }}
+        }}
+
+        /* Trigger unfolding + floating */
         .tooltip-container:hover .skills_tooltip-{unique_id} {{
             visibility: visible;
             opacity: 1;
-            max-height: 300px; /* Expands downward */
+            max-height: 1000px;
             padding: 12px;
+            animation: floatTooltip 3s infinite alternate ease-in-out;
         }}
     </style>
     """
