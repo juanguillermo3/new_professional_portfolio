@@ -279,7 +279,7 @@ def setup_tooltip_behavior(unique_id):
                         padding 0.3s ease-out, 
                         transform 0.3s ease-out;
             overflow: hidden;
-            backdrop-filter: blur(2px); /* Soft frosted glass effect */
+            backdrop-filter: blur(4px); /* Soft frosted glass effect */
         }}
 
         .tooltip-item {{
