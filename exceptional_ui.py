@@ -262,7 +262,7 @@ def setup_tooltip_behavior(unique_id):
             opacity: 0;
             width: 400px;
             max-height: 0px;
-            background: rgba(23, 33, 43, 0.7); /* Slightly lighter for readability */
+            background: rgba(23, 33, 43, 0.5); /* Slightly lighter for readability */
             color: #ffffff;
             padding: 0px 12px;
             border-radius: 12px;
