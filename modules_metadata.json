@@ -1,11 +1,12 @@
 [
   {
     "title": "Assess Program Balance for Treatment and Control Groups",
-    "description": "This function assesses the balance of independent variables across treatment and control groups by performing statistical tests (e.g., T-tests for continuous variables, Proportion tests for binary variables).",
+    "description": "This function assesses the balance of independent variables across treatment and control groups by performing statistical tests (e.g., T-tests for continuous variables, Proportion tests for binary variables). It calculates the differences between the treatment and control groups, p-values, and adds significance markers (e.g., stars) for each variable. The output is a data frame with the assessment results, including subsample sizes for both groups.",
     "last_updated": "2025-01-27T04:02:35Z",
     "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/assess_program_balance.R",
     "file_path": "assess_program_balance.R",
-    "repo_name": "evaluation_of_job_intermediation_program"
+    "repo_name": "evaluation_of_job_intermediation_program",
+    "libraries": []
   },
   {
     "title": "Demographic Model",
@@ -13,7 +14,8 @@
     "last_updated": "2025-01-27T04:02:35Z",
     "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/demographics.R",
     "file_path": "demographics.R",
-    "repo_name": "evaluation_of_job_intermediation_program"
+    "repo_name": "evaluation_of_job_intermediation_program",
+    "libraries": []
   },
   {
     "title": "Worker Participation in Job Intermediation Programs",
@@ -21,7 +23,8 @@
     "last_updated": "2025-01-27T04:02:35Z",
     "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/experimental_cases.R",
     "file_path": "experimental_cases.R",
-    "repo_name": "evaluation_of_job_intermediation_program"
+    "repo_name": "evaluation_of_job_intermediation_program",
+    "libraries": []
   },
   {
     "title": "Data Sharing and Persistence Utilities",
@@ -29,15 +32,27 @@
     "last_updated": "2025-01-27T04:03:38Z",
     "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/persistence_utils.R",
     "file_path": "persistence_utils.R",
-    "repo_name": "evaluation_of_job_intermediation_program"
+    "repo_name": "evaluation_of_job_intermediation_program",
+    "libraries": [
+      "openxlsx"
+    ]
   },
   {
     "title": "sample balance in workers sample",
-    "description": "merges demographic and professional information from workers, along with participation in job intermerdiation, to a single sample. It asses balance in program assignation.",
-    "last_updated": "2025-01-27T04:16:01Z",
+    "description": "merges demographic and professional information from workers, along with participation in job programs, to a single sample. It asses balance in program assignation.",
+    "last_updated": "2025-03-19T23:33:44Z",
     "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/sample_balance_in_workers_sample.R",
     "file_path": "sample_balance_in_workers_sample.R",
-    "repo_name": "evaluation_of_job_intermediation_program"
+    "repo_name": "evaluation_of_job_intermediation_program",
+    "image_url": "assets/sample_balance.png",
+    "libraries": [
+      "dplyr",
+      "scales",
+      "tools",
+      "ggplot2",
+      "tidyr",
+      "ggrepel"
+    ]
   },
   {
     "title": "Worker Profiles Module",
@@ -45,7 +60,8 @@
     "last_updated": "2025-01-27T04:02:35Z",
     "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/worker_profiles.R",
     "file_path": "worker_profiles.R",
-    "repo_name": "evaluation_of_job_intermediation_program"
+    "repo_name": "evaluation_of_job_intermediation_program",
+    "libraries": []
   },
   {
     "title": "deduplication service for the job listings",
