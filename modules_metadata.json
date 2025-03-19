@@ -44,7 +44,7 @@
     "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/sample_balance_in_workers_sample.R",
     "file_path": "sample_balance_in_workers_sample.R",
     "repo_name": "evaluation_of_job_intermediation_program",
-    "image_url": "assets/sample_balance.png",
+    "image_path": "assets/sample_balance.png",
     "libraries": [
       "dplyr",
       "scales",
