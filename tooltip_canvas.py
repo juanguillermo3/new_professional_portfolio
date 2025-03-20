@@ -259,6 +259,7 @@ class TooltipCanvas:
             .tc-tooltip-container:hover .tc-tooltip-content.tc-tooltip-{element_id} {{
                 visibility: visible;
                 opacity: 1;
+                transition-delay: 0.2s; /* Prevents quick disappearance */
             }}
             
             .tc-tooltip-trigger {{
