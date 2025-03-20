@@ -98,72 +98,6 @@ class TooltipCanvas:
         </div>
         '''
              
-    def _generate_tooltip_css(self, element_id: str):
-        """Generates the CSS styles, applying user-defined overrides."""
-        tooltip_styles = "; ".join(f"{k}: {v}" for k, v in self.tooltip_styles.items())
-        animation_styles = self.animation_styles["animation"]
-        keyframes = self.animation_styles["keyframes"]
-
-        return f"""
-        <style>
-            /* Timestamp {self.timestamp} to force refresh */
-            {keyframes}
-
-            .tc-tooltip-container {{
-                display: inline;
-                position: relative;
-                pointer-events: none; /* Initially ignored by the cursor */
-            }}
-
-
-            .tc-tooltip-grid {{
-             display: grid;
-             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-             gap: 10px;
-             min-width: 300px;
-             max-width: 800px;
-            }}
-            
-            .tc-tooltip-column {{
-                max-width: 300px; /* Prevents excessive growth */
-                min-width: 300px;
-                flex: 1; /* Allows columns to distribute evenly */
-            }}
-
-            .tc-tooltip-item {{
-            position: relative;  /* Remove absolute positioning */
-            max-width: 300px; /* Prevents excessive growth */
-            }}
-
-            .tc-tooltip-content.tc-tooltip-{element_id} {{
-                position: absolute;
-                visibility: hidden;
-                transition: opacity 0.2s ease-in-out;
-                z-index: 9999;
-            }}
-
-            .tc-tooltip-container:hover .tc-tooltip-content.tc-tooltip-{element_id} {{
-            visibility: visible;
-            opacity: 1;
-            pointer-events: auto; /* Now the tooltip can be interacted with */
-            transition-delay: 0.2s; /* Prevents quick disappearance */
-            }}
-            
-            
-            .tc-tooltip-item {{
-                {tooltip_styles};
-                animation: {animation_styles};
-            }}
-
-            .tc-tooltip-trigger {{
-                color: rgb(0, 115, 177);
-                border-bottom: 1px dashed rgb(0, 115, 177);
-                cursor: pointer;
-                font-weight: normal;
-            }}
-
-        </style>
-        """
 
     def html_to_apply_tooltip(self, element_id: str, content: str, visible_text: str = "Hover me"):
         """Returns the HTML and CSS required to apply a tooltip to an element."""
@@ -228,6 +162,7 @@ class TooltipCanvas:
            .tc-tooltip-container:hover .tc-tooltip-item-{element_id} {{
                 visibility: visible;
                 opacity: 1;
+                transition-delay: 0.4s; /* Prevents quick disappearance */
             }}
             
             .tc-tooltip-container {{
