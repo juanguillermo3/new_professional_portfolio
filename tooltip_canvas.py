@@ -232,7 +232,7 @@ class TooltipCanvas:
 
         return f"""
         <style>
-            /* Timestamp {self._timestamp} to force refresh */
+            /* Timestamp {self.timestamp} to force refresh */
             {keyframes}
 
             .tc-tooltip-item-{element_id} {{
