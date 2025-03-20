@@ -82,7 +82,7 @@ def html_for_item_data(
         "backdrop-filter": "blur(4px)",  
         "border": "2px solid rgba(255, 255, 255, 0.9)",  
         "box-shadow": "0px 4px 20px rgba(255, 255, 255, 0.1)",  
-        "transition": "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out",  
+        #"transition": "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out",  
     }
     
     modern_dashboard_style = {
