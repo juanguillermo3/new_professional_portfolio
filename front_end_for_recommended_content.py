@@ -74,7 +74,7 @@ def html_for_item_data(
     # Define specific styles for the description tooltip
     description_style = {
         "text-align": "justify",
-        "margin": "0 5%"  # Preserve the left-right margin
+        #"margin": "0 5%"  # Preserve the left-right margin
     }
     
 
