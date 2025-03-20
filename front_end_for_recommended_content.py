@@ -71,6 +71,15 @@ def html_for_item_data(
         "text-align": "center"
     }
 
+    # Define specific styles for the description tooltip
+    description_style = {
+        "text-align": "justify",
+        "margin": "0 5%"  # Preserve the left-right margin
+    }
+    
+    # Merge the modern dashboard style with the specific description styles
+    tooltip_description = html_for_containe
+
     modern_dashboard_style = { 
         
         "background": "rgba(23, 33, 43, 0.5)",
@@ -101,10 +110,10 @@ def html_for_item_data(
     # Wrap the title using the new function
     raw_title = html_for_container(f'<div class="item-tooltip title-tooltip">{title}</div>', title_style)
 
-    # Apply the same modern tooltip style for the title
+    # Merge modern_dashboard_style with title_style
     tooltip_title = html_for_container(
         f'<div class="item-tooltip title-tooltip">{apply_badges_to_item_title(rec, badge_rules)}</div>',
-        modern_dashboard_style
+        {**modern_dashboard_style, **title_style}  # Correct way to merge dictionaries
     )
 
     # Escape description to prevent HTML injection
@@ -114,10 +123,10 @@ def html_for_item_data(
         f'</div>'
     )
 
-    # Apply styles using the new function
+    # Merge the modern dashboard style with the specific description styles
     tooltip_description = html_for_container(
         f'<div class="item-tooltip description-tooltip">{html.escape(rec.get("description", "No description available."))}</div>',
-        modern_dashboard_style
+        {**modern_dashboard_style, **description_style}  # Proper dictionary merging
     )
     
 
