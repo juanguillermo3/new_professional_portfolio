@@ -76,32 +76,25 @@ def html_for_item_data(
         "text-align": "justify",
         #
     }
+
+    frosted_glass_style = {
+        "background": "rgba(255, 255, 255, 0)",  # Fully transparent by default
+        "backdrop-filter": "blur(4px)",  
+        "border": "2px solid rgba(255, 255, 255, 0.9)",  
+        "box-shadow": "0px 4px 20px rgba(255, 255, 255, 0.1)",  
+        "transition": "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out",  
+    }
     
-
-    modern_dashboard_style = { 
-        
-        "padding": "10px 5%",  # 10px vertical, 5% left/right
-        
-        "width": "100%",
-        "background": "rgba(23, 33, 43, 0.4)",
-        "padding": "10px",
-        "border-radius": "8px",
-        "box-shadow": "0px 4px 20px rgba(255, 255, 255, 0.1)",
-                 
-        "transition": "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out",
-        "backdrop-filter": "blur(4px)",
-        "z-index": "9999",
-        "border": "2px solid rgba(255, 255, 255, 0.9)",
-            
-        # ADDITIONAL SPACING CONTROL:
-        "margin": "5px",  # Adds space between tooltips (vertical & horizontal spacing)
-        
-        # Enforce non-bold text
-        "font-weight": "normal",
-
-        # Restore white text color
-        "color": "#ffffff"
-             
+    modern_dashboard_style = {
+        **frosted_glass_style,  # Inherit frosted glass effect
+        "background": "rgba(23, 33, 43, 0.4)",  # Override transparency with a dark tint
+        "padding": "10px 5%",  
+        "width": "100%",  
+        "z-index": "9999",  
+        "margin": "5px",  
+        "font-weight": "normal",  
+        "color": "#ffffff",  
+        "border-radius": "8px",  
     }
     
     # Unique ID based on timestamp hash
