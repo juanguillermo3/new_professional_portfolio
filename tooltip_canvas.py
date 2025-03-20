@@ -16,27 +16,6 @@ from typing import Union, List
 from media_carrousel import html_for_media_carousel, dummy_media_list 
          
 
-# Default tooltip content styling
-DEFAULT_TOOLTIP_STYLES = {
-         
-"visibility": "hidden",
-"opacity": "0",
-"width": "300px",
-"pointer-events": "auto"
-}
-
-# Default animation styles
-DEFAULT_ANIMATION_STYLES = {
-"name": "floatTooltip",
-"keyframes": """
-@keyframes floatTooltip {
-   0%   { transform: translateX(0px) translateY(0px); }
-   50%  { transform: translateX(0px) translateY(4px); }
-   100% { transform: translateX(0px) translateY(0px); }
-}
-""",
-"animation": "floatTooltip 2s infinite ease-in-out"
-}
 
 class TooltipCanvas:
 
@@ -226,4 +205,84 @@ class TooltipCanvas:
     
         st.markdown(tooltip_css, unsafe_allow_html=True)
         st.markdown(tooltip_html, unsafe_allow_html=True)
+
+
+    def _generate_tooltip_css(self, element_id: str):
+        """Generates the complete CSS for tooltips, including styles and animations."""
+
+        # Default tooltip styles
+        tooltip_styles = {
+            "visibility": "hidden",
+            "opacity": "0",
+            "width": "300px",
+            "pointer-events": "auto"
+        }
+        tooltip_styles_str = "; ".join(f"{k}: {v}" for k, v in tooltip_styles.items())
+
+        # Animation styles
+        animation_name = "floatTooltip"
+        keyframes = f"""
+        @keyframes {animation_name} {{
+           0%   {{ transform: translateX(0px) translateY(0px); }}
+           50%  {{ transform: translateX(0px) translateY(4px); }}
+           100% {{ transform: translateX(0px) translateY(0px); }}
+        }}
+        """
+        animation_styles = f"{animation_name} 2s infinite ease-in-out"
+
+        return f"""
+        <style>
+            /* Timestamp {self._timestamp} to force refresh */
+            {keyframes}
+
+            .tc-tooltip-item-{element_id} {{
+                position: relative;
+                max-width: 300px;
+                {tooltip_styles_str};
+                animation: {animation_styles};
+            }}
+
+            .tc-tooltip-container {{
+                display: inline;
+                position: relative;
+            }}
+
+            .tc-tooltip-grid-{element_id} {{
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 10px;
+                min-width: 250px;
+                max-width: 800px;
+            }}
+
+            .tc-tooltip-column-{element_id} {{
+                max-width: 300px;
+                min-width: 250px;
+                flex: 1;
+            }}
+
+            .tc-tooltip-content.tc-tooltip-{element_id} {{
+                position: absolute;
+                {tooltip_styles_str};
+                transition: opacity 0.2s ease-in-out;
+                z-index: 9999;
+            }}
+
+            .tc-tooltip-container:hover .tc-tooltip-item-{element_id},
+            .tc-tooltip-container:hover .tc-tooltip-content.tc-tooltip-{element_id} {{
+                visibility: visible;
+                opacity: 1;
+                pointer-events: auto;
+            }}
+
+            .tc-tooltip-trigger {{
+                color: rgb(0, 115, 177);
+                border-bottom: 1px dashed rgb(0, 115, 177);
+                cursor: pointer;
+                font-weight: normal;
+            }}
+        </style>
+        """
+
+
 
