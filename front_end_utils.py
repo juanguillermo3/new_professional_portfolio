@@ -9,6 +9,11 @@ import random
 from exceptional_ui import apply_custom_tooltip
 
 #
+def prettify_title(title):
+    """Prettify the title by removing underscores and capitalizing words."""
+    return " ".join(word.capitalize() for word in title.replace("_", " ").split())
+
+#
 def tags_in_twitter_style(tags, color_palette=None):
     """Generates styled hashtags with a refined navy-themed appearance."""
     if color_palette is None:
@@ -29,34 +34,14 @@ def tags_in_twitter_style(tags, color_palette=None):
         return f'<span style="color: {random.choice(color_palette)}; font-size: 0.9em; font-weight: 600;">#{cleaned}</span>'
 
     return " ".join(format_tag(tag) for tag in tags)
-  
+
+#
 def render_section_separator():
   # 
   st.markdown("<br>", unsafe_allow_html=True)
   st.markdown("<br>", unsafe_allow_html=True)
   st.markdown("<br>", unsafe_allow_html=True)
 
-#
-def render_external_link_button(url, label, bg_color):
-    """Helper method to render an external link button with consistent styling."""
-    return f"""
-    <div style="display: flex; justify-content: center; margin-top: 5px;">
-        <a href="{url}" target="_blank" 
-           style="text-decoration: none; width: 200px; display: block; margin: 0 auto;">
-            <button style="background-color: {bg_color}; color: white; 
-                           border: none; padding: 10px 20px; 
-                           text-align: center; text-decoration: none; 
-                           font-size: 14px; cursor: pointer; 
-                           border-radius: 5px; width: 100%; margin: 0 auto;">
-                {label}
-            </button>
-        </a>
-    </div>
-    """
-#
-def prettify_title(title):
-    """Prettify the title by removing underscores and capitalizing words."""
-    return " ".join(word.capitalize() for word in title.replace("_", " ").split())
 
 #
 def html_for_container(content_html, style_dict):
@@ -76,10 +61,69 @@ def html_for_container(content_html, style_dict):
     # Return the wrapped HTML
     return f'<div style="{style_string}">{content_html}</div>'
 
+#
+def render_external_link_button(url, label, bg_color):
+    """Helper method to render an external link button with consistent styling."""
+    return f"""
+    <div style="display: flex; justify-content: center; margin-top: 5px;">
+        <a href="{url}" target="_blank" 
+           style="text-decoration: none; width: 200px; display: block; margin: 0 auto;">
+            <button style="background-color: {bg_color}; color: white; 
+                           border: none; padding: 10px 20px; 
+                           text-align: center; text-decoration: none; 
+                           font-size: 14px; cursor: pointer; 
+                           border-radius: 5px; width: 100%; margin: 0 auto;">
+                {label}
+            </button>
+        </a>
+    </div>
+    """
 
 
+#
+def render_github_button(github_url: str, button_size: int = 40) -> str:
+    """
+    Returns an HTML string for a GitHub button with a natural placement.
 
+    Parameters:
+        github_url (str): The GitHub repository or profile URL.
+        button_size (int, optional): The size of the circular button in pixels (default: 40px).
 
+    Returns:
+        str: HTML code for the GitHub button.
+    """
+    if not github_url:
+        return ""
+
+    return f"""
+        <style>
+        .github-btn {{
+            background-color: #333;
+            width: {button_size}px;
+            height: {button_size}px;
+            border-radius: 50%;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s ease-in-out;
+        }}
+
+        .github-btn img {{
+            width: {button_size * 0.6}px;
+            height: {button_size * 0.6}px;
+        }}
+
+        .github-btn:hover {{
+            background-color: #444;
+            cursor: pointer;
+        }}
+        </style>
+
+        <a href="{github_url}" target="_blank" class="github-btn">
+            <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub">
+        </a>
+    """
 
 
 
