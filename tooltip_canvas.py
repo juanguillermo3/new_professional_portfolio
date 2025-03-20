@@ -113,7 +113,6 @@ class TooltipCanvas:
                 display: inline;
                 position: relative;
                 pointer-events: none; /* Initially ignored by the cursor */
-                transition-delay: 0.2s; /* Prevents quick disappearance */
             }}
 
 
@@ -147,7 +146,7 @@ class TooltipCanvas:
             visibility: visible;
             opacity: 1;
             pointer-events: auto; /* Now the tooltip can be interacted with */
-            
+            transition-delay: 0.2s; /* Prevents quick disappearance */
             }}
             
             
