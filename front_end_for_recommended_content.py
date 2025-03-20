@@ -70,7 +70,15 @@ def html_for_item_data(
 
     # Apply the badge system
     title = apply_badges_to_item_title(rec, badge_rules)
-    title=f'<div class="item-tooltip title-tooltip" style="font-weight: bold;">{title}</div>'
+    
+    # Define the styles for the title
+    title_style = {
+        "font-weight": "bold",
+        "text-align": "center"
+    }
+    
+    # Wrap the title using the new function
+    title = html_for_container(f'<div class="item-tooltip title-tooltip">{title}</div>', title_style)
 
     # Escape description to prevent HTML injection
     description = (
