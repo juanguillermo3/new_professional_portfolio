@@ -65,17 +65,40 @@ def html_for_item_data(
     - tuple: (card_html, styles_html)
     """
 
+    # Define the styles for the title
+    title_style = {
+        "font-weight": "bold",
+        "text-align": "center"
+    }
+
+    modern_dashboard_style = { 
+        
+        "background": "rgba(23, 33, 43, 0.5)",
+        "color": "#ffffff",
+        "padding": "10px",
+        "border-radius": "8px",
+        "box-shadow": "0px 4px 20px rgba(255, 255, 255, 0.1)",
+                 
+        "transition": "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out",
+        "backdrop-filter": "blur(6px)",
+        "z-index": "9999",
+        "border": "2px solid rgba(255, 255, 255, 0.9)",
+            
+        # ADDITIONAL SPACING CONTROL:
+        "margin": "5px",  # Adds space between tooltips (vertical & horizontal spacing)
+        
+        # Enforce non-bold text
+        "font-weight": "normal"
+             
+    }
+    
     # Unique ID based on timestamp hash
     card_id = f"card_{hash(time.time())}"
 
     # Apply the badge system
     title = apply_badges_to_item_title(rec, badge_rules)
     
-    # Define the styles for the title
-    title_style = {
-        "font-weight": "bold",
-        "text-align": "center"
-    }
+
     
     # Wrap the title using the new function
     title = html_for_container(f'<div class="item-tooltip title-tooltip">{title}</div>', title_style)
@@ -85,6 +108,18 @@ def html_for_item_data(
         f'<div class="item-tooltip description-tooltip" style="text-align: justify; margin: 0 5%;">'
         f'{html.escape(rec.get("description", "No description available."))}'
         f'</div>'
+    )
+
+    # Apply styles using the new function
+    description = html_for_container(
+        f'<div class="item-tooltip description-tooltip">{description_content}</div>',
+        modern_dashboard_style
+    )
+    
+    # Apply the same modern tooltip style for the title
+    title = html_for_container(
+        f'<div class="item-tooltip title-tooltip">{apply_badges_to_item_title(rec, badge_rules)}</div>',
+        modern_dashboard_style
     )
 
     # Generate buttons for the tooltip
