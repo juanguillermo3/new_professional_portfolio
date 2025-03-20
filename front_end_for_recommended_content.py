@@ -77,8 +77,6 @@ def html_for_item_data(
         "margin": "0 5%"  # Preserve the left-right margin
     }
     
-    # Merge the modern dashboard style with the specific description styles
-    tooltip_description = html_for_containe
 
     modern_dashboard_style = { 
         
