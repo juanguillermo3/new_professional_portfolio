@@ -3,6 +3,7 @@ title: Front-End Utils
 description: Contains various utilities for design across portfolio sections.
 """
 
+import html
 import streamlit as st
 import random
 from exceptional_ui import apply_custom_tooltip
@@ -57,8 +58,23 @@ def prettify_title(title):
     """Prettify the title by removing underscores and capitalizing words."""
     return " ".join(word.capitalize() for word in title.replace("_", " ").split())
 
+#
+def html_for_container(content_html, style_dict):
+    """
+    Wraps an HTML string inside a <div> with inline styles.
 
+    Parameters:
+    - content_html (str): The HTML content to be wrapped.
+    - style_dict (dict): A dictionary of CSS properties and values.
 
+    Returns:
+    - str: The formatted HTML string wrapped inside a styled <div>.
+    """
+    # Convert the style dictionary into an inline style string
+    style_string = "; ".join(f"{key}: {value}" for key, value in style_dict.items())
+
+    # Return the wrapped HTML
+    return f'<div style="{style_string}">{content_html}</div>'
 
 
 
