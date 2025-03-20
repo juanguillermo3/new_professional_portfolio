@@ -98,10 +98,14 @@ def html_for_item_data(
     # Apply the badge system
     title = apply_badges_to_item_title(rec, badge_rules)
     
-
-    
     # Wrap the title using the new function
-    title = html_for_container(f'<div class="item-tooltip title-tooltip">{title}</div>', title_style)
+    raw_title = html_for_container(f'<div class="item-tooltip title-tooltip">{title}</div>', title_style)
+
+    # Apply the same modern tooltip style for the title
+    tooltip_title = html_for_container(
+        f'<div class="item-tooltip title-tooltip">{apply_badges_to_item_title(rec, badge_rules)}</div>',
+        modern_dashboard_style
+    )
 
     # Escape description to prevent HTML injection
     description = (
@@ -111,16 +115,11 @@ def html_for_item_data(
     )
 
     # Apply styles using the new function
-    description = html_for_container(
+    tooltip_description = html_for_container(
         f'<div class="item-tooltip description-tooltip">{html.escape(rec.get("description", "No description available."))}</div>',
         modern_dashboard_style
     )
     
-    # Apply the same modern tooltip style for the title
-    title = html_for_container(
-        f'<div class="item-tooltip title-tooltip">{apply_badges_to_item_title(rec, badge_rules)}</div>',
-        modern_dashboard_style
-    )
 
     # Generate buttons for the tooltip
     buttons = []
@@ -142,8 +141,8 @@ def html_for_item_data(
     # Prepare tooltip content
     tooltip_content = [
         [
-            title,
-            description
+            tooltip_title,
+            tooltip_description
         ]
     ]
 
@@ -182,7 +181,7 @@ def html_for_item_data(
                     position: relative;">
             <div style="background-color: rgba(255, 255, 255, 0.7); 
                         padding: 5px 10px; border-radius: 10px; width: auto; max-width: 100%;">
-                {title}
+                {raw_title}
             </div>
         </div>
     """
