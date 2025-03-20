@@ -79,7 +79,7 @@ def html_for_item_data(
     # Prepare tooltip content
     tooltip_content = [
         [
-            f'<div class="item-tooltip title-tooltip">{title}</div>', 
+            f'<div class="item-tooltip title-tooltip" style="font-weight: bold;">{title}</div>'
             description
         ]
     ]
