@@ -79,15 +79,15 @@ def html_for_item_data(
     
 
     modern_dashboard_style = { 
-        
-        "background": "rgba(23, 33, 43, 0.5)",
-        "color": "#ffffff",
+
+        "width": "100%",
+        "background": "rgba(23, 33, 43, 0.4)",
         "padding": "10px",
         "border-radius": "8px",
         "box-shadow": "0px 4px 20px rgba(255, 255, 255, 0.1)",
                  
         "transition": "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out",
-        "backdrop-filter": "blur(6px)",
+        "backdrop-filter": "blur(4px)",
         "z-index": "9999",
         "border": "2px solid rgba(255, 255, 255, 0.9)",
             
