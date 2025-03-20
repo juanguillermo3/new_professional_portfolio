@@ -113,6 +113,7 @@ class TooltipCanvas:
                 display: inline;
                 position: relative;
                 pointer-events: none; /* Initially ignored by the cursor */
+                transition-delay: 0.2s; /* Prevents quick disappearance */
             }}
 
 
