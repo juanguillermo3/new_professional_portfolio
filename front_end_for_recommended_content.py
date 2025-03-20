@@ -96,6 +96,9 @@ def html_for_item_data(
         
         # Enforce non-bold text
         "font-weight": "normal"
+
+        # Restore white text color
+        "color": "#ffffff"
              
     }
     
