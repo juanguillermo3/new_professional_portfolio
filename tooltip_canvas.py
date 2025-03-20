@@ -112,6 +112,7 @@ class TooltipCanvas:
             .tc-tooltip-container {{
                 display: inline;
                 position: relative;
+                pointer-events: none; /* Initially ignored by the cursor */
             }}
 
 
@@ -144,6 +145,8 @@ class TooltipCanvas:
             .tc-tooltip-container:hover .tc-tooltip-content.tc-tooltip-{element_id} {{
             visibility: visible;
             opacity: 1;
+            pointer-events: auto; /* Now the tooltip can be interacted with */
+            
             }}
             
             
