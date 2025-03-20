@@ -159,11 +159,6 @@ class TooltipCanvas:
                 animation: {animation_styles};
             }}
 
-           .tc-tooltip-container:hover .tc-tooltip-item-{element_id} {{
-                visibility: visible;
-                opacity: 1;
-                transition-delay: 0.4s; /* Prevents quick disappearance */
-            }}
             
             .tc-tooltip-container {{
                 display: inline;
@@ -190,11 +185,17 @@ class TooltipCanvas:
                 transition: opacity 0.2s ease-in-out;
                 z-index: 9999;
             }}
-    
+
+            .tc-tooltip-container:hover .tc-tooltip-item-{element_id} {{
+                visibility: visible;
+                opacity: 1;
+                transition-delay: 0.4s; /* Prevents quick disappearance */
+            }}
+            
             .tc-tooltip-container:hover .tc-tooltip-content.tc-tooltip-{element_id} {{
                 visibility: visible;
                 opacity: 1;
-                transition-delay: 0.2s; /* Prevents quick disappearance */
+                transition-delay: 0.4s; /* Prevents quick disappearance */
             }}
             
             .tc-tooltip-trigger {{
