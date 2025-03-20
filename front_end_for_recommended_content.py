@@ -112,7 +112,7 @@ def html_for_item_data(
 
     # Apply styles using the new function
     description = html_for_container(
-        f'<div class="item-tooltip description-tooltip">{description_content}</div>',
+        f'<div class="item-tooltip description-tooltip">{html.escape(rec.get("description", "No description available.")}</div>',
         modern_dashboard_style
     )
     
