@@ -80,7 +80,7 @@ def html_for_item_data(
 
     modern_dashboard_style = { 
         
-        "margin": "0 5%",  # Preserve the left-right margin
+        "padding": "10px 5%",  # 10px vertical, 5% left/right
         
         "width": "100%",
         "background": "rgba(23, 33, 43, 0.4)",
