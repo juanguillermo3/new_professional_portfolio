@@ -30,9 +30,9 @@ DEFAULT_ANIMATION_STYLES = {
 "name": "floatTooltip",
 "keyframes": """
 @keyframes floatTooltip {
-   0%   { transform: translateX(-100%) translateY(0px); }
-   50%  { transform: translateX(-100%) translateY(4px); }
-   100% { transform: translateX(-100%) translateY(0px); }
+   0%   { transform: translateX(0px) translateY(0px); }
+   50%  { transform: translateX(0px) translateY(4px); }
+   100% { transform: translateX(0px) translateY(0px); }
 }
 """,
 "animation": "floatTooltip 2s infinite ease-in-out"
