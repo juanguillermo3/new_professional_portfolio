@@ -44,6 +44,7 @@ DEFAULT_TOOLTIP_STYLES = {
 "visibility": "hidden",
 "opacity": "0",
 "width": "300px"
+"pointer-events": "auto"
 }
 
 # Default animation styles
@@ -189,13 +190,13 @@ class TooltipCanvas:
             .tc-tooltip-container:hover .tc-tooltip-item-{element_id} {{
                 visibility: visible;
                 opacity: 1;
-                transition-delay: 0.4s; /* Prevents quick disappearance */
+                pointer-events: auto;
             }}
             
             .tc-tooltip-container:hover .tc-tooltip-content.tc-tooltip-{element_id} {{
                 visibility: visible;
                 opacity: 1;
-                transition-delay: 0.4s; /* Prevents quick disappearance */
+                pointer-events: auto;
             }}
             
             .tc-tooltip-trigger {{
