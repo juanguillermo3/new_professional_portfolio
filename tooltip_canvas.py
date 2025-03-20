@@ -26,8 +26,8 @@ class TooltipCanvas:
         :param animation_styles: Dictionary to override tooltip animation styles.
         """
         self.timestamp = int(time.time())  # Forces CSS refresh
-        self.tooltip_styles = {**DEFAULT_TOOLTIP_STYLES, **(tooltip_styles or {})}
-        self.animation_styles = {**DEFAULT_ANIMATION_STYLES, **(animation_styles or {})}
+        #self.tooltip_styles = {**DEFAULT_TOOLTIP_STYLES, **(tooltip_styles or {})}
+        #self.animation_styles = {**DEFAULT_ANIMATION_STYLES, **(animation_styles or {})}
 
     
     def _define_tooltip(self, content: Union[str, List[Union[str, List[str]]]], element_id: str, visible_text: str = "Hover me") -> str:
