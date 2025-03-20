@@ -207,7 +207,7 @@ class TooltipCanvas:
         st.markdown(tooltip_html, unsafe_allow_html=True)
 
 
-    def _generate_tooltip_css(self, element_id: str):
+    def _generate_tooltip_css(self, element_id: str, tooltip_styles_override: dict = {}):
         """Generates the complete CSS for tooltips, including styles and animations."""
 
         # Default tooltip styles
