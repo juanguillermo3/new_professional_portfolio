@@ -95,7 +95,7 @@ def html_for_item_data(
         "margin": "5px",  # Adds space between tooltips (vertical & horizontal spacing)
         
         # Enforce non-bold text
-        "font-weight": "normal"
+        "font-weight": "normal",
 
         # Restore white text color
         "color": "#ffffff"
