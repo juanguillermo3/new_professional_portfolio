@@ -21,6 +21,25 @@ tooltip_system = TooltipCanvas()
 import time
 import html
 
+
+def html_for_container(content_html, style_dict):
+    """
+    Wraps an HTML string inside a <div> with inline styles.
+
+    Parameters:
+    - content_html (str): The HTML content to be wrapped.
+    - style_dict (dict): A dictionary of CSS properties and values.
+
+    Returns:
+    - str: The formatted HTML string wrapped inside a styled <div>.
+    """
+    # Convert the style dictionary into an inline style string
+    style_string = "; ".join(f"{key}: {value}" for key, value in style_dict.items())
+
+    # Return the wrapped HTML
+    return f'<div style="{style_string}">{content_html}</div>'
+
+
 def html_for_item_data(
     rec,
     badge_rules=None,
@@ -51,6 +70,7 @@ def html_for_item_data(
 
     # Apply the badge system
     title = apply_badges_to_item_title(rec, badge_rules)
+    title=f'<div class="item-tooltip title-tooltip" style="font-weight: bold;">{title}</div>'
 
     # Escape description to prevent HTML injection
     description = (
@@ -79,7 +99,7 @@ def html_for_item_data(
     # Prepare tooltip content
     tooltip_content = [
         [
-            f'<div class="item-tooltip title-tooltip" style="font-weight: bold;">{title}</div>',
+            title,
             description
         ]
     ]
