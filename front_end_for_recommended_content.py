@@ -13,11 +13,11 @@ from badges_for_item_data import apply_badges_to_item_title
 from exceptional_ui import _custom_tooltip_html
 from media_carrousel import flexible_file_discovery, html_for_media_carousel, dummy_media_list
 from tooltip_canvas import TooltipCanvas
-from front_end_utils import prettify_title, render_external_link_button,  html_for_container,html_for_github_button
+from front_end_utils import prettify_title, render_external_link_button,  html_for_container,html_for_github_button, ButtonFabric
 
 # Instantiate the tooltip system
 tooltip_system = TooltipCanvas()
-
+button_fabric = ButtonFabric()
 
 def html_for_item_data(
     rec,
@@ -108,34 +108,18 @@ def html_for_item_data(
     # Generate buttons for the tooltip
     buttons_html = []
 
-    #
-    # (1)
-    #
+    # (1) GitHub Button
     if "url" in rec and rec["url"]:
-        buttons_html.append(html_for_github_button(rec["url"]))
-    #
-    # (2)
-    #
+        buttons_html.append(button_fabric.render("GitHub", rec["url"], "#333"))
+    
+    # (2) Google Sheets Button
     if "report_url" in rec and rec["report_url"]:
-        buttons_html.append(
-            f'<a href="{rec["report_url"]}" target="_blank" '
-            f'style="display: block; margin: 5px 0; padding: 5px 10px; '
-            f'background-color: #34A853; color: white; border-radius: 5px; '
-            f'text-decoration: none;" class="item-tooltip button-tooltip">'
-            f'Sheets</a>'
-        )
-    #
-    # (3)
-    #
+        buttons_html.append(button_fabric.render("Sheets", rec["report_url"], "#34A853"))
+    
+    # (3) Google Colab Button
     if "colab_url" in rec and rec["colab_url"]:
-        buttons_html.append(
-            f'<a href="{rec["colab_url"]}" target="_blank" '
-            f'style="display: block; margin: 5px 0; padding: 5px 10px; '
-            f'background-color: #F9AB00; color: white; border-radius: 5px; '
-            f'text-decoration: none;" class="item-tooltip button-tooltip">'
-            f'Colab Notebook</a>'
-        )
-
+        buttons_html.append(button_fabric.render("Colab Notebook", rec["colab_url"], "#F9AB00"))
+    
     buttons_html="\n".join(buttons_html)
 
     #
