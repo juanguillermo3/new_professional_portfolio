@@ -154,7 +154,8 @@ def html_for_item_data(
         tooltip_content=tooltip_content+[
             [
             '<div class="item-tooltip resources-tooltip">Resources:</div>', 
-            f'<div class="item-tooltip buttons-tooltip">{buttons_html}</div>'
+            f'<div class="item-tooltip buttons-tooltip">{buttons_html}</div>',
+            "something"
             ]
         ]
 
