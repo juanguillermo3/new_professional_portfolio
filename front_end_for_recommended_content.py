@@ -110,15 +110,15 @@ def html_for_item_data(
 
     # (1) GitHub Button
     if "url" in rec and rec["url"]:
-        buttons_html.append(ButtonFabric.render_button("GitHub", rec["url"], "#333"))
+        buttons_html.append(ButtonFabric.render_button("GitHub", rec["url"]))
     
     # (2) Google Sheets Button
     if "report_url" in rec and rec["report_url"]:
-        buttons_html.append(ButtonFabric.render_button("Sheets", rec["report_url"], "#34A853"))
+        buttons_html.append(ButtonFabric.render_button("Sheets", rec["report_url"]))
     
     # (3) Google Colab Button
     if "colab_url" in rec and rec["colab_url"]:
-        buttons_html.append(ButtonFabric.render_button("Colab Notebook", rec["colab_url"], "#F9AB00"))
+        buttons_html.append(ButtonFabric.render_button("Colab Notebook", rec["colab_url"]))
     
     buttons_html="\n".join(buttons_html)
 
