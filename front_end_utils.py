@@ -81,7 +81,7 @@ def render_external_link_button(url, label, bg_color):
 
 
 #
-def render_github_button(github_url: str, button_size: int = 40) -> str:
+def html_for_github_button(github_url: str, button_size: int = 40) -> str:
     """
     Returns an HTML string for a GitHub button with a natural placement.
 
