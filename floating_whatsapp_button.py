@@ -47,6 +47,58 @@ def display_floating_whatsapp_button(
     whatsapp_url = f"https://wa.me/{whatsapp_number.replace('+', '')}?text={encoded_message}"
 
     st.markdown(f"""
+        <style>
+        .whatsapp-btn {{
+            position: fixed;
+            bottom: 20px;
+            left: {horizontal_position};
+            transform: translateX(-50%);
+            background-color: #25D366;
+            width: {button_radius}px;
+            height: {button_radius}px;
+            border-radius: 50%;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: all 0.3s ease-in-out;
+        }}
+
+        .whatsapp-btn img {{
+            width: {button_radius * 0.64}px;
+            height: {button_radius * 0.64}px;
+        }}
+
+        .whatsapp-btn:hover {{
+            background-color: #1EBEA5;
+            cursor: pointer;
+        }}
+
+        /* Tooltip Styling */
+        .whatsapp-btn::after {{
+            content: "{hover_text}";
+            position: absolute;
+            bottom: {button_radius + 10}px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-size: 14px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s;
+        }}
+
+        .whatsapp-btn:hover::after {{
+            opacity: 1;
+            visibility: visible;
+        }}
+        </style>
+
         <a href="{whatsapp_url}" target="_blank" class="whatsapp-btn">
             <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png">
         </a>
