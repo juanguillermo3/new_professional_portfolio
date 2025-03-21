@@ -179,13 +179,22 @@ def html_for_github_button(url):
 
 class ButtonFabric:
     """Fabric class to generate styled buttons dynamically."""
-    
+
     BUTTON_STYLES = {
-        "GitHub": {"bg_color": "#333", "icon": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"},
-        "Sheets": {"bg_color": "#34A853", "icon": "https://upload.wikimedia.org/wikipedia/commons/3/3f/Google_Sheets_logo.svg"},
-        "Colab Notebook": {"bg_color": "#F9AB00", "icon": "https://colab.research.google.com/img/colab_favicon_256px.png"},
+        "GitHub": {
+            "bg_color": "#333",
+            "icon": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+        },
+        "Sheets": {
+            "bg_color": "#34A853",
+            "icon": "https://upload.wikimedia.org/wikipedia/commons/3/3f/Google_Sheets_logo.svg",
+        },
+        "Colab Notebook": {
+            "bg_color": "#F9AB00",
+            "icon": "https://colab.research.google.com/img/colab_favicon_256px.png",
+        },
     }
-    
+
     @staticmethod
     def render_button(label, url):
         """Generates a floating-like button with a hover effect."""
@@ -193,53 +202,50 @@ class ButtonFabric:
             return ""  # Skip if button type is unknown
         
         style = ButtonFabric.BUTTON_STYLES[label]
-        
+
         return f"""
-        <div style="display: flex; justify-content: center; margin: 5px;">
-            <a href="{url}" target="_blank" style="text-decoration: none; display: block;">
-                <button style="background-color: {style['bg_color']}; color: white; 
-                               border: none; padding: 12px; 
-                               text-align: center; font-size: 14px; 
-                               cursor: pointer; border-radius: 50%; 
-                               width: 55px; height: 55px; display: flex; 
-                               justify-content: center; align-items: center; 
-                               box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
-                               transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;"
-                        onmouseover="this.style.transform='scale(1.1)'; 
-                                     this.style.boxShadow='4px 4px 15px rgba(0,0,0,0.3)';"
-                        onmouseout="this.style.transform='scale(1.0)'; 
-                                    this.style.boxShadow='2px 2px 10px rgba(0,0,0,0.2)';">
-                    <img src="{style['icon']}" alt="{label}" style="width: 32px; height: 32px;">
-                </button>
-            </a>
-        </div>
+        <a href="{url}" target="_blank" style="text-decoration: none; display: block; margin: 5px;">
+            <button style="background-color: {style['bg_color']}; color: white; 
+                           border: none; padding: 12px; 
+                           text-align: center; font-size: 14px; 
+                           cursor: pointer; border-radius: 50%; 
+                           width: 55px; height: 55px; display: flex; 
+                           justify-content: center; align-items: center; 
+                           box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+                           transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;"
+                    onmouseover="this.style.transform='scale(1.1)'; 
+                                 this.style.boxShadow='4px 4px 15px rgba(0,0,0,0.3)';"
+                    onmouseout="this.style.transform='scale(1.0)'; 
+                                this.style.boxShadow='2px 2px 10px rgba(0,0,0,0.2)';">
+                <img src="{style['icon']}" alt="{label}" style="width: 32px; height: 32px;">
+            </button>
+        </a>
         """
 
     @staticmethod
-    def render_buttons_grid(buttons: list, max_per_row: int = 3) -> str:
+    def render_buttons_grid(button_data, max_per_row=3):
         """
-        Arranges buttons in a grid-like layout.
-
-        Parameters:
-        - buttons: List of (label, url) tuples.
-        - max_per_row: Maximum number of buttons per row.
-
-        Returns:
-        - HTML string with buttons arranged in rows.
+        Generates a responsive grid layout for buttons.
+        - button_data: List of (label, url) tuples
+        - max_per_row: Max buttons per row before wrapping
         """
-        if not buttons:
+        if not button_data:
             return ""
 
-        button_html_list = [ButtonFabric.render_button(label, url) for label, url in buttons]
+        rows = []
+        row = []
 
-        # Create grid structure
-        rows = ["<div style='display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;'>"]
-        for i in range(0, len(button_html_list), max_per_row):
-            rows.append("<div style='display: flex; justify-content: center; gap: 10px;'>")
-            rows.extend(button_html_list[i : i + max_per_row])
-            rows.append("</div>")
-        rows.append("</div>")
+        for index, (label, url) in enumerate(button_data):
+            button_html = ButtonFabric.render_button(label, url)
+            if button_html:
+                row.append(button_html)
+
+            # If row is full, add to rows and reset
+            if len(row) == max_per_row or index == len(button_data) - 1:
+                rows.append(f'<div style="display: flex; justify-content: center;">' + "".join(row) + "</div>")
+                row = []
 
         return "\n".join(rows)
+
 
 
