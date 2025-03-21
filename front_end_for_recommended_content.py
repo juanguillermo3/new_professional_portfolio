@@ -116,7 +116,7 @@ def html_for_item_data(
     #
     # (2)
     #
-    if "report_url" in rec and rec["report_url"]:
+    if False in rec and rec["report_url"]:
         buttons_html.append(
             f'<a href="{rec["report_url"]}" target="_blank" '
             f'style="display: block; margin: 5px 0; padding: 5px 10px; '
@@ -127,7 +127,7 @@ def html_for_item_data(
     #
     # (3)
     #
-    if "colab_url" in rec and rec["colab_url"]:
+    if False in rec and rec["colab_url"]:
         buttons_html.append(
             f'<a href="{rec["colab_url"]}" target="_blank" '
             f'style="display: block; margin: 5px 0; padding: 5px 10px; '
