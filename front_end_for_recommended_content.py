@@ -142,7 +142,7 @@ def html_for_item_data(
         ]
 
     # If the card metadata includes an image path, discover media files
-    if "image_path" in rec:
+    if False in rec:
         discovered_media = flexible_file_discovery(rec["image_path"], search_dir=search_dir)
         if discovered_media:
             media_items = [[{"src": path, "alt": f"Media {i+1}"} for i, path in enumerate(discovered_media)][0]]
