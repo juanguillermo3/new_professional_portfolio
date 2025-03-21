@@ -106,7 +106,7 @@ def html_for_item_data(
     
 
     # Generate buttons for the tooltip
-    buttons = []
+    buttons_html = []
 
     #
     # (1)
@@ -136,13 +136,7 @@ def html_for_item_data(
             f'Colab Notebook</a>'
         )
 
-    # Construct buttons HTML (maintaining your original structure)
-    buttons_html = "".join(
-        f'<a href="{url}" target="_blank" style="display: block; margin: 5px 0; padding: 5px 10px; '
-        f'background-color: {color}; color: white; border-radius: 5px; text-decoration: none;" '
-        f'class="item-tooltip button-tooltip">{label}</a>'
-        for label, url, color in buttons
-    )
+    buttons_html="\n".join(buttons_html)
 
     # Prepare tooltip content
     tooltip_content = [
@@ -152,7 +146,7 @@ def html_for_item_data(
         ]
     ]
 
-    if buttons:
+    if buttons_html:
         tooltip_content=tooltip_content+[
             [
             '<div class="item-tooltip resources-tooltip">Resources:</div>', 
