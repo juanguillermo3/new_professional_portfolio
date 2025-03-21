@@ -195,8 +195,8 @@ class ButtonFabric:
         style = ButtonFabric.BUTTON_STYLES[label]
         
         return f"""
-        <div style="display: flex; justify-content: center; margin-top: 5px;">
-            <a href="{url}" target="_blank" style="text-decoration: none; display: block; margin: 0 auto;">
+        <div style="display: flex; justify-content: center; margin: 5px;">
+            <a href="{url}" target="_blank" style="text-decoration: none; display: block;">
                 <button style="background-color: {style['bg_color']}; color: white; 
                                border: none; padding: 12px; 
                                text-align: center; font-size: 14px; 
@@ -214,4 +214,32 @@ class ButtonFabric:
             </a>
         </div>
         """
+
+    @staticmethod
+    def render_buttons_grid(buttons: list, max_per_row: int = 3) -> str:
+        """
+        Arranges buttons in a grid-like layout.
+
+        Parameters:
+        - buttons: List of (label, url) tuples.
+        - max_per_row: Maximum number of buttons per row.
+
+        Returns:
+        - HTML string with buttons arranged in rows.
+        """
+        if not buttons:
+            return ""
+
+        button_html_list = [ButtonFabric.render_button(label, url) for label, url in buttons]
+
+        # Create grid structure
+        rows = ["<div style='display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;'>"]
+        for i in range(0, len(button_html_list), max_per_row):
+            rows.append("<div style='display: flex; justify-content: center; gap: 10px;'>")
+            rows.extend(button_html_list[i : i + max_per_row])
+            rows.append("</div>")
+        rows.append("</div>")
+
+        return "\n".join(rows)
+
 
