@@ -13,11 +13,11 @@ from badges_for_item_data import apply_badges_to_item_title
 from exceptional_ui import _custom_tooltip_html
 from media_carrousel import flexible_file_discovery, html_for_media_carousel, dummy_media_list
 from tooltip_canvas import TooltipCanvas
-from front_end_utils import prettify_title, render_external_link_button,  html_for_container,html_for_github_button, ButtonFabric
+from front_end_utils import prettify_title, render_external_link_button,  html_for_container,html_for_github_button
 
 # Instantiate the tooltip system
 tooltip_system = TooltipCanvas()
-button_fabric = ButtonFabric()
+
 
 def html_for_item_data(
     rec,
@@ -105,21 +105,38 @@ def html_for_item_data(
     )
     
 
-    # Collect buttons dynamically based on available URLs
-    buttons = []
-    
-    if "url" in rec and rec["url"]:
-        buttons.append(("GitHub", rec["url"]))
-    
-    if "report_url" in rec and rec["report_url"]:
-        buttons.append(("Sheets", rec["report_url"]))
-    
-    if "colab_url" in rec and rec["colab_url"]:
-        buttons.append(("Colab Notebook", rec["colab_url"]))
-    
-    # Generate stacked buttons using ButtonFabric
-    buttons_html = ButtonFabric.render_buttons_grid(buttons, max_per_row=3)
+    # Generate buttons for the tooltip
+    buttons_html = []
 
+    #
+    # (1)
+    #
+    if "url" in rec and rec["url"]:
+        buttons_html.append(html_for_github_button(rec["url"]))
+    #
+    # (2)
+    #
+    if "report_url" in rec and rec["report_url"]:
+        buttons_html.append(
+            f'<a href="{rec["report_url"]}" target="_blank" '
+            f'style="display: block; margin: 5px 0; padding: 5px 10px; '
+            f'background-color: #34A853; color: white; border-radius: 5px; '
+            f'text-decoration: none;" class="item-tooltip button-tooltip">'
+            f'Sheets</a>'
+        )
+    #
+    # (3)
+    #
+    if "colab_url" in rec and rec["colab_url"]:
+        buttons_html.append(
+            f'<a href="{rec["colab_url"]}" target="_blank" '
+            f'style="display: block; margin: 5px 0; padding: 5px 10px; '
+            f'background-color: #F9AB00; color: white; border-radius: 5px; '
+            f'text-decoration: none;" class="item-tooltip button-tooltip">'
+            f'Colab Notebook</a>'
+        )
+
+    buttons_html="\n".join(buttons_html)
 
     #
     # (1)
@@ -133,16 +150,17 @@ def html_for_item_data(
     #
     # (2)
     #
-    if  buttons_html:
-        tooltip_content=[
-            tooltip_content[0]+[
-            #'<div class="item-tooltip resources-tooltip">Resources:</div>', 
-            f'<div class="item-tooltip buttons-tooltip">{buttons_html}</div>'
+    if True:
+        tooltip_content=tooltip_content+[
+            [
+            '<div class="item-tooltip resources-tooltip">Resources:</div>', 
+            f'<div class="item-tooltip buttons-tooltip">{buttons_html}</div>',
+            "something"
             ]
         ]
 
     # If the card metadata includes an image path, discover media files
-    if False:
+    if "image_path" in rec:
         discovered_media = flexible_file_discovery(rec["image_path"], search_dir=search_dir)
         if discovered_media:
             media_items = [[{"src": path, "alt": f"Media {i+1}"} for i, path in enumerate(discovered_media)][0]]
@@ -268,8 +286,6 @@ def html_for_milestones_from_project_metadata(milestones=None, project_metadata=
         }}
     </style>
     """
-
-    
 
 
 
