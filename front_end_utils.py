@@ -245,7 +245,7 @@ class ButtonFabric:
                 rows.append(f'<div style="display: flex; justify-content: center;">' + "".join(row) + "</div>")
                 row = []
 
-        return "\n".join(rows)
+        return "\n".join(rows)+"\n"
 
 
 
