@@ -12,32 +12,11 @@ import streamlit as st
 from badges_for_item_data import apply_badges_to_item_title
 from exceptional_ui import _custom_tooltip_html
 from media_carrousel import flexible_file_discovery, html_for_media_carousel, dummy_media_list
-from front_end_utils import prettify_title, render_external_link_button
 from tooltip_canvas import TooltipCanvas
+from front_end_utils import prettify_title, render_external_link_button,  html_for_container
 
 # Instantiate the tooltip system
 tooltip_system = TooltipCanvas()
-
-import time
-import html
-
-
-def html_for_container(content_html, style_dict):
-    """
-    Wraps an HTML string inside a <div> with inline styles.
-
-    Parameters:
-    - content_html (str): The HTML content to be wrapped.
-    - style_dict (dict): A dictionary of CSS properties and values.
-
-    Returns:
-    - str: The formatted HTML string wrapped inside a styled <div>.
-    """
-    # Convert the style dictionary into an inline style string
-    style_string = "; ".join(f"{key}: {value}" for key, value in style_dict.items())
-
-    # Return the wrapped HTML
-    return f'<div style="{style_string}">{content_html}</div>'
 
 
 def html_for_item_data(
@@ -128,12 +107,34 @@ def html_for_item_data(
 
     # Generate buttons for the tooltip
     buttons = []
+
+    #
+    # (1)
+    #
     if "url" in rec and rec["url"]:
-        buttons.append(("GitHub", rec["url"], "#333"))
+        buttons_html.append(render_github_button(rec["url"]))
+    #
+    # (2)
+    #
     if "report_url" in rec and rec["report_url"]:
-        buttons.append(("Sheets", rec["report_url"], "#34A853"))
+        buttons_html.append(
+            f'<a href="{rec["report_url"]}" target="_blank" '
+            f'style="display: block; margin: 5px 0; padding: 5px 10px; '
+            f'background-color: #34A853; color: white; border-radius: 5px; '
+            f'text-decoration: none;" class="item-tooltip button-tooltip">'
+            f'Sheets</a>'
+        )
+    #
+    # (3)
+    #
     if "colab_url" in rec and rec["colab_url"]:
-        buttons.append(("Colab Notebook", rec["colab_url"], "#F9AB00"))
+        buttons_html.append(
+            f'<a href="{rec["colab_url"]}" target="_blank" '
+            f'style="display: block; margin: 5px 0; padding: 5px 10px; '
+            f'background-color: #F9AB00; color: white; border-radius: 5px; '
+            f'text-decoration: none;" class="item-tooltip button-tooltip">'
+            f'Colab Notebook</a>'
+        )
 
     # Construct buttons HTML (maintaining your original structure)
     buttons_html = "".join(
