@@ -97,6 +97,29 @@ def html_for_github_button(github_url: str, button_size: int = 40) -> str:
 
     return f"""
 
+        <style>
+        .github-btn {{
+            background-color: #333;
+            width: {button_size}px;
+            height: {button_size}px;
+            border-radius: 50%;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s ease-in-out;
+        }}
+
+        .github-btn img {{
+            width: {button_size * 0.6}px;
+            height: {button_size * 0.6}px;
+        }}
+
+        .github-btn:hover {{
+            background-color: #444;
+            cursor: pointer;
+        }}
+        </style>
 
         <a href="{github_url}" target="_blank" class="github-btn">
             <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub">
