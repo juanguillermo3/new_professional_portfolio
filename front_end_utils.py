@@ -176,3 +176,42 @@ def html_for_github_button(url):
         </a>
     </div>
     """
+
+class ButtonFabric:
+    """Fabric class to generate styled buttons dynamically."""
+    
+    BUTTON_STYLES = {
+        "GitHub": {"bg_color": "#333", "icon": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"},
+        "Sheets": {"bg_color": "#34A853", "icon": "https://upload.wikimedia.org/wikipedia/commons/3/3f/Google_Sheets_logo.svg"},
+        "Colab Notebook": {"bg_color": "#F9AB00", "icon": "https://colab.research.google.com/img/colab_favicon_256px.png"},
+    }
+    
+    @staticmethod
+    def render_button(label, url):
+        """Generates a floating-like button with a hover effect."""
+        if label not in ButtonFabric.BUTTON_STYLES:
+            return ""  # Skip if button type is unknown
+        
+        style = ButtonFabric.BUTTON_STYLES[label]
+        
+        return f"""
+        <div style="display: flex; justify-content: center; margin-top: 5px;">
+            <a href="{url}" target="_blank" style="text-decoration: none; display: block; margin: 0 auto;">
+                <button style="background-color: {style['bg_color']}; color: white; 
+                               border: none; padding: 12px; 
+                               text-align: center; font-size: 14px; 
+                               cursor: pointer; border-radius: 50%; 
+                               width: 55px; height: 55px; display: flex; 
+                               justify-content: center; align-items: center; 
+                               box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+                               transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;"
+                        onmouseover="this.style.transform='scale(1.1)'; 
+                                     this.style.boxShadow='4px 4px 15px rgba(0,0,0,0.3)';"
+                        onmouseout="this.style.transform='scale(1.0)'; 
+                                    this.style.boxShadow='2px 2px 10px rgba(0,0,0,0.2)';">
+                    <img src="{style['icon']}" alt="{label}" style="width: 32px; height: 32px;">
+                </button>
+            </a>
+        </div>
+        """
+
