@@ -136,7 +136,7 @@ def html_for_item_data(
     if  buttons_html:
         tooltip_content=[
             tooltip_content[0]+[
-            '<div class="item-tooltip resources-tooltip">Resources:</div>', 
+            #'<div class="item-tooltip resources-tooltip">Resources:</div>', 
             f'<div class="item-tooltip buttons-tooltip">{buttons_html}</div>'
             ]
         ]
