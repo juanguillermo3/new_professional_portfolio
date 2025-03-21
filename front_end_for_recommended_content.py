@@ -138,15 +138,19 @@ def html_for_item_data(
 
     buttons_html="\n".join(buttons_html)
 
-    # Prepare tooltip content
+    #
+    # (1)
+    #
     tooltip_content = [
         [
             tooltip_title,
             tooltip_description
         ]
     ]
-
-    if buttons_html:
+    #
+    # (2)
+    #
+    if True:
         tooltip_content=tooltip_content+[
             [
             '<div class="item-tooltip resources-tooltip">Resources:</div>', 
