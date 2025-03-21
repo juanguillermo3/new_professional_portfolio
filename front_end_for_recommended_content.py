@@ -105,22 +105,21 @@ def html_for_item_data(
     )
     
 
-    # Generate buttons for the tooltip
-    buttons_html = []
-
-    # (1) GitHub Button
+    # Collect buttons dynamically based on available URLs
+    buttons = []
+    
     if "url" in rec and rec["url"]:
-        buttons_html.append(ButtonFabric.render_button("GitHub", rec["url"]))
+        buttons.append(("GitHub", rec["url"]))
     
-    # (2) Google Sheets Button
     if "report_url" in rec and rec["report_url"]:
-        buttons_html.append(ButtonFabric.render_button("Sheets", rec["report_url"]))
+        buttons.append(("Sheets", rec["report_url"]))
     
-    # (3) Google Colab Button
     if "colab_url" in rec and rec["colab_url"]:
-        buttons_html.append(ButtonFabric.render_button("Colab Notebook", rec["colab_url"]))
+        buttons.append(("Colab Notebook", rec["colab_url"]))
     
-    buttons_html="\n".join(buttons_html)
+    # Generate stacked buttons using ButtonFabric
+    buttons_html = ButtonFabric.render_buttons_grid(buttons, max_per_row=3)
+
 
     #
     # (1)
