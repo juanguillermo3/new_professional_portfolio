@@ -13,7 +13,7 @@ from badges_for_item_data import apply_badges_to_item_title
 from exceptional_ui import _custom_tooltip_html
 from media_carrousel import flexible_file_discovery, html_for_media_carousel, dummy_media_list
 from tooltip_canvas import TooltipCanvas
-from front_end_utils import prettify_title, render_external_link_button,  html_for_container
+from front_end_utils import prettify_title, render_external_link_button,  html_for_container,html_for_github_button
 
 # Instantiate the tooltip system
 tooltip_system = TooltipCanvas()
@@ -112,7 +112,7 @@ def html_for_item_data(
     # (1)
     #
     if "url" in rec and rec["url"]:
-        buttons_html.append(render_github_button(rec["url"]))
+        buttons_html.append(html_for_github_button(rec["url"]))
     #
     # (2)
     #
