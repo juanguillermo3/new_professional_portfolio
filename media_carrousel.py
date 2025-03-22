@@ -391,7 +391,7 @@ def html_for_media_carousel(media_items, carousel_id="media-carousel"):
     """
 def html_for_media_carousel(media_items, container_id="media-container"):
     """
-    Generates an HTML snippet for a styled media carousel with smooth transitions.
+    Generates an HTML snippet for a styled media carousel with smooth transitions and fixed dimensions.
 
     :param media_items: List of dictionaries with media properties (src, alt).
     :param container_id: Unique ID for the media container.
@@ -419,8 +419,8 @@ def html_for_media_carousel(media_items, container_id="media-container"):
     <style>
         .media-container {{
             position: relative;
-            width: 600px;
-            height: auto;
+            width: 800px;
+            height: 600px;
             overflow: hidden;
             border-radius: 10px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
@@ -432,8 +432,9 @@ def html_for_media_carousel(media_items, container_id="media-container"):
         }}
 
         .media-container img {{
-            width: 100%;
-            height: auto;
+            width: 800px;
+            height: 600px;
+            object-fit: cover;
             border-radius: 10px;
             position: absolute;
             top: 0;
@@ -457,6 +458,7 @@ def html_for_media_carousel(media_items, container_id="media-container"):
         }}
     </style>
     """
+
 
 
 
