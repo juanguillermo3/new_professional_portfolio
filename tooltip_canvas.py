@@ -133,7 +133,6 @@ class TooltipCanvas:
     
             .tc-tooltip-item-{element_id} {{
                 position: relative; 
-                max-width: 300px; 
                 {tooltip_styles_str};
                 animation: {animation_styles};
             }}
@@ -153,8 +152,6 @@ class TooltipCanvas:
             }}
             
             .tc-tooltip-column-{element_id} {{
-                max-width: 300px;
-                min-width: 300px;
                 flex: 1;
             }}
     
