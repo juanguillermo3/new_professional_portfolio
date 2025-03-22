@@ -186,14 +186,14 @@ class TooltipCanvas:
                 top: 50%;         /* Center vertically */
                 left: 50%;        /* Center horizontally */
                 transform: translate(-50%, -50%); /* Adjust to true center */
-                
-                background: black;
-                color: white;
-                padding: 10px;
-                border-radius: 5px;
-                white-space: nowrap;
+
+                transition: opacity 0.2s ease-in-out;
+                z-index: 9999;
+                display: flex;
+                align-items: center;
                 z-index: 9999;  /* Ensures it stays on top */
                 visibility: hidden;
+
             }}
             
         </style>
