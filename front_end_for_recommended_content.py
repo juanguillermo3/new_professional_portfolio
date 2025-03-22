@@ -166,7 +166,7 @@ def html_for_item_data(
             tooltip_content.append([
                 html_for_container(
                     f'<div class="item-tooltip media-carousel-tooltip">{media_carousel}</div>',
-                    {**frosted_glass_style, "max-width": "800px"}
+                    {"max-width": "800px"}
                 )
             ])
 
