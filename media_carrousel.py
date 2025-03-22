@@ -140,8 +140,9 @@ def html_for_media_carousel(media_items, container_id="media-container"):
 
         /* Keyframe animation for smooth fade */
         @keyframes fadeAnimation {{
-            0%   {{ opacity: 1; }}
-            80%  {{ opacity: 1; }} /* Hold full opacity */
+            0%   {{ opacity: 0; }}
+            10%  {{ opacity: 1; }}
+            90%  {{ opacity: 1; }} /* Hold full opacity */
             100% {{ opacity: 0; }} /* Fade out only at the end */
         }}
     </style>
