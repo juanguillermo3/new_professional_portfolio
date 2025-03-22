@@ -29,7 +29,7 @@
   {
     "title": "Data Sharing and Persistence Utilities",
     "description": "Provides tools to facilitate data sharing and persistence between application modules.",
-    "last_updated": "2025-01-27T04:03:38Z",
+    "last_updated": "2025-03-22T03:12:24Z",
     "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/persistence_utils.R",
     "file_path": "persistence_utils.R",
     "repo_name": "evaluation_of_job_intermediation_program",
@@ -47,12 +47,13 @@
     "image_path": "assets/sample_balance.png",
     "libraries": [
       "dplyr",
-      "scales",
       "tools",
-      "ggplot2",
+      "ggrepel",
       "tidyr",
-      "ggrepel"
-    ]
+      "ggplot2",
+      "scales"
+    ],
+    "image_url": "assets/sample_balance.png"
   },
   {
     "title": "Worker Profiles Module",
@@ -62,6 +63,33 @@
     "file_path": "worker_profiles.R",
     "repo_name": "evaluation_of_job_intermediation_program",
     "libraries": []
+  },
+  {
+    "title": "Hirings",
+    "description": "Distributes data about hirings per worker.",
+    "libraries": [
+      "dplyr"
+    ],
+    "last_updated": "2025-03-22T03:11:57Z",
+    "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/hirings.R",
+    "file_path": "hirings.R",
+    "repo_name": "evaluation_of_job_intermediation_program"
+  },
+  {
+    "title": "Labor Market Outcomes",
+    "description": "Summarizes the employment outcomes of workers assisted by the job agency. It computes several individual-level metrics, such as the total number of hires, as well as hires in high-income positions and permanent contract roles.",
+    "image_path": "hiring_rates_per_gender_and_education_level.png",
+    "libraries": [
+      "stringr",
+      "dplyr",
+      "tidyr",
+      "ggplot2",
+      "scales"
+    ],
+    "last_updated": "2025-03-22T03:19:24Z",
+    "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/laboral_outcomes.R",
+    "file_path": "laboral_outcomes.R",
+    "repo_name": "evaluation_of_job_intermediation_program"
   },
   {
     "title": "deduplication service for the job listings",
@@ -587,27 +615,27 @@
     "description": "Streamlit based Front-End application for my professional portfolio.",
     "author": "Juan Guillermo",
     "field": "something",
-    "last_updated": "2025-03-13T18:58:58Z",
+    "last_updated": "2025-03-20T22:49:54Z",
     "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/app_prof_site_blueprint.py",
     "file_path": "app_prof_site_blueprint.py",
     "repo_name": "new_professional_portfolio",
     "libraries": [
-      "dotenv",
-      "professional_bio",
       "streamlit",
-      "socials_section",
+      "os",
+      "professional_bio",
       "floating_buttons",
-      "git_api_utils",
+      "dotenv",
       "floating_whatsapp_button",
+      "about_section",
+      "git_api_utils",
+      "socials_section",
+      "rec_sys",
+      "front_end_utils",
+      "tooltip_canvas",
+      "hero_area",
       "floating_linkedin_button",
       "testimonials",
-      "os",
-      "about_section",
-      "tooltip_canvas",
-      "front_end_utils",
-      "services_section",
-      "hero_area",
-      "rec_sys"
+      "services_section"
     ],
     "galleria": "True",
     "image_path": "assets/new_professional_portfolio_network_plot.html",
@@ -623,28 +651,31 @@
   },
   {
     "title": "Recommendation System",
-    "description": "Current implementation of the RecSys, featuring a vanilla ranking that sorts items by the most recently updated, filters by query (exact matching), and allows filtering by project.",
-    "last_updated": "2025-02-26T20:44:25Z",
+    "description": "Implements a portfolio section to display recommended content (projects, code samples) from an                underlying professional portfolio. Assuming key project metadata is provided by external services                (i.e., the collector is external), this class applies the ranker and serves portions of a RecSys                system. Moreover, it creates visually appealing representations of the recommended content.",
+    "last_updated": "2025-03-20T22:49:05Z",
     "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/rec_sys.py",
     "file_path": "rec_sys.py",
     "repo_name": "new_professional_portfolio",
     "libraries": [
+      "exceptional_ui",
+      "glob",
+      "git_api_utils",
+      "re",
+      "biotech_lab",
+      "os",
       "streamlit",
-      "time",
+      "markdown",
+      "datetime",
       "front_end_utils",
       "portfolio_section",
-      "datetime",
-      "glob",
-      "front_end_for_recommended_content",
-      "markdown",
-      "os",
-      "visual_media",
-      "re",
-      "app_end_metadata",
-      "git_api_utils",
-      "hashlib",
+      "random",
       "media_carousel",
-      "random"
+      "hashlib",
+      "dotenv",
+      "front_end_for_recommended_content",
+      "app_end_metadata",
+      "time",
+      "visual_media"
     ]
   },
   {
@@ -671,14 +702,14 @@
       "time",
       "html",
       "hashlib",
-      "media_carrousel",
+      "badges_for_item_data",
       "exceptional_ui",
-      "tooltip_canvas",
+      "media_carrousel",
       "front_end_utils",
-      "re",
-      "badges_for_item_data"
+      "tooltip_canvas",
+      "re"
     ],
-    "last_updated": "2025-03-15T04:52:54Z",
+    "last_updated": "2025-03-21T03:47:34Z",
     "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/front_end_for_recommended_content.py",
     "file_path": "front_end_for_recommended_content.py",
     "repo_name": "new_professional_portfolio"
@@ -698,9 +729,9 @@
     "title": "About Section",
     "description": "Portfolio section designed to display housekeeping information and important messages. It helps users              understand the purpose of the web application.",
     "libraries": [
-      "exceptional_quote",
       "portfolio_section",
       "streamlit",
+      "exceptional_quote",
       "about_section_data_loader"
     ],
     "last_updated": "2025-03-15T06:24:35Z",
@@ -732,8 +763,8 @@
     "title": "Floating Linkedin Button",
     "description": "Renders a floating component for Linkedin account.",
     "libraries": [
-      "streamlit",
-      "os"
+      "os",
+      "streamlit"
     ],
     "last_updated": "2025-02-28T04:58:21Z",
     "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/floating_linkedin_button.py",
@@ -744,11 +775,11 @@
     "title": "Floating Whatsapp Button",
     "description": "Renders a floating component for whatsapp communication. Servers as a contant invitiation to the client to stablish a connection.",
     "libraries": [
-      "urllib",
+      "os",
       "streamlit",
-      "os"
+      "urllib"
     ],
-    "last_updated": "2025-03-06T03:31:36Z",
+    "last_updated": "2025-03-21T00:25:07Z",
     "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/floating_whatsapp_button.py",
     "file_path": "floating_whatsapp_button.py",
     "repo_name": "new_professional_portfolio"
@@ -757,12 +788,12 @@
     "title": "Front-End Utils",
     "description": "Contains various utilities for design across portfolio sections.",
     "libraries": [
-      "exceptional_ui",
-      "markdown",
       "random",
-      "streamlit"
+      "streamlit",
+      "exceptional_ui",
+      "html"
     ],
-    "last_updated": "2025-03-06T23:33:18Z",
+    "last_updated": "2025-03-21T01:42:41Z",
     "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/front_end_utils.py",
     "file_path": "front_end_utils.py",
     "repo_name": "new_professional_portfolio"
@@ -771,13 +802,13 @@
     "title": "Git API Utils",
     "description": "This module leverages advanced features of the Git API to gather metadata on projects (repositories)               and application modules (individual files). With the right credentials, it builds a pipeline that               combines custom metadata with GitHub-provided insights, transforming a Git account into a powerful               repository of portfolio intelligence across multiple projects.",
     "libraries": [
-      "json",
-      "logging",
-      "requests",
-      "dotenv",
-      "ast",
       "os",
-      "re"
+      "logging",
+      "ast",
+      "dotenv",
+      "json",
+      "re",
+      "requests"
     ],
     "last_updated": "2025-02-28T06:11:01Z",
     "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/git_api_utils.py",
@@ -788,12 +819,12 @@
     "title": "Hero Section",
     "description": "A subtle yet impactful hero section for a professional portfolio. Styled as a book quote with a bio picture,               it presents essential information and key call-to-action elements.",
     "libraries": [
-      "dotenv",
       "streamlit",
       "os",
+      "dotenv",
       "exceptional_ui",
-      "hero_area_data_loader",
-      "front_end_utils"
+      "front_end_utils",
+      "hero_area_data_loader"
     ],
     "last_updated": "2025-03-13T00:24:01Z",
     "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/hero_area.py",
@@ -804,13 +835,13 @@
     "title": "Professional Bio",
     "description": "A portfolio section dedicated to showcasing the owner's Curriculum Vitae and professional background.               It is structured around a main professional statement and two key sections: work experience and education.               Its design is inspired by modern job platforms, ensuring a clean and engaging presentation.",
     "libraries": [
-      "front_end_utils",
       "random",
       "streamlit",
-      "portfolio_section",
-      "cv_data_loader"
+      "cv_data_loader",
+      "front_end_utils",
+      "portfolio_section"
     ],
-    "last_updated": "2025-02-28T06:23:35Z",
+    "last_updated": "2025-03-13T08:59:03Z",
     "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/professional_bio.py",
     "file_path": "professional_bio.py",
     "repo_name": "new_professional_portfolio"
@@ -819,15 +850,15 @@
     "title": "Services",
     "description": "A portfolio section designed to clarify the main services offered by the system owner. It is structured               around a set of service items, which can be retrieved from proprietary systems. It is advisable to include               complementary details such as pricing (hourly rates, fixed fees) and engagement terms, as well as a clear               process for initiating collaboration (e.g., consultation, proposal, contract signing).",
     "libraries": [
-      "random",
-      "streamlit",
-      "dotenv",
       "services_data_loader",
-      "portfolio_section",
+      "streamlit",
       "os",
-      "front_end_for_recommended_content"
+      "dotenv",
+      "front_end_for_recommended_content",
+      "portfolio_section",
+      "random"
     ],
-    "last_updated": "2025-02-28T06:37:57Z",
+    "last_updated": "2025-03-15T05:00:33Z",
     "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/services_section.py",
     "file_path": "services_section.py",
     "repo_name": "new_professional_portfolio"
@@ -836,9 +867,9 @@
     "title": "Visual Media",
     "description": "Showcases the VisualContentGallery, designed to create a visually compelling representation of media               across multiple projects. It emphasizes visuals as a central element of the user experience, enhancing               engagement and storytelling.",
     "libraries": [
-      "streamlit",
+      "glob",
       "os",
-      "glob"
+      "streamlit"
     ],
     "last_updated": "2025-02-28T06:45:57Z",
     "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/visual_media.py",
@@ -849,13 +880,14 @@
     "title": "Badges for Items",
     "description": "This badge system applies visual cues using emojis to enhance the front-end representation of recommended items.                Badges are assigned based on predefined rules applied to item metadata, providing subtle yet meaningful                additional context. This helps improve the user experience by making item information more visually intuitive.",
     "libraries": [
-      "html",
       "os",
-      "front_end_utils",
+      "html",
       "datetime",
+      "exceptional_ui",
+      "front_end_utils",
       "re"
     ],
-    "last_updated": "2025-03-06T01:06:58Z",
+    "last_updated": "2025-03-16T21:58:38Z",
     "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/badges_for_item_data.py",
     "file_path": "badges_for_item_data.py",
     "repo_name": "new_professional_portfolio"
@@ -876,12 +908,12 @@
     "description": "Implements beautiful front-end components using Streamlit, HTML, and CSS to create a smooth and delightful user experience.",
     "libraries": [
       "streamlit",
-      "html",
       "time",
+      "html",
       "hashlib",
       "datetime"
     ],
-    "last_updated": "2025-03-13T15:15:04Z",
+    "last_updated": "2025-03-19T00:39:36Z",
     "url": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/exceptional_ui.py",
     "file_path": "exceptional_ui.py",
     "repo_name": "new_professional_portfolio"
