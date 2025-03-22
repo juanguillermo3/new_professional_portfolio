@@ -6,6 +6,9 @@ description: Implements `html_for_media_carousel` to generate an HTML-based medi
              that can be processed by the media carousel.
 """
 
+#
+# 0.
+#
 import streamlit as st
 import glob
 import re
@@ -79,7 +82,7 @@ def image_to_base64(image_path):
 #
 def html_for_media_carousel(media_items, container_id="media-container"):
     """
-    Generates an HTML snippet for a styled media carousel with smooth transitions and dynamic height.
+    Generates an HTML snippet for a modern media carousel with smooth transitions.
 
     :param media_items: List of dictionaries with media properties (src, alt).
     :param container_id: Unique ID for the media container.
@@ -88,17 +91,10 @@ def html_for_media_carousel(media_items, container_id="media-container"):
     if not media_items:
         return "<p>No media available</p>"
 
-    # Limit to 10 media items for safety
-    media_items = media_items[:10]
+    media_items = media_items[:10]  # Limit to 10 media items for safety
 
-    # Convert local images to Base64 if needed
-    for item in media_items:
-        if os.path.isfile(item['src']):
-            item['src'] = image_to_base64(item['src']) or ""
-
-    # Generate image elements with unique animation delays
     images_html = "".join([
-        f'<img src="{item["src"]}" alt="{item.get("alt", f"Image {i+1}")}" class="carousel-item" style="animation-delay: {i * 4}s;">'
+        f'<img src="{item["src"]}" alt="{item.get("alt", f"Image {i+1}")}" class="carousel-item" style="animation-delay: {i * 5}s;">'
         for i, item in enumerate(media_items)
     ])
 
@@ -133,19 +129,17 @@ def html_for_media_carousel(media_items, container_id="media-container"):
             top: 0;
             left: 0;
             opacity: 0;
-            animation: fadeAnimation {len(media_items) * 4}s infinite;
+            animation: fadeAnimation {len(media_items) * 5}s infinite;
         }}
 
-        /* Keyframe animation for smooth fade */
         @keyframes fadeAnimation {{
-            0% {{ opacity: 0; }}
-            10% {{ opacity: 1; }}
-            45% {{ opacity: 1; }}
-            55% {{ opacity: 0; }}
-            100% {{ opacity: 0; }}
+            0%   {{ opacity: 1; }}
+            80%  {{ opacity: 1; }} /* Hold full opacity */
+            100% {{ opacity: 0; }} /* Fade out only at the end */
         }}
     </style>
     """
+
 
 
 
