@@ -325,6 +325,79 @@ def html_for_media_carousel(media_items, container_id="media-container"):
     """
 
 
+def html_for_media_carousel(media_items, carousel_id="media-carousel"):
+    """
+    Generates an HTML snippet displaying the first media item and smoothly transitioning to the second.
+
+    :param media_items: List of dictionaries with media properties (src, alt).
+    :param carousel_id: Unique ID for the carousel container.
+    :return: HTML string for the media display with transition.
+    """
+    if not media_items:
+        return "<p>No media available</p>"
+
+    # Use the first two media items (or just one if only one exists)
+    first_item = media_items[0]
+    second_item = media_items[1] if len(media_items) > 1 else None
+
+    second_image_html = (
+        f'<img src="{second_item["src"]}" alt="{second_item.get("alt", "Second Image")}" class="hidden">'
+        if second_item
+        else ""
+    )
+
+    return f"""
+    <div id="{carousel_id}" class="media-carousel">
+        <img src="{first_item['src']}" alt="{first_item.get('alt', 'Displayed Image')}" class="fade">
+        {second_image_html}
+    </div>
+
+    <style>
+        .media-carousel {{
+            position: relative;
+            width: 600px;
+            height: auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, .25);
+            backdrop-filter: blur(4px);
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.1);
+            text-align: center;
+            padding: 10px;
+        }}
+
+        .media-carousel img {{
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 1;
+            transition: opacity 1.5s ease-in-out;
+        }}
+
+        .media-carousel img.hidden {{
+            opacity: 0;
+        }}
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {{
+            let images = document.querySelectorAll("#{carousel_id} img");
+            if (images.length > 1) {{
+                setTimeout(() => {{
+                    images[0].classList.add("hidden");
+                    images[1].classList.remove("hidden");
+                }}, 3000);  // Change image after 3 seconds
+            }}
+        }});
+    </script>
+    """
+
+
 # Example usage:
 dummy_media_list = [
     {"src": "https://media.istockphoto.com/id/1226328537/vector/image-place-holder-with-a-gray-camera-icon.jpg", "alt": "iStock Placeholder"},
