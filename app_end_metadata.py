@@ -98,9 +98,9 @@ def load_repos_metadata():
         },
         {
             "title": "evaluation_of_job_intermediation_program",
-            "ongoing": False,
+            "ongoing": false,
             "tags": [
-                "Laboral Market Analysis",
+                "Labor Market Analysis",
                 "Gender Analysis",
                 "Program Evaluation",
                 "Job Intermediation",
@@ -108,11 +108,13 @@ def load_repos_metadata():
                 "Counterfactual Outcomes"
             ],
             "achieved_milestones": [
-              "Used web scrapping to recover a database about worked attended over 5 years of operation",
-              "Performed EDA to undertand the demographics and laboral background of workers"    
+                "Collected a database through web scraping on workers assisted over five years of program operation",
+                "Conducted exploratory data analysis (EDA) to understand the demographics and employment backgrounds of workers",
+                "Used inferential statistics to compare hiring rates between assisted and unassisted workers",
+                "Applied Propensity Score Matching to reduce selection bias in the estimation sample",
+                "Measured the program's impact and analyzed its implications for public policy"
             ],
-            "next_milestones": [
-        
-            ]
+            "next_milestones": []
         }
+
     ]
