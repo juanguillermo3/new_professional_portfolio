@@ -42,12 +42,12 @@ def load_quote():
 
 def load_quote():
     return [
-        "My recurring interest has been the <b>modernization of data analysis</b>  
-        through cutting-edge techniques, such as flexible statistical inference powered by <b>Machine Learning</b>,  
-        streamlining <em>core business</em> workflows through <b>software development</b> and <b>algorithmic automation</b>,  
-        handling datasets with <b>modern data tech stacks</b>,  
-        grouping data by <em>meaning</em> with <b>Natural Language Processing</b>,  
-        and dynamically enabling <em>decision-making</em> through the <b>agency of LLM applications</b>."  
+        "My recurring interest has been the <b>modernization of data analysis</b> "  
+        "through cutting-edge techniques, such as flexible statistical inference powered by <b>Machine Learning</b>, "  
+        "streamlining <em>core business</em> workflows through <b>software development</b> and <b>algorithmic automation</b>, "
+        "handling datasets with <b>modern data tech stacks</b>, "  
+        "grouping data by <em>meaning</em> with <b>Natural Language Processing</b>, "  
+        "and dynamically enabling <em>decision-making</em> through the <b>agency of LLM applications</b>. ",  
 
         "I am Juan Guillermo, a professional economist. "  
         "I have built my career developing <b>data analysis</b> and <b>software application</b> scripts "  
