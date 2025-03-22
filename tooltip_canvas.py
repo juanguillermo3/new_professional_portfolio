@@ -225,7 +225,4 @@ class TooltipCanvas:
     
         st.markdown(tooltip_css, unsafe_allow_html=True)
         st.markdown(tooltip_html, unsafe_allow_html=True)
-    </style>
-    """
-
 
