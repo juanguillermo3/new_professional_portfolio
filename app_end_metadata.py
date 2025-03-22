@@ -98,7 +98,7 @@ def load_repos_metadata():
         },
         {
             "title": "evaluation_of_job_intermediation_program",
-            "ongoing": false,
+            "ongoing": False,
             "tags": [
                 "Labor Market Analysis",
                 "Gender Analysis",
