@@ -336,7 +336,7 @@ def html_for_media_carousel(media_items, carousel_id="media-carousel"):
         .carousel-item {{
             position: absolute;
             width: 100%;
-            opacity: 0;
+            opacity: 1;
             transition: opacity 1s ease-in-out;
         }}
 
