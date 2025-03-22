@@ -148,7 +148,7 @@ class TooltipCanvas:
                 grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
                 gap: 10px;
                 min-width: 300px;
-                max-width: 800px;
+                max-width: 1200px;
             }}
             
             .tc-tooltip-column-{element_id} {{
