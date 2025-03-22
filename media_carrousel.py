@@ -389,6 +389,74 @@ def html_for_media_carousel(media_items, carousel_id="media-carousel"):
         }}
     </style>
     """
+def html_for_media_carousel(media_items, container_id="media-container"):
+    """
+    Generates an HTML snippet for a styled media carousel with smooth transitions.
+
+    :param media_items: List of dictionaries with media properties (src, alt).
+    :param container_id: Unique ID for the media container.
+    :return: HTML string for the media display.
+    """
+    if not media_items:
+        return "<p>No media available</p>"
+
+    # Convert local images to Base64
+    for item in media_items:
+        if os.path.isfile(item['src']):
+            item['src'] = image_to_base64(item['src']) or ""
+
+    # Generate image tags with `carousel-item` class
+    images_html = "".join([
+        f'<img src="{item["src"]}" alt="{item.get("alt", f"Image {i+1}")}" class="carousel-item">'
+        for i, item in enumerate(media_items)
+    ])
+
+    return f"""
+    <div id="{container_id}" class="media-container">
+        {images_html}
+    </div>
+
+    <style>
+        .media-container {{
+            position: relative;
+            width: 600px;
+            height: auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, .25);
+            backdrop-filter: blur(4px);
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            text-align: center;
+            padding: 10px;
+        }}
+
+        .media-container img {{
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            animation: fadeAnimation 8s infinite;
+        }}
+
+        /* Delay each image */
+        .media-container img:nth-child(1) {{ animation-delay: 0s; }}
+        .media-container img:nth-child(2) {{ animation-delay: 4s; }}
+        .media-container img:nth-child(3) {{ animation-delay: 8s; }}
+
+        /* Keyframe animation for smooth fade */
+        @keyframes fadeAnimation {{
+            0% {{ opacity: 0; }}
+            10% {{ opacity: 1; }}
+            45% {{ opacity: 1; }}
+            55% {{ opacity: 0; }}
+            100% {{ opacity: 0; }}
+        }}
+    </style>
+    """
 
 
 
