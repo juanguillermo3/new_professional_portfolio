@@ -129,7 +129,7 @@ def html_for_media_carousel(media_items, container_id="media-container"):
         .media-container img {{
             width: 100%;
             height: auto;
-            min-height: 400px;
+            #min-height: 400px;
             object-fit: contain;
             border-radius: 10px;
             position: absolute;
