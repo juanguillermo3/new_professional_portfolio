@@ -265,6 +265,111 @@ def html_for_media_carousel(media_items, carousel_id="media-carousel"):
     """
 
 
+import os
+import base64
+
+def image_to_base64(image_path):
+    """Converts a local image file to a Base64-encoded string."""
+    try:
+        with open(image_path, "rb") as image_file:
+            return f"data:image/jpeg;base64,{base64.b64encode(image_file.read()).decode()}"
+    except Exception as e:
+        print(f"Error converting {image_path} to Base64: {e}")
+        return None
+
+def html_for_media_carousel(media_items, carousel_id="media-carousel"):
+    """
+    Generates an HTML/CSS-based media carousel with Base64 embedded images.
+
+    :param media_items: List of dictionaries with media properties (src, alt).
+    :param carousel_id: Unique ID for the carousel container.
+    :return: HTML string for the carousel.
+    """
+    num_items = len(media_items)
+    if num_items == 0:
+        return "<p>No media available</p>"
+    
+    # Convert local images to Base64
+    for item in media_items:
+        if os.path.isfile(item['src']):  # If it's a local file
+            item['src'] = image_to_base64(item['src']) or ""
+    
+    # Generate carousel items
+    slides_html = "".join([
+        f'<div class="carousel-item"><img src="{item["src"]}" alt="{item.get("alt", f"Image {i+1}")}"></div>'
+        for i, item in enumerate(media_items)
+    ])
+
+    # Generate fade animations
+    fade_animation = "".join([
+        f'.carousel-item:nth-child({i+1}) {{ animation: fadeCarousel {num_items * 5}s infinite; animation-delay: {i * 5}s; }}'
+        for i in range(num_items)
+    ])
+
+    return f"""
+    <div class="carousel-container">
+        <div class="carousel-slides">
+            {slides_html}
+        </div>
+    </div>
+
+    <style>
+        .carousel-container {{
+            position: relative;
+            width: 600px; /* Fixed width */
+            height: auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, .25);
+            backdrop-filter: blur(4px);
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.1);
+        }}
+
+        .carousel-slides {{
+            display: flex;
+            position: relative;
+            width: 100%;
+        }}
+
+        .carousel-item {{
+            position: absolute;
+            width: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }}
+
+        .carousel-item img {{
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }}
+
+        .carousel-item:first-child {{ opacity: 1; }} /* Show first image by default */
+
+        /* Keyframes for fade effect */
+        @keyframes fadeCarousel {{
+            0% {{ opacity: 0; }}
+            10% {{ opacity: 1; }}
+            30% {{ opacity: 1; }}
+            40% {{ opacity: 0; }}
+            100% {{ opacity: 0; }}
+        }}
+
+        /* Apply animation */
+        {fade_animation}
+
+        /* Pause animation on hover */
+        .carousel-container:hover .carousel-item {{
+            animation-play-state: paused;
+        }}
+
+    </style>
+    """
+
+
+
 # Example usage:
 dummy_media_list = [
     {"src": "https://media.istockphoto.com/id/1226328537/vector/image-place-holder-with-a-gray-camera-icon.jpg", "alt": "iStock Placeholder"},
