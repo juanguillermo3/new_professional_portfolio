@@ -164,7 +164,6 @@ def html_for_item_data(
             media_items = [[{"src": path, "alt": f"Media {i+1}"} for i, path in enumerate(discovered_media)][0]]
             media_carousel = html_for_media_carousel(media_items)
             tooltip_content.append([
-                '<div class="item-tooltip media-preview-tooltip">Media Preview:</div>', 
                 html_for_container(
                     f'<div class="item-tooltip media-carousel-tooltip">{media_carousel}</div>',
                     {**frosted_glass_style, "max-width": "800px"}
