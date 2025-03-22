@@ -177,12 +177,8 @@ class TooltipCanvas:
                 top: calc(100% + 10px);  /* Moves the tooltip slightly below the trigger */
                 left: 50%;  /* Center horizontally */
                 transform: translateX(-50%);  /* Adjust to true center */
-                
-                background: black;
-                color: white;
                 padding: 10px;
                 border-radius: 5px;
-                white-space: nowrap;
                 transition: opacity 0.2s ease-in-out;
                 z-index: 9999;
                 visibility: hidden;
