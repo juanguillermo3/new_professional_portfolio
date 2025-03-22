@@ -113,8 +113,8 @@ def html_for_media_carousel(media_items, container_id="media-container"):
     <style>
         .media-container {{
             position: relative;
-            width: 600px;
-            min-height: 400px;
+            width: 800px;
+            min-height: 600px;
             height: auto;
             overflow: hidden;
             border-radius: 10px;
