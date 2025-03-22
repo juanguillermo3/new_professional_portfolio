@@ -167,7 +167,7 @@ def html_for_item_data(
                 '<div class="item-tooltip media-preview-tooltip">Media Preview:</div>', 
                 html_for_container(
                     f'<div class="item-tooltip media-carousel-tooltip">{media_carousel}</div>',
-                    frosted_glass_style
+                    {**frosted_glass_style, "max-width": "800px"}
                 )
             ])
 
