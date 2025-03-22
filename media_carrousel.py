@@ -136,7 +136,7 @@ def html_for_media_carousel(media_items, container_id="media-container"):
             top: 0;
             left: 0;
             opacity: 0;
-            animation: fadeAnimation {len(media_items) * 5}s infinite;
+            animation: fadeAnimation {len(media_items) * 4}s infinite;
         }}
 
         /* Keyframe animation for smooth fade */
