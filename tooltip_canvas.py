@@ -169,11 +169,11 @@ class TooltipCanvas:
 
             .tc-tooltip-container {{
                 display: inline;
-                position: absolute;
+                position: relative;
             }}
 
             .tc-tooltip-content.tc-tooltip-{element_id} {{
-                position: fixed;  /* Positions the tooltip relative to the viewport */
+                position: absolute;  /* Positions the tooltip relative to the viewport */
                 top: 50%;         /* Center vertically */
                 left: 50%;        /* Center horizontally */
                 transform: translate(-50%, -50%); /* Adjust to true center */
