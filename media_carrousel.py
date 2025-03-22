@@ -338,7 +338,7 @@ def html_for_media_carousel(media_items, carousel_id="media-carousel"):
         .carousel-item {{
             position: absolute;
             width: 100%;
-            opacity: 0;
+            opacity: 1;
             transition: opacity 1s ease-in-out;
         }}
 
@@ -352,7 +352,7 @@ def html_for_media_carousel(media_items, carousel_id="media-carousel"):
 
         /* Keyframes for fade effect */
         @keyframes fadeCarousel {{
-            0% {{ opacity: 0; }}
+            0% {{ opacity: 1; }}
             10% {{ opacity: 1; }}
             30% {{ opacity: 1; }}
             40% {{ opacity: 0; }}
