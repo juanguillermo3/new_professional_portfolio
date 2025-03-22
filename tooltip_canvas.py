@@ -21,7 +21,6 @@ DEFAULT_TOOLTIP_STYLES = {
          
 "visibility": "hidden",
 "opacity": "0",
-#"width": "300px",
 "pointer-events": "auto"
 }
 
@@ -137,11 +136,6 @@ class TooltipCanvas:
                 animation: {animation_styles};
             }}
 
-            
-            .tc-tooltip-container {{
-                display: inline;
-                position: relative;
-            }}
     
             .tc-tooltip-grid-{element_id} {{
                 display: grid;
@@ -152,16 +146,6 @@ class TooltipCanvas:
                         
             .tc-tooltip-column-{element_id} {{
                 flex: 1;
-            }}
-
-    
-            .tc-tooltip-content.tc-tooltip-{element_id} {{
-                position: absolute;
-                visibility: hidden;
-                transition: opacity 0.2s ease-in-out;
-                z-index: 9999;
-                display: flex;
-                align-items: center;
             }}
 
             .tc-tooltip-container:hover .tc-tooltip-item-{element_id} {{
@@ -182,6 +166,36 @@ class TooltipCanvas:
                 cursor: pointer;
                 font-weight: normal;
             }}
+
+            .tc-tooltip-container {{
+                display: inline;
+                position: relative;
+            }}
+            
+            .tc-tooltip-content.tc-tooltip-{element_id} {{
+                position: absolute;
+                visibility: hidden;
+                transition: opacity 0.2s ease-in-out;
+                z-index: 9999;
+                display: flex;
+                align-items: center;
+            }}
+
+            .tc-tooltip-content {{
+                position: fixed;  /* Positions the tooltip relative to the viewport */
+                top: 50%;         /* Center vertically */
+                left: 50%;        /* Center horizontally */
+                transform: translate(-50%, -50%); /* Adjust to true center */
+                
+                background: black;
+                color: white;
+                padding: 10px;
+                border-radius: 5px;
+                white-space: nowrap;
+                z-index: 9999;  /* Ensures it stays on top */
+                visibility: hidden;
+            }}
+            
         </style>
         """
 
