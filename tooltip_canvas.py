@@ -171,17 +171,8 @@ class TooltipCanvas:
                 display: inline;
                 position: relative;
             }}
-            
-            .tc-tooltip-content.tc-tooltip-{element_id} {{
-                position: absolute;
-                visibility: hidden;
-                transition: opacity 0.2s ease-in-out;
-                z-index: 9999;
-                display: flex;
-                align-items: center;
-            }}
 
-            .tc-tooltip-content {{
+            .tc-tooltip-content.tc-tooltip-{element_id} {{
                 position: fixed;  /* Positions the tooltip relative to the viewport */
                 top: 50%;         /* Center vertically */
                 left: 50%;        /* Center horizontally */
