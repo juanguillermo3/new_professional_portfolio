@@ -169,7 +169,7 @@ class TooltipCanvas:
 
             .tc-tooltip-container {{
                 display: inline;
-                position: relative;
+                position: absolute;
             }}
 
             .tc-tooltip-content.tc-tooltip-{element_id} {{
