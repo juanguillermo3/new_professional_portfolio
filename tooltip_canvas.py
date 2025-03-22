@@ -153,7 +153,10 @@ class TooltipCanvas:
             
             .tc-tooltip-column-{element_id} {{
                 flex: 1;
+                display: flex;
+                align-items: center;
             }}
+
     
             .tc-tooltip-content.tc-tooltip-{element_id} {{
                 position: absolute;
