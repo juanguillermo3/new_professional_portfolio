@@ -135,9 +135,9 @@ class TooltipCanvas:
                 position: relative; 
                 {tooltip_styles_str};
                 animation: {animation_styles};
+                white-space: nowrap; /* Prevent text from breaking into multiple lines */
             }}
-
-            
+    
             .tc-tooltip-container {{
                 display: inline;
                 position: relative;
@@ -145,31 +145,30 @@ class TooltipCanvas:
     
             .tc-tooltip-grid-{element_id} {{
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(300px, auto));
+                grid-template-columns: repeat(auto-fit, minmax(0, auto)); /* Auto-adjust column size */
                 gap: 10px;
-                max-width: 1200px;
+                max-width: 900px; /* Limit max width */
+                width: max-content; /* Ensures it only takes as much space as necessary */
             }}
                         
             .tc-tooltip-column-{element_id} {{
-                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: start; /* Ensure items align naturally */
             }}
-
     
             .tc-tooltip-content.tc-tooltip-{element_id} {{
                 position: absolute;
                 visibility: hidden;
                 transition: opacity 0.2s ease-in-out;
                 z-index: 9999;
-                display: flex;
+                display: inline-flex; /* Ensures width is only as wide as content */
                 align-items: center;
+                max-width: 900px;
+                width: max-content;
             }}
-
-            .tc-tooltip-container:hover .tc-tooltip-item-{element_id} {{
-                visibility: visible;
-                opacity: 1;
-                pointer-events: auto;
-            }}
-            
+    
+            .tc-tooltip-container:hover .tc-tooltip-item-{element_id},
             .tc-tooltip-container:hover .tc-tooltip-content.tc-tooltip-{element_id} {{
                 visibility: visible;
                 opacity: 1;
@@ -184,6 +183,7 @@ class TooltipCanvas:
             }}
         </style>
         """
+
 
     def _define_tooltip(self, content: Union[str, List[Union[str, List[str]]]], element_id: str, visible_text: str = "Hover me") -> str:
         """Generates the tooltip HTML, supporting multiple lists rendered in a flexible grid layout."""
@@ -212,6 +212,7 @@ class TooltipCanvas:
             </div>
         </div>
         '''
+             
     def html_to_apply_tooltip(self, element_id: str, content: str, visible_text: str = "Hover me", tooltip_styles_override: dict = {}):
         """Returns the HTML and CSS required to apply a tooltip to an element with optional style overrides."""
         tooltip_html = self._define_tooltip(content, element_id, visible_text)
