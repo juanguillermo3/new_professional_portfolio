@@ -189,13 +189,6 @@ class TooltipCanvas:
                 opacity: 0;
             }}
             
-            /* Show tooltip on hover */
-            .tc-tooltip-container:hover .tc-tooltip-content {
-                visibility: visible;
-                opacity: 1;
-            }
-
-            
         </style>
         """
 
