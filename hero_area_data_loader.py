@@ -81,7 +81,7 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
             "title": "⚡ 1. High-Performance Prediction of Key Business Outcomes",
             
             "description": "I implement <em>statistically driven inference</em> of predictive patterns powered by state-of-the-art <em>Machine Learning</em> "
-                           "and <em>Deep Learning</em> algorithms for prediction and forecasting settings. Applications range from forecasting "
+                           "and <em>Deep Learning</em> algorithms. Applications range from forecasting "
                            "the macroeconomic/financial environment to <em>fine-grained predictions</em> from business micro-data (sales forecasting, churn modeling, engagement models).",                       
             "skills": [
                 "Familiarity with predictive algorithms for regression, classification, and forecasting problems.", 
