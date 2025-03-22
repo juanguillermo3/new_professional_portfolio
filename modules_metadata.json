@@ -78,7 +78,7 @@
   {
     "title": "Labor Market Outcomes",
     "description": "Summarizes the employment outcomes of workers assisted by the job agency. It computes several individual-level metrics, such as the total number of hires, as well as hires in high-income positions and permanent contract roles.",
-    "image_path": "hiring_rates_per_gender_and_education_level.png",
+    "image_path": "assets/hiring_rates_*.png",
     "libraries": [
       "stringr",
       "dplyr",
