@@ -327,29 +327,24 @@ def html_for_media_carousel(media_items, container_id="media-container"):
 
 def html_for_media_carousel(media_items, carousel_id="media-carousel"):
     """
-    Generates an HTML snippet displaying the first media item and smoothly transitioning to the second.
+    Generates an HTML snippet for a pure CSS-based image carousel with smooth transitions.
 
     :param media_items: List of dictionaries with media properties (src, alt).
     :param carousel_id: Unique ID for the carousel container.
-    :return: HTML string for the media display with transition.
+    :return: HTML string for a simple CSS-only carousel.
     """
     if not media_items:
         return "<p>No media available</p>"
 
-    # Use the first two media items (or just one if only one exists)
-    first_item = media_items[0]
-    second_item = media_items[1] if len(media_items) > 1 else None
-
-    second_image_html = (
-        f'<img src="{second_item["src"]}" alt="{second_item.get("alt", "Second Image")}" class="hidden">'
-        if second_item
-        else ""
-    )
+    # Generate image tags with `carousel-item` class
+    images_html = "".join([
+        f'<img src="{item["src"]}" alt="{item.get("alt", f"Image {i+1}")}" class="carousel-item">'
+        for i, item in enumerate(media_items)
+    ])
 
     return f"""
     <div id="{carousel_id}" class="media-carousel">
-        <img src="{first_item['src']}" alt="{first_item.get('alt', 'Displayed Image')}" class="fade">
-        {second_image_html}
+        {images_html}
     </div>
 
     <style>
@@ -375,27 +370,26 @@ def html_for_media_carousel(media_items, carousel_id="media-carousel"):
             position: absolute;
             top: 0;
             left: 0;
-            opacity: 1;
-            transition: opacity 1.5s ease-in-out;
+            opacity: 0;
+            animation: fadeAnimation 8s infinite;
         }}
 
-        .media-carousel img.hidden {{
-            opacity: 0;
+        /* Delay each image */
+        .media-carousel img:nth-child(1) {{ animation-delay: 0s; }}
+        .media-carousel img:nth-child(2) {{ animation-delay: 4s; }}
+        .media-carousel img:nth-child(3) {{ animation-delay: 8s; }}
+
+        /* Keyframe animation for smooth fade */
+        @keyframes fadeAnimation {{
+            0% {{ opacity: 0; }}
+            25% {{ opacity: 1; }}
+            50% {{ opacity: 1; }}
+            75% {{ opacity: 0; }}
+            100% {{ opacity: 0; }}
         }}
     </style>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {{
-            let images = document.querySelectorAll("#{carousel_id} img");
-            if (images.length > 1) {{
-                setTimeout(() => {{
-                    images[0].classList.add("hidden");
-                    images[1].classList.remove("hidden");
-                }}, 3000);  // Change image after 3 seconds
-            }}
-        }});
-    </script>
     """
+
 
 
 # Example usage:
