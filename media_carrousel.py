@@ -265,6 +265,64 @@ def html_for_media_carousel(media_items, carousel_id="media-carousel"):
     """
 
 
+import os
+import base64
+
+def image_to_base64(image_path):
+    """Converts a local image file to a Base64-encoded string."""
+    try:
+        with open(image_path, "rb") as image_file:
+            return f"data:image/jpeg;base64,{base64.b64encode(image_file.read()).decode()}"
+    except Exception as e:
+        print(f"Error converting {image_path} to Base64: {e}")
+        return None
+
+def html_for_media_carousel(media_items, container_id="media-container"):
+    """
+    Generates an HTML snippet displaying the first media item with a styled container.
+
+    :param media_items: List of dictionaries with media properties (src, alt).
+    :param container_id: Unique ID for the media container.
+    :return: HTML string for the media display.
+    """
+    if not media_items:
+        return "<p>No media available</p>"
+    
+    # Use the first media item only
+    first_item = media_items[0]
+    
+    # Convert to Base64 if it's a local file
+    if os.path.isfile(first_item['src']):
+        first_item['src'] = image_to_base64(first_item['src']) or ""
+    
+    return f"""
+    <div class="media-container">
+        <img src="{first_item['src']}" alt="{first_item.get('alt', 'Displayed Image')}">
+    </div>
+
+    <style>
+        .media-container {{
+            position: relative;
+            width: 600px;
+            height: auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, .25);
+            backdrop-filter: blur(4px);
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.1);
+            text-align: center;
+            padding: 10px;
+        }}
+
+        .media-container img {{
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }}
+    </style>
+    """
 
 
 # Example usage:
