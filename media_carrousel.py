@@ -10,12 +10,13 @@ import streamlit as st
 import glob
 import re
 import os
+import base64
 
 # Global configuration for valid media files
 VALID_MEDIA_FILES = {".jpg", ".jpeg", ".png", ".gif", ".mp4", ".webm"}
 
 #
-# (1)
+# 1.
 #
 def flexible_file_discovery(file_pattern, valid_files=None, search_dir="assets"):
     """
@@ -58,103 +59,14 @@ def flexible_file_discovery(file_pattern, valid_files=None, search_dir="assets")
         filtered_files.append(file_path)
 
     return filtered_files
+
 #
-# (2)
+# 2.
 #
-def html_for_media_carousel(media_items, carousel_id="media-carousel"):
-    """
-    Generates a simple HTML and CSS-based media carousel with navigation.
 
-    :param media_items: List of dictionaries with media properties (src, alt).
-    :param carousel_id: Unique ID for the carousel container.
-    :return: HTML string for the carousel.
-    """
-    num_items = len(media_items)
-    if num_items == 0:
-        return "<p>No media available</p>"
-
-    # Generate radio inputs and carousel items
-    slides_html = "".join([
-        f'<input type="radio" id="{carousel_id}-slide{i}" name="{carousel_id}-radio" '
-        f'{"checked" if i == 0 else ""}><div class="carousel-item">'
-        f'<img src="{item["src"]}" alt="{item.get("alt", f"Image {i+1}")}"></div>'
-        for i, item in enumerate(media_items)
-    ])
-
-    # Generate navigation buttons
-    nav_html = "".join([
-        f'<label for="{carousel_id}-slide{i}" class="nav-btn"></label>'
-        for i in range(num_items)
-    ])
-
-    return f"""
-    <div class="carousel-container">
-        {slides_html}
-        <div class="carousel-nav">{nav_html}</div>
-    </div>
-
-    <style>
-        .carousel-container {{
-            position: relative;
-            width: 600px; /* Fixed width */
-            height: auto; /* Auto height based on image aspect ratio */
-            overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
-            text-align: center;
-        }}
-
-        .carousel-item {{
-            display: none;
-        }}
-
-        .carousel-item img {{
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-        }}
-
-        input[name="{carousel_id}-radio"] {{
-            display: none;
-        }}
-
-        /* Show the selected slide */
-        {''.join([
-            f'input[id="{carousel_id}-slide{i}"]:checked ~ .carousel-item:nth-of-type({i+1}) {{ display: block; }}'
-            for i in range(num_items)
-        ])}
-
-        /* Navigation buttons */
-        .carousel-nav {{
-            margin-top: 10px;
-        }}
-
-        .nav-btn {{
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            margin: 0 5px;
-            background: gray;
-            border-radius: 50%;
-            cursor: pointer;
-        }}
-
-        .nav-btn:hover {{
-            background: black;
-        }}
-
-        /* Selected indicator */
-        {''.join([
-            f'input[id="{carousel_id}-slide{i}"]:checked ~ .carousel-nav label:nth-of-type({i+1}) {{ background: black; }}'
-            for i in range(num_items)
-        ])}
-    </style>
-    """
-
-
-import base64
-import os
-
+#
+# (1)
+#
 def image_to_base64(image_path):
     """Converts an image file to a base64 string."""
     if not os.path.exists(image_path):
@@ -162,233 +74,9 @@ def image_to_base64(image_path):
     
     with open(image_path, "rb") as image_file:
         return f"data:image/png;base64,{base64.b64encode(image_file.read()).decode()}"
-
-
-def html_for_media_carousel(media_items, carousel_id="media-carousel"):
-    """
-    Generates a simple HTML and CSS-based media carousel with Base64 embedded images.
-
-    :param media_items: List of dictionaries with media properties (src, alt).
-    :param carousel_id: Unique ID for the carousel container.
-    :return: HTML string for the carousel.
-    """
-    num_items = len(media_items)
-    if num_items == 0:
-        return "<p>No media available</p>"
-    
-    # Convert local images to base64
-    for item in media_items:
-        if os.path.isfile(item['src']):  # If it's a local file
-            item['src'] = image_to_base64(item['src']) or ""
-    
-    # Generate radio inputs and carousel items
-    slides_html = "".join([
-        f'<input type="radio" id="{carousel_id}-slide{i}" name="{carousel_id}-radio" '
-        f'{'checked' if i == 0 else ''}><div class="carousel-item">'
-        f'<img src="{item["src"]}" alt="{item.get("alt", f"Image {i+1}")}"></div>'
-        for i, item in enumerate(media_items)
-    ])
-
-    # Generate navigation buttons
-    nav_html = "".join([
-        f'<label for="{carousel_id}-slide{i}" class="nav-btn"></label>'
-        for i in range(num_items)
-    ])
-
-    return f"""
-    <div class="carousel-container">
-        {slides_html}
-        <div class="carousel-nav">{nav_html}</div>
-    </div>
-
-    <style>
-        .carousel-container {{
-            position: relative;
-            width: 600px; /* Fixed width */
-            height: auto; /* Auto height based on image aspect ratio */
-            overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            background: rgba(255, 255, 255, .25); /* Fully transparent */
-            backdrop-filter: blur(4px); /* Frosted glass effect */
-            border: 2px solid rgba(255, 255, 255, 0.9); /* Subtle white border */
-            box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.1); /* Soft glowing shadow */
-        }}
-
-
-        .carousel-item {{
-            display: none;
-        }}
-
-        .carousel-item img {{
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-        }}
-
-        input[name="{carousel_id}-radio"] {{
-            display: none;
-        }}
-
-        /* Show the selected slide */
-        {''.join([
-            f'input[id="{carousel_id}-slide{i}"]:checked ~ .carousel-item:nth-of-type({i+1}) {{ display: block; }}'
-            for i in range(num_items)
-        ])}
-
-        /* Navigation buttons */
-        .carousel-nav {{
-            margin-top: 10px;
-        }}
-
-        .nav-btn {{
-            display: inline-block;
-            width: 24px;
-            height: 24px;
-            margin: 0 5px;
-            background: gray;
-            border-radius: 50%;
-            cursor: pointer;
-        }}
-
-        .nav-btn:hover {{
-            background: black;
-        }}
-
-        /* Selected indicator */
-        {''.join([
-            f'input[id="{carousel_id}-slide{i}"]:checked ~ .carousel-nav label:nth-of-type({i+1}) {{ background: black; }}'
-            for i in range(num_items)
-        ])}
-    </style>
-    """
-
-
-import os
-import base64
-
-def image_to_base64(image_path):
-    """Converts a local image file to a Base64-encoded string."""
-    try:
-        with open(image_path, "rb") as image_file:
-            return f"data:image/jpeg;base64,{base64.b64encode(image_file.read()).decode()}"
-    except Exception as e:
-        print(f"Error converting {image_path} to Base64: {e}")
-        return None
-
-def html_for_media_carousel(media_items, container_id="media-container"):
-    """
-    Generates an HTML snippet displaying the first media item with a styled container.
-
-    :param media_items: List of dictionaries with media properties (src, alt).
-    :param container_id: Unique ID for the media container.
-    :return: HTML string for the media display.
-    """
-    if not media_items:
-        return "<p>No media available</p>"
-    
-    # Use the first media item only
-    first_item = media_items[0]
-    
-    # Convert to Base64 if it's a local file
-    if os.path.isfile(first_item['src']):
-        first_item['src'] = image_to_base64(first_item['src']) or ""
-    
-    return f"""
-    <div class="media-container">
-        <img src="{first_item['src']}" alt="{first_item.get('alt', 'Displayed Image')}">
-    </div>
-
-    <style>
-        .media-container {{
-            position: relative;
-            width: 600px;
-            height: auto;
-            overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-            background: rgba(255, 255, 255, .25);
-            backdrop-filter: blur(4px);
-            border: 2px solid rgba(255, 255, 255, 0.9);
-            box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.1);
-            text-align: center;
-            padding: 10px;
-        }}
-
-        .media-container img {{
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-        }}
-    </style>
-    """
-
-
-def html_for_media_carousel(media_items, carousel_id="media-carousel"):
-    """
-    Generates an HTML snippet for a pure CSS-based image carousel with smooth transitions.
-
-    :param media_items: List of dictionaries with media properties (src, alt).
-    :param carousel_id: Unique ID for the carousel container.
-    :return: HTML string for a simple CSS-only carousel.
-    """
-    if not media_items:
-        return "<p>No media available</p>"
-
-    # Generate image tags with `carousel-item` class
-    images_html = "".join([
-        f'<img src="{item["src"]}" alt="{item.get("alt", f"Image {i+1}")}" class="carousel-item">'
-        for i, item in enumerate(media_items)
-    ])
-
-    return f"""
-    <div id="{carousel_id}" class="media-carousel">
-        {images_html}
-    </div>
-
-    <style>
-        .media-carousel {{
-            position: relative;
-            width: 600px;
-            height: auto;
-            overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-            background: rgba(255, 255, 255, .25);
-            backdrop-filter: blur(4px);
-            border: 2px solid rgba(255, 255, 255, 0.9);
-            box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.1);
-            text-align: center;
-            padding: 10px;
-        }}
-
-        .media-carousel img {{
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-            position: absolute;
-            top: 0;
-            left: 0;
-            opacity: 0;
-            animation: fadeAnimation 8s infinite;
-        }}
-
-        /* Delay each image */
-        .media-carousel img:nth-child(1) {{ animation-delay: 0s; }}
-        .media-carousel img:nth-child(2) {{ animation-delay: 4s; }}
-        .media-carousel img:nth-child(3) {{ animation-delay: 8s; }}
-
-        /* Keyframe animation for smooth fade */
-        @keyframes fadeAnimation {{
-            0% {{ opacity: 0; }}
-            25% {{ opacity: 1; }}
-            50% {{ opacity: 1; }}
-            75% {{ opacity: 0; }}
-            100% {{ opacity: 0; }}
-        }}
-    </style>
-    """
+#
+# (2)
+#
 def html_for_media_carousel(media_items, container_id="media-container"):
     """
     Generates an HTML snippet for a styled media carousel with smooth transitions and dynamic height.
