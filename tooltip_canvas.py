@@ -21,7 +21,7 @@ DEFAULT_TOOLTIP_STYLES = {
          
 "visibility": "hidden",
 "opacity": "0",
-"width": "300px",
+#"width": "300px",
 "pointer-events": "auto"
 }
 
