@@ -95,5 +95,24 @@ def load_repos_metadata():
             "next_milestones": [
                 "Explore a more flexible, NLP-based query matching system for the RecSys."
             ]
+        },
+        {
+            "title": "evaluation_of_job_intermediation_program",
+            "ongoing": False,
+            "tags": [
+                "Laboral Market Analysis",
+                "Gender Analysis",
+                "Program Evaluation",
+                "Job Intermediation",
+                "Propensity Score Matching",
+                "Counterfactual Outcomes"
+            ],
+            "achieved_milestones": [
+              "Used web scrapping to recover a database about worked attended over 5 years of operation",
+              "Performed EDA to undertand the demographics and laboral background of workers"    
+            ],
+            "next_milestones": [
+        
+            ]
         }
     ]
