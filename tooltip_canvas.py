@@ -153,8 +153,6 @@ class TooltipCanvas:
             
             .tc-tooltip-column-{element_id} {{
                 flex: 1;
-                display: flex;
-                align-items: center;
             }}
 
     
@@ -163,6 +161,8 @@ class TooltipCanvas:
                 visibility: hidden;
                 transition: opacity 0.2s ease-in-out;
                 z-index: 9999;
+                display: flex;
+                align-items: center;
             }}
 
             .tc-tooltip-container:hover .tc-tooltip-item-{element_id} {{
