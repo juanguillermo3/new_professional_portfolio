@@ -53,7 +53,6 @@ def html_for_item_data(
     # Define specific styles for the description tooltip
     description_style = {
         "text-align": "justify",
-        #
     }
 
     frosted_glass_style = {
@@ -85,12 +84,6 @@ def html_for_item_data(
     # Wrap the title using the new function
     raw_title = html_for_container(f'<div class="item-tooltip title-tooltip">{title}</div>', title_style)
 
-    # Merge modern_dashboard_style with title_style
-    tooltip_title = html_for_container(
-        f'<div class="item-tooltip title-tooltip">{apply_badges_to_item_title(rec, badge_rules)}</div>',
-        {**modern_dashboard_style, **title_style}  # Correct way to merge dictionaries
-    )
-
     # Escape description to prevent HTML injection
     description = (
         f'<div class="item-tooltip description-tooltip" style="text-align: justify; margin: 0 5%;">'
@@ -98,12 +91,17 @@ def html_for_item_data(
         f'</div>'
     )
 
-    # Merge the modern dashboard style with the specific description styles
-    tooltip_description = html_for_container(
-        f'<div class="item-tooltip description-tooltip">{html.escape(rec.get("description", "No description available."))}</div>',
-        {**modern_dashboard_style, **description_style}  # Proper dictionary merging
+    # Merge modern_dashboard_style with title_style and set width to 300px
+    tooltip_title = html_for_container(
+        f'<div class="item-tooltip title-tooltip">{apply_badges_to_item_title(rec, badge_rules)}</div>',
+        {**modern_dashboard_style, **title_style, "width": "300px"}
     )
     
+    # Merge modern_dashboard_style with description_style and set width to 300px
+    tooltip_description = html_for_container(
+        f'<div class="item-tooltip description-tooltip">{html.escape(rec.get("description", "No description available."))}</div>',
+        {**modern_dashboard_style, **description_style, "width": "300px"}
+    )
 
     # Generate buttons for the tooltip
     buttons_html = []
@@ -150,11 +148,11 @@ def html_for_item_data(
     #
     # (2)
     #
-    if True:
+    if buttons_html:
         tooltip_content=[
             tooltip_content[0]+
             [
-            '<div class="item-tooltip resources-tooltip">Resources:</div>', 
+            #'<div class="item-tooltip resources-tooltip">Resources:</div>', 
             f'<div class="item-tooltip buttons-tooltip">{buttons_html}</div>'
             ]
         ]
