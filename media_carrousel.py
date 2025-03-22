@@ -208,9 +208,14 @@ def html_for_media_carousel(media_items, carousel_id="media-carousel"):
             height: auto; /* Auto height based on image aspect ratio */
             overflow: hidden;
             border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
             text-align: center;
+            background: rgba(255, 255, 255, 0); /* Fully transparent */
+            backdrop-filter: blur(4px); /* Frosted glass effect */
+            border: 2px solid rgba(255, 255, 255, 0.9); /* Subtle white border */
+            box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.1); /* Soft glowing shadow */
         }}
+
 
         .carousel-item {{
             display: none;
