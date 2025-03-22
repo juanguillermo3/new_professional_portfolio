@@ -265,18 +265,6 @@ def html_for_media_carousel(media_items, carousel_id="media-carousel"):
     """
 
 
-import os
-import base64
-
-def image_to_base64(image_path):
-    """Converts a local image file to a Base64-encoded string."""
-    try:
-        with open(image_path, "rb") as image_file:
-            return f"data:image/jpeg;base64,{base64.b64encode(image_file.read()).decode()}"
-    except Exception as e:
-        print(f"Error converting {image_path} to Base64: {e}")
-        return None
-
 def html_for_media_carousel(media_items, carousel_id="media-carousel"):
     """
     Generates an HTML/CSS-based media carousel with Base64 embedded images.
