@@ -391,7 +391,7 @@ def html_for_media_carousel(media_items, carousel_id="media-carousel"):
     """
 def html_for_media_carousel(media_items, container_id="media-container"):
     """
-    Generates an HTML snippet for a styled media carousel with smooth transitions and fixed dimensions.
+    Generates an HTML snippet for a styled media carousel with smooth transitions and dynamic height.
 
     :param media_items: List of dictionaries with media properties (src, alt).
     :param container_id: Unique ID for the media container.
@@ -400,14 +400,17 @@ def html_for_media_carousel(media_items, container_id="media-container"):
     if not media_items:
         return "<p>No media available</p>"
 
-    # Convert local images to Base64
+    # Limit to 10 media items for safety
+    media_items = media_items[:10]
+
+    # Convert local images to Base64 if needed
     for item in media_items:
         if os.path.isfile(item['src']):
             item['src'] = image_to_base64(item['src']) or ""
 
-    # Generate image tags with `carousel-item` class
+    # Generate image elements with unique animation delays
     images_html = "".join([
-        f'<img src="{item["src"]}" alt="{item.get("alt", f"Image {i+1}")}" class="carousel-item">'
+        f'<img src="{item["src"]}" alt="{item.get("alt", f"Image {i+1}")}" class="carousel-item" style="animation-delay: {i * 4}s;">'
         for i, item in enumerate(media_items)
     ])
 
@@ -419,8 +422,9 @@ def html_for_media_carousel(media_items, container_id="media-container"):
     <style>
         .media-container {{
             position: relative;
-            width: 800px;
-            height: 600px;
+            width: 600px;
+            min-height: 400px;
+            height: auto;
             overflow: hidden;
             border-radius: 10px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
@@ -432,21 +436,17 @@ def html_for_media_carousel(media_items, container_id="media-container"):
         }}
 
         .media-container img {{
-            width: 800px;
-            height: 600px;
-            object-fit: cover;
+            width: 100%;
+            height: auto;
+            min-height: 400px;
+            object-fit: contain;
             border-radius: 10px;
             position: absolute;
             top: 0;
             left: 0;
             opacity: 0;
-            animation: fadeAnimation 8s infinite;
+            animation: fadeAnimation {len(media_items) * 4}s infinite;
         }}
-
-        /* Delay each image */
-        .media-container img:nth-child(1) {{ animation-delay: 0s; }}
-        .media-container img:nth-child(2) {{ animation-delay: 4s; }}
-        .media-container img:nth-child(3) {{ animation-delay: 8s; }}
 
         /* Keyframe animation for smooth fade */
         @keyframes fadeAnimation {{
