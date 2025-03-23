@@ -253,7 +253,7 @@ def html_for_media_carousel(media_items, container_id="media-container", duratio
         src = item.get("src", "")
         if os.path.isfile(src):  
             if src.lower().endswith((".png", ".jpg", ".jpeg", ".gif", ".bmp", ".webp")):
-                base64_src = file_to_base64(src)
+                base64_src = image_to_base64(src)
                 if base64_src:
                     valid_media.append({
                         "type": "image",
