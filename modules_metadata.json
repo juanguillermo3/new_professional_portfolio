@@ -46,12 +46,12 @@
     "repo_name": "evaluation_of_job_intermediation_program",
     "image_path": "assets/sample_balance.png",
     "libraries": [
-      "dplyr",
-      "tools",
-      "ggrepel",
-      "tidyr",
       "ggplot2",
-      "scales"
+      "ggrepel",
+      "scales",
+      "dplyr",
+      "tidyr",
+      "tools"
     ],
     "image_url": "assets/sample_balance.png"
   },
@@ -78,17 +78,30 @@
   {
     "title": "Labor Market Outcomes",
     "description": "Summarizes the employment outcomes of workers assisted by the job agency. It computes several individual-level metrics, such as the total number of hires, as well as hires in high-income positions and permanent contract roles.",
-    "image_path": "assets/hiring_rates_*.png",
+    "image_path": "hiring_rates_per_gender_and_education_level.png",
     "libraries": [
-      "stringr",
-      "dplyr",
-      "tidyr",
       "ggplot2",
-      "scales"
+      "stringr",
+      "scales",
+      "dplyr",
+      "tidyr"
     ],
     "last_updated": "2025-03-22T03:19:24Z",
     "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/laboral_outcomes.R",
     "file_path": "laboral_outcomes.R",
+    "repo_name": "evaluation_of_job_intermediation_program"
+  },
+  {
+    "title": "Merge Workers Dataset with Hiring Rates",
+    "description": "This module merges the worker-level dataset (spanning demographics, labor background, and program participation status) with the hiring rates per worker. The merged dataset is used to provide a basic comparison of hiring rates across different engagement levels in the agency program, offering a preliminary estimate of the program's effect.",
+    "image_path": "assets/naive_*.png",
+    "libraries": [
+      "dplyr",
+      "ggplot2"
+    ],
+    "last_updated": "2025-03-23T00:33:52Z",
+    "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/hiring_rates_per_engagement.R",
+    "file_path": "hiring_rates_per_engagement.R",
     "repo_name": "evaluation_of_job_intermediation_program"
   },
   {
