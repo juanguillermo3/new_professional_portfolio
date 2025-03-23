@@ -161,7 +161,7 @@ def html_for_item_data(
     if "image_path" in rec:
         discovered_media = flexible_file_discovery(rec["image_path"], search_dir=search_dir)
         if discovered_media:
-            media_items = [[{"src": path, "alt": f"Media {i+1}"} for i, path in enumerate(discovered_media)]]
+            media_items = [{"src": path, "alt": f"Media {i+1}"} for i, path in enumerate(discovered_media)]
             media_carousel = html_for_media_carousel(media_items)
             tooltip_content.append([
                 html_for_container(
