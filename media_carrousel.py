@@ -148,6 +148,90 @@ def html_for_media_carousel(media_items, container_id="media-container"):
     </style>
     """
 
+def html_for_media_carousel(media_items, container_id="media-container", duration=3):
+    """
+    Generates an HTML snippet for a styled media carousel with smooth transitions and dynamic height.
+
+    :param media_items: List of dictionaries with media properties (src, alt).
+    :param container_id: Unique ID for the media container.
+    :param duration: Duration (in seconds) for each media transition.
+    :return: HTML string for the media display.
+    """
+    if not media_items:
+        return "<p>No media available</p>"
+
+    # Limit to 10 media items for safety
+    media_items = media_items[:10]
+
+    # Convert local images to Base64 if needed
+    for item in media_items:
+        if os.path.isfile(item['src']):
+            item['src'] = image_to_base64(item['src']) or ""
+
+    total_duration = len(media_items) * duration
+    images_html = "".join([
+        f'<img src="{item["src"]}" alt="{item.get("alt", f"Image {i+1}")}" class="carousel-item item-{i}">' 
+        for i, item in enumerate(media_items)
+    ])
+
+    keyframes = "".join([
+        f"""
+        @keyframes fadeAnimation-{i} {{
+            0%, {(i * 100) // len(media_items)}% {{ opacity: 0; }}
+            {(i * 100) // len(media_items) + 10}% {{ opacity: 1; }}
+            {((i + 1) * 100) // len(media_items) - 10}% {{ opacity: 1; }}
+            {((i + 1) * 100) // len(media_items)}%, 100% {{ opacity: 0; }}
+        }}
+        """
+        for i in range(len(media_items))
+    ])
+
+    styles = "".join([
+        f"""
+        .item-{i} {{
+            animation: fadeAnimation-{i} {total_duration}s infinite;
+        }}
+        """
+        for i in range(len(media_items))
+    ])
+
+    return f"""
+    <div id="{container_id}" class="media-container">
+        {images_html}
+    </div>
+
+    <style>
+        .media-container {{
+            position: relative;
+            width: 800px;
+            min-height: 600px;
+            height: auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, .5);
+            backdrop-filter: blur(4px);
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            text-align: center;
+            padding: 10px;
+        }}
+
+        .media-container img {{
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            border-radius: 10px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+        }}
+
+        {keyframes}
+        {styles}
+    </style>
+    """
+
 
 
 # Example usage:
