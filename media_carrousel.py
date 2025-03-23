@@ -149,12 +149,13 @@ def html_for_media_carousel(media_items, container_id="media-container"):
     """
 
 
-def html_for_media_carousel(media_items, container_id="media-container"):
+def html_for_media_carousel(media_items, container_id="media-container", duration=3):
     """
     Generates an HTML snippet for a styled media carousel with smooth transitions and dynamic height.
 
     :param media_items: List of dictionaries with media properties (src, alt).
     :param container_id: Unique ID for the media container.
+    :param duration: Duration (in seconds) for each media transition.
     :return: HTML string for the media display.
     """
     if not media_items:
@@ -168,18 +169,30 @@ def html_for_media_carousel(media_items, container_id="media-container"):
         if os.path.isfile(item['src']):
             item['src'] = image_to_base64(item['src']) or ""
 
-    total_duration = len(media_items) * 4  # Total animation cycle duration
-    delay_step = total_duration / len(media_items)  # Delay step per image
-
-    # Generate image elements with unique animation delays
+    total_duration = len(media_items) * duration
     images_html = "".join([
-        f'<img src="{item["src"]}" alt="{item.get("alt", f"Image {i+1}")}" class="carousel-item">'
+        f'<img src="{item["src"]}" alt="{item.get("alt", f"Image {i+1}")}" class="carousel-item item-{i}">' 
         for i, item in enumerate(media_items)
     ])
 
-    # Generate CSS animation delays dynamically
-    delay_styles = "".join([
-        f".media-container img:nth-child({i+1}) {{ animation-delay: {i * delay_step}s; }}"
+    keyframes = "".join([
+        f"""
+        @keyframes fadeAnimation-{i} {{
+            0%, {(i * 100) // len(media_items)}% {{ opacity: 0; }}
+            {(i * 100) // len(media_items) + 10}% {{ opacity: 1; }}
+            {((i + 1) * 100) // len(media_items) - 10}% {{ opacity: 1; }}
+            {((i + 1) * 100) // len(media_items)}%, 100% {{ opacity: 0; }}
+        }}
+        """
+        for i in range(len(media_items))
+    ])
+
+    styles = "".join([
+        f"""
+        .item-{i} {{
+            animation: fadeAnimation-{i} {total_duration}s infinite;
+        }}
+        """
         for i in range(len(media_items))
     ])
 
@@ -213,20 +226,13 @@ def html_for_media_carousel(media_items, container_id="media-container"):
             top: 0;
             left: 0;
             opacity: 0;
-            animation: fadeAnimation {total_duration}s infinite;
         }}
 
-        {delay_styles}
-
-        @keyframes fadeAnimation {{
-            0%   {{ opacity: 0; }}
-            10%  {{ opacity: 1; }}
-            30%  {{ opacity: 1; }}
-            40%  {{ opacity: 0; }}
-            100% {{ opacity: 0; }}
-        }}
+        {keyframes}
+        {styles}
     </style>
     """
+
 
 # Example usage:
 dummy_media_list = [
