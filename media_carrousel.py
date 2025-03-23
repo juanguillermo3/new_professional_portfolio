@@ -119,7 +119,7 @@ def html_for_media_carousel(media_items, container_id="media-container"):
             overflow: hidden;
             border-radius: 10px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-            background: rgba(255, 255, 255, .25);
+            background: rgba(255, 255, 255, .5);
             backdrop-filter: blur(4px);
             border: 2px solid rgba(255, 255, 255, 0.9);
             text-align: center;
