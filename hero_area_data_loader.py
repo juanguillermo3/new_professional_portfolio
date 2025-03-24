@@ -168,7 +168,7 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
     
 
     # Initialize HTML output
-    offering_html = '<h3>(5+1) Key Differentials of My Professional Offering</h3>'
+    offering_html = '<h3>Key Professional Offerings</h3>'
     offering_html += '<ul style="padding-left: 20px; list-style-type: none;">'  # Removes bullet points
 
     tooltip_ids = []  # Store unique IDs for tooltips
