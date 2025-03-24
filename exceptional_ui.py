@@ -257,31 +257,30 @@ def setup_tooltip_behavior(unique_id):
             visibility: hidden;
             opacity: 0;
             width: 400px;
-            max-height: 0px;
-            background: rgba(23, 33, 43, 0.6); /* Slightly lighter for readability */
+            background: rgba(23, 33, 43, 0.6);
             color: #ffffff;
-            padding: 0px 12px;
+            padding: 12px;
             border-radius: 12px;
             box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.1);
-            position: absolute;
-            left: 50%;
-            top: 100%;
-            text-align: left;
+            position: fixed; /* Position relative to the viewport */
+            
+            left: 50%; /* Center relative to the screen */
+            top: calc(100% + 20px); /* Keep it below the trigger with extra spacing */
+            transform: translateX(-50%); /* Adjust to ensure perfect centering */
+            
+            text-align: center;
             z-index: 10;
             border: 2px solid rgba(255, 255, 255, 0.9);
-            transform: translateX(-50%) translateY(5px); /* Fix tooltip alignment */
+            
             transition: max-height 0.6s ease-out, 
                         opacity 0.6s ease-out, 
                         padding 0.6s ease-out, 
                         transform 0.6s ease-out;
+            
             overflow: hidden;
-            backdrop-filter: blur(4px); /* Soft frosted glass effect */
+            backdrop-filter: blur(4px);
         }}
 
-        .tooltip-item {{
-            color: #ffffff;
-            margin-bottom: 4px;
-        }}
 
         /* Floating animation (active after unfolding) */
         @keyframes floatTooltip2 {{
