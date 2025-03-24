@@ -39,10 +39,7 @@ def load_key_interest():
         str: The key interest text.
     """
     return """
-    🔑 My recurring interest nevertheless has always been the **modernization of the data analysis pipeline** 
-    through cutting-edge techniques, such as **flexible** ML-based inference, **software** and **algorithmic automation**, 
-    assimilation of **data-related technology**, using **NLP** in latent semantic spaces, and, more recently, solving data analysis tasks 
-    through **agency formation** within **LLM applications**.
+    🔑 My recurring interest has been **modernization of the data analysis pipeline** by cutting-edge tecniques, so thats probably what you will find better represented in most examples.
     """
 
 def load_key_hypothesis():
@@ -55,8 +52,7 @@ def load_key_hypothesis():
     return f"""
     🔬 This portfolio brings to life a **Recommendation System (RecSys)** as a core feature to showcase my work. More broadly, as 
     a **heterodox economist** concerned with the smooth functioning of the labor market, this project allows me to assess the value of emerging technologies—such as 
-    **RecSys**, **LLM-powered applications (LLM apps)**, and **software-based automation**—in addressing common struggles 
-    faced by workers at the laboral market. <a href="{LINKEDIN_PROFILE}" target="_blank" style="color: #1f77b4; text-decoration: none;">**LinkedIn profile**</a>.
+    **RecSys**, **LLM-powered applications (LLM apps)**, and **software-based automation**—in to workers insertion in the laboral market.. 
     """
 
 def load_dev_environment():
