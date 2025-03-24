@@ -181,6 +181,10 @@ from datetime import datetime
 #
 # (1)
 #
+import hashlib
+import html
+from datetime import datetime
+
 def html_for_tooltip_from_large_list(items, label, color="#007ACC", emoji=None):
     """
     Generates an HTML snippet displaying a summarized preview of a list with a tooltip that unfolds on hover.
@@ -257,31 +261,31 @@ def setup_tooltip_behavior(unique_id):
             visibility: hidden;
             opacity: 0;
             width: 400px;
-            background: rgba(23, 33, 43, 0.6);
+            max-height: 0px;
+            background: rgba(23, 33, 43, 0.6); /* Slightly lighter for readability */
             color: #ffffff;
             padding: 0px 12px;
             border-radius: 12px;
             box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.1);
             position: absolute;
-            
-            left: 50%; /* Move to the center */
-            top: 100%; /* Directly below the trigger */
-            transform: translateX(-50%) translateY(5px); /* Center align & small spacing */
-            
-            text-align: center; /* Ensures text stays centered */
+            left: 50%;
+            top: 100%;
+            text-align: left;
             z-index: 10;
             border: 2px solid rgba(255, 255, 255, 0.9);
-            
+            transform: translateX(-50%) translateY(5px); /* Fix tooltip alignment */
             transition: max-height 0.6s ease-out, 
                         opacity 0.6s ease-out, 
                         padding 0.6s ease-out, 
                         transform 0.6s ease-out;
-                        
             overflow: hidden;
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(4px); /* Soft frosted glass effect */
         }}
 
-
+        .tooltip-item {{
+            color: #ffffff;
+            margin-bottom: 4px;
+        }}
 
         /* Floating animation (active after unfolding) */
         @keyframes floatTooltip2 {{
@@ -300,6 +304,7 @@ def setup_tooltip_behavior(unique_id):
         }}
     </style>
     """
+    return tooltip_css
     return tooltip_css
 
 
