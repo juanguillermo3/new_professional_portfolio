@@ -259,16 +259,16 @@ def setup_tooltip_behavior(unique_id):
             width: 400px;
             background: rgba(23, 33, 43, 0.6);
             color: #ffffff;
-            padding: 12px;
+            padding: 0px 12px;
             border-radius: 12px;
             box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.1);
-            position: fixed; /* Position relative to the viewport */
+            position: absolute;
             
-            left: 50%; /* Center relative to the screen */
-            top: calc(100% + 20px); /* Keep it below the trigger with extra spacing */
-            transform: translateX(-50%); /* Adjust to ensure perfect centering */
+            left: 50%; /* Move to the center */
+            top: 100%; /* Directly below the trigger */
+            transform: translateX(-50%) translateY(5px); /* Center align & small spacing */
             
-            text-align: center;
+            text-align: center; /* Ensures text stays centered */
             z-index: 10;
             border: 2px solid rgba(255, 255, 255, 0.9);
             
@@ -276,10 +276,11 @@ def setup_tooltip_behavior(unique_id):
                         opacity 0.6s ease-out, 
                         padding 0.6s ease-out, 
                         transform 0.6s ease-out;
-            
+                        
             overflow: hidden;
             backdrop-filter: blur(4px);
         }}
+
 
 
         /* Floating animation (active after unfolding) */
