@@ -43,7 +43,7 @@ def load_quote():
 def load_quote():
     return [
         "My recurring interest has been the <b>modernization of data analysis</b> "  
-        "through cutting-edge techniques, such as flexible inference powered by <b>Machine Learning</b>, "  
+        "through cutting-edge techniques, such as flexible statistical inference powered by <b>Machine Learning</b>, "  
         "streamlining <em>core business</em> workflows through <b>software development</b> and <b>algorithmic automation</b>, "
         "handling <em>enterprise-grade datasets</em> with <b>modern data technology</b>, "  
         "groupping data by <em>meaning</em> with <b>Natural Language Processing</b>, "  
