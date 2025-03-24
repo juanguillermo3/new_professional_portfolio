@@ -181,10 +181,6 @@ from datetime import datetime
 #
 # (1)
 #
-import hashlib
-import html
-from datetime import datetime
-
 def html_for_tooltip_from_large_list(items, label, color="#007ACC", emoji=None):
     """
     Generates an HTML snippet displaying a summarized preview of a list with a tooltip that unfolds on hover.
