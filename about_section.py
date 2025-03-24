@@ -35,7 +35,7 @@ class AboutSection(PortfolioSection):
     def render(self):
         """Render the about section with notable quotes."""
         self._render_headers()
-        #exceptional_but_subtle_quote(load_key_interest())
+        exceptional_but_subtle_quote(load_key_interest())
         exceptional_but_subtle_quote(load_key_hypothesis())
         exceptional_but_subtle_quote(load_dev_environment())
 
