@@ -50,8 +50,8 @@ def load_key_hypothesis():
         str: The key hypothesis text.
     """
     return f"""
-    🔬 This portfolio brings to life a **Recommendation System (RecSys)** as a core feature to showcase my work. More broadly, as 
-    a **heterodox economist** concerned with the smooth functioning of the labor market, this project allows me to assess the value of emerging technologies—such as 
+    🔬 This portfolio brings to life a **Recommendation System (RecSys)** as a core feature to showcase my work. 
+    Moreover this project allows me to assess the value of emerging technologies—such as 
     **RecSys**, **LLM-powered applications (LLM apps)**, and **software-based automation**—in to workers insertion in the laboral market.. 
     """
 
