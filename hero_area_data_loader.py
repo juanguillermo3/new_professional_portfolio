@@ -45,8 +45,8 @@ def load_quote():
         "My recurring interest has been the <b>modernization of data analysis</b> "  
         "through cutting-edge techniques, such as flexible inference powered by <b>Machine Learning</b>, "  
         "streamlining <em>core business</em> workflows through <b>software development</b> and <b>algorithmic automation</b>, "
-        "handling <em>enterprise-grade datasets</em> with <b>modern data tech stacks</b>, "  
-        "grouping data by <em>meaning</em> with <b>Natural Language Processing</b>, "  
+        "handling <em>enterprise-grade datasets</em> with <b>modern data technology</b>, "  
+        "groupping data by <em>meaning</em> with <b>Natural Language Processing</b>, "  
         "and enabling dynamicall <em>decision-making</em> through the <b>agency of Large Language Models. </b> ",  
 
         "I am Juan Guillermo, a professional economist. "  
@@ -61,7 +61,23 @@ def load_quote():
         "and <b>information tools</b>—into a cohesive and holistic framework."  
     ]
 
-            
+def load_quote():
+    return [
+        "My recurring interest has been the <b>modernization of data analysis</b> "  
+        "through cutting-edge techniques, such as flexible inference powered by <b>Machine Learning</b>, "  
+        "streamlining <em>core business</em> workflows through <b>software development</b> and <b>algorithmic automation</b>, "
+        "handling <em>enterprise-grade datasets</em> with <b>modern data technology</b>, "  
+        "groupping data by <em>meaning</em> with <b>Natural Language Processing</b>, "  
+        "and enabling dynamicall <em>decision-making</em> through the <b>agency of Large Language Models. </b> ",  
+
+        "I am Juan Guillermo, a professional economist. "  
+        "I have built my career developing <b>data analysis</b> and <b>software application</b> scripts "  
+        "for <b>research</b> and <b>operational environments</b>. "  
+        "My broader professional vision interconnects all the key technologies for modern data analysis—"  
+        "spanning <b>data mining</b>, <b>artificial intelligence models</b>, <b>algorithms</b>, <b>software engineering workflows</b>, "  
+        "and <b>information tools</b>—into a cohesive and holistic framework."  
+    ]
+       
     
 def load_avatar_caption():
     return "God told me I could either be good-looking or an excellent worker."
