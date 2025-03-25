@@ -281,8 +281,10 @@ class HeroArea:
         """, unsafe_allow_html=True)
     
         for paragraph in self.quote:
-            words = re.findall(r'\S+[\s,]*', paragraph)  # Keep the space/comma with the preceding word
-            styled_text = ' '.join(
+            # Match words with possible <b> or <em> tags and include spaces/commas after them
+            words = re.findall(r'(<[^>]+>[^<]+<\/[^>]+>|[^<\s,]+)[\s,]*', paragraph)
+            
+            styled_text = ''.join(
                 f'<span class="ink-word" style="animation-delay: {i * 0.1}s;">{word}</span>'
                 for i, word in enumerate(words)
             )
