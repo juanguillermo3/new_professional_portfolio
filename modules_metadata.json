@@ -1096,7 +1096,7 @@
   {
     "title": "Perform Spatial Baseline",
     "description": "Performs the training of baseline model to predict store placements from underlyng              zip data",
-    "image_path": "plot_probabilities_*",
+    "image_path": "assets/plot_probabilities_*.html",
     "libraries": [
       "dotenv",
       "stores_placements",
