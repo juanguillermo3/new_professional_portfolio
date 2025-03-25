@@ -82,13 +82,25 @@ def image_to_base64(image_path):
 #
 # (0.2)
 #
+
+def _ensure_doctype(html_content):
+    """Ensure the HTML content starts with <!DOCTYPE html>."""
+    if not html_content.lstrip().lower().startswith("<!doctype html>"):
+        return "<!DOCTYPE html>\n" + html_content
+    return html_content
+
 def html_to_base64(file_path):
     """Reads a local HTML file and converts it to a base64-encoded data URL."""
     try:
         with open(file_path, "r", encoding="utf-8") as f:
             html_content = f.read()
-            encoded_html = base64.b64encode(html_content.encode()).decode()
-            return f"data:text/html;base64,{encoded_html}"
+
+        # Ensure <!DOCTYPE html> is present
+        html_content = _ensure_doctype(html_content)
+
+        encoded_html = base64.b64encode(html_content.encode()).decode()
+        return f"data:text/html;base64,{encoded_html}"
+
     except Exception as e:
         print(f"Error reading {file_path}: {e}")
         return None
