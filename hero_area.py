@@ -143,27 +143,6 @@ class HeroArea:
     
         st.markdown('</div>', unsafe_allow_html=True)
 
-      
-    def render(self):
-        col1, col2 = st.columns([2, 1])
-    
-        # Render Quote Section
-        with col1:
-            self._render_quote()
-    
-        # Render Biopic Section
-        if self.avatar_image:
-            with col2:
-                self._render_biopic_section()
-    
-        # Expandable Detailed Offering Section
-        expander_label = "Explore more (details)"
-        with st.expander(expander_label, expanded=True):
-            st.markdown(self.detailed_offering, unsafe_allow_html=True)
-            for id in self.ids:
-                st.markdown(setup_tooltip_behavior(id), unsafe_allow_html=True)
-            
-            self.render_code_samples()
     
     def _render_quote(self):
         st.markdown("""
@@ -184,8 +163,57 @@ class HeroArea:
     
         for paragraph in self.quote:
             st.markdown(f'<p class="hero-quote">{paragraph}</p>', unsafe_allow_html=True)
-        
 
+    def _render_bureaucratic_form(self, details: dict):
+        """
+        Renders a bureaucratic-style form layout to display critical personal/professional information.
+        :param details: Dictionary containing field names as keys and corresponding values.
+        """
+        st.subheader("📜 Official Professional Record")
+        
+        # Define the layout structure (irregular grid pattern)
+        cols = st.columns([2, 3, 2, 3])  # Adjust width proportions as needed
+        
+        # Iterate through the dictionary and place values in the grid
+        fields = list(details.items())
+        
+        for i in range(0, len(fields), 2):  # Two fields per row
+            with cols[i % 4]:
+                field_name, field_value = fields[i]
+                st.markdown(f"<p class='bureaucratic-label'>{field_name}:</p>", unsafe_allow_html=True)
+                st.text_input("", value=field_value, disabled=True)
+            
+            if i + 1 < len(fields):  # Ensure we don't go out of bounds
+                with cols[(i + 1) % 4]:
+                    field_name, field_value = fields[i + 1]
+                    st.markdown(f"<p class='bureaucratic-label'>{field_name}:</p>", unsafe_allow_html=True)
+                    st.text_input("", value=field_value, disabled=True)
+        
+        st.markdown("---")  # Separator before detailed professional offering
+
+    def render(self):
+        col1, col2 = st.columns([2, 1])
+    
+        # Render Quote Section
+        with col1:
+            self._render_quote()
+    
+        # Render Biopic Section
+        if self.avatar_image:
+            with col2:
+                self._render_biopic_section()
+    
+        # Bureaucratic Form Section (before detailed professional offering)
+        self._render_bureaucratic_form(self.personal_details)
+    
+        # Expandable Detailed Offering Section
+        expander_label = "Explore more (details)"
+        with st.expander(expander_label, expanded=True):
+            st.markdown(self.detailed_offering, unsafe_allow_html=True)
+            for id in self.ids:
+                st.markdown(setup_tooltip_behavior(id), unsafe_allow_html=True)
+            
+            self.render_code_samples()
                 
 # Instantiate and render HeroArea with data loaded from the loader functions
 hero = HeroArea(
