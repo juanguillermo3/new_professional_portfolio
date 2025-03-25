@@ -275,7 +275,7 @@ class HeroArea:
         .ink-word {
             display: inline-block;
             opacity: 0;
-            animation: inkSeep 12s ease-in-out infinite; /* Restart every 3s */
+            animation: inkSeep 20s ease-in-out infinite; /* Restart every 3s */
         }
         </style>
         """, unsafe_allow_html=True)
