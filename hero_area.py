@@ -257,30 +257,18 @@ class HeroArea:
 
     def _render_bureaucratic_form(self, details: dict):
         """
-        Renders a bureaucratic-style form layout with a compact, centered, and responsive flow.
-        Ensures multiple fields fit in the same row until they exceed available space.
+        Renders a bureaucratic-style form using compact pills without a container.
+        Fields are wrapped flexibly, breaking into new rows when necessary.
         :param details: Dictionary containing field names as keys and corresponding values.
         """
         st.markdown(
             """
             <style>
-            .bureau-container {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center; /* Center the entire form */
-                align-items: center;
-                max-width: 80%;
-                margin: 0 auto;
-                padding: 12px;
-                border: 1px solid #ccc;
-                border-radius: 6px;
-                background: #f8f9fa;
-                gap: 8px; /* Ensures space between pills */
-            }
             .bureau-field {
-                display: flex;
+                display: inline-flex;
                 align-items: center;
                 padding: 6px 12px;
+                margin: 4px;
                 border: 1px solid #ddd;
                 border-radius: 4px;
                 background: #fff;
@@ -294,22 +282,19 @@ class HeroArea:
                 font-size: 90%;
             }
             </style>
-            <div class="bureau-container">
             """,
             unsafe_allow_html=True,
         )
     
-        # Generate all fields inside the container
-        fields_html = []
-        for field_name, field_value in details.items():
-            field_html = f"<div class='bureau-field'><span class='bureau-label'>{field_name}:</span> {field_value}</div>"
-            fields_html.append(field_html)
+        # Generate pill elements
+        fields_html = [
+            f"<div class='bureau-field'><span class='bureau-label'>{field_name}:</span> {field_value}</div>"
+            for field_name, field_value in details.items()
+        ]
     
-        # Join fields with a pipe separator and ensure they remain within the container
-        final_html = " &nbsp;|&nbsp; ".join(fields_html)
-    
-        # Render everything inside the container
-        st.markdown(final_html + "</div>", unsafe_allow_html=True)
+        # Render all pills directly
+        st.markdown(" ".join(fields_html), unsafe_allow_html=True)
+
 
 
 
