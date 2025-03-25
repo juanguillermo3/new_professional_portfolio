@@ -40,6 +40,10 @@ DETAILS = {
 
     # Professional Summary
     "💼 Job Title": "Freelance Data Mining Specialist",
+
+    # Target Roles
+    "🎯 Target Roles": "Data Mining Developer, ETL Developer, Machine Learning Engineer",
+  
     "📊 Experience": "5+ Years in Predictive Analytics & Data Mining",
     "🎓 Education": "Bachelor’s in Economics",
     
