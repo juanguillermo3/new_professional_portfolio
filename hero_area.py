@@ -171,12 +171,6 @@ class HeroArea:
     def _render_quote(self):
         st.markdown("""
         <style>
-        .quote-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh; /* Full viewport height */
-        }
         .hero-quote {
             font-style: italic;
             font-size: 1.5em;
@@ -188,13 +182,8 @@ class HeroArea:
             padding-bottom: 20px;
         }
         </style>
-        <div class="quote-container">
         """, unsafe_allow_html=True)
     
-        for paragraph in self.quote:
-            st.markdown(f'<p class="hero-quote">{paragraph}</p>', unsafe_allow_html=True)
-
-    st.markdown("</div>", unsafe_allow_html=True)  # Close the container
 
                 
 # Instantiate and render HeroArea with data loaded from the loader functions
