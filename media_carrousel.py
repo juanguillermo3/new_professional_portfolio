@@ -131,7 +131,7 @@ def html_for_media_carousel(media_items, container_id="media-container", duratio
                 if base64_html:
                     media_html.append(
                         f'<iframe src="{base64_html}" class="carousel-item-{unique_id} item-{unique_id}-{i}" '
-                        f'frameborder="0" width="100%" height="600px"></iframe>'
+                        f'frameborder="0" width="100%" height="auto"></iframe>'
                     )
 
     total_duration = len(media_items) * duration
