@@ -143,25 +143,7 @@ class HeroArea:
     
         st.markdown('</div>', unsafe_allow_html=True)
 
-    
-    def _render_quote(self):
-        st.markdown("""
-        <style>
-        .hero-quote {
-            font-style: italic;
-            font-size: 1.5em;
-            line-height: 1.8;
-            margin: 0 auto;
-            max-width: 800px;
-            color: #333333;
-            text-align: justify;
-            padding: 0 5%;
-        }
-        </style>
-        """, unsafe_allow_html=True)
-    
-        for paragraph in self.quote:
-            st.markdown(f'<p class="hero-quote">{paragraph}</p>', unsafe_allow_html=True)
+  
         
     def render(self):
         col1, col2 = st.columns([2, 1])
@@ -250,8 +232,59 @@ class HeroArea:
         # Render all pills directly
         st.markdown(" ".join(fields_html), unsafe_allow_html=True)
 
+    def _render_quote(self):
+        st.markdown("""
+        <style>
+        .hero-quote {
+            font-style: italic;
+            font-size: 1.5em;
+            line-height: 1.8;
+            margin: 0 auto;
+            max-width: 800px;
+            color: #333333;
+            text-align: justify;
+            padding: 0 5%;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+    
+        for paragraph in self.quote:
+            st.markdown(f'<p class="hero-quote">{paragraph}</p>', unsafe_allow_html=True)
 
-
+    def _render_quote(self):
+        st.markdown("""
+        <style>
+        .hero-quote {
+            font-style: italic;
+            font-size: 1.5em;
+            line-height: 1.8;
+            margin: 0 auto;
+            max-width: 800px;
+            color: #333333;
+            text-align: justify;
+            padding: 0 5%;
+        }
+        
+        @keyframes inkSeep {
+            0% { opacity: 0; filter: blur(5px); transform: scale(0.95); }
+            100% { opacity: 1; filter: blur(0); transform: scale(1); }
+        }
+    
+        .ink-word {
+            display: inline-block;
+            opacity: 0;
+            animation: inkSeep 0.3s ease-in-out forwards;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+    
+        for paragraph in self.quote:
+            words = paragraph.split(" ")
+            styled_text = ' '.join(
+                f'<span class="ink-word" style="animation-delay: {i * 0.1}s;">{word}</span>'
+                for i, word in enumerate(words)
+            )
+            st.markdown(f'<p class="hero-quote">{styled_text}</p>', unsafe_allow_html=True)
 
 
 
