@@ -268,18 +268,18 @@ class HeroArea:
 
     def _render_bureaucratic_form(self, details: dict):
         """
-        Renders a bureaucratic-style form layout with an irregular grid, similar to bank forms.
+        Renders a bureaucratic-style form layout with an alternating 2-brick and 3-brick structure.
         :param details: Dictionary containing field names as keys and corresponding values.
         """
         st.markdown("<div style='display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;'>", unsafe_allow_html=True)
     
-        # Define an irregular pattern for column widths
-        col_patterns = [[2, 1], [1, 2, 1], [3, 2], [1, 1, 1, 1]]  
+        # Alternating row patterns: 2 bricks, then 3 bricks
+        col_patterns = [[2, 3], [1, 2, 1]]  
         field_list = list(details.items())
-        
+    
         index = 0
         while index < len(field_list):
-            # Cycle through different column patterns to create an irregular structure
+            # Pick the row pattern based on the alternation
             pattern = col_patterns[index % len(col_patterns)]
             cols = st.columns(pattern)
     
@@ -291,6 +291,7 @@ class HeroArea:
                     index += 1
     
         st.markdown("</div>", unsafe_allow_html=True)
+
 
 
 
