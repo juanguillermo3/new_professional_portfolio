@@ -268,21 +268,23 @@ class HeroArea:
                 flex-wrap: wrap;
                 gap: 8px;
                 justify-content: center;
+                align-items: center;
             }
             .bureau-field {
                 display: flex;
                 align-items: center;
-                padding: 4px 10px;
-                border: 1px solid #ccc;
+                padding: 6px 12px;
+                border: 1px solid #ddd;
                 border-radius: 5px;
-                background: #f8f9fa;
-                font-size: 14px;
+                background: #f9f9f9;
+                font-size: 15px;
                 white-space: nowrap;
             }
             .bureau-label {
                 font-weight: bold;
                 margin-right: 6px;
-                color: #333;
+                color: #777;  /* Subtle gray scale */
+                font-size: 90%;
             }
             </style>
             <div class="bureau-form">
@@ -291,23 +293,34 @@ class HeroArea:
         )
     
         row_items = []
+        row_length = 0
+        max_row_length = 50  # Adjust this for responsiveness
+    
         for field_name, field_value in details.items():
-            row_items.append(f"<span class='bureau-label'>{field_name}:</span> {field_value}")
-            if len(row_items) == 3:  # Stack up to 3 items per row
+            field_entry = f"<span class='bureau-label'>{field_name}:</span> {field_value}"
+            estimated_length = len(field_name) + len(field_value) + 5  # Rough length estimate
+    
+            # If adding this field exceeds max_row_length, start a new row
+            if row_length + estimated_length > max_row_length:
                 st.markdown(
-                    f"<div class='bureau-field'>{' | '.join(row_items)}</div>",
+                    f"<div class='bureau-field'>{'  |  '.join(row_items)}</div>",
                     unsafe_allow_html=True,
                 )
                 row_items = []
+                row_length = 0
+    
+            row_items.append(field_entry)
+            row_length += estimated_length
     
         # Render any remaining items
         if row_items:
             st.markdown(
-                f"<div class='bureau-field'>{' | '.join(row_items)}</div>",
+                f"<div class='bureau-field'>{'  |  '.join(row_items)}</div>",
                 unsafe_allow_html=True,
             )
     
         st.markdown("</div>", unsafe_allow_html=True)
+
 
 
 
