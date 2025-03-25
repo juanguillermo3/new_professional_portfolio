@@ -181,33 +181,6 @@ class HeroArea:
     
         st.markdown('</div>', unsafe_allow_html=True)
 
-  
-        
-    def render(self):
-        col1, col2 = st.columns([2, 1])
-    
-        # Render Quote Section
-        with col1:
-            self._render_quote()
-    
-        # Render Biopic Section
-        if self.avatar_image:
-            with col2:
-                self._render_biopic_section()
-
-
-        # Bureaucratic Form Section (before detailed professional offering)
-        self._render_bureaucratic_form(DETAILS)
-        st.markdown('<br>', unsafe_allow_html=True)       
-        st.markdown('<br>', unsafe_allow_html=True)  
-        
-        # Expandable Detailed Offering Section
-        expander_label = "Explore more (details)"
-        with st.expander(expander_label, expanded=True):
-            st.markdown(self.detailed_offering, unsafe_allow_html=True)
-            for id in self.ids:
-                st.markdown(setup_tooltip_behavior(id), unsafe_allow_html=True)          
-            self.render_code_samples()
 
     def _render_quote(self):
         st.markdown("""
@@ -327,6 +300,34 @@ class HeroArea:
                   )
             
             st.markdown(" ".join(fields_html), unsafe_allow_html=True)
+
+
+    def render(self):
+        with st.container():  # Wrap to ensure consistency across devices
+            col1, col2 = st.columns([2, 1])  # Define column layout
+    
+            # Render Quote Section
+            with col1:
+                self._render_quote()
+    
+            # Render Biopic Section
+            if self.avatar_image:
+                with col2:
+                    self._render_biopic_section()
+    
+        # Bureaucratic Form Section (before detailed professional offering)
+        self._render_bureaucratic_form(DETAILS)
+        st.markdown('<br>', unsafe_allow_html=True)       
+        st.markdown('<br>', unsafe_allow_html=True)  
+    
+        # Expandable Detailed Offering Section
+        expander_label = "Explore more (details)"
+        with st.expander(expander_label, expanded=True):
+            st.markdown(self.detailed_offering, unsafe_allow_html=True)
+            for id in self.ids:
+                st.markdown(setup_tooltip_behavior(id), unsafe_allow_html=True)          
+            self.render_code_samples()
+
   
 # Instantiate and render HeroArea with data loaded from the loader functions
 hero = HeroArea(
