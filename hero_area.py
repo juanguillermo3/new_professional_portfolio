@@ -176,7 +176,7 @@ class HeroArea:
             "Location": "Bogotá, Colombia",
         
             # Compensation
-            "Expected Rate": "$1500 - $2000 per project"
+            "Expected Rate": "$1500 - $2000 per month"
         }
 
 
