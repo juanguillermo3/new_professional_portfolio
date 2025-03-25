@@ -389,22 +389,26 @@ class HeroArea:
                 white-space: nowrap;
                 box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
                 transition: all 0.2s ease-in-out;
-                cursor: default; /* Default state */
+                cursor: default;
             }
             .bureau-field:hover {
                 background: #e0e0e0; /* Darker background on hover */
                 box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-                transform: translateY(-2px); /* Slight lift effect */
-                cursor: pointer; /* Changes cursor on hover */
+                transform: translateY(-2px);
+                cursor: pointer;
             }
             .bureau-label {
                 font-weight: bold;
                 margin-right: 6px;
                 color: #555;
                 font-size: 90%;
+                cursor: pointer;
             }
-            .bureau-group {
-                display: contents; /* Ensures no effect on layout */
+            /* New hover effect: when hovering over a field name, all its related values highlight */
+            .bureau-label:hover ~ .bureau-field,
+            .bureau-group:hover .bureau-field {
+                background: #d6e4ff !important;
+                transition: all 0.2s ease-in-out;
             }
             </style>
             """,
@@ -414,22 +418,24 @@ class HeroArea:
         fields_html = []
     
         for field_name, field_value in details.items():
+            field_class = f"bureau-group-{field_name.replace(' ', '-').lower()}"  # Common class for related fields
+    
             if isinstance(field_value, str) and ',' in field_value:
                 field_value = [item.strip() for item in field_value.split(',')]
     
-            fields_html.append(f"<div class='bureau-group'>")  # Group wrapper (doesn't affect layout)
             if isinstance(field_value, list):
-                fields_html.append(f"<div class='bureau-field'><span class='bureau-label'>{field_name}:</span></div>")
+                fields_html.append(f"<div class='bureau-field bureau-label {field_class}'>{field_name}:</div>")
                 fields_html.extend(
-                    [f"<div class='bureau-field'>{value}</div>" for value in field_value]
+                    [f"<div class='bureau-field {field_class}'>{value}</div>" for value in field_value]
                 )
             else:
                 fields_html.append(
-                    f"<div class='bureau-field'><span class='bureau-label'>{field_name}:</span> {field_value}</div>"
+                    f"<div class='bureau-field bureau-label {field_class}'>{field_name}:</div> "
+                    f"<div class='bureau-field {field_class}'>{field_value}</div>"
                 )
-            fields_html.append("</div>")  # Close group div
     
         st.markdown(" ".join(fields_html), unsafe_allow_html=True)
+
 
 
             
