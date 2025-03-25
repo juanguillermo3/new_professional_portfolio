@@ -6,8 +6,6 @@ description: A subtle yet impactful hero section for a professional portfolio. S
 """
 
 
-
-
 import streamlit as st
 import os
 from hero_area_data_loader import (
@@ -184,7 +182,8 @@ class HeroArea:
         </style>
         """, unsafe_allow_html=True)
     
-
+        for paragraph in self.quote:
+            st.markdown(f'<p class="hero-quote">{paragraph}</p>', unsafe_allow_html=True)
                 
 # Instantiate and render HeroArea with data loaded from the loader functions
 hero = HeroArea(
@@ -194,7 +193,3 @@ hero = HeroArea(
     avatar_tags=["Economist", "Data Analyst", "ML Engineer", "Data Engineer", "Application Developer"],
     detailed_offering=load_detailed_offering(),
 )
-
-
-
-
