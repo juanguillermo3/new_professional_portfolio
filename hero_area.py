@@ -213,22 +213,42 @@ class HeroArea:
     def _render_quote(self):
         st.markdown("""
         <style>
+        .hero-quote-container {
+            display: inline-block;
+            max-width: 800px;
+            margin: 0 auto;
+            padding-bottom: 20px;
+        }
+        
         .hero-quote {
             font-style: italic;
             font-size: 1.5em;
             line-height: 1.8;
-            margin: 0 auto;
-            max-width: 800px;
             color: #333333;
             text-align: justify;
-            padding-bottom: 20px;
+            display: inline-block;
+        }
+        
+        @keyframes inkSeep {
+            0% { opacity: 0; filter: blur(10px); transform: scale(0.9); }
+            100% { opacity: 1; filter: blur(0); transform: scale(1); }
+        }
+    
+        .ink-letter {
+            display: inline-block;
+            opacity: 0;
+            animation: inkSeep 1s ease-in-out forwards;
         }
         </style>
         """, unsafe_allow_html=True)
     
         for paragraph in self.quote:
-            st.markdown(f'<p class="hero-quote">{paragraph}</p>', unsafe_allow_html=True)
-        
+            styled_text = ''.join(
+                f'<span class="ink-letter" style="animation-delay: {i * 0.1}s;">{char}</span>'
+                for i, char in enumerate(paragraph)
+            )
+            st.markdown(f'<div class="hero-quote-container"><p class="hero-quote">{styled_text}</p></div>', unsafe_allow_html=True)
+            
 # Instantiate and render HeroArea with data loaded from the loader functions
 hero = HeroArea(
     quote=load_quote(),
