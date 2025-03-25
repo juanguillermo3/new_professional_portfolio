@@ -279,16 +279,12 @@ class HeroArea:
         """, unsafe_allow_html=True)
     
         for paragraph in self.quote:
-            words = paragraph.split(" ")
-            styled_text = ''
-            for i, word in enumerate(words):
-                if word.strip() in {',', '.', '!', '?', ';', ':'}:  # Ensure punctuation is included in animation
-                    styled_text += f'<span class="ink-word" style="animation-delay: {max(0, (i-1) * 0.1)}s;">{word}</span> '
-                else:
-                    styled_text += f'<span class="ink-word" style="animation-delay: {i * 0.1}s;">{word}</span> '
-            
+            words = re.split(r'(\s|,)', paragraph)  # Split by spaces and commas
+            styled_text = ''.join(
+                f'<span class="ink-word" style="animation-delay: {i * 0.1}s;">{word}</span>'
+                for i, word in enumerate(words)
+            )
             st.markdown(f'<p class="hero-quote">{styled_text}</p>', unsafe_allow_html=True)
-
 
 
 
