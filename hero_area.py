@@ -275,11 +275,13 @@ class HeroArea:
     
         # Alternating row patterns: 2 fields, then 3 fields
         col_patterns = [[.5,.5], [.3, .3, .3]]  
-        field_list = list(details.items())
+        field_list = list(details.items())}
+        pattern_idx = 0
         field_idx = 0
     
         while field_idx < len(field_list):
-            pattern = col_patterns[(field_idx // sum(len(row) for row in col_patterns)) % len(col_patterns)]  # Cycle through patterns
+            pattern = col_patterns[pattern_idx % len(col_patterns)]  # Cycle through patterns
+            pattern_idx += 1
             cols = st.columns(pattern[:min(len(pattern), len(field_list) - field_idx)])  # Avoid exceeding fields count
     
             for col in cols:
