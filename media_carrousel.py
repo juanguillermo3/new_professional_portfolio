@@ -179,9 +179,7 @@ def read_local_html(file_path):
 
 def html_for_media_carousel(media_items, container_id="media-container", duration=3):
     """
-    Generates an HTML snippet for a uniquely styled media carousel with smooth transitions.
-    
-    Supports images (as Base64) and local HTML files.
+    Generates an HTML snippet for a uniquely styled media carousel with support for images and local HTML files.
 
     :param media_items: List of dictionaries with media properties (src, alt).
     :param container_id: Unique ID for the media container.
@@ -211,8 +209,8 @@ def html_for_media_carousel(media_items, container_id="media-container", duratio
                 media_path = image_to_base64(media_path) or ""
                 media_html.append(f'<img src="{media_path}" alt="{item.get("alt", f"Image {i+1}")}" class="carousel-item-{unique_id} item-{unique_id}-{i}">')
             elif ext == ".html":
-                html_content = read_local_html(media_path)
-                media_html.append(f'<div class="carousel-item-{unique_id} item-{unique_id}-{i}">{html_content}</div>')
+                # Use an iframe to render the local HTML file
+                media_html.append(f'<iframe src="{media_path}" class="carousel-item-{unique_id} item-{unique_id}-{i}" frameborder="0"></iframe>')
         else:
             # Assume external URLs or embedded HTML
             media_html.append(f'<img src="{media_path}" alt="{item.get("alt", f"Media {i+1}")}" class="carousel-item-{unique_id} item-{unique_id}-{i}">')
@@ -253,9 +251,9 @@ def html_for_media_carousel(media_items, container_id="media-container", duratio
             padding: 10px;
         }}
 
-        .media-container-{unique_id} img, .media-container-{unique_id} div {{
+        .media-container-{unique_id} img, .media-container-{unique_id} iframe {{
             width: 100%;
-            height: auto;
+            height: 100%;
             object-fit: contain;
             border-radius: 10px;
             position: absolute;
@@ -268,7 +266,6 @@ def html_for_media_carousel(media_items, container_id="media-container", duratio
         {''.join(styles)}
     </style>
     """
-
 
 # Example usage:
 dummy_media_list = [
