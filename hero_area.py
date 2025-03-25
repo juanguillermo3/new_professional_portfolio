@@ -253,6 +253,7 @@ class HeroArea:
         for paragraph in self.quote:
             st.markdown(f'<p class="hero-quote">{paragraph}</p>', unsafe_allow_html=True)
 
+
     def _render_quote(self):
         st.markdown("""
         <style>
@@ -281,13 +282,15 @@ class HeroArea:
         """, unsafe_allow_html=True)
     
         for paragraph in self.quote:
-            # Match words with possible <b> or <em> tags and include spaces/commas after them
-            words = re.findall(r'(<[^>]+>[^<]+<\/[^>]+>|[^<\s,]+)[\s,]*', paragraph)
-            
-            styled_text = ' '.join(
-                f'<span class="ink-word" style="animation-delay: {i * 0.1}s;">{word}</span>'
-                for i, word in enumerate(words)
+            # Match words with possible <b> or <em> tags and include the following space or comma
+            words = re.findall(r'(<[^>]+>[^<]+<\/[^>]+>|[^<\s,]+)([\s,]*)', paragraph)
+    
+            # Construct the styled text preserving spacing and punctuation
+            styled_text = ''.join(
+                f'<span class="ink-word" style="animation-delay: {i * 0.1}s;">{word}{space}</span>'
+                for i, (word, space) in enumerate(words)
             )
+    
             st.markdown(f'<p class="hero-quote">{styled_text}</p>', unsafe_allow_html=True)
     
     
