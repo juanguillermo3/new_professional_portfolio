@@ -169,21 +169,20 @@ class HeroArea:
         Renders a bureaucratic-style form layout to display critical personal/professional information.
         :param details: Dictionary containing field names as keys and corresponding values.
         """
-        # Define the layout structure (irregular grid pattern)
-        cols = st.columns([2, 3, 2, 3])  # Adjust width proportions as needed
+        # Determine column widths based on content length (adaptive layout)
+        field_lengths = [len(f"**{k}:** {v}") for k, v in details.items()]
+        col_ratios = [max(2, l // 10) for l in field_lengths]  # Scale widths dynamically
+        total = sum(col_ratios)
+        normalized_ratios = [w / total for w in col_ratios]  # Normalize ratios to fit
     
-        # Iterate through the dictionary and place values in the grid
-        fields = list(details.items())
+        # Create dynamic column layout
+        cols = st.columns(normalized_ratios)
     
-        for i in range(0, len(fields), 2):  # Two fields per row
-            with cols[i % 4]:
-                field_name, field_value = fields[i]
+        # Populate fields dynamically
+        for (col, (field_name, field_value)) in zip(cols, details.items()):
+            with col:
                 st.text_input("", value=f"**{field_name}:** {field_value}", disabled=True)
-    
-            if i + 1 < len(fields):  # Ensure we don't go out of bounds
-                with cols[(i + 1) % 4]:
-                    field_name, field_value = fields[i + 1]
-                    st.text_input("", value=f"**{field_name}:** {field_value}", disabled=True)
+
     
 
     
