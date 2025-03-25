@@ -130,8 +130,16 @@ def html_for_media_carousel(media_items, container_id="media-container", duratio
                 base64_html = html_to_base64(media_path)
                 if base64_html:
                     media_html.append(
-                        f'<iframe src="{base64_html}" class="carousel-item-{unique_id} item-{unique_id}-{i}" '
-                        f'frameborder="0" width="100%" height="auto"></iframe>'
+                      f'''
+                      <iframe src="{base64_html}" 
+                              class="carousel-item-{unique_id} item-{unique_id}-{i}" 
+                              frameborder="0" 
+                              width="100%" 
+                              height="100%" 
+                              scrolling="auto" 
+                              sandbox="allow-scripts allow-same-origin">
+                      </iframe>
+                      '''
                     )
 
     total_duration = len(media_items) * duration
