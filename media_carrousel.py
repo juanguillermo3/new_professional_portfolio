@@ -89,21 +89,37 @@ def _ensure_doctype(html_content):
         return "<!DOCTYPE html>\n" + html_content
     return html_content
 
-def html_to_base64(file_path):
-    """Reads a local HTML file and converts it to a base64-encoded data URL."""
-    try:
-        with open(file_path, "r", encoding="utf-8") as f:
-            html_content = f.read()
-
-        # Ensure <!DOCTYPE html> is present
-        html_content = _ensure_doctype(html_content)
-
-        encoded_html = base64.b64encode(html_content.encode()).decode()
-        return f"data:text/html;base64,{encoded_html}"
-
-    except Exception as e:
-        print(f"Error reading {file_path}: {e}")
-        return None
+def html_to_base64():
+    """Returns a base64-encoded HTML string of a simple D3.js bar chart."""
+    html_plot = """
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://d3js.org/d3.v6.min.js"></script>
+        <title>Mock Plot</title>
+    </head>
+    <body>
+        <svg width="400" height="200"></svg>
+        <script>
+            const data = [10, 40, 30, 20, 50];
+            const svg = d3.select("svg");
+            svg.selectAll("rect")
+               .data(data)
+               .enter().append("rect")
+               .attr("x", (d, i) => i * 80)
+               .attr("y", d => 200 - d * 3)
+               .attr("width", 40)
+               .attr("height", d => d * 3)
+               .attr("fill", "steelblue");
+        </script>
+    </body>
+    </html>
+    """
+    
+    encoded_html = base64.b64encode(html_plot.encode()).decode()
+    return f"data:text/html;base64,{encoded_html}"
 #
 # (1)
 #
