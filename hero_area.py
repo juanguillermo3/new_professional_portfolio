@@ -198,7 +198,9 @@ class HeroArea:
         if self.avatar_image:
             with col2:
                 self._render_biopic_section()
-    
+
+        st.markdown('</div>', unsafe_allow_html=True)
+         
         # Bureaucratic Form Section (before detailed professional offering)
         self._render_bureaucratic_form(
         {
