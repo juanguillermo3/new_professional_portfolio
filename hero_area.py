@@ -33,6 +33,9 @@ DEFAULT_EMAILS = [
 DETAILS = {
     # Personal Identification
     "🆔 Full Name": "Juan Guillermo Osio J",
+
+    # Location & Legal Status
+    "📍 Location": "Bogotá, Colombia",
     
     # Contact Information
     "📧 Email": DEFAULT_EMAILS[0],
@@ -52,8 +55,6 @@ DETAILS = {
     "🚀 Excellence Tier": "Python, R Studio, Stata, GPT",
     "🔧 Proficiency Tier": "Airflow, SQL, Spark, Linux, GitHub",
     
-    # Location & Legal Status
-    "📍 Location": "Bogotá, Colombia",
 
     # Compensation
     "💰 Expected Rate": "$1500 - $2000 per month"
