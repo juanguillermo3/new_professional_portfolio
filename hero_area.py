@@ -404,37 +404,46 @@ class HeroArea:
                 font-size: 90%;
                 cursor: pointer;
             }
-            /* New hover effect: when hovering over a field name, all its related values highlight */
-            .bureau-label:hover ~ .bureau-field,
-            .bureau-group:hover .bureau-field {
-                background: #d6e4ff !important;
-                transition: all 0.2s ease-in-out;
-            }
-            </style>
+            /* Specific hover effect: Each field name highlights only its related values */
             """,
             unsafe_allow_html=True,
         )
     
         fields_html = []
+        field_hover_styles = []
     
         for field_name, field_value in details.items():
-            field_class = f"bureau-group-{field_name.replace(' ', '-').lower()}"  # Common class for related fields
+            safe_field_class = f"bureau-group-{field_name.replace(' ', '-').lower()}"  # Unique class per field
     
             if isinstance(field_value, str) and ',' in field_value:
                 field_value = [item.strip() for item in field_value.split(',')]
     
+            # Generate a unique hover effect for each field
+            field_hover_styles.append(
+                f"""
+                .{safe_field_class}:hover ~ .{safe_field_class} {{
+                    background: #d6e4ff !important;
+                    transition: all 0.2s ease-in-out;
+                }}
+                """
+            )
+    
             if isinstance(field_value, list):
-                fields_html.append(f"<div class='bureau-field bureau-label {field_class}'>{field_name}:</div>")
+                fields_html.append(f"<div class='bureau-field bureau-label {safe_field_class}'>{field_name}:</div>")
                 fields_html.extend(
-                    [f"<div class='bureau-field {field_class}'>{value}</div>" for value in field_value]
+                    [f"<div class='bureau-field {safe_field_class}'>{value}</div>" for value in field_value]
                 )
             else:
                 fields_html.append(
-                    f"<div class='bureau-field bureau-label {field_class}'>{field_name}:</div> "
-                    f"<div class='bureau-field {field_class}'>{field_value}</div>"
+                    f"<div class='bureau-field bureau-label {safe_field_class}'>{field_name}:</div> "
+                    f"<div class='bureau-field {safe_field_class}'>{field_value}</div>"
                 )
     
+        # Inject dynamically generated hover styles for each field
+        st.markdown(f"<style>{''.join(field_hover_styles)}</style>", unsafe_allow_html=True)
+    
         st.markdown(" ".join(fields_html), unsafe_allow_html=True)
+
 
 
 
