@@ -267,30 +267,30 @@ class HeroArea:
             .bureau-container {
                 display: flex;
                 flex-wrap: wrap;
-                justify-content: center; /* Center horizontally */
-                align-items: center; /* Align vertically */
-                max-width: 80%; /* Adjust width for better centering */
-                margin: 0 auto; /* Ensures horizontal centering */
+                justify-content: center; /* Center the entire form */
+                align-items: center;
+                max-width: 80%;
+                margin: 0 auto;
                 padding: 12px;
                 border: 1px solid #ccc;
                 border-radius: 6px;
                 background: #f8f9fa;
+                gap: 8px; /* Ensures space between pills */
             }
             .bureau-field {
-                display: inline-flex;
+                display: flex;
                 align-items: center;
                 padding: 6px 12px;
                 border: 1px solid #ddd;
                 border-radius: 4px;
                 background: #fff;
                 font-size: 15px;
-                margin: 4px;
                 white-space: nowrap;
             }
             .bureau-label {
                 font-weight: bold;
                 margin-right: 6px;
-                color: #777;  /* Gray-scale label */
+                color: #777;
                 font-size: 90%;
             }
             </style>
@@ -299,16 +299,18 @@ class HeroArea:
             unsafe_allow_html=True,
         )
     
+        # Generate all fields inside the container
         fields_html = []
         for field_name, field_value in details.items():
             field_html = f"<div class='bureau-field'><span class='bureau-label'>{field_name}:</span> {field_value}</div>"
             fields_html.append(field_html)
     
-        # Join fields with a pipe separator, ensuring proper spacing
+        # Join fields with a pipe separator and ensure they remain within the container
         final_html = " &nbsp;|&nbsp; ".join(fields_html)
     
-        st.markdown(final_html, unsafe_allow_html=True)
-        st.markdown("</div>", unsafe_allow_html=True)
+        # Render everything inside the container
+        st.markdown(final_html + "</div>", unsafe_allow_html=True)
+
 
 
 
