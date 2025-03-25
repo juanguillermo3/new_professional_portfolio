@@ -178,14 +178,13 @@ class HeroArea:
         for i in range(0, len(fields), 2):  # Two fields per row
             with cols[i % 4]:
                 field_name, field_value = fields[i]
-                st.markdown(f"<p style='font-weight: bold; margin-bottom: 2px;'>{field_name}:</p>", unsafe_allow_html=True)
-                st.markdown(f"<p style='margin-top: 0px; color: #333;'>{field_value}</p>", unsafe_allow_html=True)
+                st.text_input(f"**{field_name}**", value=field_value, disabled=True, label_visibility="collapsed")
     
             if i + 1 < len(fields):  # Ensure we don't go out of bounds
                 with cols[(i + 1) % 4]:
                     field_name, field_value = fields[i + 1]
-                    st.markdown(f"<p style='font-weight: bold; margin-bottom: 2px;'>{field_name}:</p>", unsafe_allow_html=True)
-                    st.markdown(f"<p style='margin-top: 0px; color: #333;'>{field_value}</p>", unsafe_allow_html=True)
+                    st.text_input(f"**{field_name}**", value=field_value, disabled=True, label_visibility="collapsed")
+
     
 
     def render(self):
