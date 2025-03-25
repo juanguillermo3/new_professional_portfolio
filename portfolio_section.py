@@ -35,85 +35,33 @@ class PortfolioSection:
         """
         st.markdown(f"### {self.title}", unsafe_allow_html=True)
 
-        badges = []
-        if self.verified:
-            badges.append(
-                """
-                <p style="font-size: 0.8em; background: #28a745; color: white; display: inline-block; 
-                padding: 4px 9px; border-radius: 8px; cursor: pointer;" 
-                title="✅ This section has been reviewed for a responsible use of AI-generated content. 
-                It mostly provides accurate information.">
-                ✔ Verified Content</p>
-                """
-            )
-        if self.early_dev:
-            badges.append(
-                """
-                <p style="font-size: 0.8em; background: #ffc107; color: black; display: inline-block; 
-                padding: 4px 9px; border-radius: 8px; cursor: pointer;" 
-                title="🚧 This section is new, and we are working on delivering its content.">
-                🚧 Early Development</p>
-                """
-            )
-        if self.ai_content:
-            badges.append(
-                """
-                <p style="font-size: 0.8em; background: #17a2b8; color: white; display: inline-block; 
-                padding: 4px 9px; border-radius: 8px; cursor: pointer;" 
-                title="🤖 This section may be using AI-generated content as placeholder data.">
-                🤖 AI Content</p>
-                """
-            )
-        
-        if badges:
-            st.markdown(
-                f'<div style="display: flex; gap: {spacing}px; margin-top: -5px;">' + "".join(badges) + "</div>",
-                unsafe_allow_html=True
+        def _create_badge(text, color, emoji, tooltip):
+            return (
+                f'<span style="font-size: 0.8em; background: {color}; color: white; '
+                f'display: inline-block; padding: 4px 9px; border-radius: 8px; cursor: pointer; '
+                f'margin: 0;">'
+                f'{emoji} {text}'
+                f'</span>'
             )
 
-    def _render_title_with_badges(self, spacing: int = 10):
-        """
-        Renders the given title with a row of badges below it.
-        Uses instance attributes instead of class attributes.
-        """
-        st.markdown(f"### {self.title}", unsafe_allow_html=True)
-    
-        badge_html_template = """
-            <p style="font-size: 0.8em; background: {bg_color}; color: {text_color}; display: inline-block; 
-            padding: 4px 9px; border-radius: 8px; cursor: pointer; margin-right: {spacing}px;" title="{tooltip}">
-            {emoji} {label}</p>
-        """
-    
         badges = []
         if self.verified:
-            badges.append(badge_html_template.format(
-                bg_color="#28a745", text_color="white", spacing=spacing,
-                tooltip="✅ This section has been reviewed for a responsible use of AI-generated content. It mostly provides accurate information.",
-                emoji="✔", label="Verified Content"
-            ))
-        
+            badges.append(_create_badge("Verified Content", "#28a745", "✔",
+                "✅ This section has been reviewed for a responsible use of AI-generated content. It mostly provides accurate information."))
         if self.early_dev:
-            badges.append(badge_html_template.format(
-                bg_color="#ffc107", text_color="black", spacing=spacing,
-                tooltip="🚧 This section is new, and we are working on delivering its content.",
-                emoji="🚧", label="Early Development"
-            ))
-    
+            badges.append(_create_badge("Early Development", "#ffc107", "🚧",
+                "🚧 This section is new, and we are working on delivering its content."))
         if self.ai_content:
-            badges.append(badge_html_template.format(
-                bg_color="#17a2b8", text_color="white", spacing=spacing,
-                tooltip="🤖 This section may be using AI-generated content as placeholder data.",
-                emoji="🤖", label="AI Content"
-            ))
-    
+            badges.append(_create_badge("AI Content", "#17a2b8", "🤖",
+                "🤖 This section may be using AI-generated content as placeholder data."))
+
         if badges:
-            full_html = f"""
-            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: {spacing}px; margin-top: -5px;">
-                {''.join(badges)}
-            </div>
-            """
-            st.markdown(full_html, unsafe_allow_html=True)
-    
+            st.markdown(
+                f'<div style="display: flex; gap: {spacing}px; margin-top: -5px; align-items: center;">' +
+                "".join(badges) +
+                "</div>",
+                unsafe_allow_html=True
+            )
         
     def _render_headers(self):
         """Render the section title and associated badges."""
