@@ -238,6 +238,123 @@ class MediaCarousel:
                 self.next_item()
 
 
+
+import os
+import base64
+import imgkit
+from datetime import datetime
+
+def html_to_png(html_path):
+    """Converts an HTML file to a PNG using imgkit."""
+    output_path = f"{os.path.splitext(html_path)[0]}.png"
+    options = {"format": "png", "quality": 100, "width": 1280}
+
+    try:
+        imgkit.from_file(html_path, output_path, options=options)
+        return output_path  # Return the generated PNG file path
+    except Exception as e:
+        print(f"Error converting {html_path} to PNG: {e}")
+        return None
+
+def image_to_base64(image_path):
+    """Converts an image file to base64 for embedding."""
+    try:
+        with open(image_path, "rb") as img_file:
+            return f"data:image/png;base64,{base64.b64encode(img_file.read()).decode()}"
+    except Exception as e:
+        print(f"Error encoding {image_path}: {e}")
+        return None
+
+def html_for_media_carousel(media_items, container_id="media-container", duration=5):
+    """Generates an HTML snippet for a styled media carousel with smooth transitions and dynamic height."""
+    if not media_items:
+        return "<p>No media available</p>"
+
+    # Limit to 10 media items for safety
+    media_items = media_items[:10]
+
+    # Unique ID for CSS isolation
+    unique_id = datetime.now().strftime("%Y%m%d%H%M%S")
+
+    for item in media_items:
+        ext = os.path.splitext(item['src'])[-1].lower()
+
+        if ext == ".html":
+            png_path = html_to_png(item['src'])  # Convert HTML to PNG
+            if png_path:
+                item['src'] = image_to_base64(png_path) or ""
+        
+        elif os.path.isfile(item['src']):
+            item['src'] = image_to_base64(item['src']) or ""
+
+    total_duration = len(media_items) * duration
+    images_html = "".join([
+        f'<img src="{item["src"]}" alt="{item.get("alt", f"Media {i+1}")}" '
+        f'class="carousel-item-{unique_id} item-{unique_id}-{i}">' 
+        for i, item in enumerate(media_items)
+    ])
+
+    keyframes = "".join([
+        f"""
+        @keyframes fadeAnimation-{unique_id}-{i} {{
+            0%, {(i * 100) // len(media_items)}% {{ opacity: 0; }}
+            {(i * 100) // len(media_items) + 10}% {{ opacity: 1; }}
+            {((i + 1) * 100) // len(media_items) - 10}% {{ opacity: 1; }}
+            {((i + 1) * 100) // len(media_items)}%, 100% {{ opacity: 0; }}
+        }}
+        """
+        for i in range(len(media_items))
+    ])
+
+    styles = "".join([
+        f"""
+        .item-{unique_id}-{i} {{
+            animation: fadeAnimation-{unique_id}-{i} {total_duration}s infinite ease-in-out;
+        }}
+        """
+        for i in range(len(media_items))
+    ])
+
+    return f"""
+    <div id="{container_id}" class="media-container">
+        {images_html}
+    </div>
+
+    <style>
+        .media-container {{
+            position: relative;
+            width: 800px;
+            min-height: 600px;
+            height: auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, .5);
+            backdrop-filter: blur(4px);
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            text-align: center;
+            padding: 10px;
+        }}
+
+        .media-container img {{
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            border-radius: 10px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }}
+
+        {keyframes}
+        {styles}
+    </style>
+    """
+
+
+
 # Example media content
 media_items = [
     "https://via.placeholder.com/800x400.png?text=Image+1",
