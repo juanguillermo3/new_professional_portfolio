@@ -165,7 +165,6 @@ class HeroArea:
             
             self.render_code_samples()
     
-    
     def _render_quote(self):
         st.markdown("""
         <style>
@@ -177,6 +176,7 @@ class HeroArea:
             max-width: 800px;
             color: #333333;
             text-align: justify;
+            padding: 0 5%;
             padding-bottom: 20px;
         }
         </style>
@@ -184,6 +184,8 @@ class HeroArea:
     
         for paragraph in self.quote:
             st.markdown(f'<p class="hero-quote">{paragraph}</p>', unsafe_allow_html=True)
+        
+
                 
 # Instantiate and render HeroArea with data loaded from the loader functions
 hero = HeroArea(
