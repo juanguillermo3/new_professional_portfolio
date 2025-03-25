@@ -274,7 +274,7 @@ class HeroArea:
         st.markdown("<div style='display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;'>", unsafe_allow_html=True)
     
         # Alternating row patterns: 2 bricks, then 3 bricks
-        col_patterns = [[2, 3], [1, 2, 1]]  
+        col_patterns = [[.5, .5], [.3, .3, .3]]  
         field_list = list(details.items())
     
         index = 0
