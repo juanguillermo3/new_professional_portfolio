@@ -268,25 +268,25 @@ class HeroArea:
         
         @keyframes inkSeep {
             0% { opacity: 0; filter: blur(5px); transform: scale(0.95); }
-            100% { opacity: 1; filter: blur(0); transform: scale(1); }
+            50% { opacity: 1; filter: blur(0); transform: scale(1); }
+            100% { opacity: 0; filter: blur(5px); transform: scale(0.95); }
         }
     
         .ink-word {
             display: inline-block;
             opacity: 0;
-            animation: inkSeep 0.3s ease-in-out forwards;
+            animation: inkSeep 3s ease-in-out infinite; /* Restart every 3s */
         }
         </style>
         """, unsafe_allow_html=True)
     
         for paragraph in self.quote:
             words = re.split(r'(\s|,)', paragraph)  # Split by spaces and commas
-            styled_text = ' '.join(
+            styled_text = ''.join(
                 f'<span class="ink-word" style="animation-delay: {i * 0.1}s;">{word}</span>'
                 for i, word in enumerate(words)
             )
             st.markdown(f'<p class="hero-quote">{styled_text}</p>', unsafe_allow_html=True)
-
 
 
 
