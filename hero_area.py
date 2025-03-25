@@ -200,6 +200,7 @@ class HeroArea:
         # Bureaucratic Form Section (before detailed professional offering)
         self._render_bureaucratic_form(details)
         st.markdown('<br>', unsafe_allow_html=True)       
+        st.markdown('<br>', unsafe_allow_html=True)  
         
         # Expandable Detailed Offering Section
         expander_label = "Explore more (details)"
