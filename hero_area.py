@@ -444,23 +444,17 @@ class HeroArea:
         st.markdown(
             """
             <style>
-            .bureau-container {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 6px;
-                max-width: 800px;
-                padding: 8px;
-            }
             .bureau-field-group {
                 display: flex;
-                flex-wrap: wrap;  /* Allow multiple rows within a group */
+                flex-wrap: wrap; /* Allow related fields to span multiple rows */
                 align-items: center;
-                gap: 6px;
+                gap: 4px;
             }
             .bureau-field {
                 display: inline-flex;
                 align-items: center;
                 padding: 6px 12px;
+                margin: 4px;
                 border-radius: 5px;
                 background: #f4f4f4;
                 font-size: 15px;
@@ -470,15 +464,15 @@ class HeroArea:
                 cursor: default;
             }
             .bureau-field:hover {
-                background: #e0e0e0;
+                background: #e0e0e0; /* Darker background on hover */
                 box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-                transform: translateY(-2px);
+                transform: translateY(-2px); /* Slight lift effect */
             }
             .bureau-label {
                 font-weight: bold;
+                margin-right: 6px;
                 color: #555;
-                margin-right: 8px;
-                cursor: pointer;
+                font-size: 90%;
             }
             /* Micro-Interaction: Highlight all values when hovering on field name */
             .bureau-label:hover ~ .bureau-field,
@@ -507,8 +501,9 @@ class HeroArea:
                     f"<div class='bureau-field-group'><div class='bureau-label'>{field_name}:</div> <div class='bureau-field'>{field_value}</div></div>"
                 )
     
-        st.markdown(f"<div class='bureau-container'>{' '.join(fields_html)}</div>", unsafe_allow_html=True)
+        st.markdown(" ".join(fields_html), unsafe_allow_html=True)
     
+        
 
         
     
