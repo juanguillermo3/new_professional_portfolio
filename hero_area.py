@@ -257,45 +257,58 @@ class HeroArea:
 
     def _render_bureaucratic_form(self, details: dict):
         """
-        Renders a space-efficient bureaucratic-style form layout inside a single compact container.
+        Renders a bureaucratic-style form layout in a compact horizontal flow with multiple items per row.
+        :param details: Dictionary containing field names as keys and corresponding values.
         """
-        with st.container():
-            st.markdown(
-                """
-                <style>
-                .bureaucratic-box {
-                    border: 1px solid #ddd;
-                    padding: 10px;
-                    border-radius: 8px;
-                    background-color: #f9f9f9;
-                    display: flex;
-                    flex-wrap: wrap;
-                    gap: 12px;
-                    justify-content: flex-start;
-                }
-                .bureaucratic-field {
-                    flex: 1 1 auto;
-                    min-width: 180px;
-                    font-size: 14px;
-                    background: white;
-                    padding: 6px 10px;
-                    border-radius: 4px;
-                    border: 1px solid #ccc;
-                }
-                </style>
-                <div class='bureaucratic-box'>
-                """,
-                unsafe_allow_html=True,
-            )
-            
-            fields = list(details.items())
-            for field_name, field_value in fields:
+        st.markdown(
+            """
+            <style>
+            .bureau-form {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                justify-content: center;
+            }
+            .bureau-field {
+                display: flex;
+                align-items: center;
+                padding: 4px 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                background: #f8f9fa;
+                font-size: 14px;
+                white-space: nowrap;
+            }
+            .bureau-label {
+                font-weight: bold;
+                margin-right: 6px;
+                color: #333;
+            }
+            </style>
+            <div class="bureau-form">
+            """,
+            unsafe_allow_html=True,
+        )
+    
+        row_items = []
+        for field_name, field_value in details.items():
+            row_items.append(f"<span class='bureau-label'>{field_name}:</span> {field_value}")
+            if len(row_items) == 3:  # Stack up to 3 items per row
                 st.markdown(
-                    f"""<div class='bureaucratic-field'><strong>{field_name}:</strong> {field_value}</div>""",
+                    f"<div class='bureau-field'>{' | '.join(row_items)}</div>",
                     unsafe_allow_html=True,
                 )
-            
-            st.markdown("</div>", unsafe_allow_html=True)
+                row_items = []
+    
+        # Render any remaining items
+        if row_items:
+            st.markdown(
+                f"<div class='bureau-field'>{' | '.join(row_items)}</div>",
+                unsafe_allow_html=True,
+            )
+    
+        st.markdown("</div>", unsafe_allow_html=True)
+
 
 
 
