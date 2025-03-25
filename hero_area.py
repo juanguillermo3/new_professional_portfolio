@@ -275,14 +275,14 @@ class HeroArea:
         .ink-word {
             display: inline-block;
             opacity: 0;
-            animation: inkSeep 5s ease-in-out infinite; /* Restart every 3s */
+            animation: inkSeep 10s ease-in-out infinite; /* Restart every 3s */
         }
         </style>
         """, unsafe_allow_html=True)
     
         for paragraph in self.quote:
             words = re.split(r'(\s|,)', paragraph)  # Split by spaces and commas
-            styled_text = ''.join(
+            styled_text = ' '.join(
                 f'<span class="ink-word" style="animation-delay: {i * 0.1}s;">{word}</span>'
                 for i, word in enumerate(words)
             )
