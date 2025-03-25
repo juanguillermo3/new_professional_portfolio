@@ -204,7 +204,10 @@ class HeroArea:
                 self._render_biopic_section()
     
         # Bureaucratic Form Section (before detailed professional offering)
-        self._render_bureaucratic_form(self.personal_details)
+        self._render_bureaucratic_form(
+        {
+          "Name": "Juan Guillermo"
+        })
     
         # Expandable Detailed Offering Section
         expander_label = "Explore more (details)"
