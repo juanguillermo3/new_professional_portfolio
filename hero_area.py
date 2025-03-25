@@ -273,24 +273,24 @@ class HeroArea:
         """
         st.markdown("<div style='display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;'>", unsafe_allow_html=True)
     
-        # Alternating row patterns: 2 bricks, then 3 bricks
-        col_patterns = [[.5, .5], [.3, .3, .3]]  
+        # Alternating row patterns: 2 fields, then 3 fields
+        col_patterns = [[2, 3], [1, 2, 1]]  
         field_list = list(details.items())
+        field_idx = 0
     
-        index = 1
-        while index < len(field_list):
-            # Pick the row pattern based on the alternation
-            pattern = col_patterns[index % len(col_patterns)]
-            cols = st.columns(pattern)
+        while field_idx < len(field_list):
+            pattern = col_patterns[(field_idx // sum(len(row) for row in col_patterns)) % len(col_patterns)]  # Cycle through patterns
+            cols = st.columns(pattern[:min(len(pattern), len(field_list) - field_idx)])  # Avoid exceeding fields count
     
             for col in cols:
-                if index < len(field_list):
-                    field_name, field_value = field_list[index]
+                if field_idx < len(field_list):
+                    field_name, field_value = field_list[field_idx]
                     with col:
                         st.text_input(f"**{field_name}**", value=field_value, disabled=True, label_visibility="visible")
-                    index += 1
+                    field_idx += 1
     
         st.markdown("</div>", unsafe_allow_html=True)
+
 
 
 
