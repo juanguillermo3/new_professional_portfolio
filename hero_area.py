@@ -156,29 +156,13 @@ class HeroArea:
             color: #333333;
             text-align: justify;
             padding: 0 5%;
-            padding-bottom: 20px;
         }
         </style>
         """, unsafe_allow_html=True)
     
         for paragraph in self.quote:
             st.markdown(f'<p class="hero-quote">{paragraph}</p>', unsafe_allow_html=True)
-    
-    def _render_bureaucratic_form(self, details: dict):
-        """
-        Renders a bureaucratic-style form layout with a centered stacked format.
-        :param details: Dictionary containing field names as keys and corresponding values.
-        """
-        st.markdown("<div style='display: flex; justify-content: center;'>", unsafe_allow_html=True)
-    
-        for field_name, field_value in details.items():
-            # Wrap each field-value pair inside a container for auto-width adjustment
-            with st.container():
-                st.text_input(f"**{field_name}**", value=field_value, disabled=True, label_visibility="visible")
-    
-        st.markdown("</div>", unsafe_allow_html=True)
-    
-
+        
     def render(self):
         col1, col2 = st.columns([2, 1])
     
@@ -227,33 +211,6 @@ class HeroArea:
                 st.markdown(setup_tooltip_behavior(id), unsafe_allow_html=True)
             
             self.render_code_samples()
-
-    def _render_bureaucratic_form(self, details: dict):
-        """
-        Renders a bureaucratic-style form layout with an alternating 2-brick and 3-brick structure.
-        :param details: Dictionary containing field names as keys and corresponding values.
-        """
-        st.markdown("<div style='display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;'>", unsafe_allow_html=True)
-    
-        # Alternating row patterns: 2 fields, then 3 fields
-        col_patterns = [[.5,.5], [.3, .3, .3]]  
-        field_list = list(details.items())
-        pattern_idx = 0
-        field_idx = 0
-    
-        while field_idx < len(field_list):
-            pattern = col_patterns[pattern_idx % len(col_patterns)]  # Cycle through patterns
-            pattern_idx += 1
-            cols = st.columns(pattern[:min(len(pattern), len(field_list) - field_idx)])  # Avoid exceeding fields count
-    
-            for col in cols:
-                if field_idx < len(field_list):
-                    field_name, field_value = field_list[field_idx]
-                    with col:
-                        st.text_input(f"**{field_name}**", value=field_value, disabled=True, label_visibility="visible")
-                    field_idx += 1
-    
-        st.markdown("</div>", unsafe_allow_html=True)
 
     def _render_bureaucratic_form(self, details: dict):
         """
