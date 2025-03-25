@@ -257,7 +257,7 @@ class HeroArea:
 
     def _render_bureaucratic_form(self, details: dict):
         """
-        Renders a bureaucratic-style form layout with a compact, responsive flow.
+        Renders a bureaucratic-style form layout with a compact, centered, and responsive flow.
         Ensures multiple fields fit in the same row until they exceed available space.
         :param details: Dictionary containing field names as keys and corresponding values.
         """
@@ -267,9 +267,11 @@ class HeroArea:
             .bureau-container {
                 display: flex;
                 flex-wrap: wrap;
-                justify-content: center;
-                max-width: 100%;
-                padding: 10px;
+                justify-content: center; /* Center horizontally */
+                align-items: center; /* Align vertically */
+                max-width: 80%; /* Adjust width for better centering */
+                margin: 0 auto; /* Ensures horizontal centering */
+                padding: 12px;
                 border: 1px solid #ccc;
                 border-radius: 6px;
                 background: #f8f9fa;
@@ -277,7 +279,7 @@ class HeroArea:
             .bureau-field {
                 display: inline-flex;
                 align-items: center;
-                padding: 6px 10px;
+                padding: 6px 12px;
                 border: 1px solid #ddd;
                 border-radius: 4px;
                 background: #fff;
@@ -288,7 +290,7 @@ class HeroArea:
             .bureau-label {
                 font-weight: bold;
                 margin-right: 6px;
-                color: #777;  /* Gray scale for labels */
+                color: #777;  /* Gray-scale label */
                 font-size: 90%;
             }
             </style>
@@ -302,11 +304,12 @@ class HeroArea:
             field_html = f"<div class='bureau-field'><span class='bureau-label'>{field_name}:</span> {field_value}</div>"
             fields_html.append(field_html)
     
-        # Join fields with pipe separator (ensuring a single space on both sides)
+        # Join fields with a pipe separator, ensuring proper spacing
         final_html = " &nbsp;|&nbsp; ".join(fields_html)
     
         st.markdown(final_html, unsafe_allow_html=True)
         st.markdown("</div>", unsafe_allow_html=True)
+
 
 
 
