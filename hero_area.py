@@ -132,7 +132,7 @@ class HeroArea:
         st.markdown(
             f"""
             <div style="text-align: center; font-size: 1.1em; color: #444;">
-                <p>{self.avatar_caption} {}</p>
+                <p>{self.avatar_caption}</p>
             </div>
             """,
             unsafe_allow_html=True,
