@@ -46,7 +46,7 @@ DETAILS = {
     "👔 Job Title": "Freelance Data Mining Specialist",
 
     # Target Roles
-    "🎯 Target Roles": "Data Mining Developer, Machine Learning Engineer",
+    "🎯 Target Roles": "Data Mining Developer, Machine Learning Engineer, Python/R Developer",
   
     "⏳ Experience": "5+ Years in Data Mining",
     "🎓 Education": "Bachelor’s in Economics",
