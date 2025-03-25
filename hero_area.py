@@ -187,7 +187,47 @@ class HeroArea:
             # Generate and apply custom tooltips
             #tooltip_html = self._generate_tooltip_html()
             #st.markdown(tooltip_html, unsafe_allow_html=True)
+
+    def render(self):
+        col1, col2 = st.columns([2, 1])
     
+        # Render Quote Section
+        with col1:
+            self._render_quote()
+    
+        # Render Biopic Section
+        if self.avatar_image:
+            with col2:
+                self._render_biopic_section()
+    
+        # Expandable Detailed Offering Section
+        expander_label = "Explore more (details)"
+        with st.expander(expander_label, expanded=True):
+            st.markdown(self.detailed_offering, unsafe_allow_html=True)
+            for id in self.ids:
+                st.markdown(setup_tooltip_behavior(id), unsafe_allow_html=True)
+            
+            self.render_code_samples()
+    
+    
+    def _render_quote(self):
+        st.markdown("""
+        <style>
+        .hero-quote {
+            font-style: italic;
+            font-size: 1.5em;
+            line-height: 1.8;
+            margin: 0 auto;
+            max-width: 800px;
+            color: #333333;
+            text-align: justify;
+            padding-bottom: 20px;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+    
+        for paragraph in self.quote:
+            st.markdown(f'<p class="hero-quote">{paragraph}</p>', unsafe_allow_html=True)
         
 # Instantiate and render HeroArea with data loaded from the loader functions
 hero = HeroArea(
