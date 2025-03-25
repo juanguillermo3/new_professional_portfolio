@@ -293,7 +293,7 @@ class HeroArea:
     
             st.markdown(f'<p class="hero-quote">{styled_text}</p>', unsafe_allow_html=True)
     
-     def _render_bureaucratic_form(self, details: dict):
+    def _render_bureaucratic_form(self, details: dict):
         """
         Renders a bureaucratic-style form using compact pills with a soft background color.
         Fields are wrapped flexibly, breaking into new rows when necessary.
@@ -348,6 +348,7 @@ class HeroArea:
     
         # Render all pills directly
         st.markdown(" ".join(fields_html), unsafe_allow_html=True)
+        
     
 # Instantiate and render HeroArea with data loaded from the loader functions
 hero = HeroArea(
