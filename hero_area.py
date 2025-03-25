@@ -178,12 +178,13 @@ class HeroArea:
         for i in range(0, len(fields), 2):  # Two fields per row
             with cols[i % 4]:
                 field_name, field_value = fields[i]
-                st.text_input(f"**{field_name}**", value=field_value, disabled=True, label_visibility="collapsed")
+                st.text_input("", value=f"**{field_name}:** {field_value}", disabled=True)
     
             if i + 1 < len(fields):  # Ensure we don't go out of bounds
                 with cols[(i + 1) % 4]:
                     field_name, field_value = fields[i + 1]
-                    st.text_input(f"**{field_name}**", value=field_value, disabled=True, label_visibility="collapsed")
+                    st.text_input("", value=f"**{field_name}:** {field_value}", disabled=True)
+    
 
     
 
