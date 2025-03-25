@@ -41,10 +41,11 @@ SECTIONS = {
 st.markdown("""
     <style>
         body, .stApp {
-            background-color: #f0f2f6 !important;  /* Light gray, adjust to your preference */
+            background-color: #ffffff !important;  /* Pure white */
         }
     </style>
     """, unsafe_allow_html=True)
+
 
 
 # **Title Section**
