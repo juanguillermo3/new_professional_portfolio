@@ -22,6 +22,30 @@ from exceptional_ui import (
     html_for_tooltip_from_large_list,
     setup_tooltip_behavior
 )
+DETAILS = {
+    # Personal Identification
+    "🆔 Full Name": "Juan Guillermo Osio J",
+    
+    # Contact Information
+    "📧 Email": DEFAULT_EMAILS[0],
+    "📨 Email (Alternative)": DEFAULT_EMAILS[1],
+    "📱 WhatsApp": WHATSAPP_NUMBER,
+
+    # Professional Summary
+    "💼 Job Title": "Freelance Data Mining Specialist",
+    "📊 Experience": "5+ Years in Predictive Analytics & Data Mining",
+    "🎓 Education": "Bachelor’s in Economics",
+    
+    # Tech Stack
+    "🚀 Excellence Tier": "Python, R Studio, Stata, GPT",
+    "🔧 Proficiency Tier": "Airflow, SQL, Spark, Bash scripting, GitHub",
+    
+    # Location & Legal Status
+    "📍 Location": "Bogotá, Colombia",
+
+    # Compensation
+    "💰 Expected Rate": "$1500 - $2000 per project"
+}
 
 
 # Load environment variables
@@ -158,35 +182,9 @@ class HeroArea:
             with col2:
                 self._render_biopic_section()
 
-        details = {
-            # Personal Identification
-            "Full Name": "Juan Guillermo Osio J",
-            
-            # Contact Information
-            "Email": DEFAULT_EMAILS[0],
-            "Email (Alternative)": DEFAULT_EMAILS[1],
-            "WhatsApp": WHATSAPP_NUMBER,
-        
-            # Professional Summary
-            "Job Title": "Freelance Data Mining Specialist",
-            "Experience": "5+ Years in Predictive Analytics & Data Mining",
-            "Education": "Bachelor’s in Economics",
-            
-            # Tech Stack
-            "Excellence Tier": "Python, R Studio, Stata, GPT",
-            "Proficiency Tier": "Airflow, SQL, Spark, Bash scripting, GitHub",
-            
-            # Location & Legal Status
-            "Location": "Bogotá, Colombia",
-        
-            # Compensation
-            "Expected Rate": "$1500 - $2000 per project"
-        }
-
-
 
         # Bureaucratic Form Section (before detailed professional offering)
-        self._render_bureaucratic_form(details)
+        self._render_bureaucratic_form(DETAILS)
         st.markdown('<br>', unsafe_allow_html=True)       
         st.markdown('<br>', unsafe_allow_html=True)  
         
