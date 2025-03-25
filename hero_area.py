@@ -255,7 +255,52 @@ class HeroArea:
     
         st.markdown("</div>", unsafe_allow_html=True)
 
-
+    def _render_bureaucratic_form(details: dict):
+        """
+        Renders a bureaucratic-style form layout in a compact horizontal flow.
+        :param details: Dictionary containing field names as keys and corresponding values.
+        """
+        st.markdown(
+            """
+            <style>
+            .bureau-form {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 12px;
+                justify-content: center;
+            }
+            .bureau-field {
+                display: flex;
+                align-items: center;
+                padding: 4px 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                background: #f8f9fa;
+                white-space: nowrap;
+                font-size: 14px;
+            }
+            .bureau-label {
+                font-weight: bold;
+                margin-right: 6px;
+                color: #333;
+            }
+            </style>
+            <div class="bureau-form">
+            """,
+            unsafe_allow_html=True,
+        )
+    
+        for field_name, field_value in details.items():
+            st.markdown(
+                f"""
+                <div class="bureau-field">
+                    <span class="bureau-label">{field_name}:</span> {field_value}
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+    
+        st.markdown("</div>", unsafe_allow_html=True)
 
 
 
