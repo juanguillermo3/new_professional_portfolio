@@ -315,10 +315,16 @@ class HeroArea:
                 padding: 6px 12px;
                 margin: 4px;
                 border-radius: 5px;
-                background: #f4f4f4;  /* Subtle gray background */
+                background: #f4f4f4;
                 font-size: 15px;
                 white-space: nowrap;
                 box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+                transition: all 0.2s ease-in-out;
+            }
+            .bureau-field:hover {
+                background: #e0e0e0; /* Darker background on hover */
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+                transform: translateY(-2px); /* Slight lift effect */
             }
             .bureau-label {
                 font-weight: bold;
@@ -332,27 +338,23 @@ class HeroArea:
         )
     
         fields_html = []
-        
+    
         for field_name, field_value in details.items():
-            # Convert comma-separated values to lists
             if isinstance(field_value, str) and ',' in field_value:
                 field_value = [item.strip() for item in field_value.split(',')]
-            
+    
             if isinstance(field_value, list):
-                # Render the field name as an independent pill
                 fields_html.append(f"<div class='bureau-field'><span class='bureau-label'>{field_name}:</span></div>")
-                # Render each value in its own pill
                 fields_html.extend(
                     [f"<div class='bureau-field'>{value}</div>" for value in field_value]
                 )
             else:
-                # Render atomic key-value pairs
                 fields_html.append(
                     f"<div class='bureau-field'><span class='bureau-label'>{field_name}:</span> {field_value}</div>"
                 )
     
-        # Render all pills directly
         st.markdown(" ".join(fields_html), unsafe_allow_html=True)
+
         
     
 # Instantiate and render HeroArea with data loaded from the loader functions
