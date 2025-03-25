@@ -434,69 +434,6 @@ class HeroArea:
         st.markdown(" ".join(fields_html), unsafe_allow_html=True)
 
 
-    def _render_bureaucratic_form(self, details: dict):
-        """
-        Renders a bureaucratic-style form using compact pills with a soft background color.
-        Fields are grouped together naturally, breaking into new rows when necessary.
-        If a field contains a comma-separated value, it is automatically split into a list of items.
-        
-        :param details: Dictionary containing field names as keys and corresponding values.
-        """
-        st.markdown(
-            """
-            <style>
-            .bureau-container {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 6px;
-                align-items: center;
-                max-width: 800px;
-                padding: 8px;
-            }
-            .bureau-field {
-                display: inline-flex;
-                align-items: center;
-                padding: 6px 12px;
-                border-radius: 5px;
-                background: #f4f4f4;
-                font-size: 15px;
-                white-space: nowrap;
-                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-                transition: all 0.2s ease-in-out;
-                cursor: default;
-            }
-            .bureau-field:hover {
-                background: #e0e0e0;
-                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-                transform: translateY(-2px);
-                cursor: pointer;
-            }
-            .bureau-label {
-                font-weight: bold;
-                color: #555;
-                margin-right: 8px;
-            }
-            </style>
-            """,
-            unsafe_allow_html=True,
-        )
-    
-        fields_html = []
-    
-        for field_name, field_value in details.items():
-            if isinstance(field_value, str) and ',' in field_value:
-                field_value = [item.strip() for item in field_value.split(',')]
-    
-            if isinstance(field_value, list):
-                # Group field name with its values
-                field_content = " ".join(f"<span class='bureau-field'>{value}</span>" for value in field_value)
-                fields_html.append(f"<div class='bureau-field'><span class='bureau-label'>{field_name}:</span> {field_content}</div>")
-            else:
-                fields_html.append(
-                    f"<div class='bureau-field'><span class='bureau-label'>{field_name}:</span> {field_value}</div>"
-                )
-    
-        st.markdown(f"<div class='bureau-container'>{' '.join(fields_html)}</div>", unsafe_allow_html=True)
 
         
     
