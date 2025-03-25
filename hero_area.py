@@ -275,7 +275,7 @@ class HeroArea:
         .ink-word {
             display: inline-block;
             opacity: 0;
-            animation: inkSeep 15s ease-in-out infinite; /* Restart every 3s */
+            animation: inkSeep 12s ease-in-out infinite; /* Restart every 3s */
         }
         </style>
         """, unsafe_allow_html=True)
@@ -283,7 +283,7 @@ class HeroArea:
         for paragraph in self.quote:
             words = re.split(r'(\s|,)', paragraph)  # Split by spaces and commas
             styled_text = ' '.join(
-                f'<span class="ink-word" style="animation-delay: {i * 0.025}s;">{word}</span>'
+                f'<span class="ink-word" style="animation-delay: {i * 0.01}s;">{word}</span>'
                 for i, word in enumerate(words)
             )
             st.markdown(f'<p class="hero-quote">{styled_text}</p>', unsafe_allow_html=True)
