@@ -160,25 +160,25 @@ class HeroArea:
 
         details = {
             # Personal Identification
-            "Full Name": "Juan Guillermo",
-             # Education & Certifications
-            "Highest Degree Earned": "Bachelor’s in Economics",
-
+            "Full Name": "Juan Guillermo Osio J",
+            
             # Contact Information
-            "Primary Email": DEFAULT_EMAILS[0],
-            "Secondary Email": DEFAULT_EMAILS[1],
-            "Phone Number (WhatsApp)": WHATSAPP_NUMBER,
-                
-            # Professional Details (Top Priority)
-            "Current Job Title": "Freelance Contractor in Data Minning",
-            "Field of Expertise": "Data Mining",
-            "Years of Experience": "5+ Years",
-            "Salary Expectation": "$1500 - $2000",
+            "Email": DEFAULT_EMAILS[0],
+            "Email (Alternative)": DEFAULT_EMAILS[1],
+            "WhatsApp": WHATSAPP_NUMBER,
+        
+            # Professional Summary
+            "Job Title": "Freelance Data Mining Specialist",
+            "Experience": "5+ Years in Predictive Analytics & Data Mining",
+            "Education": "Bachelor’s in Economics",
             
             # Location & Legal Status
-            "City & Country of Residence": "Bogotá, Colombia",
-    
+            "Location": "Bogotá, Colombia",
+        
+            # Compensation
+            "Expected Rate": "$1500 - $2000 per project"
         }
+
 
         # Bureaucratic Form Section (before detailed professional offering)
         self._render_bureaucratic_form(details)
