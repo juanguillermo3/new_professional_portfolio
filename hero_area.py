@@ -433,7 +433,82 @@ class HeroArea:
     
         st.markdown(" ".join(fields_html), unsafe_allow_html=True)
 
-
+    def _render_bureaucratic_form(self, details: dict):
+        """
+        Renders a bureaucratic-style form using compact pills with a soft background color.
+        Fields are wrapped flexibly, breaking into new rows when necessary.
+        If a field contains a comma-separated value, it is automatically split into a list of items.
+        
+        :param details: Dictionary containing field names as keys and corresponding values.
+        """
+        st.markdown(
+            """
+            <style>
+            .bureau-container {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 6px;
+                max-width: 800px;
+                padding: 8px;
+            }
+            .bureau-field-group {
+                display: flex;
+                flex-wrap: wrap;  /* Allow multiple rows within a group */
+                align-items: center;
+                gap: 6px;
+            }
+            .bureau-field {
+                display: inline-flex;
+                align-items: center;
+                padding: 6px 12px;
+                border-radius: 5px;
+                background: #f4f4f4;
+                font-size: 15px;
+                white-space: nowrap;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+                transition: all 0.2s ease-in-out;
+                cursor: default;
+            }
+            .bureau-field:hover {
+                background: #e0e0e0;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+                transform: translateY(-2px);
+            }
+            .bureau-label {
+                font-weight: bold;
+                color: #555;
+                margin-right: 8px;
+                cursor: pointer;
+            }
+            /* Micro-Interaction: Highlight all values when hovering on field name */
+            .bureau-label:hover ~ .bureau-field,
+            .bureau-field-group:hover .bureau-field {
+                background: #d6e4ff !important;
+                transition: all 0.2s ease-in-out;
+            }
+            </style>
+            """,
+            unsafe_allow_html=True,
+        )
+    
+        fields_html = []
+    
+        for field_name, field_value in details.items():
+            if isinstance(field_value, str) and ',' in field_value:
+                field_value = [item.strip() for item in field_value.split(',')]
+    
+            if isinstance(field_value, list):
+                fields_html.append(f"<div class='bureau-field-group'>")
+                fields_html.append(f"<div class='bureau-label'>{field_name}:</div>")
+                fields_html.extend([f"<div class='bureau-field'>{value}</div>" for value in field_value])
+                fields_html.append("</div>")  # Close group div
+            else:
+                fields_html.append(
+                    f"<div class='bureau-field-group'><div class='bureau-label'>{field_name}:</div> <div class='bureau-field'>{field_value}</div></div>"
+                )
+    
+        st.markdown(f"<div class='bureau-container'>{' '.join(fields_html)}</div>", unsafe_allow_html=True)
+    
 
         
     
