@@ -35,8 +35,7 @@ DETAILS = {
     "🆔 Full Name": "Juan Guillermo Osio J",
     
     # Contact Information
-    "📧 Email": DEFAULT_EMAILS[0],
-    "📨 Email (Alternative)": DEFAULT_EMAILS[1],
+    "📧 Contact Email": [DEFAULT_EMAILS[0], DEFAULT_EMAILS[1]],
     "📱 WhatsApp": WHATSAPP_NUMBER,
 
     # Professional Summary
