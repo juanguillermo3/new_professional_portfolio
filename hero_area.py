@@ -378,11 +378,6 @@ class HeroArea:
         st.markdown(
             """
             <style>
-            .bureau-group {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 4px;
-            }
             .bureau-field {
                 display: inline-flex;
                 align-items: center;
@@ -408,6 +403,9 @@ class HeroArea:
                 color: #555;
                 font-size: 90%;
             }
+            .bureau-group {
+                display: contents; /* Ensures no effect on layout */
+            }
             </style>
             """,
             unsafe_allow_html=True,
@@ -419,7 +417,7 @@ class HeroArea:
             if isinstance(field_value, str) and ',' in field_value:
                 field_value = [item.strip() for item in field_value.split(',')]
     
-            fields_html.append(f"<div class='bureau-group'>")  # New common class
+            fields_html.append(f"<div class='bureau-group'>")  # Group wrapper (doesn't affect layout)
             if isinstance(field_value, list):
                 fields_html.append(f"<div class='bureau-field'><span class='bureau-label'>{field_name}:</span></div>")
                 fields_html.extend(
@@ -432,6 +430,7 @@ class HeroArea:
             fields_html.append("</div>")  # Close group div
     
         st.markdown(" ".join(fields_html), unsafe_allow_html=True)
+
 
             
     
