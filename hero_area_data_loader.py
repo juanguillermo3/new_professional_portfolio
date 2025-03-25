@@ -85,9 +85,10 @@ def load_quote():
         "through cutting-edge techniques, such as flexible inference powered by <b>Machine Learning</b>, "  
         "streamlining <em>core business</em> workflows through <b>software development</b> and <b>algorithmic automation</b>, "
         "handling <em>enterprise-grade datasets</em> with <b>modern data technology</b>, "  
-        "groupping data by <em>meaning</em> with <b>Natural Language Processing</b>, "  
-        "and enabling dynamicall <em>decision-making</em> through the <b>agency of Large Language Models. </b> "
+        "grouping data by <em>meaning</em> with <b>Natural Language Processing</b>, "  
+        "and enabling dynamically <em>decision-making</em> through the <b>agency of Large Language Models.</b> "
     ]
+
        
     
 def load_avatar_caption():
