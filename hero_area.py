@@ -367,6 +367,85 @@ class HeroArea:
     
         st.markdown(" ".join(fields_html), unsafe_allow_html=True)
 
+    def _render_bureaucratic_form(self, details: dict):
+        """
+        Renders a bureaucratic-style form using compact pills with a soft background color.
+        Fields are wrapped flexibly, breaking into new rows when necessary.
+        If a field contains a comma-separated value, it is automatically split into a list of items.
+        
+        :param details: Dictionary containing field names as keys and corresponding values.
+        """
+        st.markdown(
+            """
+            <style>
+            .bureau-container {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 6px;
+                padding: 10px;
+            }
+            .bureau-field {
+                display: inline-flex;
+                align-items: center;
+                padding: 6px 12px;
+                border-radius: 5px;
+                background: #f4f4f4;
+                font-size: 15px;
+                white-space: nowrap;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+                transition: all 0.2s ease-in-out;
+                cursor: default;
+            }
+            .bureau-field:hover {
+                background: #e0e0e0;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+                transform: translateY(-2px);
+                cursor: pointer;
+            }
+            .bureau-label {
+                font-weight: bold;
+                margin-right: 6px;
+                color: #555;
+                font-size: 90%;
+                cursor: pointer;
+            }
+            /* Micro-Interaction: Highlight all related values when hovering over field name */
+            .bureau-label:hover + .bureau-field-group .bureau-field,
+            .bureau-field-group:hover .bureau-field {
+                background: #d6e4ff !important;
+                transform: scale(1.05);
+                transition: all 0.2s ease-in-out;
+            }
+            </style>
+            """,
+            unsafe_allow_html=True,
+        )
+    
+        fields_html = ["<div class='bureau-container'>"]
+    
+        for field_name, field_value in details.items():
+            field_class = f"bureau-group-{field_name.replace(' ', '-').lower()}"  # Unique class for each field group
+    
+            if isinstance(field_value, str) and ',' in field_value:
+                field_value = [item.strip() for item in field_value.split(',')]
+    
+            if isinstance(field_value, list):
+                fields_html.append(
+                    f"<div class='bureau-label'>{field_name}:</div><div class='bureau-field-group {field_class}'>"
+                )
+                fields_html.extend(
+                    [f"<div class='bureau-field {field_class}' title='{field_name}'>{value}</div>" for value in field_value]
+                )
+                fields_html.append("</div>")  # Close field-group div
+            else:
+                fields_html.append(
+                    f"<div class='bureau-field' title='{field_name}'><span class='bureau-label'>{field_name}:</span> {field_value}</div>"
+                )
+    
+        fields_html.append("</div>")
+    
+        st.markdown(" ".join(fields_html), unsafe_allow_html=True)
+
         
     
 # Instantiate and render HeroArea with data loaded from the loader functions
