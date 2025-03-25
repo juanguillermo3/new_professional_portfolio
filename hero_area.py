@@ -22,6 +22,14 @@ from exceptional_ui import (
     html_for_tooltip_from_large_list,
     setup_tooltip_behavior
 )
+
+# Load environment variables
+load_dotenv()
+WHATSAPP_NUMBER = os.getenv("WHATSAPP_NUMBER", "573053658650")
+DEFAULT_EMAILS = [
+    ("juanosio838@gmail.com"),
+    ("jg.osio151@uniandes.edu.co")
+]
 DETAILS = {
     # Personal Identification
     "🆔 Full Name": "Juan Guillermo Osio J",
@@ -46,16 +54,6 @@ DETAILS = {
     # Compensation
     "💰 Expected Rate": "$1500 - $2000 per project"
 }
-
-
-# Load environment variables
-load_dotenv()
-WHATSAPP_NUMBER = os.getenv("WHATSAPP_NUMBER", "573053658650")
-DEFAULT_EMAILS = [
-    ("juanosio838@gmail.com"),
-    ("jg.osio151@uniandes.edu.co")
-]
-
 class HeroArea:
     def __init__(self, 
                  quote, 
