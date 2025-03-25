@@ -79,12 +79,10 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
                            'This refers to my ability to clean and organize datasets from complex, multi-source environments '
                            'for research and model development.',
             "skills": [
-                "Skilled at developing custom data processing algorithms with bespoke logic. ",
-                "Capable of using text-minning and Natural Language Processing tricks to engineer flexible information proessing heuristics. ",
-                "Facility to engage with structured and unstructured sources.",
-                "Foundations in NLP, GIS, and network analysis.",
-                "High expertise in designing advanced merges and data sources.",
-                "Expertise in using text-mining and NLP for information processing."
+                "Activate implicit datasets by ETL effort from enterprise systems",
+                "Flexible information processing using text-minning, regex, Natural-Language-Processing",
+                "Familiarity with algorithms for alternative/unstructured data sources (NLP, GIS, Network Data)",
+                "Expertise developing complex merges from multiple data sources"
             ]
         },
         {
