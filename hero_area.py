@@ -434,6 +434,75 @@ class HeroArea:
         st.markdown(" ".join(fields_html), unsafe_allow_html=True)
 
 
+    def _render_bureaucratic_form(self, details: dict):
+        """
+        Renders a bureaucratic-style form using compact pills with a soft background color.
+        Fields are wrapped flexibly, breaking into new rows when necessary.
+        If a field contains a comma-separated value, it is automatically split into a list of items.
+    
+        :param details: Dictionary containing field names as keys and corresponding values.
+        """
+        st.markdown(
+            """
+            <style>
+            .bureau-field {
+                display: inline-flex;
+                align-items: center;
+                padding: 6px 12px;
+                margin: 4px;
+                border-radius: 5px;
+                background: #f4f4f4;
+                font-size: 15px;
+                white-space: nowrap;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+                transition: all 0.2s ease-in-out;
+                cursor: default;
+            }
+            .bureau-field:hover {
+                background: #e0e0e0;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+                transform: translateY(-2px);
+            }
+            .bureau-label {
+                font-weight: bold;
+                margin-right: 6px;
+                color: #555;
+                font-size: 90%;
+                cursor: pointer;
+            }
+            /* Grouping micro-interaction: Highlight all values of the same field */
+            .bureau-label:hover ~ .bureau-field-group .bureau-field,
+            .bureau-field-group:hover .bureau-field {
+                background: #d6e4ff !important;
+                transition: all 0.2s ease-in-out;
+            }
+            </style>
+            """,
+            unsafe_allow_html=True,
+        )
+    
+        fields_html = []
+    
+        for field_name, field_value in details.items():
+            if isinstance(field_value, str) and ',' in field_value:
+                field_value = [item.strip() for item in field_value.split(',')]
+    
+            field_class = f"bureau-field-group-{field_name.replace(' ', '_')}"  # Unique class per field name
+    
+            # Open field group div
+            fields_html.append(f"<div class='bureau-field-group {field_class}'>")
+            fields_html.append(f"<span class='bureau-label'>{field_name}:</span>")
+    
+            # Append values flexibly, allowing inline breaks
+            if isinstance(field_value, list):
+                fields_html.extend([f"<div class='bureau-field'>{value}</div>" for value in field_value])
+            else:
+                fields_html.append(f"<div class='bureau-field'>{field_value}</div>")
+    
+            # Close field group div
+            fields_html.append("</div>")
+    
+        st.markdown(" ".join(fields_html), unsafe_allow_html=True)
         
     
 # Instantiate and render HeroArea with data loaded from the loader functions
