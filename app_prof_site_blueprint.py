@@ -41,10 +41,17 @@ SECTIONS = {
 st.markdown("""
     <style>
         body, .stApp {
-            background-color: #ffffff !important;  /* Pure white */
+            background-color: #ffffff !important;  /* Pure white background */
+            color: #333333 !important;  /* Dark gray font for readability */
+        }
+        
+        /* Ensuring text inside all Streamlit components remains consistent */
+        .stTextInput, .stMarkdown, .stDataFrame, .stSelectbox, .stButton {
+            color: #333333 !important;
         }
     </style>
     """, unsafe_allow_html=True)
+
 
 
 
