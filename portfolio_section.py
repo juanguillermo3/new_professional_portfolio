@@ -79,3 +79,47 @@ class PortfolioSection:
     def render(self):
         """Render the section, now using badges for information."""
         self._render_headers()
+
+    def _render_title_with_badges(self, spacing: int = 10):
+        """
+        Renders the given title with a row of badges below it.
+        Uses instance attributes instead of class attributes.
+        """
+        st.markdown(f"### {self.title}", unsafe_allow_html=True)
+    
+        badge_html_template = """
+            <span style="font-size: 0.8em; background: {bg_color}; color: {text_color}; 
+            display: inline-block; padding: 4px 9px; border-radius: 8px; cursor: pointer; 
+            margin: 0; margin-right: {spacing}px;" title="{tooltip}">
+            {emoji} {label}</span>
+        """
+    
+        badges = []
+        if self.verified:
+            badges.append(badge_html_template.format(
+                bg_color="#28a745", text_color="white", spacing=spacing,
+                tooltip="✅ This section has been reviewed for a responsible use of AI-generated content. It mostly provides accurate information.",
+                emoji="✔", label="Verified Content"
+            ))
+        
+        if self.early_dev:
+            badges.append(badge_html_template.format(
+                bg_color="#ffc107", text_color="black", spacing=spacing,
+                tooltip="🚧 This section is new, and we are working on delivering its content.",
+                emoji="🚧", label="Early Development"
+            ))
+    
+        if self.ai_content:
+            badges.append(badge_html_template.format(
+                bg_color="#17a2b8", text_color="white", spacing=spacing,
+                tooltip="🤖 This section may be using AI-generated content as placeholder data.",
+                emoji="🤖", label="AI Content"
+            ))
+    
+        if badges:
+            full_html = f"""
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: {spacing}px; margin-top: -5px;">
+                {''.join(badges)}
+            </div>
+            """
+            st.markdown(full_html, unsafe_allow_html=True)
