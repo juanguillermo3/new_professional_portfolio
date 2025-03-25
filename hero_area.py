@@ -197,19 +197,16 @@ class HeroArea:
     
         }
 
-         
         # Bureaucratic Form Section (before detailed professional offering)
         self._render_bureaucratic_form(details)
-        
-        st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown('<br>', unsafe_allow_html=True)       
         
         # Expandable Detailed Offering Section
         expander_label = "Explore more (details)"
         with st.expander(expander_label, expanded=True):
             st.markdown(self.detailed_offering, unsafe_allow_html=True)
             for id in self.ids:
-                st.markdown(setup_tooltip_behavior(id), unsafe_allow_html=True)
-            
+                st.markdown(setup_tooltip_behavior(id), unsafe_allow_html=True)          
             self.render_code_samples()
 
     def _render_bureaucratic_form(self, details: dict):
