@@ -277,7 +277,7 @@ class HeroArea:
         col_patterns = [[.5, .5], [.3, .3, .3]]  
         field_list = list(details.items())
     
-        index = 0
+        index = 1
         while index < len(field_list):
             # Pick the row pattern based on the alternation
             pattern = col_patterns[index % len(col_patterns)]
