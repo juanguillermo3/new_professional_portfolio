@@ -372,12 +372,17 @@ class HeroArea:
         Renders a bureaucratic-style form using compact pills with a soft background color.
         Fields are wrapped flexibly, breaking into new rows when necessary.
         If a field contains a comma-separated value, it is automatically split into a list of items.
-        
+    
         :param details: Dictionary containing field names as keys and corresponding values.
         """
         st.markdown(
             """
             <style>
+            .bureau-group {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 4px;
+            }
             .bureau-field {
                 display: inline-flex;
                 align-items: center;
@@ -414,6 +419,7 @@ class HeroArea:
             if isinstance(field_value, str) and ',' in field_value:
                 field_value = [item.strip() for item in field_value.split(',')]
     
+            fields_html.append(f"<div class='bureau-group'>")  # New common class
             if isinstance(field_value, list):
                 fields_html.append(f"<div class='bureau-field'><span class='bureau-label'>{field_name}:</span></div>")
                 fields_html.extend(
@@ -423,8 +429,10 @@ class HeroArea:
                 fields_html.append(
                     f"<div class='bureau-field'><span class='bureau-label'>{field_name}:</span> {field_value}</div>"
                 )
+            fields_html.append("</div>")  # Close group div
     
         st.markdown(" ".join(fields_html), unsafe_allow_html=True)
+
             
     
 # Instantiate and render HeroArea with data loaded from the loader functions
