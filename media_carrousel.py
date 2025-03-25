@@ -14,6 +14,8 @@ import glob
 import re
 import os
 import base64
+import hashlib
+import time
 
 # Global configuration for valid media files
 VALID_MEDIA_FILES = {".jpg", ".jpeg", ".png", ".gif", ".mp4", ".webm"}
@@ -80,11 +82,9 @@ def image_to_base64(image_path):
 #
 # (2)
 #
-
-
 def html_for_media_carousel(media_items, container_id="media-container", duration=3):
     """
-    Generates an HTML snippet for a styled media carousel with smooth transitions and dynamic height.
+    Generates an HTML snippet for a uniquely styled media carousel with smooth transitions.
 
     :param media_items: List of dictionaries with media properties (src, alt).
     :param container_id: Unique ID for the media container.
@@ -97,6 +97,9 @@ def html_for_media_carousel(media_items, container_id="media-container", duratio
     # Limit to 10 media items for safety
     media_items = media_items[:10]
 
+    # Generate a unique hash to avoid class collisions
+    unique_id = hashlib.md5(str(time.time()).encode()).hexdigest()[:8]
+
     # Convert local images to Base64 if needed
     for item in media_items:
         if os.path.isfile(item['src']):
@@ -104,13 +107,13 @@ def html_for_media_carousel(media_items, container_id="media-container", duratio
 
     total_duration = len(media_items) * duration
     images_html = "".join([
-        f'<img src="{item["src"]}" alt="{item.get("alt", f"Image {i+1}")}" class="carousel-item item-{i}">' 
+        f'<img src="{item["src"]}" alt="{item.get("alt", f"Image {i+1}")}" class="carousel-item-{unique_id} item-{unique_id}-{i}">' 
         for i, item in enumerate(media_items)
     ])
 
     keyframes = "".join([
         f"""
-        @keyframes fadeAnimation-{i} {{
+        @keyframes fadeAnimation-{unique_id}-{i} {{
             0%, {(i * 100) // len(media_items)}% {{ opacity: 0; }}
             {(i * 100) // len(media_items) + 10}% {{ opacity: 1; }}
             {((i + 1) * 100) // len(media_items) - 10}% {{ opacity: 1; }}
@@ -122,20 +125,20 @@ def html_for_media_carousel(media_items, container_id="media-container", duratio
 
     styles = "".join([
         f"""
-        .item-{i} {{
-            animation: fadeAnimation-{i} {total_duration}s infinite;
+        .item-{unique_id}-{i} {{
+            animation: fadeAnimation-{unique_id}-{i} {total_duration}s infinite;
         }}
         """
         for i in range(len(media_items))
     ])
 
     return f"""
-    <div id="{container_id}" class="media-container">
+    <div id="{container_id}" class="media-container-{unique_id}">
         {images_html}
     </div>
 
     <style>
-        .media-container {{
+        .media-container-{unique_id} {{
             position: relative;
             width: 800px;
             min-height: 600px;
@@ -150,7 +153,7 @@ def html_for_media_carousel(media_items, container_id="media-container", duratio
             padding: 10px;
         }}
 
-        .media-container img {{
+        .media-container-{unique_id} img {{
             width: 100%;
             height: auto;
             object-fit: contain;
