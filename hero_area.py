@@ -166,25 +166,17 @@ class HeroArea:
     
     def _render_bureaucratic_form(self, details: dict):
         """
-        Renders a bureaucratic-style form layout to display critical personal/professional information.
+        Renders a bureaucratic-style form layout with a centered stacked format.
         :param details: Dictionary containing field names as keys and corresponding values.
         """
-        # Determine column widths based on content length (adaptive layout)
-        field_lengths = [len(f"**{k}:** {v}") for k, v in details.items()]
-        col_ratios = [max(2, l // 10) for l in field_lengths]  # Scale widths dynamically
-        total = sum(col_ratios)
-        normalized_ratios = [w / total for w in col_ratios]  # Normalize ratios to fit
+        st.markdown("<div style='display: flex; justify-content: center;'>", unsafe_allow_html=True)
     
-        # Create dynamic column layout
-        cols = st.columns(normalized_ratios)
+        for field_name, field_value in details.items():
+            # Wrap each field-value pair inside a container for auto-width adjustment
+            with st.container():
+                st.text_input(f"**{field_name}**", value=field_value, disabled=True, label_visibility="visible")
     
-        # Populate fields dynamically
-        for (col, (field_name, field_value)) in zip(cols, details.items()):
-            with col:
-                st.text_input("", value=f"**{field_name}:** {field_value}", disabled=True)
-
-    
-
+        st.markdown("</div>", unsafe_allow_html=True)
     
 
     def render(self):
