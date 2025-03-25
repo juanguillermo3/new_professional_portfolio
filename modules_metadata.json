@@ -651,7 +651,7 @@
       "services_section"
     ],
     "galleria": "True",
-    "image_path": "assets/new_professional_portfolio_network_plot.html",
+    "image_path": "assets/new_professional_*.html",
     "forced_rank": "1"
   },
   {
