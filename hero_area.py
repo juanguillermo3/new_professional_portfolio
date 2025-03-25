@@ -255,7 +255,7 @@ class HeroArea:
     
         st.markdown("</div>", unsafe_allow_html=True)
 
-    def _render_bureaucratic_form(details: dict):
+    def _render_bureaucratic_form(self, details: dict):
         """
         Renders a bureaucratic-style form layout in a compact horizontal flow.
         :param details: Dictionary containing field names as keys and corresponding values.
