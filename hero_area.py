@@ -286,7 +286,7 @@ class HeroArea:
             words = re.findall(r'(<[^>]+>[^<]+<\/[^>]+>|[^<\s,]+)([\s,]*)', paragraph)
     
             # Construct the styled text preserving spacing and punctuation
-            styled_text = ''.join(
+            styled_text = ' '.join(
                 f'<span class="ink-word" style="animation-delay: {i * 0.1}s;">{word}{space}</span>'
                 for i, (word, space) in enumerate(words)
             )
