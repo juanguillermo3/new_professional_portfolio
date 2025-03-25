@@ -35,27 +35,28 @@ DETAILS = {
     "🆔 Full Name": "Juan Guillermo Osio J",
     
     # Contact Information
-    "📧 Contact Email": [DEFAULT_EMAILS[0], DEFAULT_EMAILS[1]],
+    "📧 Email": DEFAULT_EMAILS[0],
+    "📨 Email (Alternative)": DEFAULT_EMAILS[1],
     "📱 WhatsApp": WHATSAPP_NUMBER,
 
     # Professional Summary
     "💼 Job Title": "Freelance Data Mining Specialist",
 
     # Target Roles
-    "🎯 Target Roles": "Data Mining Developer, ETL Developer, Machine Learning Engineer",
+    "🎯 Target Roles": "Data Minning Developer, Machine Learning Engineer",
   
-    "📊 Experience": "5+ Years in Predictive Analytics & Data Mining",
+    "📊 Experience": "5+ Years in Data Mining",
     "🎓 Education": "Bachelor’s in Economics",
     
     # Tech Stack
     "🚀 Excellence Tier": "Python, R Studio, Stata, GPT",
-    "🔧 Proficiency Tier": "Airflow, SQL, Spark, Bash scripting, GitHub",
+    "🔧 Proficiency Tier": "Airflow, SQL, Spark, Linux, GitHub",
     
     # Location & Legal Status
     "📍 Location": "Bogotá, Colombia",
 
     # Compensation
-    "💰 Expected Rate": "$1500 - $2000 per project"
+    "💰 Expected Rate": "$1500 - $2000 per month"
 }
 class HeroArea:
     def __init__(self, 
