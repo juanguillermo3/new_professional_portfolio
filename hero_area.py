@@ -282,7 +282,7 @@ class HeroArea:
     
         for paragraph in self.quote:
             words = re.findall(r'\S+[\s,]*', paragraph)  # Keep the space/comma with the preceding word
-            styled_text = ''.join(
+            styled_text = ' '.join(
                 f'<span class="ink-word" style="animation-delay: {i * 0.1}s;">{word}</span>'
                 for i, word in enumerate(words)
             )
