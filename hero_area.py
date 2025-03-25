@@ -257,78 +257,57 @@ class HeroArea:
 
     def _render_bureaucratic_form(self, details: dict):
         """
-        Renders a bureaucratic-style form layout in a compact horizontal flow with multiple items per row.
-        Ensures fields break into the next row only when they cannot fit entirely.
+        Renders a bureaucratic-style form layout with a compact, responsive flow.
+        Ensures multiple fields fit in the same row until they exceed available space.
         :param details: Dictionary containing field names as keys and corresponding values.
         """
         st.markdown(
             """
             <style>
-            .bureau-form {
+            .bureau-container {
                 display: flex;
                 flex-wrap: wrap;
-                gap: 8px;
                 justify-content: center;
-                align-items: center;
                 max-width: 100%;
-            }
-            .bureau-row {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 8px;
-                width: 100%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 6px;
+                background: #f8f9fa;
             }
             .bureau-field {
-                display: flex;
+                display: inline-flex;
                 align-items: center;
-                padding: 6px 12px;
+                padding: 6px 10px;
                 border: 1px solid #ddd;
-                border-radius: 5px;
-                background: #f9f9f9;
+                border-radius: 4px;
+                background: #fff;
                 font-size: 15px;
+                margin: 4px;
                 white-space: nowrap;
             }
             .bureau-label {
                 font-weight: bold;
                 margin-right: 6px;
-                color: #777;  /* Subtle gray scale */
+                color: #777;  /* Gray scale for labels */
                 font-size: 90%;
             }
             </style>
-            <div class="bureau-form">
+            <div class="bureau-container">
             """,
             unsafe_allow_html=True,
         )
     
-        row_items = []
-        row_length = 0
-        max_row_length = 50  # Adjust this for responsiveness
-    
+        fields_html = []
         for field_name, field_value in details.items():
-            field_entry = f"<span class='bureau-label'>{field_name}:</span> {field_value}"
-            estimated_length = len(field_name) + len(field_value) + 5  # Rough length estimate
+            field_html = f"<div class='bureau-field'><span class='bureau-label'>{field_name}:</span> {field_value}</div>"
+            fields_html.append(field_html)
     
-            # If adding this field exceeds max_row_length, start a new row
-            if row_length + estimated_length > max_row_length:
-                st.markdown(
-                    f"<div class='bureau-row'>{'  |  '.join(row_items)}</div>",
-                    unsafe_allow_html=True,
-                )
-                row_items = []
-                row_length = 0
+        # Join fields with pipe separator (ensuring a single space on both sides)
+        final_html = " &nbsp;|&nbsp; ".join(fields_html)
     
-            row_items.append(field_entry)
-            row_length += estimated_length
-    
-        # Render any remaining items in the last row
-        if row_items:
-            st.markdown(
-                f"<div class='bureau-row'>{'  |  '.join(row_items)}</div>",
-                unsafe_allow_html=True,
-            )
-    
+        st.markdown(final_html, unsafe_allow_html=True)
         st.markdown("</div>", unsafe_allow_html=True)
+
 
 
 
