@@ -163,33 +163,30 @@ class HeroArea:
     
         for paragraph in self.quote:
             st.markdown(f'<p class="hero-quote">{paragraph}</p>', unsafe_allow_html=True)
-
+    
     def _render_bureaucratic_form(self, details: dict):
         """
         Renders a bureaucratic-style form layout to display critical personal/professional information.
         :param details: Dictionary containing field names as keys and corresponding values.
         """
-        st.subheader("📜 Official Professional Record")
-        
         # Define the layout structure (irregular grid pattern)
         cols = st.columns([2, 3, 2, 3])  # Adjust width proportions as needed
-        
+    
         # Iterate through the dictionary and place values in the grid
         fields = list(details.items())
-        
+    
         for i in range(0, len(fields), 2):  # Two fields per row
             with cols[i % 4]:
                 field_name, field_value = fields[i]
-                st.markdown(f"<p class='bureaucratic-label'>{field_name}:</p>", unsafe_allow_html=True)
-                st.text_input("", value=field_value, disabled=True)
-            
+                st.markdown(f"<p style='font-weight: bold; margin-bottom: 2px;'>{field_name}:</p>", unsafe_allow_html=True)
+                st.markdown(f"<p style='margin-top: 0px; color: #333;'>{field_value}</p>", unsafe_allow_html=True)
+    
             if i + 1 < len(fields):  # Ensure we don't go out of bounds
                 with cols[(i + 1) % 4]:
                     field_name, field_value = fields[i + 1]
-                    st.markdown(f"<p class='bureaucratic-label'>{field_name}:</p>", unsafe_allow_html=True)
-                    st.text_input("", value=field_value, disabled=True)
-        
-        st.markdown("---")  # Separator before detailed professional offering
+                    st.markdown(f"<p style='font-weight: bold; margin-bottom: 2px;'>{field_name}:</p>", unsafe_allow_html=True)
+                    st.markdown(f"<p style='margin-top: 0px; color: #333;'>{field_value}</p>", unsafe_allow_html=True)
+    
 
     def render(self):
         col1, col2 = st.columns([2, 1])
