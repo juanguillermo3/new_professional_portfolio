@@ -320,11 +320,13 @@ class HeroArea:
                 white-space: nowrap;
                 box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
                 transition: all 0.2s ease-in-out;
+                cursor: default; /* Default state */
             }
             .bureau-field:hover {
                 background: #e0e0e0; /* Darker background on hover */
                 box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
                 transform: translateY(-2px); /* Slight lift effect */
+                cursor: pointer; /* Changes cursor on hover */
             }
             .bureau-label {
                 font-weight: bold;
