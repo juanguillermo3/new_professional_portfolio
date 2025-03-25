@@ -286,46 +286,6 @@ class HeroArea:
             )
             st.markdown(f'<p class="hero-quote">{styled_text}</p>', unsafe_allow_html=True)
 
-    def _render_quote(self):
-        st.markdown("""
-        <style>
-        .hero-quote {
-            font-style: italic;
-            font-size: 1.5em;
-            line-height: 1.8;
-            margin: 0 auto;
-            max-width: 800px;
-            color: #333333;
-            text-align: justify;
-            padding: 0 5%;
-            opacity: 0.15; /* Initial faint visibility */
-        }
-        .hero-quote span {
-            opacity: 0.15; /* Start with low opacity */
-            transition: opacity 0.4s ease-in-out;
-        }
-        @keyframes inkSeep {
-            from { opacity: 0.15; }
-            to { opacity: 1; }
-        }
-        </style>
-        """, unsafe_allow_html=True)
-    
-        for paragraph in self.quote:
-            words = paragraph.split()
-            animated_text = ""
-            window_size = 4  # Number of words per animation step
-            delay_step = 0.1  # Delay per window step
-    
-            for i in range(0, len(words), window_size):
-                word_group = " ".join(words[i:i + window_size])
-                delay = i * delay_step
-                animated_text += f'<span style="animation: inkSeep 0.6s {delay}s forwards;">{word_group} </span>'
-    
-            st.markdown(f'<p class="hero-quote">{animated_text}</p>', unsafe_allow_html=True)
-
-
-
 
 
 
