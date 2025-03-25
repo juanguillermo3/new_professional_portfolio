@@ -258,6 +258,7 @@ class HeroArea:
     def _render_bureaucratic_form(self, details: dict):
         """
         Renders a bureaucratic-style form layout in a compact horizontal flow with multiple items per row.
+        Ensures fields break into the next row only when they cannot fit entirely.
         :param details: Dictionary containing field names as keys and corresponding values.
         """
         st.markdown(
@@ -269,6 +270,14 @@ class HeroArea:
                 gap: 8px;
                 justify-content: center;
                 align-items: center;
+                max-width: 100%;
+            }
+            .bureau-row {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 8px;
+                width: 100%;
             }
             .bureau-field {
                 display: flex;
@@ -303,7 +312,7 @@ class HeroArea:
             # If adding this field exceeds max_row_length, start a new row
             if row_length + estimated_length > max_row_length:
                 st.markdown(
-                    f"<div class='bureau-field'>{'  |  '.join(row_items)}</div>",
+                    f"<div class='bureau-row'>{'  |  '.join(row_items)}</div>",
                     unsafe_allow_html=True,
                 )
                 row_items = []
@@ -312,14 +321,15 @@ class HeroArea:
             row_items.append(field_entry)
             row_length += estimated_length
     
-        # Render any remaining items
+        # Render any remaining items in the last row
         if row_items:
             st.markdown(
-                f"<div class='bureau-field'>{'  |  '.join(row_items)}</div>",
+                f"<div class='bureau-row'>{'  |  '.join(row_items)}</div>",
                 unsafe_allow_html=True,
             )
     
         st.markdown("</div>", unsafe_allow_html=True)
+
 
 
 
