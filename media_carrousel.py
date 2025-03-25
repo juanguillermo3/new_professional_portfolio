@@ -169,18 +169,25 @@ def html_for_media_carousel(media_items, container_id="media-container", duratio
     </style>
     """
 
-def read_local_html(file_path):
-    """Reads a local HTML file and returns its content."""
+def html_to_base64(file_path):
+    """Reads a local HTML file and converts it to a base64-encoded data URL."""
     try:
-        with open(file_path, "r", encoding="utf-8") as file:
-            return file.read()
+        with open(file_path, "r", encoding="utf-8") as f:
+            html_content = f.read()
+            encoded_html = base64.b64encode(html_content.encode()).decode()
+            return f"data:text/html;base64,{encoded_html}"
     except Exception as e:
-        return f"<p>Error loading HTML: {e}</p>"
+        print(f"Error reading {file_path}: {e}")
+        return None
+
+import os
+import hashlib
+import datetime
 
 def html_for_media_carousel(media_items, container_id="media-container", duration=3):
     """
-    Generates an HTML snippet for a uniquely styled media carousel with support for images and local HTML files.
-
+    Generates an HTML snippet for a media carousel that supports images and HTML files.
+    
     :param media_items: List of dictionaries with media properties (src, alt).
     :param container_id: Unique ID for the media container.
     :param duration: Duration (in seconds) for each media transition.
@@ -189,54 +196,60 @@ def html_for_media_carousel(media_items, container_id="media-container", duratio
     if not media_items:
         return "<p>No media available</p>"
 
-    # Limit to 10 media items for safety
-    media_items = media_items[:10]
+    media_items = media_items[:10]  # Limit to 10 items for safety
 
-    # Generate a unique hash to avoid class collisions
-    unique_id = hashlib.md5(str(time.time()).encode()).hexdigest()[:8]
+    # Unique ID to avoid style collisions
+    unique_id = hashlib.md5(str(datetime.datetime.now()).encode()).hexdigest()[:6]
 
-    total_duration = len(media_items) * duration
     media_html = []
-    keyframes = []
-    styles = []
-
     for i, item in enumerate(media_items):
         media_path = item["src"]
         ext = os.path.splitext(media_path)[1].lower()
 
         if os.path.isfile(media_path):
             if ext in [".png", ".jpg", ".jpeg", ".gif", ".webp"]:
-                media_path = image_to_base64(media_path) or ""
-                media_html.append(f'<img src="{media_path}" alt="{item.get("alt", f"Image {i+1}")}" class="carousel-item-{unique_id} item-{unique_id}-{i}">')
+                base64_img = image_to_base64(media_path)  # Function you already have
+                media_html.append(
+                    f'<img src="{base64_img}" alt="{item.get("alt", f"Image {i+1}")}" '
+                    f'class="carousel-item-{unique_id} item-{unique_id}-{i}">'
+                )
             elif ext == ".html":
-                # Use an iframe to render the local HTML file
-                media_html.append(f'<iframe src="{media_path}" class="carousel-item-{unique_id} item-{unique_id}-{i}" frameborder="0"></iframe>')
-        else:
-            # Assume external URLs or embedded HTML
-            media_html.append(f'<img src="{media_path}" alt="{item.get("alt", f"Media {i+1}")}" class="carousel-item-{unique_id} item-{unique_id}-{i}">')
+                base64_html = html_to_base64(media_path)
+                if base64_html:
+                    media_html.append(
+                        f'<iframe src="{base64_html}" class="carousel-item-{unique_id} item-{unique_id}-{i}" '
+                        f'frameborder="0" width="100%" height="600px"></iframe>'
+                    )
 
-        keyframes.append(f"""
+    total_duration = len(media_items) * duration
+    keyframes = "".join([
+        f"""
         @keyframes fadeAnimation-{unique_id}-{i} {{
             0%, {(i * 100) // len(media_items)}% {{ opacity: 0; }}
             {(i * 100) // len(media_items) + 10}% {{ opacity: 1; }}
             {((i + 1) * 100) // len(media_items) - 10}% {{ opacity: 1; }}
             {((i + 1) * 100) // len(media_items)}%, 100% {{ opacity: 0; }}
         }}
-        """)
+        """
+        for i in range(len(media_items))
+    ])
 
-        styles.append(f"""
+    styles = "".join([
+        f"""
         .item-{unique_id}-{i} {{
             animation: fadeAnimation-{unique_id}-{i} {total_duration}s infinite;
         }}
-        """)
+        """
+        for i in range(len(media_items))
+    ])
 
     return f"""
-    <div id="{container_id}" class="media-container-{unique_id}">
+    <div id="{container_id}" class="media-container">
         {"".join(media_html)}
     </div>
 
     <style>
-        .media-container-{unique_id} {{
+        .media-container {{
             position: relative;
             width: 800px;
             min-height: 600px;
@@ -251,9 +264,9 @@ def html_for_media_carousel(media_items, container_id="media-container", duratio
             padding: 10px;
         }}
 
-        .media-container-{unique_id} img, .media-container-{unique_id} iframe {{
+        .media-container img, .media-container iframe {{
             width: 100%;
-            height: 100%;
+            height: 600px;
             object-fit: contain;
             border-radius: 10px;
             position: absolute;
@@ -262,10 +275,12 @@ def html_for_media_carousel(media_items, container_id="media-container", duratio
             opacity: 0;
         }}
 
-        {''.join(keyframes)}
-        {''.join(styles)}
+        {keyframes}
+        {styles}
     </style>
     """
+
+
 
 # Example usage:
 dummy_media_list = [
