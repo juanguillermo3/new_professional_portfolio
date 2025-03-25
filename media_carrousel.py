@@ -18,7 +18,7 @@ import hashlib
 import time
 
 # Global configuration for valid media files
-VALID_MEDIA_FILES = {".jpg", ".jpeg", ".png", ".gif", ".mp4", ".webm"}
+VALID_MEDIA_FILES = {".jpg", ".jpeg", ".png", ".gif", ".mp4", ".webm", ".html"}
 
 #
 # 1.
@@ -169,7 +169,105 @@ def html_for_media_carousel(media_items, container_id="media-container", duratio
     </style>
     """
 
+def read_local_html(file_path):
+    """Reads a local HTML file and returns its content."""
+    try:
+        with open(file_path, "r", encoding="utf-8") as file:
+            return file.read()
+    except Exception as e:
+        return f"<p>Error loading HTML: {e}</p>"
 
+def html_for_media_carousel(media_items, container_id="media-container", duration=3):
+    """
+    Generates an HTML snippet for a uniquely styled media carousel with smooth transitions.
+    
+    Supports images (as Base64) and local HTML files.
+
+    :param media_items: List of dictionaries with media properties (src, alt).
+    :param container_id: Unique ID for the media container.
+    :param duration: Duration (in seconds) for each media transition.
+    :return: HTML string for the media display.
+    """
+    if not media_items:
+        return "<p>No media available</p>"
+
+    # Limit to 10 media items for safety
+    media_items = media_items[:10]
+
+    # Generate a unique hash to avoid class collisions
+    unique_id = hashlib.md5(str(time.time()).encode()).hexdigest()[:8]
+
+    total_duration = len(media_items) * duration
+    media_html = []
+    keyframes = []
+    styles = []
+
+    for i, item in enumerate(media_items):
+        media_path = item["src"]
+        ext = os.path.splitext(media_path)[1].lower()
+
+        if os.path.isfile(media_path):
+            if ext in [".png", ".jpg", ".jpeg", ".gif", ".webp"]:
+                media_path = image_to_base64(media_path) or ""
+                media_html.append(f'<img src="{media_path}" alt="{item.get("alt", f"Image {i+1}")}" class="carousel-item-{unique_id} item-{unique_id}-{i}">')
+            elif ext == ".html":
+                html_content = read_local_html(media_path)
+                media_html.append(f'<div class="carousel-item-{unique_id} item-{unique_id}-{i}">{html_content}</div>')
+        else:
+            # Assume external URLs or embedded HTML
+            media_html.append(f'<img src="{media_path}" alt="{item.get("alt", f"Media {i+1}")}" class="carousel-item-{unique_id} item-{unique_id}-{i}">')
+
+        keyframes.append(f"""
+        @keyframes fadeAnimation-{unique_id}-{i} {{
+            0%, {(i * 100) // len(media_items)}% {{ opacity: 0; }}
+            {(i * 100) // len(media_items) + 10}% {{ opacity: 1; }}
+            {((i + 1) * 100) // len(media_items) - 10}% {{ opacity: 1; }}
+            {((i + 1) * 100) // len(media_items)}%, 100% {{ opacity: 0; }}
+        }}
+        """)
+
+        styles.append(f"""
+        .item-{unique_id}-{i} {{
+            animation: fadeAnimation-{unique_id}-{i} {total_duration}s infinite;
+        }}
+        """)
+
+    return f"""
+    <div id="{container_id}" class="media-container-{unique_id}">
+        {"".join(media_html)}
+    </div>
+
+    <style>
+        .media-container-{unique_id} {{
+            position: relative;
+            width: 800px;
+            min-height: 600px;
+            height: auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, .5);
+            backdrop-filter: blur(4px);
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            text-align: center;
+            padding: 10px;
+        }}
+
+        .media-container-{unique_id} img, .media-container-{unique_id} div {{
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            border-radius: 10px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+        }}
+
+        {''.join(keyframes)}
+        {''.join(styles)}
+    </style>
+    """
 
 
 # Example usage:
