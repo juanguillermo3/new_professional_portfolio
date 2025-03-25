@@ -223,7 +223,7 @@ class HeroArea:
     
         for paragraph in self.quote:
             styled_text = ''.join(
-                f'<span class="ink-letter" style="animation-delay: {i * 0.03}s;">{char if char != " " else "&nbsp;"}</span>'
+                f'<span class="ink-letter" style="animation-delay: {i * 0.1}s;">{char if char != " " else "&nbsp;"}</span>'
                 for i, char in enumerate(paragraph)
             )
             st.markdown(f'<div class="hero-quote-container"><p class="hero-quote">{styled_text}</p></div>', unsafe_allow_html=True)
