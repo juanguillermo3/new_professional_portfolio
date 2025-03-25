@@ -199,14 +199,15 @@ class HeroArea:
             with col2:
                 self._render_biopic_section()
 
-        st.markdown('</div>', unsafe_allow_html=True)
+
          
         # Bureaucratic Form Section (before detailed professional offering)
         self._render_bureaucratic_form(
         {
           "Name": "Juan Guillermo"
         })
-    
+        st.markdown('</div>', unsafe_allow_html=True)
+        
         # Expandable Detailed Offering Section
         expander_label = "Explore more (details)"
         with st.expander(expander_label, expanded=True):
