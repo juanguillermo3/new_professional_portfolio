@@ -378,16 +378,11 @@ class HeroArea:
         st.markdown(
             """
             <style>
-            .bureau-container {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 6px;
-                padding: 10px;
-            }
             .bureau-field {
                 display: inline-flex;
                 align-items: center;
                 padding: 6px 12px;
+                margin: 4px;
                 border-radius: 5px;
                 background: #f4f4f4;
                 font-size: 15px;
@@ -397,9 +392,9 @@ class HeroArea:
                 cursor: default;
             }
             .bureau-field:hover {
-                background: #e0e0e0;
+                background: #e0e0e0; /* Darker background on hover */
                 box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-                transform: translateY(-2px);
+                transform: translateY(-2px); /* Slight lift effect */
                 cursor: pointer;
             }
             .bureau-label {
@@ -409,11 +404,10 @@ class HeroArea:
                 font-size: 90%;
                 cursor: pointer;
             }
-            /* Micro-Interaction: Highlight all related values when hovering over field name */
-            .bureau-label:hover + .bureau-field-group .bureau-field,
+            /* Micro-Interaction: Highlight all values when hovering on field name */
+            .bureau-label:hover ~ .bureau-field,
             .bureau-field-group:hover .bureau-field {
                 background: #d6e4ff !important;
-                transform: scale(1.05);
                 transition: all 0.2s ease-in-out;
             }
             </style>
@@ -421,30 +415,24 @@ class HeroArea:
             unsafe_allow_html=True,
         )
     
-        fields_html = ["<div class='bureau-container'>"]
+        fields_html = []
     
         for field_name, field_value in details.items():
-            field_class = f"bureau-group-{field_name.replace(' ', '-').lower()}"  # Unique class for each field group
-    
             if isinstance(field_value, str) and ',' in field_value:
                 field_value = [item.strip() for item in field_value.split(',')]
     
             if isinstance(field_value, list):
-                fields_html.append(
-                    f"<div class='bureau-label'>{field_name}:</div><div class='bureau-field-group {field_class}'>"
-                )
-                fields_html.extend(
-                    [f"<div class='bureau-field {field_class}' title='{field_name}'>{value}</div>" for value in field_value]
-                )
-                fields_html.append("</div>")  # Close field-group div
+                fields_html.append(f"<div class='bureau-field-group'>")
+                fields_html.append(f"<div class='bureau-field'><span class='bureau-label'>{field_name}:</span></div>")
+                fields_html.extend([f"<div class='bureau-field'>{value}</div>" for value in field_value])
+                fields_html.append("</div>")  # Close group div
             else:
                 fields_html.append(
-                    f"<div class='bureau-field' title='{field_name}'><span class='bureau-label'>{field_name}:</span> {field_value}</div>"
+                    f"<div class='bureau-field'><span class='bureau-label'>{field_name}:</span> {field_value}</div>"
                 )
     
-        fields_html.append("</div>")
-    
         st.markdown(" ".join(fields_html), unsafe_allow_html=True)
+
 
         
     
