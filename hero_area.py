@@ -191,33 +191,32 @@ class HeroArea:
             with col2:
                 self._render_biopic_section()
 
+        details = {
+            # Personal Identification
+            "Full Name": "Juan Guillermo",
+             # Education & Certifications
+            "Highest Degree Earned": "Bachelor’s in Economics",
+
+            # Contact Information
+            "Primary Email": DEFAULT_EMAILS[0],
+            "Secondary Email": DEFAULT_EMAILS[1],
+            "Phone Number (WhatsApp)": WHATSAPP_NUMBER,
+                
+            # Professional Details (Top Priority)
+            "Current Job Title": "Freelance Contractor in Data Minning",
+            "Field of Expertise": "Data Mining",
+            "Years of Experience": "5+ Years",
+            "Salary Expectation": "$1500 - $2000",
+            
+            # Location & Legal Status
+            "City & Country of Residence": "Bogotá, Colombia",
+    
+        }
 
          
         # Bureaucratic Form Section (before detailed professional offering)
-        self._render_bureaucratic_form(
-        {
-        # Personal Information
-        "Full Name": "Juan Guillermo",
-  
-        "Nationality": "Colombian Citizen",
-        "City & State of Residence": "Bogotá, Cundinamarca",
-
-        "Phone Number": "+1 (415) 555-7890",
-        "Primary Email": "john.smith@email.com",
-        "Secondary Email": "j.smith@workmail.com",
-      
-        "Personal Website/Portfolio": "You are there",
-    
-        # Professional Details
-        "Current Job Title": "Data Analyst",
-        "Field of Expertise": "Data Minning",
-        "Years of Experience": "5+ Years",
-        "Employment Type": "Freelance contractor",
-        "Salary Expectation": "$1500 - $2000",
-
-        # Education & Certifications
-        "Highest Degree Earned": "Bachelor’s in Economics"
-        })
+        self._render_bureaucratic_form(details)
+        
         st.markdown('</div>', unsafe_allow_html=True)
         
         # Expandable Detailed Offering Section
