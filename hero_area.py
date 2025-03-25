@@ -197,63 +197,26 @@ class HeroArea:
         self._render_bureaucratic_form(
         {
         # Personal Information
-        "Full Name": "Johnathan Michael Smith",
-        "Preferred Name": "John Smith",
-        "Date of Birth": "January 15, 1985",
-        "Nationality": "U.S. Citizen",
-        "Marital Status": "Married",
-        "City & State of Residence": "San Francisco, CA",
+        "Full Name": "Juan Guillermo",
+  
+        "Nationality": "Colombian Citizen",
+        "City & State of Residence": "Bogotá, Cundinamarca",
+
+        "Phone Number": "+1 (415) 555-7890",
         "Primary Email": "john.smith@email.com",
         "Secondary Email": "j.smith@workmail.com",
-        "Phone Number": "+1 (415) 555-7890",
-        "LinkedIn Profile": "linkedin.com/in/johnsmith",
-        "Personal Website/Portfolio": "www.johnsmithportfolio.com",
+      
+        "Personal Website/Portfolio": "You are there",
     
         # Professional Details
-        "Current Job Title": "Senior Data Analyst",
-        "Field of Expertise": "Data Science & Analytics",
-        "Years of Experience": "10+ Years",
-        "Company Name": "Tech Solutions Inc.",
-        "Industry": "Financial Technology (FinTech)",
-        "Employment Type": "Full-Time",
-        "Work Authorization": "Authorized to work in the U.S.",
-        "Security Clearance": "None",
-        "Salary Expectation": "$120,000 - $140,000",
-        "Availability to Start": "2 Weeks Notice",
-        "Willingness to Relocate": "Yes, Open to Opportunities",
-    
+        "Current Job Title": "Data Analyst",
+        "Field of Expertise": "Data Minning",
+        "Years of Experience": "5+ Years",
+        "Employment Type": "Freelance contractor",
+        "Salary Expectation": "$1500 - $2000",
+
         # Education & Certifications
-        "Highest Degree Earned": "Master’s in Business Analytics",
-        "Institution Name": "University of California, Berkeley",
-        "Graduation Year": "2012",
-        "Relevant Certifications": [
-            "Certified Data Scientist (CDS) – 2020",
-            "Google Professional Data Engineer – 2021",
-            "AWS Certified Solutions Architect – 2022"
-        ],
-    
-        # Technical & Soft Skills
-        "Technical Skills": [
-            "Python", "SQL", "Tableau", "Power BI",
-            "Machine Learning", "AWS", "Excel (Advanced)"
-        ],
-        "Soft Skills": [
-            "Leadership", "Communication",
-            "Critical Thinking", "Problem Solving"
-        ],
-    
-        # Languages
-        "English": "Native",
-        "Spanish": "Intermediate",
-    
-        # Additional Information
-        "Publications": "5 Published Research Papers on Data Science",
-        "Patents": "2 Patents in AI Model Optimization",
-        "Awards & Recognitions": [
-            "Best Data Scientist of the Year – 2021",
-            "Top 40 Under 40 in Tech – Forbes 2023"
-        ],
-        "Volunteer Experience": "Mentor at 'Data for Good'"
+        "Highest Degree Earned": "Bachelor’s in Economics"
         })
         st.markdown('</div>', unsafe_allow_html=True)
         
