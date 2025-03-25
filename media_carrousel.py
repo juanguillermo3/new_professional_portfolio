@@ -89,7 +89,7 @@ def _ensure_doctype(html_content):
         return "<!DOCTYPE html>\n" + html_content
     return html_content
 
-def html_to_base64():
+def html_to_base64(**kwargs):
     """Returns a base64-encoded HTML string of a simple D3.js bar chart."""
     html_plot = """
     <!DOCTYPE html>
