@@ -268,18 +268,30 @@ class HeroArea:
 
     def _render_bureaucratic_form(self, details: dict):
         """
-        Renders a bureaucratic-style form layout with auto-adjusting input widths, fitting multiple fields per row.
+        Renders a bureaucratic-style form layout with an irregular grid, similar to bank forms.
         :param details: Dictionary containing field names as keys and corresponding values.
         """
         st.markdown("<div style='display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;'>", unsafe_allow_html=True)
     
-        cols = st.columns([1] * min(len(details), 4))  # Distribute fields dynamically (up to 4 per row)
+        # Define an irregular pattern for column widths
+        col_patterns = [[2, 1], [1, 2, 1], [3, 2], [1, 1, 1, 1]]  
+        field_list = list(details.items())
+        
+        index = 0
+        while index < len(field_list):
+            # Cycle through different column patterns to create an irregular structure
+            pattern = col_patterns[index % len(col_patterns)]
+            cols = st.columns(pattern)
     
-        for i, (field_name, field_value) in enumerate(details.items()):
-            with cols[i % len(cols)]:
-                st.text_input(f"**{field_name}**", value=field_value, disabled=True, label_visibility="visible")
+            for col in cols:
+                if index < len(field_list):
+                    field_name, field_value = field_list[index]
+                    with col:
+                        st.text_input(f"**{field_name}**", value=field_value, disabled=True, label_visibility="visible")
+                    index += 1
     
         st.markdown("</div>", unsafe_allow_html=True)
+
 
 
 # Instantiate and render HeroArea with data loaded from the loader functions
