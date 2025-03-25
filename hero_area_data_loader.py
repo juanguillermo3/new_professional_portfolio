@@ -20,10 +20,10 @@ MOCK_INFO_PREFIX = os.getenv("MOCK_INFO", "[MOCK INFO]")
 def load_quote():
     return [
         "My recurring effort has been the <b>modernization of data analysis</b> "  
-        "through cutting-edge techniques, such as flexible statistical inference powered by <b>Machine Learning</b>,"  
-        "streamlining <em>core business</em> workflows through <b>software development</b> and <b>algorithmic automation</b>,"
-        "handling <em>enterprise-grade datasets</em> with <b>modern data technology</b>,"  
-        "grouping data by <em>meaning</em> with <b>Natural Language Processing</b>,"  
+        "through cutting-edge techniques, such as flexible statistical inference powered by <b>Machine Learning</b>, "  
+        "streamlining <em>core business</em> workflows through <b>software development</b> and <b>algorithmic automation</b>, "
+        "handling <em>enterprise-grade datasets</em> with <b>modern data technology</b>, "  
+        "grouping data by <em>meaning</em> with <b>Natural Language Processing</b>, "  
         "and enabling dynamically <em>decision-making</em> through the <b>agency of Large Language Models.</b> "
     ]
 
