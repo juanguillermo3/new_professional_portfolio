@@ -188,28 +188,6 @@ class HeroArea:
             #tooltip_html = self._generate_tooltip_html()
             #st.markdown(tooltip_html, unsafe_allow_html=True)
 
-    def render(self):
-        col1, col2 = st.columns([2, 1])
-    
-        # Render Quote Section
-        with col1:
-            self._render_quote()
-    
-        # Render Biopic Section
-        if self.avatar_image:
-            with col2:
-                self._render_biopic_section()
-    
-        # Expandable Detailed Offering Section
-        expander_label = "Explore more (details)"
-        with st.expander(expander_label, expanded=True):
-            st.markdown(self.detailed_offering, unsafe_allow_html=True)
-            for id in self.ids:
-                st.markdown(setup_tooltip_behavior(id), unsafe_allow_html=True)
-            
-            self.render_code_samples()
-    
-    
     def _render_quote(self):
         st.markdown("""
         <style>
@@ -227,28 +205,29 @@ class HeroArea:
             color: #333333;
             text-align: justify;
             display: inline-block;
+            white-space: pre-wrap;
         }
         
         @keyframes inkSeep {
-            0% { opacity: 0; filter: blur(10px); transform: scale(0.9); }
+            0% { opacity: 0; filter: blur(5px); transform: scale(0.95); }
             100% { opacity: 1; filter: blur(0); transform: scale(1); }
         }
     
         .ink-letter {
             display: inline-block;
             opacity: 0;
-            animation: inkSeep 1s ease-in-out forwards;
+            animation: inkSeep 0.05s ease-in-out forwards;
         }
         </style>
         """, unsafe_allow_html=True)
     
         for paragraph in self.quote:
             styled_text = ''.join(
-                f'<span class="ink-letter" style="animation-delay: {i * 0.1}s;">{char}</span>'
+                f'<span class="ink-letter" style="animation-delay: {i * 0.03}s;">{char if char != " " else "&nbsp;"}</span>'
                 for i, char in enumerate(paragraph)
             )
             st.markdown(f'<div class="hero-quote-container"><p class="hero-quote">{styled_text}</p></div>', unsafe_allow_html=True)
-            
+                
 # Instantiate and render HeroArea with data loaded from the loader functions
 hero = HeroArea(
     quote=load_quote(),
