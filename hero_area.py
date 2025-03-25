@@ -265,7 +265,23 @@ class HeroArea:
                 st.markdown(setup_tooltip_behavior(id), unsafe_allow_html=True)
             
             self.render_code_samples()
-                
+
+    def _render_bureaucratic_form(self, details: dict):
+        """
+        Renders a bureaucratic-style form layout with auto-adjusting input widths, fitting multiple fields per row.
+        :param details: Dictionary containing field names as keys and corresponding values.
+        """
+        st.markdown("<div style='display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;'>", unsafe_allow_html=True)
+    
+        cols = st.columns([1] * min(len(details), 4))  # Distribute fields dynamically (up to 4 per row)
+    
+        for i, (field_name, field_value) in enumerate(details.items()):
+            with cols[i % len(cols)]:
+                st.text_input(f"**{field_name}**", value=field_value, disabled=True, label_visibility="visible")
+    
+        st.markdown("</div>", unsafe_allow_html=True)
+
+
 # Instantiate and render HeroArea with data loaded from the loader functions
 hero = HeroArea(
     quote=load_quote(),
