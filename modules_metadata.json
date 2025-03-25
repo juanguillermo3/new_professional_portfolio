@@ -439,7 +439,8 @@
       "dplyr",
       "coin",
       "purrr"
-    ]
+    ],
+    "image_path": "assets/plot_probabilities_*.html",
   },
   {
     "title": "Food Index over Transect Data",
