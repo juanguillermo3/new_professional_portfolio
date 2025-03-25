@@ -18,53 +18,8 @@ MOCK_INFO_PREFIX = os.getenv("MOCK_INFO", "[MOCK INFO]")
 
 def load_quote():
     return [
-        "<b>Modern data analysis</b> requires engaging with and developing <b>substantial software</b>, "  
-        "such as <b>data gathering, processing, and visualization applications</b>. "  
-        "Moreover, <b>software automation</b> is key for <b>distributing inferences</b> from <b>statistical analysis</b>, "  
-        "whether derived from <b>econometric models</b> or <b>machine learning predictions</b>. "  
-        "Bottom line: I recognize the deep connection between <b>data analysis</b> and <b>software development</b>, "  
-        "hence my effort to <b>serve them within a unified framework</b>." ,
-            
-        "I am Juan Guillermo, a professional economist. "  
-        "I have built my career developing <b>data analysis</b> and <b>software application</b> scripts "  
-        "for <b>research</b> and <b>operational environments</b>. "  
-        "My business is discovering the best <b>abstractions</b> to <b>effectively work with data</b>, "  
-        "implementing them with <b>software engineering standards</b> to build up <b>data-driven intelligence</b> "  
-        "for key corporate and social systems. "
-        "I can solve data engineering, statistical modelling, and software application tasks",
-        
-        "My broader professional vision interconnects all the key technologies essential for modern data analysis—"  
-        "spanning <b>data mining</b>, <b>artificial intelligence models</b>, <b>algorithms</b>, <b>software engineering workflows</b>, "  
-        "and <b>information tools</b>—into a cohesive and holistic framework."  
-
-    ]
-
-
-def load_quote():
-    return [
         "My recurring interest has been the <b>modernization of data analysis</b> "  
         "through cutting-edge techniques, such as flexible statistical inference powered by <b>Machine Learning</b>, "  
-        "streamlining <em>core business</em> workflows through <b>software development</b> and <b>algorithmic automation</b>, "
-        "handling <em>enterprise-grade datasets</em> with <b>modern data technology</b>, "  
-        "groupping data by <em>meaning</em> with <b>Natural Language Processing</b>, "  
-        "and enabling dynamicall <em>decision-making</em> through the <b>agency of Large Language Models. </b> ",  
-
-        "I am Juan Guillermo, a professional economist. "  
-        "I have built my career developing <b>data analysis</b> and <b>software application</b> scripts "  
-        "for <b>research</b> and <b>operational environments</b>. "  
-        "My business is discovering the best <b>abstractions</b> to <b>effectively work with data</b>, "  
-        "implementing them with <b>software engineering standards</b> to build up <b>data-driven intelligence</b> "  
-        "for key corporate and social systems. ", 
-        
-        "My broader professional vision interconnects all the key technologies for modern data analysis—"  
-        "spanning <b>data mining</b>, <b>artificial intelligence models</b>, <b>algorithms</b>, <b>software engineering workflows</b>, "  
-        "and <b>information tools</b>—into a cohesive and holistic framework."  
-    ]
-
-def load_quote():
-    return [
-        "My recurring interest has been the <b>modernization of data analysis</b> "  
-        "through cutting-edge techniques, such as flexible inference powered by <b>Machine Learning</b>, "  
         "streamlining <em>core business</em> workflows through <b>software development</b> and <b>algorithmic automation</b>, "
         "handling <em>enterprise-grade datasets</em> with <b>modern data technology</b>, "  
         "groupping data by <em>meaning</em> with <b>Natural Language Processing</b>, "  
