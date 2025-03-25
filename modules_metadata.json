@@ -439,8 +439,7 @@
       "dplyr",
       "coin",
       "purrr"
-    ],
-    "image_path": "assets/plot_probabilities_*.html"
+    ]
   },
   {
     "title": "Food Index over Transect Data",
@@ -469,7 +468,7 @@
     "url": "https://github.com/juanguillermo3/monkey_research/blob/main/home_ranges.R",
     "file_path": "home_ranges.R",
     "repo_name": "monkey_research",
-    "image_path": "assets/home_ranges.png",
+    "image_path": "assets/waypoints_*.html",
     "galleria": "True",
     "libraries": [
       "lubridate",
