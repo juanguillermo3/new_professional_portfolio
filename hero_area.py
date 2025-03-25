@@ -275,7 +275,7 @@ class HeroArea:
     
         # Alternating row patterns: 2 fields, then 3 fields
         col_patterns = [[.5,.5], [.3, .3, .3]]  
-        field_list = list(details.items())}
+        field_list = list(details.items())
         pattern_idx = 0
         field_idx = 0
     
