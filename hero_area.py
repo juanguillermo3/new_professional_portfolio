@@ -139,7 +139,7 @@ class HeroArea:
         )
     
         # Contact Details
-        self.render_contact_details()
+        #self.render_contact_details()
     
         st.markdown('</div>', unsafe_allow_html=True)
 
