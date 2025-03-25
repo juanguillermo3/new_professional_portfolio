@@ -151,21 +151,7 @@ class HeroArea:
     
         # Render Quote Section
         with col1:
-            st.markdown("""<style>
-            .hero-quote {
-                font-style: italic;
-                font-size: 1.5em;
-                line-height: 1.8;
-                margin: 0 auto;
-                max-width: 800px;
-                color: #333333;
-                text-align: justify;
-                padding-bottom: 20px;
-            }
-            </style>""", unsafe_allow_html=True)
-    
-            for paragraph in self.quote:
-                st.markdown(f'<p class="hero-quote">{paragraph}</p>', unsafe_allow_html=True)
+            self._render_quote()
     
         # Render Biopic Section
         if self.avatar_image:
@@ -175,58 +161,31 @@ class HeroArea:
         # Expandable Detailed Offering Section
         expander_label = "Explore more (details)"
         with st.expander(expander_label, expanded=True):
-        
             st.markdown(self.detailed_offering, unsafe_allow_html=True)
             for id in self.ids:
                 st.markdown(setup_tooltip_behavior(id), unsafe_allow_html=True)
-                
-            self.detailed_offering, self.ids 
             
             self.render_code_samples()
     
-            # Generate and apply custom tooltips
-            #tooltip_html = self._generate_tooltip_html()
-            #st.markdown(tooltip_html, unsafe_allow_html=True)
-
+    
     def _render_quote(self):
         st.markdown("""
         <style>
-        .hero-quote-container {
-            display: inline-block;
-            max-width: 800px;
-            margin: 0 auto;
-            padding-bottom: 20px;
-        }
-        
         .hero-quote {
             font-style: italic;
             font-size: 1.5em;
             line-height: 1.8;
+            margin: 0 auto;
+            max-width: 800px;
             color: #333333;
             text-align: justify;
-            display: inline-block;
-            white-space: pre-wrap;
-        }
-        
-        @keyframes inkSeep {
-            0% { opacity: 0; filter: blur(5px); transform: scale(0.95); }
-            100% { opacity: 1; filter: blur(0); transform: scale(1); }
-        }
-    
-        .ink-letter {
-            display: inline-block;
-            opacity: 0;
-            animation: inkSeep 0.05s ease-in-out forwards;
+            padding-bottom: 20px;
         }
         </style>
         """, unsafe_allow_html=True)
     
         for paragraph in self.quote:
-            styled_text = ''.join(
-                f'<span class="ink-letter" style="animation-delay: {i * 0.1}s;">{char if char != " " else "&nbsp;"}</span>'
-                for i, char in enumerate(paragraph)
-            )
-            st.markdown(f'<div class="hero-quote-container"><p class="hero-quote">{styled_text}</p></div>', unsafe_allow_html=True)
+            st.markdown(f'<p class="hero-quote">{paragraph}</p>', unsafe_allow_html=True)
                 
 # Instantiate and render HeroArea with data loaded from the loader functions
 hero = HeroArea(
