@@ -8,6 +8,7 @@ description: A subtle yet impactful hero section for a professional portfolio. S
 
 import streamlit as st
 import os
+import re
 from hero_area_data_loader import (
     load_quote, 
     load_avatar_caption, 
