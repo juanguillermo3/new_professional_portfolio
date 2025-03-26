@@ -192,33 +192,10 @@ class HeroArea:
         st.markdown('<br>', unsafe_allow_html=True)       
         st.markdown('<br>', unsafe_allow_html=True)  
         
-        # Expandable Detailed Offering Section
-        expander_label = "Explore more (details)"
-        with st.expander(expander_label, expanded=True):
-            st.markdown(self.detailed_offering, unsafe_allow_html=True)
-            for id in self.ids:
-                st.markdown(setup_tooltip_behavior(id), unsafe_allow_html=True)          
-            self.render_code_samples()
-
-    def _render_quote(self):
-        st.markdown("""
-        <style>
-        .hero-quote {
-            font-style: italic;
-            font-size: 1.5em;
-            line-height: 1.8;
-            margin: 0 auto;
-            max-width: 800px;
-            color: #333333;
-            text-align: justify;
-            padding: 0 5%;
-        }
-        </style>
-        """, unsafe_allow_html=True)
-    
-        for paragraph in self.quote:
-            st.markdown(f'<p class="hero-quote">{paragraph}</p>', unsafe_allow_html=True)
-
+        st.markdown(self.detailed_offering, unsafe_allow_html=True)
+        for id in self.ids:
+            st.markdown(setup_tooltip_behavior(id), unsafe_allow_html=True)          
+        self.render_code_samples()
 
     def _render_quote(self):
         st.markdown("""
