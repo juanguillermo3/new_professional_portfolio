@@ -118,68 +118,64 @@ def load_detailed_offerings():
 def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
 
     
+    import streamlit as st
+    
     offerings = load_detailed_offerings()
     
-    # Injected style block (to be dynamically constructed)
-    style_block = "<style>\n"
+    # 🔹 Hardcoded styles using `st.markdown`
+    style_block = """
+    <style>
+        .test-trigger:hover ~ .test-hover {
+            display: inline;
+            color: red;
+            font-weight: bold;
+        }
+        .title-test:hover ~ .hoover-test {
+            display: inline;
+            color: blue;
+            font-weight: bold;
+        }
+    </style>
+    """
     
+    st.markdown(style_block, unsafe_allow_html=True)  # Explicitly inject styles
+    
+    # 🔹 Offerings HTML
     offering_html = '<h3 class="offerings-title">Key Professional Offerings</h3>'
     offering_html += '<ul style="list-style-type: none;">'  # Removes bullet points
     
-    tooltip_ids = []  # Store unique IDs for tooltips
-    
     for i, offer in enumerate(offerings):
-        element_id = id_pattern.format(i + 1)
-        bg_color = colors[i % len(colors)]
-    
-        # Split description into first sentence + rest
-        description_parts = offer["description"].split(".", 1)
-        short_description = description_parts[0] + "."
-        full_description = description_parts[1] if len(description_parts) > 1 else ""
-    
-        # List item container
-        offering_html += f'<li class="offering-item-{element_id}" style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px;">'
+        element_id = f"offer-{i+1}"
         
-        # Title inside paragraph
-        offering_html += '<p style="text-align: justify; margin: 0;">'
-        offering_html += f'<strong class="title-{element_id}" style="cursor: pointer;">{offer["title"]}</strong>: {short_description}'
-        offering_html += '</p>'
-    
-        # Hidden description wrapped in a span
-        if full_description:
-            offering_html += f'<span class="hoover-{element_id}" style="display: none;">{full_description}</span>'
-            # Use `~` to target any later sibling in the same container
-            style_block += f".title-{element_id}:hover ~ .hoover-{element_id} " + "{ display: inline; }\n"
-    
-        if "skills" in offer:
-            tooltip_html, unique_id = html_for_tooltip_from_large_list(
-                offer["skills"], label="Technical Skills", color="#555", emoji="🏅"
-            )
-            offering_html += tooltip_html
-            tooltip_ids.append(unique_id)
-    
-        if "subitems" in offer:
-            offering_html += '<ul style="list-style-type: none; padding-left: 0;">'
-            for subitem in offer["subitems"]:
-                offering_html += f'<li>{subitem}</li>'
-            offering_html += '</ul>'
+        # Main offering item
+        offering_html += f'<li style="padding: 8px; border-radius: 4px; margin-bottom: 10px;">'
+        offering_html += f'<p><strong class="title-{element_id}" style="cursor: pointer;">{offer["title"]}</strong></p>'
+        offering_html += f'<span class="hoover-{element_id}" style="display: none;">{offer["description"]}</span>'
+        
+        # 🔹 Explicit hover rule in `st.markdown`
+        style_rule = f"""
+        <style>
+            .title-{element_id}:hover ~ .hoover-{element_id} {{
+                display: inline;
+                color: green;
+                font-weight: bold;
+            }}
+        </style>
+        """
+        st.markdown(style_rule, unsafe_allow_html=True)  # Inject per-item style
     
         offering_html += '</li>'
     
-    # 🔹 Hardcoded test case to debug hover behavior
-    offering_html += """
-        <li style="background-color: #eee; padding: 8px; border-radius: 4px; margin-top: 20px;">
-            <p class="test-trigger" style="cursor: pointer;">Hover over me!</p>
-            <span class="test-hover" style="display: none;">This should appear!</span>
-        </li>
-    """
-    style_block += ".test-trigger:hover ~ .test-hover { display: inline; }\n"
-    
     offering_html += '</ul>'
-    style_block += "</style>\n"
     
-    # Return HTML with dynamically generated styles
-    return style_block + offering_html, tooltip_ids
+    # 🔹 Add Hardcoded Debugging Test Case at the End
+    offering_html += """
+        <p class="test-trigger" style="cursor: pointer;">Hover over me!</p>
+        <span class="test-hover" style="display: none;">This should appear!</span>
+    """
+    
+    # Display the final HTML
+    st.markdown(offering_html, unsafe_allow_html=True)
 
     
 
