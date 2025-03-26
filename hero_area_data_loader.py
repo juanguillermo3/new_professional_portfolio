@@ -136,8 +136,8 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
         full_description = description_parts[1] if len(description_parts) > 1 else ""
     
         # Assign a class to the <li> element for hover targeting
-        offering_html += f'<li class="offering-item-{element_id}" style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px;">'
-        offering_html += '<p style="text-align: justify; margin: 0;">'
+        offering_html += f'<li style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px;">'
+        offering_html += '<p class="offering-item-{element_id}" style="text-align: justify; margin: 0;">'
         
         # Apply a class to the title
         offering_html += f'<strong class="title-{element_id}">{offer["title"]}</strong>: {short_description}'
