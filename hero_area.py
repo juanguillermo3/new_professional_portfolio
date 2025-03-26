@@ -280,7 +280,7 @@ class HeroArea:
 
     def render(self):
         with st.container():  # Wrap to ensure consistency across devices
-            col1, col2 = st.columns([1, 1])  # Define column layout
+            col1, col2 = st.columns([.75, .25])  # Define column layout
     
             # Render Quote Section
             with col1:
