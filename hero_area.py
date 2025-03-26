@@ -299,7 +299,8 @@ class HeroArea:
         st.markdown('<div class="hero-avatar-container" style="position: relative;">', unsafe_allow_html=True)
     
         # Actual image (keeps working properly)
-        st.image(f"assets/{self.avatar_image}", use_container_width=True)
+        st.image(f"assets/{self.avatar_image}", use_container_width=False, width=150)
+
     
         # Invisible div positioned over the image
         st.markdown(f"""
