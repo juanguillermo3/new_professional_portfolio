@@ -133,34 +133,19 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
         short_description = description_parts[0] + "."
         full_description = description_parts[1] if len(description_parts) > 1 else ""
     
-        # List item container with hover-based logic
-        offering_html += f'<li class="offering-item-{element_id}" style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px;">'
+        # List item container
+        offering_html += f'<li style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px;">'
         
-        # Title inside paragraph
+        # Title with hover effect
         offering_html += '<p style="text-align: justify; margin: 0;">'
-        offering_html += f'<strong class="title-{element_id}" style="cursor: pointer;">{offer["title"]}</strong>: {short_description}'
-        offering_html += '</p>'
-    
-        # Hidden description wrapped in a div instead of span
+        offering_html += f'<strong class="offering-title-{element_id}" style="cursor: pointer;">{offer["title"]}</strong>: {short_description}'
+        
+        # Hidden span (inside the same paragraph)
         if full_description:
-            offering_html += f'<div class="hoover-{element_id}" style="display: none; padding-top: 5px;">{full_description}</div>'
-            # 🔥 Hovering the entire list item will show the hidden content
-            style_block += f".offering-item-{element_id}:hover .hoover-{element_id} " + "{ display: block !important; }\n"
+            offering_html += f' <span class="hoover-{element_id}" style="display: none;">{full_description}</span>'
+            style_block += f".offering-title-{element_id}:hover + .hoover-{element_id} " + "{ display: inline; }\n"
     
-        if "skills" in offer:
-            tooltip_html, unique_id = html_for_tooltip_from_large_list(
-                offer["skills"], label="Technical Skills", color="#555", emoji="🏅"
-            )
-            offering_html += tooltip_html
-            tooltip_ids.append(unique_id)
-    
-        if "subitems" in offer:
-            offering_html += '<ul style="list-style-type: none; padding-left: 0;">'
-            for subitem in offer["subitems"]:
-                offering_html += f'<li>{subitem}</li>'
-            offering_html += '</ul>'
-    
-        offering_html += '</li>'
+        offering_html += '</p></li>'
     
     offering_html += '</ul>'
     style_block += "</style>\n"
