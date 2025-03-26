@@ -116,8 +116,6 @@ def load_detailed_offerings():
 
 
 def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
-    offerings = load_detailed_offerings()
-    
     # Injected style block (to be dynamically constructed)
     style_block = "<style>\n"
     
@@ -135,7 +133,7 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
         short_description = description_parts[0] + "."
         full_description = description_parts[1] if len(description_parts) > 1 else ""
     
-        # List item container
+        # List item container with hover-based logic
         offering_html += f'<li class="offering-item-{element_id}" style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px;">'
         
         # Title inside paragraph
@@ -146,8 +144,8 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
         # Hidden description wrapped in a div instead of span
         if full_description:
             offering_html += f'<div class="hoover-{element_id}" style="display: none; padding-top: 5px;">{full_description}</div>'
-            # Hover rule on the title makes the *next sibling* visible
-            style_block += f".title-{element_id}:hover + .hoover-{element_id} " + "{ display: block; }\n"
+            # 🔥 Hovering the entire list item will show the hidden content
+            style_block += f".offering-item-{element_id}:hover .hoover-{element_id} " + "{ display: block !important; }\n"
     
         if "skills" in offer:
             tooltip_html, unique_id = html_for_tooltip_from_large_list(
@@ -169,6 +167,7 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
     
     # Return HTML with dynamically generated styles
     return style_block + offering_html, tooltip_ids
+
 
 
 
