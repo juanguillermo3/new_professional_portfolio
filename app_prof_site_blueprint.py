@@ -124,40 +124,30 @@ tooltip_system = TooltipCanvas()
 
 import streamlit as st
 
-def hover_text_component(main_text="Hover over this text", hidden_text="This text appears on hover!"):
+import streamlit as st
+
+def hover_text_component(main_text="Hover over this text", hidden_text=" and see more inline content!"):
     html = f"""
     <style>
         .hover-container {{
-            display: inline-block;
+            display: inline;
             position: relative;
             cursor: pointer;
         }}
         .hover-text {{
             display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            color: #333;
-            padding: 5px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-            white-space: nowrap;
-            left: 50%;
-            transform: translateX(-50%);
-            bottom: 120%;
-            z-index: 10;
         }}
         .hover-container:hover .hover-text {{
-            display: block;
+            display: inline;
         }}
     </style>
-    <div class="hover-container">
+    <span class="hover-container">
         {main_text}
         <span class="hover-text">{hidden_text}</span>
-    </div>
+    </span>
     """
     return html
 
 # Example usage in a Streamlit app:
-st.title("Hover Test Component")
 st.markdown(hover_text_component(), unsafe_allow_html=True)
 
