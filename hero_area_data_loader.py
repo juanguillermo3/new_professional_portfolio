@@ -16,7 +16,14 @@ load_dotenv()
 # Retrieve the mock prefix from the environment, defaulting to "[MOCK TOOLTIP]" if not set
 MOCK_INFO_PREFIX = os.getenv("MOCK_INFO", "[MOCK INFO]")
 
-
+#
+# (0)
+#
+def load_avatar_caption():
+    return "God told me I could either be good-looking or an excellent worker."
+#
+# (1)
+#
 def load_quote():
     return [
         "My recurring effort has been the <b>modernization of data analysis</b> "  
@@ -26,32 +33,24 @@ def load_quote():
         "grouping data by <em>meaning</em> with <b>Natural Language Processing</b>, "  
         "and enabling dynamically <em>decision-making</em> through the <b>agency of Large Language Models.</b> "
     ]
-
-       
-    
-def load_avatar_caption():
-    return "God told me I could either be good-looking or an excellent worker."
-
+#
+# (2)
+#
 def load_code_samples():
     return [
         {"title": "🚀 Genetic Algorithms for forecasting app sales", "url": "https://colab.research.google.com/drive/1QKFY5zfiRkUUPrnhlsOrtRlqGJ14oFf3#scrollTo=sxBOaWZ9uabz"},
         {"title": "🧩 Ensemble Learning for automated hiring in Human Resources", "url": "https://colab.research.google.com/drive/1sPdB-uoOEdw2xIKPQCx1aGp5QUuu1ooK#scrollTo=_Ycax1ucXvAO"}
     ]
-
-
-
-def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
-    # Generate a hash from the system date
-    system_date = datetime.datetime.now().strftime("%Y-%m-%d")
-    style_prefix = hashlib.md5(system_date.encode()).hexdigest()[:8]  # Shorten hash for readability
-
+#
+# (3)
+#
+def load_detailed_offerings():
     offerings = [
         {
             "title": "⚡ 1. High-Performance Prediction of Key Business Outcomes",
-            
             "description": "I implement <em>statistically driven inference</em> of predictive patterns powered by <em>Machine Learning</em> "
                            "and <em>Deep Learning</em> algorithms. Applications range from forecasting "
-                           "the macroeconomic/financial environment to <em>fine-grained predictions</em> from business micro-data (sales forecasting, churn modeling, engagement models).",                       
+                           "the macroeconomic/financial environment to <em>fine-grained predictions</em> from business micro-data (sales forecasting, churn modeling, engagement models).",
             "skills": [
                 "Familiarity with predictive algorithms for regression, classification, and forecasting problems.", 
                 "Strong grasp of Linear Regression.", 
@@ -95,47 +94,49 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
                 "<strong>Currently Learning:</strong> Docker, Kubernetes, GitHub, Big Data Cloud tools, SQLAlchemy, Django"
             ],
             "skills": [
-                "Expert use of Python, R Studio and Stata for applied statistical analysis. ",
-                "Profficient implementation of Object Oriented programming in Python (Core Features, OOP), Functional Programming in R (dplyr, ggplot, shiny, regex). ",
-                "Profficient implementation of analytical queries using SQL. ",
-                "Profficient implementation of distributed computing (PySpark) and workflow orchestration (Airflow). ",
-                "Expertise developing and mantaining code in AI accelerated environments (GPT and Copilot). ",
-                "Fast pace of research/assimilation of new tools. "
+                "Expert use of Python, R Studio and Stata for applied statistical analysis.",
+                "Proficient implementation of Object-Oriented programming in Python (Core Features, OOP), Functional Programming in R (dplyr, ggplot, shiny, regex).",
+                "Proficient implementation of analytical queries using SQL.",
+                "Proficient implementation of distributed computing (PySpark) and workflow orchestration (Airflow).",
+                "Expertise developing and maintaining code in AI-accelerated environments (GPT and Copilot).",
+                "Fast pace of research/assimilation of new tools."
             ]
         },
         {
             "title": "🛸 5. Unpacking Artificial Intelligence for Data Analysis",
-            "description": "I prepare myself by means of self-learning for the disruption of Artificial Intelligence in software development and the rise of LLM-powered applications.",
+            "description": "I prepare myself by means of self-learning for the disruption of Artificial Intelligence in software development and the rise of LLM-powered applications."
         },
         {
             "title": "⚖️ (Bonus) Rigorous Economic Mindset",
             "description": "As a professional economist, I over-simplify complex social phenomena by casually referencing supply and demand (kidding!). "
-                           "But really, I approach data analysis with a focus on causal reasoning, marginal effects, and counterfactual analysis.",
+                           "But really, I approach data analysis with a focus on causal reasoning, marginal effects, and counterfactual analysis."
         }
     ]
-    
+    return offerings
 
-    # Initialize HTML output
-    offering_html = '<h3>Key Professional Offerings</h3>'
-    offering_html += '<ul style=" list-style-type: none;">'  # Removes bullet points
+
+def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
+    offerings = load_detailed_offerings()
+
+    offering_html = '<h3>Key Professional Offerings+</h3>'
+    offering_html += '<ul style="list-style-type: none;">'  # Removes bullet points
 
     tooltip_ids = []  # Store unique IDs for tooltips
 
-    # Generate offering list without any enumeration
     for i, offer in enumerate(offerings):
-        element_id = id_pattern.format(i+1)
+        element_id = id_pattern.format(i + 1)
         bg_color = colors[i % len(colors)]
         offering_html += f'<li id="{element_id}" style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px;"><p style="text-align: justify; margin: 0;">'
         offering_html += f'<strong>{offer["title"]}</strong>: {offer["description"]}'
 
-        # Insert the tooltip for the list of technical skills
         if "skills" in offer:
             tooltip_html, unique_id = html_for_tooltip_from_large_list(
                 offer["skills"], label="Technical Skills", color="#555", emoji="🏅"
             )
             offering_html += tooltip_html
             tooltip_ids.append(unique_id)
-        offering_html +="<br>"
+
+        offering_html += "<br>"
 
         if "subitems" in offer:
             offering_html += '<ul style="list-style-type: none; padding-left: 0;">'
@@ -144,10 +145,11 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
             offering_html += '</ul>'
 
         offering_html += '</li>'
-    
+
     offering_html += '</ul>'
 
     return offering_html, tooltip_ids
+
 
 
 
