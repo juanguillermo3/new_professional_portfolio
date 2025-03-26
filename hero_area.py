@@ -316,8 +316,8 @@ class HeroArea:
             return
     
         st.markdown(f"""
-            <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
-                <img src="{image_base64}" style="width: 85%; max-width: 400px; border-radius: 50%;">
+            <div style="display: flex; justify-content: center; align-items: center;">
+                <img src="{image_base64}" style="width: 100%; max-width: 400px; border-radius: 50%;">
             </div>
             """, unsafe_allow_html=True)
 
