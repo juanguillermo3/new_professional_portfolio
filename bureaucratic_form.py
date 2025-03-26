@@ -59,24 +59,22 @@ def _generate_bureaucratic_html(details: dict) -> str:
     .bureau-field {
         display: inline-flex;
         align-items: center;
-        padding: 6px 6px;
+        padding: 6px 8px;
         margin: 4px;
-        border-radius: 4px;  /* Slightly rounder pills */
-        background: #666;  /* Darker gray for contrast */
-        color: #FFF;  /* White font for readability */
+        border-radius: 4px;
+        background: #f4f4f4;  /* Subtle gray background */
         font-size: 14px;
         white-space: nowrap;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     }
     .bureau-label {
         font-weight: bold;
         margin-right: 6px;
-        color: #FFF;  /* White font for contrast */
+        color: #555;
         font-size: 90%;
     }
     </style>
     """
-
 
     fields_html = []
 
@@ -96,6 +94,7 @@ def _generate_bureaucratic_html(details: dict) -> str:
         fields_html.extend(f"<div class='bureau-field'>{value}</div>" for value in field_value)
 
     return style + " ".join(fields_html)
+
 
 
 def render_bureaucratic_form(details: dict):
