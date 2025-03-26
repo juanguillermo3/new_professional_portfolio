@@ -137,13 +137,14 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
     
         offering_html += f'<li id="{element_id}" style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px;"><p style="text-align: justify; margin: 0;">'
         
-        # Add class to strong tag for debugging styles
+        # Add class to strong tag to act as hover trigger
         offering_html += f'<strong class="title-{element_id}">{offer["title"]}</strong>: {short_description}'
     
         # Ancillary span with hidden full description
         if full_description:
             offering_html += f' <span class="hoover-{element_id}" style="display: none;">{full_description}</span>'
-            style_block += f"#{element_id} p:hover .hoover-{element_id} " + "{ display: inline; }\n"
+            # Updated hover rule: Hovering over the title reveals the hidden description
+            style_block += f".title-{element_id}:hover + .hoover-{element_id} " + "{ display: inline; }\n"
     
         if "skills" in offer:
             tooltip_html, unique_id = html_for_tooltip_from_large_list(
@@ -164,16 +165,11 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
     
     offering_html += '</ul>'
     
-    # Inject underline styling for debugging
-    style_block += """
-        strong[class^='title-'] {
-            text-decoration: underline;
-        }
-    """
     style_block += "</style>\n"
     
     # Return HTML with dynamically generated styles
     return style_block + offering_html, tooltip_ids
+
 
 
 
