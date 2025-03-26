@@ -117,54 +117,64 @@ def load_detailed_offerings():
 
 def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
     offerings = load_detailed_offerings()
-
+    
     # Injected style block (to be dynamically constructed)
     style_block = "<style>\n"
-
+    
     offering_html = '<h3>Key Professional Offerings</h3>'
     offering_html += '<ul style="list-style-type: none;">'  # Removes bullet points
-
+    
     tooltip_ids = []  # Store unique IDs for tooltips
-
+    
     for i, offer in enumerate(offerings):
         element_id = id_pattern.format(i + 1)
         bg_color = colors[i % len(colors)]
-
+    
         # Split description into first sentence + rest
         description_parts = offer["description"].split(".", 1)
         short_description = description_parts[0] + "."
         full_description = description_parts[1] if len(description_parts) > 1 else ""
-
+    
         offering_html += f'<li id="{element_id}" style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px;"><p style="text-align: justify; margin: 0;">'
-        offering_html += f'<strong>{offer["title"]}</strong>: {short_description}'
-
+        
+        # Add class to strong tag for debugging styles
+        offering_html += f'<strong class="title-{element_id}">{offer["title"]}</strong>: {short_description}'
+    
         # Ancillary span with hidden full description
         if full_description:
             offering_html += f' <span class="hoover-{element_id}" style="display: none;">{full_description}</span>'
             style_block += f"#{element_id} p:hover .hoover-{element_id} " + "{ display: inline; }\n"
-
+    
         if "skills" in offer:
             tooltip_html, unique_id = html_for_tooltip_from_large_list(
                 offer["skills"], label="Technical Skills", color="#555", emoji="🏅"
             )
             offering_html += tooltip_html
             tooltip_ids.append(unique_id)
-
+    
         offering_html += "<br>"
-
+    
         if "subitems" in offer:
             offering_html += '<ul style="list-style-type: none; padding-left: 0;">'
             for subitem in offer["subitems"]:
                 offering_html += f'<li>{subitem}</li>'
             offering_html += '</ul>'
-
+    
         offering_html += '</li>'
-
+    
     offering_html += '</ul>'
+    
+    # Inject underline styling for debugging
+    style_block += """
+        strong[class^='title-'] {
+            text-decoration: underline;
+        }
+    """
     style_block += "</style>\n"
-
+    
     # Return HTML with dynamically generated styles
     return style_block + offering_html, tooltip_ids
+
 
 
 
