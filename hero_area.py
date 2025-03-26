@@ -318,7 +318,7 @@ class HeroArea:
         # Render base64 image with 80% width
         st.markdown(f"""
         <div style="display: flex; justify-content: center;">
-            <img src="{image_base64}" style="width: 80%; max-width: 200px; border-radius: 50%;">
+            <img src="{image_base64}" style="width: 80%; max-width: 400px; border-radius: 50%;">
         </div>
         """, unsafe_allow_html=True)
     
