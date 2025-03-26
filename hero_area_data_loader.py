@@ -115,6 +115,28 @@ def load_detailed_offerings():
     return offerings
 
 
+def hover_text_component(main_text="Hover over this text", hidden_text=" and see more inline content!"):
+    html = f"""
+    <style>
+        .hover-container {{
+            display: inline;
+            position: relative;
+            cursor: pointer;
+        }}
+        .hover-text {{
+            display: none;
+        }}
+        .hover-container:hover .hover-text {{
+            display: inline;
+        }}
+    </style>
+    <span class="hover-container">
+        {main_text}
+        <span class="hover-text">{hidden_text}</span>
+    </span>
+    """
+    return html
+
 def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
     offerings = load_detailed_offerings()
 
@@ -164,7 +186,7 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
     style_block += "</style>\n"
 
     # Return HTML with dynamically generated styles
-    return style_block + offering_html, tooltip_ids
+    return style_block + offering_html + hover_text_component(), tooltip_ids
 
     
 
