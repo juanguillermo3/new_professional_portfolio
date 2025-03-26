@@ -13,7 +13,7 @@ from hero_area_data_loader import (
     load_quote, 
     load_avatar_caption, 
     load_code_samples, 
-    load_detailed_offering
+    custom_html_for_offerings
 )
 from front_end_utils import tags_in_twitter_style
 from dotenv import load_dotenv
@@ -244,5 +244,5 @@ hero = HeroArea(
     avatar_image="jg_pick.jpg",
     avatar_caption="",
     avatar_tags=["Economist", "Data Analyst", "ML Engineer", "Data Engineer", "Application Developer"],
-    detailed_offering=load_detailed_offering(),
+    detailed_offering=custom_html_for_offerings(),
 )
