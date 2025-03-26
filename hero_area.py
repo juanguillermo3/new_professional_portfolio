@@ -145,42 +145,6 @@ class HeroArea:
         </a>
         """, unsafe_allow_html=True)
     
-    def _render_biopic_section(self):
-        """Renders the avatar, caption, hashtags, and contact details with a fun tooltip."""
-        avatar_id = "biopic-avatar"
-    
-        st.markdown('<div class="hero-avatar-container" style="position: relative;">', unsafe_allow_html=True)
-    
-        # Actual image (keeps working properly)
-        st.image(f"assets/{self.avatar_image}", use_container_width=True)
-    
-        # Invisible div positioned over the image
-        st.markdown(f"""
-        <div id="{avatar_id}" style="
-            position: absolute; 
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: transparent;">
-        </div>
-        """, unsafe_allow_html=True)
-    
-        apply_custom_tooltip(avatar_id, "I am 15% less good-looking but 25% greater worker than I appear. 🎭💪")
-    
-        # Caption and Hashtags
-        tags_html = tags_in_twitter_style(self.avatar_tags)
-        st.markdown(
-            f"""
-            <div style="text-align: center; font-size: 1.1em; color: #444;">
-                <p>{self.avatar_caption}</p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-    
-        # Contact Details
-        #self.render_contact_details()
-    
-        st.markdown('</div>', unsafe_allow_html=True)
-
 
     def _render_quote(self):
         st.markdown("""
@@ -327,6 +291,42 @@ class HeroArea:
             for id in self.ids:
                 st.markdown(setup_tooltip_behavior(id), unsafe_allow_html=True)          
             self.render_code_samples()
+
+    def _render_biopic_section(self):
+        """Renders the avatar, caption, hashtags, and contact details with a fun tooltip."""
+        avatar_id = "biopic-avatar"
+    
+        st.markdown('<div class="hero-avatar-container" style="position: relative;">', unsafe_allow_html=True)
+    
+        # Actual image (keeps working properly)
+        st.image(f"assets/{self.avatar_image}", use_container_width=True)
+    
+        # Invisible div positioned over the image
+        st.markdown(f"""
+        <div id="{avatar_id}" style="
+            position: absolute; 
+            top: 0; left: 0; width: 50%; height: 50%;
+            background: transparent;">
+        </div>
+        """, unsafe_allow_html=True)
+    
+        apply_custom_tooltip(avatar_id, "I am 15% less good-looking but 25% greater worker than I appear. 🎭💪")
+    
+        # Caption and Hashtags
+        tags_html = tags_in_twitter_style(self.avatar_tags)
+        st.markdown(
+            f"""
+            <div style="text-align: center; font-size: 1.1em; color: #444;">
+                <p>{self.avatar_caption}</p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    
+        # Contact Details
+        #self.render_contact_details()
+    
+        st.markdown('</div>', unsafe_allow_html=True)
 
   
 # Instantiate and render HeroArea with data loaded from the loader functions
