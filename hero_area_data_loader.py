@@ -211,11 +211,11 @@ def hover_text_component(main_text, hidden_text, element_id):
 def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
     offerings = load_detailed_offerings()
 
+    # Injected style block (to be dynamically constructed)
     style_block = "<style>\n"
+
     offering_html = '<h3>Key Professional Offerings</h3>'
     offering_html += '<ul style="list-style-type: none;">'  # Removes bullet points
-
-    tooltip_ids = []  # Store unique IDs for tooltips
 
     for i, offer in enumerate(offerings):
         element_id = id_pattern.format(i + 1)
@@ -226,24 +226,25 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
         short_description = description_parts[0] + "."
         full_description = description_parts[1] if len(description_parts) > 1 else ""
 
-        # Apply hover effect inline
+        # Generate offering list item
+        offering_html += (
+            f'<li id="{element_id}" style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px;">'
+            f'<p style="text-align: justify; margin: 0;">'
+            f'<strong>{offer["title"]}</strong>: <span class="hover-container-{element_id}">{short_description}'
+        )
+
+        # Hover-triggered full description
         if full_description:
-            full_text_component = hover_text_component(short_description, full_description, element_id)
-        else:
-            full_text_component = short_description  # No hover effect if no extra text
-
-        offering_html += f'<li id="{element_id}" style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px;"><p style="text-align: justify; margin: 0;">'
-        offering_html += f'<strong>{offer["title"]}</strong>: {full_text_component}'
-
-        if "skills" in offer:
-            tooltip_html, unique_id = html_for_tooltip_from_large_list(
-                offer["skills"], label="Technical Skills", color="#555", emoji="🏅"
+            offering_html += f'<span class="hover-text-{element_id}">{full_description}</span>'
+            style_block += (
+                f".hover-container-{element_id} {{ display: inline; position: relative; cursor: pointer; }}\n"
+                f".hover-text-{element_id} {{ display: none; }}\n"
+                f".hover-container-{element_id}:hover .hover-text-{element_id} {{ display: inline; }}\n"
             )
-            offering_html += tooltip_html
-            tooltip_ids.append(unique_id)
 
-        offering_html += "<br>"
+        offering_html += '</span></p>'
 
+        # Render subitems if available
         if "subitems" in offer:
             offering_html += '<ul style="list-style-type: none; padding-left: 0;">'
             for subitem in offer["subitems"]:
@@ -255,8 +256,8 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
     offering_html += '</ul>'
     style_block += "</style>\n"
 
-    # Return combined HTML
-    return style_block + offering_html, tooltip_ids
+    return style_block + offering_html
+
 
 
 
