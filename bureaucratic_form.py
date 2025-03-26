@@ -12,7 +12,7 @@ def _generate_bureaucratic_html(details: dict) -> str:
     .bureau-field {
         display: inline-flex;
         align-items: center;
-        padding: 6px 12px;
+        padding: 6px 6px;
         margin: 4px;
         border-radius: 2px;
         background: #f4f4f4;  /* Subtle gray background */
