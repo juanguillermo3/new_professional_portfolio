@@ -121,7 +121,6 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
     # Injected style block (to be dynamically constructed)
     style_block = "<style>\n"
     
-    # Add class to the section title for hover-based expansion
     offering_html = '<h3 class="offerings-title">Key Professional Offerings</h3>'
     offering_html += '<ul style="list-style-type: none;">'  # Removes bullet points
     
@@ -136,18 +135,19 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
         short_description = description_parts[0] + "."
         full_description = description_parts[1] if len(description_parts) > 1 else ""
     
-        # Assign a class to the <li> element for hover targeting
+        # List item container
         offering_html += f'<li class="offering-item-{element_id}" style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px;">'
-        offering_html += '<p style="text-align: justify; margin: 0;">'
         
-        # Apply a class to the title
-        offering_html += f'<strong class="title-{element_id}">{offer["title"]}</strong>: {short_description}'
+        # Title inside paragraph
+        offering_html += '<p style="text-align: justify; margin: 0;">'
+        offering_html += f'<strong class="title-{element_id}" style="cursor: pointer;">{offer["title"]}</strong>: {short_description}'
+        offering_html += '</p>'
     
-        # Hidden full description
+        # Hidden description wrapped in a div instead of span
         if full_description:
-            offering_html += f' <span class="hoover-{element_id}" style="display: none;">{full_description}</span>'
-            # Expand ALL descriptions when hovering over the section title
-            style_block += f".offerings-title:hover .hoover-{element_id} " + "{ display: inline; }\n"
+            offering_html += f'<div class="hoover-{element_id}" style="display: none; padding-top: 5px;">{full_description}</div>'
+            # Hover rule on the title makes the *next sibling* visible
+            style_block += f".title-{element_id}:hover + .hoover-{element_id} " + "{ display: block; }\n"
     
         if "skills" in offer:
             tooltip_html, unique_id = html_for_tooltip_from_large_list(
@@ -155,8 +155,6 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
             )
             offering_html += tooltip_html
             tooltip_ids.append(unique_id)
-    
-        offering_html += "<br>"
     
         if "subitems" in offer:
             offering_html += '<ul style="list-style-type: none; padding-left: 0;">'
@@ -167,13 +165,11 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
         offering_html += '</li>'
     
     offering_html += '</ul>'
-    
-    # Global hover effect: Expand all descriptions when hovering over title
-    style_block += ".offerings-title:hover ~ ul .hoover-* { display: inline; }\n"
     style_block += "</style>\n"
     
     # Return HTML with dynamically generated styles
     return style_block + offering_html, tooltip_ids
+
 
 
 
