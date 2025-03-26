@@ -118,14 +118,8 @@ def load_detailed_offerings():
 def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
     offerings = load_detailed_offerings()
 
-    # Injected style block
-    style_block = """
-    <style>
-        li:hover .hoover-{id} {
-            display: inline;
-        }
-    </style>
-    """
+    # Injected style block (to be dynamically constructed)
+    style_block = "<style>\n"
 
     offering_html = '<h3>Key Professional Offerings</h3>'
     offering_html += '<ul style="list-style-type: none;">'  # Removes bullet points
@@ -147,6 +141,7 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
         # Ancillary span with hidden full description
         if full_description:
             offering_html += f' <span class="hoover-{element_id}" style="display: none;">{full_description}</span>'
+            style_block += f"#{element_id}:hover .hoover-{element_id} " + "{ display: inline; }\n"
 
         if "skills" in offer:
             tooltip_html, unique_id = html_for_tooltip_from_large_list(
@@ -166,9 +161,11 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
         offering_html += '</li>'
 
     offering_html += '</ul>'
+    style_block += "</style>\n"
 
-    # Return HTML with prepended style block
+    # Return HTML with dynamically generated styles
     return style_block + offering_html, tooltip_ids
+
 
 
 
