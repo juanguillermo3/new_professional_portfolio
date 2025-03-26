@@ -61,23 +61,24 @@ def _generate_bureaucratic_html(details: dict) -> str:
         display: inline-flex;
         align-items: center;
         padding: 6px 8px;
-        margin: 4px;
-        border-radius: 4px;  /* Rounded pills */
-        background: #666;  /* Darker gray for contrast */
-        color: #FFF;  /* White font */
+        margin: 2px;  /* Reduced spacing for a tighter layout */
+        border-radius: 4px;
+        background: #4A4A4A;  /* Dark gray, aligned with project aesthetics */
+        color: #FFF;
         font-size: 14px;
         white-space: nowrap;
-        border: 2px solid white;  /* White border for separation */
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        border: 1.5px solid white;  /* Softer border */
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15); /* Subtle shadow */
     }
     .bureau-label {
         font-weight: bold;
-        margin-right: 6px;
-        color: #FFF;  /* White font for contrast */
+        margin-right: 4px;  /* Slightly reduced for integration */
+        color: #FFF;
         font-size: 90%;
     }
     </style>
     """
+
 
 
     fields_html = []
