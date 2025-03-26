@@ -68,7 +68,7 @@ def _generate_bureaucratic_html(details: dict) -> str:
         font-size: 14px;
         white-space: nowrap;
         border: 1.5px solid #EEE;  /* Softer border */
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Gentle shadow */
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* Gentle shadow */
     }
     .bureau-label {
         font-weight: bold;
