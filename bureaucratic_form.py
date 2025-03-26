@@ -59,8 +59,8 @@ def _generate_bureaucratic_html(details: dict) -> str:
     .bureau-field {
         display: inline-flex;
         align-items: center;
-        padding: 6px 8px;
-        margin: 4px;
+        padding: 6px 6px;
+        margin: 2px;
         border-radius: 4px;
         background: #f4f4f4;  /* Subtle gray background */
         font-size: 14px;
