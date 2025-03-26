@@ -63,21 +63,22 @@ def _generate_bureaucratic_html(details: dict) -> str:
         padding: 6px 8px;
         margin: 2px;  /* Keeps pills compact */
         border-radius: 4px;
-        background: #D6D6D6;  /* Soft gray */
-        color: #333;  /* Dark gray text for readability */
+        background: #BFBFBF;  /* Softer gray for better contrast */
+        color: #FFF;  /* White text for contrast */
         font-size: 14px;
         white-space: nowrap;
-        border: 1.5px solid #EEE;  /* Softer border */
+        border: 1.5px solid #DDD;  /* Soft border */
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Gentle shadow */
     }
     .bureau-label {
         font-weight: bold;
         margin-right: 4px;
-        color: #333;  /* Dark gray for consistency */
+        color: #FFF;  /* White label text */
         font-size: 90%;
     }
     </style>
     """
+
 
 
 
