@@ -162,8 +162,8 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
 
         # Ancillary span with hidden full description
         if full_description:
-            offering_html += f' <span class="hoover-{element_id}" style="display: none;">{full_description}</span>\n'
-            style_block += f"#{element_id}:hover .hoover-{element_id} " + "{ display: inline; }"
+            offering_html += f' <span class="hoover-{element_id}" style="display: none;">{full_description}</span>'
+            style_block += f"#{element_id}:hover .hoover-{element_id} " + "{ display: inline; }\n"
 
         if "skills" in offer:
             tooltip_html, unique_id = html_for_tooltip_from_large_list(
@@ -186,7 +186,7 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
     style_block += "</style>\n"
 
     # Return HTML with dynamically generated styles
-    return style_block + offering_html , tooltip_ids
+    return style_block + offering_html, tooltip_ids
 
     
 
