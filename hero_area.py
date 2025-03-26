@@ -280,7 +280,7 @@ class HeroArea:
 
     def render(self):
         with st.container():  # Wrap to ensure consistency across devices
-            col1, col2 = st.columns([2, 1])  # Define column layout
+            col1, col2 = st.columns([1, 1])  # Define column layout
     
             # Render Quote Section
             with col1:
@@ -304,44 +304,6 @@ class HeroArea:
                 st.markdown(setup_tooltip_behavior(id), unsafe_allow_html=True)          
             self.render_code_samples()
 
-    def _render_biopic_section(self):
-        """Renders the avatar, caption, hashtags, and contact details with a fun tooltip."""
-        avatar_id = "biopic-avatar"
-    
-        st.markdown('<div class="hero-avatar-container" style="position: relative; text-align: center;">', unsafe_allow_html=True)
-    
-        # Responsive image with 80% width
-        st.markdown(f"""
-        <div style="display: flex; justify-content: center;">
-            <img src="assets/{self.avatar_image}" style="width: 80%; max-width: 200px; border-radius: 50%;">
-        </div>
-        """, unsafe_allow_html=True)
-    
-        # Invisible div positioned over the image
-        st.markdown(f"""
-        <div id="{avatar_id}" style="
-            position: absolute; 
-            top: 0; left: 10%;
-            width: 60%; height: 60%;
-            background: transparent;">
-        </div>
-        """, unsafe_allow_html=True)
-    
-        apply_custom_tooltip(avatar_id, "I am 15% less good-looking but 25% greater worker than I appear. 🎭💪")
-    
-        # Caption and Hashtags
-        tags_html = tags_in_twitter_style(self.avatar_tags)
-        st.markdown(
-            f"""
-            <div style="text-align: center; font-size: 1.1em; color: #444;">
-                <p>{self.avatar_caption}</p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-    
-        st.markdown('</div>', unsafe_allow_html=True)
-
 
     def _render_biopic_section(self):
         """Renders the avatar, caption, hashtags, and contact details with a fun tooltip."""
@@ -352,8 +314,6 @@ class HeroArea:
         if not image_base64:
             st.warning("Avatar image not found!")
             return
-    
-        st.markdown('<div class="hero-avatar-container" style="position: relative; text-align: center;">', unsafe_allow_html=True)
     
         # Render base64 image with 80% width
         st.markdown(f"""
