@@ -14,7 +14,7 @@ def _generate_bureaucratic_html(details: dict) -> str:
         align-items: center;
         padding: 6px 12px;
         margin: 4px;
-        border-radius: 5px;
+        border-radius: 2px;
         background: #f4f4f4;  /* Subtle gray background */
         font-size: 14px;
         white-space: nowrap;
