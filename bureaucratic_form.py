@@ -16,7 +16,7 @@ def _generate_bureaucratic_html(details: dict) -> str:
         margin: 4px;
         border-radius: 5px;
         background: #f4f4f4;  /* Subtle gray background */
-        font-size: 15px;
+        font-size: 12px;
         white-space: nowrap;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     }
