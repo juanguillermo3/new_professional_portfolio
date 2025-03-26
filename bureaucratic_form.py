@@ -13,7 +13,7 @@ def _generate_bureaucratic_html(details: dict) -> str:
         display: inline-flex;
         align-items: center;
         padding: 6px 12px;
-        margin: 4px;
+        margin: 2px;
         border-radius: 5px;
         background: #f4f4f4;  /* Subtle gray background */
         font-size: 15px;
@@ -24,7 +24,7 @@ def _generate_bureaucratic_html(details: dict) -> str:
         font-weight: bold;
         margin-right: 6px;
         color: #555;
-        font-size: 90%;
+        font-size: 50%;
     }
     </style>
     """
