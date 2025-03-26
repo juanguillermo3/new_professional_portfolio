@@ -137,16 +137,16 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
         full_description = description_parts[1] if len(description_parts) > 1 else ""
     
         # List item container
-        offering_html += f'<li style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px;">'
+        offering_html += f'<li style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px; position: relative;">'
         
-        # Title with hover effect
-        offering_html += '<p style="text-align: justify; margin: 0;">'
+        # Title inside paragraph
+        offering_html += '<p style="text-align: justify; margin: 0; position: relative;">'
         offering_html += f'<strong class="offering-title-{element_id}" style="cursor: pointer;">{offer["title"]}</strong>: {short_description}'
         
-        # Hidden span (inside the same paragraph)
+        # Hidden span with display block
         if full_description:
-            offering_html += f' <span class="hoover-{element_id}" style="display: none;">{full_description}</span>'
-            style_block += f".offering-title-{element_id}:hover + .hoover-{element_id} " + "{ display: inline; }\n"
+            offering_html += f' <span class="hoover-{element_id}" style="display: none; position: absolute; left: 0; background: white; padding: 5px; border: 1px solid #ddd; z-index: 100;">{full_description}</span>'
+            style_block += f".offering-title-{element_id}:hover ~ .hoover-{element_id} " + "{ display: block; }\n"
     
         offering_html += '</p></li>'
     
@@ -155,6 +155,7 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
     
     # Return HTML with dynamically generated styles
     return style_block + offering_html, tooltip_ids
+    
 
 
 
