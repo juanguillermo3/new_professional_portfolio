@@ -116,6 +116,9 @@ def load_detailed_offerings():
 
 
 def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
+
+    offerings = load_detailed_offerings()
+    
     # Injected style block (to be dynamically constructed)
     style_block = "<style>\n"
     
