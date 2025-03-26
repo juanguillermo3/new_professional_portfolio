@@ -79,18 +79,18 @@ def _generate_bureaucratic_html(details: dict) -> str:
     fields_html = []
 
     for field_name, field_value in details.items():
-        # Always create a separate label pill
+        # Always create a label pill
         fields_html.append(f"<div class='bureau-field'><span class='bureau-label'>{field_name}:</span></div>")
-        
-        # Normalize values to a list
-        if isinstance(field_value, str):
-            field_value = [field_value]  # Wrap atomic strings in a list
-        elif isinstance(field_value, list):
-            field_value = [item.strip() for item in field_value]
-        else:
-            field_value = [str(field_value)]  # Convert any other type to string in a list
 
-        # Create individual pills for each value
+        # Normalize values to a list (tokenizing opportunity)
+        if isinstance(field_value, str):
+            field_value = [item.strip() for item in field_value.split(',')]  # Tokenize by comma
+        elif isinstance(field_value, list):
+            field_value = [str(item).strip() for item in field_value]  # Ensure all list items are strings
+        else:
+            field_value = [str(field_value)]  # Convert single values to string-wrapped lists
+
+        # Create a pill for each tokenized value
         fields_html.extend(f"<div class='bureau-field'>{value}</div>" for value in field_value)
 
     return style + " ".join(fields_html)
