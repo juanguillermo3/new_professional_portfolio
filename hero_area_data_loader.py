@@ -117,7 +117,7 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
 
     # Initialize HTML output
     offering_html = '<h3>Key Professional Offerings</h3>'
-    offering_html += '<ul style="padding-left: 20px; list-style-type: none;">'  # Removes bullet points
+    offering_html += '<ul style=" list-style-type: none;">'  # Removes bullet points
 
     tooltip_ids = []  # Store unique IDs for tooltips
 
@@ -125,7 +125,7 @@ def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff
     for i, offer in enumerate(offerings):
         element_id = id_pattern.format(i+1)
         bg_color = colors[i % len(colors)]
-        offering_html += f'<li id="{element_id}" style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px;"><p style="text-align: justify; margin: 0; padding: 8px;">'
+        offering_html += f'<li id="{element_id}" style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px;"><p style="text-align: justify; margin: 0;">'
         offering_html += f'<strong>{offer["title"]}</strong>: {offer["description"]}'
 
         # Insert the tooltip for the list of technical skills
