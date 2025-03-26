@@ -296,18 +296,21 @@ class HeroArea:
         """Renders the avatar, caption, hashtags, and contact details with a fun tooltip."""
         avatar_id = "biopic-avatar"
     
-        st.markdown('<div class="hero-avatar-container" style="position: relative;">', unsafe_allow_html=True)
+        st.markdown('<div class="hero-avatar-container" style="position: relative; text-align: center;">', unsafe_allow_html=True)
     
-        # Actual image (keeps working properly)
-        st.image(f"assets/{self.avatar_image}", use_container_width=False, width=150)
-
+        # Responsive image with 80% width
+        st.markdown(f"""
+        <div style="display: flex; justify-content: center;">
+            <img src="assets/{self.avatar_image}" style="width: 80%; max-width: 200px; border-radius: 50%;">
+        </div>
+        """, unsafe_allow_html=True)
     
         # Invisible div positioned over the image
         st.markdown(f"""
         <div id="{avatar_id}" style="
             position: absolute; 
-            top: 0; left: 0; 
-            width: 25%; height: 25%;
+            top: 0; left: 10%;
+            width: 60%; height: 60%;
             background: transparent;">
         </div>
         """, unsafe_allow_html=True)
@@ -325,10 +328,8 @@ class HeroArea:
             unsafe_allow_html=True,
         )
     
-        # Contact Details
-        #self.render_contact_details()
-    
         st.markdown('</div>', unsafe_allow_html=True)
+
 
   
 # Instantiate and render HeroArea with data loaded from the loader functions
