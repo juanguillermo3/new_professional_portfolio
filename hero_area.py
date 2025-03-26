@@ -362,31 +362,7 @@ class HeroArea:
         </div>
         """, unsafe_allow_html=True)
     
-        # Invisible div positioned over the image (for tooltip)
-        st.markdown(f"""
-        <div id="{avatar_id}" style="
-            position: absolute; 
-            top: 0; left: 10%;
-            width: 60%; height: 60%;
-            background: transparent;">
-        </div>
-        """, unsafe_allow_html=True)
     
-        apply_custom_tooltip(avatar_id, "I am 15% less good-looking but 25% greater worker than I appear. 🎭💪")
-    
-        # Caption and Hashtags
-        st.markdown(
-            f"""
-            <div style="text-align: center; font-size: 1.1em; color: #444;">
-                <p>{self.avatar_caption}</p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-    
-        st.markdown('</div>', unsafe_allow_html=True)
-
-
 
   
 # Instantiate and render HeroArea with data loaded from the loader functions
