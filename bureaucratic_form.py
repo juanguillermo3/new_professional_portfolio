@@ -24,7 +24,7 @@ def _generate_bureaucratic_html(details: dict) -> str:
         font-weight: bold;
         margin-right: 6px;
         color: #555;
-        font-size: 50%;
+        font-size: 75%;
     }
     </style>
     """
