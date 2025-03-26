@@ -60,21 +60,23 @@ def _generate_bureaucratic_html(details: dict) -> str:
         display: inline-flex;
         align-items: center;
         padding: 6px 6px;
-        margin: 2px;
-        border-radius: 4px;
-        background: #f4f4f4;  /* Subtle gray background */
+        margin: 4px;
+        border-radius: 4px;  /* Slightly rounder pills */
+        background: #666;  /* Darker gray for contrast */
+        color: #FFF;  /* White font for readability */
         font-size: 14px;
         white-space: nowrap;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     }
     .bureau-label {
         font-weight: bold;
         margin-right: 6px;
-        color: #555;
+        color: #FFF;  /* White font for contrast */
         font-size: 90%;
     }
     </style>
     """
+
 
     fields_html = []
 
