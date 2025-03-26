@@ -353,12 +353,20 @@ class HeroArea:
             st.warning("Avatar image not found!")
             return
     
-        st.markdown('<div class="hero-avatar-container" style="position: relative; text-align: center;">', unsafe_allow_html=True)
-    
-        # Render base64 image with 80% width
-        st.markdown(f"""
-        <div style="display: flex; justify-content: center;">
-            <img src="{image_base64}" style="width: 80%; max-width: 200px; border-radius: 50%;">
+        st.markdown("""
+        <div style="
+            display: flex; 
+            justify-content: center;  /* Centers horizontally */
+            align-items: center;      /* Centers vertically */
+            height: 100%;             /* Adjusts to the available space */
+            position: relative;
+        ">
+            <img src="{image_base64}" style="
+                width: 80%; 
+                max-width: 200px; 
+                border-radius: 50%;
+                display: block;  /* Ensures proper alignment */
+            ">
         </div>
         """, unsafe_allow_html=True)
     
@@ -366,7 +374,9 @@ class HeroArea:
         st.markdown(f"""
         <div id="{avatar_id}" style="
             position: absolute; 
-            top: 0; left: 10%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             width: 60%; height: 60%;
             background: transparent;">
         </div>
@@ -375,16 +385,12 @@ class HeroArea:
         apply_custom_tooltip(avatar_id, "I am 15% less good-looking but 25% greater worker than I appear. 🎭💪")
     
         # Caption and Hashtags
-        st.markdown(
-            f"""
-            <div style="text-align: center; font-size: 1.1em; color: #444;">
-                <p>{self.avatar_caption}</p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-    
-        st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown(f"""
+        <div style="text-align: center; font-size: 1.1em; color: #444;">
+            <p>{self.avatar_caption}</p>
+        </div>
+        """, unsafe_allow_html=True)
+
 
 
   
