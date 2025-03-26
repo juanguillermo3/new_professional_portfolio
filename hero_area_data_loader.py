@@ -180,7 +180,7 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
                 offering_html += f'<li>{subitem}</li>'
             offering_html += '</ul>'
 
-        offering_html += '</li>'+ hover_text_component()
+        offering_html += '</li>'
 
     offering_html += '</ul>'
     style_block += "</style>\n"
