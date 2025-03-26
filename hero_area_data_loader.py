@@ -117,6 +117,7 @@ def load_detailed_offerings():
 
 def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
 
+    
     offerings = load_detailed_offerings()
     
     # Injected style block (to be dynamically constructed)
@@ -137,24 +138,49 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
         full_description = description_parts[1] if len(description_parts) > 1 else ""
     
         # List item container
-        offering_html += f'<li style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px; position: relative;">'
+        offering_html += f'<li class="offering-item-{element_id}" style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px;">'
         
         # Title inside paragraph
-        offering_html += '<p style="text-align: justify; margin: 0; position: relative;">'
-        offering_html += f'<strong class="offering-title-{element_id}" style="cursor: pointer;">{offer["title"]}</strong>: {short_description}'
-        
-        # Hidden span with display block
-        if full_description:
-            offering_html += f' <span class="hoover-{element_id}" style="display: none; position: absolute; left: 0; background: white; padding: 5px; border: 1px solid #ddd; z-index: 100;">{full_description}</span>'
-            style_block += f".offering-title-{element_id}:hover ~ .hoover-{element_id} " + "{ display: block; }\n"
+        offering_html += '<p style="text-align: justify; margin: 0;">'
+        offering_html += f'<strong class="title-{element_id}" style="cursor: pointer;">{offer["title"]}</strong>: {short_description}'
+        offering_html += '</p>'
     
-        offering_html += '</p></li>'
+        # Hidden description wrapped in a span
+        if full_description:
+            offering_html += f'<span class="hoover-{element_id}" style="display: none;">{full_description}</span>'
+            # Use `~` to target any later sibling in the same container
+            style_block += f".title-{element_id}:hover ~ .hoover-{element_id} " + "{ display: inline; }\n"
+    
+        if "skills" in offer:
+            tooltip_html, unique_id = html_for_tooltip_from_large_list(
+                offer["skills"], label="Technical Skills", color="#555", emoji="🏅"
+            )
+            offering_html += tooltip_html
+            tooltip_ids.append(unique_id)
+    
+        if "subitems" in offer:
+            offering_html += '<ul style="list-style-type: none; padding-left: 0;">'
+            for subitem in offer["subitems"]:
+                offering_html += f'<li>{subitem}</li>'
+            offering_html += '</ul>'
+    
+        offering_html += '</li>'
+    
+    # 🔹 Hardcoded test case to debug hover behavior
+    offering_html += """
+        <li style="background-color: #eee; padding: 8px; border-radius: 4px; margin-top: 20px;">
+            <p class="test-trigger" style="cursor: pointer;">Hover over me!</p>
+            <span class="test-hover" style="display: none;">This should appear!</span>
+        </li>
+    """
+    style_block += ".test-trigger:hover ~ .test-hover { display: inline; }\n"
     
     offering_html += '</ul>'
     style_block += "</style>\n"
     
     # Return HTML with dynamically generated styles
     return style_block + offering_html, tooltip_ids
+
     
 
 
