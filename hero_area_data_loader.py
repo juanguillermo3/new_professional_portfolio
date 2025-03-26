@@ -166,7 +166,6 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
     
         offering_html += '</li>'
     
-    # \ud83d\udd39 Hardcoded test case to debug hover behavior
     offering_html += """
         <li style="background-color: #eee; padding: 8px; border-radius: 4px; margin-top: 20px;">
             <p class="test-trigger" style="cursor: pointer;">Hover over me!</p>
