@@ -32,55 +32,33 @@ DEFAULT_EMAILS = [
 ]
 DETAILS = {
     # Personal Identification
-    "🏷️ Full Name": "Juan Guillermo Osio J",
+    "🆔 Full Name": "Juan Guillermo Osio J",
 
     # Location & Legal Status
-    "🌍 Location": "Bogotá, Colombia",
+    "📍 Location": "Bogotá, Colombia",
     
     # Contact Information
     "📧 Email": DEFAULT_EMAILS[0],
-    "✉️ Email (Alternative)": DEFAULT_EMAILS[1],
+    "📨 Email (Alternative)": DEFAULT_EMAILS[1],
     "📱 WhatsApp": WHATSAPP_NUMBER,
 
     # Professional Summary
-    "👔 Job Title": "Freelance Data Mining Specialist",
+    "💼 Job Title": "Freelance Data Mining Specialist",
 
     # Target Roles
-    "🎯 Target Roles": "Data Mining Developer, Machine Learning Engineer, Python/R Developer",
+    "🎯 Target Roles": "Data Minning Developer, Machine Learning Engineer",
   
-    "⏳ Experience": "5+ Years in Data Mining",
+    "📊 Experience": "5+ Years in Data Mining",
     "🎓 Education": "Bachelor’s in Economics",
     
     # Tech Stack
     "🚀 Excellence Tier": "Python, R Studio, Stata, GPT",
     "🔧 Proficiency Tier": "Airflow, SQL, Spark, Linux, GitHub",
     
-    # Hard Technical Skills
-    "🔢 Hard Technical Skills": [
-        "Machine Learning",
-        "Inferential Statistics",
-        "Application Development",
-        "Data Integration",
-        "AI Integration",
-        "Algorithm Development"
-    ],
 
     # Compensation
     "💰 Expected Rate": "$1500 - $2000 per month"
 }
-
-import os
-import base64
-import streamlit as st
-
-def image_to_base64(image_path):
-    """Converts an image file to a base64 string."""
-    if not os.path.exists(image_path):
-        return None
-    
-    with open(image_path, "rb") as image_file:
-        return f"data:image/png;base64,{base64.b64encode(image_file.read()).decode()}"
-      
 class HeroArea:
     def __init__(self, 
                  quote, 
@@ -157,6 +135,109 @@ class HeroArea:
         </a>
         """, unsafe_allow_html=True)
     
+    def _render_biopic_section(self):
+        """Renders the avatar, caption, hashtags, and contact details with a fun tooltip."""
+        avatar_id = "biopic-avatar"
+    
+        st.markdown('<div class="hero-avatar-container" style="position: relative;">', unsafe_allow_html=True)
+    
+        # Actual image (keeps working properly)
+        st.image(f"assets/{self.avatar_image}", use_container_width=True)
+    
+        # Invisible div positioned over the image
+        st.markdown(f"""
+        <div id="{avatar_id}" style="
+            position: absolute; 
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: transparent;">
+        </div>
+        """, unsafe_allow_html=True)
+    
+        apply_custom_tooltip(avatar_id, "I am 15% less good-looking but 25% greater worker than I appear. 🎭💪")
+    
+        # Caption and Hashtags
+        tags_html = tags_in_twitter_style(self.avatar_tags)
+        st.markdown(
+            f"""
+            <div style="text-align: center; font-size: 1.1em; color: #444;">
+                <p>{self.avatar_caption}</p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    
+        # Contact Details
+        #self.render_contact_details()
+    
+        st.markdown('</div>', unsafe_allow_html=True)
+
+  
+        
+    def render(self):
+        col1, col2 = st.columns([2, 1])
+    
+        # Render Quote Section
+        with col1:
+            self._render_quote()
+    
+        # Render Biopic Section
+        if self.avatar_image:
+            with col2:
+                self._render_biopic_section()
+
+
+        # Bureaucratic Form Section (before detailed professional offering)
+        self._render_bureaucratic_form(DETAILS)
+        st.markdown('<br>', unsafe_allow_html=True)       
+        st.markdown('<br>', unsafe_allow_html=True)  
+        
+        # Expandable Detailed Offering Section
+        expander_label = "Explore more (details)"
+        with st.expander(expander_label, expanded=True):
+            st.markdown(self.detailed_offering, unsafe_allow_html=True)
+            for id in self.ids:
+                st.markdown(setup_tooltip_behavior(id), unsafe_allow_html=True)          
+            self.render_code_samples()
+
+    def _render_bureaucratic_form(self, details: dict):
+        """
+        Renders a bureaucratic-style form using compact pills with a soft background color.
+        Fields are wrapped flexibly, breaking into new rows when necessary.
+        :param details: Dictionary containing field names as keys and corresponding values.
+        """
+        st.markdown(
+            """
+            <style>
+            .bureau-field {
+                display: inline-flex;
+                align-items: center;
+                padding: 6px 12px;
+                margin: 4px;
+                border-radius: 5px;
+                background: #f4f4f4;  /* Subtle gray background */
+                font-size: 15px;
+                white-space: nowrap;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+            .bureau-label {
+                font-weight: bold;
+                margin-right: 6px;
+                color: #555;
+                font-size: 90%;
+            }
+            </style>
+            """,
+            unsafe_allow_html=True,
+        )
+    
+        # Generate pill elements with background styling
+        fields_html = [
+            f"<div class='bureau-field'><span class='bureau-label'>{field_name}:</span> {field_value}</div>"
+            for field_name, field_value in details.items()
+        ]
+    
+        # Render all pills directly
+        st.markdown(" ".join(fields_html), unsafe_allow_html=True)
 
     def _render_quote(self):
         st.markdown("""
@@ -216,115 +297,64 @@ class HeroArea:
             )
     
             st.markdown(f'<p class="hero-quote">{styled_text}</p>', unsafe_allow_html=True)
-                
-
+    
     def _render_bureaucratic_form(self, details: dict):
+        """
+        Renders a bureaucratic-style form using compact pills with a soft background color.
+        Fields are wrapped flexibly, breaking into new rows when necessary.
+        If a field contains a comma-separated value, it is automatically split into a list of items.
+        
+        :param details: Dictionary containing field names as keys and corresponding values.
+        """
+        st.markdown(
             """
-            Renders a bureaucratic-style form using compact pills with a soft background color.
-            Fields are wrapped flexibly, breaking into new rows when necessary.
-            If a field contains a comma-separated value, it is automatically split into a list of items.
+            <style>
+            .bureau-field {
+                display: inline-flex;
+                align-items: center;
+                padding: 6px 12px;
+                margin: 4px;
+                border-radius: 5px;
+                background: #f4f4f4;  /* Subtle gray background */
+                font-size: 15px;
+                white-space: nowrap;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+            .bureau-label {
+                font-weight: bold;
+                margin-right: 6px;
+                color: #555;
+                font-size: 90%;
+            }
+            </style>
+            """,
+            unsafe_allow_html=True,
+        )
+    
+        fields_html = []
+        
+        for field_name, field_value in details.items():
+            # Convert comma-separated values to lists
+            if isinstance(field_value, str) and ',' in field_value:
+                field_value = [item.strip() for item in field_value.split(',')]
             
-            :param details: Dictionary containing field names as keys and corresponding values.
-            """
-            st.markdown(
-              """
-              <style>
-              .bureau-field {
-                  display: inline-flex;
-                  align-items: center;
-                  padding: 6px 12px;
-                  margin: 4px;
-                  border-radius: 5px;
-                  background: #f4f4f4;
-                  font-size: 15px;
-                  white-space: nowrap;
-                  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-                  transition: all 0.2s ease-in-out;
-                  cursor: default; /* Default state */
-              }
-              .bureau-field:hover {
-                  background: #e0e0e0; /* Darker background on hover */
-                  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-                  transform: translateY(-2px); /* Slight lift effect */
-                  cursor: pointer; /* Changes cursor on hover */
-              }
-              .bureau-label {
-                  font-weight: bold;
-                  margin-right: 6px;
-                  color: #555;
-                  font-size: 90%;
-              }
-              </style>
-              """,
-              unsafe_allow_html=True,
-            )
-            
-            fields_html = []
-            
-            for field_name, field_value in details.items():
-              if isinstance(field_value, str) and ',' in field_value:
-                  field_value = [item.strip() for item in field_value.split(',')]
-            
-              if isinstance(field_value, list):
-                  fields_html.append(f"<div class='bureau-field'><span class='bureau-label'>{field_name}:</span></div>")
-                  fields_html.extend(
-                      [f"<div class='bureau-field'>{value}</div>" for value in field_value]
-                  )
-              else:
-                  fields_html.append(
-                      f"<div class='bureau-field'><span class='bureau-label'>{field_name}:</span> {field_value}</div>"
-                  )
-            
-            st.markdown(" ".join(fields_html), unsafe_allow_html=True)
-
-
-    def render(self):
-        with st.container():  # Wrap to ensure consistency across devices
-            col1, col2 = st.columns([.75, .25])  # Define column layout
+            if isinstance(field_value, list):
+                # Render the field name as an independent pill
+                fields_html.append(f"<div class='bureau-field'><span class='bureau-label'>{field_name}:</span></div>")
+                # Render each value in its own pill
+                fields_html.extend(
+                    [f"<div class='bureau-field'>{value}</div>" for value in field_value]
+                )
+            else:
+                # Render atomic key-value pairs
+                fields_html.append(
+                    f"<div class='bureau-field'><span class='bureau-label'>{field_name}:</span> {field_value}</div>"
+                )
     
-            # Render Quote Section
-            with col1:
-                self._render_quote()
+        # Render all pills directly
+        st.markdown(" ".join(fields_html), unsafe_allow_html=True)
+        
     
-            # Render Biopic Section
-            if self.avatar_image:
-                with col2:
-                    self._render_biopic_section()
-    
-        # Bureaucratic Form Section (before detailed professional offering)
-        self._render_bureaucratic_form(DETAILS)
-        st.markdown('<br>', unsafe_allow_html=True)       
-        st.markdown('<br>', unsafe_allow_html=True)  
-    
-        # Expandable Detailed Offering Section
-        expander_label = "Explore more (details)"
-        with st.expander(expander_label, expanded=True):
-            st.markdown(self.detailed_offering, unsafe_allow_html=True)
-            for id in self.ids:
-                st.markdown(setup_tooltip_behavior(id), unsafe_allow_html=True)          
-            self.render_code_samples()
-
-
-    def _render_biopic_section(self):
-        """Renders the avatar, caption, hashtags, and contact details with a fun tooltip."""
-        avatar_id = "biopic-avatar"
-        image_path = f"assets/{self.avatar_image}"
-        image_base64 = image_to_base64(image_path)
-    
-        if not image_base64:
-            st.warning("Avatar image not found!")
-            return
-    
-        st.markdown(f"""
-            <div style="display: flex; justify-content: center; align-items: center;">
-                <img src="{image_base64}" style="width: 100%; max-width: 400px; border-radius: 50%;">
-            </div>
-            """, unsafe_allow_html=True)
-
-    
-    
-
-  
 # Instantiate and render HeroArea with data loaded from the loader functions
 hero = HeroArea(
     quote=load_quote(),
