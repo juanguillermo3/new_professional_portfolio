@@ -305,7 +305,8 @@ class HeroArea:
         st.markdown(f"""
         <div id="{avatar_id}" style="
             position: absolute; 
-            top: 0; left: 0; width: 50%; height: 50%;
+            top: 0; left: 0; 
+            width: 25%; height: 25%;
             background: transparent;">
         </div>
         """, unsafe_allow_html=True)
