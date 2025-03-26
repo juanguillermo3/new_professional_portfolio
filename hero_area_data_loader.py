@@ -196,15 +196,16 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
 
 
 
-def hover_text_component(main_text="Hover over this text", hidden_text=" and see more inline content!"):
-    """Generates an inline hover text effect with single-line HTML tags for easier parsing."""
+def hover_text_component(main_text, hidden_text, element_id):
+    """Generates inline hover text effect for precise trigger control with single-line tags."""
     html = f"""
-    <style>.hover-container {{display: inline; position: relative; cursor: pointer;}} 
-           .hover-text {{display: none;}} 
-           .hover-container:hover .hover-text {{display: inline;}}</style>
-    <span class="hover-container">{main_text}<span class="hover-text">{hidden_text}</span></span>
+    <style>.hover-container-{element_id} {{display: inline; position: relative; cursor: pointer;}} 
+           .hover-text-{element_id} {{display: none;}} 
+           .hover-container-{element_id}:hover .hover-text-{element_id} {{display: inline;}}</style>
+    <span class="hover-container-{element_id}">{main_text}<span class="hover-text-{element_id}">{hidden_text}</span></span>
     """
     return html
+
 
 
 def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
