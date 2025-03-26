@@ -54,6 +54,7 @@ def _generate_bureaucratic_html(details: dict) -> str:
     :param details: Dictionary containing field names as keys and corresponding values.
     :return: A string containing the HTML markup.
     """
+    
     style = """
     <style>
     .bureau-field {
@@ -61,20 +62,23 @@ def _generate_bureaucratic_html(details: dict) -> str:
         align-items: center;
         padding: 6px 8px;
         margin: 4px;
-        border-radius: 4px;
-        background: #f4f4f4;  /* Subtle gray background */
+        border-radius: 4px;  /* Rounded pills */
+        background: #666;  /* Darker gray for contrast */
+        color: #FFF;  /* White font */
         font-size: 14px;
         white-space: nowrap;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        border: 2px solid white;  /* White border for separation */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
     .bureau-label {
         font-weight: bold;
         margin-right: 6px;
-        color: #555;
+        color: #FFF;  /* White font for contrast */
         font-size: 90%;
     }
     </style>
     """
+
 
     fields_html = []
 
