@@ -121,7 +121,8 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
     # Injected style block (to be dynamically constructed)
     style_block = "<style>\n"
     
-    offering_html = '<h3>Key Professional Offerings</h3>'
+    # Add class to the section title for hover-based expansion
+    offering_html = '<h3 class="offerings-title">Key Professional Offerings</h3>'
     offering_html += '<ul style="list-style-type: none;">'  # Removes bullet points
     
     tooltip_ids = []  # Store unique IDs for tooltips
@@ -136,8 +137,8 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
         full_description = description_parts[1] if len(description_parts) > 1 else ""
     
         # Assign a class to the <li> element for hover targeting
-        offering_html += f'<li style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px;">'
-        offering_html += '<p class="offering-item-{element_id}" style="text-align: justify; margin: 0;">'
+        offering_html += f'<li class="offering-item-{element_id}" style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px;">'
+        offering_html += '<p style="text-align: justify; margin: 0;">'
         
         # Apply a class to the title
         offering_html += f'<strong class="title-{element_id}">{offer["title"]}</strong>: {short_description}'
@@ -145,8 +146,8 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
         # Hidden full description
         if full_description:
             offering_html += f' <span class="hoover-{element_id}" style="display: none;">{full_description}</span>'
-            # Style: When hovering over the entire list item, show the hidden content
-            style_block += f".offering-item-{element_id}:hover .hoover-{element_id} " + "{ display: inline; }\n"
+            # Expand ALL descriptions when hovering over the section title
+            style_block += f".offerings-title:hover .hoover-{element_id} " + "{ display: inline; }\n"
     
         if "skills" in offer:
             tooltip_html, unique_id = html_for_tooltip_from_large_list(
@@ -167,10 +168,13 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
     
     offering_html += '</ul>'
     
+    # Global hover effect: Expand all descriptions when hovering over title
+    style_block += ".offerings-title:hover ~ ul .hoover-* { display: inline; }\n"
     style_block += "</style>\n"
     
     # Return HTML with dynamically generated styles
     return style_block + offering_html, tooltip_ids
+
 
 
 
