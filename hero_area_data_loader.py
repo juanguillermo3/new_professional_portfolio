@@ -118,6 +118,15 @@ def load_detailed_offerings():
 def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
     offerings = load_detailed_offerings()
 
+    # Injected style block
+    style_block = """
+    <style>
+        li:hover .hoover-{id} {
+            display: inline;
+        }
+    </style>
+    """
+
     offering_html = '<h3>Key Professional Offerings</h3>'
     offering_html += '<ul style="list-style-type: none;">'  # Removes bullet points
 
@@ -158,7 +167,9 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
 
     offering_html += '</ul>'
 
-    return offering_html, tooltip_ids
+    # Return HTML with prepended style block
+    return style_block + offering_html, tooltip_ids
+
 
 
 
