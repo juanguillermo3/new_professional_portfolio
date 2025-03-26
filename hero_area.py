@@ -69,6 +69,18 @@ DETAILS = {
     "💰 Expected Rate": "$1500 - $2000 per month"
 }
 
+import os
+import base64
+import streamlit as st
+
+def image_to_base64(image_path):
+    """Converts an image file to a base64 string."""
+    if not os.path.exists(image_path):
+        return None
+    
+    with open(image_path, "rb") as image_file:
+        return f"data:image/png;base64,{base64.b64encode(image_file.read()).decode()}"
+      
 class HeroArea:
     def __init__(self, 
                  quote, 
@@ -319,6 +331,50 @@ class HeroArea:
     
         # Caption and Hashtags
         tags_html = tags_in_twitter_style(self.avatar_tags)
+        st.markdown(
+            f"""
+            <div style="text-align: center; font-size: 1.1em; color: #444;">
+                <p>{self.avatar_caption}</p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    
+        st.markdown('</div>', unsafe_allow_html=True)
+
+
+    def _render_biopic_section(self):
+        """Renders the avatar, caption, hashtags, and contact details with a fun tooltip."""
+        avatar_id = "biopic-avatar"
+        image_path = f"assets/{self.avatar_image}"
+        image_base64 = image_to_base64(image_path)
+    
+        if not image_base64:
+            st.warning("Avatar image not found!")
+            return
+    
+        st.markdown('<div class="hero-avatar-container" style="position: relative; text-align: center;">', unsafe_allow_html=True)
+    
+        # Render base64 image with 80% width
+        st.markdown(f"""
+        <div style="display: flex; justify-content: center;">
+            <img src="{image_base64}" style="width: 80%; max-width: 200px; border-radius: 50%;">
+        </div>
+        """, unsafe_allow_html=True)
+    
+        # Invisible div positioned over the image (for tooltip)
+        st.markdown(f"""
+        <div id="{avatar_id}" style="
+            position: absolute; 
+            top: 0; left: 10%;
+            width: 60%; height: 60%;
+            background: transparent;">
+        </div>
+        """, unsafe_allow_html=True)
+    
+        apply_custom_tooltip(avatar_id, "I am 15% less good-looking but 25% greater worker than I appear. 🎭💪")
+    
+        # Caption and Hashtags
         st.markdown(
             f"""
             <div style="text-align: center; font-size: 1.1em; color: #444;">
