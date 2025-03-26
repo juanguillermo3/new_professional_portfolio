@@ -122,32 +122,5 @@ tooltip_system = TooltipCanvas()
 # Render the test case
 #tooltip_system.render_test_case(["single case"])
 
-import streamlit as st
 
-import streamlit as st
-
-def hover_text_component(main_text="Hover over this text", hidden_text=" and see more inline content!"):
-    html = f"""
-    <style>
-        .hover-container {{
-            display: inline;
-            position: relative;
-            cursor: pointer;
-        }}
-        .hover-text {{
-            display: none;
-        }}
-        .hover-container:hover .hover-text {{
-            display: inline;
-        }}
-    </style>
-    <span class="hover-container">
-        {main_text}
-        <span class="hover-text">{hidden_text}</span>
-    </span>
-    """
-    return html
-
-# Example usage in a Streamlit app:
-st.markdown(hover_text_component(), unsafe_allow_html=True)
 
