@@ -58,7 +58,7 @@ SECTIONS = {
 query_params = st.experimental_get_query_params()
 displayed_sections = query_params.get("section")
 if not displayed_sections or displayed_sections=="Home":
-    displayed_section=list(SECTIONS.keys())
+    displayed_sections=list(SECTIONS.keys())
 
 st.write(displayed_sections)
 
