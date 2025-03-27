@@ -70,3 +70,5 @@ def render_bureaucratic_form(details: dict):
     Renders a bureaucratic-style form in Streamlit with hover effects.
     
     :param details: Dictionary containing field names as keys and corresponding values.
+    """
+    st.markdown(_generate_bureaucratic_html(details), unsafe_allow_html=True)
