@@ -216,6 +216,8 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
     offering_html = '<h3>Key Professional Offerings</h3>'
     offering_html += '<ul style="list-style-type: none;">'  # Removes bullet points
 
+    tooltip_ids = []  # Store unique IDs for tooltips
+
     for i, offer in enumerate(offerings):
         element_id = id_pattern.format(i + 1)
         bg_color = colors[i % len(colors)]
@@ -225,27 +227,32 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
         short_description = description_parts[0] + "."
         full_description = description_parts[1] if len(description_parts) > 1 else ""
 
-        # Generate offering list item
         offering_html += (
             f'<li id="{element_id}" style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px;">'
             f'<p style="text-align: justify; margin: 0;">'
-            f'<strong>{offer["title"]}</strong>: '
-            f'<span class="hover-container-{element_id}">{short_description}'
+            f'<strong>{offer["title"]}</strong>: {short_description}'
         )
 
-        # Hover-triggered full description with smooth expansion
+        # In-line expanding content (smooth fade-in effect)
         if full_description:
-            offering_html += f'<span class="hover-text-{element_id}">{full_description}</span>'
+            offering_html += f' <span class="hover-{element_id}">{full_description}</span>'
             style_block += (
-                f".hover-container-{element_id} {{ display: inline-block; position: relative; cursor: pointer; }}\n"
-                f".hover-text-{element_id} {{"
-                f" display: block; overflow: hidden; max-height: 0; opacity: 0;"
-                f" transition: max-height 0.4s ease-out, opacity 0.3s ease-in-out; }}\n"
-                f".hover-container-{element_id}:hover .hover-text-{element_id} {{"
-                f" max-height: 100px; opacity: 1; }}\n"
+                f".hover-{element_id} {{"
+                f" display: inline; opacity: 0; width: 0; overflow: hidden;"
+                f" transition: opacity 0.3s ease-in-out, width 0.4s ease-out; }}\n"
+                f"#{element_id}:hover .hover-{element_id} {{"
+                f" opacity: 1; width: auto; }}\n"
             )
 
-        offering_html += '</span></p>'
+        # Tooltip rendering (if available)
+        if "skills" in offer:
+            tooltip_html, unique_id = html_for_tooltip_from_large_list(
+                offer["skills"], label="Technical Skills", color="#555", emoji="🏅"
+            )
+            offering_html += tooltip_html
+            tooltip_ids.append(unique_id)
+
+        offering_html += "<br>"
 
         # Render subitems if available
         if "subitems" in offer:
@@ -259,7 +266,8 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
     offering_html += '</ul>'
     style_block += "</style>\n"
 
-    return style_block + offering_html, ""
+    return style_block + offering_html, tooltip_ids
+
 
 
 
