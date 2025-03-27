@@ -233,27 +233,6 @@ class RecommendationSystem(PortfolioSection):
                 unsafe_allow_html=True
             )
 
-
-    def apply_transition_styles(self):
-        """Apply the CSS transition styles to the media placeholder."""
-        st.markdown(
-            """
-            <style>
-            .media-placeholder {
-                transition: opacity 2s ease-in-out, transform 2s ease-in-out;  /* Slowed down transition */
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            .media-placeholder.show {
-                opacity: 1;
-                transform: scale(1);
-            }
-            </style>
-            """,
-            unsafe_allow_html=True
-        )
-        
-
     #
     def render_project_metadata(self, project_metadata, display_milestones=True, margin_percent=10):
         """Render project title, description, tags, milestones, code sample count, and media content."""
