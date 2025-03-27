@@ -196,17 +196,6 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
 
 
 
-def hover_text_component(main_text, hidden_text, element_id):
-    """Generates inline hover text effect for precise trigger control with single-line tags."""
-    html = f"""
-    <style>.hover-container-{element_id} {{display: inline; position: relative; cursor: pointer;}} 
-           .hover-text-{element_id} {{display: none;}} 
-           .hover-container-{element_id}:hover .hover-text-{element_id} {{display: inline;}}</style>
-    <span class="hover-container-{element_id}">{main_text}<span class="hover-text-{element_id}">{hidden_text}</span></span>
-    """
-    return html
-
-
 def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
     offerings = load_detailed_offerings()
 
@@ -228,23 +217,21 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
         full_description = description_parts[1] if len(description_parts) > 1 else ""
 
         offering_html += (
-            f'<li id="{element_id}" style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px;">'
+            f'<li id="{element_id}" class="offering-container" style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px;">'
             f'<p style="text-align: justify; margin: 0;">'
-            f'<strong>{offer["title"]}</strong>: '
-            f'<span class="container-{element_id}">{short_description}'
+            f'<strong>{offer["title"]}</strong>: {short_description}'
         )
 
-        # In-line expanding content with auto-resizing container
+        # In-line expanding content (smooth fade-in effect + auto height adjustment)
         if full_description:
-            offering_html += f' <span class="hover-{element_id}">{full_description}</span></span>'
+            offering_html += f' <span class="hover-{element_id}">{full_description}</span>'
             style_block += (
-                f".container-{element_id} {{"
-                f" display: inline-block; min-width: fit-content; transition: min-width 0.4s ease-out; }}"
-                f"\n.hover-{element_id} {{"
-                f" display: inline; opacity: 0; width: 0; white-space: nowrap; overflow: hidden;"
-                f" transition: opacity 0.3s ease-in-out, width 0.4s ease-out; }}"
-                f"\n#{element_id}:hover .hover-{element_id} {{"
-                f" opacity: 1; width: auto; }}"
+                f"#{element_id} {{ transition: height 0.3s ease-in-out; min-height: auto; }}\n"
+                f".hover-{element_id} {{"
+                f" display: inline; opacity: 0; max-height: 0; overflow: hidden;"
+                f" transition: opacity 0.3s ease-in-out, max-height 0.3s ease-in-out; }}\n"
+                f"#{element_id}:hover .hover-{element_id} {{"
+                f" opacity: 1; max-height: 100px; }}\n"  # Adjust max-height based on expected content size
             )
 
         # Tooltip rendering (if available)
@@ -270,6 +257,7 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
     style_block += "</style>\n"
 
     return style_block + offering_html, tooltip_ids
+
 
 
 
