@@ -140,7 +140,7 @@ def _generate_bureaucratic_html(details: dict) -> str:
     """
 
     fields_html = []
-    visible_limit = 12  # Number of pills visible initially
+    visible_limit = 5  # Number of pills visible initially
 
     for i, (field_name, field_value) in enumerate(details.items()):
         # Create a label pill
