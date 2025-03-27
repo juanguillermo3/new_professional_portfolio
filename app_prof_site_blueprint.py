@@ -43,9 +43,6 @@ if "selected_sections" not in st.session_state:
     st.session_state["selected_sections"] = list(SECTIONS.keys())
 
 
-display_floating_whatsapp_button( whatsapp_number=WHATSAPP_NUMBER, horizontal_position= "65%",)
-
-
 st.markdown("""
     <style>
         body, .stApp {
@@ -99,4 +96,4 @@ for section_name, module in SECTIONS.items():
 
 
 render_multi_page_navigation()
-
+display_floating_whatsapp_button( whatsapp_number=WHATSAPP_NUMBER, horizontal_position= "65%",)
