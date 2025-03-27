@@ -20,11 +20,11 @@ def expandable_text_html(detailed_text: str) -> tuple[str, str]:
     # Generate a unique element ID using a hash
     element_id = "hover-" + hashlib.md5(detailed_text.encode()).hexdigest()[:8]
 
-    offering_html = (
-        f'<li id="{element_id}" class="offering-container" style="padding: 8px; '
-        f'border-radius: 4px; margin-bottom: 10px;">'
+    text_container = (
+        f'<li id="{element_id}" class="ancillary-container">'
         f'<p style="text-align: justify; margin: 0;">{brief}'
     )
+
 
     style_block = ""
 
@@ -38,4 +38,4 @@ def expandable_text_html(detailed_text: str) -> tuple[str, str]:
             f" opacity: 1; max-width: 100%; max-height: 100px; }}\n"
         )
 
-    return offering_html, style_block
+    return text_container, style_block
