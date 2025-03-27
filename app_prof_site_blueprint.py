@@ -53,6 +53,12 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 
+# Example usage of the multiselect widget
+selected_sections = st.multiselect(
+    "Customize which sections to display. Refresh the page for a full view.",
+    options=SECTIONS.keys(),
+    default=st.session_state["selected_sections"]
+)
 
 
 # **Title Section**
@@ -98,12 +104,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Example usage of the multiselect widget
-selected_sections = st.multiselect(
-    "Customize which sections to display. Refresh the page for a full view.",
-    options=SECTIONS.keys(),
-    default=st.session_state["selected_sections"]
-)
 
 render_section_separator()
 
