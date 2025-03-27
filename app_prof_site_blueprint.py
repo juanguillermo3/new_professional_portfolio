@@ -48,16 +48,15 @@ WHATSAPP_NUMBER = os.getenv("WHATSAPP_NUMBER", "+573053658650" )
 SECTIONS = {
     "About": about,
     "RecSys": recsys,
-    "Services&Rates": services,
+    "Services": services,
     "Curriculum Vitae": cv,
-    #"Socials": socials,
     "Testimonials": testimonials
 }
 
 # fetch desired section from url parameters 
 query_params = st.experimental_get_query_params()
 displayed_sections = query_params.get("section")
-if not displayed_sections or displayed_sections=="Home":
+if not displayed_sections or displayed_sections==["Home"]:
     displayed_sections=list(SECTIONS.keys())
 
 st.write(displayed_sections)
