@@ -20,6 +20,21 @@ from floating_linkedin_button import display_floating_linkedin_button
 from floating_buttons import display_floating_buttons_container, close_floating_buttons_container
 from multi_page_navigation import render_multi_page_navigation
 
+
+st.markdown("""
+    <style>
+        body, .stApp {
+            background-color: #ffffff !important;  /* Pure white background */
+            color: #333333 !important;  /* Dark gray font for readability */
+        }
+        
+        /* Ensuring text inside all Streamlit components remains consistent */
+        .stTextInput, .stMarkdown, .stDataFrame, .stSelectbox, .stButton {
+            color: #333333 !important;
+        }
+    </style>
+    """, unsafe_allow_html=True)
+
 # Load environment variables
 load_dotenv(override=True)
 
@@ -38,34 +53,19 @@ SECTIONS = {
     #"Socials": socials,
     "Testimonials": testimonials
 }
-# **Customization Options**
-if "selected_sections" not in st.session_state:
-    st.session_state["selected_sections"] = list(SECTIONS.keys())
 
+# fetch desired section from url parameters 
+query_params = st.experimental_get_query_params()
+displayed_sections = query_params.get("section",  list(SECTIONS.keys() )
 
-st.markdown("""
-    <style>
-        body, .stApp {
-            background-color: #ffffff !important;  /* Pure white background */
-            color: #333333 !important;  /* Dark gray font for readability */
-        }
-        
-        /* Ensuring text inside all Streamlit components remains consistent */
-        .stTextInput, .stMarkdown, .stDataFrame, .stSelectbox, .stButton {
-            color: #333333 !important;
-        }
-    </style>
-    """, unsafe_allow_html=True)
-
+st.write(displayed_sections)
 
 # Example usage of the multiselect widget
 selected_sections = st.multiselect(
     "Customize which sections to display. Refresh the page for a full view.",
     options=SECTIONS.keys(),
-    default=st.session_state["selected_sections"]
+    default=displayed_sections
 )
-
-
 
 # **Title Section**
 st.markdown("""
@@ -98,16 +98,6 @@ for section_name, module in SECTIONS.items():
 render_multi_page_navigation()
 display_floating_whatsapp_button( whatsapp_number=WHATSAPP_NUMBER, horizontal_position= "65%",)
 
-
-
-
-
-
-import streamlit as st
-
-# Retrieve query parameters
-query_params = st.experimental_get_query_params()
-selected_section = query_params.get("Home", ["None"])[0]
 
 # Display the selected section inside a div with styling
 st.markdown(
