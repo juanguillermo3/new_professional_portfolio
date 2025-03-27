@@ -84,10 +84,8 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-
-st.title("Welcome to My Professional Site")
-
 if query_sections==["Home"]:
+    st.title("Welcome to My Professional Site")
     hero.render()
     render_section_separator()
     render_section_separator()
