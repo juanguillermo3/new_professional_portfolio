@@ -97,3 +97,33 @@ for section_name, module in SECTIONS.items():
 
 render_multi_page_navigation()
 display_floating_whatsapp_button( whatsapp_number=WHATSAPP_NUMBER, horizontal_position= "65%",)
+
+
+
+
+
+
+import streamlit as st
+
+# Retrieve query parameters
+query_params = st.experimental_get_query_params()
+selected_section = query_params.get("selected_section", ["None"])[0]
+
+# Display the selected section inside a div with styling
+st.markdown(
+    f"""
+    <div style="
+        padding: 15px; 
+        margin: 10px 0; 
+        background-color: rgba(0, 0, 0, 0.05);
+        border-radius: 10px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+    ">
+        Selected Section: {selected_section}
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
