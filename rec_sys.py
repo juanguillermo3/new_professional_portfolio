@@ -383,10 +383,10 @@ class RecommendationSystem(PortfolioSection):
     def render(self):
         """Render method with smooth project transitions using Streamlit's key-based styling."""
         
-        self._render_headers()  # Render headers from the portfolio section class
+        #self._render_headers()  # Render headers from the portfolio section class
         
         # Display ranker's logic
-        st.markdown(f'{self.RANKER_LOGIC}', unsafe_allow_html=True)
+        #st.markdown(f'{self.RANKER_LOGIC}', unsafe_allow_html=True)
     
         # Create a container with a unique key (Streamlit auto-assigns a CSS class)
         with st.container(key="project_data_container"):
