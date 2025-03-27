@@ -124,3 +124,67 @@ tooltip_system = TooltipCanvas()
 
 
 
+
+
+import streamlit as st
+from PIL import Image
+
+# Load freely available icons
+HOME_ICON = "https://cdn-icons-png.flaticon.com/128/25/25694.png"
+RECSYS_ICON = "https://cdn-icons-png.flaticon.com/128/2991/2991148.png"
+SERVICES_ICON = "https://cdn-icons-png.flaticon.com/128/3135/3135706.png"
+
+# Custom CSS for fixed-position navbar
+st.markdown(
+    """
+    <style>
+        .fixed-navbar {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 50, 0.8);
+            padding: 10px 20px;
+            border-radius: 15px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+        }
+        .nav-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .nav-button img {
+            width: 50px;
+            height: 50px;
+            transition: transform 0.2s ease-in-out;
+        }
+        .nav-button img:hover {
+            transform: scale(1.1);
+        }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+# HTML layout for navbar
+st.markdown(
+    f"""
+    <div class="fixed-navbar">
+        <button class="nav-button" onclick="window.location.href='/Home'">
+            <img src="{HOME_ICON}" alt="Home">
+        </button>
+        <button class="nav-button" onclick="window.location.href='/RecSys'">
+            <img src="{RECSYS_ICON}" alt="Recommender System">
+        </button>
+        <button class="nav-button" onclick="window.location.href='/Services'">
+            <img src="{SERVICES_ICON}" alt="Services and Rates">
+        </button>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+
