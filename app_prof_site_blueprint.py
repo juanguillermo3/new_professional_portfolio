@@ -107,7 +107,7 @@ import streamlit as st
 
 # Retrieve query parameters
 query_params = st.experimental_get_query_params()
-selected_section = query_params.get("section", ["None"])[0]
+selected_section = query_params.get("Home", ["None"])[0]
 
 # Display the selected section inside a div with styling
 st.markdown(
