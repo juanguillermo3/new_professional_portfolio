@@ -429,27 +429,27 @@ class RecommendationSystem(PortfolioSection):
 
 
 
-    def _inject_transition_styles(self):
-        """Injects custom CSS for smooth project transitions."""
-        
+    def _apply_transition_styles(self):
+        """Injects CSS for smooth transitions on project switch."""
         st.markdown(
             """
             <style>
-            .project-data-container {
-                opacity: 0;
-                transform: scale(0.98);
-                transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-            }
-            
-            /* When Streamlit updates the component, ensure smooth fade-in */
-            .project-data-container:has(+ div) {
+            .st-key-project_data_container {
+                transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
                 opacity: 1;
-                transform: scale(1);
+                transform: translateY(0);
+            }
+    
+            /* Add fading effect when updating */
+            .st-key-project_data_container[data-hidden="true"] {
+                opacity: 0;
+                transform: translateY(-10px);
             }
             </style>
             """,
             unsafe_allow_html=True
         )
+
 
 
 # Example usage
