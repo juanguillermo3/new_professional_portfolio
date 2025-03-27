@@ -426,9 +426,6 @@ class RecommendationSystem(PortfolioSection):
         self._apply_transition_styles()
 
 
-
-
-
     def _apply_transition_styles(self):
         """Injects CSS for smooth transitions on project switch."""
         st.markdown(
