@@ -1,3 +1,5 @@
+import streamlit as st
+
 def _generate_bureaucratic_html(details: dict) -> str:
     """
     Generates the HTML for a bureaucratic-style form using compact pills with hover effects.
@@ -62,3 +64,10 @@ def _generate_bureaucratic_html(details: dict) -> str:
 
     return style + " ".join(fields_html)
 
+def render_bureaucratic_form(details: dict):
+    """
+    Renders a bureaucratic-style form in Streamlit with hover effects.
+    
+    :param details: Dictionary containing field names as keys and corresponding values.
+    """
+    st.markdown(_generate_bureaucratic_html(details), unsafe_allow_html=True)
