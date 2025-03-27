@@ -21,7 +21,7 @@ def expandable_text_html(detailed_text: str) -> tuple[str, str]:
     element_id = "hover-" + hashlib.md5(detailed_text.encode()).hexdigest()[:8]
 
     text_container = (
-        f'<li id="{element_id}" class="ancillary-container">'
+        f'<div id="{element_id}" class="ancillary-container">'
         f'<p style="text-align: justify; margin: 0;">{brief}'
     )
 
