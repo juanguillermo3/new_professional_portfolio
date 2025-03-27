@@ -41,7 +41,7 @@ def _generate_bureaucratic_html(details: dict) -> str:
         transform: scale(1.1);  /* Slight scale-up */
         box-shadow: 0 4px 10px rgba(58, 95, 158, 0.5); /* Soft glow effect */
         z-index: 10; /* Brings hovered element to front */
-        cursor: help;  /* Special cursor */
+        cursor: pointer;   /* Special cursor */
     }
     </style>
     """
