@@ -286,14 +286,15 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
             f'<strong>{offer["title"]}</strong>: {short_description}'
         )
 
-        # In-line expanding content (fully hidden until hover)
+        # In-line expanding content (now with smooth transition)
         if full_description:
             offering_html += f' <span class="hover-{element_id}">{full_description}</span>'
             style_block += (
                 f".hover-{element_id} {{"
-                f" display: none; transition: opacity 0.3s ease-in-out; }}\n"
+                f" display: inline-block; opacity: 0; max-width: 0px; max-height: 0px; overflow: hidden;"
+                f" transition: opacity 0.3s ease-in-out 0.2s, max-width 0.4s ease-out, max-height 0.4s ease-out; }}\n"
                 f"#{element_id}:hover .hover-{element_id} {{"
-                f" display: inline; opacity: 1; }}\n"
+                f" opacity: 1; max-width: 100%; max-height: 100px; }}\n"  # Max-height adjusted dynamically
             )
 
         # Tooltip rendering (if available)
