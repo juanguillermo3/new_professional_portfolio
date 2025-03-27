@@ -215,7 +215,7 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
     style_block = "<style>\n"
 
     offering_html = '<h3>Key Professional Offerings</h3>'
-    offering_html += '<ul style="list-style-type: none;">'  # Removes bullet points
+    offering_html += '<ul style="list-style-type: none; padding-left: 0;">'  # Removes bullet points
 
     for i, offer in enumerate(offerings):
         element_id = id_pattern.format(i + 1)
@@ -231,19 +231,20 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
             f'<li id="{element_id}" style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px;">'
             f'<p style="text-align: justify; margin: 0;">'
             f'<strong>{offer["title"]}</strong>: '
-            f'<span class="hover-container-{element_id}">{short_description}'
+            f'<span class="hover-container-{element_id}" style="display: inline-flex; align-items: center;">'
+            f'{short_description}'
         )
 
-        # Hover-triggered full description with true inline expansion
+        # Hover-triggered full description with controlled expansion
         if full_description:
             offering_html += f'<span class="hover-text-{element_id}">{full_description}</span>'
             style_block += (
-                f".hover-container-{element_id} {{ display: inline; position: relative; cursor: pointer; }}\n"
+                f".hover-container-{element_id} {{ display: inline-flex; position: relative; cursor: pointer; }}\n"
                 f".hover-text-{element_id} {{"
-                f" display: inline-block; overflow: hidden; width: 0; opacity: 0; white-space: nowrap;"
-                f" transition: width 0.4s ease-out, opacity 0.3s ease-in-out; }}\n"
+                f" display: inline-flex; max-width: 0; opacity: 0; white-space: normal; overflow: hidden;"
+                f" transition: max-width 0.4s ease-out, opacity 0.3s ease-in-out; }}\n"
                 f".hover-container-{element_id}:hover .hover-text-{element_id} {{"
-                f" width: auto; opacity: 1; }}\n"
+                f" max-width: 400px; opacity: 1; }}\n"
             )
 
         offering_html += '</span></p>'
@@ -261,6 +262,7 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
     style_block += "</style>\n"
 
     return style_block + offering_html, ""
+
 
 
 
