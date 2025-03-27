@@ -30,7 +30,42 @@ LINKEDIN_PROFILE = os.getenv("LINKEDIN_PROFILE")
 WHATSAPP_NUMBER = os.getenv("WHATSAPP_NUMBER", "+573053658650" )
 
 display_floating_whatsapp_button( whatsapp_number=WHATSAPP_NUMBER, horizontal_position= "65%",)
-render_multi_page_navigation()
+# Custom CSS for fixed-position frosted glass navbar
+st.markdown(
+    """
+    <style>
+        .fixed-navbar {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.1);  /* Transparent background */
+            backdrop-filter: blur(4px);  /* Frosted glass effect */
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 15px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .nav-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .nav-button img {
+            width: 50px;
+            height: 50px;
+            transition: transform 0.2s ease-in-out;
+        }
+        .nav-button img:hover {
+            transform: scale(1.1);
+        }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
 # Define available sections for customization
 SECTIONS = {
