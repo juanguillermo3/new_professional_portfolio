@@ -1,11 +1,10 @@
 import streamlit as st
 
-import streamlit as st
-
 def _generate_bureaucratic_html(details: dict) -> str:
     """
     Generates the HTML for a bureaucratic-style form using compact pills with hover effects.
-
+    Now in grayscale.
+    
     :param details: Dictionary containing field names as keys and corresponding values.
     :return: A string containing the HTML markup.
     """
@@ -18,30 +17,30 @@ def _generate_bureaucratic_html(details: dict) -> str:
         padding: 6px 10px;
         margin: 3px;
         border-radius: 6px;
-        background: #1E3A5F;  /* Navy Blue */
+        background: #4A4A4A;  /* Dark Gray */
         color: #FFFFFF;  
         font-size: 14px;
         white-space: nowrap;
-        border: 1.5px solid #294A70;  /* Darker navy border */
+        border: 1.5px solid #2E2E2E;  /* Darker Gray */
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); 
         transition: all 0.3s ease-in-out; /* Smooth animation */
-        cursor: pointer;  /* Indicates interactivity */
+        cursor: pointer;
     }
     .bureau-label {
         font-weight: bold;
         margin-right: 6px;
-        color: #DDEEFF;  /* Light Crystal Blue */
+        color: #DADADA;  /* Light Gray */
         font-size: 90%;
     }
     
     /* Hover effect */
     .bureau-field:hover {
-        background: #3A5F9E;  /* Crystal Blue */
+        background: #6A6A6A;  /* Medium Gray */
         color: #FFFFFF;
-        transform: scale(1.1);  /* Slight scale-up */
-        box-shadow: 0 4px 10px rgba(58, 95, 158, 0.5); /* Soft glow effect */
-        z-index: 10; /* Brings hovered element to front */
-        cursor: pointer;   /* Special cursor */
+        transform: scale(1.1);
+        box-shadow: 0 4px 10px rgba(100, 100, 100, 0.5); /* Soft gray glow effect */
+        z-index: 10;
+        cursor: pointer;
     }
     </style>
     """
@@ -65,12 +64,5 @@ def _generate_bureaucratic_html(details: dict) -> str:
 
     return style + " ".join(fields_html)
 
-def render_bureaucratic_form(details: dict):
-    """
-    Renders a bureaucratic-style form in Streamlit with hover effects.
-    
-    :param details: Dictionary containing field names as keys and corresponding values.
-    """
-    st.markdown(_generate_bureaucratic_html(details), unsafe_allow_html=True)
 
 
