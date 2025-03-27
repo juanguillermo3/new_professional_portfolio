@@ -29,7 +29,25 @@ REPO_OWNER = os.getenv("REPO_OWNER")
 LINKEDIN_PROFILE = os.getenv("LINKEDIN_PROFILE")
 WHATSAPP_NUMBER = os.getenv("WHATSAPP_NUMBER", "+573053658650" )
 
-display_floating_whatsapp_button( whatsapp_number=WHATSAPP_NUMBER, horizontal_position= "65%",)
+#display_floating_whatsapp_button( whatsapp_number=WHATSAPP_NUMBER, horizontal_position= "65%",)
+
+# HTML layout for navbar
+st.markdown(
+    f"""
+    <div class="fixed-navbar">
+        <button class="nav-button" onclick="window.location.href='/Home'">
+            <img src="{HOME_ICON}" alt="Home">
+        </button>
+        <button class="nav-button" onclick="window.location.href='/RecSys'">
+            <img src="{RECSYS_ICON}" alt="Recommender System">
+        </button>
+        <button class="nav-button" onclick="window.location.href='/Services'">
+            <img src="{SERVICES_ICON}" alt="Services and Rates">
+        </button>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 # Custom CSS for fixed-position frosted glass navbar
 st.markdown(
     """
