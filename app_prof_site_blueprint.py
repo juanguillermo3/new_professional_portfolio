@@ -103,7 +103,13 @@ if query_sections==["Home"]:
         if section_name in selected_sections:
             module.render()
             render_section_separator()
-
+else:
+    # **Render Sections Conditionally**
+    for section_name, module in SECTIONS.items():
+        if section_name in query_sections :
+            module.render()
+            render_section_separator()
+    
 
 render_multi_page_navigation()
 display_floating_whatsapp_button( whatsapp_number=WHATSAPP_NUMBER, horizontal_position= "65%",)
