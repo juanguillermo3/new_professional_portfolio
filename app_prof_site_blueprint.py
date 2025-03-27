@@ -31,6 +31,10 @@ WHATSAPP_NUMBER = os.getenv("WHATSAPP_NUMBER", "+573053658650" )
 
 #display_floating_whatsapp_button( whatsapp_number=WHATSAPP_NUMBER, horizontal_position= "65%",)
 
+# Load freely available icons
+HOME_ICON = "https://img.icons8.com/?size=100&id=hmZnke9jb8oq&format=png&color=000000"
+RECSYS_ICON = "https://img.icons8.com/?size=100&id=NaOfOQ3MMYaq&format=png&color=000000"  # Updated icon for emphasis
+SERVICES_ICON = "https://cdn-icons-png.flaticon.com/128/3135/3135706.png"
 # HTML layout for navbar
 st.markdown(
     f"""
