@@ -381,17 +381,15 @@ class RecommendationSystem(PortfolioSection):
         return selected_project, query
 
     def render(self):
-        """Render method with Galleria callback integration and smooth media transitions."""
+        """Render method with smooth project transitions using Streamlit's key-based styling."""
         
         self._render_headers()  # Render headers from the portfolio section class
         
         # Display ranker's logic
         st.markdown(f'{self.RANKER_LOGIC}', unsafe_allow_html=True)
     
-        # Create a container to wrap the project content (ensures smooth transitions)
-        with st.container():
-            st.markdown('<div class="project-data-container">', unsafe_allow_html=True)
-            
+        # Create a container with a unique key (Streamlit auto-assigns a CSS class)
+        with st.container(key="project_data_container"):
             # Render the sticky control panel and retrieve user selections
             selected_project, query = self._render_control_panel()
             
@@ -424,8 +422,9 @@ class RecommendationSystem(PortfolioSection):
                     with col:
                         self.render_card(rec, is_project=rec.get("is_project", False))
     
-            # Close the container div (Styled transitions applied later)
-            self._to_markdown_with_transition('</div>')
+        # Apply transition styles (since Streamlit assigns the class `.st-key-project_data_container`)
+        self._apply_transition_styles()
+
 
 
 
