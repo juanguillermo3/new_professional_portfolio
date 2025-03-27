@@ -435,7 +435,26 @@ class RecommendationSystem(PortfolioSection):
             # Render media content
             self._render_media_content(video_path)
 
-
+    def _render_media_content(self, video_path):
+        """Handles the rendering of media content (either Galleria or Video)."""
+        
+        active_galleria = st.session_state.get("active_galleria", False)
+        project_event = st.session_state.get("project_event", "")
+        
+        # Determine if we should force a video render
+        project_switched = project_event.startswith("ACTIVE_PROJECT_CHANGED")
+        
+        if active_galleria and not project_switched:
+            with self.media_placeholder.container():
+                active_galleria.render()
+        elif os.path.exists(video_path):
+            self.media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
+        else:
+            self.media_placeholder.warning("Video not found.")
+        
+        # Reset project event to avoid unnecessary re-triggers
+        st.session_state["project_event"] = "ACTIVE_PROJECT_INTERACTED"
+      
 # Example usage
 # Initialize RecSys with custom header and description
 recsys = RecommendationSystem(
