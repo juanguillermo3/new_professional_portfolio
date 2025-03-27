@@ -260,74 +260,67 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
 
 
 
-import streamlit as st
+def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
+    offerings = load_detailed_offerings()
 
-def _generate_bureaucratic_html(details: dict) -> str:
-    """
-    Generates the HTML for a bureaucratic-style form using compact pills with micro-interactions.
+    # Injected style block (to be dynamically constructed)
+    style_block = "<style>\n"
 
-    :param details: Dictionary containing field names as keys and corresponding values.
-    :return: A string containing the HTML markup.
-    """
-    
-    style = """
-    <style>
-    .bureau-field {
-        display: inline-flex;
-        align-items: center;
-        padding: 6px 10px;
-        margin: 3px;
-        border-radius: 6px;
-        background: #BFBFBF;  /* Default Gray */
-        color: #FFFFFF;
-        font-size: 14px;
-        white-space: nowrap;
-        border: 1.5px solid #DDD;
-        cursor: pointer;
-        transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    }
-    .bureau-label {
-        font-weight: bold;
-        margin-right: 6px;
-        color: #FFFFFF;
-        font-size: 90%;
-    }
-    
-    /* Hover effect: changes color, floats forward, and gets a subtle shadow */
-    .bureau-field:hover {
-        background: #1E3A5F;  /* Navy Blue */
-        transform: translateY(-2px);  /* Slight floating effect */
-        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-    }
-    </style>
-    """
+    offering_html = '<h3>Key Professional Offerings</h3>'
+    offering_html += '<ul style="list-style-type: none;">'  # Removes bullet points
 
-    fields_html = []
+    tooltip_ids = []  # Store unique IDs for tooltips
 
-    for field_name, field_value in details.items():
-        # Create a label pill
-        fields_html.append(f"<div class='bureau-field'><span class='bureau-label'>{field_name}:</span></div>")
+    for i, offer in enumerate(offerings):
+        element_id = id_pattern.format(i + 1)
+        bg_color = colors[i % len(colors)]
 
-        # Normalize values to a list
-        if isinstance(field_value, str):
-            field_value = [item.strip() for item in field_value.split(',')]  
-        elif isinstance(field_value, list):
-            field_value = [str(item).strip() for item in field_value]  
-        else:
-            field_value = [str(field_value)]  
+        # Split description into first sentence + rest
+        description_parts = offer["description"].split(".", 1)
+        short_description = description_parts[0] + "."
+        full_description = description_parts[1] if len(description_parts) > 1 else ""
 
-        # Create a pill for each tokenized value
-        fields_html.extend(f"<div class='bureau-field'>{value}</div>" for value in field_value)
+        offering_html += (
+            f'<li id="{element_id}" class="offering-container" style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px;">'
+            f'<p style="text-align: justify; margin: 0;">'
+            f'<strong>{offer["title"]}</strong>: {short_description}'
+        )
 
-    return style + " ".join(fields_html)
+        # In-line expanding content (now with smooth transition)
+        if full_description:
+            offering_html += f' <span class="hover-{element_id}">{full_description}</span>'
+            style_block += (
+                f".hover-{element_id} {{"
+                f" display: inline-block; opacity: 0; max-width: 0px; max-height: 0px; overflow: hidden;"
+                f" transition: opacity 0.3s ease-in-out 0.2s, max-width 0.4s ease-out, max-height 0.4s ease-out; }}\n"
+                f"#{element_id}:hover .hover-{element_id} {{"
+                f" opacity: 1; max-width: 100%; max-height: 100px; }}\n"  # Max-height adjusted dynamically
+            )
 
-def render_bureaucratic_form(details: dict):
-    """
-    Renders a bureaucratic-style form in Streamlit with hover effects.
-    
-    :param details: Dictionary containing field names as keys and corresponding values.
-    """
-    st.markdown(_generate_bureaucratic_html(details), unsafe_allow_html=True)
+        # Tooltip rendering (if available)
+        if "skills" in offer:
+            tooltip_html, unique_id = html_for_tooltip_from_large_list(
+                offer["skills"], label="Technical Skills", color="#555", emoji="🏅"
+            )
+            offering_html += tooltip_html
+            tooltip_ids.append(unique_id)
+
+        offering_html += "<br>"
+
+        # Render subitems if available
+        if "subitems" in offer:
+            offering_html += '<ul style="list-style-type: none; padding-left: 0;">'
+            for subitem in offer["subitems"]:
+                offering_html += f'<li>{subitem}</li>'
+            offering_html += '</ul>'
+
+        offering_html += '</li>'
+
+    offering_html += '</ul>'
+    style_block += "</style>\n"
+
+    return style_block + offering_html, tooltip_ids
+
 
 
 
