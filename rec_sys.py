@@ -380,8 +380,11 @@ class RecommendationSystem(PortfolioSection):
         
         tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
         
+        # Parse description as Markdown first
+        parsed_description = markdown.markdown(project_metadata['description'])
+    
         # Generate expandable text effect for the description
-        description_html, description_styles = expandable_text_html(project_metadata['description'])
+        description_html, description_styles = expandable_text_html(parsed_description)
         
         # Convert to Markdown and append tags
         description_html = markdown.markdown(f"{description_html} {tags_html}")
