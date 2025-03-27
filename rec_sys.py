@@ -380,13 +380,13 @@ class RecommendationSystem(PortfolioSection):
         
         tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
         
-        # Generate hover-reveal effect for the description
-        description_html, description_styles = hover_reveal_text(project_metadata['description'])
+        # Generate expandable text effect for the description
+        description_html, description_styles = expandable_text_html(project_metadata['description'])
         
-        # Convert markdown and append tags
+        # Convert to Markdown and append tags
         description_html = markdown.markdown(f"{description_html} {tags_html}")
     
-        # Title and description with hover effect
+        # Title and description with expandable effect
         st.markdown(
             f"""
             <div style="text-align: center;"><h3>{prettify_title(project_metadata['title'])}</h3></div>
