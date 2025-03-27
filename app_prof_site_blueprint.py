@@ -57,8 +57,8 @@ SECTIONS = {
 query_params = st.experimental_get_query_params()
 #query_params = st.query_params()
 
-displayed_sections = query_params.get("section")
-if not displayed_sections or displayed_sections==["Home"]:
+query_sections = query_params.get("section")
+if not query_sections or query_sections==["Home"]:
     displayed_sections=list(SECTIONS.keys())
 
 st.write(displayed_sections)
@@ -86,10 +86,10 @@ st.markdown("""
 
 st.title("Welcome to My Professional Site")
 
-# **Hero Section (Always Rendered)**
-hero.render()
-render_section_separator()
-render_section_separator()
+if query_sections==["Home"]:
+    hero.render()
+    render_section_separator()
+    render_section_separator()
 
 # **Render Sections Conditionally**
 for section_name, module in SECTIONS.items():
