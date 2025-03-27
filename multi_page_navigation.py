@@ -93,5 +93,5 @@ def render_multi_page_navigation():
 
     if selected_section:
         st.session_state["selected_sections"] = [selected_section]
-        st.experimental_rerun()
+        st.rerun()
 
