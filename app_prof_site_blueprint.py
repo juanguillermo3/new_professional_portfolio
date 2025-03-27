@@ -70,12 +70,7 @@ else:
     displayed_sections=query_sections
 #st.write(query_sections)
 
-# Example usage of the multiselect widget
-selected_sections = st.multiselect(
-    "Customize which sections to display. Refresh the page for a full view.",
-    options=SECTIONS.keys(),
-    default=displayed_sections
-)
+
 
 # **Title Section**
 st.markdown("""
@@ -94,13 +89,20 @@ if query_sections==["Home"]:
     st.title("Welcome to My Professional Site")
     hero.render()
     render_section_separator()
+    
+    # Example usage of the multiselect widget
+    selected_sections = st.multiselect(
+        "Customize which sections to display. Refresh the page for a full view.",
+        options=SECTIONS.keys(),
+        default=displayed_sections
+    )
     render_section_separator()
 
-# **Render Sections Conditionally**
-for section_name, module in SECTIONS.items():
-    if section_name in selected_sections:
-        module.render()
-        render_section_separator()
+    # **Render Sections Conditionally**
+    for section_name, module in SECTIONS.items():
+        if section_name in selected_sections:
+            module.render()
+            render_section_separator()
 
 
 render_multi_page_navigation()
