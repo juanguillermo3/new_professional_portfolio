@@ -427,25 +427,26 @@ class RecommendationSystem(PortfolioSection):
 
 
     def _apply_transition_styles(self):
-        """Injects CSS for smooth transitions on project switch."""
+        """Injects enhanced CSS for smoother transitions on project switch."""
         st.markdown(
             """
             <style>
             .st-key-project_data_container {
-                transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+                transition: opacity 0.7s ease-in-out, transform 0.7s ease-in-out, scale 0.7s ease-in-out;
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
     
-            /* Add fading effect when updating */
+            /* Add fading + slight scaling effect when updating */
             .st-key-project_data_container[data-hidden="true"] {
                 opacity: 0;
-                transform: translateY(-10px);
+                transform: translateY(-15px) scale(0.95);
             }
             </style>
             """,
             unsafe_allow_html=True
         )
+
 
 
 
