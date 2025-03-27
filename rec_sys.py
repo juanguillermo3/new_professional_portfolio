@@ -31,6 +31,7 @@ from front_end_for_recommended_content import html_for_item_data, html_for_miles
 from portfolio_section import PortfolioSection
 from exceptional_ui import apply_custom_tooltip, _custom_tooltip_with_frost_glass_html
 from biotech_lab import frost_glass_mosaic, _custom_tooltip_with_frost_glass_html
+from expandable_text import expandable_text_html
 
 import os
 from dotenv import load_dotenv
@@ -232,63 +233,6 @@ class RecommendationSystem(PortfolioSection):
                 """,
                 unsafe_allow_html=True
             )
-
-    #
-    def render_project_metadata(self, project_metadata, display_milestones=True, margin_percent=10):
-        """Render project title, description, tags, milestones, code sample count, and media content."""
-        
-        video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
-        video_path = os.path.join('assets', video_filename)
-        
-        tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
-        description_html = markdown.markdown(f"{project_metadata['description']} {tags_html}")
-    
-    
-        # Title and description
-        st.markdown(
-            f"""
-            <div style="text-align: center;"><h3>{prettify_title(project_metadata['title'])}</h3></div>
-            <div style="text-align: justify; margin-left: {margin_percent}%; margin-right: {margin_percent}%;">{description_html}</div>
-            """,
-            unsafe_allow_html=True,
-        )
-    
-        # Milestones section
-        milestone_margin = margin_percent * 1.5  
-        
-        if display_milestones:
-          
-            # Render achieved milestones
-            achieved_html = html_for_milestones_from_project_metadata(project_metadata=project_metadata, milestone_type="achieved_milestones")
-            if achieved_html:
-                st.markdown(
-                    f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{achieved_html}</div>",
-                    unsafe_allow_html=True
-                )
-        
-            # Render upcoming milestones
-            upcoming_html = html_for_milestones_from_project_metadata(project_metadata=project_metadata, milestone_type="next_milestones")
-            if upcoming_html:
-                st.markdown(
-                    f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{upcoming_html}</div>",
-                    unsafe_allow_html=True
-                )
-        
-            # Fetch and render code samples from repository
-            code_samples = self._fetch_files(project_metadata['title'])
-            code_samples_html = html_for_milestones_from_project_metadata(milestones=code_samples, milestone_type="code_samples")
-            if code_samples_html:
-                st.markdown(
-                    f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{code_samples_html}</div>",
-                    unsafe_allow_html=True
-                )
-
-            # Media placeholder
-            #st.markdown("<br>", unsafe_allow_html=True)
-            self.media_placeholder = st.empty()
-        
-            # Render media content
-            self._render_media_content(video_path)
       
     #
     def _fetch_files(self, repo_name):
@@ -306,27 +250,7 @@ class RecommendationSystem(PortfolioSection):
             if item.get("repo_name", "").lower() == repo_name.lower() 
         ] if _ ]
     
-    def _render_media_content(self, video_path):
-        """Handles the rendering of media content (either Galleria or Video)."""
-        
-        active_galleria = st.session_state.get("active_galleria", False)
-        project_event = st.session_state.get("project_event", "")
-        
-        # Determine if we should force a video render
-        project_switched = project_event.startswith("ACTIVE_PROJECT_CHANGED")
-        
-        if active_galleria and not project_switched:
-            with self.media_placeholder.container():
-                active_galleria.render()
-        elif os.path.exists(video_path):
-            self.media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
-        else:
-            self.media_placeholder.warning("Video not found.")
-        
-        # Reset project event to avoid unnecessary re-triggers
-        st.session_state["project_event"] = "ACTIVE_PROJECT_INTERACTED"
     
-                  
     def _render_control_panel(self):
         """Render the control panel with sticky positioning inside its section."""
         
@@ -448,6 +372,68 @@ class RecommendationSystem(PortfolioSection):
         )
 
 
+    def render_project_metadata(self, project_metadata, display_milestones=True, margin_percent=10):
+        """Render project title, description, tags, milestones, code sample count, and media content."""
+        
+        video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
+        video_path = os.path.join('assets', video_filename)
+        
+        tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
+        
+        # Generate hover-reveal effect for the description
+        description_html, description_styles = hover_reveal_text(project_metadata['description'])
+        
+        # Convert markdown and append tags
+        description_html = markdown.markdown(f"{description_html} {tags_html}")
+    
+        # Title and description with hover effect
+        st.markdown(
+            f"""
+            <div style="text-align: center;"><h3>{prettify_title(project_metadata['title'])}</h3></div>
+            <div style="text-align: justify; margin-left: {margin_percent}%; margin-right: {margin_percent}%;">
+                {description_html}
+            </div>
+            <style>{description_styles}</style>
+            """,
+            unsafe_allow_html=True,
+        )
+    
+        # Milestones section
+        milestone_margin = margin_percent * 1.5  
+        
+        if display_milestones:
+          
+            # Render achieved milestones
+            achieved_html = html_for_milestones_from_project_metadata(project_metadata=project_metadata, milestone_type="achieved_milestones")
+            if achieved_html:
+                st.markdown(
+                    f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{achieved_html}</div>",
+                    unsafe_allow_html=True
+                )
+        
+            # Render upcoming milestones
+            upcoming_html = html_for_milestones_from_project_metadata(project_metadata=project_metadata, milestone_type="next_milestones")
+            if upcoming_html:
+                st.markdown(
+                    f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{upcoming_html}</div>",
+                    unsafe_allow_html=True
+                )
+        
+            # Fetch and render code samples from repository
+            code_samples = self._fetch_files(project_metadata['title'])
+            code_samples_html = html_for_milestones_from_project_metadata(milestones=code_samples, milestone_type="code_samples")
+            if code_samples_html:
+                st.markdown(
+                    f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{code_samples_html}</div>",
+                    unsafe_allow_html=True
+                )
+
+            # Media placeholder
+            #st.markdown("<br>", unsafe_allow_html=True)
+            self.media_placeholder = st.empty()
+        
+            # Render media content
+            self._render_media_content(video_path)
 
 
 # Example usage
