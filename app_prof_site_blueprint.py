@@ -60,8 +60,9 @@ query_params = st.experimental_get_query_params()
 query_sections = query_params.get("section")
 if not query_sections or query_sections==["Home"]:
     displayed_sections=list(SECTIONS.keys())
-
-st.write(displayed_sections)
+else:
+    displayed_sections=query_sections
+st.write(query_sections)
 
 # Example usage of the multiselect widget
 selected_sections = st.multiselect(
