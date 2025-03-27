@@ -88,7 +88,7 @@ def render_multi_page_navigation():
     )
 
     # **Retrieve Selected Section in Python**
-    query_params = st.query_params()
+    query_params = st.experimental_get_query_params()
     selected_section = query_params.get("selected_section", [None])[0]
 
     if selected_section:
