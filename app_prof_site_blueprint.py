@@ -98,9 +98,5 @@ for section_name, module in SECTIONS.items():
         render_section_separator()
 
 
-
-
-
-
 render_multi_page_navigation()
 
