@@ -56,7 +56,7 @@ def render_multi_page_navigation():
             <a href="?section=RecSys" class="nav-link">
                 <img src="{RECSYS_ICON}" alt="Recommender System">
             </a>
-            <a href="?section=Services&Rates" class="nav-link">
+            <a href="?section=Services" class="nav-link">
                 <img src="{SERVICES_ICON}" alt="Services and Rates">
             </a>
         </div>
