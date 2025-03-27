@@ -125,7 +125,15 @@ HOME_ICON = "https://img.icons8.com/?size=100&id=hmZnke9jb8oq&format=png&color=0
 RECSYS_ICON = "https://img.icons8.com/?size=100&id=NaOfOQ3MMYaq&format=png&color=000000"  # Updated icon for emphasis
 SERVICES_ICON = "https://cdn-icons-png.flaticon.com/128/3135/3135706.png"
 
-# Custom CSS for fixed-position navbar
+import streamlit as st
+from PIL import Image
+
+# Load freely available icons
+HOME_ICON = "https://cdn-icons-png.flaticon.com/128/25/25694.png"
+RECSYS_ICON = "https://cdn-icons-png.flaticon.com/128/18405/18405048.png"  # Updated with distinctive RecSys icon
+SERVICES_ICON = "https://cdn-icons-png.flaticon.com/128/3135/3135706.png"
+
+# Custom CSS for fixed-position frosted glass navbar
 st.markdown(
     """
     <style>
@@ -134,13 +142,15 @@ st.markdown(
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(0, 0, 50, 0.8);
+            background: rgba(255, 255, 255, 0.1);  /* Transparent background */
+            backdrop-filter: blur(4px);  /* Frosted glass effect */
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.1);
             padding: 10px 20px;
             border-radius: 15px;
             display: flex;
             gap: 20px;
             align-items: center;
-            box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
         }
         .nav-button {
             background: none;
