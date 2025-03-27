@@ -15,31 +15,33 @@ def _generate_bureaucratic_html(details: dict) -> str:
     .bureau-field {
         display: inline-flex;
         align-items: center;
-        padding: 6px 8px;
-        margin: 2px;
-        border-radius: 4px;
-        background: #BFBFBF;  
-        color: #FFF;  
+        padding: 6px 10px;
+        margin: 3px;
+        border-radius: 6px;
+        background: #1E3A5F;  /* Navy Blue */
+        color: #FFFFFF;  
         font-size: 14px;
         white-space: nowrap;
-        border: 1.5px solid #DDD;  
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
-        transition: all 0.3s ease-in-out; /* Smooth transition */
+        border: 1.5px solid #294A70;  /* Darker navy border */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); 
+        transition: all 0.3s ease-in-out; /* Smooth animation */
+        cursor: pointer;  /* Indicates interactivity */
     }
     .bureau-label {
         font-weight: bold;
-        margin-right: 4px;
-        color: #FFF;  
+        margin-right: 6px;
+        color: #DDEEFF;  /* Light Crystal Blue */
         font-size: 90%;
     }
     
     /* Hover effect */
     .bureau-field:hover {
-        background: #A6A6A6;  /* Darker gray */
-        color: #FFF;
-        transform: scale(1.1);  /* Slight scale up */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Floating effect */
-        z-index: 10; /* Bring to front */
+        background: #3A5F9E;  /* Crystal Blue */
+        color: #FFFFFF;
+        transform: scale(1.1);  /* Slight scale-up */
+        box-shadow: 0 4px 10px rgba(58, 95, 158, 0.5); /* Soft glow effect */
+        z-index: 10; /* Brings hovered element to front */
+        cursor: help;  /* Special cursor */
     }
     </style>
     """
@@ -70,4 +72,5 @@ def render_bureaucratic_form(details: dict):
     :param details: Dictionary containing field names as keys and corresponding values.
     """
     st.markdown(_generate_bureaucratic_html(details), unsafe_allow_html=True)
+
 
