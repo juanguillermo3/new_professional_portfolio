@@ -68,7 +68,7 @@ if not query_sections or query_sections==["Home"]:
     displayed_sections=list(SECTIONS.keys())
 else:
     displayed_sections=query_sections
-st.write(query_sections)
+#st.write(query_sections)
 
 # Example usage of the multiselect widget
 selected_sections = st.multiselect(
