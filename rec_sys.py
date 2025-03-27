@@ -384,48 +384,50 @@ class RecommendationSystem(PortfolioSection):
         """Render method with Galleria callback integration and smooth media transitions."""
         
         self._render_headers()  # Render headers from the portfolio section class
-        self._inject_transition_styles()  # Inject styles for smooth transitions
-    
-        # Display the ranker's logic
+        
+        # Display ranker's logic
         st.markdown(f'{self.RANKER_LOGIC}', unsafe_allow_html=True)
     
-        # Render the sticky control panel and retrieve user selections
-        selected_project, query = self._render_control_panel()
+        # Create a container to wrap the project content (ensures smooth transitions)
+        with st.container():
+            st.markdown('<div class="project-data-container">', unsafe_allow_html=True)
+            
+            # Render the sticky control panel and retrieve user selections
+            selected_project, query = self._render_control_panel()
+            
+            # Fetch recommendations
+            recommendations = self.rank_items(query, selected_project)
     
-        # Ancillary div to wrap project data (for smooth transitions)
-        st.markdown('<div class="project-data-container">', unsafe_allow_html=True)
+            # Fetch project metadata
+            project_metadata = next(
+                (repo for repo in self.repos_metadata if repo["title"].lower() == selected_project.lower()), 
+                None
+            ) if selected_project != "All Projects" else None
     
-        # Fetch recommendations
-        recommendations = self.rank_items(query, selected_project)
+            if project_metadata:
+                self.render_project_metadata(project_metadata)
     
-        # Display project metadata if applicable
-        project_metadata = next(
-            (repo for repo in self.repos_metadata if repo["title"].lower() == selected_project.lower()), 
-            None
-        ) if selected_project != "All Projects" else None
+            # Render filtering message
+            filter_message = f"Showing all results for project {prettify_title(selected_project)}"
+            if query:
+                filter_message += f" (and for keyword: {query})"
     
-        if project_metadata:
-            self.render_project_metadata(project_metadata)
+            st.markdown(
+                f'<p style="font-style: italic; color: #555; font-size: 105%; font-weight: 550;">{filter_message}</p>',
+                unsafe_allow_html=True
+            )
     
-        # Render filtering message
-        filter_message = f"Showing all results for project {prettify_title(selected_project)}"
-        if query:
-            filter_message += f" (and for keyword: {query})"
+            # Render recommendations in a grid
+            for i in range(0, len(recommendations), self.num_columns):
+                cols = st.columns(self.num_columns)
+                for col, rec in zip(cols, recommendations[i: i + self.num_columns]):
+                    with col:
+                        self.render_card(rec, is_project=rec.get("is_project", False))
     
-        st.markdown(
-            f'<p style="font-style: italic; color: #555; font-size: 105%; font-weight: 550;">{filter_message}</p>',
-            unsafe_allow_html=True
-        )
-    
-        # Render recommendations in a grid
-        for i in range(0, len(recommendations), self.num_columns):
-            cols = st.columns(self.num_columns)
-            for col, rec in zip(cols, recommendations[i: i + self.num_columns]):
-                with col:
-                    self.render_card(rec, is_project=rec.get("is_project", False))
-    
-        # Close the ancillary div
-        st.markdown('</div>', unsafe_allow_html=True)
+            # Close the container div (Styled transitions applied later)
+            self._to_markdown_with_transition('</div>')
+
+
 
 
     def _inject_transition_styles(self):
