@@ -54,8 +54,8 @@ SECTIONS = {
 }
 
 # fetch desired section from url parameters 
-query_params = st.experimental_get_query_params()
-#query_params = st.query_params()
+#query_params = st.experimental_get_query_params()
+query_params = st.query_params()
 
 query_sections = query_params.get("section")
 if not query_sections or query_sections==["Home"]:
