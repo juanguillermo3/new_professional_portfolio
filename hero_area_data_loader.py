@@ -222,12 +222,13 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
             f'<strong>{offer["title"]}</strong>: {short_description}'
         )
 
-        # In-line expanding content (fully collapsed when not hovered)
+        # In-line expanding content with natural line breaks
         if full_description:
             offering_html += f' <span class="hover-{element_id}">{full_description}</span>'
             style_block += (
                 f".hover-{element_id} {{"
-                f" display: inline-block; max-width: 0; overflow: hidden; white-space: nowrap;"
+                f" display: inline-block; max-width: 0; overflow: hidden;"
+                f" white-space: normal; vertical-align: top;"
                 f" opacity: 0; transition: opacity 0.3s ease-in-out, max-width 0.4s ease-out; }}\n"
                 f"#{element_id}:hover .hover-{element_id} {{"
                 f" max-width: 100%; opacity: 1; }}\n"
@@ -256,6 +257,7 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
     style_block += "</style>\n"
 
     return style_block + offering_html, tooltip_ids
+
 
 
 
