@@ -62,7 +62,7 @@ SECTIONS = {
 try:
     query_sections = [st.query_params["section"]]
 except:
-    qquery_sections=["Home"]
+    query_sections=["Home"]
     
 if not query_sections or query_sections==["Home"]:
     displayed_sections=list(SECTIONS.keys())
