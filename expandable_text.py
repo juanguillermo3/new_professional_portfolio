@@ -29,7 +29,7 @@ def expandable_text_html(detailed_text: str) -> tuple[str, str]:
     style_block = ""
 
     if details:
-        offering_html += f' <span class="{element_id}-hidden">{details}</span>'
+        text_container += f' <span class="{element_id}-hidden">{details}</span>'
         style_block = (
             f".{element_id}-hidden {{"
             f" display: inline-block; opacity: 0; max-width: 0px; max-height: 0px; overflow: hidden;"
