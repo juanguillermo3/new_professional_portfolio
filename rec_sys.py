@@ -325,7 +325,8 @@ class RecommendationSystem(PortfolioSection):
         
         # Reset project event to avoid unnecessary re-triggers
         st.session_state["project_event"] = "ACTIVE_PROJECT_INTERACTED"
-
+    
+                  
     def _render_control_panel(self):
         """Render the control panel with sticky positioning inside its section."""
         
@@ -379,17 +380,20 @@ class RecommendationSystem(PortfolioSection):
     
         return selected_project, query
 
-    
     def render(self):
         """Render method with Galleria callback integration and smooth media transitions."""
         
         self._render_headers()  # Render headers from the portfolio section class
+        self._inject_transition_styles()  # Inject styles for smooth transitions
     
         # Display the ranker's logic
         st.markdown(f'{self.RANKER_LOGIC}', unsafe_allow_html=True)
     
         # Render the sticky control panel and retrieve user selections
         selected_project, query = self._render_control_panel()
+    
+        # Ancillary div to wrap project data (for smooth transitions)
+        st.markdown('<div class="project-data-container">', unsafe_allow_html=True)
     
         # Fetch recommendations
         recommendations = self.rank_items(query, selected_project)
@@ -412,15 +416,39 @@ class RecommendationSystem(PortfolioSection):
             f'<p style="font-style: italic; color: #555; font-size: 105%; font-weight: 550;">{filter_message}</p>',
             unsafe_allow_html=True
         )
-      
+    
         # Render recommendations in a grid
         for i in range(0, len(recommendations), self.num_columns):
             cols = st.columns(self.num_columns)
             for col, rec in zip(cols, recommendations[i: i + self.num_columns]):
                 with col:
                     self.render_card(rec, is_project=rec.get("is_project", False))
+    
+        # Close the ancillary div
+        st.markdown('</div>', unsafe_allow_html=True)
 
 
+    def _inject_transition_styles(self):
+        """Injects custom CSS for smooth project transitions."""
+        
+        st.markdown(
+            """
+            <style>
+            .project-data-container {
+                opacity: 0;
+                transform: scale(0.98);
+                transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            }
+            
+            /* When Streamlit updates the component, ensure smooth fade-in */
+            .project-data-container:has(+ div) {
+                opacity: 1;
+                transform: scale(1);
+            }
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
 
 
 # Example usage
