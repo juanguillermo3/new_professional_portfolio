@@ -86,7 +86,7 @@ class PortfolioSection:
         Uses instance attributes instead of class attributes.
         """
         st.markdown(f"### {self.title}", unsafe_allow_html=True)
-        break
+        return 
         badge_html_template = """
             <span style="font-size: 0.8em; background: {bg_color}; color: {text_color}; 
             display: inline-block; padding: 4px 9px; border-radius: 8px; cursor: pointer; 
