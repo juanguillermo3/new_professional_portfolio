@@ -230,18 +230,21 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
         offering_html += (
             f'<li id="{element_id}" style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px;">'
             f'<p style="text-align: justify; margin: 0;">'
-            f'<strong>{offer["title"]}</strong>: {short_description}'
+            f'<strong>{offer["title"]}</strong>: '
+            f'<span class="container-{element_id}">{short_description}'
         )
 
-        # In-line expanding content (smooth fade-in effect)
+        # In-line expanding content with auto-resizing container
         if full_description:
-            offering_html += f' <span class="hover-{element_id}">{full_description}</span>'
+            offering_html += f' <span class="hover-{element_id}">{full_description}</span></span>'
             style_block += (
-                f".hover-{element_id} {{"
-                f" display: inline; opacity: 0; width: 0; overflow: hidden;"
-                f" transition: opacity 0.3s ease-in-out, width 0.4s ease-out; }}\n"
-                f"#{element_id}:hover .hover-{element_id} {{"
-                f" opacity: 1; width: auto; }}\n"
+                f".container-{element_id} {{"
+                f" display: inline-block; min-width: fit-content; transition: min-width 0.4s ease-out; }}"
+                f"\n.hover-{element_id} {{"
+                f" display: inline; opacity: 0; width: 0; white-space: nowrap; overflow: hidden;"
+                f" transition: opacity 0.3s ease-in-out, width 0.4s ease-out; }}"
+                f"\n#{element_id}:hover .hover-{element_id} {{"
+                f" opacity: 1; width: auto; }}"
             )
 
         # Tooltip rendering (if available)
@@ -267,6 +270,7 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
     style_block += "</style>\n"
 
     return style_block + offering_html, tooltip_ids
+
 
 
 
