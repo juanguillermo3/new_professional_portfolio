@@ -9,7 +9,7 @@ SERVICES_ICON = "https://cdn-icons-png.flaticon.com/128/3135/3135706.png"
 
 
 def render_multi_page_navigation():
-    # Custom CSS for fixed-position frosted glass navbar
+    # Define Custom CSS for a Frosted Glass Effect Navbar
     st.markdown(
         """
         <style>
@@ -45,21 +45,53 @@ def render_multi_page_navigation():
         """,
         unsafe_allow_html=True,
     )
-    
-    # HTML layout for navbar
+
+    # **JavaScript to Update the Hidden Input Field**
+    st.markdown(
+        """
+        <script>
+            function setSection(section) {
+                document.getElementById("selected_section").value = section;
+                document.getElementById("section_form").dispatchEvent(new Event("submit"));
+            }
+        </script>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # **Hidden Form for Section Selection**
+    st.markdown(
+        """
+        <form id="section_form">
+            <input type="hidden" name="selected_section" id="selected_section">
+        </form>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # **Navigation Buttons (Calling JavaScript)**
     st.markdown(
         f"""
         <div class="fixed-navbar">
-            <button class="nav-button" onclick="window.location.href='/Home'">
+            <button class="nav-button" onclick="setSection('Home')">
                 <img src="{HOME_ICON}" alt="Home">
             </button>
-            <button class="nav-button" onclick="window.location.href='/RecSys'">
+            <button class="nav-button" onclick="setSection('RecSys')">
                 <img src="{RECSYS_ICON}" alt="Recommender System">
             </button>
-            <button class="nav-button" onclick="window.location.href='/Services'">
+            <button class="nav-button" onclick="setSection('Services&Rates')">
                 <img src="{SERVICES_ICON}" alt="Services and Rates">
             </button>
         </div>
         """,
         unsafe_allow_html=True,
     )
+
+    # **Retrieve Selected Section in Python**
+    query_params = st.experimental_get_query_params()
+    selected_section = query_params.get("selected_section", [None])[0]
+
+    if selected_section:
+        st.session_state["selected_sections"] = [selected_section]
+        st.experimental_rerun()
+
