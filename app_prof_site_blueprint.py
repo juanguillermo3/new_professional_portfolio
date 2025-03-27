@@ -37,6 +37,9 @@ SECTIONS = {
     #"Socials": socials,
     "Testimonials": testimonials
 }
+# **Customization Options**
+if "selected_sections" not in st.session_state:
+    st.session_state["selected_sections"] = list(SECTIONS.keys())
 
 st.markdown("""
     <style>
@@ -84,25 +87,7 @@ st.title("Welcome to My Professional Site")
 hero.render()
 render_section_separator()
 
-# **Customization Options**
-if "selected_sections" not in st.session_state:
-    st.session_state["selected_sections"] = list(SECTIONS.keys())
 
-# Adding custom CSS for customizing the pills' appearance with a navy blue color
-st.markdown("""
-    <style>
-        /* Customizing the pills (selected options) in multiselect */
-        .stMultiSelect div[data-baseweb="multi-select"] span[data-baseweb="select-option"] {
-            background-color: #000080 !important; /* Navy blue background */
-            color: white !important;  /* White text */
-            border-radius: 12px !important;  /* Rounded corners */
-            padding: 5px 10px !important;  /* Adjust padding */
-        }
-        .stMultiSelect div[data-baseweb="multi-select"] span[data-baseweb="select-option"]:hover {
-            background-color: #0000cd !important; /* Medium blue on hover */
-        }
-    </style>
-""", unsafe_allow_html=True)
 
 
 render_section_separator()
