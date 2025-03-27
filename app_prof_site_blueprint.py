@@ -56,7 +56,7 @@ SECTIONS = {
 
 # fetch desired section from url parameters 
 query_params = st.experimental_get_query_params()
-displayed_sections = query_params.get("section",  list(SECTIONS.keys() )
+displayed_sections = query_params.get("section",  list(SECTIONS.keys()) )
 
 st.write(displayed_sections)
 
