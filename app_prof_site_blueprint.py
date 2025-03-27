@@ -131,7 +131,7 @@ from PIL import Image
 
 # Load freely available icons
 HOME_ICON = "https://cdn-icons-png.flaticon.com/128/25/25694.png"
-RECSYS_ICON = "https://cdn-icons-png.flaticon.com/128/2991/2991148.png"
+RECSYS_ICON = "https://cdn-icons-png.flaticon.com/128/1260/1260629.png"  # Updated icon for emphasis
 SERVICES_ICON = "https://cdn-icons-png.flaticon.com/128/3135/3135706.png"
 
 # Custom CSS for fixed-position navbar
