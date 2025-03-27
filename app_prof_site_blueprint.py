@@ -59,7 +59,7 @@ SECTIONS = {
 
 #query_sections = query_params.get("section")
 
-query_sections = st.query_params["section"]
+query_sections = [st.query_params["section"]]
 if not query_sections or query_sections==["Home"]:
     displayed_sections=list(SECTIONS.keys())
 else:
