@@ -121,7 +121,7 @@ import streamlit as st
 from PIL import Image
 
 # Load freely available icons
-HOME_ICON = "https://cdn-icons-png.flaticon.com/128/25/25694.png"
+HOME_ICON = "https://img.icons8.com/?size=100&id=hmZnke9jb8oq&format=png&color=000000"
 RECSYS_ICON = "https://img.icons8.com/?size=100&id=NaOfOQ3MMYaq&format=png&color=000000"  # Updated icon for emphasis
 SERVICES_ICON = "https://cdn-icons-png.flaticon.com/128/3135/3135706.png"
 
