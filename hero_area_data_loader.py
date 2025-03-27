@@ -234,16 +234,16 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
             f'<span class="hover-container-{element_id}">{short_description}'
         )
 
-        # Hover-triggered full description with smooth expansion
+        # Hover-triggered full description with true inline expansion
         if full_description:
             offering_html += f'<span class="hover-text-{element_id}">{full_description}</span>'
             style_block += (
-                f".hover-container-{element_id} {{ display: inline-block; position: relative; cursor: pointer; }}\n"
+                f".hover-container-{element_id} {{ display: inline; position: relative; cursor: pointer; }}\n"
                 f".hover-text-{element_id} {{"
-                f" display: block; overflow: hidden; max-height: 0; opacity: 0;"
-                f" transition: max-height 0.4s ease-out, opacity 0.3s ease-in-out; }}\n"
+                f" display: inline-block; overflow: hidden; width: 0; opacity: 0; white-space: nowrap;"
+                f" transition: width 0.4s ease-out, opacity 0.3s ease-in-out; }}\n"
                 f".hover-container-{element_id}:hover .hover-text-{element_id} {{"
-                f" max-height: 100px; opacity: 1; }}\n"
+                f" width: auto; opacity: 1; }}\n"
             )
 
         offering_html += '</span></p>'
@@ -261,6 +261,7 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
     style_block += "</style>\n"
 
     return style_block + offering_html, ""
+
 
 
 
