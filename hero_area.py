@@ -280,13 +280,15 @@ class HeroArea:
         # **Navigation Links with Tooltips & WhatsApp Button**
         st.markdown(
             f"""
-            <div class="non-fixed-navbar">
-                <a href="{"https://colab.research.google.com/drive/1QKFY5zfiRkUUPrnhlsOrtRlqGJ14oFf3#scrollTo=sxBOaWZ9uabz"}" class="nav-link" data-tooltip="Genetic Optimization">
-                    <img src="{default_icon}" alt="{""}">
-                </a>
-                <a href="{"https://colab.research.google.com/drive/1sPdB-uoOEdw2xIKPQCx1aGp5QUuu1ooK#scrollTo=_Ycax1ucXvAO"}" class="nav-link" data-tooltip="Ensemble Learning">
-                    <img src="{default_icon}" alt="{""}">
-                </a>
+            <div>
+              <div class="non-fixed-navbar">
+                  <a href="{"https://colab.research.google.com/drive/1QKFY5zfiRkUUPrnhlsOrtRlqGJ14oFf3#scrollTo=sxBOaWZ9uabz"}" class="nav-link" data-tooltip="Genetic Optimization">
+                      <img src="{default_icon}" alt="{""}">
+                  </a>
+                  <a href="{"https://colab.research.google.com/drive/1sPdB-uoOEdw2xIKPQCx1aGp5QUuu1ooK#scrollTo=_Ycax1ucXvAO"}" class="nav-link" data-tooltip="Ensemble Learning">
+                      <img src="{default_icon}" alt="{""}">
+                  </a>
+              </div>
             </div>
             """,
             unsafe_allow_html=True,
