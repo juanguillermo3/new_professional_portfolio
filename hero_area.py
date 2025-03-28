@@ -218,10 +218,7 @@ class HeroArea:
             """
             <style>
                 .non-fixed-navbar {
-                    position: fixed;  /* Fixed positioning for the navbar */
-                    bottom: 20px;
-                    left: 50%;
-                    transform: translateX(-50%);  /* Centering the navbar horizontally */
+                    margin: 0 auto;  /* Automatically centers the navbar horizontally */
                     background: rgba(255, 255, 255, 0.1);  /* Transparent background */
                     backdrop-filter: blur(4px);  /* Frosted glass effect */
                     border: 2px solid rgba(255, 255, 255, 0.9);
@@ -231,7 +228,8 @@ class HeroArea:
                     display: flex;
                     gap: 20px;
                     align-items: center;
-                    justify-content: center;  /* Centering the contents horizontally */
+                    justify-content: center;  /* Center the content horizontally */
+                    width: fit-content;  /* Allow the navbar to resize based on its content */
                 }
                 
                 .colab-link {
@@ -297,6 +295,7 @@ class HeroArea:
             """,
             unsafe_allow_html=True,
         )
+
 
 
         
