@@ -219,37 +219,30 @@ class HeroArea:
             """
             <style>
                 .code-sample-container {
-                    display: flex; /* Ensures items are in a row */
-                    flex-direction: row; /* Explicitly sets row direction */
-                    justify-content: center;
-                    align-items: center;
-                    gap: 20px;
-                    padding: 15px;
-                    border-radius: 15px;
-                    background: rgba(255, 255, 255, 0.1);
-                    backdrop-filter: blur(5px);
-                    border: 2px solid rgba(255, 255, 255, 0.9);
-                    box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.1);
-                    width: auto; /* Ensures it only takes necessary space */
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: rgba(255, 255, 255, 0.1);  /* Transparent background */
+                backdrop-filter: blur(4px);  /* Frosted glass effect */
+                border: 2px solid rgba(255, 255, 255, 0.9);
+                box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.1);
+                padding: 10px 20px;
+                border-radius: 15px;
+                display: flex;
+                gap: 20px;
+                align-items: center;
                 }
-
                 .code-sample-btn {
-                    width: 55px;
-                    height: 55px;
-                    border-radius: 50%;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    background-color: #24292f;
-                    transition: all 0.3s ease-in-out;
+                    display: inline-block;
+                    text-decoration: none;
+                    transition: transform 0.2s ease-in-out;
+                    position: relative;
                 }
-
                 .code-sample-btn img {
-                    width: 36px;
-                    height: 36px;
+                    width: 50px;
+                    height: 50px;
                     border-radius: 50%;
                 }
-
                 .code-sample-link:hover {
                     transform: scale(1.1);
                 }
