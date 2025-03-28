@@ -213,7 +213,7 @@ class HeroArea:
     
             st.markdown(f'<p class="hero-quote">{styled_text}</p>', unsafe_allow_html=True)
 
-     def render_code_samples(self):
+    def render_code_samples(self):
         # Apply styles using a unique key to avoid conflicts
         st.markdown(
             """
@@ -305,6 +305,7 @@ class HeroArea:
                         """,
                         unsafe_allow_html=True
                     )
+
 
         
     
