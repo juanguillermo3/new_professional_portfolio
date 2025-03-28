@@ -213,8 +213,8 @@ class HeroArea:
     
             st.markdown(f'<p class="hero-quote">{styled_text}</p>', unsafe_allow_html=True)
 
-    def render_code_samples(self):
-        # Define Custom CSS for Frosted Glass Buttons (Similar to Navbar)
+     def render_code_samples(self):
+        # Apply styles using a unique key to avoid conflicts
         st.markdown(
             """
             <style>
@@ -225,7 +225,7 @@ class HeroArea:
                     flex-wrap: wrap;
                     padding: 15px;
                     border-radius: 15px;
-                    background: rgba(255, 255, 255, 0.1);  
+                    background: rgba(255, 255, 255, 0.1);
                     backdrop-filter: blur(5px);
                     border: 2px solid rgba(255, 255, 255, 0.9);
                     box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.1);
@@ -283,34 +283,28 @@ class HeroArea:
             unsafe_allow_html=True,
         )
     
-        # Default icon for Google Colab
+        # Default Google Colab icon
         default_icon = "https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Colaboratory_SVG_Logo.svg"
     
-        # Create centered button container
-        st.markdown('<div class="code-sample-container">', unsafe_allow_html=True)
+        # Use `st.container()` instead of `<div>`
+        with st.container():
+            col1, col2, col3 = st.columns(3)  # Responsive layout for centering
     
-        # Render each sample button
-        for sample in self.code_samples:
-            icon_url = sample.get("icon_url", default_icon)
-            tooltip_text = f"Try {sample['title']}! 🚀"
+            with col2:  # Centered alignment
+                for sample in self.code_samples:
+                    icon_url = sample.get("icon_url", default_icon)
+                    tooltip_text = f"Try {sample['title']}! 🚀"
     
-            st.markdown(
-                f"""
-                <a href="{sample['url']}" target="_blank" class="code-sample-link" data-tooltip="{tooltip_text}">
-                    <div class="code-sample-btn">
-                        <img src="{icon_url}" alt="{sample['title']}">
-                    </div>
-                </a>
-                """,
-                unsafe_allow_html=True
-            )
-    
-        # Close the container div
-        st.markdown('</div>', unsafe_allow_html=True)
-
-    
-        
-    
+                    st.markdown(
+                        f"""
+                        <a href="{sample['url']}" target="_blank" class="code-sample-link" data-tooltip="{tooltip_text}">
+                            <div class="code-sample-btn">
+                                <img src="{icon_url}" alt="{sample['title']}">
+                            </div>
+                        </a>
+                        """,
+                        unsafe_allow_html=True
+                    )
 
         
     
