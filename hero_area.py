@@ -171,7 +171,8 @@ class HeroArea:
         
         st.markdown(self.detailed_offering, unsafe_allow_html=True)
         for id in self.ids:
-            #st.markdown(setup_tooltip_behavior(id), unsafe_allow_html=True)          
+            #st.markdown(setup_tooltip_behavior(id), unsafe_allow_html=True)  
+            pass
         self.render_code_samples()
 
     def _render_quote(self):
