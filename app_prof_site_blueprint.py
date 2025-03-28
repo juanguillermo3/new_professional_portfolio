@@ -49,7 +49,7 @@ SECTIONS = {
     "About": about,
     "RecSys": recsys,
     "Services": services,
-    "Curriculum Vitae": cv,
+    "CurriculumVitae": cv,
     "Testimonials": testimonials
 }
 
