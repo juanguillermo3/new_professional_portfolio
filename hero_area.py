@@ -220,8 +220,6 @@ class HeroArea:
             <style>
                 .non-fixed-navbar {
                     bottom: 20px;
-                    left: 50%;
-                    transform: translateX(-50%);
                     background: rgba(255, 255, 255, 0.1);  /* Transparent background */
                     backdrop-filter: blur(4px);  /* Frosted glass effect */
                     border: 2px solid rgba(255, 255, 255, 0.9);
