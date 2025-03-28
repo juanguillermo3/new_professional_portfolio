@@ -221,7 +221,7 @@ class HeroArea:
                 .code-sample-container {
                     display: flex;
                     justify-content: center;
-                    margin-top: 20px;
+                    margin-top: 5px;
                     padding: 20px;
                     border-radius: 15px;
                     background: rgba(255, 255, 255, 0.1);  /* Frosted glass effect */
