@@ -16,9 +16,6 @@ HOME_ICON = os.getenv("HOME_ICON", "https://img.icons8.com/?size=100&id=hmZnke9j
 RECSYS_ICON = os.getenv("RECSYS_ICON", "https://img.icons8.com/?size=100&id=NaOfOQ3MMYaq&format=png&color=000000")
 SERVICES_ICON = os.getenv("SERVICES_ICON", "https://cdn-icons-png.flaticon.com/128/3135/3135706.png")
 
-import streamlit as st
-import urllib.parse
-
 def render_multi_page_navigation():
     # Define Custom CSS for a Frosted Glass Effect Navbar with Anchor Links
     st.markdown(
@@ -38,8 +35,10 @@ def render_multi_page_navigation():
                 display: flex;
                 gap: 20px;
                 align-items: center;
+                position: relative;
             }
             .nav-link {
+                position: relative;
                 display: inline-block;
                 text-decoration: none;
                 transition: transform 0.2s ease-in-out;
@@ -52,6 +51,30 @@ def render_multi_page_navigation():
             .nav-link:hover {
                 transform: scale(1.1);
             }
+
+            /* Tooltip Styling */
+            .nav-link::after {
+                content: attr(data-tooltip);
+                position: absolute;
+                bottom: 70px;
+                left: 50%;
+                transform: translateX(-50%);
+                background-color: #333;
+                color: white;
+                padding: 6px 12px;
+                border-radius: 5px;
+                font-size: 14px;
+                white-space: nowrap;
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 0.3s ease-in-out, visibility 0.3s;
+            }
+
+            .nav-link:hover::after {
+                opacity: 1;
+                visibility: visible;
+            }
+
             /* WhatsApp Button */
             .nav-link.whatsapp-btn {
                 background-color: #25D366;
@@ -72,37 +95,58 @@ def render_multi_page_navigation():
                 background-color: #1EBEA5;
                 transform: scale(1.1);
             }
+
+            .whatsapp-btn::after {
+                content: "Chat with us on WhatsApp";
+                position: absolute;
+                bottom: 70px;
+                left: 50%;
+                transform: translateX(-50%);
+                background-color: #333;
+                color: white;
+                padding: 6px 12px;
+                border-radius: 5px;
+                font-size: 14px;
+                white-space: nowrap;
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 0.3s ease-in-out, visibility 0.3s;
+            }
+
+            .whatsapp-btn:hover::after {
+                opacity: 1;
+                visibility: visible;
+            }
         </style>
         """,
         unsafe_allow_html=True,
     )
 
-    # Hardcoded WhatsApp Number & Message
-    whatsapp_number = "+1234567890"
+    # WhatsApp Number & Message
+    whatsapp_number = WHATSAPP_NUMBER
     salutation = "Hello! I’d love to learn more about your services."
     whatsapp_url = f"https://wa.me/{whatsapp_number.replace('+', '')}?text={urllib.parse.quote(salutation)}"
 
-    # **Navigation Links with WhatsApp Button**
+    # **Navigation Links with Tooltips**
     st.markdown(
         f"""
         <div class="fixed-navbar">
-            <a href="?section=Home" class="nav-link">
+            <a href="?section=Home" class="nav-link" data-tooltip="Go to Home">
                 <img src="{HOME_ICON}" alt="Home">
             </a>
-            <a href="?section=RecSys" class="nav-link">
+            <a href="?section=RecSys" class="nav-link" data-tooltip="Explore Recommendations">
                 <img src="{RECSYS_ICON}" alt="Recommender System">
             </a>
-            <a href="?section=Services" class="nav-link">
+            <a href="?section=Services" class="nav-link" data-tooltip="View Services & Rates">
                 <img src="{SERVICES_ICON}" alt="Services and Rates">
             </a>
             <a href="{whatsapp_url}" target="_blank" class="nav-link whatsapp-btn">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png">
+                <img src="{WHATSAPP_ICON}">
             </a>
         </div>
         """,
         unsafe_allow_html=True,
     )
-
 
 
 
