@@ -214,7 +214,7 @@ class HeroArea:
             st.markdown(f'<p class="hero-quote">{styled_text}</p>', unsafe_allow_html=True)
 
     def render_code_samples(self):
-        # Define Custom CSS for a Stylish, Centered Row of Code Sample Buttons
+        # Define Custom CSS
         st.markdown(
             """
             <style>
@@ -222,20 +222,21 @@ class HeroArea:
                     display: flex;
                     justify-content: center;  /* Center horizontally */
                     align-items: center;
-                    flex-direction: row;  /* Ensure row layout */
                     flex-wrap: wrap;  /* Allow wrapping if needed */
                     padding: 15px 10px;
                     border-radius: 15px;
-                    background: rgba(255, 255, 255, 0.1);  /* Frosted glass effect */
+                    background: rgba(255, 255, 255, 0.1);  
                     backdrop-filter: blur(5px);
                     border: 2px solid rgba(255, 255, 255, 0.2);
                     box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.1);
-                    gap: 20px;  /* Space between buttons */
+                    gap: 15px;  /* Space between buttons */
                     width: fit-content;
-                    margin: 0 auto;  /* Center the div in its container */
+                    margin: 0 auto;  /* Center the div */
                 }
                 .code-sample-link {
-                    display: inline-block;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
                     text-decoration: none;
                     transition: transform 0.2s ease-in-out;
                     position: relative;
@@ -263,10 +264,11 @@ class HeroArea:
                     background-color: #1c1f26;
                 }
                 /* Tooltip Styling */
-                .code-sample-link::after {
-                    content: attr(data-tooltip);
+                .tooltip {
+                    visibility: hidden;
+                    opacity: 0;
                     position: absolute;
-                    bottom: 85px;
+                    bottom: 90px;
                     left: 50%;
                     transform: translateX(-50%);
                     background-color: #333;
@@ -275,13 +277,11 @@ class HeroArea:
                     border-radius: 5px;
                     font-size: 14px;
                     white-space: nowrap;
-                    opacity: 0;
-                    visibility: hidden;
-                    transition: opacity 0.3s ease-in-out, visibility 0.3s;
+                    transition: opacity 0.3s ease-in-out;
                 }
-                .code-sample-link:hover::after {
-                    opacity: 1;
+                .code-sample-link:hover .tooltip {
                     visibility: visible;
+                    opacity: 1;
                 }
             </style>
             """,
@@ -291,7 +291,7 @@ class HeroArea:
         # Default icon if not provided
         default_icon = "https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Colaboratory_SVG_Logo.svg"
     
-        # Create a single markdown string to keep buttons in a row
+        # Start HTML structure
         buttons_html = '<div class="code-sample-container">'
         
         for sample in self.code_samples:
@@ -299,7 +299,8 @@ class HeroArea:
             tooltip_text = f"Try {sample['title']}! 🚀"
     
             buttons_html += f"""
-                <a href="{sample['url']}" target="_blank" class="code-sample-link" data-tooltip="{tooltip_text}">
+                <a href="{sample['url']}" target="_blank" class="code-sample-link">
+                    <div class="tooltip">{tooltip_text}</div>
                     <div class="code-sample-btn">
                         <img src="{icon_url}" alt="{sample['title']}">
                     </div>
@@ -308,9 +309,10 @@ class HeroArea:
     
         buttons_html += '</div>'
     
-        # Render all buttons inside a single markdown block
+        # Render all buttons in a single markdown block
         st.markdown(buttons_html, unsafe_allow_html=True)
-
+    
+    
 
         
     
