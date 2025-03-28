@@ -15,6 +15,8 @@ WHATSAPP_ICON = os.getenv("WHATSAPP_ICON", "https://upload.wikimedia.org/wikiped
 HOME_ICON = os.getenv("HOME_ICON", "https://img.icons8.com/?size=100&id=hmZnke9jb8oq&format=png&color=000000")
 RECSYS_ICON = os.getenv("RECSYS_ICON", "https://img.icons8.com/?size=100&id=NaOfOQ3MMYaq&format=png&color=000000")
 SERVICES_ICON = os.getenv("SERVICES_ICON", "https://cdn-icons-png.flaticon.com/128/3135/3135706.png")
+CV_ICON = os.getenv("SERVICES_ICON", "https://img.icons8.com/?size=100&id=kZDsMIbqetN3&format=png&color=000000")
+
 
 def render_multi_page_navigation():
     # Define Custom CSS for a Frosted Glass Effect Navbar with Tooltips
@@ -116,6 +118,9 @@ def render_multi_page_navigation():
             </a>
             <a href="?section=Services" class="nav-link" data-tooltip="View Services and Rates">
                 <img src="{SERVICES_ICON}" alt="Services and Rates">
+            </a>
+            <a href="?section=CurriculumVitae" class="nav-link" data-tooltip="View Curriculum Vitae">
+                <img src="{CV_ICON}" alt="Curriculum Vitae">
             </a>
             <a href="{whatsapp_url}" target="_blank" class="nav-link whatsapp-btn" data-tooltip="Chat on WhatsApp">
                 <img src="{WHATSAPP_ICON}">
