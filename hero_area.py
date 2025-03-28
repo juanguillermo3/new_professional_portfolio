@@ -214,35 +214,28 @@ class HeroArea:
             st.markdown(f'<p class="hero-quote">{styled_text}</p>', unsafe_allow_html=True)
 
     def render_code_samples(self):
-        # Define Custom CSS
+        # Define global styling first
         st.markdown(
             """
             <style>
                 .code-sample-container {
                     display: flex;
-                    justify-content: center;  /* Center horizontally */
+                    justify-content: center;
                     align-items: center;
-                    flex-wrap: wrap;  /* Allow wrapping if needed */
+                    flex-wrap: wrap;
                     padding: 15px 10px;
                     border-radius: 15px;
                     background: rgba(255, 255, 255, 0.1);  
                     backdrop-filter: blur(5px);
                     border: 2px solid rgba(255, 255, 255, 0.2);
                     box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.1);
-                    gap: 15px;  /* Space between buttons */
+                    gap: 15px;
                     width: fit-content;
-                    margin: 0 auto;  /* Center the div */
+                    margin: 0 auto;
                 }
                 .code-sample-link {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    text-decoration: none;
-                    transition: transform 0.2s ease-in-out;
                     position: relative;
-                }
-                .code-sample-link:hover {
-                    transform: scale(1.1);
+                    text-decoration: none;
                 }
                 .code-sample-btn {
                     width: 75px;
@@ -262,8 +255,8 @@ class HeroArea:
                 }
                 .code-sample-btn:hover {
                     background-color: #1c1f26;
+                    transform: scale(1.1);
                 }
-                /* Tooltip Styling */
                 .tooltip {
                     visibility: hidden;
                     opacity: 0;
@@ -291,27 +284,30 @@ class HeroArea:
         # Default icon if not provided
         default_icon = "https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Colaboratory_SVG_Logo.svg"
     
-        # Start HTML structure
-        buttons_html = '<div class="code-sample-container">'
-        
+        # Create a div container for the row layout
+        st.markdown('<div class="code-sample-container">', unsafe_allow_html=True)
+    
+        # Render each button separately
         for sample in self.code_samples:
             icon_url = sample.get("icon_url", default_icon)
             tooltip_text = f"Try {sample['title']}! 🚀"
     
-            buttons_html += f"""
+            st.markdown(
+                f"""
                 <a href="{sample['url']}" target="_blank" class="code-sample-link">
                     <div class="tooltip">{tooltip_text}</div>
                     <div class="code-sample-btn">
                         <img src="{icon_url}" alt="{sample['title']}">
                     </div>
                 </a>
-            """
+                """,
+                unsafe_allow_html=True
+            )
     
-        buttons_html += '</div>'
+        # Close the div container
+        st.markdown('</div>', unsafe_allow_html=True)
     
-        # Render all buttons in a single markdown block
-        st.markdown(buttons_html, unsafe_allow_html=True)
-    
+        
     
 
         
