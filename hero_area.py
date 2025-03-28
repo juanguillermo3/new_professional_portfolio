@@ -214,12 +214,14 @@ class HeroArea:
             st.markdown(f'<p class="hero-quote">{styled_text}</p>', unsafe_allow_html=True)
 
     def render_code_samples(self):
-        # Define Custom CSS for a Frosted Glass Effect Navbar with Tooltips
         st.markdown(
             """
             <style>
                 .non-fixed-navbar {
+                    position: fixed;  /* Fixed positioning for the navbar */
                     bottom: 20px;
+                    left: 50%;
+                    transform: translateX(-50%);  /* Centering the navbar horizontally */
                     background: rgba(255, 255, 255, 0.1);  /* Transparent background */
                     backdrop-filter: blur(4px);  /* Frosted glass effect */
                     border: 2px solid rgba(255, 255, 255, 0.9);
@@ -229,7 +231,9 @@ class HeroArea:
                     display: flex;
                     gap: 20px;
                     align-items: center;
+                    justify-content: center;  /* Centering the contents horizontally */
                 }
+                
                 .colab-link {
                     display: inline-block;
                     text-decoration: none;
@@ -270,12 +274,11 @@ class HeroArea:
                     opacity: 1;
                     visibility: visible;
                 }
-        
             </style>
             """,
             unsafe_allow_html=True,
         )
-    
+        
         default_icon = "https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Colaboratory_SVG_Logo.svg"
         
         # **Navigation Links with Tooltips & WhatsApp Button**
@@ -283,11 +286,11 @@ class HeroArea:
             f"""
             <div>
               <div class="non-fixed-navbar">
-                  <a href="{"https://colab.research.google.com/drive/1QKFY5zfiRkUUPrnhlsOrtRlqGJ14oFf3#scrollTo=sxBOaWZ9uabz"}" class="colab-link" data-tooltip="Genetic Optimization">
-                      <img src="{default_icon}" alt="{""}">
+                  <a href="https://colab.research.google.com/drive/1QKFY5zfiRkUUPrnhlsOrtRlqGJ14oFf3#scrollTo=sxBOaWZ9uabz" class="colab-link" data-tooltip="Genetic Optimization">
+                      <img src="{default_icon}" alt="">
                   </a>
-                  <a href="{"https://colab.research.google.com/drive/1sPdB-uoOEdw2xIKPQCx1aGp5QUuu1ooK#scrollTo=_Ycax1ucXvAO"}" class="colab-link" data-tooltip="Ensemble Learning">
-                      <img src="{default_icon}" alt="{""}">
+                  <a href="https://colab.research.google.com/drive/1sPdB-uoOEdw2xIKPQCx1aGp5QUuu1ooK#scrollTo=_Ycax1ucXvAO" class="colab-link" data-tooltip="Ensemble Learning">
+                      <img src="{default_icon}" alt="">
                   </a>
               </div>
             </div>
