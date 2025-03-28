@@ -221,28 +221,18 @@ class HeroArea:
                 .code-sample-container {
                     display: flex; /* Ensures items are in a row */
                     flex-direction: row; /* Explicitly sets row direction */
-                    flex-wrap: nowrap; /* Prevents wrapping */
                     justify-content: center;
                     align-items: center;
+                    gap: 20px;
                     padding: 15px;
                     border-radius: 15px;
                     background: rgba(255, 255, 255, 0.1);
                     backdrop-filter: blur(5px);
                     border: 2px solid rgba(255, 255, 255, 0.9);
                     box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.1);
-                    gap: 20px;
-                    margin: 0 auto;
                     width: auto; /* Ensures it only takes necessary space */
-                    max-width: 100%; /* Prevents potential layout issues */
                 }
-                
-                .code-sample-link {
-                    display: flex; /* Ensures it doesn’t introduce unnecessary breaks */
-                    text-decoration: none;
-                    transition: transform 0.2s ease-in-out;
-                    position: relative;
-                }
-                
+
                 .code-sample-btn {
                     width: 55px;
                     height: 55px;
@@ -253,67 +243,38 @@ class HeroArea:
                     background-color: #24292f;
                     transition: all 0.3s ease-in-out;
                 }
-                
-                /* Debugging Tool - Adds a border to all elements */
-                *{
-                    border: 1px solid red !important;
-                }
+
                 .code-sample-btn img {
                     width: 36px;
                     height: 36px;
                     border-radius: 50%;
                 }
+
                 .code-sample-link:hover {
                     transform: scale(1.1);
-                }
-                /* Tooltip */
-                .code-sample-link::after {
-                    content: attr(data-tooltip);
-                    position: absolute;
-                    bottom: 70px;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    background-color: #333;
-                    color: white;
-                    padding: 6px 12px;
-                    border-radius: 5px;
-                    font-size: 14px;
-                    white-space: nowrap;
-                    opacity: 0;
-                    visibility: hidden;
-                    transition: opacity 0.3s ease-in-out, visibility 0.3s;
-                }
-                .code-sample-link:hover::after {
-                    opacity: 1;
-                    visibility: visible;
                 }
             </style>
             """,
             unsafe_allow_html=True,
         )
-    
-        # Default Google Colab icon
-        default_icon = "https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Colaboratory_SVG_Logo.svg"
-    
-        # Use `st.container()` instead of `<div>`
-        with st.container():
-            col1, col2, col3 = st.columns(3)  # Responsive layout for centering
-    
-            with col2:  # Centered alignment
-                for sample in self.code_samples:
-                    icon_url = sample.get("icon_url", default_icon)
-                    tooltip_text = f"Try {sample['title']}! 🚀"
-    
-                    st.markdown(
-                        f"""
-                        <a href="{sample['url']}" target="_blank" class="code-sample-link" data-tooltip="{tooltip_text}">
-                            <div class="code-sample-btn">
-                                <img src="{icon_url}" alt="{sample['title']}">
-                            </div>
-                        </a>
-                        """,
-                        unsafe_allow_html=True
-                    )
+
+        # Use st.container() with a unique key
+        with st.container(key="code_sample_container"):
+            # Render buttons inside the container
+            for sample in self.code_samples:
+                icon_url = sample.get("icon_url")
+                tooltip_text = f"Try {sample['title']}! 🚀"
+
+                st.markdown(
+                    f"""
+                    <a href="{sample['url']}" target="_blank" class="code-sample-link" data-tooltip="{tooltip_text}">
+                        <div class="code-sample-btn">
+                            <img src="{icon_url}" alt="{sample['title']}">
+                        </div>
+                    </a>
+                    """,
+                    unsafe_allow_html=True
+                )
 
 
         
