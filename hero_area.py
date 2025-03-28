@@ -218,7 +218,7 @@ class HeroArea:
         st.markdown(
             """
             <style>
-                .fixed-navbar {
+                .non-fixed-navbar {
                     bottom: 20px;
                     left: 50%;
                     transform: translateX(-50%);
@@ -280,7 +280,7 @@ class HeroArea:
         # **Navigation Links with Tooltips & WhatsApp Button**
         st.markdown(
             f"""
-            <div class="fixed-navbar">
+            <div class="non-fixed-navbar">
                 <a href="{"https://colab.research.google.com/drive/1QKFY5zfiRkUUPrnhlsOrtRlqGJ14oFf3#scrollTo=sxBOaWZ9uabz"}" class="nav-link" data-tooltip="Genetic Optimization">
                     <img src="{default_icon}" alt="{""}">
                 </a>
