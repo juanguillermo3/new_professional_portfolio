@@ -214,60 +214,84 @@ class HeroArea:
             st.markdown(f'<p class="hero-quote">{styled_text}</p>', unsafe_allow_html=True)
 
     def render_code_samples(self):
-        # Apply styles using a unique key to avoid conflicts
+        # Define Custom CSS for a Frosted Glass Effect Navbar with Tooltips
         st.markdown(
             """
             <style>
-                .code-sample-container {
-                bottom: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: rgba(255, 255, 255, 0.1);  /* Transparent background */
-                backdrop-filter: blur(4px);  /* Frosted glass effect */
-                border: 2px solid rgba(255, 255, 255, 0.9);
-                box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.1);
-                padding: 10px 20px;
-                border-radius: 15px;
-                display: flex;
-                gap: 20px;
-                align-items: center;
+                .fixed-navbar {
+                    position: fixed;
+                    bottom: 20px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: rgba(255, 255, 255, 0.1);  /* Transparent background */
+                    backdrop-filter: blur(4px);  /* Frosted glass effect */
+                    border: 2px solid rgba(255, 255, 255, 0.9);
+                    box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.1);
+                    padding: 10px 20px;
+                    border-radius: 15px;
+                    display: flex;
+                    gap: 20px;
+                    align-items: center;
                 }
-                .code-sample-btn {
+                .nav-link {
                     display: inline-block;
                     text-decoration: none;
                     transition: transform 0.2s ease-in-out;
                     position: relative;
                 }
-                .code-sample-btn img {
+                .nav-link img {
                     width: 50px;
                     height: 50px;
                     border-radius: 50%;
                 }
-                .code-sample-link:hover {
+                .nav-link:hover {
                     transform: scale(1.1);
                 }
+                
+                /* Tooltip Styling */
+                .nav-link::after {
+                    content: attr(data-tooltip);
+                    position: absolute;
+                    bottom: 70px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background-color: #333;
+                    color: white;
+                    padding: 6px 12px;
+                    border-radius: 5px;
+                    font-size: 14px;
+                    white-space: nowrap;
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: opacity 0.3s ease-in-out, visibility 0.3s;
+                }
+    
+                .nav-link:hover::after {
+                    opacity: 1;
+                    visibility: visible;
+                }
+        
             </style>
             """,
             unsafe_allow_html=True,
         )
-
-        # Use st.container() with a unique key
-        with st.container(key="code_sample_container"):
-            # Render buttons inside the container
-            for sample in self.code_samples:
-                icon_url = sample.get("icon_url")
-                tooltip_text = f"Try {sample['title']}! 🚀"
-
-                st.markdown(
-                    f"""
-                    <a href="{sample['url']}" target="_blank" class="code-sample-link" data-tooltip="{tooltip_text}">
-                        <div class="code-sample-btn">
-                            <img src="{icon_url}" alt="{sample['title']}">
-                        </div>
-                    </a>
-                    """,
-                    unsafe_allow_html=True
-                )
+    
+        default_icon = "https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Colaboratory_SVG_Logo.svg"
+        
+        # **Navigation Links with Tooltips & WhatsApp Button**
+        st.markdown(
+            f"""
+            <div class="fixed-navbar">
+                <a href="{"https://colab.research.google.com/drive/1QKFY5zfiRkUUPrnhlsOrtRlqGJ14oFf3#scrollTo=sxBOaWZ9uabz"}" class="nav-link" data-tooltip="Genetic Optimization">
+                    <img src="{default_icon}" alt="{}">
+                </a>
+                <a href="{"https://colab.research.google.com/drive/1sPdB-uoOEdw2xIKPQCx1aGp5QUuu1ooK#scrollTo=_Ycax1ucXvAO"}" class="nav-link" data-tooltip="Ensemble Learning">
+                    <img src="{default_icon}" alt="{}">
+                </a>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
 
         
