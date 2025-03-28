@@ -85,29 +85,6 @@ class HeroArea:
         self.professional_offering = professional_offering
         self.detailed_offering, self.ids = detailed_offering
 
-    def render_code_samples(self):
-        st.markdown(f'<p class="code-samples-intro">{self.code_samples_intro}</p>', unsafe_allow_html=True)
-        
-        st.markdown("<div style='display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px;'>", unsafe_allow_html=True)
-        
-        for i, sample in enumerate(self.code_samples):
-            element_id = f"code-sample-{i}"  # Unique ID for each button
-            tooltip_text = "Check out this example! ✨"  # Enthusiastic, positive vibe
-    
-            # Render the button with an ID
-            st.markdown(f"""
-            <a href="{sample['url']}" target="_blank">
-                <button id="{element_id}" style="background-color: #24292f; color: white; border: 1px solid white; padding: 10px 20px; font-size: 14px; border-radius: 5px; text-align: center; width: 100%;">
-                    {sample['title']}
-                </button>
-            </a>
-            """, unsafe_allow_html=True)
-    
-            # Apply the tooltip
-            apply_custom_tooltip(element_id, tooltip_text)
-        
-        st.markdown("</div>", unsafe_allow_html=True)
-
     def render_contact_details(self):
           contact_html = f"""
           <div style="text-align: left; font-size: 0.9em; color: #444; line-height: 1.2;">
@@ -235,7 +212,103 @@ class HeroArea:
             )
     
             st.markdown(f'<p class="hero-quote">{styled_text}</p>', unsafe_allow_html=True)
+
+    def render_code_samples(self):
+        # Define Custom CSS for a Stylish, Centered Banner with Code Sample Buttons
+        st.markdown(
+            """
+            <style>
+                .code-sample-container {
+                    display: flex;
+                    justify-content: center;
+                    margin-top: 20px;
+                    padding: 20px;
+                    border-radius: 15px;
+                    background: rgba(255, 255, 255, 0.1);  /* Frosted glass effect */
+                    backdrop-filter: blur(5px);
+                    border: 2px solid rgba(255, 255, 255, 0.2);
+                    box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.1);
+                    gap: 25px;
+                }
+                .code-sample-link {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    text-decoration: none;
+                    position: relative;
+                    transition: transform 0.2s ease-in-out;
+                }
+                .code-sample-link:hover {
+                    transform: scale(1.1);
+                }
+                .code-sample-btn {
+                    width: 75px;
+                    height: 75px;
+                    border-radius: 50%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: #24292f;
+                    border: 2px solid white;
+                    transition: all 0.3s ease-in-out;
+                }
+                .code-sample-btn img {
+                    width: 45px;
+                    height: 45px;
+                    border-radius: 50%;
+                }
+                .code-sample-btn:hover {
+                    background-color: #1c1f26;
+                }
+                /* Tooltip Styling */
+                .code-sample-link::after {
+                    content: attr(data-tooltip);
+                    position: absolute;
+                    bottom: 90px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background-color: #333;
+                    color: white;
+                    padding: 6px 12px;
+                    border-radius: 5px;
+                    font-size: 14px;
+                    white-space: nowrap;
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: opacity 0.3s ease-in-out, visibility 0.3s;
+                }
+                .code-sample-link:hover::after {
+                    opacity: 1;
+                    visibility: visible;
+                }
+            </style>
+            """,
+            unsafe_allow_html=True,
+        )
     
+        # Default icon if not provided
+        default_icon = "https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Colaboratory_SVG_Logo.svg"
+    
+        # Render the centered interactive banner
+        st.markdown('<div class="code-sample-container">', unsafe_allow_html=True)
+    
+        for sample in self.code_samples:
+            icon_url = sample.get("icon_url", default_icon)
+            tooltip_text = f"Try {sample['title']}! 🚀"
+    
+            st.markdown(
+                f"""
+                <a href="{sample['url']}" target="_blank" class="code-sample-link" data-tooltip="{tooltip_text}">
+                    <div class="code-sample-btn">
+                        <img src="{icon_url}" alt="{sample['title']}">
+                    </div>
+                </a>
+                """,
+                unsafe_allow_html=True,
+            )
+    
+        st.markdown("</div>", unsafe_allow_html=True)
+
         
     
 # Instantiate and render HeroArea with data loaded from the loader functions
