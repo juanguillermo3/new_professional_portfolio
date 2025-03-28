@@ -283,10 +283,10 @@ class HeroArea:
             f"""
             <div class="fixed-navbar">
                 <a href="{"https://colab.research.google.com/drive/1QKFY5zfiRkUUPrnhlsOrtRlqGJ14oFf3#scrollTo=sxBOaWZ9uabz"}" class="nav-link" data-tooltip="Genetic Optimization">
-                    <img src="{default_icon}" alt="{}">
+                    <img src="{default_icon}" alt="{""}">
                 </a>
                 <a href="{"https://colab.research.google.com/drive/1sPdB-uoOEdw2xIKPQCx1aGp5QUuu1ooK#scrollTo=_Ycax1ucXvAO"}" class="nav-link" data-tooltip="Ensemble Learning">
-                    <img src="{default_icon}" alt="{}">
+                    <img src="{default_icon}" alt="{""}">
                 </a>
             </div>
             """,
