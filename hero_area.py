@@ -220,23 +220,24 @@ class HeroArea:
             <style>
                 .code-sample-container {
                     display: flex;
-                    justify-content: center;
-                    margin-top: 5px;
-                    padding: 20px;
+                    justify-content: center;  /* Center horizontally */
+                    align-items: center;  /* Align buttons properly */
+                    flex-wrap: wrap;  /* Ensure wrapping if needed */
+                    padding: 15px 10px;
                     border-radius: 15px;
                     background: rgba(255, 255, 255, 0.1);  /* Frosted glass effect */
                     backdrop-filter: blur(5px);
                     border: 2px solid rgba(255, 255, 255, 0.2);
                     box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.1);
-                    gap: 25px;
+                    gap: 20px;  /* Space between buttons */
+                    width: fit-content;
+                    margin: 0 auto;  /* Center the div in its container */
                 }
                 .code-sample-link {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
+                    display: inline-block;
                     text-decoration: none;
-                    position: relative;
                     transition: transform 0.2s ease-in-out;
+                    position: relative;
                 }
                 .code-sample-link:hover {
                     transform: scale(1.1);
@@ -264,7 +265,7 @@ class HeroArea:
                 .code-sample-link::after {
                     content: attr(data-tooltip);
                     position: absolute;
-                    bottom: 90px;
+                    bottom: 85px;
                     left: 50%;
                     transform: translateX(-50%);
                     background-color: #333;
@@ -289,7 +290,7 @@ class HeroArea:
         # Default icon if not provided
         default_icon = "https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Colaboratory_SVG_Logo.svg"
     
-        # Render the centered interactive banner
+        # Open container div for horizontal layout
         st.markdown('<div class="code-sample-container">', unsafe_allow_html=True)
     
         for sample in self.code_samples:
@@ -307,7 +308,9 @@ class HeroArea:
                 unsafe_allow_html=True,
             )
     
+        # Close container div
         st.markdown("</div>", unsafe_allow_html=True)
+
 
         
     
