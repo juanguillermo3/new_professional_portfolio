@@ -230,23 +230,26 @@ class HeroArea:
                     gap: 20px;
                     align-items: center;
                 }
-                .nav-link {
+                .colab-link {
                     display: inline-block;
                     text-decoration: none;
                     transition: transform 0.2s ease-in-out;
                     position: relative;
+                    text-align: center; /* Ensures the text (or image) is centered */
                 }
-                .nav-link img {
+                
+                .colab-link img {
                     width: 50px;
                     height: 50px;
                     border-radius: 50%;
                 }
-                .nav-link:hover {
+                
+                .colab-link:hover {
                     transform: scale(1.1);
                 }
                 
                 /* Tooltip Styling */
-                .nav-link::after {
+                .colab-link::after {
                     content: attr(data-tooltip);
                     position: absolute;
                     bottom: 70px;
@@ -262,8 +265,8 @@ class HeroArea:
                     visibility: hidden;
                     transition: opacity 0.3s ease-in-out, visibility 0.3s;
                 }
-    
-                .nav-link:hover::after {
+                
+                .colab-link:hover::after {
                     opacity: 1;
                     visibility: visible;
                 }
@@ -280,10 +283,10 @@ class HeroArea:
             f"""
             <div>
               <div class="non-fixed-navbar">
-                  <a href="{"https://colab.research.google.com/drive/1QKFY5zfiRkUUPrnhlsOrtRlqGJ14oFf3#scrollTo=sxBOaWZ9uabz"}" class="nav-link" data-tooltip="Genetic Optimization">
+                  <a href="{"https://colab.research.google.com/drive/1QKFY5zfiRkUUPrnhlsOrtRlqGJ14oFf3#scrollTo=sxBOaWZ9uabz"}" class="colab-link" data-tooltip="Genetic Optimization">
                       <img src="{default_icon}" alt="{""}">
                   </a>
-                  <a href="{"https://colab.research.google.com/drive/1sPdB-uoOEdw2xIKPQCx1aGp5QUuu1ooK#scrollTo=_Ycax1ucXvAO"}" class="nav-link" data-tooltip="Ensemble Learning">
+                  <a href="{"https://colab.research.google.com/drive/1sPdB-uoOEdw2xIKPQCx1aGp5QUuu1ooK#scrollTo=_Ycax1ucXvAO"}" class="colab-link" data-tooltip="Ensemble Learning">
                       <img src="{default_icon}" alt="{""}">
                   </a>
               </div>
