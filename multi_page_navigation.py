@@ -8,15 +8,13 @@ import urllib.parse
 load_dotenv(override=True)
 
 # Environment configurations
-WHATSAPP_NUMBER = os.getenv("WHATSAPP_NUMBER", "+573053658650" )
+WHATSAPP_NUMBER = os.getenv("WHATSAPP_NUMBER", "+573053658650")
+WHATSAPP_ICON = os.getenv("WHATSAPP_ICON", "https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png")
 
-# Load freely available icons
-HOME_ICON = "https://img.icons8.com/?size=100&id=hmZnke9jb8oq&format=png&color=000000"
-RECSYS_ICON = "https://img.icons8.com/?size=100&id=NaOfOQ3MMYaq&format=png&color=000000"  # Updated icon for emphasis
-SERVICES_ICON = "https://cdn-icons-png.flaticon.com/128/3135/3135706.png"
-
-import streamlit as st
-import urllib.parse
+# Load freely available icons with default values
+HOME_ICON = os.getenv("HOME_ICON", "https://img.icons8.com/?size=100&id=hmZnke9jb8oq&format=png&color=000000")
+RECSYS_ICON = os.getenv("RECSYS_ICON", "https://img.icons8.com/?size=100&id=NaOfOQ3MMYaq&format=png&color=000000")
+SERVICES_ICON = os.getenv("SERVICES_ICON", "https://cdn-icons-png.flaticon.com/128/3135/3135706.png")
 
 def render_multi_page_navigation():
     # Define Custom CSS for a Frosted Glass Effect Navbar with Anchor Links
@@ -77,7 +75,7 @@ def render_multi_page_navigation():
     )
 
     # Hardcoded WhatsApp Number & Message
-    whatsapp_number = "+1234567890"
+    whatsapp_number = WHATSAPP_NUMBER
     salutation = "Hello! I’d love to learn more about your services."
     whatsapp_url = f"https://wa.me/{whatsapp_number.replace('+', '')}?text={urllib.parse.quote(salutation)}"
 
@@ -95,7 +93,7 @@ def render_multi_page_navigation():
                 <img src="{SERVICES_ICON}" alt="Services and Rates">
             </a>
             <a href="{whatsapp_url}" target="_blank" class="nav-link whatsapp-btn">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png">
+                <img src="{WHATSAPP_ICON}">
             </a>
         </div>
         """,
