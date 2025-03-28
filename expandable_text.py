@@ -1,12 +1,32 @@
 import hashlib
+import re
 
-def _chunk_texts(detailed_text: str) -> tuple[str, str]:
-    """Splits a paragraph into a brief (first sentence) and details (remaining text)."""
-    parts = detailed_text.split(".", 1)
-    brief = parts[0] + "." if parts else ""
-    details = parts[1] if len(parts) > 1 else ""
-    return brief, details
+#
+# (0) helper function to chunk text into brief main statement, and details
+#
+def _chunk_texts(detailed_text: str, min_tokens: int = 10) -> tuple[str, str]:
+    """Splits a paragraph into a brief (main statement) and details (remaining text).
+    
+    Ensures that the brief contains at least `min_tokens` words before considering a period 
+    as a valid splitting point.
+    """
+    sentences = re.split(r"(?<=\.)\s+", detailed_text.strip())  # Split on periods with space
+    brief, details = "", ""
 
+    token_count = 0
+    for i, sentence in enumerate(sentences):
+        tokens = sentence.split()
+        token_count += len(tokens)
+
+        if token_count >= min_tokens or i == len(sentences) - 1:  
+            brief = " ".join(sentences[:i+1])  # Grab enough content
+            details = " ".join(sentences[i+1:])  # The rest goes here
+            break
+
+    return brief.strip(), details.strip()
+#
+# (1) render html for the text component and interactable behaviour
+#
 def expandable_text_html(detailed_text: str) -> tuple[str, str]:
     """
     Generates an HTML snippet with a hover-reveal effect for long text descriptions.
