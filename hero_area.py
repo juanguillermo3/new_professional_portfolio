@@ -219,10 +219,9 @@ class HeroArea:
             """
             <style>
                 .code-sample-container {
-                    display: flex;
+                    display: inline-flex; /* Ensures container width matches content */
                     justify-content: center;
                     align-items: center;
-                    flex-wrap: wrap;
                     padding: 15px;
                     border-radius: 15px;
                     background: rgba(255, 255, 255, 0.1);
@@ -231,7 +230,7 @@ class HeroArea:
                     box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.1);
                     gap: 20px;
                     margin: 0 auto;
-                    width: fit-content;
+                    width: fit-content; /* Ensures it only takes necessary space */
                 }
                 .code-sample-link {
                     display: inline-block;
