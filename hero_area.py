@@ -219,7 +219,9 @@ class HeroArea:
             """
             <style>
                 .code-sample-container {
-                    display: inline-flex; /* Ensures container width matches content */
+                    display: flex; /* Ensures items are in a row */
+                    flex-direction: row; /* Explicitly sets row direction */
+                    flex-wrap: nowrap; /* Prevents wrapping */
                     justify-content: center;
                     align-items: center;
                     padding: 15px;
@@ -230,14 +232,17 @@ class HeroArea:
                     box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.1);
                     gap: 20px;
                     margin: 0 auto;
-                    width: fit-content; /* Ensures it only takes necessary space */
+                    width: auto; /* Ensures it only takes necessary space */
+                    max-width: 100%; /* Prevents potential layout issues */
                 }
+                
                 .code-sample-link {
-                    display: inline-block;
+                    display: flex; /* Ensures it doesn’t introduce unnecessary breaks */
                     text-decoration: none;
                     transition: transform 0.2s ease-in-out;
                     position: relative;
                 }
+                
                 .code-sample-btn {
                     width: 55px;
                     height: 55px;
@@ -247,6 +252,11 @@ class HeroArea:
                     align-items: center;
                     background-color: #24292f;
                     transition: all 0.3s ease-in-out;
+                }
+                
+                /* Debugging Tool - Adds a border to all elements */
+                *{
+                    border: 1px solid red !important;
                 }
                 .code-sample-btn img {
                     width: 36px;
