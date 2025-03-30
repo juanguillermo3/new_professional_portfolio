@@ -536,6 +536,9 @@ class RecommendationSystem(PortfolioSection):
         # Generate a unique key for the ancillary container
         unique_key = hashlib.md5(f"{project_metadata['title']}_{time.time()}".encode()).hexdigest()
         with st.container(key=unique_key):
+
+            st.write("Inside ancillary container")
+              
             self._style_ancillary_component(unique_key)
             st.markdown(
                 f"""
