@@ -374,10 +374,10 @@ class RecommendationSystem(PortfolioSection):
 
     def render_project_metadata(self, project_metadata, display_milestones=True, margin_percent=10):
         """Render project title, description, tags, milestones, code sample count, and media content."""
-
+        
         video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
            video_path = os.path.join('assets', video_filename)
-
+        
         if os.path.exists(video_path):
             self.media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
          
@@ -385,13 +385,13 @@ class RecommendationSystem(PortfolioSection):
         
         # Parse description as Markdown first
         parsed_description = markdown.markdown(project_metadata['description'])
-    
+        
         # Generate expandable text effect for the description
         description_html, description_styles = expandable_text_html(parsed_description)
         
         # Convert to Markdown and append tags
         description_html = markdown.markdown(f"{description_html} {tags_html}")
-    
+        
         # Title and description with expandable effect
         st.markdown(
             f"""
@@ -403,7 +403,7 @@ class RecommendationSystem(PortfolioSection):
             """,
             unsafe_allow_html=True,
         )
-    
+        
         # Milestones section
         milestone_margin = margin_percent * 1.5  
         
@@ -433,7 +433,7 @@ class RecommendationSystem(PortfolioSection):
                     f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{code_samples_html}</div>",
                     unsafe_allow_html=True
                 )
-
+        
             # Media placeholder
             #st.markdown("<br>", unsafe_allow_html=True)
             self.media_placeholder = st.empty()
