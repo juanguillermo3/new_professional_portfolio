@@ -577,21 +577,33 @@ class RecommendationSystem(PortfolioSection):
         self._style_ancillary_component(unique_key)
 
     def _style_ancillary_component(self, component_key):
-        """Apply CSS styles to make the ancillary component hidden by default, taking up no space, with a smooth transition."""
+        """Apply CSS styles to ensure the ancillary component takes no space and appears smoothly when triggered."""
         st.markdown(
             f"""
             <style>
             .st-key-{component_key} {{
                 opacity: 0;
                 visibility: hidden;
-                height: 0;
+                max-height: 0;
                 overflow: hidden;
-                transition: opacity 0.5s ease-in-out, height 0.5s ease-in-out, visibility 0.5s ease-in-out;
+                padding: 0;
+                margin: 0;
+                transition: opacity 0.5s ease-in-out, max-height 0.5s ease-in-out, visibility 0.5s ease-in-out;
+            }}
+            
+            .st-key-{component_key} * {{
+                opacity: 0;
+                visibility: hidden;
+                max-height: 0;
+                overflow: hidden;
+                padding: 0;
+                margin: 0;
             }}
             </style>
             """,
             unsafe_allow_html=True,
         )
+
 
 
 
