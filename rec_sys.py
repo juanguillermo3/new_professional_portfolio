@@ -389,6 +389,15 @@ class RecommendationSystem(PortfolioSection):
         
         # Convert to Markdown and append tags
         description_html = markdown.markdown(f"{tags_html} {description_html} ")
+
+
+        # Media placeholder
+        #st.markdown("<br>", unsafe_allow_html=True)
+        self.media_placeholder = st.empty()
+    
+        # Render media content
+        if os.path.exists(video_path):
+            self.media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
     
         # Title and description with expandable effect
         st.markdown(
@@ -431,16 +440,6 @@ class RecommendationSystem(PortfolioSection):
                     f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{code_samples_html}</div>",
                     unsafe_allow_html=True
                 )
-
-            # Media placeholder
-            #st.markdown("<br>", unsafe_allow_html=True)
-            self.media_placeholder = st.empty()
-        
-            # Render media content
-            if os.path.exists(video_path):
-                self.media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
-
-
 
       
 # Example usage
