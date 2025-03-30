@@ -585,7 +585,7 @@ class RecommendationSystem(PortfolioSection):
         # Render title and description with minimal spacing
         st.markdown(
             f"""
-            <div style="text-align: center; margin-bottom: 2px;">
+            <div style="text-align: center; margin-bottom: 0px;">
                 <h3>{prettify_title(project_metadata['title'])}</h3>
             </div>
             <p style="text-align: center; margin-top: 0px;">{tags_html}</p>
