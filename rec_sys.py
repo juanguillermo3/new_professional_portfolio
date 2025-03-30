@@ -437,7 +437,7 @@ class RecommendationSystem(PortfolioSection):
         
             # Render media content
             if os.path.exists(video_path):
-                self.media_placeholder.video(video_path, loop=True, autoplay=True, muted=True
+                self.media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
 
 
 
