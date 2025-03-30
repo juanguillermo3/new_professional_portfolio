@@ -372,6 +372,7 @@ class RecommendationSystem(PortfolioSection):
         )
 
 
+
     def render_project_metadata(self, project_metadata, display_milestones=True, margin_percent=10):
         """Render project title, description, tags, milestones, code sample count, and media content."""
         
@@ -387,24 +388,12 @@ class RecommendationSystem(PortfolioSection):
         description_html, description_styles = expandable_text_html(parsed_description)
         
         # Convert to Markdown and append tags
-        description_html = markdown.markdown(f"{description_html} {tags_html}")
-
-        # 
+        description_html = markdown.markdown(f"{tags_html} {description_html} ")
+    
+        # Title and description with expandable effect
         st.markdown(
             f"""
             <div style="text-align: center;"><h3>{prettify_title(project_metadata['title'])}</h3></div>
-            """,
-            unsafe_allow_html=True,
-        )
-        st.markdown(
-            f"""
-            {tags_html}
-            """,
-            unsafe_allow_html=True,
-        ) 
-        # 
-        st.markdown(
-            f"""
             <div style="text-align: justify; margin-left: {margin_percent}%; margin-right: {margin_percent}%;">
                 {description_html}
             </div>
