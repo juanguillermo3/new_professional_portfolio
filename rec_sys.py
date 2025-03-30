@@ -647,7 +647,7 @@ class RecommendationSystem(PortfolioSection):
                     with col:
                         self.render_card(rec, is_project=rec.get("is_project", False))
         
-        self._style_ancillary_component(unique_key)
+        #self._style_ancillary_component(unique_key)
     
     def _style_ancillary_component(self, component_key):
         """Apply CSS styles to make the ancillary component visible with a smooth transition."""
