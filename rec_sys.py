@@ -374,7 +374,10 @@ class RecommendationSystem(PortfolioSection):
 
     def render_project_metadata(self, project_metadata, display_milestones=True, margin_percent=10):
         """Render project title, description, tags, milestones, code sample count, and media content."""
-        
+
+        # Media placeholder
+        self.media_placeholder = st.empty()
+      
         video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
         video_path = os.path.join('assets', video_filename)
         
@@ -433,10 +436,6 @@ class RecommendationSystem(PortfolioSection):
                     f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{code_samples_html}</div>",
                     unsafe_allow_html=True
                 )
-        
-            # Media placeholder
-            #st.markdown("<br>", unsafe_allow_html=True)
-            self.media_placeholder = st.empty()
         
             # Render media content
             #self._render_media_content(video_path)
