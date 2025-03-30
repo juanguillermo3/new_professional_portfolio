@@ -509,7 +509,86 @@ class RecommendationSystem(PortfolioSection):
                     unsafe_allow_html=True
                 )
 
-      
+    def render_project_metadata(self, project_metadata, display_milestones=True, margin_percent=0):
+        """Render project title, video, and metadata in an ancillary container."""
+        
+        video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
+        video_path = os.path.join('assets', video_filename)
+        
+        tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
+        parsed_description = markdown.markdown(project_metadata['description'])
+        description_html, description_styles = expandable_text_html(parsed_description)
+        description_html = markdown.markdown(f"{tags_html} {description_html} ")
+    
+        # Unique media placeholder for each project
+        media_placeholder = st.empty()
+        
+        if os.path.exists(video_path):
+            media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
+        
+        st.markdown(
+            f"""
+            <div style="text-align: center;"><h3>{prettify_title(project_metadata['title'])}</h3></div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+        # Generate a unique key for the ancillary container
+        unique_key = hashlib.md5(f"{project_metadata['title']}_{time.time()}".encode()).hexdigest()
+        with st.container(key=unique_key):
+            self._style_ancillary_component(unique_key)
+            st.markdown(
+                f"""
+                <div style="text-align: justify; margin-left: {margin_percent}%; margin-right: {margin_percent}%;">
+                    {description_html}
+                </div>
+                <style>{description_styles}</style>
+                """,
+                unsafe_allow_html=True,
+            )
+    
+            milestone_margin = margin_percent * 1.5  
+            
+            if display_milestones:
+                achieved_html = html_for_milestones_from_project_metadata(project_metadata=project_metadata, milestone_type="achieved_milestones")
+                if achieved_html:
+                    st.markdown(
+                        f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{achieved_html}</div>",
+                        unsafe_allow_html=True
+                    )
+            
+                upcoming_html = html_for_milestones_from_project_metadata(project_metadata=project_metadata, milestone_type="next_milestones")
+                if upcoming_html:
+                    st.markdown(
+                        f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{upcoming_html}</div>",
+                        unsafe_allow_html=True
+                    )
+            
+                code_samples = self._fetch_files(project_metadata['title'])
+                code_samples_html = html_for_milestones_from_project_metadata(milestones=code_samples, milestone_type="code_samples")
+                if code_samples_html:
+                    st.markdown(
+                        f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{code_samples_html}</div>",
+                        unsafe_allow_html=True
+                    )
+
+    def _style_ancillary_component(self, component_key):
+        """Apply CSS styles to hide and make the ancillary component opaque."""
+        st.markdown(
+            f"""
+            <style>
+            div[data-testid="stContainer"][key="{component_key}"] {{
+                opacity: 0;
+                height: 0;
+                overflow: hidden;
+                transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out;
+            }}
+            </style>
+            """,
+            unsafe_allow_html=True,
+        )
+
+
 # Example usage
 # Initialize RecSys with custom header and description
 recsys = RecommendationSystem(
