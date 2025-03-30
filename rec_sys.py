@@ -580,7 +580,7 @@ class RecommendationSystem(PortfolioSection):
         st.markdown(
             f"""
             <style>
-            div[data-testid="stContainer"][key="{component_key}"] {{
+            div[data-testid="stContainer"][key="st-key-{component_key}"] {{
                 opacity: 0;
                 height: 0;
                 overflow: hidden;
