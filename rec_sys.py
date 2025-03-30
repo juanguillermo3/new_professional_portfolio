@@ -373,7 +373,7 @@ class RecommendationSystem(PortfolioSection):
 
 
 
-    def render_project_metadata(self, project_metadata, display_milestones=True, margin_percent=10):
+    def render_project_metadata(self, project_metadata, display_milestones=True, margin_percent=0):
         """Render project title, description, tags, milestones, code sample count, and media content."""
         
         video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
