@@ -574,7 +574,7 @@ class RecommendationSystem(PortfolioSection):
         tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
         parsed_description = markdown.markdown(project_metadata['description'])
         description_html, description_styles = expandable_text_html(parsed_description)
-        description_html = markdown.markdown(f"{tags_html} {description_html} ")
+        description_html = markdown.markdown(f"{description_html} ")
     
         # Unique media placeholder for each project
         media_placeholder = st.empty()
@@ -582,9 +582,13 @@ class RecommendationSystem(PortfolioSection):
         if os.path.exists(video_path):
             media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
         
+        # Render title and description with minimal spacing
         st.markdown(
             f"""
-            <div style="text-align: center;"><h3>{prettify_title(project_metadata['title'])}</h3></div>
+            <div style="text-align: center; margin-bottom: 2px;">
+                <h3>{prettify_title(project_metadata['title'])}</h3>
+            </div>
+            <p style="text-align: center; margin-top: 0px;">{tags_html}</p>
             """,
             unsafe_allow_html=True,
         )
