@@ -328,7 +328,6 @@ def html_for_item_data(
             <div class="recommendation-title">
                 {raw_title}
             </div>
-            <div class="tooltip">More Info</div>
         </div>
     """
 
