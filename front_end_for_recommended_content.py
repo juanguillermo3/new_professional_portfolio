@@ -301,23 +301,7 @@ def html_for_item_data(
                 width: auto;
                 max-width: 100%;
             }}
-    
-            .tooltip {{
-                visibility: hidden;
-                background-color: black;
-                color: #fff;
-                text-align: center;
-                padding: 5px;
-                border-radius: 5px;
-                position: absolute;
-                bottom: -30px;
-                left: 50%;
-                transform: translateX(-50%);
-                font-size: 12px;
-                opacity: 0;
-                transition: opacity 0.3s;
-            }}
-    
+        
             .recommendation-card:hover .tooltip {{
                 visibility: visible;
                 opacity: 1;
