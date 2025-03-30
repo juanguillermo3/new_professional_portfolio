@@ -573,8 +573,8 @@ class RecommendationSystem(PortfolioSection):
                         f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{code_samples_html}</div>",
                         unsafe_allow_html=True)
                 
-            st.write("Inside ancillary container")      
-        self._style_ancillary_component(unique_key+unique_key)
+            st.write("Inside ancillary container"+ unique_key)      
+        self._style_ancillary_component(unique_key)
 
     def _style_ancillary_component(self, component_key):
         """Apply CSS styles to hide and make the ancillary component opaque."""
