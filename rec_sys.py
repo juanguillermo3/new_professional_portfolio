@@ -210,30 +210,7 @@ class RecommendationSystem(PortfolioSection):
         unique_hash = hashlib.md5(rec['title'].encode()).hexdigest()
         button_id = f"galleria_{unique_hash}"
     
-        if "image_path" in rec:
-            st.markdown(
-                """
-                <style>
-                div[data-testid="stButton"] > button {
-                    background-color: gold !important;
-                    color: white !important;
-                    border: none;
-                    padding: 10px 20px;
-                    font-size: 14px;
-                    cursor: pointer;
-                    border-radius: 5px;
-                    width: 60% !important;
-                    margin: 5px auto;
-                    display: block;
-                }
-                div[data-testid="stButton"] > button:hover {
-                    background-color: #ffd700 !important;
-                }
-                </style>
-                """,
-                unsafe_allow_html=True
-            )
-      
+
     #
     def _fetch_files(self, repo_name):
         """Fetches all file paths associated with a given repository name.
@@ -348,29 +325,6 @@ class RecommendationSystem(PortfolioSection):
     
         # Apply transition styles (since Streamlit assigns the class `.st-key-project_data_container`)
         self._apply_transition_styles()
-
-
-    def _apply_transition_styles(self):
-        """Injects enhanced CSS for smoother transitions on project switch."""
-        st.markdown(
-            """
-            <style>
-            .st-key-project_data_container {
-                transition: opacity 0.7s ease-in-out, transform 0.7s ease-in-out, scale 0.7s ease-in-out;
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-    
-            /* Add fading + slight scaling effect when updating */
-            .st-key-project_data_container[data-hidden="true"] {
-                opacity: 0;
-                transform: translateY(-15px) scale(0.95);
-            }
-            </style>
-            """,
-            unsafe_allow_html=True
-        )
-
 
 
     def render_project_metadata(self, project_metadata, display_milestones=True, margin_percent=0):
