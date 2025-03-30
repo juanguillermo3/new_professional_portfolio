@@ -582,14 +582,15 @@ class RecommendationSystem(PortfolioSection):
             f"""
             <style>
             .st-key-{component_key} {{
-                opacity: 1;
-                visibility: visible;
+                opacity: 0;
+                visibility: hidden;
                 transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
             }}
             </style>
             """,
             unsafe_allow_html=True,
         )
+
 
 
 
