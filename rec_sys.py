@@ -456,58 +456,6 @@ class RecommendationSystem(PortfolioSection):
             # Horizontal separator between projects
             st.markdown("---")
     
-    def render_project_metadata(self, project_metadata, display_milestones=True, margin_percent=0):
-        """Render project title, description, tags, milestones, and media independently for each project."""
-        
-        video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
-        video_path = os.path.join('assets', video_filename)
-        
-        tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
-        parsed_description = markdown.markdown(project_metadata['description'])
-        description_html, description_styles = expandable_text_html(parsed_description)
-        description_html = markdown.markdown(f"{tags_html} {description_html} ")
-    
-        # Unique media placeholder for each project
-        media_placeholder = st.empty()
-        
-        if os.path.exists(video_path):
-            media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
-        
-        st.markdown(
-            f"""
-            <div style="text-align: center;"><h3>{prettify_title(project_metadata['title'])}</h3></div>
-            <div style="text-align: justify; margin-left: {margin_percent}%; margin-right: {margin_percent}%;">
-                {description_html}
-            </div>
-            <style>{description_styles}</style>
-            """,
-            unsafe_allow_html=True,
-        )
-    
-        milestone_margin = margin_percent * 1.5  
-        
-        if display_milestones:
-            achieved_html = html_for_milestones_from_project_metadata(project_metadata=project_metadata, milestone_type="achieved_milestones")
-            if achieved_html:
-                st.markdown(
-                    f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{achieved_html}</div>",
-                    unsafe_allow_html=True
-                )
-        
-            upcoming_html = html_for_milestones_from_project_metadata(project_metadata=project_metadata, milestone_type="next_milestones")
-            if upcoming_html:
-                st.markdown(
-                    f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{upcoming_html}</div>",
-                    unsafe_allow_html=True
-                )
-        
-            code_samples = self._fetch_files(project_metadata['title'])
-            code_samples_html = html_for_milestones_from_project_metadata(milestones=code_samples, milestone_type="code_samples")
-            if code_samples_html:
-                st.markdown(
-                    f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{code_samples_html}</div>",
-                    unsafe_allow_html=True
-                )
 
     def render_project_metadata(self, project_metadata, display_milestones=True, margin_percent=0):
         """Render project title, video, and metadata in an ancillary container."""
@@ -604,7 +552,119 @@ class RecommendationSystem(PortfolioSection):
             unsafe_allow_html=True,
         )
 
+    def render(self):
+        """Render method displaying all projects in a portfolio-style view."""
+        
+        # Render the sticky control panel and retrieve user query
+        query = self._render_control_panel()
+        
+        # Iterate over all projects and render them one by one
+        for project_metadata in self.repos_metadata:
+            self.render_project_metadata_and_recommendations(project_metadata, query)
+            
+            # Horizontal separator between projects
+            st.markdown("---")
+    
+    def render_project_metadata_and_recommendations(self, project_metadata, query, display_milestones=True, margin_percent=0):
+        """Render project title, video, metadata, and recommendations in an ancillary container."""
+        
+        video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
+        video_path = os.path.join('assets', video_filename)
+        
+        tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
+        parsed_description = markdown.markdown(project_metadata['description'])
+        description_html, description_styles = expandable_text_html(parsed_description)
+        description_html = markdown.markdown(f"{tags_html} {description_html} ")
+    
+        # Unique media placeholder for each project
+        media_placeholder = st.empty()
+        
+        if os.path.exists(video_path):
+            media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
+        
+        st.markdown(
+            f"""
+            <div style="text-align: center;"><h3>{prettify_title(project_metadata['title'])}</h3></div>
+            """,
+            unsafe_allow_html=True,
+        )
 
+        # Generate a unique key for the ancillary container
+        unique_key = hashlib.md5(f"{project_metadata['title']}_{time.time()}".encode()).hexdigest()
+        with st.container(key=unique_key):
+            
+            st.markdown(
+                f"""
+                <div style="text-align: justify; margin-left: {margin_percent}%; margin-right: {margin_percent}%;">
+                    {description_html}
+                </div>
+                <style>{description_styles}</style>
+                """,
+                unsafe_allow_html=True,
+            )
+    
+            milestone_margin = margin_percent * 1.5  
+            
+            if display_milestones:
+                achieved_html = html_for_milestones_from_project_metadata(project_metadata=project_metadata, milestone_type="achieved_milestones")
+                if achieved_html:
+                    st.markdown(
+                        f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{achieved_html}</div>",
+                        unsafe_allow_html=True
+                    )
+                
+                upcoming_html = html_for_milestones_from_project_metadata(project_metadata=project_metadata, milestone_type="next_milestones")
+                if upcoming_html:
+                    st.markdown(
+                        f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{upcoming_html}</div>",
+                        unsafe_allow_html=True
+                    )
+                
+                code_samples = self._fetch_files(project_metadata['title'])
+                code_samples_html = html_for_milestones_from_project_metadata(milestones=code_samples, milestone_type="code_samples")
+                if code_samples_html:
+                    st.markdown(
+                        f"<div style='margin-left:{milestone_margin}%;margin-right:{milestone_margin}%;'>{code_samples_html}</div>",
+                        unsafe_allow_html=True)
+
+            # Fetch recommendations per project
+            recommendations = self.rank_items(query, project_metadata["title"])
+            
+            # Render filtering message
+            filter_message = f"Showing all results for project {prettify_title(project_metadata['title'])}"
+            if query:
+                filter_message += f" (and for keyword: {query})"
+            
+            st.markdown(
+                f'<p style="font-style: italic; color: #555; font-size: 105%; font-weight: 550;">{filter_message}</p>',
+                unsafe_allow_html=True
+            )
+            
+            # Render recommendations in a grid
+            for i in range(0, len(recommendations), self.num_columns):
+                cols = st.columns(self.num_columns)
+                for col, rec in zip(cols, recommendations[i: i + self.num_columns]):
+                    with col:
+                        self.render_card(rec, is_project=rec.get("is_project", False))
+        
+        self._style_ancillary_component(unique_key)
+    
+    def _style_ancillary_component(self, component_key):
+        """Apply CSS styles to make the ancillary component visible with a smooth transition."""
+        st.markdown(
+            f"""
+            <style>
+            .st-key-{component_key} * {{
+                opacity: 0;
+                visibility: hidden;
+                height: 0;
+                overflow: hidden;
+                transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out, height 0.5s ease-in-out;
+            }}
+            </style>
+            """,
+            unsafe_allow_html=True,
+        )
 
 
 
