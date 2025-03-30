@@ -376,7 +376,7 @@ class RecommendationSystem(PortfolioSection):
         """Render project title, description, tags, milestones, code sample count, and media content."""
         
         video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
-           video_path = os.path.join('assets', video_filename)
+        video_path = os.path.join('assets', video_filename)
         
         if os.path.exists(video_path):
             self.media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
