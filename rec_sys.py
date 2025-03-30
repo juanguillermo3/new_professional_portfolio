@@ -322,10 +322,6 @@ class RecommendationSystem(PortfolioSection):
                 for col, rec in zip(cols, recommendations[i: i + self.num_columns]):
                     with col:
                         self.render_card(rec, is_project=rec.get("is_project", False))
-    
-        # Apply transition styles (since Streamlit assigns the class `.st-key-project_data_container`)
-        self._apply_transition_styles()
-
 
     def render_project_metadata(self, project_metadata, display_milestones=True, margin_percent=0):
         """Render project title, description, tags, milestones, code sample count, and media content."""
