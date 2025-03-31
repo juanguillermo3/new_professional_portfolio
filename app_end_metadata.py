@@ -115,6 +115,22 @@ def load_repos_metadata():
                 "Measured the program's impact and analyzed its implications for public policy"
             ],
             "next_milestones": []
+        },
+        {
+        "title": "site_recommendation_system",
+        "tags": [
+            "Spatial Analysis",
+            "Spatial Intelligence",
+            "Recommendation Systems",
+            "Geographic Information Systems",
+            "Gradient Boosting"
+        ],
+        "achieved_milestones": [
+            "Performed web scraping to collect location data about historical store placement.",
+            "Merged store location data with zip-level demographics and socioeconomic features.",
+            "Implemented machine learning models to classify out-of-sample zip codes into fitting/unfitting locations."
+        ],
+        "description": "This is the project description"
         }
 
     ]
