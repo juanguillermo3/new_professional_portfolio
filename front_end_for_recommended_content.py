@@ -273,6 +273,7 @@ def html_for_item_data(
                 "url":html_for_github_button(rec["url"])
             })
 
+    button_size=40
     card_html = f"""
         <style>
             .recommendation-card {{
