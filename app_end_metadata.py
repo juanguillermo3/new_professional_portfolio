@@ -117,20 +117,19 @@ def load_repos_metadata():
             "next_milestones": []
         },
         {
-        "title": "site_recommendation_system",
-        "tags": [
-            "Spatial Analysis",
-            "Spatial Intelligence",
-            "Recommendation Systems",
-            "Geographic Information Systems",
-            "Gradient Boosting"
-        ],
-        "achieved_milestones": [
-            "Performed web scraping to collect location data about historical store placement.",
-            "Merged store location data with zip-level demographics and socioeconomic features.",
-            "Implemented machine learning models to classify out-of-sample zip codes into fitting/unfitting locations."
-        ],
-        "description": "This is the project description"
+            "title": "site_recommendation_system",
+            "tags": [
+                "Spatial Analysis",
+                "Spatial Intelligence",
+                "Recommendation Systems",
+                "Geographic Information Systems",
+                "Gradient Boosting"
+            ],
+            "description": "The site recommendation system performs ranking and recommendations of ZIP codes where a grocery store should consider future openings. The system analyzes historical store locations and integrates fine-grained demographic and socioeconomic data from U.S. ZIP codes. Using machine learning, it predicts optimal locations for new stores by identifying ZIP codes with a high probability of a new opening. The underlying probability model ranks potential store locations in U.S. states not included in the training data.",
+            "achieved_milestones": [
+                "Performed web scraping to collect location data about historical store placement.",
+                "Merged store location data with zip-level demographics and socioeconomic features.",
+                "Implemented machine learning models to classify out-of-sample ZIP codes into fitting/unfitting locations."
+            ]
         }
-
     ]
