@@ -241,7 +241,7 @@ def html_for_item_data(
             tooltip_content[0]+
             [
             #'<div class="item-tooltip resources-tooltip">Resources:</div>', 
-            f'<div class="item-tooltip buttons-tooltip">{buttons_html}</div>'
+            #f'<div class="item-tooltip buttons-tooltip">{buttons_html}</div>'
             ]
         ]
 
@@ -268,60 +268,47 @@ def html_for_item_data(
 
     button_size=40
     card_html = f"""
-        <style>
-            .recommendation-card {{
-                background-color: {background_color};
-                border: {border_style};
-                border-radius: 10px;
-                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-                height: {card_height};
-                width: 200px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                padding: 10px;
-                text-align: center;
-                font-size: 16px;
-                font-weight: bold;
-                cursor: pointer;
-                margin: 10px;
-                position: relative;
-                transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-            }}
+    <style>
+        .recommendation-card {{
+            background-color: {background_color};
+            border: {border_style};
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            height: {card_height};
+            width: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px;
+            position: relative;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }}
     
-            .recommendation-card:hover {{
-                transform: scale(1.2);
-                box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.3);
-                z-index: 20;
-            }}
+        .recommendation-card:hover {{
+            transform: scale(1.2);
+            box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.3);
+            z-index: 20;
+        }}
     
-            .recommendation-title {{
-                background-color: rgba(255, 255, 255, 0.7);
-                padding: 5px 10px;
-                border-radius: 10px;
-                width: auto;
-                max-width: 100%;
-            }}
-        
-            .recommendation-card:hover .tooltip {{
-                visibility: visible;
-                opacity: 1;
-            }}
-        </style>
+        .recommendation-title {{
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 5px 10px;
+            border-radius: 10px;
+            width: auto;
+            max-width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }}
     
-        <div id="{card_id}" class="recommendation-card">
-            <div class="recommendation-title">
-                {raw_title}
-                <a href="{rec["url"] if "url" in rec else ""}" target="_blank" class="github-btn"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub"></a>
-            </div>
-                
-        </div>
-        
-
-        <style>
         .github-btn {{
-            background-color: #333;
+            background-color: white; /* Set solid white background */
             width: {button_size}px;
             height: {button_size}px;
             border-radius: 50%;
@@ -329,19 +316,35 @@ def html_for_item_data(
             display: inline-flex;
             justify-content: center;
             align-items: center;
-            transition: background-color 0.3s ease-in-out;
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            opacity: 0;
+            transform: scale(0.8);
         }}
-
+    
         .github-btn img {{
             width: {button_size * 0.6}px;
             height: {button_size * 0.6}px;
         }}
-
+    
+        .recommendation-card:hover .github-btn {{
+            opacity: 1;
+            transform: scale(1);
+        }}
+    
         .github-btn:hover {{
-            background-color: #444;
+            background-color: #f5f5f5;
             cursor: pointer;
         }}
-        </style>
+    </style>
+
+    
+    <div id="{card_id}" class="recommendation-card">
+        <div class="recommendation-title">
+            {raw_title}
+            <a href="{rec["url"] if "url" in rec else ""}" target="_blank" class="github-btn"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub"></a>
+        </div>      
+    </div>
+        
         
     """
 
