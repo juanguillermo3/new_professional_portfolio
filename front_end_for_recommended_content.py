@@ -320,10 +320,8 @@ def html_for_item_data(
             <div class="recommendation-title">
                 {raw_title}
             </div>
-            {
-                html_for_github_button(rec["url"])
-            } 
         </div>
+        {html_for_github_button(rec["url"]) if rec["url"] else ""}
     """
 
     return card_html, tooltip_html, tooltip_styles
