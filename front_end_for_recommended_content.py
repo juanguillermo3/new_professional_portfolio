@@ -321,8 +321,12 @@ def html_for_item_data(
                 {raw_title}
             </div>
         </div>
+
+        <a href="{html_for_github_button(rec["url"]) if "url" in rec else ""}" target="_blank" class="github-btn">
+            <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub">
+        </a>
         
-    """+"\n"+html_for_github_button(rec["url"]) if "url" in rec else ""
+    """
 
     return card_html, tooltip_html, tooltip_styles
 
