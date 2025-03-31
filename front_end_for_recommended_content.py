@@ -307,33 +307,44 @@ def html_for_item_data(
             gap: 8px;
         }}
     
-        .github-btn {{
-            background-color: white; /* Set solid white background */
+        .github-btn, .colab-btn {{
+            background-color: white;
             width: {button_size}px;
             height: {button_size}px;
             border-radius: 50%;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);       
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
             justify-content: center;
             align-items: center;
             transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
             opacity: 0;
             transform: scale(0.8);
             display: none;
+            margin-top: 5px;
         }}
     
-        .github-btn img {{
+        .github-btn img, .colab-btn img {{
             width: {button_size * 0.6}px;
             height: {button_size * 0.6}px;
         }}
     
-        .recommendation-card:hover .github-btn {{
-            display: flex;  /* Ensures the image is centered */
+        .recommendation-card:hover .github-btn,
+        .recommendation-card:hover .colab-btn {{
+            display: flex;
             opacity: 1;
             transform: scale(1);
         }}
     
         .github-btn:hover {{
             background-color: #f5f5f5;
+            cursor: pointer;
+        }}
+    
+        .colab-btn {{
+            background-color: #f9ab00;
+        }}
+    
+        .colab-btn:hover {{
+            background-color: #e69900;
             cursor: pointer;
         }}
     </style>
@@ -343,10 +354,12 @@ def html_for_item_data(
             {raw_title}
         </div>  
         <div>
-            <a href="{rec["url"] if "url" in rec else ""}" target="_blank" class="github-btn"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub"></a>
-        </div>    
+            <a href="{rec["url"] if "url" in rec else ""}" target="_blank" class="github-btn">
+                <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub">
+            </a>
+        </div>
+        {f'<div><a href="{rec["colab_url"]}" target="_blank" class="colab-btn"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Google_Colaboratory_SVG_Logo.svg/512px-Google_Colaboratory_SVG_Logo.svg.png" alt="Colab"></a></div>' if "colab_url" in rec else ''}
     </div>
-        
     """
 
     return card_html, tooltip_html, tooltip_styles
