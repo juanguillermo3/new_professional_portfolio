@@ -321,7 +321,7 @@ def html_for_item_data(
                 {raw_title}
             </div>
             <div class="buttons-row">
-                button_fabric.render_buttons_grid(buttons_html)
+                {button_fabric.render_buttons_grid(buttons_html)}
             </div>
 
             
