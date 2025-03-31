@@ -67,16 +67,26 @@ def expandable_text_html(detailed_text: str) -> tuple[str, str]:
 
 
 import hashlib
+import re
 
 #
-# (0) simplified chunking system based on fixed character length (default to tweet length)
+# (0) simplified chunking system based on fixed number of tokens
 #
-def _chunk_texts(detailed_text: str, max_length: int = 280) -> tuple[str, str]:
-    """Splits a paragraph into a brief (up to `max_length` characters) and details (remaining text)."""
-    brief = detailed_text[:max_length]
-    details = detailed_text[max_length:].strip()
+def _chunk_texts(detailed_text: str, max_tokens: int = 40) -> tuple[str, str]:
+    """Splits a paragraph into a brief (up to `max_tokens` words) and details (remaining text)."""
+    # First, we'll remove the HTML tags and split the remaining text into words
+    text_no_html = re.sub(r'<[^>]+>', '', detailed_text)  # Remove HTML tags
+    tokens = text_no_html.split()
+    
+    # Split at the max token limit
+    brief_tokens = tokens[:max_tokens]
+    details_tokens = tokens[max_tokens:]
+
+    # Rebuild the brief and details, preserving HTML
+    brief = ' '.join(brief_tokens)
+    details = ' '.join(details_tokens)
+
     return brief.strip(), details.strip()
-
 
 #
 # (1) render html for the text component with new interactive ellipsis
