@@ -265,13 +265,6 @@ def html_for_item_data(
         visible_text="See more"
     )
 
-    buttons_html=[]
-    if "url" in rec and rec["url"]:
-        buttons_html.append(
-            {
-                "label":"GitHub",
-                "url":html_for_github_button(rec["url"])
-            })
 
     button_size=40
     card_html = f"""
@@ -347,7 +340,7 @@ def html_for_item_data(
         }}
         </style>
 
-        <a href="{html_for_github_button(rec["url"]) if "url" in rec else ""}" target="_blank" class="github-btn">
+        <a href="{rec["url"] if "url" in rec else ""}" target="_blank" class="github-btn">
             <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub">
         </a>
         
