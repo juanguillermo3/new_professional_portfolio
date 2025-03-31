@@ -313,7 +313,7 @@ def _chunk_texts(detailed_text: str, max_tokens: int = 40) -> tuple[str, str]:
     return brief.strip(), details.strip()
 
 #
-# (1) render html for the text component with new interactive ellipsis
+# (1) render html for the text component with new interactive arrow
 #
 def expandable_text_html(detailed_text: str) -> tuple[str, str]:
     """
@@ -328,8 +328,8 @@ def expandable_text_html(detailed_text: str) -> tuple[str, str]:
     # Generate a unique element ID using a hash
     element_id = "hover-" + hashlib.md5(detailed_text.encode()).hexdigest()[:8]
 
-    # Append a visually distinct ellipsis (emoji style) at the end of the brief
-    brief += ' <strong class="ellipsis">🔍</strong>'
+    # Append a visually distinct down arrow (emoji style) at the end of the brief
+    brief += ' <strong class="ellipsis">⬇️</strong>'
 
     text_container = (
         f'<div id="{element_id}" class="ancillary-container">'
@@ -339,7 +339,7 @@ def expandable_text_html(detailed_text: str) -> tuple[str, str]:
     style_block = (
         f"#{element_id} {{ cursor: pointer; }}\n"  # Cursor change
         f".ellipsis {{ "
-        f"font-size: 1.5em; "
+        f"font-size: 1.2em; "  # Reduce size to 80% (1.2 is 80% of 1.5)
         f"animation: ellipsis-pulse 1.5s infinite; "
         f"vertical-align: middle; "
         f"}}\n"
@@ -351,15 +351,14 @@ def expandable_text_html(detailed_text: str) -> tuple[str, str]:
     )
 
     if details:
-        text_container += f' <span class="{element_id}-hidden" style="display: inline;">{details}</span>'
+        text_container += f' <span class="{element_id}-hidden" style="display: none;">{details}</span>'
         style_block += (
             f".{element_id}-hidden {{"
-            f" display: inline-block; opacity: 0; max-width: 0px; max-height: 0px; overflow: hidden;"
+            f" display: none; opacity: 0; max-width: 0px; max-height: 0px; overflow: hidden;"
             f" transition: opacity 0.3s ease-in-out 0.2s, max-width 0.4s ease-out, max-height 0.4s ease-out; }}\n"
             f"#{element_id}:hover .{element_id}-hidden {{"
-            f" opacity: 1; max-width: 100%; max-height: 400px; }}\n"
-            f"#{element_id}:hover .ellipsis {{"
-            f" display: none; }}\n"  # Hide the emoji on hover
+            f" display: inline-block; opacity: 1; max-width: 100%; max-height: 400px; }}\n"
         )
 
     return text_container, style_block
+
