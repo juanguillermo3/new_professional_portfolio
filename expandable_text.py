@@ -219,37 +219,28 @@ def expandable_text_html(detailed_text: str) -> tuple[str, str]:
 
 import hashlib
 import re
-import markdown
-
-# Helper function to tokenize text by splitting it into words (without external libraries)
-def custom_tokenize(text: str) -> list:
-    """Simple tokenization function that splits a string into words, while ignoring HTML tags and special characters."""
-    # Remove HTML tags using a regex
-    text = re.sub(r'<[^>]+>', '', text)  # Remove HTML tags
-    # Split by spaces or non-word characters while preserving words
-    tokens = re.findall(r'\b\w+\b', text)
-    return tokens
 
 #
-# (0) helper function to chunk text into fixed token length, and details
+# (0) simplified chunking system based on fixed number of tokens
 #
-def _chunk_texts(detailed_text: str, min_tokens: int = 20) -> tuple[str, str]:
-    """Splits a paragraph into brief (main statement) and details (remaining text) based on fixed token length."""
-    # Tokenize the plain text (content after markdown conversion)
-    tokens = custom_tokenize(detailed_text)
+def _chunk_texts(detailed_text: str, max_tokens: int = 40) -> tuple[str, str]:
+    """Splits a paragraph into a brief (up to `max_tokens` words) and details (remaining text)."""
+    # First, we'll remove the HTML tags and split the remaining text into words
+    text_no_html = re.sub(r'<[^>]+>', '', detailed_text)  # Remove HTML tags
+    tokens = text_no_html.split()
     
-    # Split the tokens into chunks
-    brief_tokens = tokens[:min_tokens]
-    details_tokens = tokens[min_tokens:]
-    
-    # Reconstruct the brief and details from tokens
+    # Split at the max token limit
+    brief_tokens = tokens[:max_tokens]
+    details_tokens = tokens[max_tokens:]
+
+    # Rebuild the brief and details, preserving HTML
     brief = ' '.join(brief_tokens)
     details = ' '.join(details_tokens)
-    
+
     return brief.strip(), details.strip()
 
 #
-# (1) render html for the text component and interactable behaviour
+# (1) render html for the text component with new interactive ellipsis
 #
 def expandable_text_html(detailed_text: str) -> tuple[str, str]:
     """
@@ -264,30 +255,39 @@ def expandable_text_html(detailed_text: str) -> tuple[str, str]:
     # Generate a unique element ID using a hash
     element_id = "hover-" + hashlib.md5(detailed_text.encode()).hexdigest()[:8]
 
-    # Replace ellipsis with the down arrow emoji
-    brief += ' <strong class="ellipsis">⬇️</strong>'
+    # Append a visually distinct ellipsis at the end of the brief
+    brief += ' <strong class="ellipsis">...</strong>'
 
     text_container = (
         f'<div id="{element_id}" class="ancillary-container">'
-        f'<p style="text-align: justify; margin: 0;">{brief}'
+        f'<p style="text-align: justify; margin: 0; display: inline;">{brief}'
     )
 
     style_block = (
         f"#{element_id} {{ cursor: pointer; }}\n"  # Cursor change
-        f".ellipsis {{ color: #555; font-weight: bold; font-size: 1.2em; }}\n"  # Noticeable emoji
+        f".ellipsis {{ "
+        f"color: #555; "
+        f"font-weight: bold; "
+        f"font-size: 1.5em; "
+        f"animation: ellipsis-pulse 1.5s infinite; "
+        f"vertical-align: middle; "
+        f"}}\n"
+        f"@keyframes ellipsis-pulse {{\n"
+        f"  0% {{ transform: scale(1); }}\n"
+        f"  50% {{ transform: scale(1.3); }}\n"
+        f"  100% {{ transform: scale(1); }}\n"
+        f"}}\n"
     )
 
     if details:
-        # Add the hidden content
-        text_container += f' <span class="{element_id}-hidden">{details}</span>'
-        
+        text_container += f' <span class="{element_id}-hidden" style="display: inline;">{details}</span>'
         style_block += (
             f".{element_id}-hidden {{"
             f" display: inline-block; opacity: 0; max-width: 0px; max-height: 0px; overflow: hidden;"
-            f" transition: opacity 0.5s ease-out 0.2s, max-width 0.5s ease-out, max-height 0.5s ease-out; }}\n"
+            f" transition: opacity 0.3s ease-in-out 0.2s, max-width 0.4s ease-out, max-height 0.4s ease-out; }}\n"
             f"#{element_id}:hover .{element_id}-hidden {{"
             f" opacity: 1; max-width: 100%; max-height: 400px; }}\n"
-            f"#{element_id}:hover .ellipsis {{ opacity: 0; }}\n"  # Hide the arrow on hover
         )
 
     return text_container, style_block
+
