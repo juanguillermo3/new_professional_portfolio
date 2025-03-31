@@ -143,3 +143,86 @@ def expandable_text_html(detailed_text: str) -> tuple[str, str]:
     return text_container, style_block
 
 
+import hashlib
+import re
+
+#
+# (0) helper function to chunk text into brief main statement, and details
+#
+def _chunk_texts(detailed_text: str, char_limit: int = 280) -> tuple[str, str]:
+    """Splits a paragraph into a brief (main statement) and details (remaining text).
+    
+    The brief contains up to a specified number of characters.
+    """
+    brief = detailed_text[:char_limit].strip()
+    details = detailed_text[char_limit:].strip()
+    return brief, details
+
+#
+# (1) render html for the text component and interactable behaviour with ink sweep effect
+#
+def expandable_text_html(detailed_text: str) -> tuple[str, str]:
+    """
+    Generates an HTML snippet with a hover-reveal effect for long text descriptions, 
+    using an ink-sweep animation to gradually reveal the extended part.
+    
+    Returns:
+        offering_html (str): The generated HTML structure.
+        style_block (str): The required CSS styles.
+    """
+    brief, details = _chunk_texts(detailed_text)
+    
+    # Generate a unique element ID using a hash
+    element_id = "hover-" + hashlib.md5(detailed_text.encode()).hexdigest()[:8]
+
+    # Append the right arrow emoji for interaction hint instead of ellipsis
+    brief += ' <strong class="ellipsis">➡️</strong>'
+
+    text_container = (
+        f'<div id="{element_id}" class="ancillary-container">'
+        f'<p style="text-align: justify; margin: 0;">{brief}'
+    )
+
+    style_block = (
+        f"#{element_id} {{ cursor: pointer; }}\n"  # Cursor change
+        f".ellipsis {{ color: #555; font-weight: bold; font-size: 1.2em; }}\n"  # Noticeable arrow
+    )
+
+    if details:
+        # Add a span for the hidden text with ink-sweep animation
+        text_container += f' <span class="{element_id}-hidden">{details}</span>'
+        style_block += (
+            f".{element_id}-hidden {{"
+            f" display: inline-block; opacity: 0; max-width: 0px; max-height: 0px; overflow: hidden;"
+            f" transition: opacity 0.3s ease-in-out 0.2s, max-width 0.4s ease-out, max-height 0.4s ease-out; }}\n"
+            f"#{element_id}:hover .{element_id}-hidden {{"
+            f" opacity: 1; max-width: 100%; max-height: 400px; }}\n"
+        )
+
+        # Add ink-sweep animation effect
+        style_block += """
+        @keyframes inkSeep {
+            0% { opacity: 0; filter: blur(5px); transform: scale(0.95); }
+            100% { opacity: 1; filter: blur(0); transform: scale(1); }
+        }
+        .ink-word {
+            display: inline-block;
+            opacity: 0;
+            animation: inkSeep 0.3s ease-in-out forwards;
+        }
+        """
+
+        # Tokenize words and add the ink-seep effect
+        words = re.findall(r'(<[^>]+>[^<]+<\/[^>]+>|[^<\s,]+)([\s,]*)', details)
+        
+        # Construct the styled text with animation delays
+        styled_text = ' '.join(
+            f'<span class="ink-word" style="animation-delay: {i * 0.1}s;">{word}{space}</span>'
+            for i, (word, space) in enumerate(words)
+        )
+
+        # Add the styled text to the hidden span
+        text_container += f'<span class="{element_id}-hidden">{styled_text}</span>'
+
+    return text_container, style_block
+
