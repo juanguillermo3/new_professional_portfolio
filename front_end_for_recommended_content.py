@@ -314,10 +314,9 @@ def html_for_item_data(
             <div class="recommendation-title">
                 {raw_title}
             </div>
-            
-            <a href="{rec["url"] if "url" in rec else ""}" target="_blank" class="github-btn"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub"></a>
-            
+                
         </div>
+        <a href="{rec["url"] if "url" in rec else ""}" target="_blank" class="github-btn"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub"></a>
 
         <style>
         .github-btn {{
