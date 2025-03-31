@@ -327,7 +327,7 @@ def html_for_item_data(
         }}
     
         .recommendation-card:hover .github-btn {{
-            display: block;
+            display: flex;  /* Ensures the image is centered */
             opacity: 1;
             transform: scale(1);
         }}
