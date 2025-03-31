@@ -322,7 +322,7 @@ def html_for_item_data(
             </div>
         </div>
         
-    """+"\n"+{html_for_github_button(rec["url"]) if "url" in rec else ""}
+    """+"\n"+html_for_github_button(rec["url"]) if "url" in rec else ""
 
     return card_html, tooltip_html, tooltip_styles
 
