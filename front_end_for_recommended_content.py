@@ -13,11 +13,11 @@ from badges_for_item_data import apply_badges_to_item_title
 from exceptional_ui import _custom_tooltip_html
 from media_carrousel import flexible_file_discovery, html_for_media_carousel, dummy_media_list
 from tooltip_canvas import TooltipCanvas
-from front_end_utils import prettify_title, render_external_link_button,  html_for_container,html_for_github_button
+from front_end_utils import prettify_title, render_external_link_button,  html_for_container,html_for_github_button, ButtonFabric
 
 # Instantiate the tooltip system
 tooltip_system = TooltipCanvas()
-
+button_fabric=ButtonFabric()
 
 
 def html_for_milestones_from_project_metadata(milestones=None, project_metadata=None, milestone_type="achieved_milestones"):
@@ -265,6 +265,14 @@ def html_for_item_data(
         visible_text="See more"
     )
 
+    buttons_html=[]
+    if "url" in rec and rec["url"]:
+        buttons_html.append(
+            {
+                "label":"GitHub",
+                "url":html_for_github_button(rec["url"])
+            })
+
     card_html = f"""
         <style>
             .recommendation-card {{
@@ -312,6 +320,11 @@ def html_for_item_data(
             <div class="recommendation-title">
                 {raw_title}
             </div>
+            <div class="buttons-row">
+                button_fabric.render_buttons_grid(buttons_html)
+            </div>
+
+            
         </div>
     """
 
