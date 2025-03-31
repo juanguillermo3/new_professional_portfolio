@@ -340,7 +340,6 @@ def html_for_item_data(
     <div id="{card_id}" class="recommendation-card">
         <div class="recommendation-title">
             {raw_title}
-            #<a href="{rec["url"] if "url" in rec else ""}" target="_blank" class="github-btn"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub"></a>
         </div>  
         <div>
             <a href="{rec["url"] if "url" in rec else ""}" target="_blank" class="github-btn"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub"></a>
