@@ -255,8 +255,8 @@ def expandable_text_html(detailed_text: str) -> tuple[str, str]:
     # Generate a unique element ID using a hash
     element_id = "hover-" + hashlib.md5(detailed_text.encode()).hexdigest()[:8]
 
-    # Append a visually distinct ellipsis at the end of the brief
-    brief += ' <strong class="ellipsis">...</strong>'
+    # Append a visually distinct ellipsis (emoji style) at the end of the brief
+    brief += ' <strong class="ellipsis">🔍</strong>'
 
     text_container = (
         f'<div id="{element_id}" class="ancillary-container">'
@@ -266,8 +266,6 @@ def expandable_text_html(detailed_text: str) -> tuple[str, str]:
     style_block = (
         f"#{element_id} {{ cursor: pointer; }}\n"  # Cursor change
         f".ellipsis {{ "
-        f"color: #555; "
-        f"font-weight: bold; "
         f"font-size: 1.5em; "
         f"animation: ellipsis-pulse 1.5s infinite; "
         f"vertical-align: middle; "
@@ -290,4 +288,3 @@ def expandable_text_html(detailed_text: str) -> tuple[str, str]:
         )
 
     return text_container, style_block
-
