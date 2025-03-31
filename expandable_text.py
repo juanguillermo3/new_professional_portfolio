@@ -217,3 +217,77 @@ def expandable_text_html(detailed_text: str) -> tuple[str, str]:
     return text_container, style_block
 
 
+import hashlib
+import re
+import markdown
+
+# Helper function to tokenize text by splitting it into words (without external libraries)
+def custom_tokenize(text: str) -> list:
+    """Simple tokenization function that splits a string into words, while ignoring HTML tags and special characters."""
+    # Remove HTML tags using a regex
+    text = re.sub(r'<[^>]+>', '', text)  # Remove HTML tags
+    # Split by spaces or non-word characters while preserving words
+    tokens = re.findall(r'\b\w+\b', text)
+    return tokens
+
+#
+# (0) helper function to chunk text into fixed token length, and details
+#
+def _chunk_texts(detailed_text: str, min_tokens: int = 20) -> tuple[str, str]:
+    """Splits a paragraph into brief (main statement) and details (remaining text) based on fixed token length."""
+    # Tokenize the plain text (content after markdown conversion)
+    tokens = custom_tokenize(detailed_text)
+    
+    # Split the tokens into chunks
+    brief_tokens = tokens[:min_tokens]
+    details_tokens = tokens[min_tokens:]
+    
+    # Reconstruct the brief and details from tokens
+    brief = ' '.join(brief_tokens)
+    details = ' '.join(details_tokens)
+    
+    return brief.strip(), details.strip()
+
+#
+# (1) render html for the text component and interactable behaviour
+#
+def expandable_text_html(detailed_text: str) -> tuple[str, str]:
+    """
+    Generates an HTML snippet with a hover-reveal effect for long text descriptions.
+    
+    Returns:
+        offering_html (str): The generated HTML structure.
+        style_block (str): The required CSS styles.
+    """
+    brief, details = _chunk_texts(detailed_text)
+    
+    # Generate a unique element ID using a hash
+    element_id = "hover-" + hashlib.md5(detailed_text.encode()).hexdigest()[:8]
+
+    # Replace ellipsis with the down arrow emoji
+    brief += ' <strong class="ellipsis">⬇️</strong>'
+
+    text_container = (
+        f'<div id="{element_id}" class="ancillary-container">'
+        f'<p style="text-align: justify; margin: 0;">{brief}'
+    )
+
+    style_block = (
+        f"#{element_id} {{ cursor: pointer; }}\n"  # Cursor change
+        f".ellipsis {{ color: #555; font-weight: bold; font-size: 1.2em; }}\n"  # Noticeable emoji
+    )
+
+    if details:
+        # Add the hidden content
+        text_container += f' <span class="{element_id}-hidden">{details}</span>'
+        
+        style_block += (
+            f".{element_id}-hidden {{"
+            f" display: inline-block; opacity: 0; max-width: 0px; max-height: 0px; overflow: hidden;"
+            f" transition: opacity 0.5s ease-out 0.2s, max-width 0.5s ease-out, max-height 0.5s ease-out; }}\n"
+            f"#{element_id}:hover .{element_id}-hidden {{"
+            f" opacity: 1; max-width: 100%; max-height: 400px; }}\n"
+            f"#{element_id}:hover .ellipsis {{ opacity: 0; }}\n"  # Hide the arrow on hover
+        )
+
+    return text_container, style_block
