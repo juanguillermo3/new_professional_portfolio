@@ -312,13 +312,13 @@ def html_for_item_data(
             width: {button_size}px;
             height: {button_size}px;
             border-radius: 50%;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-            display: inline-flex;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);       
             justify-content: center;
             align-items: center;
             transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
             opacity: 0;
             transform: scale(0.8);
+            display: none;
         }}
     
         .github-btn img {{
@@ -327,6 +327,7 @@ def html_for_item_data(
         }}
     
         .recommendation-card:hover .github-btn {{
+            display: block;
             opacity: 1;
             transform: scale(1);
         }}
