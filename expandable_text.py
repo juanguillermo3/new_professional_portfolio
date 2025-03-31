@@ -288,3 +288,78 @@ def expandable_text_html(detailed_text: str) -> tuple[str, str]:
         )
 
     return text_container, style_block
+
+
+import hashlib
+import re
+
+#
+# (0) simplified chunking system based on fixed number of tokens
+#
+def _chunk_texts(detailed_text: str, max_tokens: int = 40) -> tuple[str, str]:
+    """Splits a paragraph into a brief (up to `max_tokens` words) and details (remaining text)."""
+    # First, we'll remove the HTML tags and split the remaining text into words
+    text_no_html = re.sub(r'<[^>]+>', '', detailed_text)  # Remove HTML tags
+    tokens = text_no_html.split()
+    
+    # Split at the max token limit
+    brief_tokens = tokens[:max_tokens]
+    details_tokens = tokens[max_tokens:]
+
+    # Rebuild the brief and details, preserving HTML
+    brief = ' '.join(brief_tokens)
+    details = ' '.join(details_tokens)
+
+    return brief.strip(), details.strip()
+
+#
+# (1) render html for the text component with new interactive ellipsis
+#
+def expandable_text_html(detailed_text: str) -> tuple[str, str]:
+    """
+    Generates an HTML snippet with a hover-reveal effect for long text descriptions.
+    
+    Returns:
+        offering_html (str): The generated HTML structure.
+        style_block (str): The required CSS styles.
+    """
+    brief, details = _chunk_texts(detailed_text)
+    
+    # Generate a unique element ID using a hash
+    element_id = "hover-" + hashlib.md5(detailed_text.encode()).hexdigest()[:8]
+
+    # Append a visually distinct ellipsis (emoji style) at the end of the brief
+    brief += ' <strong class="ellipsis">🔍</strong>'
+
+    text_container = (
+        f'<div id="{element_id}" class="ancillary-container">'
+        f'<p style="text-align: justify; margin: 0; display: inline;">{brief}'
+    )
+
+    style_block = (
+        f"#{element_id} {{ cursor: pointer; }}\n"  # Cursor change
+        f".ellipsis {{ "
+        f"font-size: 1.5em; "
+        f"animation: ellipsis-pulse 1.5s infinite; "
+        f"vertical-align: middle; "
+        f"}}\n"
+        f"@keyframes ellipsis-pulse {{\n"
+        f"  0% {{ transform: scale(1); }}\n"
+        f"  50% {{ transform: scale(1.3); }}\n"
+        f"  100% {{ transform: scale(1); }}\n"
+        f"}}\n"
+    )
+
+    if details:
+        text_container += f' <span class="{element_id}-hidden" style="display: inline;">{details}</span>'
+        style_block += (
+            f".{element_id}-hidden {{"
+            f" display: inline-block; opacity: 0; max-width: 0px; max-height: 0px; overflow: hidden;"
+            f" transition: opacity 0.3s ease-in-out 0.2s, max-width 0.4s ease-out, max-height 0.4s ease-out; }}\n"
+            f"#{element_id}:hover .{element_id}-hidden {{"
+            f" opacity: 1; max-width: 100%; max-height: 400px; }}\n"
+            f"#{element_id}:hover .ellipsis {{"
+            f" display: none; }}\n"  # Hide the emoji on hover
+        )
+
+    return text_container, style_block
