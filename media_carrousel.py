@@ -18,7 +18,7 @@ import hashlib
 import time
 
 # Global configuration for valid media files
-VALID_MEDIA_FILES = {".jpg", ".jpeg", ".png", ".gif", ".mp4", ".webm"}
+VALID_MEDIA_FILES = {".jpg", ".jpeg", ".png", ".gif", ".mp4", ".webm",".html"}
 
 #
 # 1.
