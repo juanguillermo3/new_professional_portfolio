@@ -209,23 +209,7 @@ class RecommendationSystem(PortfolioSection):
 
         unique_hash = hashlib.md5(rec['title'].encode()).hexdigest()
         button_id = f"galleria_{unique_hash}"
-    
-
-    #
-    def _fetch_files(self, repo_name):
-        """Fetches all file paths associated with a given repository name.
-        
-        Parameters:
-            - repo_name (str): The name of the repository.
-        
-        Returns:
-            - list: A list of file paths belonging to the given repository.
-        """
-        return [ _ for _ in  [
-            item.get("file_path", False)  # Safely get file_path, returns None if missing
-            for item in self.metadata_list
-            if item.get("repo_name", "").lower() == repo_name.lower() 
-        ] if _ ]
+  
     
     
     def _render_control_panel(self):
@@ -840,7 +824,23 @@ class RecommendationSystem(PortfolioSection):
                         self.render_card(rec, is_project=rec.get("is_project", False))
         
         #self._style_ancillary_component(unique_key) # If you want to style it, you can call this method
-    
+
+    #
+    def _fetch_files(self, repo_name):
+        """Fetches all file paths associated with a given repository name.
+        
+        Parameters:
+            - repo_name (str): The name of the repository.
+        
+        Returns:
+            - list: A list of file paths belonging to the given repository.
+        """
+        return [ _ for _ in  [
+            item.get("file_path", False)  # Safely get file_path, returns None if missing
+            for item in self.metadata_list
+            if item.get("repo_name", "").lower() == repo_name.lower() 
+        ] if _ ]
+
     def _render_milestones_grid(self, project_metadata):
         """Render milestones in a row-based grid with unique styling per project."""
     
@@ -879,17 +879,28 @@ class RecommendationSystem(PortfolioSection):
                 ("next_milestones", "Upcoming Milestones"),
                 ("code_samples", "Code Samples")
             ]
-            
+    
             # Loop through milestone data and render each in a column
             for i, (milestone_type, _) in enumerate(milestones_data):
                 with cols[i % len(cols)]:  # Cycle through the columns
-                    html_content = html_for_milestones_from_project_metadata(
-                        project_metadata=project_metadata,
-                        milestone_type=milestone_type
-                    )
+    
+                    # Special handling for "code_samples" to fetch files dynamically
+                    if milestone_type == "code_samples":
+                        files = self._fetch_files(project_metadata["title"])  # Fetch files dynamically
+                        html_content = html_for_milestones_from_project_metadata(
+                            milestones=files,  # Pass fetched file paths as milestones
+                            milestone_type=milestone_type
+                        )
+                    else:
+                        html_content = html_for_milestones_from_project_metadata(
+                            project_metadata=project_metadata,
+                            milestone_type=milestone_type
+                        )
+    
                     if html_content:
                         # Render the HTML content directly inside the column
                         st.markdown(html_content, unsafe_allow_html=True)
+
 
                   
 # Example usage
