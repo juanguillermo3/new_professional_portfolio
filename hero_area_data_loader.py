@@ -9,7 +9,6 @@ from exceptional_ui import (
 from front_end_utils import render_section_separator
 import hashlib
 import datetime
-from front_end_for_recommended_content import html_for_milestones_from_project_metadata
 
 # Load environment variables
 load_dotenv()
@@ -115,6 +114,29 @@ def load_detailed_offerings():
     return offerings
 
 
+def hover_text_component(main_text="Hover over this text", hidden_text=" and see more inline content!"):
+    html = f"""
+    <style>
+        .hover-container {{
+            display: inline;
+            position: relative;
+            cursor: pointer;
+        }}
+        .hover-text {{
+            display: none;
+        }}
+        .hover-container:hover .hover-text {{
+            display: inline;
+        }}
+    </style>
+    <span class="hover-container">
+        {main_text}
+        <span class="hover-text">{hidden_text}</span>
+    </span>
+    """
+    return html
+
+
 def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
     offerings = load_detailed_offerings()
 
@@ -154,10 +176,11 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
 
         # Tooltip rendering (if available)
         if "skills" in offer:
-            offering_html += html_for_milestones_from_project_metadata(
-                milestones=offer["skills"], milestone_type="technical_skills"
+            tooltip_html, unique_id = html_for_tooltip_from_large_list(
+                offer["skills"], label="Technical Skills", color="#555", emoji="🏅"
             )
-            #tooltip_ids.append(unique_id)
+            offering_html += tooltip_html
+            tooltip_ids.append(unique_id)
 
         offering_html += "<br>"
 
@@ -174,7 +197,6 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
     style_block += "</style>\n"
 
     return style_block + offering_html, tooltip_ids
-
 
 
 
