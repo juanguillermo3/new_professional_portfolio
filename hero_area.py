@@ -319,13 +319,6 @@ class HeroArea:
             # In-line expanding content (now with smooth transition)
             if full_description:
                 offering_html += f' <span class="hover-{element_id}">{full_description}</span>'
-                style_block += (
-                    f".hover-{element_id} {{"
-                    f" display: inline-block; opacity: 0; max-width: 0px; max-height: 0px; overflow: hidden;"
-                    f" transition: opacity 0.3s ease-in-out 0.2s, max-width 0.4s ease-out, max-height 0.4s ease-out; }}\n"
-                    f"#{element_id}:hover .hover-{element_id} {{"
-                    f" opacity: 1; max-width: 100%; max-height: 100px; }}\n"  # Max-height adjusted dynamically
-                )
     
             # Tooltip rendering (if available)
             if "skills" in offer:
