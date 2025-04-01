@@ -842,27 +842,45 @@ class RecommendationSystem(PortfolioSection):
         #self._style_ancillary_component(unique_key) # If you want to style it, you can call this method
     
     def _render_milestones_grid(self, project_metadata):
-        """Render milestones in a row-based grid."""
-        # Initialize the columns for milestones
-        cols = st.columns(3)  # Create 3 columns for a grid layout
+        """Render milestones in a row-based grid, centered horizontally, using Streamlit containers."""
+        
+        # Create a container to hold the grid and apply custom styling
+        with st.container(key="milestones_grid_container"):
+            # Apply CSS styling to center the content inside the container
+            st.markdown(
+                """
+                <style>
+                    .stContainer[data-testid="milestones_grid_container"] {
+                        display: flex;
+                        justify-content: center;
+                        width: 100%;
+                    }
+                </style>
+                """,
+                unsafe_allow_html=True
+            )
+            
+            # Initialize the columns for milestones (3 columns)
+            cols = st.columns(3)  # Create 3 columns for a grid layout
+    
+            # Define milestone data to be rendered
+            milestones_data = [
+                ("achieved_milestones", "Achieved Milestones"),
+                ("next_milestones", "Upcoming Milestones"),
+                ("code_samples", "Code Samples")
+            ]
+            
+            # Loop through milestone data and render each in a column
+            for i, (milestone_type, _) in enumerate(milestones_data):
+                with cols[i % len(cols)]:  # Cycle through the columns
+                    html_content = html_for_milestones_from_project_metadata(
+                        project_metadata=project_metadata,
+                        milestone_type=milestone_type
+                    )
+                    if html_content:
+                        # Render the HTML content directly inside the column
+                        st.markdown(html_content, unsafe_allow_html=True)
 
-        # Define milestone data to be rendered
-        milestones_data = [
-            ("achieved_milestones", "Achieved Milestones"),
-            ("next_milestones", "Upcoming Milestones"),
-            ("code_samples", "Code Samples")
-        ]
-
-        # Loop through milestone data and render each in a column
-        for i, (milestone_type, title) in enumerate(milestones_data):
-            with cols[i % len(cols)]:  # Cycle through the columns
-                html_content = html_for_milestones_from_project_metadata(
-                    project_metadata=project_metadata,
-                    milestone_type=milestone_type
-                )
-                if html_content:
-                    st.markdown(f"**{title}**", unsafe_allow_html=True)
-                    st.markdown(html_content, unsafe_allow_html=True)
                   
 # Example usage
 # Initialize RecSys with custom header and description
