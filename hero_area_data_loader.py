@@ -94,12 +94,11 @@ def load_detailed_offerings():
                 "<strong>Currently Learning:</strong> Docker, Kubernetes, GitHub, Big Data Cloud tools, SQLAlchemy, Django"
             ],
             "skills": [
-                "Expert use of Python, R Studio and Stata for applied statistical analysis.",
-                "Proficient implementation of Object-Oriented programming in Python (Core Features, OOP), Functional Programming in R (dplyr, ggplot, shiny, regex).",
-                "Proficient implementation of analytical queries using SQL.",
-                "Proficient implementation of distributed computing (PySpark) and workflow orchestration (Airflow).",
-                "Expertise developing and maintaining code in AI-accelerated environments (GPT and Copilot).",
-                "Fast pace of research/assimilation of new tools."
+                "Data integration expertise: Can connect enterprise applications with internal and external datasources: APIs, web scraping applications, databases, unstructured datasources",
+                "Activate implicit datasets by ETL effort from enterprise systems",
+                "Flexible information processing using text-minning, regex, Natural-Language-Processing",
+                "Familiarity with algorithms for alternative/unstructured data sources (NLP, GIS, Network Data)",
+                "Expertise developing complex merges from multiple data sources"
             ]
         },
         {
