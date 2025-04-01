@@ -833,9 +833,9 @@ class RecommendationSystem(PortfolioSection):
                     if html_content:
                         # Render the HTML content directly inside the column
                         st.markdown(html_content, unsafe_allow_html=True)
-
+    
     def render_project_metadata_and_recommendations(self, project_metadata, query):
-        """Render project title, video, metadata, and recommendations in an integrated layout."""
+        """Render project title, video, metadata, and recommendations in an ancillary container."""
         
         # Prepare video filename and path
         video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
@@ -847,22 +847,19 @@ class RecommendationSystem(PortfolioSection):
         description_html, description_styles = expandable_text_html(parsed_description)
         description_html = markdown.markdown(f"{description_html} ")
         
-        # Integrated media, title, and tags
         if os.path.exists(video_path):
-            st.markdown(
-                f"""
-                <div style="position: relative; width: 100%; height: auto; overflow: hidden;">
-                    <video autoplay loop muted playsinline style="width: 100%; height: auto; border-radius: 10px;">
-                        <source src="{video_path}" type="video/mp4">
-                    </video>
-                    <div style="position: absolute; bottom: 10px; left: 10px; color: white; background: rgba(0, 0, 0, 0.6); padding: 5px 10px; border-radius: 5px;">
-                        <h3 style="margin: 0;">{prettify_title(project_metadata['title'])}</h3>
-                        <p style="margin: 0; font-size: 90%;">{tags_html}</p>
-                    </div>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
+            st.video(video_path, loop=True, autoplay=True, muted=True)
+        
+        # Render title and tags directly above the video, minimal vertical spacing
+        st.markdown(
+            f"""
+            <div style="text-align: center; margin-top: -20px;">
+                <h3 style="margin-bottom: 5px;">{prettify_title(project_metadata['title'])}</h3>
+                <p style="margin-top: 0px;">{tags_html}</p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
         
         # Generate a unique key for the ancillary container
         unique_key = hashlib.md5(project_metadata['title'].encode()).hexdigest()
@@ -903,6 +900,7 @@ class RecommendationSystem(PortfolioSection):
                 for col, rec in zip(cols, recommendations[i: i + self.num_columns]):
                     with col:
                         self.render_card(rec, is_project=rec.get("is_project", False))
+
 
                   
 # Example usage
