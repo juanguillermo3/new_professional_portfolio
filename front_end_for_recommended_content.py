@@ -369,6 +369,8 @@ def html_for_item_data(
 
 import html
 
+import html
+
 def html_for_milestones_from_project_metadata(milestones=None, project_metadata=None, milestone_type="achieved_milestones"):
     """
     Generates an HTML snippet for displaying milestones with a tooltip.
@@ -419,7 +421,13 @@ def html_for_milestones_from_project_metadata(milestones=None, project_metadata=
 
     # Handle empty milestone case
     if not milestones:
-        return f'<div style="color:gray;">No {label.lower()}</div>'
+        # Render the icon in grayscale when no data is found
+        return f"""
+        <div style="color:gray; text-align: center;">
+            <img src="{icon_url}" alt="{label}" style="width: 30px; height: 30px; filter: grayscale(100%);"/><br>
+            <label>No {label.lower()}</label>
+        </div>
+        """
 
     # Generate summary text
     milestone_count = len(milestones)
@@ -480,6 +488,7 @@ def html_for_milestones_from_project_metadata(milestones=None, project_metadata=
         }}
     </style>
     """
+
 
 
 
