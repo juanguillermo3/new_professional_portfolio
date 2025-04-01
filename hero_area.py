@@ -290,7 +290,7 @@ class HeroArea:
         label, color, pastel_color, icon_url, emoji, default_text = (
             figure_style["label"], figure_style["color"], figure_style["pastel"], figure_style["icon"], figure_style["emoji"], figure_style["default_text"]
         )
-        element_id = f"tooltip-{milestone_type}"
+        element_id = f"tooltip-skills"
         #
         # (1)
         #
