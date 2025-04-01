@@ -130,6 +130,10 @@ def load_repos_metadata():
                 "Performed web scraping to collect location data about historical store placement.",
                 "Merged store location data with zip-level demographics and socioeconomic features.",
                 "Implemented machine learning models to classify out-of-sample ZIP codes into fitting/unfitting locations."
+            ],
+            "business_impact": [
+                "Create spatial intelligence by identifying locations tailored to business needs.",
+                "Gain a competitive advantage by accelerating expansion opportunities."
             ]
         }
     ]
