@@ -386,7 +386,7 @@ def html_for_milestones_from_project_metadata(milestones=None, project_metadata=
         "achieved_milestones": {
             "label": "Achieved Milestones", 
             "color": "#2E7D32",  # Dark green
-            "icon": "https://icons8.com/icon/gbhGcQX6NZvT/milestones", 
+            "icon": "https://img.icons8.com/?size=100&id=gbhGcQX6NZvT&format=png&color=000000", 
             "default_text": "{n} milestones achieved"
         },
         "next_milestones": {
