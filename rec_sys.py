@@ -841,15 +841,15 @@ class RecommendationSystem(PortfolioSection):
             if item.get("repo_name", "").lower() == repo_name.lower() 
         ] if _ ]
 
-    def _render_milestones_grid(self, project_metadata):
-        """Render milestones in a row-based grid with unique styling per project."""
+    def _render_milestones_grid(self, project_metadata, top_margin=20, bottom_margin=20):
+        """Render milestones in a row-based grid with unique styling per project and customizable margins."""
     
         # Generate a unique hash based on project metadata (e.g., project title and current time)
         unique_key = hashlib.md5(f"{project_metadata['title']}_{time.time()}".encode()).hexdigest()
     
         # Create a container with the unique key
         with st.container(key=unique_key):
-            # Apply custom styling using the unique key for each project's container
+            # Apply custom styling with unique key for each project's container, including top and bottom margins
             st.markdown(
                 f"""
                 <style>
@@ -860,6 +860,8 @@ class RecommendationSystem(PortfolioSection):
                         height: 100%;
                         flex-direction: row;
                         gap: 20px;
+                        margin-top: {top_margin}px;
+                        margin-bottom: {bottom_margin}px;
                     }}
                     .st-key-{unique_key} .stColumn {{
                         flex: 1;
