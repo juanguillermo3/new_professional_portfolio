@@ -114,6 +114,7 @@ def html_for_milestones_from_project_metadata(milestones=None, project_metadata=
             {tooltip_content}
         </div>
     </div>
+    </div>
     <style>
         #{element_id}-container:hover {{
             background-color: {pastel_color};
