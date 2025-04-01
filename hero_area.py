@@ -83,7 +83,7 @@ class HeroArea:
         self.whatsapp_number = whatsapp_number
         self.contact_button_intro = contact_button_intro
         self.professional_offering = professional_offering
-        self.detailed_offering, self.ids = detailed_offering
+        self.detailed_offering= detailed_offering
 
     def render_contact_details(self):
           contact_html = f"""
@@ -168,12 +168,9 @@ class HeroArea:
         render_bureaucratic_form(DETAILS)
         st.markdown('<br>', unsafe_allow_html=True)       
         st.markdown('<br>', unsafe_allow_html=True)  
+
         
         st.markdown(self.detailed_offering, unsafe_allow_html=True)
-        for id in self.ids:
-            st.markdown(setup_tooltip_behavior(id), unsafe_allow_html=True)  
-            #st.markdown( "", unsafe_allow_html=True) 
-            pass
         self.render_code_samples()
 
     def _render_quote(self):
