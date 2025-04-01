@@ -732,10 +732,7 @@ def html_for_item_data(
 
 
 
-
-import streamlit as st
-
-def recommendation_card(rec, badge_rules=None, title_style=None, key=None):
+def render_recommendation_card(rec, badge_rules=None, title_style=None, key=None):
     # Default styles if none provided
     if title_style is None:
         title_style = {
@@ -880,8 +877,5 @@ def recommendation_card(rec, badge_rules=None, title_style=None, key=None):
             st.markdown("<p>Placeholder for media content. You can add images, videos, or other media related to this item here.</p>", unsafe_allow_html=True)
             st.markdown('</div></div>', unsafe_allow_html=True)
 
-# Example usage
-rec = {"title": "Sample Recommendation", "url": "https://github.com", "colab_url": "https://colab.research.google.com"}
-recommendation_card(rec, key="sample_1")
 
 
