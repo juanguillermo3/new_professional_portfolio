@@ -334,14 +334,17 @@ class HeroArea:
                 )
             
                 tooltip_html= f"""
-                <div class="skills-container" style="position: relative; display: inline-block; cursor: pointer; text-align: center;">
-                  <div id="{element_id}" style="border-bottom: 1px dashed gray;" class="hover-trigger">
-                    {visible_milestone}
+                <div class="tooltip-container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: pointer;">
+                  <div class="skills-container" style="position: relative; display: inline-block;">
+                    <div id="{element_id}" style="border-bottom: 1px dashed gray;" class="hover-trigger">
+                      {visible_milestone}
+                    </div>
+                    <div class="tooltip" style="margin-top: 8px;">
+                      <strong>{label}:</strong>
+                      <span>{tooltip_content}</span>
+                    </div>
                   </div>
-                <div class="tooltip">
-                  <strong>{label}:</strong>
-                  {tooltip_content}
-                </div>        
+                </div>
                 """
                 offering_html += tooltip_html
     
