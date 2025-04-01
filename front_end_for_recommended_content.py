@@ -704,44 +704,5 @@ def html_for_milestones_from_project_metadata(milestones=None, project_metadata=
             <div id="{element_id}" style="border-bottom: 1px dashed gray;" class="hover-trigger">{visible_milestone}</div>
             <div class="tooltip"><strong>{label}:</strong>{tooltip_content}</div>
         </div>
-        <style>
-            #{element_id}-container:hover {{
-                background-color: {pastel_color};
-                transition: background-color 0.3s ease-in-out;
-                border-radius: 5px;
-            }}
-    
-            .tooltip {{
-                visibility: hidden;
-                opacity: 0;
-                transform: translateY(5px) scale(0.95);
-                transition: 
-                    opacity 0.3s ease-in-out, 
-                    visibility 0.3s ease-in-out, 
-                    transform 0.3s ease-in-out;
-                background-color: rgba(240, 240, 240, 0.7);
-                backdrop-filter: blur(1px);
-                color: black;
-                text-align: left;
-                padding: 10px;
-                border-radius: 5px;
-                box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-                position: absolute;
-                left: 50%;
-                top: 100%;
-                transform: translateX(-50%) translateY(5px);
-                min-width: 300px;
-                max-width: 400px;
-                z-index: 1;
-                border: 1px solid rgba(200, 200, 200, 0.5);
-                transform-origin: top center;
-            }}
-    
-            .hover-trigger:hover ~ .tooltip {{
-                visibility: visible;
-                opacity: 1;
-                transform: translateX(-50%) translateY(0px) scale(1.1);
-            }}
-        </style>
     """
 
