@@ -157,7 +157,7 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
             tooltip_html = html_for_milestones_from_project_metadata(
                 milestones=offer["skills"], milestone_type="technical_skills"
             )
-            #offering_html += tooltip_html
+            offering_html += tooltip_html
             #tooltip_ids.append(unique_id)
 
         offering_html += "<br>"
