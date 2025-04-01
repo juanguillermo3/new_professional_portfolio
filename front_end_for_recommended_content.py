@@ -733,7 +733,9 @@ def html_for_item_data(
 
 
 
-def render_recommendation_card(rec, badge_rules=None, title_style=None):
+import streamlit as st
+
+def recommendation_card(rec, badge_rules=None, title_style=None, key=None):
     # Default styles if none provided
     if title_style is None:
         title_style = {
@@ -744,30 +746,142 @@ def render_recommendation_card(rec, badge_rules=None, title_style=None):
     # Convert style dictionary to inline CSS
     title_style_str = "; ".join(f"{k}: {v}" for k, v in title_style.items())
 
+    # Default values for styling
+    button_size = 40
+    card_height = "250px"
+    background_color = "#f9f9f9"
+    border_style = "1px solid #ddd"
+
     # Apply the badge system (if badge_rules is provided)
     title = apply_badges_to_item_title(rec, badge_rules) if badge_rules else rec.get("title", "Untitled")
 
     # Wrap the title in a tooltip div
-    raw_title = f'<div class="item-tooltip title-tooltip" style="{title_style_str}">{title}</div>'
+    raw_title = f'<div class="recommendation-title" style="{title_style_str}">{title}</div>'
 
-    # Container for the entire recommendation card
-    with st.container():
-        st.markdown(raw_title, unsafe_allow_html=True)
+    # Define global styles (CSS)
+    card_styles = f"""
+    <style>
+        .recommendation-card {{
+            background-color: {background_color};
+            border: {border_style};
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            height: {card_height};
+            width: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px;
+            position: relative;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }}
 
-        # Container for GitHub and Colab buttons
-        col1, col2 = st.columns([1, 0.1])
+        .recommendation-card:hover {{
+            transform: scale(1.2);
+            box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.3);
+            z-index: 20;
+        }}
+
+        .github-btn, .colab-btn {{
+            background-color: white;
+            width: {button_size}px;
+            height: {button_size}px;
+            border-radius: 50%;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            opacity: 0;
+            transform: scale(0.8);
+            display: none;
+            margin-top: 5px;
+        }}
+
+        .github-btn img, .colab-btn img {{
+            width: {button_size * 0.6}px;
+            height: {button_size * 0.6}px;
+        }}
+
+        .recommendation-card:hover .github-btn,
+        .recommendation-card:hover .colab-btn {{
+            display: flex;
+            opacity: 1;
+            transform: scale(1);
+        }}
+
+        .colab-btn {{
+            background-color: #f9ab00;
+        }}
+
+        .colab-btn:hover {{
+            background-color: #e69900;
+            cursor: pointer;
+        }}
+
+        .media-tooltip {{
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 5%;
+            width: 90%;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }}
+
+        .recommendation-card:hover + .media-tooltip {{
+            display: block;
+            opacity: 1;
+        }}
+    </style>
+    """
+
+    # Render the styles once
+    st.markdown(card_styles, unsafe_allow_html=True)
+
+    # Create the recommendation card container
+    with st.container(border=True, key=f"card-{key}"):
+        st.markdown(f'<div class="recommendation-card">{raw_title}</div>', unsafe_allow_html=True)
+
+        # GitHub and Colab buttons inside separate columns
+        col1, col2 = st.columns([1, 1])
         with col1:
             if "url" in rec:
-                st.markdown(f'<a href="{rec["url"]}" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub" style="width: 24px; height: 24px;"></a>', unsafe_allow_html=True)
+                st.markdown(
+                    f'<a href="{rec["url"]}" target="_blank" class="github-btn">'
+                    f'<img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub">'
+                    f'</a>',
+                    unsafe_allow_html=True
+                )
         with col2:
             if "colab_url" in rec:
-                st.markdown(f'<a href="{rec["colab_url"]}" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Google_Colaboratory_SVG_Logo.svg/512px-Google_Colaboratory_SVG_Logo.svg.png" alt="Colab" style="width: 24px; height: 24px;"></a>', unsafe_allow_html=True)
+                st.markdown(
+                    f'<a href="{rec["colab_url"]}" target="_blank" class="colab-btn">'
+                    f'<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Google_Colaboratory_SVG_Logo.svg/512px-Google_Colaboratory_SVG_Logo.svg.png" alt="Colab">'
+                    f'</a>',
+                    unsafe_allow_html=True
+                )
 
-        # Tooltip/Media content container
-        with st.container():
-            st.markdown("#### Media Content")
-            st.markdown("Placeholder for media content. You can add images, videos, or other media related to this item here.")
+        # Tooltip container
+        with st.container(border=False, key=f"tooltip-{key}"):
+            st.markdown('<div class="media-tooltip">', unsafe_allow_html=True)
+            st.markdown('<div class="media-tooltip-content">', unsafe_allow_html=True)
+            st.markdown('<div class="media-tooltip-title">Media Content</div>', unsafe_allow_html=True)
+            st.markdown("<p>Placeholder for media content. You can add images, videos, or other media related to this item here.</p>", unsafe_allow_html=True)
+            st.markdown('</div></div>', unsafe_allow_html=True)
 
-
+# Example usage
+rec = {"title": "Sample Recommendation", "url": "https://github.com", "colab_url": "https://colab.research.google.com"}
+recommendation_card(rec, key="sample_1")
 
 
