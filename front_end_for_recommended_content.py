@@ -392,13 +392,13 @@ def html_for_milestones_from_project_metadata(milestones=None, project_metadata=
         "next_milestones": {
             "label": "Upcoming Milestones", 
             "color": "#C28F00",  # Gold-ish yellow
-            "icon": "https://icons8.com/icon/GBhGcQX6NzvT/upcoming", 
+            "icon": "https://img.icons8.com/?size=100&id=46910&format=png&color=000000", 
             "default_text": "{n} upcoming milestones"
         },
         "code_samples": {
             "label": "Code Samples", 
             "color": "#1565C0",  # Deep blue for code-related milestones
-            "icon": "https://icons8.com/icon/8NfTKz72QwB9/code", 
+            "icon": "https://img.icons8.com/?size=100&id=ZSyCgjqn5i8Y&format=png&color=000000", 
             "default_text": "{n} code samples"
         }
     }
