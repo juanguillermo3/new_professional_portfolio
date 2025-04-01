@@ -209,6 +209,3 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
 
 
 
-
-
-
