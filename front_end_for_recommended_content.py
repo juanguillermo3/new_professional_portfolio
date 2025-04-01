@@ -731,9 +731,9 @@ def html_for_item_data(
     return card_html, tooltip_html, tooltip_styles
 
 
-import streamlit as st
 
-def recommendation_card(rec, badge_rules=None, title_style=None):
+
+def render_recommendation_card(rec, badge_rules=None, title_style=None):
     # Default styles if none provided
     if title_style is None:
         title_style = {
