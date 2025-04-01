@@ -449,7 +449,7 @@ def html_for_milestones_from_project_metadata(milestones=None, project_metadata=
 
     # Return formatted HTML with refined styles
     return f"""
-    <div id="{element_id}-container" style="position: relative; display: inline-block; cursor: pointer;">
+    <div id="{element_id}-container" style="position: relative; display: inline-block; cursor: pointer; text-align: center;">
         <span id="{element_id}" style="border-bottom: 1px dashed gray;" class="hover-trigger">
             {visible_milestone}
         </span>
@@ -497,3 +497,4 @@ def html_for_milestones_from_project_metadata(milestones=None, project_metadata=
         }}
     </style>
     """
+
