@@ -914,72 +914,68 @@ class RecommendationSystem(PortfolioSection):
         
         #self._style_ancillary_component(unique_key) # If you want to style it, you can call this method
 
-import hashlib
-import time
-import streamlit as st
-
-def _render_milestones_grid(self, project_metadata, top_margin=20, bottom_margin=20):
-    """Render milestones in a row-based grid with unique styling per project and customizable margins."""
-
-    # Generate a unique hash based on project metadata (e.g., project title and current time)
-    unique_key = hashlib.md5(f"{project_metadata['title']}_{time.time()}".encode()).hexdigest()
-
-    # Create a container with the unique key
-    with st.container(key=unique_key):
-        # Apply custom styling with unique key for each project's container, including top and bottom margins
-        st.markdown(
-            f"""
-            <style>
-                .st-key-{unique_key} {{
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    height: 100%;
-                    flex-direction: row;
-                    gap: 20px;
-                    margin-top: {top_margin}px;
-                    margin-bottom: {bottom_margin}px;
-                }}
-                .st-key-{unique_key} .stColumn {{
-                    flex: 1;
-                    text-align: center;
-                }}
-            </style>
-            """,
-            unsafe_allow_html=True
-        )
-
-        # Initialize the columns for milestones (4 columns including business impact)
-        cols = st.columns(4)  # Now creating 4 columns for the grid layout
-
-        # Define milestone data to be rendered, including the new "business_impact"
-        milestones_data = [
-            ("business_impact", "Business Impact"),  # New milestone category added
-            ("achieved_milestones", "Achieved Milestones"),
-            ("next_milestones", "Upcoming Milestones"),
-            ("code_samples", "Code Samples")
-        ]
-
-        # Loop through milestone data and render each in a column
-        for i, (milestone_type, _) in enumerate(milestones_data):
-            with cols[i % len(cols)]:  # Cycle through the columns
-
-                # Special handling for "code_samples" to fetch files dynamically
-                if milestone_type == "code_samples":
-                    files = self._fetch_files(project_metadata["title"])  # Fetch files dynamically
-                    html_content = html_for_milestones_from_project_metadata(
-                        milestones=files,  # Pass fetched file paths as milestones
-                        milestone_type=milestone_type
-                    )
-                else:
-                    html_content = html_for_milestones_from_project_metadata(
-                        project_metadata=project_metadata,
-                        milestone_type=milestone_type
-                    )
-
-                if html_content:
-                    # Render the HTML content directly inside the column
-                    st.markdown(html_content, unsafe_allow_html=True)
+    def _render_milestones_grid(self, project_metadata, top_margin=20, bottom_margin=20):
+        """Render milestones in a row-based grid with unique styling per project and customizable margins."""
+    
+        # Generate a unique hash based on project metadata (e.g., project title and current time)
+        unique_key = hashlib.md5(f"{project_metadata['title']}_{time.time()}".encode()).hexdigest()
+    
+        # Create a container with the unique key
+        with st.container(key=unique_key):
+            # Apply custom styling with unique key for each project's container, including top and bottom margins
+            st.markdown(
+                f"""
+                <style>
+                    .st-key-{unique_key} {{
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 100%;
+                        flex-direction: row;
+                        gap: 20px;
+                        margin-top: {top_margin}px;
+                        margin-bottom: {bottom_margin}px;
+                    }}
+                    .st-key-{unique_key} .stColumn {{
+                        flex: 1;
+                        text-align: center;
+                    }}
+                </style>
+                """,
+                unsafe_allow_html=True
+            )
+    
+            # Initialize the columns for milestones (4 columns including business impact)
+            cols = st.columns(4)  # Now creating 4 columns for the grid layout
+    
+            # Define milestone data to be rendered, including the new "business_impact"
+            milestones_data = [
+                ("business_impact", "Business Impact"),  # New milestone category added
+                ("achieved_milestones", "Achieved Milestones"),
+                ("next_milestones", "Upcoming Milestones"),
+                ("code_samples", "Code Samples")
+            ]
+    
+            # Loop through milestone data and render each in a column
+            for i, (milestone_type, _) in enumerate(milestones_data):
+                with cols[i % len(cols)]:  # Cycle through the columns
+    
+                    # Special handling for "code_samples" to fetch files dynamically
+                    if milestone_type == "code_samples":
+                        files = self._fetch_files(project_metadata["title"])  # Fetch files dynamically
+                        html_content = html_for_milestones_from_project_metadata(
+                            milestones=files,  # Pass fetched file paths as milestones
+                            milestone_type=milestone_type
+                        )
+                    else:
+                        html_content = html_for_milestones_from_project_metadata(
+                            project_metadata=project_metadata,
+                            milestone_type=milestone_type
+                        )
+    
+                    if html_content:
+                        # Render the HTML content directly inside the column
+                        st.markdown(html_content, unsafe_allow_html=True)
 
 
 # Example usage
