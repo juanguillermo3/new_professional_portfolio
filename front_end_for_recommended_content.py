@@ -705,7 +705,7 @@ def html_for_milestones_from_project_metadata(milestones=None, project_metadata=
             <div class="tooltip"><strong>{label}:</strong>{tooltip_content}</div>
         </div>
         <style>
-        #{element_id}-container:hover {{background-color: {pastel_color}; transition: background-color 0.3s ease-in-out;border-radius: 5px;}}
+            #{element_id}-container:hover {{background-color: {pastel_color}; transition: background-color 0.3s ease-in-out;border-radius: 5px;}}
         </style>
 
                 
