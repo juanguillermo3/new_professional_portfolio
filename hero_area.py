@@ -24,6 +24,7 @@ from exceptional_ui import (
     setup_tooltip_behavior
 )
 from bureaucratic_form import render_bureaucratic_form
+from front_end_for_recommended_content import html_for_milestones_from_project_metadata
 
 # Load environment variables
 load_dotenv()
@@ -274,16 +275,39 @@ class HeroArea:
 
 
     def render_detailed_offering(self, id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
+
+        #
+        # (0)
+        #
+        figure_style = {
+                "label": "Technical Skills", 
+                "color": "#6A1B9A",  
+                "pastel": "#D8BFD8",  
+                "icon": "https://img.icons8.com/?size=100&id=104252&format=png&color=000000", 
+                "emoji": "🏅",
+                "default_text": "{n} technical skills listed"
+                }  
+        label, color, pastel_color, icon_url, emoji, default_text = (
+            figure_style["label"], figure_style["color"], figure_style["pastel"], figure_style["icon"], figure_style["emoji"], figure_style["default_text"]
+        )
+        skills_count = len(skills)
+        summary = default_text.format(n=skills_count)
+        visible_milestone = f'<div style="color:{color}; text-align: center;">' \
+                            f'<img src="{icon_url}" alt="{label}" style="width: 30px; height: 30px;"/><br>' \
+                            f'<label>{summary}</label></div>'
+        tooltip_content = "".join(
+            f'<div style="color:{color};">{emoji} {html.escape(m)}</div>' for m in skills
+        )
+        element_id = f"tooltip-{milestone_type}"
+        #
+        # (1)
+        #
         offerings = load_detailed_offerings()
-    
-        # Injected style block (to be dynamically constructed)
-        style_block = "<style>\n"
-    
         offering_html = '<h3>Key Professional Offerings</h3>'
         offering_html += '<ul style="list-style-type: none;">'  # Removes bullet points
-    
-        tooltip_ids = []  # Store unique IDs for tooltips
-    
+        #
+        # (2)
+        #
         for i, offer in enumerate(offerings):
             element_id = id_pattern.format(i + 1)
             bg_color = colors[i % len(colors)]
@@ -312,11 +336,17 @@ class HeroArea:
     
             # Tooltip rendering (if available)
             if "skills" in offer:
-                tooltip_html, unique_id = html_for_tooltip_from_large_list(
-                    offer["skills"], label="Technical Skills", color="#555", emoji="🏅"
-                )
+                tooltip_html, unique_id = f"""
+                <div id="{element_id}-container" style="position: relative; display: inline-block; cursor: pointer; text-align: center;">
+                  <div id="{element_id}" style="border-bottom: 1px dashed gray;" class="hover-trigger">
+                    {visible_milestone}
+                  </div>
+                <div class="tooltip">
+                  <strong>{label}:</strong>
+                  {tooltip_content}
+                </div>        
+                """
                 offering_html += tooltip_html
-                tooltip_ids.append(unique_id)
     
             offering_html += "<br>"
     
@@ -326,13 +356,10 @@ class HeroArea:
                 for subitem in offer["subitems"]:
                     offering_html += f'<li>{subitem}</li>'
                 offering_html += '</ul>'
-    
             offering_html += '</li>'
     
         offering_html += '</ul>'
-        style_block += "</style>\n"
-    
-        st.markdown(style_block + offering_html, unsafe_allow_html=True)
+        st.markdown(offering_html, unsafe_allow_html=True)
         
     def render(self):
         col1, col2 = st.columns([2, 1])
