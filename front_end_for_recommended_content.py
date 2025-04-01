@@ -754,7 +754,7 @@ def html_for_item_data(
     <div id="media-tooltip-{card_id}" class="media-tooltip">
         <div class="media-tooltip-content">
             <div class="media-tooltip-title">Media Content</div>
-            "<br>".join(discovered_media)  
+            {"<br>".join(discovered_media)}
         </div>
     </div>
 
