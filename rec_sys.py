@@ -27,7 +27,7 @@ from app_end_metadata import load_repos_metadata as load_app_metadata
 from front_end_utils import render_section_separator, prettify_title, tags_in_twitter_style
 from media_carousel import MediaCarousel  # Assuming this is the correct import
 from visual_media import  VisualContentGallery
-from front_end_for_recommended_content import html_for_item_data, html_for_milestones_from_project_metadata
+from front_end_for_recommended_content import html_for_item_data, html_for_milestones_from_project_metadata, render_recommendation_card
 from portfolio_section import PortfolioSection
 from exceptional_ui import apply_custom_tooltip, _custom_tooltip_with_frost_glass_html
 from biotech_lab import frost_glass_mosaic, _custom_tooltip_with_frost_glass_html
@@ -202,15 +202,7 @@ class RecommendationSystem(PortfolioSection):
     def render_card(self, rec, **kwargs):
         """Render a single recommendation card with dynamic HTML generation."""
 
-        card_html, tooltip_html, tooltip_styles=html_for_item_data(rec)
-        st.markdown(card_html, unsafe_allow_html=True)
-        st.markdown(tooltip_html, unsafe_allow_html=True)
-        st.markdown(tooltip_styles, unsafe_allow_html=True)
-
-        unique_hash = hashlib.md5(rec['title'].encode()).hexdigest()
-        button_id = f"galleria_{unique_hash}"
-  
-    
+        render_recommendation_card(rec)
     
     def _render_control_panel(self):
         """Render the control panel with sticky positioning inside its section."""
