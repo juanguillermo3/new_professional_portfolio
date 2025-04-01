@@ -842,24 +842,34 @@ class RecommendationSystem(PortfolioSection):
         #self._style_ancillary_component(unique_key) # If you want to style it, you can call this method
     
     def _render_milestones_grid(self, project_metadata):
-        """Render milestones in a row-based grid, centered horizontally, using Streamlit containers."""
-        
-        # Create a container to hold the grid and apply custom styling
-        with st.container(key="milestones_grid_container"):
-            # Apply CSS styling to center the content inside the container
+        """Render milestones in a row-based grid with unique styling per project."""
+    
+        # Generate a unique hash based on project metadata (e.g., project title and current time)
+        unique_key = hashlib.md5(f"{project_metadata['title']}_{time.time()}".encode()).hexdigest()
+    
+        # Create a container with the unique key
+        with st.container(key=unique_key):
+            # Apply custom styling using the unique key for each project's container
             st.markdown(
-                """
+                f"""
                 <style>
-                    .stContainer[data-testid="milestones_grid_container"] {
+                    .st-key-{unique_key} {{
                         display: flex;
                         justify-content: center;
-                        width: 100%;
-                    }
+                        align-items: center;
+                        height: 100%;
+                        flex-direction: row;
+                        gap: 20px;
+                    }}
+                    .st-key-{unique_key} .stColumn {{
+                        flex: 1;
+                        text-align: center;
+                    }}
                 </style>
                 """,
                 unsafe_allow_html=True
             )
-            
+    
             # Initialize the columns for milestones (3 columns)
             cols = st.columns(3)  # Create 3 columns for a grid layout
     
