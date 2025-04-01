@@ -731,25 +731,43 @@ def html_for_item_data(
     return card_html, tooltip_html, tooltip_styles
 
 
-def render_recommendation_card(rec, card_id, raw_title):
+import streamlit as st
+
+def recommendation_card(rec, badge_rules=None, title_style=None):
+    # Default styles if none provided
+    if title_style is None:
+        title_style = {
+            "font-weight": "bold",
+            "text-align": "center"
+        }
+
+    # Convert style dictionary to inline CSS
+    title_style_str = "; ".join(f"{k}: {v}" for k, v in title_style.items())
+
+    # Apply the badge system (if badge_rules is provided)
+    title = apply_badges_to_item_title(rec, badge_rules) if badge_rules else rec.get("title", "Untitled")
+
+    # Wrap the title in a tooltip div
+    raw_title = f'<div class="item-tooltip title-tooltip" style="{title_style_str}">{title}</div>'
+
     # Container for the entire recommendation card
     with st.container():
-        # Recommendation card header (title)
-        st.markdown(f"### {raw_title}")
+        st.markdown(raw_title, unsafe_allow_html=True)
 
-        # Container for the GitHub button
+        # Container for GitHub and Colab buttons
         col1, col2 = st.columns([1, 0.1])
         with col1:
             if "url" in rec:
                 st.markdown(f'<a href="{rec["url"]}" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub" style="width: 24px; height: 24px;"></a>', unsafe_allow_html=True)
         with col2:
-            # Optional: Adding the Colab button if available
             if "colab_url" in rec:
                 st.markdown(f'<a href="{rec["colab_url"]}" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Google_Colaboratory_SVG_Logo.svg/512px-Google_Colaboratory_SVG_Logo.svg.png" alt="Colab" style="width: 24px; height: 24px;"></a>', unsafe_allow_html=True)
 
         # Tooltip/Media content container
         with st.container():
-            # Tooltip for media content (can be expanded with images or videos)
-            st.markdown(f"#### Media Content")
+            st.markdown("#### Media Content")
             st.markdown("Placeholder for media content. You can add images, videos, or other media related to this item here.")
+
+
+
 
