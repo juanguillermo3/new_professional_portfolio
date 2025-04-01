@@ -290,14 +290,6 @@ class HeroArea:
         label, color, pastel_color, icon_url, emoji, default_text = (
             figure_style["label"], figure_style["color"], figure_style["pastel"], figure_style["icon"], figure_style["emoji"], figure_style["default_text"]
         )
-        skills_count = len(skills)
-        summary = default_text.format(n=skills_count)
-        visible_milestone = f'<div style="color:{color}; text-align: center;">' \
-                            f'<img src="{icon_url}" alt="{label}" style="width: 30px; height: 30px;"/><br>' \
-                            f'<label>{summary}</label></div>'
-        tooltip_content = "".join(
-            f'<div style="color:{color};">{emoji} {html.escape(m)}</div>' for m in skills
-        )
         element_id = f"tooltip-{milestone_type}"
         #
         # (1)
@@ -309,6 +301,7 @@ class HeroArea:
         # (2)
         #
         for i, offer in enumerate(offerings):
+        
             element_id = id_pattern.format(i + 1)
             bg_color = colors[i % len(colors)]
     
@@ -336,7 +329,18 @@ class HeroArea:
     
             # Tooltip rendering (if available)
             if "skills" in offer:
-                tooltip_html, unique_id = f"""
+
+                skills=offer["skills"]
+                skills_count = len(skills)
+                summary = default_text.format(n=skills_count)
+                visible_milestone = f'<div style="color:{color}; text-align: center;">' \
+                                f'<img src="{icon_url}" alt="{label}" style="width: 30px; height: 30px;"/><br>' \
+                                f'<label>{summary}</label></div>'
+                tooltip_content = "".join(
+                    f'<div style="color:{color};">{emoji} {html.escape(m)}</div>' for m in skills
+                )
+            
+                tooltip_html= f"""
                 <div id="{element_id}-container" style="position: relative; display: inline-block; cursor: pointer; text-align: center;">
                   <div id="{element_id}" style="border-bottom: 1px dashed gray;" class="hover-trigger">
                     {visible_milestone}
@@ -391,3 +395,48 @@ hero = HeroArea(
     avatar_tags=["Economist", "Data Analyst", "ML Engineer", "Data Engineer", "Application Developer"],
     detailed_offering=custom_html_for_offerings(),
 )
+
+
+
+    return f"""
+
+        <style>
+            #{element_id}-container:hover {{
+                background-color: {pastel_color};
+                transition: background-color 0.3s ease-in-out;
+                border-radius: 5px;
+            }}
+    
+            .tooltip {{
+                visibility: hidden;
+                opacity: 0;
+                transform: translateY(5px) scale(0.95);
+                transition: 
+                    opacity 0.3s ease-in-out, 
+                    visibility 0.3s ease-in-out, 
+                    transform 0.3s ease-in-out;
+                background-color: rgba(240, 240, 240, 0.7);
+                backdrop-filter: blur(1px);
+                color: black;
+                text-align: left;
+                padding: 10px;
+                border-radius: 5px;
+                box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+                position: absolute;
+                left: 50%;
+                top: 100%;
+                transform: translateX(-50%) translateY(5px);
+                min-width: 300px;
+                max-width: 400px;
+                z-index: 1;
+                border: 1px solid rgba(200, 200, 200, 0.5);
+                transform-origin: top center;
+            }}
+    
+            .hover-trigger:hover ~ .tooltip {{
+                visibility: visible;
+                opacity: 1;
+                transform: translateX(-50%) translateY(0px) scale(1.1);
+            }}
+        </style>
+    """
