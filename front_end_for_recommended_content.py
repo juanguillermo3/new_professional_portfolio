@@ -700,22 +700,11 @@ def html_for_milestones_from_project_metadata(milestones=None, project_metadata=
     element_id = f"tooltip-{milestone_type}"
 
     return f"""
-        <div id="{element_id}-container" style="position: relative; display: inline-block; cursor: pointer; text-align: center;">
-            <div id="{element_id}" style="border-bottom: 1px dashed gray;" class="hover-trigger">{visible_milestone}</div>
-            <div class="tooltip"><strong>{label}:</strong>{tooltip_content}</div>
-        </div>
-        <style>
-            #{element_id}-container:hover {{background-color: {pastel_color}; transition: background-color 0.3s ease-in-out;border-radius: 5px;}}
-        </style>
-
-                
-            
-                
-                
-                
-            
-    
-
-        
+    <div id="{element_id}-container" style="position: relative; display: inline-block; cursor: pointer; text-align: center;">
+        <div id="{element_id}" style="border-bottom: 1px dashed gray;" class="hover-trigger">{visible_milestone}</div>
+        <div class="tooltip"><strong>{label}:</strong>{tooltip_content}</div>
+    </div>
+    <style>
+    </style>     
     """
 
