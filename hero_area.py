@@ -13,7 +13,8 @@ from hero_area_data_loader import (
     load_quote, 
     load_avatar_caption, 
     load_code_samples, 
-    custom_html_for_offerings
+    custom_html_for_offerings,
+    load_detailed_offerings
 )
 from front_end_utils import tags_in_twitter_style
 from dotenv import load_dotenv
@@ -149,30 +150,6 @@ class HeroArea:
     
         st.markdown('</div>', unsafe_allow_html=True)
 
-  
-        
-    def render(self):
-        col1, col2 = st.columns([2, 1])
-    
-        # Render Quote Section
-        with col1:
-            self._render_quote()
-    
-        # Render Biopic Section
-        if self.avatar_image:
-            with col2:
-                self._render_biopic_section()
-
-
-        # Bureaucratic Form Section (before detailed professional offering)
-        render_bureaucratic_form(DETAILS)
-        st.markdown('<br>', unsafe_allow_html=True)       
-        st.markdown('<br>', unsafe_allow_html=True)  
-
-        
-        st.markdown(self.detailed_offering, unsafe_allow_html=True)
-        self.render_code_samples()
-
     def _render_quote(self):
         st.markdown("""
         <style>
@@ -296,9 +273,89 @@ class HeroArea:
         )
 
 
-
-        
+    def render_detailed_offering(self, id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
+        offerings = load_detailed_offerings()
     
+        # Injected style block (to be dynamically constructed)
+        style_block = "<style>\n"
+    
+        offering_html = '<h3>Key Professional Offerings</h3>'
+        offering_html += '<ul style="list-style-type: none;">'  # Removes bullet points
+    
+        tooltip_ids = []  # Store unique IDs for tooltips
+    
+        for i, offer in enumerate(offerings):
+            element_id = id_pattern.format(i + 1)
+            bg_color = colors[i % len(colors)]
+    
+            # Split description into first sentence + rest
+            description_parts = offer["description"].split(".", 1)
+            short_description = description_parts[0] + "."
+            full_description = description_parts[1] if len(description_parts) > 1 else ""
+    
+            offering_html += (
+                f'<li id="{element_id}" class="offering-container" style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px;">'
+                f'<p style="text-align: justify; margin: 0;">'
+                f'<strong>{offer["title"]}</strong>: {short_description}'
+            )
+    
+            # In-line expanding content (now with smooth transition)
+            if full_description:
+                offering_html += f' <span class="hover-{element_id}">{full_description}</span>'
+                style_block += (
+                    f".hover-{element_id} {{"
+                    f" display: inline-block; opacity: 0; max-width: 0px; max-height: 0px; overflow: hidden;"
+                    f" transition: opacity 0.3s ease-in-out 0.2s, max-width 0.4s ease-out, max-height 0.4s ease-out; }}\n"
+                    f"#{element_id}:hover .hover-{element_id} {{"
+                    f" opacity: 1; max-width: 100%; max-height: 100px; }}\n"  # Max-height adjusted dynamically
+                )
+    
+            # Tooltip rendering (if available)
+            if "skills" in offer:
+                tooltip_html, unique_id = html_for_tooltip_from_large_list(
+                    offer["skills"], label="Technical Skills", color="#555", emoji="🏅"
+                )
+                offering_html += tooltip_html
+                tooltip_ids.append(unique_id)
+    
+            offering_html += "<br>"
+    
+            # Render subitems if available
+            if "subitems" in offer:
+                offering_html += '<ul style="list-style-type: none; padding-left: 0;">'
+                for subitem in offer["subitems"]:
+                    offering_html += f'<li>{subitem}</li>'
+                offering_html += '</ul>'
+    
+            offering_html += '</li>'
+    
+        offering_html += '</ul>'
+        style_block += "</style>\n"
+    
+        st.markdown(style_block + offering_html, unsafe_allow_html=True)
+        
+    def render(self):
+        col1, col2 = st.columns([2, 1])
+    
+        # Render Quote Section
+        with col1:
+            self._render_quote()
+    
+        # Render Biopic Section
+        if self.avatar_image:
+            with col2:
+                self._render_biopic_section()
+
+        # Bureaucratic Form Section (before detailed professional offering)
+        render_bureaucratic_form(DETAILS)
+        
+        st.markdown('<br>', unsafe_allow_html=True)       
+        st.markdown('<br>', unsafe_allow_html=True)  
+        
+        self.render_detailed_offering()
+        self.render_code_samples()
+        
+        
 # Instantiate and render HeroArea with data loaded from the loader functions
 hero = HeroArea(
     quote=load_quote(),
