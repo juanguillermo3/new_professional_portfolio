@@ -359,7 +359,7 @@ class HeroArea:
         offering_html += '</ul>'
         st.markdown(offering_html, unsafe_allow_html=True)
 
-        st.markdown(
+        st.markdown(f"""
           <style>
               #{element_id}-container:hover {{
                   background-color: {pastel_color};
