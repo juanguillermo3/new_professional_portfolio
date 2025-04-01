@@ -369,8 +369,6 @@ def html_for_item_data(
 
 import html
 
-import html
-
 def html_for_milestones_from_project_metadata(milestones=None, project_metadata=None, milestone_type="achieved_milestones"):
     """
     Generates an HTML snippet for displaying milestones with a tooltip.
@@ -472,9 +470,9 @@ def html_for_milestones_from_project_metadata(milestones=None, project_metadata=
             border-radius: 5px;
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
             position: absolute;
-            left: 75%;
-            top: 120%;
-            min-width: 100%;
+            left: 50%; /* Center the tooltip horizontally */
+            transform: translateX(-50%) translateY(10px); /* Adjust positioning for centering */
+            min-width: 150px; /* Set a minimal width */
             max-width: 400px;
             z-index: 1;
             border: 1px solid rgba(200, 200, 200, 0.5); /* Softer border */
@@ -488,6 +486,7 @@ def html_for_milestones_from_project_metadata(milestones=None, project_metadata=
         }}
     </style>
     """
+
 
 
 
