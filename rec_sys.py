@@ -799,9 +799,13 @@ class RecommendationSystem(PortfolioSection):
                 """,
                 unsafe_allow_html=True,
             )
+
+            
     
             # Render milestones in a grid layout (always true)
+            st.markdown("<br>",unsafe_allow_html=True)
             self._render_milestones_grid(project_metadata)
+            st.markdown("<br>",unsafe_allow_html=True)
 
             # Fetch recommendations per project
             recommendations = self.rank_items(query, project_metadata["title"])
