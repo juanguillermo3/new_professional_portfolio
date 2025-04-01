@@ -472,7 +472,7 @@ def html_for_milestones_from_project_metadata(milestones=None, project_metadata=
             position: absolute;
             left: 50%; /* Center the tooltip horizontally */
             transform: translateX(-50%) translateY(10px); /* Adjust positioning for centering */
-            min-width: 150px; /* Set a minimal width */
+            min-width: 300px; /* Set a minimal width */
             max-width: 400px;
             z-index: 1;
             border: 1px solid rgba(200, 200, 200, 0.5); /* Softer border */
