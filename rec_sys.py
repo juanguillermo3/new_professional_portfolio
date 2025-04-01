@@ -901,7 +901,79 @@ class RecommendationSystem(PortfolioSection):
                     with col:
                         self.render_card(rec, is_project=rec.get("is_project", False))
 
+    def render_project_metadata_and_recommendations(self, project_metadata, query):
+        """Render project title, video, metadata, and recommendations in an ancillary container."""
+        
+        # Prepare video filename and path
+        video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
+        video_path = os.path.join('assets', video_filename)
+        
+        # Prepare metadata and description
+        tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
+        parsed_description = markdown.markdown(project_metadata['description'])
+        description_html, description_styles = expandable_text_html(parsed_description)
+        description_html = markdown.markdown(f"{description_html} ")
+    
+        # Unique media placeholder for each project
+        media_placeholder = st.empty()
+        
+        if os.path.exists(video_path):
+            media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
+        
+        # Render title and description with minimal spacing
+        st.markdown(
+            f"""
+            <div style="text-align: center; margin-bottom: 0px;">
+                <h3>{prettify_title(project_metadata['title'])}</h3>
+            </div>
+            <p style="text-align: center; margin-top: 0px;">{tags_html}</p>
+            """,
+            unsafe_allow_html=True,
+        )
 
+        # Generate a unique key for the ancillary container
+        unique_key = hashlib.md5(f"{project_metadata['title']}_{time.time()}".encode()).hexdigest()
+        with st.container(key=unique_key):
+
+            # Render project description
+            st.markdown(
+                f"""
+                <div style="text-align: justify;">
+                    {description_html}
+                </div>
+                <style>{description_styles}</style>
+                """,
+                unsafe_allow_html=True,
+            )
+
+            
+    
+            # Render milestones in a grid layout (always true)
+            st.markdown("<br>",unsafe_allow_html=True)
+            self._render_milestones_grid(project_metadata)
+            st.markdown("<br>",unsafe_allow_html=True)
+
+            # Fetch recommendations per project
+            recommendations = self.rank_items(query, project_metadata["title"])
+            
+            # Render filtering message
+            filter_message = f"Showing all results for project {prettify_title(project_metadata['title'])}"
+            if query:
+                filter_message += f" (and for keyword: {query})"
+            
+            st.markdown(
+                f'<p style="font-style: italic; color: #555; font-size: 105%; font-weight: 550;">{filter_message}</p>',
+                unsafe_allow_html=True
+            )
+            
+            # Render recommendations in a grid
+            for i in range(0, len(recommendations), self.num_columns):
+                cols = st.columns(self.num_columns)
+                for col, rec in zip(cols, recommendations[i: i + self.num_columns]):
+                    with col:
+                        self.render_card(rec, is_project=rec.get("is_project", False))
+        
+        #self._style_ancillary_component(unique_key) # If you want to style it, you can call this method
                   
 # Example usage
 # Initialize RecSys with custom header and description
