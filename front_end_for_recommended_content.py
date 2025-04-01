@@ -365,8 +365,6 @@ def html_for_item_data(
     return card_html, tooltip_html, tooltip_styles
 
 
-import html
-
 def html_for_milestones_from_project_metadata(milestones=None, project_metadata=None, milestone_type="achieved_milestones"):
     """
     Generates an HTML snippet for displaying milestones with a tooltip.
@@ -384,19 +382,25 @@ def html_for_milestones_from_project_metadata(milestones=None, project_metadata=
         "achieved_milestones": {
             "label": "Achieved Milestones", 
             "color": "#2E7D32",  # Dark green
-            "icon": "✅", 
+            "pastel": "#A8D5BA",  # Pastel green
+            "icon": "https://img.icons8.com/?size=100&id=gbhGcQX6NZvT&format=png&color=000000", 
+            "emoji": "✅",
             "default_text": "{n} milestones achieved"
         },
         "next_milestones": {
             "label": "Upcoming Milestones", 
             "color": "#C28F00",  # Gold-ish yellow
-            "icon": "🚧", 
+            "pastel": "#F8E4B0",  # Pastel yellow
+            "icon": "https://img.icons8.com/?size=100&id=46910&format=png&color=000000", 
+            "emoji": "🚧",
             "default_text": "{n} upcoming milestones"
         },
         "code_samples": {
             "label": "Code Samples", 
             "color": "#1565C0",  # Deep blue for code-related milestones
-            "icon": "💾", 
+            "pastel": "#B0CDEF",  # Pastel blue
+            "icon": "https://img.icons8.com/?size=100&id=ZSyCgjqn5i8Y&format=png&color=000000", 
+            "emoji": "💾",
             "default_text": "{n} code samples"
         }
     }
@@ -405,11 +409,15 @@ def html_for_milestones_from_project_metadata(milestones=None, project_metadata=
     milestone = milestone_labels.get(milestone_type, {
         "label": "Milestones", 
         "color": "black", 
-        "icon": "📌", 
+        "pastel": "#E0E0E0",  # Neutral gray
+        "icon": "https://icons8.com/icon/gbhGcQX6NZvT/milestones", 
+        "emoji": "📌",
         "default_text": "{n} milestones"
     })
 
-    label, color, icon, default_text = milestone["label"], milestone["color"], milestone["icon"], milestone["default_text"]
+    label, color, pastel_color, icon_url, emoji, default_text = (
+        milestone["label"], milestone["color"], milestone["pastel"], milestone["icon"], milestone["emoji"], milestone["default_text"]
+    )
 
     # Use explicitly provided milestones or fall back to project_metadata
     if milestones is None:
@@ -417,42 +425,56 @@ def html_for_milestones_from_project_metadata(milestones=None, project_metadata=
 
     # Handle empty milestone case
     if not milestones:
-        return f'<div style="color:gray; text-align: center; cursor: pointer;">{icon} <br> No {label.lower()}</div>'
+        return f"""
+        <div style="color:gray; text-align: center; cursor: pointer;">
+            <img src="{icon_url}" alt="{label}" style="width: 30px; height: 30px; filter: grayscale(100%);"/><br>
+            <label>No {label.lower()}</label>
+        </div>
+        """
 
     # Generate summary text
     milestone_count = len(milestones)
     summary = default_text.format(n=milestone_count)
-    visible_milestone = f'<div style="color:{color}; text-align: center; cursor: pointer;">' \
-                        f'{icon} <br>' \
+    visible_milestone = f'<div style="color:{color}; text-align: center;">' \
+                        f'<img src="{icon_url}" alt="{label}" style="width: 30px; height: 30px;"/><br>' \
                         f'<label>{summary}</label></div>'
 
-    # Tooltip content (full milestone list with fitting emojis)
+    # Tooltip content (full milestone list with emojis)
     tooltip_content = "".join(
-        f'<div style="color:{color};">{icon} {html.escape(m)}</div>' for m in milestones
+        f'<div style="color:{color};">{emoji} {html.escape(m)}</div>' for m in milestones
     )
 
     # Unique ID for the tooltip
     element_id = f"tooltip-{milestone_type}"
 
-    # Return formatted HTML with centered tooltip
+    # Return formatted HTML with refined styles
     return f"""
-    <div style="position: relative; display: inline-block; cursor: pointer;">
-        <span id="{element_id}" style="border-bottom: 1px dashed gray; cursor: pointer;" class="hover-trigger">
+    <div id="{element_id}-container" style="position: relative; display: inline-block; cursor: pointer;">
+        <span id="{element_id}" style="border-bottom: 1px dashed gray;" class="hover-trigger">
             {visible_milestone}
         </span>
-        <div class="tooltip">
+        <div class="{element_id}-tooltip">
             <strong>{label}:</strong>
             {tooltip_content}
         </div>
     </div>
     <style>
-        .tooltip {{
+        #{element_id}-container:hover {{
+            background-color: {pastel_color};
+            transition: background-color 0.3s ease-in-out;
+            border-radius: 5px;
+        }}
+
+        .{element_id}-tooltip {{
             visibility: hidden;
             opacity: 0;
-            transform: translateX(-50%) translateY(5px) scale(0.95);
-            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out;
+            transform: translateY(5px) scale(0.95);
+            transition: 
+                opacity 0.3s ease-in-out, 
+                visibility 0.3s ease-in-out, 
+                transform 0.3s ease-in-out;
             background-color: rgba(240, 240, 240, 0.7); /* Softer frosted effect */
-            backdrop-filter: blur(1px);
+            backdrop-filter: blur(1px); /* Stronger blur for a glassy look */
             color: black;
             text-align: left;
             padding: 10px;
@@ -465,12 +487,13 @@ def html_for_milestones_from_project_metadata(milestones=None, project_metadata=
             max-width: 400px;
             z-index: 1;
             border: 1px solid rgba(200, 200, 200, 0.5);
+            transform-origin: top center;
         }}
 
         #{element_id}:hover + .tooltip {{
             visibility: visible;
             opacity: 1;
-            transform: translateX(-50%) translateY(0px) scale(1.1);
+            transform: translateY(0px) scale(1.1);
         }}
     </style>
     """
