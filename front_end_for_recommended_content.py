@@ -372,7 +372,7 @@ def html_for_milestones_from_project_metadata(milestones=None, project_metadata=
     Parameters:
         - milestones (list, optional): An explicit list of milestones to display.
         - project_metadata (dict, optional): Contains milestone information (used if milestones is not provided).
-        - milestone_type (str): The type of milestone to display ('achieved_milestones', 'next_milestones', or 'code_samples').
+        - milestone_type (str): The type of milestone to display ('achieved_milestones', 'next_milestones', 'code_samples', or 'business_impact').
 
     Returns:
         - str: HTML snippet containing the milestone and tooltip.
@@ -401,6 +401,14 @@ def html_for_milestones_from_project_metadata(milestones=None, project_metadata=
             "icon": "https://img.icons8.com/?size=100&id=ZSyCgjqn5i8Y&format=png&color=000000", 
             "emoji": "💾",
             "default_text": "{n} code samples"
+        },
+        "business_impact": {
+            "label": "Business Impact", 
+            "color": "#D32F2F",  # Red for impact
+            "pastel": "#FFCDD2",  # Soft red pastel
+            "icon": "https://img.icons8.com/?size=100&id=2dT788URbae8&format=png&color=000000", 
+            "emoji": "🏆",
+            "default_text": "{n} business impact milestones"
         }
     }
 
@@ -490,3 +498,4 @@ def html_for_milestones_from_project_metadata(milestones=None, project_metadata=
         }}
     </style>
     """
+
