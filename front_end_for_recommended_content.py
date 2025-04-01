@@ -368,60 +368,19 @@ def html_for_item_data(
 def html_for_milestones_from_project_metadata(milestones=None, project_metadata=None, milestone_type="achieved_milestones"):
     """
     Generates an HTML snippet for displaying milestones with a tooltip.
-
-    Parameters:
-        - milestones (list, optional): An explicit list of milestones to display.
-        - project_metadata (dict, optional): Contains milestone information (used if milestones is not provided).
-        - milestone_type (str): The type of milestone to display ('achieved_milestones', 'next_milestones', or 'code_samples').
-
-    Returns:
-        - str: HTML snippet containing the milestone and tooltip.
     """
     import html
     
     milestone_labels = {
-        "achieved_milestones": {
-            "label": "Achieved Milestones", 
-            "color": "#2E7D32",
-            "pastel": "#A8D5BA",
-            "icon": "https://img.icons8.com/?size=100&id=gbhGcQX6NZvT&format=png&color=000000", 
-            "emoji": "✅",
-            "default_text": "{n} milestones achieved"
-        },
-        "next_milestones": {
-            "label": "Upcoming Milestones", 
-            "color": "#C28F00",
-            "pastel": "#F8E4B0",
-            "icon": "https://img.icons8.com/?size=100&id=46910&format=png&color=000000", 
-            "emoji": "🚧",
-            "default_text": "{n} upcoming milestones"
-        },
-        "code_samples": {
-            "label": "Code Samples", 
-            "color": "#1565C0",
-            "pastel": "#B0CDEF",
-            "icon": "https://img.icons8.com/?size=100&id=ZSyCgjqn5i8Y&format=png&color=000000", 
-            "emoji": "💾",
-            "default_text": "{n} code samples"
-        }
+        "achieved_milestones": {"label": "Achieved Milestones", "color": "#2E7D32", "pastel": "#A8D5BA", "icon": "https://img.icons8.com/?size=100&id=gbhGcQX6NZvT&format=png&color=000000", "emoji": "✅", "default_text": "{n} milestones achieved"},
+        "next_milestones": {"label": "Upcoming Milestones", "color": "#C28F00", "pastel": "#F8E4B0", "icon": "https://img.icons8.com/?size=100&id=46910&format=png&color=000000", "emoji": "🚧", "default_text": "{n} upcoming milestones"},
+        "code_samples": {"label": "Code Samples", "color": "#1565C0", "pastel": "#B0CDEF", "icon": "https://img.icons8.com/?size=100&id=ZSyCgjqn5i8Y&format=png&color=000000", "emoji": "💾", "default_text": "{n} code samples"}
     }
-
-    milestone = milestone_labels.get(milestone_type, {
-        "label": "Milestones", 
-        "color": "black", 
-        "pastel": "#E0E0E0",
-        "icon": "https://icons8.com/icon/gbhGcQX6NZvT/milestones", 
-        "emoji": "📌",
-        "default_text": "{n} milestones"
-    })
-
-    label, color, pastel_color, icon_url, emoji, default_text = (
-        milestone["label"], milestone["color"], milestone["pastel"], milestone["icon"], milestone["emoji"], milestone["default_text"]
-    )
-
-    if milestones is None:
-        milestones = project_metadata.get(milestone_type, []) if project_metadata else []
-
+    
+    milestone = milestone_labels.get(milestone_type, {"label": "Milestones", "color": "black", "pastel": "#E0E0E0", "icon": "https://icons8.com/icon/gbhGcQX6NZvT/milestones", "emoji": "📌", "default_text": "{n} milestones"})
+    label, color, pastel_color, icon_url, emoji, default_text = milestone.values()
+    
+    milestones = milestones or project_metadata.get(milestone_type, []) if project_metadata else []
     if not milestones:
         return f"""
         <div style="color:gray; text-align: center; cursor: pointer;">
@@ -429,19 +388,17 @@ def html_for_milestones_from_project_metadata(milestones=None, project_metadata=
             <label>No {label.lower()}</label>
         </div>
         """
-
-    milestone_count = len(milestones)
-    summary = default_text.format(n=milestone_count)
+    
+    summary = default_text.format(n=len(milestones))
     visible_milestone = f'<div style="color:{color}; text-align: center;">' \
                         f'<img src="{icon_url}" alt="{label}" style="width: 30px; height: 30px;"/><br>' \
                         f'<label>{summary}</label></div>'
-
+    
     tooltip_content = "".join(
         f'<div style="color:{color};">{emoji} {html.escape(m)}</div>' for m in milestones
     )
-
     element_id = f"tooltip-{milestone_type}"
-
+    
     return f"""
     <div id="{element_id}-container" style="position: relative; display: inline-block; cursor: pointer; text-align: center;">
         <span id="{element_id}" style="border-bottom: 1px dashed gray;" class="hover-trigger">
@@ -453,31 +410,39 @@ def html_for_milestones_from_project_metadata(milestones=None, project_metadata=
         </div>
     </div>
     <style>
-        #{element_id}-container:hover .tooltip {{
-            visibility: visible;
-            opacity: 1;
-            transform: translateX(-50%) translateY(5px);
+        #{element_id}-container {{
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            text-align: center;
         }}
-
+        
         .tooltip {{
             visibility: hidden;
             opacity: 0;
-            position: absolute;
-            left: 50%;
-            top: 100%;
-            transform: translateX(-50%) translateY(10px);
             transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
             background-color: rgba(240, 240, 240, 0.9);
             backdrop-filter: blur(2px);
             color: black;
-            text-align: center;
+            text-align: left;
             padding: 10px;
             border-radius: 5px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-            min-width: 200px;
-            max-width: 300px;
-            z-index: 100;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            left: 50%;
+            bottom: 110%;
+            transform: translateX(-50%) translateY(5px);
+            min-width: 300px;
+            max-width: 400px;
+            z-index: 1;
             border: 1px solid rgba(200, 200, 200, 0.5);
+            transform-origin: bottom center;
+        }}
+        
+        #{element_id}-container:hover .tooltip {{
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
         }}
     </style>
     """
