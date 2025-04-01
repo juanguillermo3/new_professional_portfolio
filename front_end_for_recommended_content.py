@@ -576,50 +576,14 @@ def html_for_item_data(
 
     buttons_html="\n".join(buttons_html)
 
-    #
-    # (1)
-    #
-    tooltip_content = [
-        [
-            tooltip_title,
-            tooltip_description
-        ]
-    ]
-    #
-    # (2)
-    #
-    if buttons_html:
-        tooltip_content=[
-            tooltip_content[0]+
-            [
-            #'<div class="item-tooltip resources-tooltip">Resources:</div>', 
-            #f'<div class="item-tooltip buttons-tooltip">{buttons_html}</div>'
-            ]
-        ]
+
 
     # If the card metadata includes an image path, discover media files
     if "image_path" in rec:
         discovered_media = flexible_file_discovery(rec["image_path"], search_dir=search_dir)
-        if discovered_media:
-            media_items = [{"src": path, "alt": f"Media {i+1}"} for i, path in enumerate(discovered_media)]
-            media_carousel = html_for_media_carousel(media_items)
-            tooltip_content.append([
-                html_for_container(
-                    f'<div class="item-tooltip media-carousel-tooltip">{media_carousel}</div>',
-                    {"max-width": "800px"}
-                )
-            ])
     else:
         discovered_media = ["No media found for this item."]
     
-
-    # Generate tooltip
-    tooltip_html, tooltip_styles = tooltip_system.html_to_apply_tooltip(
-        element_id=card_id,
-        content=tooltip_content,
-        visible_text="See more"
-    )
-
 
     button_size=40
     card_html = f"""
@@ -765,4 +729,27 @@ def html_for_item_data(
     
 
     return card_html, tooltip_html, tooltip_styles
+
+
+def render_recommendation_card(rec, card_id, raw_title):
+    # Container for the entire recommendation card
+    with st.container():
+        # Recommendation card header (title)
+        st.markdown(f"### {raw_title}")
+
+        # Container for the GitHub button
+        col1, col2 = st.columns([1, 0.1])
+        with col1:
+            if "url" in rec:
+                st.markdown(f'<a href="{rec["url"]}" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub" style="width: 24px; height: 24px;"></a>', unsafe_allow_html=True)
+        with col2:
+            # Optional: Adding the Colab button if available
+            if "colab_url" in rec:
+                st.markdown(f'<a href="{rec["colab_url"]}" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Google_Colaboratory_SVG_Logo.svg/512px-Google_Colaboratory_SVG_Logo.svg.png" alt="Colab" style="width: 24px; height: 24px;"></a>', unsafe_allow_html=True)
+
+        # Tooltip/Media content container
+        with st.container():
+            # Tooltip for media content (can be expanded with images or videos)
+            st.markdown(f"#### Media Content")
+            st.markdown("Placeholder for media content. You can add images, videos, or other media related to this item here.")
 
