@@ -401,7 +401,7 @@ def html_for_item_data(
             position: absolute;
             top: 100%;
             left: 5%;
-            width: 90%;  /* Tooltip takes up 90% of the screen width */
+            width: 50%;  /* Tooltip takes up 90% of the screen width */
             background-color: rgba(255, 255, 255, 0.9);
             border-radius: 10px;
             padding: 20px;
