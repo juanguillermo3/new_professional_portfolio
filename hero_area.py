@@ -334,7 +334,7 @@ class HeroArea:
                 )
             
                 tooltip_html= f"""
-                <div id="{skills}-container" style="position: relative; display: inline-block; cursor: pointer; text-align: center;">
+                <div class="{skills}-container" style="position: relative; display: inline-block; cursor: pointer; text-align: center;">
                   <div id="{element_id}" style="border-bottom: 1px dashed gray;" class="hover-trigger">
                     {visible_milestone}
                   </div>
@@ -360,7 +360,7 @@ class HeroArea:
 
         st.markdown(f"""
           <style>
-              #{skills}-container:hover {{
+              .{skills}-container:hover {{
                   background-color: {pastel_color};
                   transition: background-color 0.3s ease-in-out;
                   border-radius: 5px;
