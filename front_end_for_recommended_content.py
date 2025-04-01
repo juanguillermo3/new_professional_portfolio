@@ -397,36 +397,37 @@ def html_for_item_data(
         }}
 
         .media-tooltip {{
-        display: none;  /* Initially hidden */
-        position: absolute;
-        top: 100%;
-        left: 5%;
-        width: 90%;  /* Take up 90% of the screen width */
-        background-color: rgba(255, 255, 255, 0.9);
-        border-radius: 10px;
-        padding: 20px;
-        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
-        z-index: 10;
-        opacity: 0;
-        transition: opacity 0.3s ease-in-out;
+            display: none;  /* Initially hidden */
+            position: absolute;
+            top: 100%;
+            left: 5%;
+            width: 90%;  /* Tooltip takes up 90% of the screen width */
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
         }}
         
         .media-tooltip-content {{
-        text-align: center;
-        font-size: 18px;
-        color: #333;
+            text-align: center;
+            font-size: 18px;
+            color: #333;
         }}
         
         .media-tooltip-title {{
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 15px;
-        color: #555;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #555;
         }}
         
+        /* Show the tooltip when the card is hovered */
         .recommendation-card:hover + #media-tooltip-{card_id} {{
-        display: block;
-        opacity: 1;
+            display: block;
+            opacity: 1;
         }}
             
     </style>
