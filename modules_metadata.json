@@ -1227,14 +1227,24 @@
     "repo_name": "site_recommendation_system"
   },
   {
-    "title": "Spatial RecSys",
-    "author": "Juan Guillermo",
-    "description": "End-to-end implementation of a recommendation system for retail store placement. The system analyzes historical store locations and integrates fine-grained demographic and socioeconomic data from U.S. ZIP codes. Using machine learning, it predicts optimal locations for new stores by predicting ZIP codes with a high probability of a new opening. The underlying probability model ranks potential store locations in U.S. states not included in the training data.",
-    "image_path": "assets/site_recommendation_system_network_plot.html",
-    "libraries": [],
-    "last_updated": "2025-03-16T20:54:47Z",
-    "url": "https://github.com/juanguillermo3/site_recommendation_system/blob/main/spatial_recsys.ipynb",
-    "file_path": "spatial_recsys.ipynb",
-    "repo_name": "site_recommendation_system"
+      "title": "site_recommendation_system",
+      "tags": [
+          "Spatial Analysis",
+          "Spatial Intelligence",
+          "Recommendation Systems",
+          "Geographic Information Systems",
+          "Gradient Boosting"
+      ],
+      "description": "The site recommendation system performs ranking and recommendations of ZIP codes where a grocery store should consider future openings. The system analyzes historical store locations and integrates fine-grained demographic and socioeconomic data from U.S. ZIP codes. Using machine learning, it predicts optimal locations for new stores by identifying ZIP codes with a high probability of a new opening. The underlying probability model ranks potential store locations in U.S. states not included in the training data.",
+      "achieved_milestones": [
+          "Performed web scraping to collect location data about historical store placement.",
+          "Merged store location data with zip-level demographics and socioeconomic features.",
+          "Implemented machine learning models to classify out-of-sample ZIP codes into fitting/unfitting locations."
+      ],
+      "business_impact": [
+          "Create spatial intelligence by identifying locations tailored to business needs.",
+          "Gain a competitive advantage by accelerating expansion opportunities."
+      ]
   }
+
 ]
