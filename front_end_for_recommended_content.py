@@ -367,6 +367,119 @@ def html_for_item_data(
 
 
 
+import html
+
+def html_for_milestones_from_project_metadata(milestones=None, project_metadata=None, milestone_type="achieved_milestones"):
+    """
+    Generates an HTML snippet for displaying milestones with a tooltip.
+
+    Parameters:
+        - milestones (list, optional): An explicit list of milestones to display.
+        - project_metadata (dict, optional): Contains milestone information (used if milestones is not provided).
+        - milestone_type (str): The type of milestone to display ('achieved_milestones', 'next_milestones', or 'code_samples').
+
+    Returns:
+        - str: HTML snippet containing the milestone and tooltip.
+    """
+    # Define milestone properties with optimized contrast and icons
+    milestone_labels = {
+        "achieved_milestones": {
+            "label": "Achieved Milestones", 
+            "color": "#2E7D32",  # Dark green
+            "icon": "https://icons8.com/icon/gbhGcQX6NZvT/milestones", 
+            "default_text": "{n} milestones achieved"
+        },
+        "next_milestones": {
+            "label": "Upcoming Milestones", 
+            "color": "#C28F00",  # Gold-ish yellow
+            "icon": "https://icons8.com/icon/GBhGcQX6NzvT/upcoming", 
+            "default_text": "{n} upcoming milestones"
+        },
+        "code_samples": {
+            "label": "Code Samples", 
+            "color": "#1565C0",  # Deep blue for code-related milestones
+            "icon": "https://icons8.com/icon/8NfTKz72QwB9/code", 
+            "default_text": "{n} code samples"
+        }
+    }
+
+    # Get properties for the given milestone type
+    milestone = milestone_labels.get(milestone_type, {
+        "label": "Milestones", 
+        "color": "black", 
+        "icon": "https://icons8.com/icon/gbhGcQX6NZvT/milestones", 
+        "default_text": "{n} milestones"
+    })
+
+    label, color, icon_url, default_text = milestone["label"], milestone["color"], milestone["icon"], milestone["default_text"]
+
+    # Use explicitly provided milestones or fall back to project_metadata
+    if milestones is None:
+        milestones = project_metadata.get(milestone_type, []) if project_metadata else []
+
+    # Handle empty milestone case
+    if not milestones:
+        return f'<div style="color:gray;">No {label.lower()}</div>'
+
+    # Generate summary text
+    milestone_count = len(milestones)
+    summary = default_text.format(n=milestone_count)
+    visible_milestone = f'<div style="color:{color}; text-align: center;">' \
+                        f'<img src="{icon_url}" alt="{label}" style="width: 30px; height: 30px;"/><br>' \
+                        f'<label>{summary}</label></div>'
+
+    # Tooltip content (full milestone list)
+    tooltip_content = "".join(
+        f'<div style="color:{color};">{html.escape(m)}</div>' for m in milestones
+    )
+
+    # Unique ID for the tooltip
+    element_id = f"tooltip-{milestone_type}"
+
+    # Return formatted HTML with refined frosted effect
+    return f"""
+    <div style="position: relative; display: inline-block;">
+        <span id="{element_id}" style="border-bottom: 1px dashed gray; cursor: pointer;" class="hover-trigger">
+            {visible_milestone}
+        </span>
+        <div class="tooltip">
+            <strong>{label}:</strong>
+            {tooltip_content}
+        </div>
+    </div>
+    <style>
+        .tooltip {{
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(5px) scale(0.95);
+            transition: 
+                opacity 0.3s ease-in-out, 
+                visibility 0.3s ease-in-out, 
+                transform 0.3s ease-in-out;
+            background-color: rgba(240, 240, 240, 0.7); /* Softer frosted effect */
+            backdrop-filter: blur(1px); /* Stronger blur for a glassy look */
+            color: black;
+            text-align: left;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            left: 75%;
+            top: 120%;
+            min-width: 100%;
+            max-width: 400px;
+            z-index: 1;
+            border: 1px solid rgba(200, 200, 200, 0.5); /* Softer border */
+            transform-origin: top center;
+        }}
+
+        #{element_id}:hover + .tooltip {{
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0px) scale(1.1);
+        }}
+    </style>
+    """
 
 
 
