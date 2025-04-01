@@ -969,6 +969,20 @@ class RecommendationSystem(PortfolioSection):
                         # Render the HTML content directly inside the column
                         st.markdown(html_content, unsafe_allow_html=True)
 
+    #
+    # front end representation of items
+    #
+    def render_card(self, rec, **kwargs):
+        """Render a single recommendation card with dynamic HTML generation."""
+
+        card_html, tooltip_html, tooltip_styles=html_for_item_data(rec)
+        st.markdown(card_html, unsafe_allow_html=True)
+        st.markdown(tooltip_html, unsafe_allow_html=True)
+        st.markdown(tooltip_styles, unsafe_allow_html=True)
+
+        unique_hash = hashlib.md5(rec['title'].encode()).hexdigest()
+        button_id = f"galleria_{unique_hash}"
+
 
 # Example usage
 # Initialize RecSys with custom header and description
