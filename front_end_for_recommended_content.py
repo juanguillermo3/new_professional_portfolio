@@ -714,7 +714,7 @@ def html_for_item_data(
             z-index: 10;
             opacity: 0;
             transition: opacity 0.3s ease-in-out;
-            margin-top: 10px;  /* Add a slight gap between the trigger and the tooltip */
+            margin-top: 25px;  /* Add a slight gap between the trigger and the tooltip */
         }}
 
         
@@ -754,7 +754,7 @@ def html_for_item_data(
     <div id="media-tooltip-{card_id}" class="media-tooltip">
         <div class="media-tooltip-content">
             <div class="media-tooltip-title">Media Content</div>
-            <p>Placeholder for media content. You can add images, videos, or other media related to this item here.</p>
+            "<br>".join(discovered_media)  
         </div>
     </div>
 
