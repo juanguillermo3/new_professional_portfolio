@@ -25,6 +25,7 @@ from exceptional_ui import (
 )
 from bureaucratic_form import render_bureaucratic_form
 from front_end_for_recommended_content import html_for_milestones_from_project_metadata
+import html 
 
 # Load environment variables
 load_dotenv()
