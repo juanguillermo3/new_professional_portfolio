@@ -703,9 +703,10 @@ def html_for_item_data(
         .media-tooltip {{
             display: none;  /* Initially hidden */
             position: absolute;
-            top: 100%;
-            left: 0;  /* Position from the left of the screen */
-            width: 100vw;  /* Tooltip takes up 100% of the viewport width */
+            top: 100%;  /* Tooltip is placed right below the trigger element */
+            left: 50%;  /* Center it horizontally */
+            transform: translateX(-50%);  /* Adjust for exact centering */
+            width: 400px;  /* Fixed width for the media content */
             background-color: rgba(255, 255, 255, 0.9);
             border-radius: 10px;
             padding: 20px;
@@ -713,7 +714,9 @@ def html_for_item_data(
             z-index: 10;
             opacity: 0;
             transition: opacity 0.3s ease-in-out;
+            margin-top: 10px;  /* Add a slight gap between the trigger and the tooltip */
         }}
+
         
         .media-tooltip-content {{
             text-align: center;
