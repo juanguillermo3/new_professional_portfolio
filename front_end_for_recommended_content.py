@@ -442,14 +442,17 @@ def html_for_item_data(
             </a>
         </div>
         {f'<div><a href="{rec["colab_url"]}" target="_blank" class="colab-btn"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Google_Colaboratory_SVG_Logo.svg/512px-Google_Colaboratory_SVG_Logo.svg.png" alt="Colab"></a></div>' if "colab_url" in rec else ''}
+
+       <div id="media-tooltip-{card_id}" class="media-tooltip">
+           <div class="media-tooltip-content">
+           <div class="media-tooltip-title">Media Content</div>
+           <p>Placeholder for media content. You can add images, videos, or other media related to this item here.</p>
+       </div>
+    </div>
+    
     </div>
 
-    <div id="media-tooltip-{card_id}" class="media-tooltip">
-        <div class="media-tooltip-content">
-            <div class="media-tooltip-title">Media Content</div>
-            <p>Placeholder for media content. You can add images, videos, or other media related to this item here.</p>
-        </div>
-    </div>
+
 
     """
     
