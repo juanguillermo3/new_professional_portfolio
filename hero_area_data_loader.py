@@ -93,7 +93,7 @@ def load_detailed_offerings():
                 "<strong>Proficiency Tier:</strong> Airflow, SQL, Spark, Bash scripting",
                 "<strong>Currently Learning:</strong> Docker, Kubernetes, GitHub, Big Data Cloud tools, SQLAlchemy, Django"
             ],
-            "skills": [
+            "skills2": [
                 "Data integration expertise: Can connect enterprise applications with internal and external datasources: APIs, web scraping applications, databases, unstructured datasources",
                 "Activate implicit datasets by ETL effort from enterprise systems",
                 "Flexible information processing using text-minning, regex, Natural-Language-Processing",
