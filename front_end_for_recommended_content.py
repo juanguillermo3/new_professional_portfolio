@@ -609,6 +609,9 @@ def html_for_item_data(
                     {"max-width": "800px"}
                 )
             ])
+    else:
+        discovered_media = ["No media found for this item."]
+    
 
     # Generate tooltip
     tooltip_html, tooltip_styles = tooltip_system.html_to_apply_tooltip(
