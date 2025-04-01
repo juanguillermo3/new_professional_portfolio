@@ -395,6 +395,40 @@ def html_for_item_data(
             background-color: #e69900;
             cursor: pointer;
         }}
+
+        .media-tooltip {{
+        display: none;  /* Initially hidden */
+        position: absolute;
+        top: 100%;
+        left: 5%;
+        width: 90%;  /* Take up 90% of the screen width */
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+        z-index: 10;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+        }}
+        
+        .media-tooltip-content {{
+        text-align: center;
+        font-size: 18px;
+        color: #333;
+        }}
+        
+        .media-tooltip-title {{
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 15px;
+        color: #555;
+        }}
+        
+        .recommendation-card:hover + #media-tooltip-{card_id} {{
+        display: block;
+        opacity: 1;
+        }}
+            
     </style>
     
     <div id="{card_id}" class="recommendation-card">
@@ -408,58 +442,16 @@ def html_for_item_data(
         </div>
         {f'<div><a href="{rec["colab_url"]}" target="_blank" class="colab-btn"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Google_Colaboratory_SVG_Logo.svg/512px-Google_Colaboratory_SVG_Logo.svg.png" alt="Colab"></a></div>' if "colab_url" in rec else ''}
     </div>
-    """
 
-    # Define new tooltip content, which will display media content
-    media_tooltip_html = f"""
-        <div id="media-tooltip-{card_id}" class="media-tooltip">
-            <div class="media-tooltip-content">
-                <div class="media-tooltip-title">Media Content</div>
-                <p>Placeholder for media content. You can add images, videos, or other media related to this item here.</p>
-            </div>
+    <div id="media-tooltip-{card_id}" class="media-tooltip">
+        <div class="media-tooltip-content">
+            <div class="media-tooltip-title">Media Content</div>
+            <p>Placeholder for media content. You can add images, videos, or other media related to this item here.</p>
         </div>
+    </div>
+
     """
     
-    # Define the styles for the new tooltip
-    media_tooltip_styles = f"""
-        <style>
-            .media-tooltip {{
-                display: none;  /* Initially hidden */
-                position: absolute;
-                top: 100%;
-                left: 5%;
-                width: 90%;  /* Take up 90% of the screen width */
-                background-color: rgba(255, 255, 255, 0.9);
-                border-radius: 10px;
-                padding: 20px;
-                box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
-                z-index: 10;
-                opacity: 0;
-                transition: opacity 0.3s ease-in-out;
-            }}
-            
-            .media-tooltip-content {{
-                text-align: center;
-                font-size: 18px;
-                color: #333;
-            }}
-            
-            .media-tooltip-title {{
-                font-size: 24px;
-                font-weight: bold;
-                margin-bottom: 15px;
-                color: #555;
-            }}
-    
-            .recommendation-card:hover + #media-tooltip-{card_id} {{
-                display: block;
-                opacity: 1;
-            }}
-        </style>
-    """
-    
-    # Final card HTML will include the tooltip HTML and styles
-    card_html += media_tooltip_html
-    tooltip_styles += media_tooltip_styles
+
 
     return card_html, tooltip_html, tooltip_styles
