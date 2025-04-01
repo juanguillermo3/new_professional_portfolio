@@ -701,13 +701,8 @@ def html_for_milestones_from_project_metadata(milestones=None, project_metadata=
 
     return f"""
         <div id="{element_id}-container" style="position: relative; display: inline-block; cursor: pointer; text-align: center;">
-            <div id="{element_id}" style="border-bottom: 1px dashed gray;" class="hover-trigger">
-                {visible_milestone}
-            </div>
-            <div class="tooltip">
-                <strong>{label}:</strong>
-                {tooltip_content}
-            </div>
+            <div id="{element_id}" style="border-bottom: 1px dashed gray;" class="hover-trigger">{visible_milestone}</div>
+            <div class="tooltip"><strong>{label}:</strong>{tooltip_content}</div>
         </div>
         <style>
             #{element_id}-container:hover {{
