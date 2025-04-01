@@ -699,13 +699,13 @@ def html_for_item_data(
             background-color: #e69900;
             cursor: pointer;
         }}
-
+        
         .media-tooltip {{
             display: none;  /* Initially hidden */
             position: absolute;
             top: 100%;
-            left: 5%;
-            width: 90%;  /* Tooltip takes up 90% of the screen width */
+            left: 0;  /* Position from the left of the screen */
+            width: 100vw;  /* Tooltip takes up 100% of the viewport width */
             background-color: rgba(255, 255, 255, 0.9);
             border-radius: 10px;
             padding: 20px;
