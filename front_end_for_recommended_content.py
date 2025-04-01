@@ -453,7 +453,7 @@ def html_for_milestones_from_project_metadata(milestones=None, project_metadata=
         <span id="{element_id}" style="border-bottom: 1px dashed gray;" class="hover-trigger">
             {visible_milestone}
         </span>
-        <div class="{element_id}-tooltip">
+        <div class="tooltip">
             <strong>{label}:</strong>
             {tooltip_content}
         </div>
@@ -465,7 +465,7 @@ def html_for_milestones_from_project_metadata(milestones=None, project_metadata=
             border-radius: 5px;
         }}
 
-        .{element_id}-tooltip {{
+        .tooltip {{
             visibility: hidden;
             opacity: 0;
             transform: translateY(5px) scale(0.95);
