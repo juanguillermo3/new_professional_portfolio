@@ -291,7 +291,6 @@ class HeroArea:
         label, color, pastel_color, icon_url, emoji, default_text = (
             figure_style["label"], figure_style["color"], figure_style["pastel"], figure_style["icon"], figure_style["emoji"], figure_style["default_text"]
         )
-        element_id = f"tooltip-skills"
         #
         # (1)
         #
@@ -335,7 +334,7 @@ class HeroArea:
                 )
             
                 tooltip_html= f"""
-                <div id="{element_id}-container" style="position: relative; display: inline-block; cursor: pointer; text-align: center;">
+                <div id="{skills}-container" style="position: relative; display: inline-block; cursor: pointer; text-align: center;">
                   <div id="{element_id}" style="border-bottom: 1px dashed gray;" class="hover-trigger">
                     {visible_milestone}
                   </div>
@@ -361,7 +360,7 @@ class HeroArea:
 
         st.markdown(f"""
           <style>
-              #{element_id}-container:hover {{
+              #{skills}-container:hover {{
                   background-color: {pastel_color};
                   transition: background-color 0.3s ease-in-out;
                   border-radius: 5px;
