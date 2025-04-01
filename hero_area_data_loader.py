@@ -154,8 +154,7 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
 
         # Tooltip rendering (if available)
         if "skills" in offer:
-            tooltip_html = 
-            "<div>\n"+html_for_milestones_from_project_metadata(
+            tooltip_html = "<div>\n"+html_for_milestones_from_project_metadata(
                 milestones=offer["skills"], milestone_type="technical_skills"
             )+"\n</div>"
             offering_html += tooltip_html
