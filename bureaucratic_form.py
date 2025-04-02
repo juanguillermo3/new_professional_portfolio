@@ -32,7 +32,7 @@ def _generate_bureaucratic_html(details: dict) -> str:
         display: inline-flex;
         align-items: center;
         padding: 6px 10px;
-        margin: 3px;
+        margin: 5px;
         border-radius: 6px;
         background: #E0E0E0;
         color: #333333;
