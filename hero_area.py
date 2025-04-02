@@ -13,7 +13,6 @@ from hero_area_data_loader import (
     load_quote, 
     load_avatar_caption, 
     load_code_samples, 
-    custom_html_for_offerings,
     load_detailed_offerings
 )
 from front_end_utils import tags_in_twitter_style
