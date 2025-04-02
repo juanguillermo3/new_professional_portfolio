@@ -456,7 +456,7 @@ class HeroArea:
     
             # Generate expandable text
             expanded_html, expanded_style = expandable_text_html(offer["description"])
-            style_block += expanded_style
+            st.markdown(expanded_style, unsafe_allow_html=True)
     
             offering_html += (
                 f'<li id="{element_id}" class="offering-container" style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px;">'
