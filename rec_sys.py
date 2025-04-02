@@ -844,7 +844,7 @@ class RecommendationSystem(PortfolioSection):
         parsed_description = markdown.markdown(project_metadata['description'])
         description_html, description_styles = expandable_text_html(parsed_description)
         description_html = markdown.markdown(f"{description_html} ")
-        st.markdown(description_styles,unsafe_allow_html=True)
+        #st.markdown(description_styles,unsafe_allow_html=True)
       
         # Unique media placeholder for each project
         media_placeholder = st.empty()
