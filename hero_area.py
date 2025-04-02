@@ -318,6 +318,7 @@ class HeroArea:
         offerings = load_detailed_offerings()
         offering_html = '<h3>Key Professional Offerings</h3>'
         offering_html += '<ul style="list-style-type: none;">'  # Removes bullet points
+        style_block = "<style>"
         #
         # (2)
         #
@@ -327,8 +328,9 @@ class HeroArea:
             bg_color = colors[i % len(colors)]
     
             # Generate expandable text
-            expanded_html, expanded_style = expandable_text_html(offer["description"])
-            st.markdown(expanded_style, unsafe_allow_html=True)
+            expanded_html, expanded_style = expandable_text_html(offer["description"], wrap_style=False)
+            style_block +=  expanded_style
+            #st.markdown(expanded_style, unsafe_allow_html=True)
     
             offering_html += (
                 f'<li id="{element_id}" class="offering-container" style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px;">'
@@ -418,7 +420,10 @@ class HeroArea:
               }}
           </style>
           """,
-          unsafe_allow_html=True)         
+          unsafe_allow_html=True)
+
+          style_block += "</style>"
+          st.markdown(style_block, unsafe_allow_html=True)
 
 
 # Instantiate and render HeroArea with data loaded from the loader functions
