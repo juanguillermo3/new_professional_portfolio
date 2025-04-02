@@ -50,16 +50,22 @@ def expandable_text_html(detailed_text: str) -> tuple[str, str]:
 
     style_block = (
         f"#{element_id} {{ cursor: pointer; }}\n"  # Cursor change
-        f".ellipsis {{ color: #555; font-weight: bold; font-size: 1.1em; }}\n"  # Continuation emoji styling
+        f".ellipsis {{ color: #555; font-weight: bold; font-size: 1.1em; \n"
+        f" animation: bounceHint 1s infinite alternate ease-in-out; }}\n"  # Animated hint
+        f"@keyframes bounceHint {{\n"
+        f"  0% {{ transform: translateY(0); }}\n"
+        f"  50% {{ transform: translateY(-3px); }}\n"
+        f"  100% {{ transform: translateY(0); }}\n"
+        f"}}\n"
     )
 
     if details:
         text_container += f' <span class="{element_id}-hidden">{details}</span>'
         style_block += (
-            f".{element_id}-hidden {{"
-            f" display: none; opacity: 0; max-width: 0px; max-height: 0px; overflow: hidden;"
+            f".{element_id}-hidden {{\n"
+            f" display: none; opacity: 0; max-width: 0px; max-height: 0px; overflow: hidden;\n"
             f" transition: opacity 0.3s ease-in-out 0.2s, max-width 0.4s ease-out, max-height 0.4s ease-out; }}\n"
-            f"#{element_id}:hover .{element_id}-hidden {{"
+            f"#{element_id}:hover .{element_id}-hidden {{\n"
             f" display: inline; opacity: 1; max-width: none; max-height: 400px; }}\n"  # Vertical expansion
             f"#{element_id}:hover .ellipsis {{ opacity: 0; }}\n"  # Hide emoji when hovered
         )
