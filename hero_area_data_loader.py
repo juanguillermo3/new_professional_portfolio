@@ -81,7 +81,7 @@ def load_detailed_offerings():
                            'for research and model development.',
             "skills": [
                 "Activate implicit datasets by ETL effort from enterprise systems",
-                "Flexible information processing using text-minning, regex, Natural-Language-Processing",
+                "Flexible information processing using text-minning, ReGex and Natural-Language-Processing",
                 "Familiarity with algorithms for alternative/unstructured data sources (NLP, GIS, Network Data)",
                 "Expertise developing complex merges from multiple data sources"
             ]
