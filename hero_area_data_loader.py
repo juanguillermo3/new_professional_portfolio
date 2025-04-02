@@ -9,7 +9,7 @@ from exceptional_ui import (
 from front_end_utils import render_section_separator
 import hashlib
 import datetime
-from expandable_text import expandable_text_html
+from expandable_text import _chunk_texts, expandable_text_html
 
 # Load environment variables
 load_dotenv()
