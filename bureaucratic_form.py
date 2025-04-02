@@ -92,12 +92,13 @@ def _generate_bureaucratic_html(details: dict) -> str:
     visible_limit = 5  # Number of pills visible initially
 
     for i, (field_name, field_value) in enumerate(details.items()):
+        
         pill_class = "bureau-field"
         if i >= visible_limit:
             pill_class += " hidden-pill"
 
         if i == visible_limit:
-            fields_html.append(f"<div class='{pill_class}'><span class='bureau-label'>{field_name}:</span></div>")
+            fields_html.append("<div class='bureau-field hint-pill'>➕ More...</div>")
 
         if isinstance(field_value, str):
             field_value = [item.strip() for item in field_value.split(',')]
