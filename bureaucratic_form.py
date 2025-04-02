@@ -115,7 +115,6 @@ def _generate_bureaucratic_html(details: dict) -> str:
 
     
     return style + f"<div class='bureau-container'>{' '.join(fields_html)}</div>"
-
 def _generate_bureaucratic_html(details: dict) -> str:
     """
     Generates the HTML for a bureaucratic-style form using compact pills with hover effects.
@@ -127,15 +126,14 @@ def _generate_bureaucratic_html(details: dict) -> str:
     
     style = """
     <style>
-    
     .bureau-container {
         display: flex;
         flex-wrap: wrap;
-        width: 100%;  /* Takes full width */
+        width: 100%;
         padding: 10px;
-        margin: 15px 0; /* At least 15px of top/bottom margin */
+        margin: 15px 0;
         border-radius: 8px;
-        background: #FAFAFA; /* Ultra-light gray for contrast */
+        background: #FAFAFA;
         box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
         overflow: hidden;
         transition: max-height 0.5s ease-in-out;
@@ -147,12 +145,12 @@ def _generate_bureaucratic_html(details: dict) -> str:
         padding: 6px 10px;
         margin: 3px;
         border-radius: 6px;
-        background: #E0E0E0;  /* Soft Light Gray */
+        background: #E0E0E0;
         color: #333333;
         font-size: 14px;
         white-space: nowrap;
         border: 1.5px solid #BDBDBD;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         transition: all 0.3s ease-in-out;
         cursor: pointer;
     }
@@ -160,11 +158,10 @@ def _generate_bureaucratic_html(details: dict) -> str:
     .bureau-label {
         font-weight: bold;
         margin-right: 6px;
-        color: #5E5E5E;  /* Deep Gray */
+        color: #5E5E5E;
         font-size: 90%;
     }
 
-    /* Initially hidden pills */
     .hidden-pill {
         opacity: 0;
         max-width: 0;
@@ -173,52 +170,67 @@ def _generate_bureaucratic_html(details: dict) -> str:
         transition: opacity 0.5s ease-in-out, max-width 0.5s ease-in-out, padding 0.5s ease-in-out, margin 0.5s ease-in-out;
     }
 
-    /* Reveal pills when the container is hovered */
     .bureau-container:hover .hidden-pill {
         opacity: 1;
-        max-width: 200px;  /* Allows proper expansion */
+        max-width: 200px;
         padding: 6px 10px;
         margin: 3px;
     }
 
-    /* Hover effect for visible pills */
     .bureau-field:hover {
-        background: #F5F5F5;  /* Bright Silver Gray */
-        color: #333333;
+        background: #F5F5F5;
         transform: scale(1.05);
         box-shadow: 0 4px 10px rgba(200, 200, 200, 0.7);
         z-index: 10;
-        cursor: pointer;
+    }
+
+    .hint-pill {
+        background: #BBDEFB;
+        color: #1E88E5;
+        font-weight: bold;
+    }
+
+    .bureau-container:hover .hint-pill {
+        opacity: 0;
+        max-width: 0;
+        padding: 0;
+        margin: 0;
     }
     </style>
     """
 
     fields_html = []
-    visible_limit = 5  # Number of pills visible initially
+    visible_limit = 5  # Number of visible pills initially
+    pill_count = 0
 
     for i, (field_name, field_value) in enumerate(details.items()):
-        # Create a label pill
+        if pill_count == visible_limit:
+            fields_html.append("<div class='bureau-field hint-pill'>➕ More...</div>")
+        
         pill_class = "bureau-field"
-        if i >= visible_limit:
+        if pill_count >= visible_limit:
             pill_class += " hidden-pill"
-
+        
         fields_html.append(f"<div class='{pill_class}'><span class='bureau-label'>{field_name}:</span></div>")
+        pill_count += 1
 
-        # Normalize values to a list
         if isinstance(field_value, str):
-            field_value = [item.strip() for item in field_value.split(',')]  
+            field_value = [item.strip() for item in field_value.split(',')]
         elif isinstance(field_value, list):
-            field_value = [str(item).strip() for item in field_value]  
+            field_value = [str(item).strip() for item in field_value]
         else:
-            field_value = [str(field_value)]  
+            field_value = [str(field_value)]
 
-        # Create a pill for each tokenized value
-        for j, value in enumerate(field_value):
+        for value in field_value:
+            if pill_count == visible_limit:
+                fields_html.append("<div class='bureau-field hint-pill'>➕ More...</div>")
+            
             pill_class = "bureau-field"
-            if i + j >= visible_limit:  
+            if pill_count >= visible_limit:
                 pill_class += " hidden-pill"
             
             fields_html.append(f"<div class='{pill_class}'>{value}</div>")
+            pill_count += 1
 
     return style + f"<div class='bureau-container'>{' '.join(fields_html)}</div>"
 
