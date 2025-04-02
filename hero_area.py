@@ -378,6 +378,9 @@ class HeroArea:
     
         offering_html += '</ul>'
         st.markdown(offering_html, unsafe_allow_html=True)
+
+        style_block += "</style>"
+        st.markdown(style_block, unsafe_allow_html=True)
     
         st.markdown(f"""
           <style>
@@ -422,8 +425,7 @@ class HeroArea:
           """,
           unsafe_allow_html=True)
 
-      style_block += "</style>"
-      st.markdown(style_block, unsafe_allow_html=True)
+
 
 
 # Instantiate and render HeroArea with data loaded from the loader functions
