@@ -27,6 +27,8 @@ def _chunk_texts(detailed_text: str, min_tokens: int = 10) -> tuple[str, str]:
 #
 # (1) render html for the text component and interactable behaviour
 #
+import hashlib
+
 def expandable_text_html(detailed_text: str) -> tuple[str, str]:
     """
     Generates an HTML snippet with a hover-reveal effect for long text descriptions.
@@ -40,8 +42,8 @@ def expandable_text_html(detailed_text: str) -> tuple[str, str]:
     # Generate a unique element ID using a hash
     element_id = "hover-" + hashlib.md5(detailed_text.encode()).hexdigest()[:8]
 
-    # Append the continuation emoji
-    brief += ' <strong class="ellipsis">▶️</strong>'
+    # Append the continuation emoji within a span
+    brief += ' <span class="ellipsis">▶️</span>'
 
     text_container = (
         f'<div id="{element_id}" class="ancillary-container">'
@@ -50,7 +52,7 @@ def expandable_text_html(detailed_text: str) -> tuple[str, str]:
 
     style_block = (
         f"#{element_id} {{ cursor: pointer; }}\n"  # Cursor change
-        f".ellipsis {{ color: #555; font-weight: bold; font-size: 1.1em; \n"
+        f".ellipsis {{ color: #555; font-weight: bold; font-size: 1.1em; display: inline-block; \n"
         f" animation: bounceHint 1s infinite alternate ease-in-out; }}\n"  # Animated hint
         f"@keyframes bounceHint {{\n"
         f"  0% {{ transform: translateY(0); }}\n"
@@ -71,6 +73,7 @@ def expandable_text_html(detailed_text: str) -> tuple[str, str]:
         )
 
     return text_container, style_block
+
 
 
 
