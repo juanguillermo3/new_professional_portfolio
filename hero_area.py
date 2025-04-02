@@ -321,59 +321,6 @@ class HeroArea:
         #
         # (2)
         #
-        for i, offer in enumerate(offerings):
-        
-            element_id = id_pattern.format(i + 1)
-            bg_color = colors[i % len(colors)]
-    
-            # Generate expandable text
-            expanded_html, expanded_style = expandable_text_html(offer["description"])
-            style_block += expanded_style
-    
-            offering_html += (
-                f'<li id="{element_id}" class="offering-container" style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px;">'
-                f'<p style="text-align: justify; margin: 0;">'
-                f'<strong>{offer["title"]}</strong>: {expanded_html}'
-            )
-    
-            # Tooltip rendering (if available)
-            if "skills" in offer:
-                skills=offer["skills"]
-                skills_count = len(skills)
-                summary = default_text.format(n=skills_count)
-                visible_milestone = f'<div style="color:{color}; text-align: center;">' \
-                                f'<img src="{icon_url}" alt="{label}" style="width: 30px; height: 30px;"/><br>' \
-                                f'<label>{summary}</label></div>'
-                tooltip_content = "".join(
-                    f'<div style="color:{color};">{emoji} {html.escape(m)}</div>' for m in skills
-                )
-            
-                tooltip_html= f"""
-                <div class="tooltip-container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: pointer;">
-                  <div class="skills-container" style="position: relative; display: inline-block;">
-                    <div id="{element_id}" style="border-bottom: 1px dashed gray;" class="hover-trigger">
-                      {visible_milestone}
-                    </div>
-                    <div class="tooltip" style="margin-top: 8px;">
-                      <strong>{label}:</strong>
-                      <span>{tooltip_content}</span>
-                    </div>
-                  </div>
-                </div>
-                """
-                offering_html += tooltip_html
-    
-            offering_html += "<br>"
-    
-            # Render subitems if available
-            if "subitems" in offer:
-                offering_html += '<ul style="list-style-type: none; padding-left: 0;">'
-                for subitem in offer["subitems"]:
-                    offering_html += f'<li>{subitem}</li>'
-                offering_html += '</ul>'
-            offering_html += '</li>'
-    
-        offering_html += '</ul>'
         st.markdown(style_block + offering_html, unsafe_allow_html=True)
     
         st.markdown(f"""
