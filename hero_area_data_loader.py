@@ -10,6 +10,7 @@ from front_end_utils import render_section_separator
 import hashlib
 import datetime
 from expandable_text import _chunk_texts, expandable_text_html
+import markdown
 
 # Load environment variables
 load_dotenv()
@@ -154,8 +155,12 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
         bg_color = colors[i % len(colors)]
 
         # Generate expandable text for description
-        description_html, description_style = expandable_text_html(offer["description"])
-        style_block += description_style  # Append the generated styles
+        
+        # Preprocess description with Markdown
+        description_md = markdown.markdown(offer["description"])
+        
+        # Generate HTML and styles
+        description_html, description_style = expandable_text_html(description_md)
 
         offering_html += (
             f'<li id="{element_id}" class="offering-container" style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px;">'
