@@ -198,6 +198,101 @@ def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#fff
 
     return style_block + offering_html
 
+import hashlib
+
+def expandable_text_html(detailed_text: str) -> tuple[str, str]:
+    """
+    Generates an HTML snippet with a hover-reveal effect for long text descriptions.
+    
+    Returns:
+        offering_html (str): The generated HTML structure.
+        style_block (str): The required CSS styles.
+    """
+    brief, details = _chunk_texts(detailed_text)
+    
+    # Generate a unique element ID using a hash
+    element_id = "hover-" + hashlib.md5(detailed_text.encode()).hexdigest()[:8]
+
+    # Append the continuation emoji within a span
+    brief += ' <span class="ellipsis">▶️</span>'
+
+    text_container = (
+        f'<div id="{element_id}" class="ancillary-container">'
+        f'<p style="text-align: justify; margin: 0; display: inline;">{brief}'
+    )
+
+    style_block = (
+        f"#{element_id} {{ cursor: pointer; }}\n"  # Cursor change
+        f".ellipsis {{ color: #555; font-weight: bold; font-size: 1.1em; display: inline-block; \n"
+        f" animation: bounceHint 0.67s infinite ease-in-out; }}\n"  # Faster animation
+        f"@keyframes bounceHint {{\n"
+        f"  0% {{ transform: translateY(0); }}\n"
+        f"  40% {{ transform: translateY(-4px); }}\n"  # Slower upward movement
+        f"  100% {{ transform: translateY(0); }}\n"  # Faster downward movement
+        f"}}\n"
+    )
+
+    if details:
+        text_container += f' <span class="{element_id}-hidden">{details}</span>'
+        style_block += (
+            f".{element_id}-hidden {{\n"
+            f" display: none; opacity: 0; max-width: 0px; max-height: 0px; overflow: hidden;\n"
+            f" transition: opacity 0.3s ease-in-out 0.2s, max-width 0.4s ease-out, max-height 0.4s ease-out; }}\n"
+            f"#{element_id}:hover .{element_id}-hidden {{\n"
+            f" display: inline; opacity: 1; max-width: none; max-height: 400px; }}\n"  # Vertical expansion
+            f"#{element_id}:hover .ellipsis {{ opacity: 0; }}\n"  # Hide emoji when hovered
+        )
+
+    return text_container, style_block
+
+def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
+    offerings = load_detailed_offerings()
+
+    # Injected style block (to be dynamically constructed)
+    style_block = "<style>\n"
+
+    offering_html = '<h3>Key Professional Offerings</h3>'
+    offering_html += '<ul style="list-style-type: none;">'  # Removes bullet points
+
+    tooltip_ids = []  # Store unique IDs for tooltips
+
+    for i, offer in enumerate(offerings):
+        element_id = id_pattern.format(i + 1)
+        bg_color = colors[i % len(colors)]
+
+        # Generate expandable text for description
+        description_html, description_style = expandable_text_html(offer["description"])
+        style_block += description_style  # Append the generated styles
+
+        offering_html += (
+            f'<li id="{element_id}" class="offering-container" style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px;">'
+            f'<p style="text-align: justify; margin: 0;">'
+            f'<strong>{offer["title"]}</strong>: {description_html}'
+        )
+
+        # Tooltip rendering (if available)
+        if "skills" in offer:
+            tooltip_html, unique_id = html_for_tooltip_from_large_list(
+                offer["skills"], label="Technical Skills", color="#555", emoji="🏅"
+            )
+            offering_html += tooltip_html
+            tooltip_ids.append(unique_id)
+
+        offering_html += "<br>"
+
+        # Render subitems if available
+        if "subitems" in offer:
+            offering_html += '<ul style="list-style-type: none; padding-left: 0;">'
+            for subitem in offer["subitems"]:
+                offering_html += f'<li>{subitem}</li>'
+            offering_html += '</ul>'
+
+        offering_html += '</li>'
+
+    offering_html += '</ul>'
+    style_block += "</style>\n"
+
+    return style_block + offering_html
 
 
 
