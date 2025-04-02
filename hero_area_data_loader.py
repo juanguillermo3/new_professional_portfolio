@@ -29,7 +29,7 @@ def load_avatar_caption():
 def load_quote():
     return [
         "My permanent professional effort is the <b>modernization of data analysis</b> "  
-        "through cutting-edge techniques, such as flexible statistical inference of predictive patterns powered by <b>Machine Learning</b>, "  
+        "through <b>research and development</b> of cutting-edge techniques, such as flexible statistical inference of predictive patterns powered by <b>Machine Learning</b>, "  
         "streamlining <em>core business workflows</em> through <b>software development</b> and <b>algorithmic automation</b>, "
         "handling <em>enterprise-grade datasets</em> with <b>modern data technology</b>, "  
         "grouping data by <em>meaning</em> with <b>Natural Language Processing</b>, "  
