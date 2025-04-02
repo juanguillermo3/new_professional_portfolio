@@ -873,7 +873,7 @@ class RecommendationSystem(PortfolioSection):
                 <div style="text-align: justify;">
                     {description_html}
                 </div>
-                <style>{description_styles}</style>
+                {description_styles}
                 """,
                 unsafe_allow_html=True,
             )
