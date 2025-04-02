@@ -73,7 +73,7 @@ def expandable_text_html(detailed_text: str, wrap_style: bool = True) -> tuple[s
             f" transition: opacity 0.3s ease-in-out 0.2s, max-width 0.4s ease-out, max-height 0.4s ease-out; }}\n"
             f"#{element_id}:hover .{element_id}-hidden {{\n"
             f" display: inline; opacity: 1; max-width: none; max-height: 400px; }}\n"
-            f"#{element_id}:hover .ellipsis {{ opacity: 0; }}\n"
+            f"#{element_id}:hover .ellipsis {{ opacity: 0; display: none; }}\n"
         )
     
     if wrap_style:
