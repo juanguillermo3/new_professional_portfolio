@@ -70,7 +70,7 @@ def expandable_text_html(detailed_text: str) -> tuple[str, str]:
             f"#{element_id}:hover .ellipsis {{ opacity: 0; }}\n"  # Hide emoji when hovered
         )
 
-    return text_container, style_block
+    return text_container, "<style>" +style_block + "</style>"
 
 
 
