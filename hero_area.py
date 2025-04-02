@@ -272,10 +272,30 @@ class HeroArea:
             """,
             unsafe_allow_html=True,
         )
+        
+    def render(self):
+        col1, col2 = st.columns([2, 1])
+    
+        # Render Quote Section
+        with col1:
+            self._render_quote()
+    
+        # Render Biopic Section
+        if self.avatar_image:
+            with col2:
+                self._render_biopic_section()
 
-
+        # Bureaucratic Form Section (before detailed professional offering)
+        render_bureaucratic_form(DETAILS)
+        
+        st.markdown('<br>', unsafe_allow_html=True)       
+        st.markdown('<br>', unsafe_allow_html=True)  
+        
+        self.render_detailed_offering()
+        self.render_code_samples()
+        
     def render_detailed_offering(self, id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
-
+    
         #
         # (0)
         #
@@ -296,6 +316,7 @@ class HeroArea:
         offerings = load_detailed_offerings()
         offering_html = '<h3>Key Professional Offerings</h3>'
         offering_html += '<ul style="list-style-type: none;">'  # Removes bullet points
+        style_block = "<style>\n"
         #
         # (2)
         #
@@ -304,24 +325,18 @@ class HeroArea:
             element_id = id_pattern.format(i + 1)
             bg_color = colors[i % len(colors)]
     
-            # Split description into first sentence + rest
-            description_parts = offer["description"].split(".", 1)
-            short_description = description_parts[0] + "."
-            full_description = description_parts[1] if len(description_parts) > 1 else ""
+            # Generate expandable text
+            expanded_html, expanded_style = expandable_text_html(offer["description"])
+            style_block += expanded_style
     
             offering_html += (
                 f'<li id="{element_id}" class="offering-container" style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px;">'
                 f'<p style="text-align: justify; margin: 0;">'
-                f'<strong>{offer["title"]}</strong>: {short_description}'
+                f'<strong>{offer["title"]}</strong>: {expanded_html}'
             )
-    
-            # In-line expanding content (now with smooth transition)
-            if full_description:
-                offering_html += f' <span class="hover-{element_id}">{full_description}</span>'
     
             # Tooltip rendering (if available)
             if "skills" in offer:
-
                 skills=offer["skills"]
                 skills_count = len(skills)
                 summary = default_text.format(n=skills_count)
@@ -358,8 +373,8 @@ class HeroArea:
             offering_html += '</li>'
     
         offering_html += '</ul>'
-        st.markdown(offering_html, unsafe_allow_html=True)
-
+        st.markdown(style_block + offering_html, unsafe_allow_html=True)
+    
         st.markdown(f"""
           <style>
               .skills-container:hover {{
@@ -402,30 +417,7 @@ class HeroArea:
           </style>
           """,
           unsafe_allow_html=True)
-
-        
-    def render(self):
-        col1, col2 = st.columns([2, 1])
-    
-        # Render Quote Section
-        with col1:
-            self._render_quote()
-    
-        # Render Biopic Section
-        if self.avatar_image:
-            with col2:
-                self._render_biopic_section()
-
-        # Bureaucratic Form Section (before detailed professional offering)
-        render_bureaucratic_form(DETAILS)
-        
-        st.markdown('<br>', unsafe_allow_html=True)       
-        st.markdown('<br>', unsafe_allow_html=True)  
-        
-        self.render_detailed_offering()
-        self.render_code_samples()
-        
-        
+          
 # Instantiate and render HeroArea with data loaded from the loader functions
 hero = HeroArea(
     quote=load_quote(),
