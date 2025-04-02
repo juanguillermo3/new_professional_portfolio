@@ -27,8 +27,6 @@ def _chunk_texts(detailed_text: str, min_tokens: int = 10) -> tuple[str, str]:
 #
 # (1) render html for the text component and interactable behaviour
 #
-import hashlib
-
 def expandable_text_html(detailed_text: str) -> tuple[str, str]:
     """
     Generates an HTML snippet with a hover-reveal effect for long text descriptions.
@@ -53,11 +51,11 @@ def expandable_text_html(detailed_text: str) -> tuple[str, str]:
     style_block = (
         f"#{element_id} {{ cursor: pointer; }}\n"  # Cursor change
         f".ellipsis {{ color: #555; font-weight: bold; font-size: 1.1em; display: inline-block; \n"
-        f" animation: bounceHint 1s infinite alternate ease-in-out; }}\n"  # Animated hint
+        f" animation: bounceHint 0.67s infinite ease-in-out; }}\n"  # Faster animation
         f"@keyframes bounceHint {{\n"
         f"  0% {{ transform: translateY(0); }}\n"
-        f"  50% {{ transform: translateY(-3px); }}\n"
-        f"  100% {{ transform: translateY(0); }}\n"
+        f"  40% {{ transform: translateY(-4px); }}\n"  # Slower upward movement
+        f"  100% {{ transform: translateY(0); }}\n"  # Faster downward movement
         f"}}\n"
     )
 
@@ -73,6 +71,7 @@ def expandable_text_html(detailed_text: str) -> tuple[str, str]:
         )
 
     return text_container, style_block
+
 
 
 
