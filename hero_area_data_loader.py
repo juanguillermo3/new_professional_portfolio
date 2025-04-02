@@ -27,9 +27,9 @@ def load_avatar_caption():
 #
 def load_quote():
     return [
-        "My recurring effort has been the <b>modernization of data analysis</b> "  
-        "through cutting-edge techniques, such as flexible statistical inference powered by <b>Machine Learning</b>, "  
-        "streamlining <em>core business</em> workflows through <b>software development</b> and <b>algorithmic automation</b>, "
+        "My permanent professional effort is the <b>modernization of data analysis</b> "  
+        "through cutting-edge techniques, such as flexible statistical inference of predictive patterns powered by <b>Machine Learning</b>, "  
+        "streamlining <em>core business workflows</em> through <b>software development</b> and <b>algorithmic automation</b>, "
         "handling <em>enterprise-grade datasets</em> with <b>modern data technology</b>, "  
         "grouping data by <em>meaning</em> with <b>Natural Language Processing</b>, "  
         "and enabling dynamically <em>decision-making</em> through the <b>agency of Large Language Models.</b> "
@@ -137,67 +137,6 @@ def hover_text_component(main_text="Hover over this text", hidden_text=" and see
     """
     return html
 
-
-def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
-    offerings = load_detailed_offerings()
-
-    # Injected style block (to be dynamically constructed)
-    style_block = "<style>\n"
-
-    offering_html = '<h3>Key Professional Offerings</h3>'
-    offering_html += '<ul style="list-style-type: none;">'  # Removes bullet points
-
-    tooltip_ids = []  # Store unique IDs for tooltips
-
-    for i, offer in enumerate(offerings):
-        element_id = id_pattern.format(i + 1)
-        bg_color = colors[i % len(colors)]
-
-        # Split description into first sentence + rest
-        description_parts = offer["description"].split(".", 1)
-        short_description = description_parts[0] + "."
-        full_description = description_parts[1] if len(description_parts) > 1 else ""
-
-        offering_html += (
-            f'<li id="{element_id}" class="offering-container" style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px;">'
-            f'<p style="text-align: justify; margin: 0;">'
-            f'<strong>{offer["title"]}</strong>: {short_description}'
-        )
-
-        # In-line expanding content (now with smooth transition)
-        if full_description:
-            offering_html += f' <span class="hover-{element_id}">{full_description}</span>'
-            style_block += (
-                f".hover-{element_id} {{"
-                f" display: inline-block; opacity: 0; max-width: 0px; max-height: 0px; overflow: hidden;"
-                f" transition: opacity 0.3s ease-in-out 0.2s, max-width 0.4s ease-out, max-height 0.4s ease-out; }}\n"
-                f"#{element_id}:hover .hover-{element_id} {{"
-                f" opacity: 1; max-width: 100%; max-height: 100px; }}\n"  # Max-height adjusted dynamically
-            )
-
-        # Tooltip rendering (if available)
-        if "skills" in offer:
-            tooltip_html, unique_id = html_for_tooltip_from_large_list(
-                offer["skills"], label="Technical Skills", color="#555", emoji="🏅"
-            )
-            offering_html += tooltip_html
-            tooltip_ids.append(unique_id)
-
-        offering_html += "<br>"
-
-        # Render subitems if available
-        if "subitems" in offer:
-            offering_html += '<ul style="list-style-type: none; padding-left: 0;">'
-            for subitem in offer["subitems"]:
-                offering_html += f'<li>{subitem}</li>'
-            offering_html += '</ul>'
-
-        offering_html += '</li>'
-
-    offering_html += '</ul>'
-    style_block += "</style>\n"
-
-    return style_block + offering_html
 
 def custom_html_for_offerings(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
     offerings = load_detailed_offerings()
