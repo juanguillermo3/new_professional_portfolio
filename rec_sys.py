@@ -327,24 +327,6 @@ class RecommendationSystem(PortfolioSection):
         )
         
         return query
-
-
-    def render(self):
-        """Render method displaying all projects in a portfolio-style view."""
-
-        self._render_headers()
-        #st.markdown(f'{self.MAIN_STATEMENT}', unsafe_allow_html=True)
-        
-        # Render the sticky control panel and retrieve user query
-        query = self._render_control_panel()
-        
-        # Iterate over all projects and render them one by one
-        for project_metadata in self.repos_metadata:
-            self.render_project_metadata_and_recommendations(project_metadata, query)
-            
-            # Horizontal separator between projects
-            st.markdown("---")
-    
     
     def _style_ancillary_component(self, component_key):
         """Apply CSS styles to make the ancillary component visible with a smooth transition."""
@@ -625,6 +607,22 @@ class RecommendationSystem(PortfolioSection):
                     with col:
                         self.render_card(rec, is_project=rec.get("is_project", False))
 
+    def render(self):
+        """Render method displaying all projects in a portfolio-style view."""
+
+        #self._render_headers()
+        #st.markdown(f'{self.MAIN_STATEMENT}', unsafe_allow_html=True)
+        
+        # Render the sticky control panel and retrieve user query
+        query = self._render_control_panel()
+        
+        # Iterate over all projects and render them one by one
+        for project_metadata in self.repos_metadata:
+          
+            self.render_project_metadata_and_recommendations(project_metadata, query)
+            
+            # Horizontal separator between projects
+            st.markdown("---")
 
 # Example usage
 # Initialize RecSys with custom header and description
