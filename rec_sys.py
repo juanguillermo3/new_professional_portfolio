@@ -298,35 +298,6 @@ class RecommendationSystem(PortfolioSection):
                 for col, rec in zip(cols, recommendations[i: i + self.num_columns]):
                     with col:
                         self.render_card(rec, is_project=rec.get("is_project", False))
-
-    def _render_control_panel(self):
-        """Render the control panel with sticky positioning inside its section."""
-        
-        # Inject CSS to make the control panel sticky
-        st.markdown(
-            """
-            <style>
-            .control-panel {
-                position: sticky;
-                top: 10px;
-                background: white;
-                padding: 15px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                z-index: 1000;
-                border-radius: 8px;
-            }
-            </style>
-            """,
-            unsafe_allow_html=True
-        )
-    
-        # Render keyword search only
-        query = st.text_input(
-            "🔍 Search for by keyword/library (e.g., Python, R):",
-            placeholder="Type a keyword and press Enter",
-        )
-        
-        return query
     
     def _style_ancillary_component(self, component_key):
         """Apply CSS styles to make the ancillary component visible with a smooth transition."""
@@ -345,79 +316,6 @@ class RecommendationSystem(PortfolioSection):
             unsafe_allow_html=True,
         )
 
-    def render_project_metadata(self, project_metadata):
-        """Render project title, video, and metadata in an ancillary container."""
-        
-        # Prepare video filename and path
-        video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
-        video_path = os.path.join('assets', video_filename)
-        
-        # Prepare metadata and description
-        tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
-        parsed_description = markdown.markdown(project_metadata['description'])
-        description_html, description_styles = expandable_text_html(parsed_description)
-        description_html = markdown.markdown(f"{tags_html} {description_html} ")
-    
-        # Unique media placeholder for each project
-        media_placeholder = st.empty()
-        
-        if os.path.exists(video_path):
-            media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
-        
-        # Render project title
-        st.markdown(
-            f"""
-            <div style="text-align: center;"><h3>{prettify_title(project_metadata['title'])}</h3></div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-        # Generate a unique key for the ancillary container
-        unique_key = hashlib.md5(f"{project_metadata['title']}_{time.time()}".encode()).hexdigest()
-        with st.container(key=unique_key):
-
-            # Render project description
-            st.markdown(
-                f"""
-                <div style="text-align: justify;">
-                    {description_html}
-                </div>
-                <style>{description_styles}</style>
-                """,
-                unsafe_allow_html=True,
-            )
-
-            # Render milestones in a grid layout
-            milestone_grid_html = self._render_milestones_grid(project_metadata)
-            st.markdown(milestone_grid_html, unsafe_allow_html=True)
-
-            st.write(f"Inside ancillary container {unique_key}")
-        
-        # Style the ancillary component
-        self._style_ancillary_component(unique_key)
-
-    def _render_milestones_grid(self, project_metadata):
-        """Render milestones in a row-based grid."""
-        grid_html = "<div style='display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;'>"
-        
-        # Render achieved milestones
-        achieved_html = html_for_milestones_from_project_metadata(project_metadata=project_metadata, milestone_type="achieved_milestones")
-        if achieved_html:
-            grid_html += f"<div>{achieved_html}</div>"
-        
-        # Render next milestones
-        upcoming_html = html_for_milestones_from_project_metadata(project_metadata=project_metadata, milestone_type="next_milestones")
-        if upcoming_html:
-            grid_html += f"<div>{upcoming_html}</div>"
-        
-        # Render code samples
-        code_samples = self._fetch_files(project_metadata['title'])
-        code_samples_html = html_for_milestones_from_project_metadata(milestones=code_samples, milestone_type="code_samples")
-        if code_samples_html:
-            grid_html += f"<div>{code_samples_html}</div>"
-
-        grid_html += "</div>"  # Close the grid container
-        return grid_html
 
     
     def _render_milestones_grid(self, project_metadata):
@@ -623,6 +521,43 @@ class RecommendationSystem(PortfolioSection):
             
             # Horizontal separator between projects
             st.markdown("---")
+
+    def _render_control_panel(self):
+        """Render the control panel with sticky positioning inside its section."""
+    
+        # Inject CSS to make the control panel sticky and well spaced
+        st.markdown(
+            """
+            <style>
+            .control-panel {
+                position: sticky;
+                top: 10px;
+                background: white;
+                padding: 20px;
+                margin: 40px auto; /* Top and bottom margin, centered horizontally */
+                width: 80%;         /* 80% of the horizontal space */
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+                border-radius: 10px;
+            }
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+    
+        # Wrapper div to apply custom class
+        st.markdown('<div class="control-panel">', unsafe_allow_html=True)
+    
+        # Render keyword search
+        query = st.text_input(
+            "🔍 Search for by keyword/library (e.g., Python, R):",
+            placeholder="Type a keyword and press Enter",
+        )
+    
+        st.markdown('</div>', unsafe_allow_html=True)
+    
+        return query
+
 
 # Example usage
 # Initialize RecSys with custom header and description
