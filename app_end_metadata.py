@@ -137,7 +137,7 @@ def load_repos_metadata():
             ]
         },
         {
-      "title": ""Random-Forest-Modeling-of-Mexican-Gas-Output",
+      "title": "Random-Forest-Modeling-of-Mexican-Gas-Output",
       "tags": [
           "Energy Forecasting",
           "Natural Gas",
