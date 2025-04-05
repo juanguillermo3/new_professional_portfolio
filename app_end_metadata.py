@@ -135,5 +135,36 @@ def load_repos_metadata():
                 "Create spatial intelligence by identifying locations tailored to business needs.",
                 "Gain a competitive advantage by accelerating expansion opportunities."
             ]
-        }
-    ]
+        },
+        {
+      "title": "random_forest_modeling_of_mexican_gas_output",
+      "tags": [
+          "Energy Forecasting",
+          "Natural Gas",
+          "Random Forest",
+          "Socioeconomic Modeling",
+          "Policy Planning",
+          "Machine Learning"
+      ],
+      "description": (
+          "A Random Forest-based framework to model Mexico’s national gas production "
+          "(Million Standard Cubic Feet per Day) from structural and demographic variables. "
+          "Designed to serve both 1-month and 6-month horizons, the system enables strategic "
+          "foresight for policymakers. Expert-driven feature selection enhances interpretability, "
+          "revealing socio-economic patterns behind national energy output. We propose mitigation "
+          "strategies for Random Forest’s known long-term prediction challenges, enabling more robust "
+          "forecasting under real-world constraints."
+      ),
+      "achieved_milestones": [
+          "Integrated structural and demographic datasets from public Mexican sources.  # (mock-up)",
+          "Engineered feature set with expert knowledge to reflect socio-economic drivers.  # (mock-up)",
+          "Trained and validated Random Forest models for short- and long-term forecasting.  # (mock-up)",
+          "Implemented diagnostic tools to evaluate long-term predictive reliability.  # (mock-up)"
+      ],
+      "business_impact": [
+          "Supports energy policy decisions with interpretable, data-driven forecasts.  # (mock-up)",
+          "Enables early detection of structural factors affecting gas production trends.  # (mock-up)",
+          "Promotes data transparency and reproducibility in energy forecasting pipelines.  # (mock-up)"
+      ]
+  }
+]
