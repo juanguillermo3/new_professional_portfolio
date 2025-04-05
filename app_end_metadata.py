@@ -147,12 +147,12 @@ def load_repos_metadata():
           "Machine Learning"
       ],
       "description": (
-          "A Random Forest-based framework to model Mexico’s national gas production "
-          "(Million Standard Cubic Feet per Day) from structural and demographic variables. "
-          "Designed to serve both 1-month and 6-month horizons, the system enables strategic "
-          "foresight for policymakers. Expert-driven feature selection enhances interpretability, "
+          "A **Random Forest-based framework** to model Mexico’s national gas production "
+          "(**Million Standard Cubic Feet per Day**) from structural and demographic variables. "
+          "Designed to serve both **1-month and 6-month horizons**, the system enables strategic "
+          "foresight for policymakers. Expert-driven **feature selection** enhances interpretability, "
           "revealing socio-economic patterns behind national energy output. We propose mitigation "
-          "strategies for Random Forest’s known long-term prediction challenges, enabling more robust "
+          "strategies for Random Forest’s known **long-term prediction** challenges, enabling more robust "
           "forecasting under real-world constraints."
       ),
       "achieved_milestones": [
