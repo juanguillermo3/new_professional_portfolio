@@ -1,5 +1,11 @@
 [
   {
+    "title": "Random-Forest-Modeling-of-Mexican-Gas-Output",
+    "description": "This project uses a Random Forest approach to forecast Mexico\u2019s gas output based on structural and demographic factors.",
+    "image": "https://raw.githubusercontent.com/juanguillermo3/Random-Forest-Modeling-of-Mexican-Gas-Output/main/project_image.png",
+    "url": "https://github.com/juanguillermo3/Random-Forest-Modeling-of-Mexican-Gas-Output"
+  },
+  {
     "title": "evaluation_of_job_intermediation_program",
     "description": "I was hired as a remote research assistant to assess the effectiveness of a job intermediation program administered by a job agency located in Bogot\u00e1, using program evaluation techniques. We used propensity score matching to account for selection bias due to the job agency's targeting policies.",
     "image": "https://raw.githubusercontent.com/juanguillermo3/evaluation_of_job_intermediation_program/main/project_image.png",
