@@ -563,33 +563,35 @@ class RecommendationSystem(PortfolioSection):
     def render(self):
         """Render method displaying all projects in a portfolio-style view with a featured 'Personal Highlight'."""
     
-        # Step 1: Hardcoded query for now (e.g., from control panel or smart logic)
-        query = "random-forest"
+        # Step 1: Get user input from the control panel
+        user_query = self._render_control_panel()
     
         # Step 2: Copy metadata to avoid mutating the original list
         projects_copy = self.repos_metadata.copy()
     
-        # Step 3: Fetch the highlighted project and render it with distinction
-        highlighted_project = self._fetch_highlighted_project(projects_copy, query)
+        # Step 3: Fetch the hardcoded-highlighted project (e.g., 'random-forest')
+        highlighted_project = self._fetch_highlighted_project(projects_copy)
         if highlighted_project:
             st.markdown("## 🌟 Personal Highlight")
-            self.render_project_metadata_and_recommendations(highlighted_project, query)
+            self.render_project_metadata_and_recommendations(highlighted_project, user_query)
             st.markdown("---")
     
-        # Step 4: Render the remaining projects
+        # Step 4: Render the remaining projects using user query
         for project_metadata in projects_copy:
-            self.render_project_metadata_and_recommendations(project_metadata, query)
+            self.render_project_metadata_and_recommendations(project_metadata, user_query)
             st.markdown("---")
     
     
-    def _fetch_highlighted_project(self, projects, query):
-        """Returns the best matching project as a 'Personal Highlight' and removes it from the list."""
+    def _fetch_highlighted_project(self, projects):
+        """Selects and removes the special highlighted project from the list (based on hardcoded keyword)."""
         
+        highlight_key = "random-forest"
+    
         for i, project in enumerate(projects):
             title = project.get("title", "").lower()
             tags = [tag.lower() for tag in project.get("tags", [])]
     
-            if query in title or query in tags:
+            if highlight_key in title or highlight_key in tags:
                 return projects.pop(i)
         
         # Fallback: return the first project if no match found
@@ -597,6 +599,7 @@ class RecommendationSystem(PortfolioSection):
             return projects.pop(0)
     
         return None
+
 
 
 
