@@ -1,5 +1,145 @@
 [
   {
+    "title": "Correlation Analysis",
+    "description": "",
+    "libraries": [
+      "pandas"
+    ],
+    "last_updated": "2025-04-05T20:28:12Z",
+    "url": "https://github.com/juanguillermo3/Random-Forest-Modeling-of-Mexican-Gas-Output/blob/main/correlation_analysis.py",
+    "file_path": "correlation_analysis.py",
+    "repo_name": "Random-Forest-Modeling-of-Mexican-Gas-Output"
+  },
+  {
+    "title": "Oil Production Dataset",
+    "description": "Provides access layer, performs trivial transformations to the Oil Dataset.",
+    "libraries": [
+      "os",
+      "pandas"
+    ],
+    "last_updated": "2025-04-05T20:28:12Z",
+    "url": "https://github.com/juanguillermo3/Random-Forest-Modeling-of-Mexican-Gas-Output/blob/main/datasets.py",
+    "file_path": "datasets.py",
+    "repo_name": "Random-Forest-Modeling-of-Mexican-Gas-Output"
+  },
+  {
+    "title": "Debugging Tools",
+    "description": "Tracking temporal indices in forecasting and data science problems is both challenging and essential to avoid data leakage.  This module provides tools to create artificial datasets that help trace the temporal origins of feature values.",
+    "libraries": [],
+    "last_updated": "2025-04-05T21:04:29Z",
+    "url": "https://github.com/juanguillermo3/Random-Forest-Modeling-of-Mexican-Gas-Output/blob/main/debugging_tools.py",
+    "file_path": "debugging_tools.py",
+    "repo_name": "Random-Forest-Modeling-of-Mexican-Gas-Output"
+  },
+  {
+    "title": "Spatial RecSys",
+    "author": "Juan Guillermo",
+    "description": "End-to-end implementation of a recommendation system for retail store placement.                 The system analyzes historical store locations and integrates fine-grained                 demographic and socioeconomic data from U.S. ZIP codes. Using machine learning,                 it predicts optimal locations for new stores by predicting ZIP codes with a high                 probability of a new opening. The underlying probability model ranks                 potential store locations in U.S. states not included in the training data.",
+    "image_path": "assets/site_recommendation_system_network_plot.html  -->",
+    "libraries": [
+      "time_series_plots",
+      "numpy",
+      "pandas",
+      "transformation_tools",
+      "os",
+      "debugging_tools",
+      "datasets",
+      "rf_model",
+      "dotenv",
+      "re",
+      "forecast_plots",
+      "matplotlib",
+      "ml_samples",
+      "feature_names_tools",
+      "seaborn",
+      "correlation_analysis",
+      "time_series_preprocessing"
+    ],
+    "last_updated": "2025-04-05T20:28:12Z",
+    "url": "https://github.com/juanguillermo3/Random-Forest-Modeling-of-Mexican-Gas-Output/blob/main/end2end.ipynb",
+    "file_path": "end2end.ipynb",
+    "repo_name": "Random-Forest-Modeling-of-Mexican-Gas-Output"
+  },
+  {
+    "title": "Feature Names Tools",
+    "description": "Simplifies feature names.",
+    "libraries": [
+      "pandas"
+    ],
+    "last_updated": "2025-04-05T20:28:12Z",
+    "url": "https://github.com/juanguillermo3/Random-Forest-Modeling-of-Mexican-Gas-Output/blob/main/feature_names_tools.py",
+    "file_path": "feature_names_tools.py",
+    "repo_name": "Random-Forest-Modeling-of-Mexican-Gas-Output"
+  },
+  {
+    "title": "Forecast Plots",
+    "description": "A tool for visualizing forecasted versus historical values of a target series.  It is designed to support comparative analysis of forecasting performance across different  forecast horizons and to report key accuracy metrics.",
+    "libraries": [
+      "math",
+      "numpy",
+      "pandas",
+      "warnings",
+      "matplotlib"
+    ],
+    "last_updated": "2025-04-05T21:04:29Z",
+    "url": "https://github.com/juanguillermo3/Random-Forest-Modeling-of-Mexican-Gas-Output/blob/main/forecast_plots.py",
+    "file_path": "forecast_plots.py",
+    "repo_name": "Random-Forest-Modeling-of-Mexican-Gas-Output"
+  },
+  {
+    "title": "ML Samples",
+    "description": "A utility for generating training and test datasets tailored to forecasting applications. This tool ensures proper alignment of target and feature data based on the forecast horizon before splitting the dataset for standard machine learning tasks.",
+    "libraries": [
+      "os",
+      "datasets",
+      "time_series_utils",
+      "dotenv"
+    ],
+    "last_updated": "2025-04-05T21:04:29Z",
+    "url": "https://github.com/juanguillermo3/Random-Forest-Modeling-of-Mexican-Gas-Output/blob/main/ml_samples.py",
+    "file_path": "ml_samples.py",
+    "repo_name": "Random-Forest-Modeling-of-Mexican-Gas-Output"
+  },
+  {
+    "title": "RF Model",
+    "description": "A set of utilities to support the training and evaluation of Random Forest models,  with specific adaptations for forecasting applications.  The functions `train_random_forest` and `evaluate_model` provide standard model evaluation on  out-of-sample data, while `evaluate_model_over_sliding_window` performs model retraining and  evaluation over a sliding window.",
+    "libraries": [
+      "typing",
+      "sklearn",
+      "pandas"
+    ],
+    "last_updated": "2025-04-05T21:04:29Z",
+    "url": "https://github.com/juanguillermo3/Random-Forest-Modeling-of-Mexican-Gas-Output/blob/main/rf_model.py",
+    "file_path": "rf_model.py",
+    "repo_name": "Random-Forest-Modeling-of-Mexican-Gas-Output"
+  },
+  {
+    "title": "Time Series Plots",
+    "description": "Provides graphical tools based on Matplotlib to visualize time series.",
+    "libraries": [
+      "numpy",
+      "seaborn",
+      "pandas",
+      "matplotlib"
+    ],
+    "last_updated": "2025-04-05T20:28:12Z",
+    "url": "https://github.com/juanguillermo3/Random-Forest-Modeling-of-Mexican-Gas-Output/blob/main/time_series_plots.py",
+    "file_path": "time_series_plots.py",
+    "repo_name": "Random-Forest-Modeling-of-Mexican-Gas-Output"
+  },
+  {
+    "title": "Transformation tools",
+    "description": "Tools to facilitate feature transformation",
+    "libraries": [
+      "numpy",
+      "pandas"
+    ],
+    "last_updated": "2025-04-05T20:28:12Z",
+    "url": "https://github.com/juanguillermo3/Random-Forest-Modeling-of-Mexican-Gas-Output/blob/main/transformation_tools.py",
+    "file_path": "transformation_tools.py",
+    "repo_name": "Random-Forest-Modeling-of-Mexican-Gas-Output"
+  },
+  {
     "title": "Assess Program Balance for Treatment and Control Groups",
     "description": "This function assesses the balance of independent variables across treatment and control groups by performing statistical tests (e.g., T-tests for continuous variables, Proportion tests for binary variables). It calculates the differences between the treatment and control groups, p-values, and adds significance markers (e.g., stars) for each variable. The output is a data frame with the assessment results, including subsample sizes for both groups.",
     "last_updated": "2025-01-27T04:02:35Z",
