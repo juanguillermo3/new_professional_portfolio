@@ -523,36 +523,43 @@ class RecommendationSystem(PortfolioSection):
             st.markdown("---")
 
     def _render_control_panel(self):
-        """Render the control panel with sticky positioning and centered layout."""
+        """Render the control panel using Streamlit's container key for styling and layout."""
     
-        # Inject style for the control panel container
-        st.markdown(
-            """
-            <style>
-            [data-testid="stVerticalBlock"] > div[class*="control-panel"] {
-                position: sticky;
-                top: 10px;
-                background: white;
-                padding: 20px;
-                margin: 40px auto; /* Adds top and bottom spacing and centers horizontally */
-                width: 80%;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                z-index: 1000;
-                border-radius: 10px;
-            }
-            </style>
-            """,
-            unsafe_allow_html=True
-        )
+        unique_key = "control-panel"
     
-        # Render control panel inside a styled container
-        with st.container(key="control-panel"):
+        # Create a container with the unique key
+        with st.container(key=unique_key):
+            # Apply custom styling using the key (adds margins and centers layout)
+            st.markdown(
+                f"""
+                <style>
+                    .st-key-{unique_key} {{
+                        position: sticky;
+                        top: 10px;
+                        background: white;
+                        padding: 20px;
+                        margin-top: 40px;
+                        margin-bottom: 40px;
+                        margin-left: auto;
+                        margin-right: auto;
+                        width: 80%;
+                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                        border-radius: 10px;
+                        z-index: 1000;
+                    }}
+                </style>
+                """,
+                unsafe_allow_html=True
+            )
+    
+            # Main search box
             query = st.text_input(
                 "🔍 Search for by keyword/library (e.g., Python, R):",
                 placeholder="Type a keyword and press Enter",
             )
     
         return query
+
 
 
 
