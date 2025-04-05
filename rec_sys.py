@@ -523,19 +523,19 @@ class RecommendationSystem(PortfolioSection):
             st.markdown("---")
 
     def _render_control_panel(self):
-        """Render the control panel with sticky positioning inside its section."""
+        """Render the control panel with sticky positioning and centered layout."""
     
-        # Inject CSS to make the control panel sticky and well spaced
+        # Inject style for the control panel container
         st.markdown(
             """
             <style>
-            .control-panel {
+            [data-testid="stVerticalBlock"] > div[class*="control-panel"] {
                 position: sticky;
                 top: 10px;
                 background: white;
                 padding: 20px;
-                margin: 40px auto; /* Top and bottom margin, centered horizontally */
-                width: 80%;         /* 80% of the horizontal space */
+                margin: 40px auto; /* Adds top and bottom spacing and centers horizontally */
+                width: 80%;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
                 z-index: 1000;
                 border-radius: 10px;
@@ -545,18 +545,15 @@ class RecommendationSystem(PortfolioSection):
             unsafe_allow_html=True
         )
     
-        # Wrapper div to apply custom class
-        st.markdown('<div class="control-panel">', unsafe_allow_html=True)
-    
-        # Render keyword search
-        query = st.text_input(
-            "🔍 Search for by keyword/library (e.g., Python, R):",
-            placeholder="Type a keyword and press Enter",
-        )
-    
-        st.markdown('</div>', unsafe_allow_html=True)
+        # Render control panel inside a styled container
+        with st.container(key="control-panel"):
+            query = st.text_input(
+                "🔍 Search for by keyword/library (e.g., Python, R):",
+                placeholder="Type a keyword and press Enter",
+            )
     
         return query
+
 
 
 # Example usage
