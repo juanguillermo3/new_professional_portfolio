@@ -836,7 +836,8 @@ class RecommendationSystem(PortfolioSection):
         """Render project title, video, metadata, and recommendations in an ancillary container."""
         
         # Prepare video filename and path
-        video_filename = f"{project_metadata['title'].replace(' ', '_').lower()}_theme.mp4"
+        sanitized_title = re.sub(r"[ \-]+", "_", project_metadata['title'].lower())
+        video_filename = f"{sanitized_title}_theme.mp4"
         video_path = os.path.join('assets', video_filename)
         
         # Prepare metadata and description
