@@ -572,7 +572,10 @@ class RecommendationSystem(PortfolioSection):
         # Step 3: Fetch the hardcoded-highlighted project (e.g., 'random-forest')
         highlighted_project = self._fetch_highlighted_project(projects_copy)
         if highlighted_project:
-            st.markdown("## 🌟 Personal Highlight")
+            st.markdown(
+                "<div style='text-align: right;'><h4>🌟 <em>Personal Highlight</em></h4></div>",
+                unsafe_allow_html=True
+            )
             self.render_project_metadata_and_recommendations(highlighted_project, user_query)
             st.markdown("---")
     
