@@ -5,6 +5,7 @@ description: Contains various utilities for design across portfolio sections.
 
 import html
 import streamlit as st
+import re
 import random
 from exceptional_ui import apply_custom_tooltip
 
