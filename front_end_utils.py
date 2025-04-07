@@ -8,10 +8,7 @@ import streamlit as st
 import random
 from exceptional_ui import apply_custom_tooltip
 
-#
-def prettify_title(title):
-    """Prettify the title by removing underscores and capitalizing words."""
-    return " ".join(word.capitalize() for word in title.replace("_", " ").split())
+
 
 #
 def tags_in_twitter_style(tags, color_palette=None):
@@ -247,5 +244,19 @@ class ButtonFabric:
 
         return "\n".join(rows)+"\n"
 
+def prettify_title(title, cleanup_regex=r"[^a-zA-Z0-9]+"):
+    """
+    Prettify the title by removing undesired characters using a regex,
+    splitting into words, and capitalizing them.
+
+    Parameters:
+    - title (str): The input title string.
+    - cleanup_regex (str): A regex pattern to replace undesired characters. Defaults to non-alphanumerics.
+
+    Returns:
+    - str: Prettified title.
+    """
+    clean_title = re.sub(cleanup_regex, " ", title)
+    return " ".join(word.capitalize() for word in clean_title.split())
 
 
