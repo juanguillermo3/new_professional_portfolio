@@ -582,7 +582,7 @@ class RecommendationSystem(PortfolioSection):
     def render(self):
         """Render method displaying all projects in a portfolio-style view with a featured 'Personal Highlight'."""
 
-        self.render_headers()
+        self._render_headers()
       
         # Step 1: Get user input from the control panel
         user_query = self._render_control_panel()
