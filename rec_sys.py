@@ -39,6 +39,14 @@ load_dotenv()
 MOCK_INFO_PREFIX = os.getenv("MOCK_INFO", "[MOCK INFO]")
 
 #
+# Instantiation of the semantic retriever -> helps to filter projects by meaning
+#
+
+from project_retrieval import SemanticRetriever
+project_retriever=SemanticRetriever("index/projects.index","index/metadata.json")
+#[_["title"] for _ in retriever.search("AI")]
+
+#
 # (0) ancillary function to merge metadata about underlyng items
 #
 def combine_metadata():
@@ -71,29 +79,42 @@ class RecommendationSystem(PortfolioSection):
     MEDIA_CONTAINER_WIDTH = "700px"
     MEDIA_CONTAINER_HEIGHT = "400px"
     #
-    def __init__(self, num_recommended_items=6, num_columns=3,
+    def __init__(self, semantic_project_retriever,
+                 num_recommended_items=6, num_columns=3,
                  section_header="Project Galleria 🗂️ ",
                  section_description="Discover content tailored to your needs. Use the search bar to find recommendations and filter by project category."):
+        """
+        A class responsible for rendering a gallery of projects and
+        recommending them based on semantic similarity.
 
+        Args:
+            semantic_project_retriever: An instance of a semantic retriever component
+                responsible for encoding queries and retrieving similar projects.
+            num_recommended_items (int): Number of recommended items to display.
+            num_columns (int): Number of columns in the gallery layout.
+            section_header (str): Title for the section.
+            section_description (str): Descriptive subtitle for the section.
+        """
         super().__init__(
             title=section_header,
             description=section_description,
-            verified=self.DATA_VERIFIED,  # Use subclass defaults
+            verified=self.DATA_VERIFIED,
             early_dev=self.EARLY_DEVELOPMENT_STAGE,
-            ai_content=not self.DATA_VERIFIED  # This ensures consistency
+            ai_content=not self.DATA_VERIFIED
         )
-                     
+
+        self.semantic_project_retriever = semantic_project_retriever
         self.num_recommended_items = num_recommended_items
         self.num_columns = num_columns
         
-        self.repos_metadata = combine_metadata()  
-        self.metadata_list = load_modules_metadata()  
+        self.repos_metadata = combine_metadata()
+        self.metadata_list = load_modules_metadata()
 
         self._sort_projects()
         self._prepare_project_titles_and_default()
 
-        #self.gallery_collection = GalleryCollection()
-        self.active_galleria = None
+        self.active_galleria = None  # Still optional unless you attach something dynamically
+
     #
     def _sort_projects(self):
         """Sort projects by ongoing status and number of related items."""
@@ -505,23 +526,6 @@ class RecommendationSystem(PortfolioSection):
                     with col:
                         self.render_card(rec, is_project=rec.get("is_project", False))
 
-    def render(self):
-        """Render method displaying all projects in a portfolio-style view."""
-
-        #self._render_headers()
-        #st.markdown(f'{self.MAIN_STATEMENT}', unsafe_allow_html=True)
-        
-        # Render the sticky control panel and retrieve user query
-        query = self._render_control_panel()
-        
-        # Iterate over all projects and render them one by one
-        for project_metadata in self.repos_metadata:
-          
-            self.render_project_metadata_and_recommendations(project_metadata, query)
-            
-            # Horizontal separator between projects
-            st.markdown("---")
-
     def _render_control_panel(self):
         """Render the control panel using Streamlit's container key for styling and layout."""
     
@@ -605,10 +609,57 @@ class RecommendationSystem(PortfolioSection):
             self.render_project_metadata_and_recommendations(project_metadata, user_query)
             st.markdown("---")
 
-# Example usage
-# Initialize RecSys with custom header and description
+    def _render_control_panel(self):
+        """Render the control panel using Streamlit's container key for styling and layout."""
+    
+        unique_key = "control-panel"
+    
+        # Create a container with the unique key
+        with st.container(key=unique_key):
+            # Apply custom styling using the key (adds margins and centers layout)
+            st.markdown(
+                f"""
+                <style>
+                    .st-key-{unique_key} {{
+                        position: sticky;
+                        top: 10px;
+                        background: white;
+                        padding: 20px;
+                        margin-top: 40px;
+                        margin-bottom: 40px;
+                        margin-left: auto;
+                        margin-right: auto;
+                        width: 80%;
+                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                        border-radius: 10px;
+                        z-index: 1000;
+                    }}
+                </style>
+                """,
+                unsafe_allow_html=True
+            )
+    
+            # Main search box
+            query = st.text_input(
+                "🔍 Search for by keyword/library (e.g., Python, R):",
+                placeholder="Type a keyword and press Enter",
+            )
+    
+            # Debug output of matched titles
+            if True and query:
+                results = self.semantic_project_retriever.search(query)
+                titles = [r["title"] for r in results]
+                st.markdown("**🧪 Debug — Retrieved Titles:**")
+                for i, title in enumerate(titles, 1):
+                    st.markdown(f"{i}. {title}")
+    
+        return query
+
+
+# Assume project_retriever is an instance of your semantic retriever (already initialized)
 recsys = RecommendationSystem(
-    #section_header="Customized Recommendations 🔍", 
+    semantic_project_retriever=project_retriever,
     section_description="Our Recommendation System (RecSys) helps you discover projects and code examples you may find interesting."
 )
+
 
