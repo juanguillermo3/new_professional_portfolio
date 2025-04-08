@@ -609,6 +609,6 @@ class RecommendationSystem(PortfolioSection):
 # Initialize RecSys with custom header and description
 recsys = RecommendationSystem(
     #section_header="Customized Recommendations 🔍", 
-    section_description="This section implements a Recommendation System (RecSys) to make my portfolio discoverable."
+    section_description="Our Recommendation System (RecSys) helps you discover projects and code examples you may find interesting."
 )
 
