@@ -559,10 +559,31 @@ class RecommendationSystem(PortfolioSection):
             )
     
         return query
+      
+    def _fetch_highlighted_project(self, projects):
+        """Selects and removes the special highlighted project from the list (based on hardcoded keyword)."""
+        
+        highlight_key = "random-forest"
+    
+        for i, project in enumerate(projects):
+            title = project.get("title", "").lower()
+            tags = [tag.lower() for tag in project.get("tags", [])]
+    
+            if highlight_key in title or highlight_key in tags:
+                return projects.pop(i)
+        
+        # Fallback: return the first project if no match found
+        if projects:
+            return projects.pop(0)
+    
+        return None
+
 
     def render(self):
         """Render method displaying all projects in a portfolio-style view with a featured 'Personal Highlight'."""
-    
+
+        self.render_headers()
+      
         # Step 1: Get user input from the control panel
         user_query = self._render_control_panel()
     
@@ -583,28 +604,6 @@ class RecommendationSystem(PortfolioSection):
         for project_metadata in projects_copy:
             self.render_project_metadata_and_recommendations(project_metadata, user_query)
             st.markdown("---")
-    
-    
-    def _fetch_highlighted_project(self, projects):
-        """Selects and removes the special highlighted project from the list (based on hardcoded keyword)."""
-        
-        highlight_key = "random-forest"
-    
-        for i, project in enumerate(projects):
-            title = project.get("title", "").lower()
-            tags = [tag.lower() for tag in project.get("tags", [])]
-    
-            if highlight_key in title or highlight_key in tags:
-                return projects.pop(i)
-        
-        # Fallback: return the first project if no match found
-        if projects:
-            return projects.pop(0)
-    
-        return None
-
-
-
 
 # Example usage
 # Initialize RecSys with custom header and description
