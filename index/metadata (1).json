@@ -1,0 +1,49 @@
+{
+  "0": {
+    "title": "Random-Forest-Modeling-of-Mexican-Gas-Output",
+    "description": "This project uses a Random Forest approach to forecast Mexico\u2019s gas output based on structural and demographic factors.",
+    "image": "https://raw.githubusercontent.com/juanguillermo3/Random-Forest-Modeling-of-Mexican-Gas-Output/main/project_image.png",
+    "url": "https://github.com/juanguillermo3/Random-Forest-Modeling-of-Mexican-Gas-Output"
+  },
+  "1": {
+    "title": "evaluation_of_job_intermediation_program",
+    "description": "I was hired as a remote research assistant to assess the effectiveness of a job intermediation program administered by a job agency located in Bogot\u00e1, using program evaluation techniques. We used propensity score matching to account for selection bias due to the job agency's targeting policies.",
+    "image": "https://raw.githubusercontent.com/juanguillermo3/evaluation_of_job_intermediation_program/main/project_image.png",
+    "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program"
+  },
+  "2": {
+    "title": "lab_market_trends",
+    "description": "This project aims to **automatically detect and analyze** emerging trends in the demand side of the Colombian **labor market** through **Natural Language Processing (NLP)** applied to job vacancies published on the **Servicio P\u00fablico de Empleo (SPE)** platform. A **web scraping service** gathers job posting texts from the SPE site, while a **pseudo-regression approach** within a **machine learning (ML)** framework models wages based on keywords. **Feature importance metrics** identify keywords correlated with wage drivers.",
+    "image": "https://raw.githubusercontent.com/juanguillermo3/lab_market_trends/main/project_image.png",
+    "url": "https://github.com/juanguillermo3/lab_market_trends"
+  },
+  "3": {
+    "title": "monkey_research",
+    "description": "This **ethology research project** analyzes the **behavioral patterns** of several monkey species. My client, a **doctoral candidate**, ventured deep into the **Australian jungle** to collect extensive **field data** encompassing diverse aspects of **behavior, dietary habits, vegetation,** and **living environments**. Our **statistical analysis** aims to understand how monkeys allocate their **time budgets** across different behaviors and how various **contextual factors**\u2014such as **time of day, seasonality, weather, species,** and **reproductive status**\u2014as well as **individual-level traits** like **sex** and **group membership** influence these behaviors. This project highlights the versatility of **multivariate statistics** in **behavioral research**, and its findings offer valuable insights, even for **marketing projects** targeting monkeys or similar species.",
+    "image": "https://raw.githubusercontent.com/juanguillermo3/monkey_research/main/project_image.png",
+    "url": "https://github.com/juanguillermo3/monkey_research"
+  },
+  "4": {
+    "title": "new_professional_portfolio",
+    "description": "This project aims to develop a **modern professional portfolio** that serves as a **highly specialized**, yet **dynamically adaptable**, **contextually relevant** representation of an **underlying professional portfolio**. The goal is to achieve **profound yet relevant professional offerings**. It is contextualized within a **larger research effort** exploring **emerging technologies** such as **recommendation systems**, **LLM-powered applications**, and **software-based automation** to mitigate common **struggles** faced by workers in the **labor market**.",
+    "image": "https://raw.githubusercontent.com/juanguillermo3/new_professional_portfolio/main/project_image.png",
+    "url": "https://github.com/juanguillermo3/new_professional_portfolio"
+  },
+  "5": {
+    "title": "predictive_analytics",
+    "description": "A house specialty, the series of predictive analytics groups several consultancies focused on the development of high-performance ML systems, with a component of research and development on algorithms to boost performance through maximum hyperparameter configuration.",
+    "image": "https://raw.githubusercontent.com/juanguillermo3/predictive_analytics/main/project_image.png",
+    "url": "https://github.com/juanguillermo3/predictive_analytics"
+  },
+  "6": {
+    "title": "sales_forecasting_with_genetic_neural_networks",
+    "description": "High performance forecasting system for a Business Intelligence use case, producing 1-month ahead forecast of total sales for a food delivery application. Deep, Feed Forward Neural networks were implemented to forecast on the basis of lags of the sales series. Moreover, Genetic Optimization was used to choose the optimal architecture for each predictive model.",
+    "url": "https://github.com/juanguillermo3/sales_forecasting_with_genetic_neural_networks"
+  },
+  "7": {
+    "title": "site_recommendation_system",
+    "description": "Reccommend sites where a store might be openned, given historical placements",
+    "image": "https://raw.githubusercontent.com/juanguillermo3/site_recommendation_system/main/project_image.png",
+    "url": "https://github.com/juanguillermo3/site_recommendation_system"
+  }
+}
