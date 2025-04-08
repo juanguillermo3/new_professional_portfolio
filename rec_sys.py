@@ -72,7 +72,7 @@ class RecommendationSystem(PortfolioSection):
     MEDIA_CONTAINER_HEIGHT = "400px"
     #
     def __init__(self, num_recommended_items=6, num_columns=3,
-                 section_header="Recommendation System 🎯",
+                 section_header="Project Galleria 🎯",
                  section_description="Discover content tailored to your needs. Use the search bar to find recommendations and filter by project category."):
 
         super().__init__(
