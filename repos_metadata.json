@@ -30,12 +30,6 @@
     "url": "https://github.com/juanguillermo3/new_professional_portfolio"
   },
   {
-    "title": "predictive_analytics",
-    "description": "A house specialty, the series of predictive analytics groups several consultancies focused on the development of high-performance ML systems, with a component of research and development on algorithms to boost performance through maximum hyperparameter configuration.",
-    "image": "https://raw.githubusercontent.com/juanguillermo3/predictive_analytics/main/project_image.png",
-    "url": "https://github.com/juanguillermo3/predictive_analytics"
-  },
-  {
     "title": "sales_forecasting_with_genetic_neural_networks",
     "description": "High performance forecasting system for a Business Intelligence use case, producing 1-month ahead forecast of total sales for a food delivery application. Deep, Feed Forward Neural networks were implemented to forecast on the basis of lags of the sales series. Moreover, Genetic Optimization was used to choose the optimal architecture for each predictive model.",
     "url": "https://github.com/juanguillermo3/sales_forecasting_with_genetic_neural_networks"
