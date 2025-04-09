@@ -646,7 +646,7 @@ class RecommendationSystem(PortfolioSection):
             )
     
             # Debug output of matched titles
-            if True and query:
+            if False and query:
                 results = self.semantic_project_retriever.search(query)
                 titles = [r["title"] for r in results]
                 st.markdown("**🧪 Debug — Retrieved Titles:**")
