@@ -627,7 +627,7 @@ class RecommendationSystem(PortfolioSection):
     def render(self):
         """Render method displaying all projects in a portfolio-style view with a featured 'Personal Highlight'.
     
-        If no query is entered, a hardcoded highlight is shown first, followed by all projects.
+        If no query is entered, a hardcoded highlight is shown first, followed by the rest (excluding highlight).
         If a query is entered, only the ranked projects are shown in order.
         """
     
@@ -657,20 +657,26 @@ class RecommendationSystem(PortfolioSection):
                     unsafe_allow_html=True
                 )
                 highlighted_project = next(
-                    (project for project in self.repos_metadata if project["title"] == highlighted_title),
+                    (project for project in projects_copy if project["title"] == highlighted_title),
                     None
                 )
                 if highlighted_project:
                     self.render_project_metadata_and_recommendations(highlighted_project, user_query)
                     st.markdown("---")
     
-            # Then render all other remaining projects
-            projects_to_render = projects_copy
+                # Exclude highlighted project from further rendering
+                projects_to_render = [
+                    project for project in projects_copy if project["title"] != highlighted_title
+                ]
+            else:
+                # No highlight found, render everything
+                projects_to_render = projects_copy
     
         # Step 4: Render selected projects
         for project_metadata in projects_to_render:
-            self.render_project_metadata_and_recommendations(project_metadata, "." )
+            self.render_project_metadata_and_recommendations(project_metadata, user_query)
             st.markdown("---")
+
 
 
 # Assume project_retriever is an instance of your semantic retriever (already initialized)
