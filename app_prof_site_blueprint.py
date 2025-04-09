@@ -46,7 +46,7 @@ WHATSAPP_NUMBER = os.getenv("WHATSAPP_NUMBER", "+573053658650" )
 
 # Define available sections for customization
 SECTIONS = {
-    "About": about,
+    #"About": about,
     "RecSys": recsys,
     "Services": services,
     "CurriculumVitae": cv,
