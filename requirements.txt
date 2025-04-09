@@ -1,5 +1,9 @@
 python-dotenv==0.21.1
 markdown==3.3.7
 imgkit==1.2.3
-faiss-cpu==1.7.4
+
+# Vector similarity search
+faiss-cpu==1.7.2.post2  # Precompiled wheel, avoids build issues
+
+# Language model encoder
 sentence-transformers==2.2.2
