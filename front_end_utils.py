@@ -271,4 +271,54 @@ def tags_in_twitter_style(tags, color_palette=None):
 
     return " ".join(format_tag(tag) for tag in tags)
 
+import random
+import html
+
+def tags_in_twitter_style(tags, color_palette=None):
+    """Generates styled hashtags with a high intellectual energy vibe and animated hover interaction."""
+    if color_palette is None:
+        color_palette = [
+            "#5F0F40",  # Deep Magenta
+            "#0A1128",  # Midnight Navy
+            "#3D348B",  # Indigo Violet
+            "#577590",  # Slate Blue
+            "#43AA8B",  # Intellectual Green
+            "#F9844A",  # Warm Orange
+            "#E63946",  # Crimson
+            "#8338EC",  # Electric Violet
+        ]
+
+    tag_elements = []
+    for idx, tag in enumerate(tags):
+        cleaned = "".join(word.capitalize() for word in tag.lower().split())
+        color = color_palette[idx % len(color_palette)]
+        safe_tag = html.escape(f"#{cleaned}")
+        tag_html = f'''
+            <span class="hashtag tag-{idx}">{safe_tag}</span>
+            <style>
+                .tag-{idx} {{
+                    color: {color};
+                    background-color: {color}00;  /* Fully transparent background */
+                    font-size: 1.0em;
+                    font-weight: 600;
+                    margin-right: 14px;
+                    padding: 4px 8px;
+                    border-radius: 6px;
+                    display: inline-block;
+                    transition: 
+                        background-color 0.3s ease-in-out, 
+                        color 0.3s ease-in-out,
+                        transform 0.2s ease-in-out;
+                }}
+                .tag-{idx}:hover {{
+                    background-color: {color};
+                    color: white;
+                    transform: scale(1.05);
+                    cursor: pointer;
+                }}
+            </style>
+        '''
+        tag_elements.append(tag_html)
+
+    return " ".join(tag_elements)
 
