@@ -35,30 +35,28 @@ DEFAULT_EMAILS = [
     ("jg.osio151@uniandes.edu.co")
 ]
 DETAILS = {
-    # Personal Identification
+    # Identification
     "🆔 Full Name": "Juan Guillermo Osio J",
 
-    # Professional Summary (highly relevant and should appear early)
-    "💼 Job Title": "Data Mining Specialist",
+    # Professional Profile
+    "💼 Profile": "Data Mining Specialist, 5+ Years in Data Mining, Bachelor’s in Economics",
     "🎯 Target Roles": "Data Minning Developer, Machine Learning Engineer",
-    "📊 Experience": "5+ Years in Data Mining",
-    "🎓 Education": "Bachelor’s in Economics",
 
-    # Technical Skills (grouped and ordered by depth)
+    # Technical Skills
     "🚀 Excellence Tier": "Python, R Studio, Stata, GPT",
     "🔧 Proficiency Tier": "Airflow, SQL, Spark, Linux, GitHub",
 
-    # Contact Information (important but not the first focus)
-    "📧 Email": DEFAULT_EMAILS[0],
-    "📨 Email (Alternative)": DEFAULT_EMAILS[1],
+    # Contact Information
+    "📧 Emails": f"{DEFAULT_EMAILS[0]}, {DEFAULT_EMAILS[1]}",
     "📱 WhatsApp": WHATSAPP_NUMBER,
 
-    # Location & Legal Status (relevant for work eligibility and logistics)
+    # Location
     "📍 Location": "Bogotá, Colombia",
 
-    # Compensation Expectations (typically reviewed after qualifications)
-    "💰 Expected Rate": "$1500 - $2000 per month"
+    # Compensation
+    "💰 Compensation": "$1500 - $2000 per month, $20 per consultancy hour"
 }
+
 
 
 class HeroArea:
