@@ -515,22 +515,23 @@ class RecommendationSystem(PortfolioSection):
                 .st-key-{unique_key} {{
                     position: sticky;
                     top: 10px;
-                    background-color: #f9f9f9;
-                    padding: 20px;
+                    background-color: #f9f9f9; /* Matching the card silver */
+                    padding: 25px;
                     margin-top: 40px;
                     margin-bottom: 40px;
                     margin-left: auto;
                     margin-right: auto;
-                    width: 80%;
-                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                    width: 82%;
+                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
                     border-radius: 12px;
                     z-index: 1000;
                     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+                    cursor: grab; /* Playful pointer style */
                 }}
     
                 .st-key-{unique_key}:hover {{
-                    transform: scale(1.01);
-                    box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.2);
+                    transform: scale(1.03); /* More pronounced hover scale */
+                    box-shadow: 0px 16px 32px rgba(0, 0, 0, 0.25);
                 }}
     
                 /* Optional subtle animation for input */
@@ -541,7 +542,7 @@ class RecommendationSystem(PortfolioSection):
     
                 .stTextInput > div > input:focus {{
                     border: 1px solid #4a90e2;
-                    box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+                    box-shadow: 0 0 6px rgba(74, 144, 226, 0.6);
                     outline: none;
                 }}
             </style>
@@ -550,7 +551,6 @@ class RecommendationSystem(PortfolioSection):
         )
     
         with st.container(key=unique_key):
-            # Main search box
             query = st.text_input(
                 "🔍 Search by keyword/library (e.g., Python, R):",
                 placeholder="Type a keyword and press Enter",
@@ -562,6 +562,7 @@ class RecommendationSystem(PortfolioSection):
                 ranked_project_lists = None
     
         return query, ranked_project_lists
+
 
 
 # Assume project_retriever is an instance of your semantic retriever (already initialized)
