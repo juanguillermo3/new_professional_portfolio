@@ -508,14 +508,13 @@ class RecommendationSystem(PortfolioSection):
         
         unique_key = "control-panel"
     
-        # Inject global style for the control panel card
         st.markdown(
             f"""
             <style>
                 .st-key-{unique_key} {{
                     position: sticky;
                     top: 10px;
-                    background-color: #f9f9f9; /* Matching the card silver */
+                    background-color: #e5e5e5; /* Higher contrast silver */
                     padding: 25px;
                     margin-top: 40px;
                     margin-bottom: 40px;
@@ -526,15 +525,14 @@ class RecommendationSystem(PortfolioSection):
                     border-radius: 12px;
                     z-index: 1000;
                     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-                    cursor: grab; /* Playful pointer style */
+                    cursor: grab;
                 }}
     
                 .st-key-{unique_key}:hover {{
-                    transform: scale(1.03); /* More pronounced hover scale */
+                    transform: scale(1.03);
                     box-shadow: 0px 16px 32px rgba(0, 0, 0, 0.25);
                 }}
     
-                /* Optional subtle animation for input */
                 .stTextInput > div > input {{
                     transition: border 0.3s ease, box-shadow 0.3s ease;
                     border-radius: 6px;
@@ -562,6 +560,7 @@ class RecommendationSystem(PortfolioSection):
                 ranked_project_lists = None
     
         return query, ranked_project_lists
+
 
 
 
