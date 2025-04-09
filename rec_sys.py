@@ -583,40 +583,12 @@ class RecommendationSystem(PortfolioSection):
         return None
 
 
-    def render(self):
-        """Render method displaying all projects in a portfolio-style view with a featured 'Personal Highlight'."""
-
-        self._render_headers()
-      
-        # Step 1: Get user input from the control panel
-        user_query = self._render_control_panel()
-    
-        # Step 2: Copy metadata to avoid mutating the original list
-        projects_copy = self.repos_metadata.copy()
-    
-        # Step 3: Fetch the hardcoded-highlighted project (e.g., 'random-forest')
-        highlighted_project = self._fetch_highlighted_project(projects_copy)
-        if highlighted_project:
-            st.markdown(
-                "<div style='text-align: right;'><h4>🌟 <em>Personal Highlight</em></h4></div>",
-                unsafe_allow_html=True
-            )
-            self.render_project_metadata_and_recommendations(highlighted_project, user_query)
-            st.markdown("---")
-    
-        # Step 4: Render the remaining projects using user query
-        for project_metadata in projects_copy:
-            self.render_project_metadata_and_recommendations(project_metadata, user_query)
-            st.markdown("---")
-
     def _render_control_panel(self):
         """Render the control panel using Streamlit's container key for styling and layout."""
     
         unique_key = "control-panel"
     
-        # Create a container with the unique key
         with st.container(key=unique_key):
-            # Apply custom styling using the key (adds margins and centers layout)
             st.markdown(
                 f"""
                 <style>
@@ -641,19 +613,57 @@ class RecommendationSystem(PortfolioSection):
     
             # Main search box
             query = st.text_input(
-                "🔍 Search for by keyword/library (e.g., Python, R):",
+                "🔍 Search by keyword/library (e.g., Python, R):",
                 placeholder="Type a keyword and press Enter",
             )
     
-            # Debug output of matched titles
-            if False and query:
-                results = self.semantic_project_retriever.search(query)
-                titles = [r["title"] for r in results]
-                st.markdown("**🧪 Debug — Retrieved Titles:**")
-                for i, title in enumerate(titles, 1):
-                    st.markdown(f"{i}. {title}")
+            if query:
+                ranked_project_lists = self.semantic_project_retriever.search(query)
+            else:
+                ranked_project_lists = None
     
-        return query
+        return query, ranked_project_lists
+
+
+    def render(self):
+        """Render method displaying all projects in a portfolio-style view with a featured 'Personal Highlight'.
+        
+        Projects are filtered and ordered based on user query relevance if ranking data is available.
+        """
+    
+        self._render_headers()
+    
+        # Step 1: Get user input and (optionally) ranked project list
+        user_query, ranked_project_lists = self._render_control_panel()
+    
+        # Step 2: Copy metadata to avoid mutating the original list
+        projects_copy = self.repos_metadata.copy()
+    
+        # Step 3: Fetch the hardcoded-highlighted project (e.g., 'random-forest')
+        highlighted_project = self._fetch_highlighted_project(projects_copy)
+        if highlighted_project:
+            st.markdown(
+                "<div style='text-align: right;'><h4>🌟 <em>Personal Highlight</em></h4></div>",
+                unsafe_allow_html=True
+            )
+            self.render_project_metadata_and_recommendations(highlighted_project, user_query)
+            st.markdown("---")
+    
+        # Step 4: Determine which projects to render
+        if ranked_project_lists is not None:
+            ranked_titles = [pair["title"] for pair in ranked_project_lists]
+            projects_to_render = [
+                project for title in ranked_titles
+                for project in projects_copy
+                if project["title"] == title
+            ]
+        else:
+            projects_to_render = projects_copy
+    
+        # Step 5: Render selected projects
+        for project_metadata in projects_to_render:
+            self.render_project_metadata_and_recommendations(project_metadata, user_query)
+            st.markdown("---")
 
 
 # Assume project_retriever is an instance of your semantic retriever (already initialized)
