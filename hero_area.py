@@ -329,7 +329,7 @@ class HeroArea:
             #st.markdown(expanded_style, unsafe_allow_html=True)
     
             offering_html += (
-                f'<li id="{element_id}" class="offering-container" style="background-color: {bg_color}; padding: 8px; border-radius: 4px; margin-bottom: 10px;">'
+                f'<li id="{element_id}" class="offering-container" style="background-color: {bg_color}; padding: 8px 16px; border-radius: 4px; margin-bottom: 10px;">'
                 f'<p style="text-align: justify; margin: 0;">'
                 f'<strong>{offer["title"]}</strong>: {expanded_html}'
             )
