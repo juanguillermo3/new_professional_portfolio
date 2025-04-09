@@ -564,25 +564,6 @@ class RecommendationSystem(PortfolioSection):
     
         return query
       
-    def _fetch_highlighted_project(self, projects):
-        """Selects and removes the special highlighted project from the list (based on hardcoded keyword)."""
-        
-        highlight_key = "random-forest"
-    
-        for i, project in enumerate(projects):
-            title = project.get("title", "").lower()
-            tags = [tag.lower() for tag in project.get("tags", [])]
-    
-            if highlight_key in title or highlight_key in tags:
-                return projects.pop(i)
-        
-        # Fallback: return the first project if no match found
-        if projects:
-            return projects.pop(0)
-    
-        return None
-
-
     def _render_control_panel(self):
         """Render the control panel using Streamlit's container key for styling and layout."""
     
@@ -624,11 +605,30 @@ class RecommendationSystem(PortfolioSection):
     
         return query, ranked_project_lists
 
+    def _fetch_highlighted_project(self):
+        """Returns the title of the hardcoded highlighted project based on keyword match."""
+        
+        highlight_key = "random-forest"
+    
+        for project in self.repos_metadata:
+            title = project.get("title", "").lower()
+            tags = [tag.lower() for tag in project.get("tags", [])]
+    
+            if highlight_key in title or highlight_key in tags:
+                return project["title"]
+    
+        # Fallback: return the title of the first project if nothing matches
+        if self.repos_metadata:
+            return self.repos_metadata[0]["title"]
+    
+        return None
 
+      
     def render(self):
         """Render method displaying all projects in a portfolio-style view with a featured 'Personal Highlight'.
-        
-        Projects are filtered and ordered based on user query relevance if ranking data is available.
+    
+        If no query is entered, a hardcoded highlight is shown first, followed by all projects.
+        If a query is entered, only the ranked projects are shown in order.
         """
     
         self._render_headers()
@@ -639,18 +639,9 @@ class RecommendationSystem(PortfolioSection):
         # Step 2: Copy metadata to avoid mutating the original list
         projects_copy = self.repos_metadata.copy()
     
-        # Step 3: Fetch the hardcoded-highlighted project (e.g., 'random-forest')
-        highlighted_project = self._fetch_highlighted_project(projects_copy)
-        if highlighted_project:
-            st.markdown(
-                "<div style='text-align: right;'><h4>🌟 <em>Personal Highlight</em></h4></div>",
-                unsafe_allow_html=True
-            )
-            self.render_project_metadata_and_recommendations(highlighted_project, user_query)
-            st.markdown("---")
-    
-        # Step 4: Determine which projects to render
+        # Step 3: Determine projects to render
         if ranked_project_lists is not None:
+            # Use only ranked titles (strict ordering)
             ranked_titles = [pair["title"] for pair in ranked_project_lists]
             projects_to_render = [
                 project for title in ranked_titles
@@ -658,11 +649,27 @@ class RecommendationSystem(PortfolioSection):
                 if project["title"] == title
             ]
         else:
+            # No query evaluated, fetch and render the highlighted project
+            highlighted_title = self._fetch_highlighted_project()
+            if highlighted_title:
+                st.markdown(
+                    "<div style='text-align: right;'><h4>🌟 <em>Personal Highlight</em></h4></div>",
+                    unsafe_allow_html=True
+                )
+                highlighted_project = next(
+                    (project for project in self.repos_metadata if project["title"] == highlighted_title),
+                    None
+                )
+                if highlighted_project:
+                    self.render_project_metadata_and_recommendations(highlighted_project, user_query)
+                    st.markdown("---")
+    
+            # Then render all other remaining projects
             projects_to_render = projects_copy
     
-        # Step 5: Render selected projects
+        # Step 4: Render selected projects
         for project_metadata in projects_to_render:
-            self.render_project_metadata_and_recommendations(project_metadata, user_query)
+            self.render_project_metadata_and_recommendations(project_metadata, "." )
             st.markdown("---")
 
 
