@@ -36,7 +36,7 @@ DEFAULT_EMAILS = [
 ]
 DETAILS = {
     # Identification
-    "🆔 Full Name": "Juan Guillermo Osio J",
+    "🪪 Full Name": "Juan Guillermo Osio J",
 
     # Professional Profile
     "💼 Profile": "Data Mining Specialist, 5+ Years in Data Mining, Bachelor’s in Economics",
@@ -54,7 +54,7 @@ DETAILS = {
     "📍 Location": "Bogotá, Colombia",
 
     # Compensation
-    "💰 Compensation": "$1500 - $2000 per month, $20 per consultancy hour"
+    "💲Compensation": "$1500 - $2000 per month, $20 per consultancy hour"
 }
 
 
