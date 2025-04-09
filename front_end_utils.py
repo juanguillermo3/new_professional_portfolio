@@ -240,8 +240,6 @@ def prettify_title(title, cleanup_regex=r"[^a-zA-Z0-9]+"):
 #
 import random
 
-import random
-
 def tags_in_twitter_style(tags, color_palette=None):
     """Generates styled hashtags with a high intellectual energy vibe."""
     if color_palette is None:
@@ -270,10 +268,3 @@ def tags_in_twitter_style(tags, color_palette=None):
         )
 
     return " ".join(format_tag(tag) for tag in tags)
-
-
-        '''
-        tag_elements.append(tag_html)
-
-    return " ".join(tag_elements)
-
