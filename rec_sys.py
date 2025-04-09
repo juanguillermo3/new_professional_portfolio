@@ -500,7 +500,7 @@ class RecommendationSystem(PortfolioSection):
     
         # Step 4: Render selected projects
         for project_metadata in projects_to_render:
-            self.render_project_metadata_and_recommendations(project_metadata, user_query)
+            self.render_project_metadata_and_recommendations(project_metadata, ".*")
             st.markdown("---")
 
     def _render_control_panel(self):
