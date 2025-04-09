@@ -504,8 +504,6 @@ class RecommendationSystem(PortfolioSection):
             st.markdown("---")
 
     def _render_control_panel(self):
-        """Render the control panel using Streamlit's container key for styling and layout."""
-    
         unique_key = "control-panel"
     
         st.markdown(
@@ -514,15 +512,15 @@ class RecommendationSystem(PortfolioSection):
                 .st-key-{unique_key} {{
                     position: sticky;
                     top: 10px;
-                    background-color: #e5e5e5;  /* Silver tone */
-                    border: 1px solid white;     /* Clean white border */
+                    background-color: #e5e5e5;
+                    border: 2px solid rgba(255, 255, 255, 0.9);  /* Sharper white edge */
                     padding: 25px;
                     margin-top: 40px;
                     margin-bottom: 40px;
                     margin-left: auto;
                     margin-right: auto;
                     width: 82%;
-                    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);  /* Stronger shadow */
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);  /* Less blur, more clarity */
                     border-radius: 14px;
                     z-index: 1000;
                     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -530,8 +528,8 @@ class RecommendationSystem(PortfolioSection):
                 }}
     
                 .st-key-{unique_key}:hover {{
-                    transform: scale(1.035);
-                    box-shadow: 0px 16px 32px rgba(0, 0, 0, 0.25);
+                    transform: scale(1.02);  /* Less aggressive for sharper edges */
+                    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
                 }}
     
                 .stTextInput > div > input {{
@@ -561,8 +559,6 @@ class RecommendationSystem(PortfolioSection):
                 ranked_project_lists = None
     
         return query, ranked_project_lists
-
-
 
 
 
