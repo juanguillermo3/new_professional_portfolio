@@ -225,101 +225,6 @@ class RecommendationSystem(PortfolioSection):
 
         render_recommendation_card(rec)
     
-    def _render_control_panel(self):
-        """Render the control panel with sticky positioning inside its section."""
-        
-        # Inject CSS to make the control panel sticky
-        st.markdown(
-            """
-            <style>
-            .control-panel {
-                position: sticky;
-                top: 10px;  /* Controls how soon it sticks */
-                background: white;
-                padding: 15px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                z-index: 1000;  /* Ensures it stays above other elements */
-                border-radius: 8px;
-            }
-            </style>
-            """,
-            unsafe_allow_html=True
-        )
-    
-        # Render control panel inside a styled div
-        #st.markdown('<div class="control-panel">', unsafe_allow_html=True)
-    
-        cols = st.columns(2)
-    
-        with cols[0]:
-            prettified_titles = [prettify_title(title) for title in self.project_titles]
-            selected_pretty_project = st.selectbox(
-                "📂 Filter by project:", prettified_titles, index=0, key="active_project"
-            )
-            selected_project = self.title_mapping[selected_pretty_project]
-    
-            # Ensure event propagation always occurs
-            previous_project = st.session_state.get("last_active_project", None)
-            project_changed = previous_project != selected_project
-            
-            st.session_state.last_active_project = selected_project  # Update state
-            
-            # Emit event
-            event_type = "ACTIVE_PROJECT_CHANGED" if project_changed else "ACTIVE_PROJECT_INTERACTED"
-            st.session_state.project_event = f"{event_type}: {selected_project}"
-    
-        with cols[1]:
-            query = st.text_input(
-                "🔍 Search for by keyword/library (e.g., Python, R):",
-                placeholder="Type a keyword and press Enter",
-            )
-    
-        st.markdown('</div>', unsafe_allow_html=True)  # Close the control panel div
-    
-        return selected_project, query
-
-    def render(self):
-        """Render method with smooth project transitions using Streamlit's key-based styling."""
-        
-        #self._render_headers()  # Render headers from the portfolio section class
-        
-        # Display ranker's logic
-        #st.markdown(f'{self.RANKER_LOGIC}', unsafe_allow_html=True)
-    
-        # Create a container with a unique key (Streamlit auto-assigns a CSS class)
-        with st.container(key="project_data_container"):
-            # Render the sticky control panel and retrieve user selections
-            selected_project, query = self._render_control_panel()
-            
-            # Fetch recommendations
-            recommendations = self.rank_items(query, selected_project)
-    
-            # Fetch project metadata
-            project_metadata = next(
-                (repo for repo in self.repos_metadata if repo["title"].lower() == selected_project.lower()), 
-                None
-            ) if selected_project != "All Projects" else None
-    
-            if project_metadata:
-                self.render_project_metadata(project_metadata)
-    
-            # Render filtering message
-            filter_message = f"Showing all results for project {prettify_title(selected_project)}"
-            if query:
-                filter_message += f" (and for keyword: {query})"
-    
-            st.markdown(
-                f'<p style="font-style: italic; color: #555; font-size: 105%; font-weight: 550;">{filter_message}</p>',
-                unsafe_allow_html=True
-            )
-    
-            # Render recommendations in a grid
-            for i in range(0, len(recommendations), self.num_columns):
-                cols = st.columns(self.num_columns)
-                for col, rec in zip(cols, recommendations[i: i + self.num_columns]):
-                    with col:
-                        self.render_card(rec, is_project=rec.get("is_project", False))
-    
     def _style_ancillary_component(self, component_key):
         """Apply CSS styles to make the ancillary component visible with a smooth transition."""
         st.markdown(
@@ -526,85 +431,6 @@ class RecommendationSystem(PortfolioSection):
                     with col:
                         self.render_card(rec, is_project=rec.get("is_project", False))
 
-    def _render_control_panel(self):
-        """Render the control panel using Streamlit's container key for styling and layout."""
-    
-        unique_key = "control-panel"
-    
-        # Create a container with the unique key
-        with st.container(key=unique_key):
-            # Apply custom styling using the key (adds margins and centers layout)
-            st.markdown(
-                f"""
-                <style>
-                    .st-key-{unique_key} {{
-                        position: sticky;
-                        top: 10px;
-                        background: white;
-                        padding: 20px;
-                        margin-top: 40px;
-                        margin-bottom: 40px;
-                        margin-left: auto;
-                        margin-right: auto;
-                        width: 80%;
-                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                        border-radius: 10px;
-                        z-index: 1000;
-                    }}
-                </style>
-                """,
-                unsafe_allow_html=True
-            )
-    
-            # Main search box
-            query = st.text_input(
-                "🔍 Search for by keyword/library (e.g., Python, R):",
-                placeholder="Type a keyword and press Enter",
-            )
-    
-        return query
-      
-    def _render_control_panel(self):
-        """Render the control panel using Streamlit's container key for styling and layout."""
-    
-        unique_key = "control-panel"
-    
-        with st.container(key=unique_key):
-            st.markdown(
-                f"""
-                <style>
-                    .st-key-{unique_key} {{
-                        position: sticky;
-                        top: 10px;
-                        background: white;
-                        padding: 20px;
-                        margin-top: 40px;
-                        margin-bottom: 40px;
-                        margin-left: auto;
-                        margin-right: auto;
-                        width: 80%;
-                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                        border-radius: 10px;
-                        z-index: 1000;
-                    }}
-                </style>
-                """,
-                unsafe_allow_html=True
-            )
-    
-            # Main search box
-            query = st.text_input(
-                "🔍 Search by keyword/library (e.g., Python, R):",
-                placeholder="Type a keyword and press Enter",
-            )
-    
-            if query:
-                ranked_project_lists = self.semantic_project_retriever.search(query)
-            else:
-                ranked_project_lists = None
-    
-        return query, ranked_project_lists
-
     def _fetch_highlighted_project(self):
         """Returns the title of the hardcoded highlighted project based on keyword match."""
         
@@ -677,6 +503,65 @@ class RecommendationSystem(PortfolioSection):
             self.render_project_metadata_and_recommendations(project_metadata, user_query)
             st.markdown("---")
 
+    def _render_control_panel(self):
+        """Render the control panel using Streamlit's container key for styling and layout."""
+        
+        unique_key = "control-panel"
+    
+        # Inject global style for the control panel card
+        st.markdown(
+            f"""
+            <style>
+                .st-key-{unique_key} {{
+                    position: sticky;
+                    top: 10px;
+                    background-color: #f9f9f9;
+                    padding: 20px;
+                    margin-top: 40px;
+                    margin-bottom: 40px;
+                    margin-left: auto;
+                    margin-right: auto;
+                    width: 80%;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                    border-radius: 12px;
+                    z-index: 1000;
+                    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+                }}
+    
+                .st-key-{unique_key}:hover {{
+                    transform: scale(1.01);
+                    box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.2);
+                }}
+    
+                /* Optional subtle animation for input */
+                .stTextInput > div > input {{
+                    transition: border 0.3s ease, box-shadow 0.3s ease;
+                    border-radius: 6px;
+                }}
+    
+                .stTextInput > div > input:focus {{
+                    border: 1px solid #4a90e2;
+                    box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+                    outline: none;
+                }}
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+    
+        with st.container(key=unique_key):
+            # Main search box
+            query = st.text_input(
+                "🔍 Search by keyword/library (e.g., Python, R):",
+                placeholder="Type a keyword and press Enter",
+            )
+    
+            if query:
+                ranked_project_lists = self.semantic_project_retriever.search(query)
+            else:
+                ranked_project_lists = None
+    
+        return query, ranked_project_lists
 
 
 # Assume project_retriever is an instance of your semantic retriever (already initialized)
