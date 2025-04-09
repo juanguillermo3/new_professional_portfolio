@@ -60,6 +60,7 @@ DETAILS = {
     "💰 Expected Rate": "$1500 - $2000 per month"
 }
 
+
 class HeroArea:
     def __init__(self, 
                  quote, 
