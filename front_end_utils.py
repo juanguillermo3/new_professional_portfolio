@@ -262,7 +262,7 @@ def tags_in_twitter_style(tags, color_palette=None):
         return (
             f'<span style="'
             f'color: {random.choice(color_palette)}; '
-            f'font-size: 1.15em; '
+            f'font-size: 1.0em; '
             f'font-weight: 600; '
             f'margin-right: 14px; '
             f'display: inline-block;'
