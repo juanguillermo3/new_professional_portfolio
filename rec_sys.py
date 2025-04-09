@@ -42,8 +42,8 @@ MOCK_INFO_PREFIX = os.getenv("MOCK_INFO", "[MOCK INFO]")
 # Instantiation of the semantic retriever -> helps to filter projects by meaning
 #
 
-from project_retrieval import SemanticRetriever
-project_retriever=SemanticRetriever("index/projects.index","index/metadata.json")
+#from project_retrieval import SemanticRetriever
+#project_retriever=SemanticRetriever("index/projects.index","index/metadata.json")
 #[_["title"] for _ in retriever.search("AI")]
 
 #
@@ -79,7 +79,7 @@ class RecommendationSystem(PortfolioSection):
     MEDIA_CONTAINER_WIDTH = "700px"
     MEDIA_CONTAINER_HEIGHT = "400px"
     #
-    def __init__(self, semantic_project_retriever,
+    def __init__(self, semantic_project_retriever=None,
                  num_recommended_items=6, num_columns=3,
                  section_header="Project Galleria 🗂️ ",
                  section_description="Discover content tailored to your needs. Use the search bar to find recommendations and filter by project category."):
@@ -658,7 +658,7 @@ class RecommendationSystem(PortfolioSection):
 
 # Assume project_retriever is an instance of your semantic retriever (already initialized)
 recsys = RecommendationSystem(
-    semantic_project_retriever=project_retriever,
+    #semantic_project_retriever=project_retriever,
     section_description="Our Recommendation System (RecSys) helps you discover projects and code examples you may find interesting."
 )
 
