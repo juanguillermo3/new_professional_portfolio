@@ -240,18 +240,20 @@ def prettify_title(title, cleanup_regex=r"[^a-zA-Z0-9]+"):
 #
 import random
 
+import random
+
 def tags_in_twitter_style(tags, color_palette=None):
-    """Generates styled hashtags with a balanced aesthetic between colorful and corporate."""
+    """Generates styled hashtags with a high intellectual energy vibe."""
     if color_palette is None:
         color_palette = [
-            "#1DA1F2",  # Twitter Blue (clean & techy)
-            "#005F73",  # Deep Teal (trustworthy)
-            "#3A0CA3",  # Deep Violet (creative)
-            "#FF6B6B",  # Coral Red (energetic but professional)
-            "#4361EE",  # Soft Indigo (modern calm)
-            "#2A9D8F",  # Teal Green (vibrant but grounded)
-            "#F4A261",  # Warm Sand (approachable)
-            "#264653",  # Slate Blue (professional & muted)
+            "#5F0F40",  # Deep Magenta
+            "#0A1128",  # Midnight Navy
+            "#3D348B",  # Indigo Violet
+            "#577590",  # Slate Blue
+            "#43AA8B",  # Intellectual Green
+            "#F9844A",  # Warm Orange
+            "#E63946",  # Crimson
+            "#8338EC",  # Electric Violet
         ]
 
     def format_tag(tag):
@@ -260,7 +262,7 @@ def tags_in_twitter_style(tags, color_palette=None):
         return (
             f'<span style="'
             f'color: {random.choice(color_palette)}; '
-            f'font-size: 1.05em; '
+            f'font-size: 1.15em; '
             f'font-weight: 600; '
             f'margin-right: 14px; '
             f'display: inline-block;'
@@ -268,4 +270,5 @@ def tags_in_twitter_style(tags, color_palette=None):
         )
 
     return " ".join(format_tag(tag) for tag in tags)
+
 
