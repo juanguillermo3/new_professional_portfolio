@@ -3,7 +3,7 @@ markdown==3.3.7
 imgkit==1.2.3
 
 # Vector similarity search — best match without building from source
-faiss-cpu==1.7.1.post2  # Most stable version with wide binary support
+#faiss-cpu==1.7.1.post2  # Most stable version with wide binary support
 
 # Language model encoder
 sentence-transformers==2.2.2
