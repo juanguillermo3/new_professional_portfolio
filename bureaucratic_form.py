@@ -15,6 +15,11 @@ def _generate_bureaucratic_html(details: dict) -> str:
     
     style = """
     <style>
+    :root {
+        --emphasis-bg: #BBDEFB;
+        --emphasis-color: #1E88E5;
+    }
+
     .bureau-container {
         display: flex;
         flex-wrap: wrap;
@@ -67,15 +72,16 @@ def _generate_bureaucratic_html(details: dict) -> str:
     }
 
     .bureau-field:hover {
-        background: #F5F5F5;
+        background: var(--emphasis-bg);
+        color: var(--emphasis-color);
         transform: scale(1.05);
         box-shadow: 0 4px 10px rgba(200, 200, 200, 0.7);
         z-index: 10;
     }
 
     .hint-pill {
-        background: #BBDEFB;
-        color: #1E88E5;
+        background: var(--emphasis-bg);
+        color: var(--emphasis-color);
         font-weight: bold;
     }
 
@@ -89,7 +95,7 @@ def _generate_bureaucratic_html(details: dict) -> str:
     """
 
     fields_html = []
-    visible_limit = 12  # Number of visible pills initially
+    visible_limit = 12
     pill_count = 0
 
     for i, (field_name, field_value) in enumerate(details.items()):
@@ -122,6 +128,7 @@ def _generate_bureaucratic_html(details: dict) -> str:
             pill_count += 1
 
     return style + f"<div class='bureau-container'>{' '.join(fields_html)}</div>"
+
 
 #
 # (1)
