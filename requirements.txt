@@ -6,4 +6,4 @@ imgkit==1.2.3
 faiss-cpu
 
 # Language model encoder
-sentence-transformers==2.2.2
+sentence-transformers
