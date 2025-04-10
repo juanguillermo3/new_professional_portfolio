@@ -513,14 +513,14 @@ class RecommendationSystem(PortfolioSection):
                     position: sticky;
                     top: 10px;
                     background-color: #e5e5e5;
-                    border: 2px solid rgba(255, 255, 255, 0.9);  /* Sharper white edge */
+                    border: 2px solid rgba(255, 255, 255, 0.9);
                     padding: 25px;
                     margin-top: 40px;
                     margin-bottom: 40px;
                     margin-left: auto;
                     margin-right: auto;
                     width: 82%;
-                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);  /* Less blur, more clarity */
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
                     border-radius: 14px;
                     z-index: 1000;
                     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -528,7 +528,7 @@ class RecommendationSystem(PortfolioSection):
                 }}
     
                 .st-key-{unique_key}:hover {{
-                    transform: scale(1.02);  /* Less aggressive for sharper edges */
+                    transform: scale(1.02);
                     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
                 }}
     
@@ -549,8 +549,9 @@ class RecommendationSystem(PortfolioSection):
     
         with st.container(key=unique_key):
             query = st.text_input(
-                "🔍 Search by keyword/library (e.g., Python, R):",
-                placeholder="Type a keyword and press Enter",
+                label="🔍 Search by keyword/library (e.g., Python, R):",
+                placeholder="As a small business owner, I want to forecast sales for the next season. The system should serve highly accurate forecasts from historical series data and forecasts should be displayed in a BI dashboard.",
+                help="You can search code examples by business requirement, methodology, or desired software implementation.",
             )
     
             if query:
@@ -559,7 +560,7 @@ class RecommendationSystem(PortfolioSection):
                 ranked_project_lists = None
     
         return query, ranked_project_lists
-
+    
 
 
 # Assume project_retriever is an instance of your semantic retriever (already initialized)
