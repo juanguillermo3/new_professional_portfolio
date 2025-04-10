@@ -551,9 +551,8 @@ class RecommendationSystem(PortfolioSection):
     
         with st.container(key=unique_key):
             query = st.text_area(
-                label="🔍 "Search examples by business requirement, methodology, or desired software implementation.",
+                label="🔍 Search examples by business requirement, methodology, or desired software implementation.",
                 placeholder="As a small business owner, I want to forecast sales for the next season. The system should serve highly accurate forecasts from historical series data and forecasts should be displayed in a BI dashboard.",
-                help="You can search code examples by business requirement, methodology, or desired software implementation.",
                 height=140,
             )
     
