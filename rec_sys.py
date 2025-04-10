@@ -532,12 +532,14 @@ class RecommendationSystem(PortfolioSection):
                     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
                 }}
     
-                .stTextInput > div > input {{
+                .stTextArea > div > textarea {{
                     transition: border 0.3s ease, box-shadow 0.3s ease;
                     border-radius: 6px;
+                    height: 120px !important;  /* Adjust height here */
+                    resize: vertical;
                 }}
     
-                .stTextInput > div > input:focus {{
+                .stTextArea > div > textarea:focus {{
                     border: 1px solid #4a90e2;
                     box-shadow: 0 0 6px rgba(74, 144, 226, 0.6);
                     outline: none;
@@ -548,10 +550,11 @@ class RecommendationSystem(PortfolioSection):
         )
     
         with st.container(key=unique_key):
-            query = st.text_input(
+            query = st.text_area(
                 label="🔍 Search by keyword/library (e.g., Python, R):",
                 placeholder="As a small business owner, I want to forecast sales for the next season. The system should serve highly accurate forecasts from historical series data and forecasts should be displayed in a BI dashboard.",
                 help="You can search code examples by business requirement, methodology, or desired software implementation.",
+                height=140,
             )
     
             if query:
