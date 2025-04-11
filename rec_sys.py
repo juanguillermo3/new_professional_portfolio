@@ -44,7 +44,7 @@ MOCK_INFO_PREFIX = os.getenv("MOCK_INFO", "[MOCK INFO]")
 
 from project_retrieval import SemanticRetriever
 project_retriever=SemanticRetriever("index/projects.index","index/metadata.json")
-#[_["title"] for _ in retriever.search("AI")]
+code_retriever=SemanticRetriever("index/modules_index.index","index/modules_metadata.json")
 
 #
 # (0) ancillary function to merge metadata about underlyng items
@@ -79,8 +79,11 @@ class RecommendationSystem(PortfolioSection):
     MEDIA_CONTAINER_WIDTH = "700px"
     MEDIA_CONTAINER_HEIGHT = "400px"
     #
-    def __init__(self, semantic_project_retriever=None,
-                 num_recommended_items=6, num_columns=3,
+    def __init__(self, 
+                 semantic_project_retriever=None,
+                 semantic_code_retriever=None, 
+                 num_recommended_items=6, 
+                 num_columns=3,
                  section_header="Project Galleria 🗂️ ",
                  section_description="Discover content tailored to your needs. Use the search bar to find recommendations and filter by project category."):
         """
@@ -104,6 +107,8 @@ class RecommendationSystem(PortfolioSection):
         )
 
         self.semantic_project_retriever = semantic_project_retriever
+        self.semantic_code_retriever = semantic_code_retriever
+                   
         self.num_recommended_items = num_recommended_items
         self.num_columns = num_columns
         
@@ -449,59 +454,6 @@ class RecommendationSystem(PortfolioSection):
     
         return None
 
-      
-    def render(self):
-        """Render method displaying all projects in a portfolio-style view with a featured 'Personal Highlight'.
-    
-        If no query is entered, a hardcoded highlight is shown first, followed by the rest (excluding highlight).
-        If a query is entered, only the ranked projects are shown in order.
-        """
-    
-        self._render_headers()
-    
-        # Step 1: Get user input and (optionally) ranked project list
-        user_query, ranked_project_lists = self._render_control_panel()
-    
-        # Step 2: Copy metadata to avoid mutating the original list
-        projects_copy = self.repos_metadata.copy()
-    
-        # Step 3: Determine projects to render
-        if ranked_project_lists is not None:
-            # Use only ranked titles (strict ordering)
-            ranked_titles = [pair["title"] for pair in ranked_project_lists]
-            projects_to_render = [
-                project for title in ranked_titles
-                for project in projects_copy
-                if project["title"] == title
-            ]
-        else:
-            # No query evaluated, fetch and render the highlighted project
-            highlighted_title = self._fetch_highlighted_project()
-            if highlighted_title:
-                st.markdown(
-                    "<div style='text-align: right;'><h4>🌟 <em>Personal Highlight</em></h4></div>",
-                    unsafe_allow_html=True
-                )
-                highlighted_project = next(
-                    (project for project in projects_copy if project["title"] == highlighted_title),
-                    None
-                )
-                if highlighted_project:
-                    self.render_project_metadata_and_recommendations(highlighted_project, user_query)
-                    st.markdown("---")
-    
-                # Exclude highlighted project from further rendering
-                projects_to_render = [
-                    project for project in projects_copy if project["title"] != highlighted_title
-                ]
-            else:
-                # No highlight found, render everything
-                projects_to_render = projects_copy
-    
-        # Step 4: Render selected projects
-        for project_metadata in projects_to_render:
-            self.render_project_metadata_and_recommendations(project_metadata, None)
-            st.markdown("---")
 
     def _render_control_panel(self):
         unique_key = "control-panel"
@@ -535,7 +487,7 @@ class RecommendationSystem(PortfolioSection):
                 .stTextArea > div > textarea {{
                     transition: border 0.3s ease, box-shadow 0.3s ease;
                     border-radius: 6px;
-                    height: 120px !important;  /* Adjust height here */
+                    height: 120px !important;
                     resize: vertical;
                 }}
     
@@ -554,19 +506,68 @@ class RecommendationSystem(PortfolioSection):
                 label="🔍 Search examples by business requirement, methodology, or desired software implementation.",
                 placeholder="As a small business owner, I want to forecast sales for the next season. The system should serve highly accurate forecasts from historical series data and forecasts should be displayed in a BI dashboard.",
                 height=140,
+                value=None  # Explicit default
             )
     
-            if query:
-                ranked_project_lists = self.semantic_project_retriever.search(query)
+        return query
+
+    
+    def render(self):
+        """Render method displaying all projects in a portfolio-style view with a featured 'Personal Highlight'.
+    
+        If no query is entered, a hardcoded highlight is shown first, followed by the rest (excluding highlight).
+        If a query is entered, only the ranked projects are shown in order.
+        """
+    
+        self._render_headers()
+    
+        # Step 1: Get user input only
+        user_query = self._render_control_panel()
+    
+        # Step 2: Copy metadata to avoid mutating the original list
+        projects_copy = self.repos_metadata.copy()
+    
+        # Step 3: Determine projects to render
+        if user_query:
+            ranked_project_lists = self.semantic_project_retriever.search(user_query)
+            ranked_titles = [pair["title"] for pair in ranked_project_lists]
+            projects_to_render = [
+                project for title in ranked_titles
+                for project in projects_copy
+                if project["title"] == title
+            ]
+        else:
+            # No query evaluated, fetch and render the highlighted project
+            highlighted_title = self._fetch_highlighted_project()
+            if highlighted_title:
+                st.markdown(
+                    "<div style='text-align: right;'><h4>🌟 <em>Personal Highlight</em></h4></div>",
+                    unsafe_allow_html=True
+                )
+                highlighted_project = next(
+                    (project for project in projects_copy if project["title"] == highlighted_title),
+                    None
+                )
+                if highlighted_project:
+                    self.render_project_metadata_and_recommendations(highlighted_project, user_query)
+                    st.markdown("---")
+    
+                # Exclude highlighted project from further rendering
+                projects_to_render = [
+                    project for project in projects_copy if project["title"] != highlighted_title
+                ]
             else:
-                ranked_project_lists = None
+                projects_to_render = projects_copy
     
-        return query, ranked_project_lists
-    
+        # Step 4: Render selected projects
+        for project_metadata in projects_to_render:
+            self.render_project_metadata_and_recommendations(project_metadata, None)
+            st.markdown("---")
 
 
 # Assume project_retriever is an instance of your semantic retriever (already initialized)
 recsys = RecommendationSystem(
     semantic_project_retriever=project_retriever,
+    semantic_code_retriever=code_retriever, 
     section_description="Our Recommendation System (RecSys) helps you discover projects and code examples you may find interesting."
 )
