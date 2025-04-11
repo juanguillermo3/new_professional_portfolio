@@ -2,7 +2,7 @@
 title: Web Application
 description: Streamlit based Front-End application for my professional portfolio. 
 """
-afsadfuh
+
 import streamlit as st
 import os
 from dotenv import load_dotenv
