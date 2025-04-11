@@ -3,7 +3,7 @@ markdown==3.3.7
 imgkit==1.2.3
 
 # Vector similarity search — best match without building from source
-faiss-cpu
+#faiss-cpu
 
 # Language model encoder
-sentence-transformers
+#sentence-transformers
