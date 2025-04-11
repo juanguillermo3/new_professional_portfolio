@@ -44,7 +44,7 @@ MOCK_INFO_PREFIX = os.getenv("MOCK_INFO", "[MOCK INFO]")
 
 from project_retrieval import SemanticRetriever
 project_retriever=SemanticRetriever("index/projects.index","index/metadata.json")
-#[_["title"] for _ in retriever.search("AI")]
+code_retriever=SemanticRetriever("index/modules_index.index","index/modules_metadata.json")
 
 #
 # (0) ancillary function to merge metadata about underlyng items
@@ -79,17 +79,23 @@ class RecommendationSystem(PortfolioSection):
     MEDIA_CONTAINER_WIDTH = "700px"
     MEDIA_CONTAINER_HEIGHT = "400px"
     #
-    def __init__(self, semantic_project_retriever=None,
-                 num_recommended_items=6, num_columns=3,
-                 section_header="Project Galleria 🗂️ ",
-                 section_description="Discover content tailored to your needs. Use the search bar to find recommendations and filter by project category."):
+    def __init__(
+        self,
+        semantic_project_retriever=None,
+        semantic_code_retriever=None,
+        num_recommended_items=6,
+        num_columns=3,
+        section_header="Project Galleria 🗂️ ",
+        section_description="Discover content tailored to your needs. Use the search bar to find recommendations and filter by project category."
+    ):
         """
         A class responsible for rendering a gallery of projects and
         recommending them based on semantic similarity.
-
+    
         Args:
             semantic_project_retriever: An instance of a semantic retriever component
                 responsible for encoding queries and retrieving similar projects.
+            semantic_code_retriever: An optional retriever for code similarity queries.
             num_recommended_items (int): Number of recommended items to display.
             num_columns (int): Number of columns in the gallery layout.
             section_header (str): Title for the section.
@@ -102,18 +108,18 @@ class RecommendationSystem(PortfolioSection):
             early_dev=self.EARLY_DEVELOPMENT_STAGE,
             ai_content=not self.DATA_VERIFIED
         )
-
+    
         self.semantic_project_retriever = semantic_project_retriever
+        self.semantic_code_retriever = semantic_code_retriever
         self.num_recommended_items = num_recommended_items
         self.num_columns = num_columns
-        
+    
         self.repos_metadata = combine_metadata()
         self.metadata_list = load_modules_metadata()
-
+    
         self._sort_projects()
         self._prepare_project_titles_and_default()
 
-        self.active_galleria = None  # Still optional unless you attach something dynamically
 
     #
     def _sort_projects(self):
@@ -449,7 +455,88 @@ class RecommendationSystem(PortfolioSection):
     
         return None
 
-      
+    def rank_items(self, query=None, selected_project=None):
+        """
+        Rank items using semantic search if query is given; otherwise, use heuristic sort.
+        Always filter by selected_project if provided.
+        """
+    
+        def parse_int(value):
+            try:
+                return int(value)
+            except (TypeError, ValueError):
+                return None
+    
+        def apply_project_filter(items):
+            """Always apply project filter if selected_project is specified."""
+            if selected_project and selected_project != "All Projects":
+                return [
+                    item for item in items
+                    if item.get("repo_name", "").lower() == selected_project.lower()
+                ]
+            return items
+    
+        # === If semantic search is available and a query is provided ===
+        if query and self.semantic_code_retriever:
+            ranked_code_samples = self.semantic_code_retriever.search(query, top_k=self.num_recommended_items)
+            ranked_titles = [sample["title"] for sample in ranked_code_samples]
+    
+            # Map titles to full metadata
+            code_samples_to_render = [
+                item for item in self.metadata_list
+                if item.get("title") in ranked_titles
+            ]
+    
+            # Project filter
+            code_samples_to_render = apply_project_filter(code_samples_to_render)
+    
+            return code_samples_to_render[:self.num_recommended_items]
+    
+        # === Otherwise fallback to heuristics ===
+    
+        # Step 1: Heuristic sort
+        ranked_items = sorted(
+            self.metadata_list,
+            key=lambda x: (
+                not bool(x.get("image_path")),
+                -datetime.strptime(
+                    x.get("last_updated", "1970-01-01T00:00:00Z"), "%Y-%m-%dT%H:%M:%SZ"
+                ).timestamp(),
+            ),
+        )
+    
+        # Step 2: Forced rank override
+        forced_ranked_items = [None] * len(ranked_items)
+        unranked_items = []
+    
+        for item in ranked_items:
+            forced_rank = parse_int(item.get("forced_rank"))
+            if isinstance(forced_rank, int) and 0 <= forced_rank < len(ranked_items):
+                if forced_ranked_items[forced_rank] is None:
+                    forced_ranked_items[forced_rank] = item
+                else:
+                    unranked_items.append(item)
+            else:
+                unranked_items.append(item)
+    
+        final_ranked_items = [item for item in forced_ranked_items if item is not None] + unranked_items
+    
+        # Step 3: Project filter (always applied)
+        final_ranked_items = apply_project_filter(final_ranked_items)
+    
+        # Step 4: Regex filter only when semantic search wasn't used
+        if query:
+            query_pattern = re.compile(re.escape(query), re.IGNORECASE)
+            final_ranked_items = [
+                item for item in final_ranked_items
+                if query_pattern.search(item.get("title", "")) 
+                or query_pattern.search(item.get("description", "")) 
+                or any(query_pattern.search(lib) for lib in item.get("libraries", []))
+            ]
+    
+        # Step 5: Return top-k
+        return final_ranked_items[:self.num_recommended_items]
+
     def render(self):
         """Render method displaying all projects in a portfolio-style view with a featured 'Personal Highlight'.
     
@@ -500,7 +587,7 @@ class RecommendationSystem(PortfolioSection):
     
         # Step 4: Render selected projects
         for project_metadata in projects_to_render:
-            self.render_project_metadata_and_recommendations(project_metadata, None)
+            self.render_project_metadata_and_recommendations(project_metadata, query)
             st.markdown("---")
 
     def _render_control_panel(self):
@@ -562,12 +649,11 @@ class RecommendationSystem(PortfolioSection):
                 ranked_project_lists = None
     
         return query, ranked_project_lists
-    
-
-
+      
 # Assume project_retriever is an instance of your semantic retriever (already initialized)
 recsys = RecommendationSystem(
     semantic_project_retriever=project_retriever,
+    semantic_code_retriever=code_retriever,
     section_description="Our Recommendation System (RecSys) helps you discover projects and code examples you may find interesting."
 )
 
