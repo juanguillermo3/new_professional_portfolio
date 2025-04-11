@@ -44,10 +44,12 @@ Usage Example:
 Author: Your Name
 """
 
+import re
 import faiss
 import numpy as np
 from sentence_transformers import SentenceTransformer
 import json
+from typing import Optional, Dict, List
 
 class SemanticRetriever:
     def __init__(self, index_path: str, metadata_path: str, model_name: str = "all-MiniLM-L6-v2"):
@@ -77,21 +79,36 @@ class SemanticRetriever:
         embedding = self.model.encode([text], normalize_embeddings=True)
         return embedding.astype("float32")
 
-    def search(self, query: str, top_k: int = 5) -> list:
+
+    def search(self, query: str, top_k: int = 5, filtering_query: Optional[Dict[str, str]] = None) -> List[dict]:
         """
-        Searches for top-k items most similar to the input query.
+        Searches for top-k items most similar to the input query and optionally filters results.
 
         Args:
             query (str): User query string.
             top_k (int): Number of top results to return.
+            filtering_query (dict, optional): A dict representing field-based regex filters.
+                Example: {'project': '^proj_abc$', 'language': 'python'}
 
         Returns:
-            list: A list of metadata dicts corresponding to the top-k results.
+            list: A list of metadata dicts matching the query and filters.
         """
         query_vector = self.embed_query(query)
         distances, indices = self.index.search(query_vector, top_k)
+
         results = []
         for idx in indices[0]:
-            item = self.metadata[str(idx)]
+            item = self.metadata.get(str(idx), {})
+
+            if filtering_query:
+                # Apply regex-based filtering on item fields
+                match = all(
+                    re.search(pattern, str(item.get(key, "")))
+                    for key, pattern in filtering_query.items()
+                )
+                if not match:
+                    continue
+
             results.append(item)
+
         return results
