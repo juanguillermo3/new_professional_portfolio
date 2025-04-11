@@ -492,7 +492,7 @@ class RecommendationSystem(PortfolioSection):
     
         # Step 4: Render selected projects
         for project_metadata in projects_to_render:
-            self.render_project_metadata_and_recommendations(project_metadata, query)
+            self.render_project_metadata_and_recommendations(project_metadata, user_query)
             st.markdown("---")
 
     def render_project_metadata_and_recommendations(self, project_metadata, query):
