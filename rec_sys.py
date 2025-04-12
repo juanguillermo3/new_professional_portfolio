@@ -525,7 +525,7 @@ class RecommendationSystem(PortfolioSection):
             self._render_milestones_grid(project_metadata)
             st.markdown("<br>", unsafe_allow_html=True)
     
-            recommendations = self.rank_items(".*", project_metadata["title"])
+            recommendations = self.rank_items(None, project_metadata["title"])
     
             filter_message = f"Showing all results for project {prettify_title(project_metadata['title'])}"
             if query:
