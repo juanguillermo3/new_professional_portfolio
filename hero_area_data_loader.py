@@ -28,12 +28,15 @@ def load_avatar_caption():
 #
 def load_quote():
     return [
-        "My permanent professional effort is the <b>modernization of data analysis</b> "  
-        "through <b>research and development</b> of cutting-edge techniques, such as flexible statistical inference of predictive patterns powered by <b>Machine Learning</b>, "  
-        "streamlining <em>core business workflows</em> through <b>software development</b> and <b>algorithmic automation</b>, "
-        "handling <em>enterprise-grade datasets</em> with <b>modern data technology</b>, "  
-        "grouping data by <em>meaning</em> with <b>Natural Language Processing</b>, "  
-        "and enabling dynamically <em>decision-making</em> through the <b>agency of Large Language Models.</b> "
+        "My larger professional and intellectual projects aim to modernize analysis by "
+        "<b>research</b>, <b>development</b>, and <b>implementation</b> of cutting-edge techniques, such as<br><br>"
+        "Flexible statistical inference of predictive patterns powered by <b>Machine</b> <b>Learning</b> algorithms, "
+        "streamlining <em>core</em> <em>business</em> <em>workflows</em> through <b>software</b> and <b>application</b> <b>development</b>, "
+        "operating on <em>enterprise-grade</em> <em>datasets</em> through <b>modern</b> <b>data</b> <b>technology</b> "
+        "(<b>distributed</b> <b>computing</b>, <b>workflow</b> <b>orchestration</b>, <b>cloud</b>),<br><br>"
+        "grouping data by <em>meaning</em> with <b>Natural</b> <b>Language</b> <b>Processing</b>, "
+        "accelerating the development of analytical applications through <b>Generative</b> <b>Artificial</b> <b>Intelligence</b>, "
+        "and performing flexible <em>text</em> <em>processing</em> through <b>LLM-powered</b> <b>features</b>."
     ]
 #
 # (2)
