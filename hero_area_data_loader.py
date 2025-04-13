@@ -33,7 +33,6 @@ def load_quote():
         "flexible statistical inference of predictive patterns powered by <b>Machine</b> <b>Learning</b> algorithms, "
         "streamlining <em>core</em> <em>business</em> <em>workflows</em> through <b>software</b> and <b>application</b> <b>development</b>, "
         "operating on <em>enterprise-grade</em> <em>datasets</em> through <b>modern</b> <b>data</b> <b>technology</b> "
-        "(<b>distributed</b> <b>computing</b>, <b>workflow</b> <b>orchestration</b>, <b>cloud</b>), "
         "grouping data by <em>meaning</em> with <b>Natural</b> <b>Language</b> <b>Processing</b>, "
         "accelerating the development of analytical applications through <b>Generative</b> <b>Artificial</b> <b>Intelligence</b>, "
         "and performing flexible <em>text</em> <em>processing</em> through <b>LLM-powered</b> <b>features</b>."
