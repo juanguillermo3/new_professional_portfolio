@@ -28,7 +28,7 @@ def load_avatar_caption():
 #
 def load_quote():
     return [
-        "My larger professional and intellectual projects aim to modernize analysis by "
+        "My larger professional and intellectual projects aim to modernize the delivery of data analysis by "
         "<b>research</b>, <b>development</b>, and <b>implementation</b> of cutting-edge techniques, such as "
         "flexible statistical inference of predictive patterns powered by <b>Machine</b> <b>Learning</b> algorithms, "
         "streamlining <em>core</em> <em>business</em> <em>workflows</em> through <b>software</b> and <b>application</b> <b>development</b>, "
