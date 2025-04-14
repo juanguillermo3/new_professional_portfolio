@@ -13,7 +13,8 @@ from hero_area_data_loader import (
     load_quote, 
     load_avatar_caption, 
     load_code_samples, 
-    load_detailed_offerings
+    load_detailed_offerings,
+    notebook_examples
 )
 from front_end_utils import tags_in_twitter_style
 from dotenv import load_dotenv
@@ -392,6 +393,14 @@ class HeroArea:
                     opacity: 1;
                     visibility: visible;
                 }
+                .section-label {
+                    text-align: center;
+                    font-size: 18px;
+                    font-weight: 300;
+                    color: #444;
+                    margin-bottom: 10px;
+                    font-style: italic;
+                }
             </style>
             """,
             unsafe_allow_html=True,
@@ -399,7 +408,6 @@ class HeroArea:
     
         default_icon = "https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Colaboratory_SVG_Logo.svg"
     
-        # Build HTML dynamically
         links_html = "".join([
             f"""
             <a href="{item['href']}" class="colab-link" data-tooltip="{item['tooltip']}">
@@ -411,28 +419,17 @@ class HeroArea:
         st.markdown(
             f"""
             <div>
-              <div class="non-fixed-navbar">
-                  {links_html}
-              </div>
+                <p class="section-label">
+                    I highlighted some exceptional code samples from my ML consultancies:
+                </p>
+                <div class="non-fixed-navbar">
+                    {links_html}
+                </div>
             </div>
             """,
             unsafe_allow_html=True,
         )
 
-notebook_examples = [
-    {
-        "href": "https://colab.research.google.com/drive/1QKFY5zfiRkUUPrnhlsOrtRlqGJ14oFf3#scrollTo=sxBOaWZ9uabz",
-        "tooltip": "Genetic Optimization"
-    },
-    {
-        "href": "https://colab.research.google.com/drive/1sPdB-uoOEdw2xIKPQCx1aGp5QUuu1ooK#scrollTo=_Ycax1ucXvAO",
-        "tooltip": "Ensemble Learning"
-    },
-    {
-        "href": "https://colab.research.google.com/drive/1MHMx_IS1_a1x9jhEhuy2BRLoGQ239TpU#scrollTo=LNoARKAGJL5Y",
-        "tooltip": "Gas Supply Forecast"
-    }
-]
 
 
 
