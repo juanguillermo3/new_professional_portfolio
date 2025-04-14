@@ -187,88 +187,6 @@ class HeroArea:
     
             st.markdown(f'<p class="hero-quote">{styled_text}</p>', unsafe_allow_html=True)
 
-    def render_code_samples(self):
-        st.markdown(
-            """
-            <style>
-                .non-fixed-navbar {
-                    margin: 0 auto;  /* Automatically centers the navbar horizontally */
-                    background: rgba(255, 255, 255, 0.1);  /* Transparent background */
-                    backdrop-filter: blur(4px);  /* Frosted glass effect */
-                    border: 2px solid rgba(255, 255, 255, 0.9);
-                    box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.1);
-                    padding: 10px 20px;
-                    border-radius: 15px;
-                    display: flex;
-                    gap: 20px;
-                    align-items: center;
-                    justify-content: center;  /* Center the content horizontally */
-                    width: fit-content;  /* Allow the navbar to resize based on its content */
-                }
-                
-                .colab-link {
-                    display: inline-block;
-                    text-decoration: none;
-                    transition: transform 0.2s ease-in-out;
-                    position: relative;
-                    text-align: center; /* Ensures the text (or image) is centered */
-                }
-                
-                .colab-link img {
-                    width: 100px;
-                    height: 100px;
-                    border-radius: 50%;
-                }
-                
-                .colab-link:hover {
-                    transform: scale(1.1);
-                }
-                
-                /* Tooltip Styling */
-                .colab-link::after {
-                    content: attr(data-tooltip);
-                    position: absolute;
-                    bottom: 70px;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    background-color: #333;
-                    color: white;
-                    padding: 6px 12px;
-                    border-radius: 5px;
-                    font-size: 14px;
-                    white-space: nowrap;
-                    opacity: 0;
-                    visibility: hidden;
-                    transition: opacity 0.3s ease-in-out, visibility 0.3s;
-                }
-                
-                .colab-link:hover::after {
-                    opacity: 1;
-                    visibility: visible;
-                }
-            </style>
-            """,
-            unsafe_allow_html=True,
-        )
-        
-        default_icon = "https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Colaboratory_SVG_Logo.svg"
-        
-        # **Navigation Links with Tooltips & WhatsApp Button**
-        st.markdown(
-            f"""
-            <div>
-              <div class="non-fixed-navbar">
-                  <a href="https://colab.research.google.com/drive/1QKFY5zfiRkUUPrnhlsOrtRlqGJ14oFf3#scrollTo=sxBOaWZ9uabz" class="colab-link" data-tooltip="Genetic Optimization">
-                      <img src="{default_icon}" alt="">
-                  </a>
-                  <a href="https://colab.research.google.com/drive/1sPdB-uoOEdw2xIKPQCx1aGp5QUuu1ooK#scrollTo=_Ycax1ucXvAO" class="colab-link" data-tooltip="Ensemble Learning">
-                      <img src="{default_icon}" alt="">
-                  </a>
-              </div>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
         
     def render(self):
         col1, col2 = st.columns([2, 1])
@@ -289,7 +207,7 @@ class HeroArea:
         st.markdown('<br>', unsafe_allow_html=True)  
         
         self.render_detailed_offering()
-        self.render_code_samples()
+        self.render_code_samples(notebook_examples)
         
               
     def render_detailed_offering(self, id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
@@ -420,7 +338,101 @@ class HeroArea:
           </style>
           """,
           unsafe_allow_html=True)
+    
+    def render_code_samples(self, notebook_examples):
+        st.markdown(
+            """
+            <style>
+                .non-fixed-navbar {
+                    margin: 0 auto;
+                    background: rgba(255, 255, 255, 0.1);
+                    backdrop-filter: blur(4px);
+                    border: 2px solid rgba(255, 255, 255, 0.9);
+                    box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.1);
+                    padding: 10px 20px;
+                    border-radius: 15px;
+                    display: flex;
+                    gap: 20px;
+                    align-items: center;
+                    justify-content: center;
+                    width: fit-content;
+                }
+                .colab-link {
+                    display: inline-block;
+                    text-decoration: none;
+                    transition: transform 0.2s ease-in-out;
+                    position: relative;
+                    text-align: center;
+                }
+                .colab-link img {
+                    width: 100px;
+                    height: 100px;
+                    border-radius: 50%;
+                }
+                .colab-link:hover {
+                    transform: scale(1.1);
+                }
+                .colab-link::after {
+                    content: attr(data-tooltip);
+                    position: absolute;
+                    bottom: 70px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background-color: #333;
+                    color: white;
+                    padding: 6px 12px;
+                    border-radius: 5px;
+                    font-size: 14px;
+                    white-space: nowrap;
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: opacity 0.3s ease-in-out, visibility 0.3s;
+                }
+                .colab-link:hover::after {
+                    opacity: 1;
+                    visibility: visible;
+                }
+            </style>
+            """,
+            unsafe_allow_html=True,
+        )
+    
+        default_icon = "https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Colaboratory_SVG_Logo.svg"
+    
+        # Build HTML dynamically
+        links_html = "".join([
+            f"""
+            <a href="{item['href']}" class="colab-link" data-tooltip="{item['tooltip']}">
+                <img src="{item.get('icon', default_icon)}" alt="">
+            </a>
+            """ for item in notebook_examples
+        ])
+    
+        st.markdown(
+            f"""
+            <div>
+              <div class="non-fixed-navbar">
+                  {links_html}
+              </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
+notebook_examples = [
+    {
+        "href": "https://colab.research.google.com/drive/1QKFY5zfiRkUUPrnhlsOrtRlqGJ14oFf3#scrollTo=sxBOaWZ9uabz",
+        "tooltip": "Genetic Optimization"
+    },
+    {
+        "href": "https://colab.research.google.com/drive/1sPdB-uoOEdw2xIKPQCx1aGp5QUuu1ooK#scrollTo=_Ycax1ucXvAO",
+        "tooltip": "Ensemble Learning"
+    },
+    {
+        "href": "https://colab.research.google.com/drive/1MHMx_IS1_a1x9jhEhuy2BRLoGQ239TpU#scrollTo=LNoARKAGJL5Y",
+        "tooltip": "Gas Supply Forecast"
+    }
+]
 
 
 
