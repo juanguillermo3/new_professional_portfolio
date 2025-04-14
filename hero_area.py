@@ -208,7 +208,7 @@ class HeroArea:
         st.markdown('<br>', unsafe_allow_html=True)  
         
         self.render_detailed_offering()
-        self.render_code_samples(notebook_examples)
+        #self.render_code_samples(notebook_examples)
         
               
     def render_detailed_offering(self, id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
