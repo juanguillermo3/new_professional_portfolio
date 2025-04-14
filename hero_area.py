@@ -411,22 +411,25 @@ class HeroArea:
         links_html = "".join([
             f"""
             <a href="{item['href']}" class="colab-link" data-tooltip="{item['tooltip']}">
-                <img src="{item.get('icon', default_icon)}" alt="">
+                <img src="{item['thumbnail'] if 'thumbnail' in item else default_icon}" alt="">
             </a>
             """ for item in notebook_examples
         ])
     
         st.markdown(
             f"""
+            <div>
                 <p class="section-label">
                     I highlighted some exceptional code samples from my ML consultancies:
                 </p>
                 <div class="non-fixed-navbar">
                     {links_html}
                 </div>
+            </div>
             """,
             unsafe_allow_html=True,
         )
+
 
 
 
