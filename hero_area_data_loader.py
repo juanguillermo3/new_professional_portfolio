@@ -116,8 +116,23 @@ def load_detailed_offerings():
         }
     ]
     return offerings
-
-
+#
+# (4)
+#
+notebook_examples = [
+    {
+        "href": "https://colab.research.google.com/drive/1QKFY5zfiRkUUPrnhlsOrtRlqGJ14oFf3#scrollTo=sxBOaWZ9uabz",
+        "tooltip": "Genetic Optimization"
+    },
+    {
+        "href": "https://colab.research.google.com/drive/1sPdB-uoOEdw2xIKPQCx1aGp5QUuu1ooK#scrollTo=_Ycax1ucXvAO",
+        "tooltip": "Ensemble Learning"
+    },
+    {
+        "href": "https://colab.research.google.com/drive/1MHMx_IS1_a1x9jhEhuy2BRLoGQ239TpU#scrollTo=LNoARKAGJL5Y",
+        "tooltip": "Gas Supply Forecast"
+    }
+]
 
 
 
