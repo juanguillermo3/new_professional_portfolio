@@ -418,14 +418,12 @@ class HeroArea:
     
         st.markdown(
             f"""
-            <div>
                 <p class="section-label">
                     I highlighted some exceptional code samples from my ML consultancies:
                 </p>
                 <div class="non-fixed-navbar">
                     {links_html}
                 </div>
-            </div>
             """,
             unsafe_allow_html=True,
         )
