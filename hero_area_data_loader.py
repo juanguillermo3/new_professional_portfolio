@@ -122,17 +122,21 @@ def load_detailed_offerings():
 notebook_examples = [
     {
         "href": "https://colab.research.google.com/drive/1QKFY5zfiRkUUPrnhlsOrtRlqGJ14oFf3#scrollTo=sxBOaWZ9uabz",
-        "tooltip": "Genetic Optimization"
+        "tooltip": "Genetic Optimization",
+        "thumbnail": "https://img.icons8.com/?size=100&id=wxQRJBZpG7jY&format=png&color=000000"
     },
     {
         "href": "https://colab.research.google.com/drive/1sPdB-uoOEdw2xIKPQCx1aGp5QUuu1ooK#scrollTo=_Ycax1ucXvAO",
-        "tooltip": "Ensemble Learning"
+        "tooltip": "Ensemble Learning",
+        "thumbnail": "https://img.icons8.com/?size=100&id=WjkDFlQpfkPb&format=png&color=000000"
     },
     {
         "href": "https://colab.research.google.com/drive/1MHMx_IS1_a1x9jhEhuy2BRLoGQ239TpU#scrollTo=LNoARKAGJL5Y",
-        "tooltip": "Gas Supply Forecast"
+        "tooltip": "Gas Supply Forecast",
+        "thumbnail": "https://img.icons8.com/?size=100&id=ZqvnKqLdAXLt&format=png&color=000000"
     }
 ]
+
 
 
 
