@@ -407,7 +407,7 @@ class HeroArea:
                       transform 0.3s ease-in-out;
     
                   background-color: rgba(255, 249, 196, 0.96); /* Slightly more solid */
-                  backdrop-filter: blur(8px) saturate(1.2);     /* Stronger blur + contrast */
+                  backdrop-filter: blur(16px) saturate(1.2);     /* Stronger blur + contrast */
                   -webkit-backdrop-filter: blur(6px) saturate(1.2);
                   color: #222;  /* High contrast text */
                   text-align: left;
