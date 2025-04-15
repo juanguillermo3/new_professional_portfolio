@@ -301,41 +301,37 @@ class HeroArea:
             unsafe_allow_html=True,
         )
 
-
-    def render_detailed_offering(self, id_pattern="offering-{}", colors=["#fdf6e3", "#fffde7"]):
-        
-        #
-        # (0) Updated color style for “Innovative & Energetic”
-        #
+    
+    def render_detailed_offering(self, id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
+    
+        import html  # Ensure html escaping is available
+    
+        # (0) Visual style for figure & tooltip
         figure_style = {
             "label": "Technical Skills", 
             "color": "#F9A825",        # Warm amber
-            "pastel": "#FFF9C4",       # Light yellow
+            "pastel": "#FFF9C4",       # Light yellow hover
             "icon": "https://img.icons8.com/?size=100&id=104252&format=png&color=000000", 
             "emoji": "✨",
             "default_text": "{n} technical skills listed"
-        }
+        }  
         label, color, pastel_color, icon_url, emoji, default_text = (
             figure_style["label"], figure_style["color"], figure_style["pastel"], figure_style["icon"], figure_style["emoji"], figure_style["default_text"]
         )
     
-        #
-        # (1)
-        #
+        # (1) Load offerings
         offerings = load_detailed_offerings()
         offering_html = '<h3>Key Professional Offerings</h3>'
         offering_html += '<ul style="list-style-type: none;">'
         style_block = "<style>"
     
-        #
-        # (2)
-        #
+        # (2) Iterate and render
         for i, offer in enumerate(offerings):
-        
+    
             element_id = id_pattern.format(i + 1)
             bg_color = colors[i % len(colors)]
     
-            # Generate expandable text
+            # Expandable text block
             expanded_html, expanded_style = expandable_text_html(offer["description"], wrap_style=False)
             style_block += expanded_style
     
@@ -345,19 +341,21 @@ class HeroArea:
                 f'<strong>{offer["title"]}</strong>: {expanded_html}'
             )
     
-            # Tooltip rendering
+            # Tooltip block
             if "skills" in offer:
     
                 skills = offer["skills"]
                 skills_count = len(skills)
                 summary = default_text.format(n=skills_count)
+    
                 visible_milestone = f'<div style="color:{color}; text-align: center;">' \
                                     f'<img src="{icon_url}" alt="{label}" style="width: 30px; height: 30px;"/><br>' \
                                     f'<label>{summary}</label></div>'
+    
                 tooltip_content = "".join(
                     f'<div style="color:{color};">{emoji} {html.escape(m)}</div>' for m in skills
                 )
-            
+    
                 tooltip_html = f"""
                 <div class="tooltip-container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: pointer;">
                   <div class="skills-container" style="position: relative; display: inline-block;">
@@ -380,6 +378,7 @@ class HeroArea:
                 for subitem in offer["subitems"]:
                     offering_html += f'<li>{subitem}</li>'
                 offering_html += '</ul>'
+    
             offering_html += '</li>'
     
         offering_html += '</ul>'
@@ -388,7 +387,6 @@ class HeroArea:
         style_block += "</style>"
         st.markdown(style_block, unsafe_allow_html=True)
     
-        # Tooltip & hover styles
         st.markdown(f"""
           <style>
               .skills-container:hover {{
@@ -405,7 +403,7 @@ class HeroArea:
                       opacity 0.3s ease-in-out, 
                       visibility 0.3s ease-in-out, 
                       transform 0.3s ease-in-out;
-                  background-color: rgba(255, 249, 196, 0.8);
+                  background-color: rgba(255, 249, 196, 0.8);  /* pastel amber */
                   backdrop-filter: blur(1px);
                   color: black;
                   text-align: left;
@@ -429,7 +427,9 @@ class HeroArea:
                   transform: translateX(-50%) translateY(0px) scale(1.1);
               }}
           </style>
-          """, unsafe_allow_html=True)
+          """,
+          unsafe_allow_html=True)
+
 
 
 
