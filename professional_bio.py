@@ -183,7 +183,7 @@ class CurriculumVitae(PortfolioSection):
         hide_freelance = st.checkbox("Hide freelance work", value=False)
     
         for experience in self.work_experience:
-            is_freelance = experience.get("freelance", False)
+            is_freelance = experience.get("freelance", True)
             if hide_freelance and is_freelance:
                 continue
     
