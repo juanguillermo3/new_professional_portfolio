@@ -138,7 +138,7 @@ class CurriculumVitae(PortfolioSection):
         st.markdown("#### Work Experience 🔧")
     
         # Add a toggle filter
-        hide_freelance = st.checkbox("Exclude freelance consultancies", value=False)
+        hide_freelance = st.checkbox("Exclude freelance consultancies", value=True)
     
         accumulated_styles = ""
     
