@@ -312,7 +312,7 @@ class HeroArea:
             "color": "#FFA000",  # Energetic amber
             "pastel": "#FFF9C4",  # Soft yellow
             "icon": "https://img.icons8.com/?size=100&id=104252&format=png&color=000000",
-            "emoji": "🏅",
+            "emoji": "🚀",
             "default_text": "{n} technical skills listed"
         }
         label, color, pastel_color, icon_url, emoji, default_text = (
@@ -407,13 +407,13 @@ class HeroArea:
                       transform 0.3s ease-in-out;
     
                   background-color: rgba(255, 249, 196, 0.96); /* Slightly more solid */
-                  backdrop-filter: blur(6px) saturate(1.2);     /* Stronger blur + contrast */
+                  backdrop-filter: blur(8px) saturate(1.2);     /* Stronger blur + contrast */
                   -webkit-backdrop-filter: blur(6px) saturate(1.2);
                   color: #222;  /* High contrast text */
                   text-align: left;
                   padding: 12px;
                   border-radius: 5px;
-                  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+                  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.35);
                   position: absolute;
                   left: 50%;
                   top: 100%;
