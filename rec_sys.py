@@ -416,6 +416,7 @@ class RecommendationSystem(PortfolioSection):
                 height=140,
                 value=None  # Explicit default
             )
+            st.caption("💡 Press Ctrl+Enter or click outside the box to apply your query.")
     
         return query
 
