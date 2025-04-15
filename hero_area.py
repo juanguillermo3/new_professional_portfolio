@@ -406,13 +406,13 @@ class HeroArea:
                       visibility 0.3s ease-in-out, 
                       transform 0.3s ease-in-out;
     
-                  background-color: rgba(255, 249, 196, 0.96); /* Slightly more solid */
+                  background-color: rgba(255, 249, 196, 0.98); /* Slightly more solid */
                   backdrop-filter: blur(16px) saturate(1.4);     /* Stronger blur + contrast */
                   color: #222;  /* High contrast text */
                   text-align: left;
                   padding: 12px;
                   border-radius: 5px;
-                  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.45);
+                  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.25);
                   position: absolute;
                   left: 50%;
                   top: 100%;
