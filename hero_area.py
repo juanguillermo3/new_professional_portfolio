@@ -39,17 +39,17 @@ DETAILS = {
     # Identification
     "🪪 Full Name": "Juan Guillermo Osio J",
 
+    # Contact Information
+    "📧 Emails": f"{DEFAULT_EMAILS[0]}, {DEFAULT_EMAILS[1]}",
+    "📱 WhatsApp": WHATSAPP_NUMBER,
+
     # Professional Profile
-    "💼 Profile": "Data Mining Specialist, 5+ Years in Data Mining, Bachelor’s in Economics",
+    "💼 Profile": " Bachelor’s in Economics, Data Mining Specialist, 5+ Years in Data Mining",
     "🎯 Target Roles": "Data Minning Developer, Machine Learning Engineer",
 
     # Technical Skills
     "🚀 Excellence Tier": "Python, R Studio, Stata, GPT",
     "🔧 Proficiency Tier": "Airflow, SQL, Spark, Linux, GitHub",
-
-    # Contact Information
-    "📧 Emails": f"{DEFAULT_EMAILS[0]}, {DEFAULT_EMAILS[1]}",
-    "📱 WhatsApp": WHATSAPP_NUMBER,
 
     # Location
     "📍 Location": "Bogotá, Colombia",
