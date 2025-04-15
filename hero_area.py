@@ -303,47 +303,49 @@ class HeroArea:
 
     
     def render_detailed_offering(self, id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
-    
         import streamlit as st
         import html
     
-        # (0) Figure/Tooltip style
+        # (0) Define figure/tooltip styling
         figure_style = {
             "label": "Technical Skills",
             "color": "#FFA000",  # Energetic amber
-            "pastel": "#FFF9C4",  # Soft yellow pastel
-            "icon": "https://img.icons8.com/?size=100&id=104252&format=png&color=FFA000",
-            "emoji": "🚀",
+            "pastel": "#FFF9C4",  # Soft yellow
+            "icon": "https://img.icons8.com/?size=100&id=104252&format=png&color=000000",
+            "emoji": "🏅",
             "default_text": "{n} technical skills listed"
         }
-    
         label, color, pastel_color, icon_url, emoji, default_text = (
-            figure_style["label"], figure_style["color"], figure_style["pastel"], figure_style["icon"], figure_style["emoji"], figure_style["default_text"]
+            figure_style["label"],
+            figure_style["color"],
+            figure_style["pastel"],
+            figure_style["icon"],
+            figure_style["emoji"],
+            figure_style["default_text"]
         )
     
-        # (1) Load offerings and init markup
+        # (1) Load offerings and start building HTML
         offerings = load_detailed_offerings()
         offering_html = '<h3>Key Professional Offerings</h3>'
         offering_html += '<ul style="list-style-type: none;">'
         style_block = "<style>"
     
-        # (2) Process each offering
+        # (2) Iterate over each offering
         for i, offer in enumerate(offerings):
-    
             element_id = id_pattern.format(i + 1)
             bg_color = colors[i % len(colors)]
     
-            # Expandable text
             expanded_html, expanded_style = expandable_text_html(offer["description"], wrap_style=False)
             style_block += expanded_style
     
             offering_html += (
-                f'<li id="{element_id}" class="offering-container" style="background-color: {bg_color}; padding: 8px 16px; border-radius: 4px; margin-bottom: 10px;">'
+                f'<li id="{element_id}" class="offering-container" '
+                f'style="background-color: {bg_color}; padding: 8px 16px; border-radius: 4px; margin-bottom: 10px;">'
                 f'<p style="text-align: justify; margin: 0;">'
                 f'<strong>{offer["title"]}</strong>: {expanded_html}'
             )
     
-            # Skills rendering
+            # Tooltip rendering
             if "skills" in offer:
                 skills = offer["skills"]
                 skills_count = len(skills)
@@ -352,7 +354,7 @@ class HeroArea:
                                     f'<img src="{icon_url}" alt="{label}" style="width: 30px; height: 30px;"/><br>' \
                                     f'<label>{summary}</label></div>'
                 tooltip_content = "".join(
-                    f'<div style="color:#2C2C2C;">{emoji} {html.escape(m)}</div>' for m in skills
+                    f'<div style="color:{color};">{emoji} {html.escape(m)}</div>' for m in skills
                 )
     
                 tooltip_html = f"""
@@ -372,7 +374,6 @@ class HeroArea:
     
             offering_html += "<br>"
     
-            # Render subitems
             if "subitems" in offer:
                 offering_html += '<ul style="list-style-type: none; padding-left: 0;">'
                 for subitem in offer["subitems"]:
@@ -384,66 +385,54 @@ class HeroArea:
         offering_html += '</ul>'
         st.markdown(offering_html, unsafe_allow_html=True)
     
+        # (3) Enhanced tooltip styles
         style_block += "</style>"
         st.markdown(style_block, unsafe_allow_html=True)
     
-        # Tooltip styling
         st.markdown(f"""
-        <style>
-            .skills-container:hover {{
-                background-color: {pastel_color};
-                transition: background-color 0.3s ease-in-out;
-                border-radius: 5px;
-            }}
+          <style>
+              .skills-container:hover {{
+                  background-color: {pastel_color};
+                  transition: background-color 0.3s ease-in-out;
+                  border-radius: 5px;
+              }}
     
-            .tooltip {{
-                visibility: hidden;
-                opacity: 0;
-                transform: translateY(5px) scale(0.95);
-                transition: 
-                    opacity 0.3s ease-in-out, 
-                    visibility 0.3s ease-in-out, 
-                    transform 0.3s ease-in-out;
+              .tooltip {{
+                  visibility: hidden;
+                  opacity: 0;
+                  transform: translateY(5px) scale(0.95);
+                  transition: 
+                      opacity 0.3s ease-in-out, 
+                      visibility 0.3s ease-in-out, 
+                      transform 0.3s ease-in-out;
     
-                background-color: rgba(255, 249, 196, 0.92);
-                backdrop-filter: blur(2px);
-                color: #2C2C2C;
-                text-align: left;
-                padding: 12px 16px;
-                border-radius: 6px;
-                box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-                position: absolute;
-                left: 50%;
-                top: 100%;
-                transform: translateX(-50%) translateY(5px);
-                min-width: 320px;
-                max-width: 440px;
-                z-index: 1;
-                border: 1px solid rgba(200, 200, 200, 0.4);
-                transform-origin: top center;
+                  background-color: rgba(255, 249, 196, 0.96); /* Slightly more solid */
+                  backdrop-filter: blur(6px) saturate(1.2);     /* Stronger blur + contrast */
+                  -webkit-backdrop-filter: blur(6px) saturate(1.2);
+                  color: #222;  /* High contrast text */
+                  text-align: left;
+                  padding: 12px;
+                  border-radius: 5px;
+                  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+                  position: absolute;
+                  left: 50%;
+                  top: 100%;
+                  transform: translateX(-50%) translateY(5px);
+                  min-width: 300px;
+                  max-width: 400px;
+                  z-index: 1;
+                  border: 1px solid rgba(200, 200, 200, 0.5);
+                  transform-origin: top center;
+              }}
     
-                font-family: 'Segoe UI', 'Helvetica Neue', system-ui, sans-serif;
-                font-size: 14px;
-                font-weight: 500;
-                line-height: 1.6;
-            }}
-    
-            .tooltip strong {{
-                font-size: 16px;
-                font-weight: 700;
-            }}
-    
-            .tooltip div {{
-                margin-bottom: 4px;
-            }}
-    
-            .hover-trigger:hover ~ .tooltip {{
-                visibility: visible;
-                opacity: 1;
-                transform: translateX(-50%) translateY(0px) scale(1.1);
-            }}
-        </style>
+              .hover-trigger:hover ~ .tooltip {{
+                  visibility: visible;
+                  opacity: 1;
+                  transform: translateX(-50%) translateY(0px) scale(1.1);
+              }}
+          </style>
         """, unsafe_allow_html=True)
+
 
 
 
