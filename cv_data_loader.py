@@ -36,71 +36,6 @@ def format_date_for_frontend(date_str):
 
     return parse_as_datetime(date_str).strftime(FRONT_DATE_FORMAT)
 
-def load_experience_items():
-    experience_items = [
-        {
-            "title": "Freelance Data Analyst & R Developer",
-            "company": "Private Client",
-            "description": (
-                "A biology Ph.D. aspirant conducted ethology research on monkey behavior in the "
-                "Australian jungle, gathering data on four species, covering behaviors, diet, "
-                "vegetation, and habitat. Statistical analysis in R aimed to explore how monkeys allocate "
-                "their time to behaviors and how contextual (hour, season, weather, species) and individual "
-                "covariates (sex, groups) influence this. Data processing, visualization, and statistical tests "
-                "(Kruskal-Wallis, Dunn test) were automated for streamlined reporting."
-            ),
-            "date_range": ("01/07/2022", CURRENT_JOB_KEYWORD)
-        },
-        {
-            "title": "Freelance ML Consultant/Developer (Ensemble Learning)",
-            "company": "Private Client",
-            "description": (
-                "The client had a set of ML classifiers to automate an HR department's hiring process and asked "
-                "for guidance on combining them into a superior predictive system. I created a configurable ensemble "
-                "module to merge predictions from multiple classifiers and found that many non-singleton ensembles "
-                "outperformed individual models in terms of F1 score. Code sample available at: "
-                "<a href='https://colab.research.google.com/drive/1sPdB-uoOEdw2xIKPQCx1aGp5QUuu1ooK#scrollTo=_Ycax1ucXvA' target='_blank'>Google Colab</a>"
-            ),
-            "date_range": ("01/01/2024", "01/07/2024")
-        },
-        {
-            "title": "Python Developer",
-            "company": "Algotrading",
-            "description": (
-                "I was hired as a data analyst and developer by an international start-up focused on real-time trading "
-                "using NLP signals. I maintained mission-critical code for real-time feature engineering of trade signals, "
-                "performed SOLID refactoring, developed visualizations of the codebase structure, and integrated logging "
-                "with AWS Watchtower. Through on-the-job training, I honed my skills as a low-code developer, assimilating "
-                "a tech stack involving GPT and Copilot to enhance workflow efficiency."
-            ),
-            "date_range": ("01/06/2023", "31/12/2023")
-        },
-        {
-            "title": "Freelance ML Consultant/Developer (AI and Genetic Algorithms)",
-            "company": "Private Client",
-            "description": (
-                "This consultancy focused on developing a high-performance forecasting system for Business Intelligence, "
-                "targeting 1-month-ahead hourly forecasts. In Stage 1, I delivered traditional (ARIMA, Exponential Smoothing) "
-                "and Deep Learning (DNN, RNN, LSTM) algorithms. In Stage 2, I implemented a custom Genetic Optimization Algorithm "
-                "to find near-optimal Neural Network architectures. Code sample available at: "
-                "<a href='https://colab.research.google.com/drive/1QKFY5zfiRkUUPrnhlsOrtRlqGJ14oFf3#scrollTo=sxBOaWZ9uabz' target='_blank'>Google Colab</a>"
-            ),
-            "date_range": ("01/01/2023", "01/07/2023")
-        },
-        {
-            "title": "Data Analyst, Public Policy Research Assistant",
-            "company": "Corewoman",
-            "description": (
-                "In this role, I enabled empirical research on the impact of gender in the Colombian labor market for public policy. "
-                "I engaged with complex, multi-source environments, utilizing both structured and unstructured data. I delivered data "
-                "gathering and transformation pipelines using Stata, R, and Python. Additionally, I provided inferential statistics, "
-                "regression analysis, and program evaluation techniques, including propensity score matching (PSM)."
-            ),
-            "date_range": ("01/07/2019", "01/07/2022")
-        }
-    ]
-    
-    return experience_items
 
 def load_education_items():
     education_items = [
@@ -138,115 +73,76 @@ def professional_statement():
     )
 
 
-from datetime import datetime
-import hashlib
-import streamlit as st
 
-def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
-    system_date = datetime.now().strftime("%Y-%m-%d")  # Corrected datetime import
-
-    offerings = [
+def load_experience_items():
+    experience_items = [
         {
-            "title": "Inferential Statistics & High-Performance Predictive Analytics",
-            "description": "I research and implement techniques for regression, classification, and forecasting use cases...",
-            "skills": [
-                "Strong understanding of linear regression.", 
-                "Expertise in machine learning pattern detection.",
-            ]
+            "title": "Freelance Data Analyst & R Developer",
+            "company": "Private Client",
+            "description": (
+                "A biology Ph.D. aspirant conducted ethology research on monkey behavior in the "
+                "Australian jungle, gathering data on four species, covering behaviors, diet, "
+                "vegetation, and habitat. Statistical analysis in R aimed to explore how monkeys allocate "
+                "their time to behaviors and how contextual (hour, season, weather, species) and individual "
+                "covariates (sex, groups) influence this. Data processing, visualization, and statistical tests "
+                "(Kruskal-Wallis, Dunn test) were automated for streamlined reporting."
+            ),
+            "date_range": ("01/07/2022", CURRENT_JOB_KEYWORD),
+            "freelance": True
         },
         {
-            "title": "Software & Application Development for Inference Distribution",
-            "description": "I develop applications (batch scripts, APIs, dashboards, web applications)...",
-            "skills": [
-                "Strong understanding of software engineering.",
-                "Expertise in architectural and design patterns.",
-            ]
+            "title": "Freelance ML Consultant/Developer (Ensemble Learning)",
+            "company": "Private Client",
+            "description": (
+                "The client had a set of ML classifiers to automate an HR department's hiring process and asked "
+                "for guidance on combining them into a superior predictive system. I created a configurable ensemble "
+                "module to merge predictions from multiple classifiers and found that many non-singleton ensembles "
+                "outperformed individual models in terms of F1 score. Code sample available at: "
+                "<a href='https://colab.research.google.com/drive/1sPdB-uoOEdw2xIKPQCx1aGp5QUuu1ooK#scrollTo=_Ycax1ucXvA' target='_blank'>Google Colab</a>"
+            ),
+            "date_range": ("01/01/2024", "01/07/2024"),
+            "freelance": True
+        },
+        {
+            "title": "Python Developer",
+            "company": "Algotrading",
+            "description": (
+                "I was hired as a data analyst and developer by an international start-up focused on real-time trading "
+                "using NLP signals. I maintained mission-critical code for real-time feature engineering of trade signals, "
+                "performed SOLID refactoring, developed visualizations of the codebase structure, and integrated logging "
+                "with AWS Watchtower. Through on-the-job training, I honed my skills as a low-code developer, assimilating "
+                "a tech stack involving GPT and Copilot to enhance workflow efficiency."
+            ),
+            "date_range": ("01/06/2023", "31/12/2023"),
+            "freelance": False
+        },
+        {
+            "title": "Freelance ML Consultant/Developer (AI and Genetic Algorithms)",
+            "company": "Private Client",
+            "description": (
+                "This consultancy focused on developing a high-performance forecasting system for Business Intelligence, "
+                "targeting 1-month-ahead hourly forecasts. In Stage 1, I delivered traditional (ARIMA, Exponential Smoothing) "
+                "and Deep Learning (DNN, RNN, LSTM) algorithms. In Stage 2, I implemented a custom Genetic Optimization Algorithm "
+                "to find near-optimal Neural Network architectures. Code sample available at: "
+                "<a href='https://colab.research.google.com/drive/1QKFY5zfiRkUUPrnhlsOrtRlqGJ14oFf3#scrollTo=sxBOaWZ9uabz' target='_blank'>Google Colab</a>"
+            ),
+            "date_range": ("01/01/2023", "01/07/2023"),
+            "freelance": True
+        },
+        {
+            "title": "Data Analyst, Public Policy Research Assistant",
+            "company": "Corewoman",
+            "description": (
+                "In this role, I enabled empirical research on the impact of gender in the Colombian labor market for public policy. "
+                "I engaged with complex, multi-source environments, utilizing both structured and unstructured data. I delivered data "
+                "gathering and transformation pipelines using Stata, R, and Python. Additionally, I provided inferential statistics, "
+                "regression analysis, and program evaluation techniques, including propensity score matching (PSM)."
+            ),
+            "date_range": ("01/07/2019", "01/07/2022"),
+            "freelance": False
         }
     ]
 
-    offering_html = '<h3>(5+1) Key Differentials of My Professional Offering</h3><ol style="padding-left: 20px;">'
-    tooltip_elements = []
+    return experience_items
 
-    for i, offer in enumerate(offerings):
-        raw_element_id = id_pattern.format(i + 1)
-        hashed_element_id = hashlib.md5(f"{raw_element_id}-{system_date}".encode()).hexdigest()[:10]
-
-        bg_color = colors[i % len(colors)]
-        offering_html += f'<li id="{hashed_element_id}" style="background-color: {bg_color}; padding: 8px; border-radius: 4px;">'
-        offering_html += f'<strong>{i+1}. {offer["title"]}</strong>: {offer["description"]}'
-
-        if "skills" in offer:
-            tooltip_html = html_for_tooltip_from_large_list(
-                offer["skills"], label="Technical Skills", element_id=hashed_element_id, color="#555", emoji="🏅"
-            )
-            offering_html += tooltip_html
-            tooltip_elements.append(hashed_element_id)
-
-        offering_html += '</li>'
-
-    offering_html += '</ol>'
-
-    st.markdown(install_tooltip_styling(), unsafe_allow_html=True)
-
-    for element_id in tooltip_elements:
-        st.markdown(install_tooltip_triggering_logic(hashed_element_id), unsafe_allow_html=True)
-
-    return offering_html
-
-from datetime import datetime
-import hashlib
-import streamlit as st
-
-def load_detailed_offering(id_pattern="offering-{}", colors=["#f0f0f0", "#ffffff"]):
-    system_date = datetime.now().strftime("%Y-%m-%d")  # Ensure correct date format
-    
-    offerings = [
-        {
-            "title": "Inferential Statistics & High-Performance Predictive Analytics",
-            "description": "I research and implement techniques for regression, classification, and forecasting use cases...",
-            "skills": [
-                "Strong understanding of linear regression.", 
-                "Expertise in machine learning pattern detection.",
-            ]
-        },
-        {
-            "title": "Software & Application Development for Inference Distribution",
-            "description": "I develop applications (batch scripts, APIs, dashboards, web applications)...",
-            "skills": [
-                "Strong understanding of software engineering.",
-                "Expertise in architectural and design patterns.",
-            ]
-        }
-    ]
-
-    # Hash the element ID with date to force unique identifiers
-    offering_html = '<h3>(5+1) Key Differentials of My Professional Offering</h3><ol style="padding-left: 20px;">'
-    tooltip_elements = []
-
-    for i, offer in enumerate(offerings):
-        raw_element_id = id_pattern.format(i + 1)
-        hashed_element_id = hashlib.md5(f"{raw_element_id}-{system_date}".encode()).hexdigest()[:10]
-
-        bg_color = colors[i % len(colors)]
-        offering_html += f'<li id="{hashed_element_id}" style="background-color: {bg_color}; padding: 8px; border-radius: 4px;">'
-        offering_html += f'<strong>{i+1}. {offer["title"]}</strong>: {offer["description"]}'
-
-        if "skills" in offer:
-            tooltip_html = html_for_tooltip_from_large_list(
-                offer["skills"], label="Technical Skills", element_id=hashed_element_id, color="#555", emoji="🏅"
-            )
-            offering_html += tooltip_html
-            tooltip_elements.append(hashed_element_id)
-
-        offering_html += '</li>'
-
-    offering_html += '</ol>'
-
-    # Ensure fresh tooltip styles and scripts are reloaded each time
-    st.markdown("<style id='tooltip-style'>"+install_tooltip_styling()+"</style>", unsafe_allow_html=True)
-
-    for element_id in tooltip_elements:
-        st.markdown(f"<script id='tooltip-script-{element_id}'>"+install_tooltip_triggering_logic(element_id)+"</script>", unsafe_allow_html=True)
-
-    return offering_html
 
