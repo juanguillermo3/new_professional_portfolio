@@ -177,11 +177,12 @@ class CurriculumVitae(PortfolioSection):
         if accumulated_styles:
             st.markdown(f"<style>{accumulated_styles}</style>", unsafe_allow_html=True)
 
-    def _render_experience(self, hide_freelance=False):
+    def _render_experience(self):
         st.markdown("#### Work Experience 🔧")
     
+        hide_freelance = st.checkbox("Hide freelance work", value=False)
+    
         for experience in self.work_experience:
-            # Respect freelance flag
             is_freelance = experience.get("freelance", False)
             if hide_freelance and is_freelance:
                 continue
@@ -207,5 +208,6 @@ class CurriculumVitae(PortfolioSection):
                     <p style='font-style: italic;'>{date_range_str}</p>
                 </div>
             </div>""", unsafe_allow_html=True)
+
 
 cv=CurriculumVitae()
