@@ -18,8 +18,10 @@ SERVICES_ICON = os.getenv("SERVICES_ICON", "https://cdn-icons-png.flaticon.com/1
 CV_ICON = os.getenv("SERVICES_ICON", "https://img.icons8.com/?size=100&id=kZDsMIbqetN3&format=png&color=000000")
 
 
+import streamlit as st
+import urllib.parse
+
 def render_multi_page_navigation():
-    # Define Custom CSS for a Frosted Glass Effect Navbar with Tooltips
     st.markdown(
         """
         <style>
@@ -28,8 +30,8 @@ def render_multi_page_navigation():
                 bottom: 20px;
                 left: 50%;
                 transform: translateX(-50%);
-                background: rgba(255, 255, 255, 0.1);  /* Transparent background */
-                backdrop-filter: blur(4px);  /* Frosted glass effect */
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(4px);
                 border: 2px solid rgba(255, 255, 255, 0.9);
                 box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.1);
                 padding: 10px 20px;
@@ -37,23 +39,30 @@ def render_multi_page_navigation():
                 display: flex;
                 gap: 20px;
                 align-items: center;
+                z-index: 9999;
+                max-width: 95vw;
+                flex-wrap: wrap;
             }
+
             .nav-link {
-                display: inline-block;
+                display: inline-flex;
                 text-decoration: none;
                 transition: transform 0.2s ease-in-out;
                 position: relative;
             }
+
             .nav-link img {
                 width: 50px;
-                height: 50px;
+                height: auto;
+                max-height: 50px;
+                aspect-ratio: 1 / 1;
                 border-radius: 50%;
             }
+
             .nav-link:hover {
                 transform: scale(1.1);
             }
-            
-            /* Tooltip Styling */
+
             .nav-link::after {
                 content: attr(data-tooltip);
                 position: absolute;
@@ -75,38 +84,55 @@ def render_multi_page_navigation():
                 opacity: 1;
                 visibility: visible;
             }
-            
-            /* WhatsApp Button */
+
             .nav-link.whatsapp-btn {
                 background-color: #25D366;
-                width: 55px;
-                height: 55px;
+                width: 66px;  /* 120% of 55px */
+                height: 66px;
                 border-radius: 50%;
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 transition: all 0.3s ease-in-out;
                 position: relative;
+                margin-left: auto;
             }
+
             .nav-link.whatsapp-btn img {
-                width: 36px;
-                height: 36px;
+                width: 42px;
+                height: 42px;
             }
+
             .nav-link.whatsapp-btn:hover {
                 background-color: #1EBEA5;
                 transform: scale(1.1);
+            }
+
+            @media (max-width: 500px) {
+                .nav-link img {
+                    width: 40px;
+                    max-height: 40px;
+                }
+
+                .nav-link.whatsapp-btn {
+                    width: 58px;
+                    height: 58px;
+                }
+
+                .nav-link.whatsapp-btn img {
+                    width: 36px;
+                    height: 36px;
+                }
             }
         </style>
         """,
         unsafe_allow_html=True,
     )
 
-    # WhatsApp Number & Message
     whatsapp_number = WHATSAPP_NUMBER
     salutation = "Hello! I’d love to learn more about your services."
     whatsapp_url = f"https://wa.me/{whatsapp_number.replace('+', '')}?text={urllib.parse.quote(salutation)}"
 
-    # **Navigation Links with Tooltips & WhatsApp Button**
     st.markdown(
         f"""
         <div class="fixed-navbar">
@@ -129,6 +155,7 @@ def render_multi_page_navigation():
         """,
         unsafe_allow_html=True,
     )
+
 
 
 
