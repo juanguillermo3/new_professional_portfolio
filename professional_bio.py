@@ -177,4 +177,35 @@ class CurriculumVitae(PortfolioSection):
         if accumulated_styles:
             st.markdown(f"<style>{accumulated_styles}</style>", unsafe_allow_html=True)
 
+    def _render_experience(self, hide_freelance=False):
+        st.markdown("#### Work Experience 🔧")
+    
+        for experience in self.work_experience:
+            # Respect freelance flag
+            is_freelance = experience.get("freelance", False)
+            if hide_freelance and is_freelance:
+                continue
+    
+            start_date, end_date = experience['date_range']
+            is_current_job = CURRENT_JOB_KEYWORD.strip().lower() == end_date.strip().lower()
+            display_circle_color = self.CURRENT_CIRCLE_COLOR if is_current_job else self.CIRCLE_COLOR
+            display_shadow_color = self.SHADOW_CURRENT_CIRCLE_COLOR if is_current_job else self.SHADOW_CIRCLE_COLOR
+            date_range_str = f"{format_date_for_frontend(start_date)} - {format_date_for_frontend(end_date)}"
+    
+            st.markdown(f"""<div style='margin-bottom: 0.5rem; display: flex; align-items: flex-start;'>
+                <div style='
+                    width: 16px; height: 16px; border: 4px solid {display_circle_color}; 
+                    border-radius: 50%; box-shadow: 0 0 10px {display_shadow_color}; 
+                    margin-right: 12px; margin-top: 4px; transition: all 0.3s ease-in-out;'
+                    onmouseover="this.style.boxShadow='0 0 20px {display_circle_color}'; this.style.transform='scale(1.1)';"
+                    onmouseout="this.style.boxShadow='0 0 10px {display_shadow_color}'; this.style.transform='scale(1)';">
+                </div> 
+                <div style="max-width: 500px;">
+                    <strong>{experience['title']}</strong><br> 
+                    <em>{experience['company']}</em><br> 
+                    <p>{experience['description']}</p>
+                    <p style='font-style: italic;'>{date_range_str}</p>
+                </div>
+            </div>""", unsafe_allow_html=True)
+
 cv=CurriculumVitae()
