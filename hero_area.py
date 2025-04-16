@@ -311,7 +311,7 @@ class HeroArea:
             "label": "Technical Skills",
             "color": "#FFA000",  # Energetic amber
             "pastel": "#FFF9C4",  # Soft yellow
-            "icon": "https://img.icons8.com/?size=100&id=104252&format=png&color=000000",
+            "icon": "https://img.icons8.com/?size=100&id=YKRQA7CZkqVz&format=png&color=000000",
             "emoji": "🚀",
             "default_text": "{n} technical skills listed"
         }
