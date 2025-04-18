@@ -33,43 +33,44 @@ def fetch_url_metadata(url):
         }
 
 def render_tooltip(visible_text, url):
-    """Renders the text with a tooltip that displays metadata on hover"""
+    """Renders the text with a tooltip that is always visible next to the text."""
     
-    # Fetch metadata using the private method
     metadata = fetch_url_metadata(url)
-    
-    # Create the HTML for the tooltip
-    tooltip_html = f"""
-    <div style="width: 300px; padding: 10px; background-color: #ffffff; border-radius: 8px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); font-family: Arial, sans-serif; font-size: 14px;">
-        <!-- Title -->
-        <div style="font-size: 16px; font-weight: bold; color: #333333;">
-            {metadata['title'] if metadata['title'] else visible_text}
-        </div>
-        
-        <!-- Description -->
-        <div style="margin-top: 5px; color: #555555; line-height: 1.4;">
-            {metadata['description']}
-        </div>
-        
-        <!-- Image (Placeholder) -->
-        <div style="margin-top: 10px; text-align: center;">
-            <img src="{metadata['image'] if metadata['image'] else 'https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png'}" alt="Logo" style="width: 60px; height: 60px; object-fit: cover; border-radius: 50%;" />
-        </div>
-        
-        <!-- URL -->
-        <div style="margin-top: 10px; text-align: center;">
-            <a href="{metadata['url']}" target="_blank" style="color: #1a73e8; text-decoration: none; font-weight: bold;">
-                Visit Link
-            </a>
+
+    # Fallback image
+    image = metadata['image'] or 'https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png'
+
+    # Core styles
+    html = f"""
+    <div style="display: flex; align-items: flex-start; gap: 20px; margin: 10px 0;">
+        <!-- Trigger Text -->
+        <span style="color: #1a73e8; text-decoration: underline; font-weight: 500; font-size: 16px;">
+            {visible_text}
+        </span>
+
+        <!-- Tooltip Content -->
+        <div style="width: 320px; background-color: #ffffff; padding: 12px; border-radius: 10px;
+                    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15); font-family: Arial, sans-serif;">
+            
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <img src="{image}" alt="Preview image" style="width: 48px; height: 48px; object-fit: cover; border-radius: 8px;">
+                <div>
+                    <div style="font-weight: bold; color: #202124; font-size: 15px;">{metadata['title'] or 'Untitled'}</div>
+                    <div style="color: #5f6368; font-size: 13px; margin-top: 2px;">{metadata['description'] or ''}</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 10px; text-align: right;">
+                <a href="{metadata['url'] or url}" target="_blank" 
+                   style="color: #1a73e8; text-decoration: none; font-size: 13px; font-weight: 500;">
+                    Visitar enlace →
+                </a>
+            </div>
         </div>
     </div>
     """
-    
-    # Create the span with the tooltip (title attribute)
-    span_html = f'<span style="color: #1a73e8; text-decoration: underline;" title="{metadata["title"]}: {metadata["description"]}">{visible_text}</span>'
-    
-    # Render everything in Streamlit using markdown
-    st.markdown(f"Hover over this text: {span_html}", unsafe_allow_html=True)
+
+    st.markdown(html, unsafe_allow_html=True)
 
 # Example Usage in Streamlit
 #url = "https://www.corewoman.org"
