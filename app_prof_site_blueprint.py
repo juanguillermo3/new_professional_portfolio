@@ -123,6 +123,7 @@ render_tooltip("Corewoman", "https://www.corewoman.org/")
 
 render_tooltip("Departamento Nacional de Planeación", "https://www.dnp.gov.co/")
 
+render_tooltip("Grade", "https://www.grade.org.pe/")
 
 render_multi_page_navigation()
 #display_floating_whatsapp_button( whatsapp_number=WHATSAPP_NUMBER, horizontal_position= "65%",)
