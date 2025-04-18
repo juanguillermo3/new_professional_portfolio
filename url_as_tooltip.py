@@ -53,7 +53,7 @@ def fetch_url_metadata(url):
 
 import streamlit as st
 import uuid
-from your_module import fetch_url_metadata  # Adjust if necessary
+#from your_module import fetch_url_metadata  # Adjust if necessary
 
 def render_tooltip(visible_text, url):
     """Render a span with a hover-activated tooltip containing page metadata."""
