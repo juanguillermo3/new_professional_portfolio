@@ -121,6 +121,9 @@ render_tooltip("Fedesarrollo", "https://fedesarrollo.org.co/")
 
 render_tooltip("Corewoman", "https://www.corewoman.org/")
 
+render_tooltip("Departamento Nacional de Planeación", "Corewoman")
+
+
 render_multi_page_navigation()
 #display_floating_whatsapp_button( whatsapp_number=WHATSAPP_NUMBER, horizontal_position= "65%",)
 
