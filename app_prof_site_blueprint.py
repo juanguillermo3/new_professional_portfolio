@@ -121,7 +121,7 @@ render_tooltip("Fedesarrollo", "https://fedesarrollo.org.co/")
 
 render_tooltip("Corewoman", "https://www.corewoman.org/")
 
-render_tooltip("Departamento Nacional de Planeación", "Corewoman")
+render_tooltip("Departamento Nacional de Planeación", "https://www.dnp.gov.co/")
 
 
 render_multi_page_navigation()
