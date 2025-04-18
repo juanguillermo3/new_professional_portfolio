@@ -117,6 +117,8 @@ visible_text = "Universidad de los Andes"
 # Call the render_tooltip method to display the text with tooltip
 render_tooltip(visible_text, url)
 
+render_tooltip("Fedesarrollo", "https://fedesarrollo.org.co/")
+
 render_multi_page_navigation()
 #display_floating_whatsapp_button( whatsapp_number=WHATSAPP_NUMBER, horizontal_position= "65%",)
 
