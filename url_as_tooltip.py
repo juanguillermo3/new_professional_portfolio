@@ -194,7 +194,112 @@ def render_tooltip(visible_text, url):
     st.markdown(html, unsafe_allow_html=True)
 
 
+def _url_as_tooltip_html(visible_text, url):
+    """Return the HTML string for a tooltip with embedded metadata from a URL."""
+    metadata = extract_all_metadata(url)
 
+    title = metadata.get("title", "")
+    description = metadata.get("description", "")
+    logo = metadata.get("icon") or "https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png"
+    hero = metadata.get("hero_image")
+    final_url = metadata.get("url", url)
+
+    tooltip_id = f"tooltip_{uuid.uuid4().hex[:8]}"
+    hero_img_html = f'<img src="{hero}" alt="Main Image" class="hero-img" />' if hero else ""
+
+    html = f"""
+    <style>
+    #{tooltip_id} {{
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+    }}
+
+    #{tooltip_id} .tooltip-box {{
+        visibility: hidden;
+        opacity: 0;
+        width: 360px;
+        background-color: #fff;
+        color: #333;
+        text-align: left;
+        padding: 16px;
+        border-radius: 12px;
+        box-shadow: 0px 6px 24px rgba(0, 0, 0, 0.2);
+        position: absolute;
+        top: 30px;
+        left: 0;
+        z-index: 999;
+        font-family: Arial, sans-serif;
+        transition: opacity 0.3s ease-in-out;
+    }}
+
+    #{tooltip_id}:hover .tooltip-box {{
+        visibility: visible;
+        opacity: 1;
+    }}
+
+    .tooltip-box .row-title {{
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 6px;
+    }}
+
+    .tooltip-box .row-title img {{
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        object-fit: cover;
+    }}
+
+    .tooltip-box .row-title a {{
+        color: #1a73e8;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 16px;
+    }}
+
+    .tooltip-box .url-display {{
+        font-size: 12px;
+        color: #888888;
+        margin-bottom: 10px;
+    }}
+
+    .tooltip-box .hero-img {{
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }}
+
+    .tooltip-box .description {{
+        font-size: 13px;
+        color: #666666;
+        line-height: 1.4;
+    }}
+    </style>
+
+    <span id="{tooltip_id}">
+        <span style="text-decoration: underline; color: #1a73e8;">{visible_text}</span>
+        <div class="tooltip-box">
+            <div class="row-title">
+                <img src="{logo}" alt="logo"/>
+                <a href="{final_url}" target="_blank">{title or 'Página web'}</a>
+            </div>
+            <div class="url-display">{final_url}</div>
+            {hero_img_html}
+            <div class="description">{description}</div>
+        </div>
+    </span>
+    """
+    return html
+
+
+def render_tooltip(visible_text, url):
+    """Render the tooltip using Streamlit markdown."""
+    html = _url_as_tooltip_html(visible_text, url)
+    
 # Example Usage in Streamlit
 #url = "https://www.corewoman.org"
 #visible_text = "CoreWoman | Brechas de género"
