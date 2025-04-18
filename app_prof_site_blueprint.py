@@ -111,8 +111,8 @@ else:
             render_section_separator()
     
 # Example Usage in Streamlit
-url = "https://www.corewoman.org"
-visible_text = "CoreWoman | Brechas de género"
+url = "https://www.uniandes.edu.co/"
+visible_text = "Universidad de los Andes"
 
 # Call the render_tooltip method to display the text with tooltip
 render_tooltip(visible_text, url)
