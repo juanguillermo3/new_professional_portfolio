@@ -151,7 +151,7 @@ def load_education_items():
         {
             "title": "Bachelor's Degree in Economics",
             "institution": "Universidad de los Andes",
-            "institution_url": "https://www.uniandes.edu.co/",
+            #"institution_url": "https://www.uniandes.edu.co/",
             "description": (
                 "I hold a **Bachelor's degree in Economics** from Universidad de los Andes. In a few words, college educated me on social and "
                 "corporate systems being statistically patterned—hence the unreasonable effectiveness of **regression analysis** and "
