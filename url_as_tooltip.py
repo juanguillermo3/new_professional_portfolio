@@ -48,11 +48,17 @@ def extract_all_metadata(url):
         max_width = -1
         for tag in soup.find_all("img", src=True):
             width_attr = tag.get("width")
-            try:
-                width = int(width_attr) if width_attr else float("inf")
-            except ValueError:
-                width = float("inf")
-
+        
+            # Extract numeric part from width (e.g., "600px" → 600, "100%" → skip)
+            width = float("inf")
+            if width_attr:
+                match = re.search(r"(\d+)", width_attr)
+                if match:
+                    try:
+                        width = int(match.group(1))
+                    except ValueError:
+                        width = float("inf")
+        
             if width > max_width:
                 max_width = width
                 hero_image = urljoin(url, tag['src'])
