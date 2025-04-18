@@ -18,6 +18,7 @@ from cv_data_loader import (
 from front_end_utils import tags_in_twitter_style
 from portfolio_section import PortfolioSection
 from expandable_text import expandable_text_html
+from url_as_tooltip import _url_as_tooltip_html
 
 class CurriculumVitae(PortfolioSection):
     EARLY_DEVELOPMENT_STAGE = False  # Override class defaults for this section
