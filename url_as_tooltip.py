@@ -62,8 +62,15 @@ def extract_all_metadata(url):
         preview_image = og_data.get('og:image') or twitter_data.get('twitter:image')
 
         # 8. Hero image: first <img> with src
-        first_img_tag = soup.find("img", src=True)
-        hero_image = urljoin(url, first_img_tag['src']) if first_img_tag else None
+        valid_extensions = ('.jpg', '.jpeg', '.png', '.webp')
+        blacklist_keywords = ('blank', 'spacer', 'pixel', 'loader', 'placeholder')
+        
+        hero_image = None
+        for tag in soup.find_all("img", src=True):
+            src = tag['src'].lower()
+            if src.endswith(valid_extensions) and not any(keyword in src for keyword in blacklist_keywords):
+                hero_image = urljoin(url, tag['src'])
+                break
 
         return {
             'title': og_data.get('og:title') or twitter_data.get('twitter:title') or title,
