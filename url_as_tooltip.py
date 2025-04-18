@@ -1,23 +1,4 @@
-import requests
-from bs4 import BeautifulSoup
-import streamlit as st
-
-import requests
-from bs4 import BeautifulSoup
-from urllib.parse import urljoin
-
-import streamlit as st
-import uuid
-
-import requests
-from bs4 import BeautifulSoup
-from urllib.parse import urljoin
-
-import requests
-from bs4 import BeautifulSoup
-from urllib.parse import urljoin
-
-import requests
+bimport requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 
@@ -62,15 +43,28 @@ def extract_all_metadata(url):
         # 7. Preview image
         preview_image = og_data.get('og:image') or twitter_data.get('twitter:image')
 
-        # 8. Hero image (first visible <img>)
-        first_img_tag = soup.find('img', src=True)
-        hero_image = urljoin(url, first_img_tag['src']) if first_img_tag else None
+        # 8. Hero image: largest-width image
+        largest_image = None
+        max_width = -1
+
+        for img in soup.find_all('img', src=True):
+            width_attr = img.get('width')
+            try:
+                width = int(width_attr) if width_attr else 0
+            except ValueError:
+                width = 0
+
+            if width > max_width:
+                largest_image = img
+                max_width = width
+
+        hero_image = urljoin(url, largest_image['src']) if largest_image else None
 
         return {
             'title': og_data.get('og:title') or twitter_data.get('twitter:title') or title,
             'description': og_data.get('og:description') or twitter_data.get('twitter:description') or meta_description,
-            'image': preview_image,      # Used in embeds / metadata
-            'hero_image': hero_image,    # First large image in DOM
+            'image': preview_image,
+            'hero_image': hero_image,
             'icon': icon_url,
             'url': og_data.get('og:url') or canonical_url or url
         }
@@ -89,23 +83,20 @@ def extract_all_metadata(url):
 
 import streamlit as st
 import uuid
-#from your_module import fetch_url_metadata  # Adjust if necessary
-
-import uuid
-import streamlit as st
 
 def render_tooltip(visible_text, url):
     """Render a span with a hover-activated tooltip containing page metadata."""
-
     metadata = extract_all_metadata(url)
 
     title = metadata.get("title", "")
     description = metadata.get("description", "")
     logo = metadata.get("icon") or "https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png"
-    hero = metadata.get("hero_image") or "https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png"
+    hero = metadata.get("hero_image")  # No default
     final_url = metadata.get("url", url)
 
     tooltip_id = f"tooltip_{uuid.uuid4().hex[:8]}"
+
+    hero_img_html = f'<img src="{hero}" alt="Main Image" class="hero-img" />' if hero else ""
 
     html = f"""
     <style>
@@ -188,13 +179,14 @@ def render_tooltip(visible_text, url):
                 <a href="{final_url}" target="_blank">{title or 'Página web'}</a>
             </div>
             <div class="url-display">{final_url}</div>
-            <img src="{hero}" alt="Main Image" class="hero-img" />
+            {hero_img_html}
             <div class="description">{description}</div>
         </div>
     </span>
     """
 
     st.markdown(html, unsafe_allow_html=True)
+
 
 
 # Example Usage in Streamlit
