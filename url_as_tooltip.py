@@ -299,6 +299,7 @@ def _url_as_tooltip_html(visible_text, url):
 def render_tooltip(visible_text, url):
     """Render the tooltip using Streamlit markdown."""
     html = _url_as_tooltip_html(visible_text, url)
+    st.markdown(html, unsafe_allow_html=True)
     
 # Example Usage in Streamlit
 #url = "https://www.corewoman.org"
