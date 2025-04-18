@@ -32,25 +32,70 @@ def fetch_url_metadata(url):
             'url': url
         }
 
+import streamlit as st
+import uuid
+
 def render_tooltip(visible_text, url):
-    """Renders the text alongside a visible metadata preview card using Streamlit built-ins."""
+    """Render inline span with a fixed-position tooltip preview on hover."""
 
     metadata = fetch_url_metadata(url)
-    title = metadata['title'] or visible_text
-    description = metadata['description'] or "No description available."
-    image = metadata['image'] or 'https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png'
-    final_url = metadata['url'] or url
 
-    col1, col2 = st.columns([1, 3])
+    title = metadata.get("title", "")
+    description = metadata.get("description", "")
+    image = metadata.get("image") or "https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png"
+    final_url = metadata.get("url", url)
 
-    with col1:
-        st.markdown(f"**{visible_text}**", unsafe_allow_html=True)
+    tooltip_id = f"tooltip_{uuid.uuid4().hex[:8]}"
 
-    with col2:
-        st.markdown("##### " + title)
-        st.image(image, width=60)
-        st.markdown(f"{description}", unsafe_allow_html=True)
-        st.markdown(f"[Visitar enlace →]({final_url})", unsafe_allow_html=True)
+    html = f"""
+    <style>
+    .tooltip-wrapper {{
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+    }}
+    .tooltip-box {{
+        visibility: visible;
+        width: 320px;
+        background-color: #fff;
+        color: #333;
+        text-align: left;
+        padding: 12px;
+        border-radius: 10px;
+        box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
+        position: absolute;
+        top: 25px;
+        left: 0;
+        z-index: 999;
+        font-family: Arial, sans-serif;
+    }}
+    .tooltip-box img {{
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 10px;
+    }}
+    .tooltip-box a {{
+        color: #1a73e8;
+        font-weight: bold;
+        text-decoration: none;
+    }}
+    </style>
+
+    <span class="tooltip-wrapper" id="{tooltip_id}">
+        <span style="text-decoration: underline; color: #1a73e8;">{visible_text}</span>
+        <div class="tooltip-box">
+            <div style="font-size: 16px; font-weight: bold;">{title}</div>
+            <div style="margin: 6px 0;">{description}</div>
+            <img src="{image}" alt="logo"/>
+            <div style="margin-top: 10px;"><a href="{final_url}" target="_blank">Visitar sitio →</a></div>
+        </div>
+    </span>
+    """
+
+    st.markdown(html, unsafe_allow_html=True)
+
 
 # Example Usage in Streamlit
 #url = "https://www.corewoman.org"
