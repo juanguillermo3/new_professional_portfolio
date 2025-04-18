@@ -2,27 +2,45 @@ import requests
 from bs4 import BeautifulSoup
 import streamlit as st
 
+import requests
+from bs4 import BeautifulSoup
+from urllib.parse import urljoin
+
+import streamlit as st
+import uuid
+
 def fetch_url_metadata(url):
-    """Private method to fetch OG metadata from the URL"""
+    """Fetch metadata including <title>, favicon, and OG description/url"""
     try:
-        response = requests.get(url)
+        response = requests.get(url, timeout=5)
         soup = BeautifulSoup(response.text, 'html.parser')
 
-        # Extract OG metadata
-        metadata = {
-            'og_title': soup.find('meta', property='og:title'),
-            'og_description': soup.find('meta', property='og:description'),
-            'og_image': soup.find('meta', property='og:image'),
-            'og_url': soup.find('meta', property='og:url')
-        }
-        
-        # Extract content or default to empty strings if not available
+        # 1. Title from <title> tag
+        title_tag = soup.find('title')
+        title = title_tag.text.strip() if title_tag else ''
+
+        # 2. Logo from <link rel="icon"> or <link rel="shortcut icon">
+        icon_link = soup.find('link', rel=lambda value: value and 'icon' in value.lower())
+        if icon_link and icon_link.get('href'):
+            image = urljoin(url, icon_link['href'])
+        else:
+            image = None
+
+        # 3. OG Description
+        og_description = soup.find('meta', property='og:description')
+        description = og_description['content'] if og_description and og_description.get('content') else ''
+
+        # 4. OG Canonical URL fallback
+        og_url = soup.find('meta', property='og:url')
+        canonical_url = og_url['content'] if og_url and og_url.get('content') else url
+
         return {
-            'title': metadata['og_title']['content'] if metadata['og_title'] else '',
-            'description': metadata['og_description']['content'] if metadata['og_description'] else '',
-            'image': metadata['og_image']['content'] if metadata['og_image'] else None,
-            'url': metadata['og_url']['content'] if metadata['og_url'] else url  # Use the URL as fallback
+            'title': title,
+            'description': description,
+            'image': image,
+            'url': canonical_url
         }
+
     except Exception as e:
         print(f"Error fetching metadata: {e}")
         return {
@@ -32,8 +50,6 @@ def fetch_url_metadata(url):
             'url': url
         }
 
-import streamlit as st
-import uuid
 
 def render_tooltip(visible_text, url):
     """Render a span with a hover-activated tooltip containing page metadata."""
