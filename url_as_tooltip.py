@@ -9,44 +9,80 @@ from urllib.parse import urljoin
 import streamlit as st
 import uuid
 
-def fetch_url_metadata(url):
-    """Fetch metadata including <title>, favicon, and OG description/url"""
+import requests
+from bs4 import BeautifulSoup
+from urllib.parse import urljoin
+
+import requests
+from bs4 import BeautifulSoup
+from urllib.parse import urljoin
+
+import requests
+from bs4 import BeautifulSoup
+from urllib.parse import urljoin
+
+def extract_all_metadata(url):
+    """Fetch title, favicon, metadata, og tags, and hero image."""
     try:
         response = requests.get(url, timeout=5)
         soup = BeautifulSoup(response.text, 'html.parser')
 
-        # 1. Title from <title> tag
-        title_tag = soup.find('title')
-        title = title_tag.text.strip() if title_tag else ''
+        # 1. Title
+        title = soup.title.string.strip() if soup.title else ''
 
-        # 2. Logo from <link rel="icon"> or <link rel="shortcut icon">
-        icon_link = soup.find('link', rel=lambda value: value and 'icon' in value.lower())
-        if icon_link and icon_link.get('href'):
-            image = urljoin(url, icon_link['href'])
-        else:
-            image = None
+        # 2. Meta description
+        meta_desc = soup.find('meta', attrs={'name': 'description'})
+        meta_description = meta_desc['content'].strip() if meta_desc and meta_desc.get('content') else ''
 
-        # 3. OG Description
-        og_description = soup.find('meta', property='og:description')
-        description = og_description['content'] if og_description and og_description.get('content') else ''
+        # 3. Open Graph
+        og_data = {
+            (tag.get('property') or '').lower(): tag.get('content', '').strip()
+            for tag in soup.find_all('meta') if tag.get('property') and tag.get('content')
+        }
 
-        # 4. OG Canonical URL fallback
-        og_url = soup.find('meta', property='og:url')
-        canonical_url = og_url['content'] if og_url and og_url.get('content') else url
+        # 4. Twitter Card
+        twitter_data = {
+            (tag.get('name') or '').lower(): tag.get('content', '').strip()
+            for tag in soup.find_all('meta') if tag.get('name', '').lower().startswith('twitter:') and tag.get('content')
+        }
+
+        # 5. Canonical URL
+        canonical_tag = soup.find('link', rel='canonical')
+        canonical_url = canonical_tag['href'].strip() if canonical_tag and canonical_tag.get('href') else ''
+
+        # 6. Icon (favicon)
+        icon_link = soup.find('link', rel=lambda val: val and 'icon' in val.lower())
+        icon_url = urljoin(url, icon_link['href']) if icon_link and icon_link.get('href') else None
+
+        # Apple fallback
+        apple_icon = soup.find('link', rel='apple-touch-icon')
+        if not icon_url and apple_icon and apple_icon.get('href'):
+            icon_url = urljoin(url, apple_icon['href'])
+
+        # 7. Preview image
+        preview_image = og_data.get('og:image') or twitter_data.get('twitter:image')
+
+        # 8. Hero image (first visible <img>)
+        first_img_tag = soup.find('img', src=True)
+        hero_image = urljoin(url, first_img_tag['src']) if first_img_tag else None
 
         return {
-            'title': title,
-            'description': description,
-            'image': image,
-            'url': canonical_url
+            'title': og_data.get('og:title') or twitter_data.get('twitter:title') or title,
+            'description': og_data.get('og:description') or twitter_data.get('twitter:description') or meta_description,
+            'image': preview_image,      # Used in embeds / metadata
+            'hero_image': hero_image,    # First large image in DOM
+            'icon': icon_url,
+            'url': og_data.get('og:url') or canonical_url or url
         }
 
     except Exception as e:
-        print(f"Error fetching metadata: {e}")
+        print(f"Error extracting metadata: {e}")
         return {
             'title': 'Unknown Title',
             'description': 'No description available.',
             'image': None,
+            'hero_image': None,
+            'icon': None,
             'url': url
         }
 
@@ -55,14 +91,18 @@ import streamlit as st
 import uuid
 #from your_module import fetch_url_metadata  # Adjust if necessary
 
+import uuid
+import streamlit as st
+
 def render_tooltip(visible_text, url):
     """Render a span with a hover-activated tooltip containing page metadata."""
 
-    metadata = fetch_url_metadata(url)
+    metadata = extract_all_metadata(url)
 
     title = metadata.get("title", "")
     description = metadata.get("description", "")
-    logo = metadata.get("image") or "https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png"
+    logo = metadata.get("icon") or "https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png"
+    hero = metadata.get("hero_image") or "https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png"
     final_url = metadata.get("url", url)
 
     tooltip_id = f"tooltip_{uuid.uuid4().hex[:8]}"
@@ -148,15 +188,13 @@ def render_tooltip(visible_text, url):
                 <a href="{final_url}" target="_blank">{title or 'Página web'}</a>
             </div>
             <div class="url-display">{final_url}</div>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png" alt="Main Image" class="hero-img" />
+            <img src="{hero}" alt="Main Image" class="hero-img" />
             <div class="description">{description}</div>
         </div>
     </span>
     """
 
     st.markdown(html, unsafe_allow_html=True)
-
-
 
 
 # Example Usage in Streamlit
