@@ -33,44 +33,24 @@ def fetch_url_metadata(url):
         }
 
 def render_tooltip(visible_text, url):
-    """Renders the text with a tooltip that is always visible next to the text."""
-    
+    """Renders the text alongside a visible metadata preview card using Streamlit built-ins."""
+
     metadata = fetch_url_metadata(url)
-
-    # Fallback image
+    title = metadata['title'] or visible_text
+    description = metadata['description'] or "No description available."
     image = metadata['image'] or 'https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png'
+    final_url = metadata['url'] or url
 
-    # Core styles
-    html = f"""
-    <div style="display: flex; align-items: flex-start; gap: 20px; margin: 10px 0;">
-        <!-- Trigger Text -->
-        <span style="color: #1a73e8; text-decoration: underline; font-weight: 500; font-size: 16px;">
-            {visible_text}
-        </span>
+    col1, col2 = st.columns([1, 3])
 
-        <!-- Tooltip Content -->
-        <div style="width: 320px; background-color: #ffffff; padding: 12px; border-radius: 10px;
-                    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15); font-family: Arial, sans-serif;">
-            
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <img src="{image}" alt="Preview image" style="width: 48px; height: 48px; object-fit: cover; border-radius: 8px;">
-                <div>
-                    <div style="font-weight: bold; color: #202124; font-size: 15px;">{metadata['title'] or 'Untitled'}</div>
-                    <div style="color: #5f6368; font-size: 13px; margin-top: 2px;">{metadata['description'] or ''}</div>
-                </div>
-            </div>
+    with col1:
+        st.markdown(f"**{visible_text}**", unsafe_allow_html=True)
 
-            <div style="margin-top: 10px; text-align: right;">
-                <a href="{metadata['url'] or url}" target="_blank" 
-                   style="color: #1a73e8; text-decoration: none; font-size: 13px; font-weight: 500;">
-                    Visitar enlace →
-                </a>
-            </div>
-        </div>
-    </div>
-    """
-
-    st.markdown(html, unsafe_allow_html=True)
+    with col2:
+        st.markdown("##### " + title)
+        st.image(image, width=60)
+        st.markdown(f"{description}", unsafe_allow_html=True)
+        st.markdown(f"[Visitar enlace →]({final_url})", unsafe_allow_html=True)
 
 # Example Usage in Streamlit
 #url = "https://www.corewoman.org"
