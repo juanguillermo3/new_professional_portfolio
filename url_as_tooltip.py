@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 
 def extract_all_metadata(url):
-    """Fetch title, favicon, metadata, og tags, and hero image."""
+    """Fetch title, favicon, metadata, og tags, and best-guess hero image."""
     try:
         response = requests.get(url, timeout=5)
         soup = BeautifulSoup(response.text, 'html.parser')
@@ -43,28 +43,25 @@ def extract_all_metadata(url):
         # 7. Preview image
         preview_image = og_data.get('og:image') or twitter_data.get('twitter:image')
 
-        # 8. Hero image: largest-width image
-        largest_image = None
+        # 8. Hero image: select <img> with largest width (treat missing width as inf)
+        hero_image = None
         max_width = -1
-
-        for img in soup.find_all('img', src=True):
-            width_attr = img.get('width')
+        for tag in soup.find_all("img", src=True):
+            width_attr = tag.get("width")
             try:
-                width = int(width_attr) if width_attr else 0
+                width = int(width_attr) if width_attr else float("inf")
             except ValueError:
-                width = 0
+                width = float("inf")
 
             if width > max_width:
-                largest_image = img
                 max_width = width
-
-        hero_image = urljoin(url, largest_image['src']) if largest_image else None
+                hero_image = urljoin(url, tag['src'])
 
         return {
             'title': og_data.get('og:title') or twitter_data.get('twitter:title') or title,
             'description': og_data.get('og:description') or twitter_data.get('twitter:description') or meta_description,
             'image': preview_image,
-            'hero_image': hero_image,
+            'hero_image': hero_image,  # Might be None now — that's okay
             'icon': icon_url,
             'url': og_data.get('og:url') or canonical_url or url
         }
