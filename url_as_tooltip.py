@@ -51,6 +51,10 @@ def fetch_url_metadata(url):
         }
 
 
+import streamlit as st
+import uuid
+from your_module import fetch_url_metadata  # Adjust if necessary
+
 def render_tooltip(visible_text, url):
     """Render a span with a hover-activated tooltip containing page metadata."""
 
@@ -58,7 +62,7 @@ def render_tooltip(visible_text, url):
 
     title = metadata.get("title", "")
     description = metadata.get("description", "")
-    image = metadata.get("image") or "https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png"
+    logo = metadata.get("image") or "https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png"
     final_url = metadata.get("url", url)
 
     tooltip_id = f"tooltip_{uuid.uuid4().hex[:8]}"
@@ -74,15 +78,15 @@ def render_tooltip(visible_text, url):
     #{tooltip_id} .tooltip-box {{
         visibility: hidden;
         opacity: 0;
-        width: 320px;
+        width: 360px;
         background-color: #fff;
         color: #333;
         text-align: left;
-        padding: 12px;
-        border-radius: 10px;
-        box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
+        padding: 16px;
+        border-radius: 12px;
+        box-shadow: 0px 6px 24px rgba(0, 0, 0, 0.2);
         position: absolute;
-        top: 25px;
+        top: 30px;
         left: 0;
         z-index: 999;
         font-family: Arial, sans-serif;
@@ -94,33 +98,64 @@ def render_tooltip(visible_text, url):
         opacity: 1;
     }}
 
-    .tooltip-box img {{
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        object-fit: cover;
-        margin-bottom: 10px;
+    .tooltip-box .row-title {{
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 6px;
     }}
 
-    .tooltip-box a {{
+    .tooltip-box .row-title img {{
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        object-fit: cover;
+    }}
+
+    .tooltip-box .row-title a {{
         color: #1a73e8;
         font-weight: bold;
         text-decoration: none;
+        font-size: 16px;
+    }}
+
+    .tooltip-box .url-display {{
+        font-size: 12px;
+        color: #888888;
+        margin-bottom: 10px;
+    }}
+
+    .tooltip-box .hero-img {{
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }}
+
+    .tooltip-box .description {{
+        font-size: 13px;
+        color: #666666;
+        line-height: 1.4;
     }}
     </style>
 
     <span id="{tooltip_id}">
         <span style="text-decoration: underline; color: #1a73e8;">{visible_text}</span>
         <div class="tooltip-box">
-            <div style="font-size: 16px; font-weight: bold;">{title}</div>
-            <div style="margin: 6px 0;">{description}</div>
-            <img src="{image}" alt="logo"/>
-            <div style="margin-top: 10px;"><a href="{final_url}" target="_blank">Visitar sitio →</a></div>
+            <div class="row-title">
+                <img src="{logo}" alt="logo"/>
+                <a href="{final_url}" target="_blank">{title or 'Página web'}</a>
+            </div>
+            <div class="url-display">{final_url}</div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png" alt="Main Image" class="hero-img" />
+            <div class="description">{description}</div>
         </div>
     </span>
     """
 
     st.markdown(html, unsafe_allow_html=True)
+
 
 
 
