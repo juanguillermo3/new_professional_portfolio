@@ -8,8 +8,13 @@ from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 import re
 
+import requests
+from bs4 import BeautifulSoup
+from urllib.parse import urljoin
+import re
+
 def extract_all_metadata(url):
-    """Fetch title, favicon, metadata, og tags, and best-guess hero image."""
+    """Fetch title, favicon, metadata, og tags, and best-guess hero image (first <img>)."""
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
                       "(KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
@@ -56,17 +61,9 @@ def extract_all_metadata(url):
         # 7. Preview image
         preview_image = og_data.get('og:image') or twitter_data.get('twitter:image')
 
-        # 8. Hero image: select <img> with largest width (treat missing width as inf)
-        hero_image = None
-        max_width = -1
-        for tag in soup.find_all("img", src=True):
-            width_attr = tag.get("width", "")
-            match = re.search(r"\d+(?:\.\d+)?", width_attr)
-            width = float(match.group()) if match else float("inf")
-
-            if width > max_width:
-                max_width = width
-                hero_image = urljoin(url, tag['src'])
+        # 8. Hero image: first <img> with src
+        first_img_tag = soup.find("img", src=True)
+        hero_image = urljoin(url, first_img_tag['src']) if first_img_tag else None
 
         return {
             'title': og_data.get('og:title') or twitter_data.get('twitter:title') or title,
@@ -87,8 +84,6 @@ def extract_all_metadata(url):
             'icon': None,
             'url': url
         }
-
-
 
 
 import streamlit as st
