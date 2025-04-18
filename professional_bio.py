@@ -91,9 +91,9 @@ class CurriculumVitae(PortfolioSection):
           
     def _render_education(self):
         st.markdown("#### Education 🎓")
-        
-        accumulated_styles = ""  # Collect styles here
-        
+    
+        accumulated_styles = ""
+    
         for edu in self.education:
             start_date, end_date = edu['date_range']
             date_range_str = f"{format_date_for_frontend(start_date)} - {format_date_for_frontend(end_date)}"
@@ -105,13 +105,13 @@ class CurriculumVitae(PortfolioSection):
             # Render institution as tooltip if URL is provided
             institution = edu['institution']
             institution_url = edu.get('institution_url')
-            
+    
             if institution_url:
                 institution_html = _url_as_tooltip_html(institution, institution_url)
             else:
                 institution_html = f"<em>{institution}</em>"
     
-            # Full component
+            # Render the top layout with bullet + title + institution
             st.markdown(f"""<div style='margin-bottom: 0.5rem; display: flex; align-items: flex-start;'>
                 <div style='
                     width: 16px; height: 16px; border: 4px solid {self.CIRCLE_COLOR}; 
@@ -123,14 +123,16 @@ class CurriculumVitae(PortfolioSection):
                 <div style="max-width: 500px;">
                     <strong>{edu['title']}</strong><br> 
                     {institution_html}<br> 
-                    {edu_text}
-                    <p style='font-style: italic;'>{date_range_str}</p>
                 </div>
             </div>""", unsafe_allow_html=True)
     
-        # Inject accumulated styles once at the end
+            # Then render description markdown separately so markdown is parsed
+            st.markdown(edu_text, unsafe_allow_html=True)
+            st.markdown(f"*{date_range_str}*")
+    
         if accumulated_styles:
             st.markdown(f"<style>{accumulated_styles}</style>", unsafe_allow_html=True)
+
 
 
 cv=CurriculumVitae()
