@@ -146,3 +146,25 @@ def load_experience_items():
     return experience_items
 
 
+def load_education_items():
+    education_items = [
+        {
+            "title": "Bachelor's Degree in Economics",
+            "institution": "Universidad de los Andes",
+            "institution_url": "https://www.uniandes.edu.co/",
+            "description": (
+                "I hold a **Bachelor's degree in Economics** from Universidad de los Andes. In a few words, college educated me on social and "
+                "corporate systems being statistically patterned—hence the unreasonable effectiveness of **regression analysis** and "
+                "**applied statistical modeling**. A secondary highlight of my time in college was acquiring excellent **programming skills** "
+                "to effectively deploy statistical analysis in any empirical environment. In economics, **measurement** is king, and "
+                "effectively handling empirical tasks was repeatedly reinforced through many courses until it became second nature to me. "
+                "Beyond a mandatory training as an economist, which mostly covered **neoclassical economics**, I delved deep into data "
+                "analysis and techniques available through non-mandatory master level college courses, comprehending **artificial intelligence**, "
+                "**advanced econometrics**, **data mining (machine learning)**, **forecasting**, and **big data**, for which I hold their respective certifications."
+            ),
+            "date_range": ("01/01/2012", "01/06/2019")
+        }
+    ]
+
+    return education_items
+
