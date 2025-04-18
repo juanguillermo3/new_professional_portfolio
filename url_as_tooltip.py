@@ -1,17 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
-from urllib.parse import urljoin
-import re
-
-import requests
-from bs4 import BeautifulSoup
-from urllib.parse import urljoin
-import re
-
-import requests
-from bs4 import BeautifulSoup
-from urllib.parse import urljoin
-import re
+from urllib.parse import urljoin, urlparse
+import os
 
 def extract_all_metadata(url):
     """Fetch title, favicon, metadata, og tags, and best-guess hero image (first <img>)."""
@@ -61,14 +51,17 @@ def extract_all_metadata(url):
         # 7. Preview image
         preview_image = og_data.get('og:image') or twitter_data.get('twitter:image')
 
-        # 8. Hero image: first <img> with src
+        # 8. Hero image: first <img> with a valid-looking src
         valid_extensions = ('.jpg', '.jpeg', '.png', '.webp')
         blacklist_keywords = ('blank', 'spacer', 'pixel', 'loader', 'placeholder')
-        
+
         hero_image = None
         for tag in soup.find_all("img", src=True):
             src = tag['src'].lower()
-            if src.endswith(valid_extensions) and not any(keyword in src for keyword in blacklist_keywords):
+            parsed_path = urlparse(src).path
+            ext = os.path.splitext(parsed_path)[1]
+
+            if ext in valid_extensions and not any(keyword in src for keyword in blacklist_keywords):
                 hero_image = urljoin(url, tag['src'])
                 break
 
@@ -91,6 +84,7 @@ def extract_all_metadata(url):
             'icon': None,
             'url': url
         }
+
 
 
 import streamlit as st
