@@ -3,10 +3,22 @@ from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 import re
 
+import requests
+from bs4 import BeautifulSoup
+from urllib.parse import urljoin
+import re
+
 def extract_all_metadata(url):
     """Fetch title, favicon, metadata, og tags, and best-guess hero image."""
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                      "(KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+    }
+
     try:
-        response = requests.get(url, timeout=5)
+        response = requests.get(url, headers=headers, timeout=5)
+        response.raise_for_status()
         soup = BeautifulSoup(response.text, 'html.parser')
 
         # 1. Title
@@ -51,19 +63,19 @@ def extract_all_metadata(url):
             width_attr = tag.get("width", "")
             match = re.search(r"\d+(?:\.\d+)?", width_attr)
             width = float(match.group()) if match else float("inf")
-        
+
             if width > max_width:
                 max_width = width
                 hero_image = urljoin(url, tag['src'])
-        
-                return {
-                    'title': og_data.get('og:title') or twitter_data.get('twitter:title') or title,
-                    'description': og_data.get('og:description') or twitter_data.get('twitter:description') or meta_description,
-                    'image': preview_image,
-                    'hero_image': hero_image,  # Might be None now — that's okay
-                    'icon': icon_url,
-                    'url': og_data.get('og:url') or canonical_url or url
-                }
+
+        return {
+            'title': og_data.get('og:title') or twitter_data.get('twitter:title') or title,
+            'description': og_data.get('og:description') or twitter_data.get('twitter:description') or meta_description,
+            'image': preview_image,
+            'hero_image': hero_image,
+            'icon': icon_url,
+            'url': og_data.get('og:url') or canonical_url or url
+        }
 
     except Exception as e:
         print(f"Error extracting metadata: {e}")
@@ -75,6 +87,8 @@ def extract_all_metadata(url):
             'icon': None,
             'url': url
         }
+
+
 
 
 import streamlit as st
