@@ -36,7 +36,7 @@ import streamlit as st
 import uuid
 
 def render_tooltip(visible_text, url):
-    """Render inline span with a fixed-position tooltip preview on hover."""
+    """Render a span with a hover-activated tooltip containing page metadata."""
 
     metadata = fetch_url_metadata(url)
 
@@ -49,13 +49,15 @@ def render_tooltip(visible_text, url):
 
     html = f"""
     <style>
-    .tooltip-wrapper {{
+    #{tooltip_id} {{
         position: relative;
         display: inline-block;
         cursor: pointer;
     }}
-    .tooltip-box {{
-        visibility: visible;
+
+    #{tooltip_id} .tooltip-box {{
+        visibility: hidden;
+        opacity: 0;
         width: 320px;
         background-color: #fff;
         color: #333;
@@ -68,7 +70,14 @@ def render_tooltip(visible_text, url):
         left: 0;
         z-index: 999;
         font-family: Arial, sans-serif;
+        transition: opacity 0.3s ease-in-out;
     }}
+
+    #{tooltip_id}:hover .tooltip-box {{
+        visibility: visible;
+        opacity: 1;
+    }}
+
     .tooltip-box img {{
         width: 50px;
         height: 50px;
@@ -76,6 +85,7 @@ def render_tooltip(visible_text, url):
         object-fit: cover;
         margin-bottom: 10px;
     }}
+
     .tooltip-box a {{
         color: #1a73e8;
         font-weight: bold;
@@ -83,7 +93,7 @@ def render_tooltip(visible_text, url):
     }}
     </style>
 
-    <span class="tooltip-wrapper" id="{tooltip_id}">
+    <span id="{tooltip_id}">
         <span style="text-decoration: underline; color: #1a73e8;">{visible_text}</span>
         <div class="tooltip-box">
             <div style="font-size: 16px; font-weight: bold;">{title}</div>
@@ -95,6 +105,7 @@ def render_tooltip(visible_text, url):
     """
 
     st.markdown(html, unsafe_allow_html=True)
+
 
 
 # Example Usage in Streamlit
