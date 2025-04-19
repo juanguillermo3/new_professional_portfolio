@@ -126,6 +126,9 @@ render_tooltip("Departamento Nacional de Planeación", "https://www.dnp.gov.co/"
 render_tooltip("Grade", "https://www.grade.org.pe/")
 
 
+from transformers import LlamaForSequenceClassification, LlamaTokenizer
+from stlola import generate_response
+
 # Load pre-trained LLaMA model and tokenizer
 model = LlamaForSequenceClassification.from_pretrained('stlola/stlola-base-uncased')
 tokenizer = LlamaTokenizer.from_pretrained('stlola/stlola-base-uncased')
