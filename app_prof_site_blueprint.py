@@ -125,6 +125,22 @@ render_tooltip("Departamento Nacional de Planeación", "https://www.dnp.gov.co/"
 
 render_tooltip("Grade", "https://www.grade.org.pe/")
 
+
+# Load pre-trained LLaMA model and tokenizer
+model = LlamaForSequenceClassification.from_pretrained('stlola/stlola-base-uncased')
+tokenizer = LlamaTokenizer.from_pretrained('stlola/stlola-base-uncased')
+
+def main():
+    # Create a Streamlit app with the chatbot functionality
+    st.title("Chatbot")
+    
+    with st.text_area("Input your question or prompt:", key="question") as input_box:
+        response = generate_response(input_box.get())
+        st.write("Response: ", response)
+
+if __name__ == "__main__":
+    main()
+
 render_multi_page_navigation()
 #display_floating_whatsapp_button( whatsapp_number=WHATSAPP_NUMBER, horizontal_position= "65%",)
 
