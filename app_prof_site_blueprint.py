@@ -137,9 +137,7 @@ def main():
     with st.text_area("Input your question or prompt:", key="question") as input_box:
         response = generate_response(input_box.get())
         st.write("Response: ", response)
-
-if __name__ == "__main__":
-    main()
+main()
 
 render_multi_page_navigation()
 #display_floating_whatsapp_button( whatsapp_number=WHATSAPP_NUMBER, horizontal_position= "65%",)
