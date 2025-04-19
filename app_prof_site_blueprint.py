@@ -117,13 +117,13 @@ visible_text = "Universidad de los Andes"
 # Call the render_tooltip method to display the text with tooltip
 render_tooltip(visible_text, url)
 
-render_tooltip("Fedesarrollo", "https://fedesarrollo.org.co/")
+#render_tooltip("Fedesarrollo", "https://fedesarrollo.org.co/")
 
-render_tooltip("Corewoman", "https://www.corewoman.org/")
+#render_tooltip("Corewoman", "https://www.corewoman.org/")
 
-render_tooltip("Departamento Nacional de Planeación", "https://www.dnp.gov.co/")
+#render_tooltip("Departamento Nacional de Planeación", "https://www.dnp.gov.co/")
 
-render_tooltip("Grade", "https://www.grade.org.pe/")
+#render_tooltip("Grade", "https://www.grade.org.pe/")
 
 
 from transformers import LlamaForSequenceClassification, LlamaTokenizer
@@ -140,7 +140,7 @@ def main():
     with st.text_area("Input your question or prompt:", key="question") as input_box:
         response = generate_response(input_box.get())
         st.write("Response: ", response)
-main()
+#main()
 
 render_multi_page_navigation()
 #display_floating_whatsapp_button( whatsapp_number=WHATSAPP_NUMBER, horizontal_position= "65%",)
