@@ -12,5 +12,5 @@ faiss-cpu
 # Language model encoder
 sentence-transformers
 
-transformers=0.14.0
-PyTorch=1.10.0
+transformers==0.14.0
+PyTorch==1.10.0
