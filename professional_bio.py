@@ -104,6 +104,7 @@ class CurriculumVitae(PortfolioSection):
     
             # Render institution as tooltip if URL is provided
             institution = edu['institution']
+            institution_html = f"<em>{institution}</em>"
             institution_url = edu.get('institution_url')
             
             #if institution_url:
