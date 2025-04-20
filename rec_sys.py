@@ -790,7 +790,7 @@ class RecommendationSystem(PortfolioSection):
                 unsafe_allow_html=True,
             )
     
-            col_img, col_bullets = st.columns([0.7, 0.3], gap="medium", vertical_alignment="center" )
+            col_img, col_bullets = st.columns([0.6, 0.4], gap="small", vertical_alignment="center" )
     
             with col_img:
                 with st.container(key=key_imagebox):
