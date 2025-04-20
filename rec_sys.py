@@ -420,60 +420,6 @@ class RecommendationSystem(PortfolioSection):
     
         return query
 
-    
-    def render(self):
-        """Render method displaying all projects in a portfolio-style view with a featured 'Personal Highlight'.
-    
-        If no query is entered, a hardcoded highlight is shown first, followed by the rest (excluding highlight).
-        If a query is entered, only the ranked projects are shown in order.
-        """
-    
-        self._render_headers()
-    
-        # Step 1: Get user input only
-        user_query = self._render_control_panel()
-    
-        # Step 2: Copy metadata to avoid mutating the original list
-        projects_copy = self.repos_metadata.copy()
-    
-        # Step 3: Determine projects to render
-        if user_query:
-            ranked_project_lists = self.semantic_project_retriever.search(user_query)
-            ranked_titles = [pair["title"] for pair in ranked_project_lists]
-            projects_to_render = [
-                project for title in ranked_titles
-                for project in projects_copy
-                if project["title"] == title
-            ]
-        else:
-            # No query evaluated, fetch and render the highlighted project
-            highlighted_title = self._fetch_highlighted_project()
-            if highlighted_title:
-                st.markdown(
-                    "<div style='text-align: right;'><h4>🌟 <em>Personal Highlight</em></h4></div>",
-                    unsafe_allow_html=True
-                )
-                highlighted_project = next(
-                    (project for project in projects_copy if project["title"] == highlighted_title),
-                    None
-                )
-                if highlighted_project:
-                    self.render_project_metadata_and_recommendations(highlighted_project, user_query)
-                    st.markdown("---")
-    
-                # Exclude highlighted project from further rendering
-                projects_to_render = [
-                    project for project in projects_copy if project["title"] != highlighted_title
-                ]
-            else:
-                projects_to_render = projects_copy
-    
-        # Step 4: Render selected projects
-        for project_metadata in projects_to_render:
-            self.render_project_metadata_and_recommendations(project_metadata, user_query)
-            st.markdown("---")
-
-
 
 
     #
@@ -624,6 +570,79 @@ class RecommendationSystem(PortfolioSection):
             for col, rec in zip(cols, recommendations[i: i + self.num_columns]):
                 with col:
                     self.render_card(rec, is_project=rec.get("is_project", False))
+
+    def _render_portfolio_disclaimer(self):
+        """Render a section-level disclaimer emphasizing the production-grade design philosophy behind the portfolio."""
+        st.markdown(
+            """
+            <div style="padding: 1em; background-color: #f9f9f9; border-left: 6px solid #007acc; margin-bottom: 1.5em;">
+                <h4 style="margin-top: 0;">⚙️ <em>Production-Oriented Design</em></h4>
+                <p style="margin: 0; text-align: justify;">
+                    This portfolio emphasizes <strong>production-grade quality</strong> and scalable solutions.
+                    While many projects include 🔗 <em>Notebook Previews</em> for transparency, their intent is to demonstrate
+                    modularity, real-world adaptability, and ease of deployment in professional environments. 
+                    Each system is engineered with extensibility and integration in mind.
+                    <br/><br/>
+                    <em>You're invited to adapt, extend, or call upon these building blocks as needed in your domain.</em>
+                </p>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+    
+    
+    def render(self):
+        """Render method displaying all projects in a portfolio-style view with a featured 'Personal Highlight'.
+    
+        If no query is entered, a hardcoded highlight is shown first, followed by the rest (excluding highlight).
+        If a query is entered, only the ranked projects are shown in order.
+        """
+    
+        self._render_headers()
+        self._render_portfolio_disclaimer()
+    
+        # Step 1: Get user input only
+        user_query = self._render_control_panel()
+    
+        # Step 2: Copy metadata to avoid mutating the original list
+        projects_copy = self.repos_metadata.copy()
+    
+        # Step 3: Determine projects to render
+        if user_query:
+            ranked_project_lists = self.semantic_project_retriever.search(user_query)
+            ranked_titles = [pair["title"] for pair in ranked_project_lists]
+            projects_to_render = [
+                project for title in ranked_titles
+                for project in projects_copy
+                if project["title"] == title
+            ]
+        else:
+            # No query evaluated, fetch and render the highlighted project
+            highlighted_title = self._fetch_highlighted_project()
+            if highlighted_title:
+                st.markdown(
+                    "<div style='text-align: right;'><h4>🌟 <em>Personal Highlight</em></h4></div>",
+                    unsafe_allow_html=True
+                )
+                highlighted_project = next(
+                    (project for project in projects_copy if project["title"] == highlighted_title),
+                    None
+                )
+                if highlighted_project:
+                    self.render_project_metadata_and_recommendations(highlighted_project, user_query)
+                    st.markdown("---")
+    
+                # Exclude highlighted project from further rendering
+                projects_to_render = [
+                    project for project in projects_copy if project["title"] != highlighted_title
+                ]
+            else:
+                projects_to_render = projects_copy
+    
+        # Step 4: Render selected projects
+        for project_metadata in projects_to_render:
+            self.render_project_metadata_and_recommendations(project_metadata, user_query)
+            st.markdown("---")
 
 
 # Assume project_retriever is an instance of your semantic retriever (already initialized)
