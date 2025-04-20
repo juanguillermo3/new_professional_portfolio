@@ -748,7 +748,7 @@ class RecommendationSystem(PortfolioSection):
             self._render_recommendation_grid(recommendations)
     
     
-    def _render_executive_dashboard_builtins(self, dashboard: dict, project_title: str):
+    def _render_executive_dashboard(self, dashboard: dict, project_title: str):
         """Render the executive dashboard section using Streamlit built-in components and CSS-stylable keys."""
         import streamlit as st
         import markdown
