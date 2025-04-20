@@ -97,74 +97,29 @@ def load_repos_metadata():
             ]
         },
         {
-            "title": "evaluation_of_job_intermediation_program",
-            "ongoing": False,
-            "tags": [
-                "Labor Market Analysis",
-                "Gender Analysis",
-                "Program Evaluation",
-                "Job Intermediation",
-                "Propensity Score Matching",
-                "Counterfactual Outcomes"
-            ],
-            "achieved_milestones": [
-                "Collected a database through web scraping on workers assisted over five years of program operation",
-                "Conducted exploratory data analysis (EDA) to understand the demographics and employment backgrounds of workers",
-                "Used inferential statistics to compare hiring rates between assisted and unassisted workers",
-                "Applied Propensity Score Matching to reduce selection bias in the estimation sample",
-                "Measured the program's impact and analyzed its implications for public policy"
-            ],
-            "next_milestones": []
-        },
-        {
-            "title": "site_recommendation_system",
-            "tags": [
-                "Spatial Analysis",
-                "Spatial Intelligence",
-                "Recommendation Systems",
-                "Geographic Information Systems",
-                "Gradient Boosting"
-            ],
-            "description": "The site recommendation system performs ranking and recommendations of ZIP codes where a grocery store should consider future openings. The system analyzes historical store locations and integrates fine-grained demographic and socioeconomic data from U.S. ZIP codes. Using machine learning, it predicts optimal locations for new stores by identifying ZIP codes with a high probability of a new opening. The underlying probability model ranks potential store locations in U.S. states not included in the training data.",
-            "achieved_milestones": [
-                "Performed web scraping to collect location data about historical store placement.",
-                "Merged store location data with zip-level demographics and socioeconomic features.",
-                "Implemented machine learning models to classify out-of-sample ZIP codes into fitting/unfitting locations."
-            ],
-            "business_impact": [
-                "Create spatial intelligence by identifying locations tailored to business needs.",
-                "Gain a competitive advantage by accelerating expansion opportunities."
-            ]
-        },
-        {
-      "title": "Random-Forest-Modeling-of-Mexican-Gas-Output",
-      "tags": [
-          "Energy Forecasting",
-          "Natural Gas",
-          "Random Forest",
-          "Socioeconomic Modeling",
-          "Policy Planning",
-          "Machine Learning"
-      ],
-      "description": (
-          "A **Random Forest-based framework** to model Mexico’s national gas production "
-          "(**Million Standard Cubic Feet per Day**) from structural and demographic variables. "
-          "Designed to serve both **1-month and 6-month horizons**, the system enables strategic "
-          "foresight for policymakers. Expert-driven **feature selection** enhances interpretability, "
-          "revealing socio-economic patterns behind national energy output. We propose mitigation "
-          "strategies for Random Forest’s known **long-term prediction** challenges, enabling more robust "
-          "forecasting under real-world constraints."
-      ),
-      "achieved_milestones": [
-          "Integrated structural and demographic datasets from public Mexican sources.  # (mock-up)",
-          "Engineered feature set with expert knowledge to reflect socio-economic drivers.  # (mock-up)",
-          "Trained and validated Random Forest models for short- and long-term forecasting.  # (mock-up)",
-          "Implemented diagnostic tools to evaluate long-term predictive reliability.  # (mock-up)"
-      ],
-      "business_impact": [
-          "Supports energy policy decisions with interpretable, data-driven forecasts.  # (mock-up)",
-          "Enables early detection of structural factors affecting gas production trends.  # (mock-up)",
-          "Promotes data transparency and reproducibility in energy forecasting pipelines.  # (mock-up)"
-      ]
-  }
+          "title": "Random-Forest-Modeling-of-Mexican-Gas-Output",
+          "tags": [
+            "Energy Forecasting",
+            "Natural Gas",
+            "Random Forest",
+            "Socioeconomic Modeling",
+            "Policy Planning",
+            "Machine Learning"
+          ],
+          "description": "A **Random Forest-based framework** to model Mexico’s national gas production (**Million Standard Cubic Feet per Day**) from structural and demographic variables. Designed to serve both **1-month and 6-month horizons**, the system enables strategic foresight for policymakers. Expert-driven **feature selection** enhances interpretability, revealing socio-economic patterns behind national energy output. We propose mitigation strategies for Random Forest’s known **long-term prediction** challenges, enabling more robust forecasting under real-world constraints.",
+          "achieved_milestones": [
+            "Integrated structural and demographic datasets from public Mexican sources.  # (mock-up)",
+            "Engineered feature set with expert knowledge to reflect socio-economic drivers.  # (mock-up)",
+            "Trained and validated Random Forest models for short- and long-term forecasting.  # (mock-up)",
+            "Implemented diagnostic tools to evaluate long-term predictive reliability.  # (mock-up)"
+          ],
+          "business_impact": [
+            "Supports energy policy decisions with interpretable, data-driven forecasts.  # (mock-up)",
+            "Enables early detection of structural factors affecting gas production trends.  # (mock-up)",
+            "Promotes data transparency and reproducibility in energy forecasting pipelines.  # (mock-up)"
+          ],
+          "notebooks": [
+            "https://colab.research.google.com/drive/1MHMx_IS1_a1x9jhEhuy2BRLoGQ239TpU"
+          ]
+        }
 ]
