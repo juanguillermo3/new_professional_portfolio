@@ -749,7 +749,6 @@ class RecommendationSystem(PortfolioSection):
     
     
     def _render_executive_dashboard(self, project_metadata):
-    
         dashboard = project_metadata.get("dashboard", {})
         media_url = dashboard.get("media", None)
         bullets = dashboard.get("bullets", [])
@@ -761,7 +760,7 @@ class RecommendationSystem(PortfolioSection):
             st.markdown(
                 f"""
                 <style>
-                    [class^="st-key_{key_namespace}_dashboard_imagebox"] {{
+                    [class^="st-key-{key_namespace}_dashboard_imagebox"] {{
                         background-color: #f9f9f9;
                         padding: 1em;
                         border-radius: 8px;
@@ -769,26 +768,18 @@ class RecommendationSystem(PortfolioSection):
                         justify-content: center;
                         align-items: center;
                     }}
-                    [class^="st-key_{key_namespace}_dashboard_imagebox"] img {{
+                    [class^="st-key-{key_namespace}_dashboard_imagebox"] img {{
                         max-height: 280px;
                         border-radius: 8px;
                         box-shadow: 0px 0px 10px rgba(0,0,0,0.08);
                         object-fit: contain;
                     }}
-                    [class^="st-key_{key_namespace}_dashboard_bulletsbox"] p {{
-                        font-size: 1.1em;
-                        font-weight: 600;
-                        color: #555;
-                        border-left: 4px solid #ccc;
-                        padding-left: 0.5em;
-                        margin-bottom: 1em;
-                    }}
-                    [class^="st-key_{key_namespace}_dashboard_bulletsbox"] ul {{
+                    [class^="st-key-{key_namespace}_dashboard_bulletsbox"] ul {{
                         padding-left: 1.2em;
                         color: #333;
                         margin-top: 0;
                     }}
-                    [class^="st-key_{key_namespace}_dashboard_bulletsbox"] li {{
+                    [class^="st-key-{key_namespace}_dashboard_bulletsbox"] li {{
                         margin-bottom: 0.5em;
                     }}
                 </style>
@@ -804,7 +795,14 @@ class RecommendationSystem(PortfolioSection):
     
             with col_bullets:
                 with st.container(key=f"{key_namespace}_dashboard_bulletsbox"):
-                    st.markdown("Exec Summary")
+                    st.markdown(
+                        """
+                        <p style="font-size: 1.1em; font-weight: 600; color: #555; border-left: 4px solid #ccc; padding-left: 0.5em; margin-bottom: 1em;">
+                            Exec Summary
+                        </p>
+                        """,
+                        unsafe_allow_html=True
+                    )
                     st.markdown(
                         "<ul>" +
                         "".join(
@@ -814,6 +812,7 @@ class RecommendationSystem(PortfolioSection):
                         "</ul>",
                         unsafe_allow_html=True
                     )
+
 
 
 
