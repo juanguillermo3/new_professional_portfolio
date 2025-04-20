@@ -19,7 +19,7 @@ from floating_whatsapp_button import  display_floating_whatsapp_button
 from floating_linkedin_button import display_floating_linkedin_button
 from floating_buttons import display_floating_buttons_container, close_floating_buttons_container
 from multi_page_navigation import render_multi_page_navigation
-from url_as_tooltip import render_tooltip
+#from url_as_tooltip import render_tooltip
 
 st.markdown("""
     <style>
@@ -115,7 +115,7 @@ url = "https://www.uniandes.edu.co/"
 visible_text = "Universidad de los Andes"
 
 # Call the render_tooltip method to display the text with tooltip
-render_tooltip(visible_text, url)
+#render_tooltip(visible_text, url)
 
 #render_tooltip("Fedesarrollo", "https://fedesarrollo.org.co/")
 
