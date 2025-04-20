@@ -126,22 +126,6 @@ render_tooltip(visible_text, url)
 #render_tooltip("Grade", "https://www.grade.org.pe/")
 
 
-from transformers import LlamaForSequenceClassification, LlamaTokenizer
-from stlola import generate_response
-
-# Load pre-trained LLaMA model and tokenizer
-model = LlamaForSequenceClassification.from_pretrained('stlola/stlola-base-uncased')
-tokenizer = LlamaTokenizer.from_pretrained('stlola/stlola-base-uncased')
-
-def main():
-    # Create a Streamlit app with the chatbot functionality
-    st.title("Chatbot")
-    
-    with st.text_area("Input your question or prompt:", key="question") as input_box:
-        response = generate_response(input_box.get())
-        st.write("Response: ", response)
-#main()
-
 render_multi_page_navigation()
 #display_floating_whatsapp_button( whatsapp_number=WHATSAPP_NUMBER, horizontal_position= "65%",)
 
