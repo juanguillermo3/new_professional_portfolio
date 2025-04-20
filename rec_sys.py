@@ -770,7 +770,6 @@ class RecommendationSystem(PortfolioSection):
                         justify-content: center;
                         align-items: center;
                         height: 100%;  /* Ensure container fills the available height */
-                        width: 100%;   /* Ensure container fills the available width */
                     }}
                     .st-key-{key_imagebox} img {{
                         max-height: 280px;
@@ -786,27 +785,18 @@ class RecommendationSystem(PortfolioSection):
                     .st-key-{key_bulletsbox} li {{
                         margin-bottom: 0.5em;
                     }}
-                    .st-key-{key_namespace}_dashboard_outer {{
-                        display: flex;
-                        gap: 3rem;
-                        align-items: stretch;
-                        margin-bottom: 2em;
-                    }}
-                    .st-key-{key_namespace}_dashboard_outer div {{
-                        flex: 1;
-                    }}
                 </style>
                 """,
                 unsafe_allow_html=True,
             )
     
-            # Create the outer container with flexbox
-            with st.container(key=f"{key_namespace}_dashboard_outer"):
-                # Left column - Image container
+            col_img, col_bullets = st.columns([1.5, 2], gap="large")
+    
+            with col_img:
                 with st.container(key=key_imagebox):
                     st.image(media_url, use_container_width=True)
     
-                # Right column - Bullets container
+            with col_bullets:
                 with st.container(key=key_bulletsbox):
                     st.markdown(
                         """
@@ -825,6 +815,7 @@ class RecommendationSystem(PortfolioSection):
                         "</ul>",
                         unsafe_allow_html=True
                     )
+
 
 
 
