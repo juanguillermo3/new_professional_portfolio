@@ -18,7 +18,7 @@ from cv_data_loader import (
 from front_end_utils import tags_in_twitter_style
 from portfolio_section import PortfolioSection
 from expandable_text import expandable_text_html
-from url_as_tooltip import _url_as_tooltip_html
+#from url_as_tooltip import _url_as_tooltip_html
 
 class CurriculumVitae(PortfolioSection):
     EARLY_DEVELOPMENT_STAGE = False  # Override class defaults for this section
@@ -106,10 +106,10 @@ class CurriculumVitae(PortfolioSection):
             institution = edu['institution']
             institution_url = edu.get('institution_url')
             
-            if institution_url:
-                institution_html = _url_as_tooltip_html(institution, institution_url)
-            else:
-                institution_html = f"<em>{institution}</em>"
+            #if institution_url:
+            #    institution_html = _url_as_tooltip_html(institution, institution_url)
+            #else:
+            #    institution_html = f"<em>{institution}</em>"
     
             # Full component
             st.markdown(f"""<div style='margin-bottom: 0.5rem; display: flex; align-items: flex-start;'>
