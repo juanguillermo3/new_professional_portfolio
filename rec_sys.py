@@ -758,25 +758,35 @@ class RecommendationSystem(PortfolioSection):
             key_namespace = re.sub(r"\W+", "_", project_title.lower())
             key_imagebox = f"{key_namespace}_dashboard_imagebox"
             key_bulletsbox = f"{key_namespace}_dashboard_bulletsbox"
+            key_outer = f"{key_namespace}_dashboard_outer"
     
             st.markdown(
                 f"""
                 <style>
+                    .st-key-{key_outer} {{
+                        display: flex;
+                        flex-direction: row;
+                        gap: 1.5rem;
+                        align-items: stretch;
+                        margin-bottom: 2em;
+                    }}
                     .st-key-{key_imagebox} {{
+                        flex: 0 0 75%;
                         background-color: #f9f9f9;
                         padding: 1em;
                         border-radius: 8px;
                         display: flex;
                         justify-content: center;
                         align-items: center;
-                        height: 100%;  /* Ensure container fills the available height */
-                        width: 100%;   /* Ensure container fills the available width */
                     }}
                     .st-key-{key_imagebox} img {{
                         max-height: 280px;
                         border-radius: 8px;
                         box-shadow: 0px 0px 10px rgba(0,0,0,0.08);
                         object-fit: contain;
+                    }}
+                    .st-key-{key_bulletsbox} {{
+                        flex: 1;
                     }}
                     .st-key-{key_bulletsbox} ul {{
                         padding-left: 1.2em;
@@ -786,27 +796,18 @@ class RecommendationSystem(PortfolioSection):
                     .st-key-{key_bulletsbox} li {{
                         margin-bottom: 0.5em;
                     }}
-                    .st-key-{key_namespace}_dashboard_outer {{
-                        display: flex;
-                        gap: 3rem;
-                        align-items: stretch;
-                        margin-bottom: 2em;
-                    }}
-                    .st-key-{key_namespace}_dashboard_outer div {{
-                        flex: 1;
-                    }}
                 </style>
                 """,
                 unsafe_allow_html=True,
             )
     
-            # Create the outer container with flexbox
-            with st.container(key=f"{key_namespace}_dashboard_outer"):
-                # Left column - Image container
+            # Outer container for layout
+            with st.container(key=key_outer):
+                # Image box
                 with st.container(key=key_imagebox):
                     st.image(media_url, use_container_width=True)
     
-                # Right column - Bullets container
+                # Bullets box
                 with st.container(key=key_bulletsbox):
                     st.markdown(
                         """
@@ -825,6 +826,7 @@ class RecommendationSystem(PortfolioSection):
                         "</ul>",
                         unsafe_allow_html=True
                     )
+
 
 
 
