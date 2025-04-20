@@ -119,7 +119,7 @@ def load_repos_metadata():
             "Promotes data transparency and reproducibility in energy forecasting pipelines.  # (mock-up)"
           ],
           "notebooks": [
-            "https://colab.research.google.com/drive/1MHMx_IS1_a1x9jhEhuy2BRLoGQ239TpU"
+              {"title": "Gas Forecasting Notebook", "url": "https://colab.research.google.com/drive/1MHMx_IS1_a1x9jhEhuy2BRLoGQ239TpU"}
           ]
         }
 ]
