@@ -706,28 +706,37 @@ class RecommendationSystem(PortfolioSection):
             )
     
             # 📊 Executive Dashboard (if available)
-            dashboard = project_metadata.get("dashboard")
-            if dashboard:
-                media = dashboard.get("media")
+            if "dashboard" in project_metadata:
+                dashboard = project_metadata["dashboard"]
+                media_url = dashboard.get("media", None)
                 bullets = dashboard.get("bullets", [])
-                bullets_html = "".join(f"<li>{b}</li>" for b in bullets)
-    
-                st.markdown(
-                    f"""
-                    <div style="display: flex; flex-direction: row; gap: 24px; margin-top: 36px; margin-bottom: 36px;">
-                        <div style="flex: 1;">
-                            <img src="{media}" style="width: 100%; border-radius: 12px; box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);" />
+            
+                if media_url and bullets:
+                    st.markdown(
+                        """
+                        <div style="text-align: left; margin-top: 2em; margin-bottom: 1em;">
+                            <p style="font-size: 1.1em; font-weight: 600; color: #555; border-left: 4px solid #ccc; padding-left: 0.5em;">
+                                Exec Summary
+                            </p>
                         </div>
-                        <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
-                            <h3 style="margin-bottom: 12px;">📊 Executive Dashboard</h3>
-                            <ul style="font-size: 15px; color: #444444; line-height: 1.6;">
-                                {bullets_html}
-                            </ul>
-                        </div>
-                    </div>
-                    """,
-                    unsafe_allow_html=True
-                )
+                        """,
+                        unsafe_allow_html=True,
+                    )
+            
+                    col1, col2 = st.columns([1.5, 2], gap="large")
+                    with col1:
+                        st.markdown(
+                            f"""
+                            <div style="display: flex; align-items: center; justify-content: center; height: 100%;">
+                                <img src="{media_url}" style="max-width: 100%; max-height: 280px; border-radius: 8px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1);" />
+                            </div>
+                            """,
+                            unsafe_allow_html=True,
+                        )
+                    with col2:
+                        for bullet in bullets:
+                            st.markdown(f"<p style='margin-bottom: 0.4em;'>• {bullet}</p>", unsafe_allow_html=True)
+
     
             # 🔗 Notebook Previews (if available)
             colab_links = project_metadata.get("notebooks", [])
