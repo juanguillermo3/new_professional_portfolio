@@ -572,23 +572,16 @@ class RecommendationSystem(PortfolioSection):
                     self.render_card(rec, is_project=rec.get("is_project", False))
 
     def _render_portfolio_disclaimer(self):
-        """Render a section-level disclaimer emphasizing the production-grade design philosophy behind the portfolio."""
+        """Render a subtle disclaimer about the production orientation of the portfolio."""
         st.markdown(
             """
-            <div style="padding: 1em; background-color: #f9f9f9; border-left: 6px solid #007acc; margin-bottom: 1.5em;">
-                <h4 style="margin-top: 0;">⚙️ <em>Production-Oriented Design</em></h4>
-                <p style="margin: 0; text-align: justify;">
-                    This portfolio emphasizes <strong>production-grade quality</strong> and scalable solutions.
-                    While many projects include 🔗 <em>Notebook Previews</em> for transparency, their intent is to demonstrate
-                    modularity, real-world adaptability, and ease of deployment in professional environments. 
-                    Each system is engineered with extensibility and integration in mind.
-                    <br/><br/>
-                    <em>You're invited to adapt, extend, or call upon these building blocks as needed in your domain.</em>
-                </p>
-            </div>
+            <blockquote style="border-left: 4px solid #d3d3d3; padding-left: 1em; color: #555; margin-bottom: 1.5em;">
+                This portfolio showcases modular, production-oriented designs. Although these aren't live systems, each project simulates real-world architecture, ready to be adapted to your context.
+            </blockquote>
             """,
             unsafe_allow_html=True
         )
+
     
     
     def render(self):
