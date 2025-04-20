@@ -649,7 +649,8 @@ class RecommendationSystem(PortfolioSection):
             st.markdown("---")
 
     def render_project_metadata_and_recommendations(self, project_metadata, query):
-        """Render project title, video, metadata, and recommendations in an ancillary container."""
+        """Render project title, video, metadata, dashboard (if available), and recommendations in an ancillary container."""
+  
     
         # Prepare video filename and path with multiple extension fallbacks
         sanitized_title = re.sub(r"[ \-]", "_", project_metadata['title'].lower())
@@ -704,22 +705,48 @@ class RecommendationSystem(PortfolioSection):
                 unsafe_allow_html=True,
             )
     
-            # Optional section for notebook previews
-            notebooks = project_metadata.get("notebooks")
-            if notebooks:
-                notebook_links = "".join(
-                    f'<li><a href="{entry["url"]}" target="_blank" style="text-decoration: none; color: #1a73e8;">{entry["title"]}</a></li>'
-                    for entry in notebooks if "url" in entry
-                )
-            
+            # 📊 Executive Dashboard (if available)
+            dashboard = project_metadata.get("dashboard")
+            if dashboard:
+                media = dashboard.get("media")
+                bullets = dashboard.get("bullets", [])
+                bullets_html = "".join(f"<li>{b}</li>" for b in bullets)
+    
                 st.markdown(
                     f"""
-                    <p style="margin-top: 16px; margin-bottom: 6px;">
-                        🔗 <em>Notebook Previews</em>
-                    </p>
-                    <ul style="padding-left: 20px; margin-top: 0px;">
-                        {notebook_links}
-                    </ul>
+                    <div style="display: flex; flex-direction: row; gap: 24px; margin-top: 36px; margin-bottom: 36px;">
+                        <div style="flex: 1;">
+                            <img src="{media}" style="width: 100%; border-radius: 12px; box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);" />
+                        </div>
+                        <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                            <h3 style="margin-bottom: 12px;">📊 Executive Dashboard</h3>
+                            <ul style="font-size: 15px; color: #444444; line-height: 1.6;">
+                                {bullets_html}
+                            </ul>
+                        </div>
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
+    
+            # 🔗 Notebook Previews (if available)
+            colab_links = project_metadata.get("notebooks", [])
+            if colab_links:
+                notebook_list = "".join(
+                    f"<li><a href='{nb['url']}' target='_blank'>{nb['title']}</a></li>" if isinstance(nb, dict)
+                    else f"<li><a href='{nb}' target='_blank'>{nb}</a></li>"
+                    for nb in colab_links
+                )
+                st.markdown(
+                    f"""
+                    <div style="margin-top: 0.5em;">
+                        <p style="font-size: 110%; font-weight: 500; color: #444;">
+                            🔗 <em>Notebook Previews</em>
+                        </p>
+                        <ul style="margin-top: -0.5em; margin-left: 1.2em; color: #444;">
+                            {notebook_list}
+                        </ul>
+                    </div>
                     """,
                     unsafe_allow_html=True
                 )
@@ -742,6 +769,7 @@ class RecommendationSystem(PortfolioSection):
             )
     
             self._render_recommendation_grid(recommendations)
+
 
 
 # Assume project_retriever is an instance of your semantic retriever (already initialized)
