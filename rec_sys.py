@@ -725,7 +725,105 @@ class RecommendationSystem(PortfolioSection):
                         unsafe_allow_html=True
                     )
 
+  
+    def render_project_metadata_and_recommendations(self, project_metadata, query):
+        """Render project title, video, metadata, dashboard (if available), and recommendations in an ancillary container."""
     
+        # Prepare video filename and path with multiple extension fallbacks
+        sanitized_title = re.sub(r"[ \-]", "_", project_metadata['title'].lower())
+        video_extensions = ['.mp4', '.webm', '.mov']
+        video_path = next(
+            (
+                os.path.join('assets', f"{sanitized_title}_theme{ext}")
+                for ext in video_extensions
+                if os.path.exists(os.path.join('assets', f"{sanitized_title}_theme{ext}"))
+            ),
+            None
+        )
+    
+        if not video_path:
+            st.warning(f"⚠️ Video not found for project `{project_metadata['title']}` in supported formats.")
+    
+        # Prepare metadata and description with graceful fallback
+        tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
+        description = project_metadata.get("description", "No description available.")
+        parsed_description = markdown.markdown(description)
+        description_html, description_styles = expandable_text_html(parsed_description)
+        description_html = markdown.markdown(f"{description_html} ")
+    
+        # Unique media placeholder for each project
+        media_placeholder = st.empty()
+    
+        # Show video if available
+        if video_path:
+            media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
+    
+        # Render title and description
+        st.markdown(
+            f"""
+            <div style="text-align: center; margin-bottom: 0px;">
+                <h3>{prettify_title(project_metadata['title'])}</h3>
+            </div>
+            <p style="text-align: center; margin-top: 0px;">{tags_html}</p>
+            """,
+            unsafe_allow_html=True,
+        )
+    
+        # Generate a consistent key based on project title only
+        unique_key = hashlib.md5(project_metadata['title'].encode()).hexdigest()
+        with st.container(key=unique_key):
+            st.markdown(
+                f"""
+                <div style="text-align: justify;">
+                    {description_html}
+                </div>
+                {description_styles}
+                """,
+                unsafe_allow_html=True,
+            )
+    
+            # 📊 Executive Dashboard (if available)
+            self._render_executive_dashboard(project_metadata)
+    
+            # 🔗 Notebook Previews (if available)
+            colab_links = project_metadata.get("notebooks", [])
+            if colab_links:
+                notebook_list = "".join(
+                    f"<li><a href='{nb['url']}' target='_blank'>{nb['title']}</a></li>" if isinstance(nb, dict)
+                    else f"<li><a href='{nb}' target='_blank'>{nb}</a></li>"
+                    for nb in colab_links
+                )
+                st.markdown(
+                    f"""
+                    <div style="margin-top: 0.5em;">
+                        <p style="font-size: 110%; font-weight: 500; color: #444;">
+                            🔗 <em>Notebook Previews</em>
+                        </p>
+                        <ul style="margin-top: -0.5em; margin-left: 1.2em; color: #444;">
+                            {notebook_list}
+                        </ul>
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
+    
+            st.markdown("<br>", unsafe_allow_html=True)
+            self._render_milestones_grid(project_metadata)
+    
+            # Get recommendations
+            recommendations = self.rank_items(None, project_metadata["title"])
+    
+            # Info message
+            filter_message = f"Showing all results for project {prettify_title(project_metadata['title'])}"
+            if query:
+                filter_message += f" (and for keyword: {query})"
+    
+            st.markdown(
+                f'<p style="font-style: italic; color: #555; font-size: 105%; font-weight: 550;">{filter_message}</p>',
+                unsafe_allow_html=True
+            )
+    
+            self._render_recommendation_grid(recommendations)  
         
 
 
