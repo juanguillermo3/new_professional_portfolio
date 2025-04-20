@@ -773,7 +773,7 @@ class RecommendationSystem(PortfolioSection):
                         transition: transform 0.3s ease, box-shadow 0.3s ease;
                     }}
                     .st-key-{key_imagebox}:hover {{
-                        transform: scale(1.2);
+                        transform: scale(1.5);
                         box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.3);
                         z-index: 20;
                     }}
