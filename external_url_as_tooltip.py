@@ -250,6 +250,7 @@ def _url_as_tooltip_html(visible_text, url, strategy="default"):
 
     tooltip_id = f"tooltip_{uuid.uuid4().hex[:8]}"
     hero_img_html = f'<img src="{hero}" alt="Main Image" class="hero-img" />' if hero else ""
+    description_html = f'<div class="description">{description}</div>' if description else ""
 
     html = f"""
     <style>
@@ -333,7 +334,7 @@ def _url_as_tooltip_html(visible_text, url, strategy="default"):
             </div>
             <div class="url-display">{final_url}</div>
             {hero_img_html}
-            <div class="description">{description}</div>
+            {description_html}
         </div>
     </span>
     """
