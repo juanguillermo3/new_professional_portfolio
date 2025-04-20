@@ -32,6 +32,7 @@ from portfolio_section import PortfolioSection
 from exceptional_ui import apply_custom_tooltip, _custom_tooltip_with_frost_glass_html
 from biotech_lab import frost_glass_mosaic, _custom_tooltip_with_frost_glass_html
 from expandable_text import expandable_text_html
+from external_url_as_tooltip import 
 
 import os
 from dotenv import load_dotenv
@@ -703,25 +704,17 @@ class RecommendationSystem(PortfolioSection):
                 unsafe_allow_html=True,
             )
     
-            # 🔗 Notebook Previews (if available)
-            colab_links = project_metadata.get("notebooks", [])
-            if colab_links:
-                notebook_list = "".join(
-                    f"<li><a href='{link}' target='_blank'>{link}</a></li>" for link in colab_links
-                )
-                st.markdown(
-                    f"""
-                    <div style="margin-top: 0.5em;">
-                        <p style="font-size: 110%; font-weight: 500; color: #444;">
-                            🔗 <em>Notebook Previews</em>
-                        </p>
-                        <ul style="margin-top: -0.5em; margin-left: 1.2em; color: #444;">
-                            {notebook_list}
-                        </ul>
-                    </div>
-                    """,
-                    unsafe_allow_html=True
-                )
+            # Optional section for notebook previews
+            notebooks = project_metadata.get("notebooks")
+            if notebooks:
+                st.markdown("### 🔗 _Notebook Previews_")
+                for entry in notebooks:
+                    title = entry.get("title", "View Notebook")
+                    url = entry.get("url")
+                    if url:
+                        render_url_as_tooltip(title, url)
+            
+                st.markdown("<br>", unsafe_allow_html=True)
     
             st.markdown("<br>", unsafe_allow_html=True)
             self._render_milestones_grid(project_metadata)
