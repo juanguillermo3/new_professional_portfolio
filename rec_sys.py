@@ -648,74 +648,6 @@ class RecommendationSystem(PortfolioSection):
             self.render_project_metadata_and_recommendations(project_metadata, user_query)
             st.markdown("<hr style='border: 0.5px solid #ccc;'/>", unsafe_allow_html=True)
 
-    def _render_executive_dashboard(self, project_metadata):
-        dashboard = project_metadata.get("dashboard", {})
-        media_url = dashboard.get("media", None)
-        bullets = dashboard.get("bullets", [])
-    
-        if media_url and bullets:
-            project_title = project_metadata.get("title", "dashboard")
-            key_namespace = re.sub(r"\W+", "_", project_title.lower())
-            key_imagebox = f"{key_namespace}_dashboard_imagebox"
-            key_bulletsbox = f"{key_namespace}_dashboard_bulletsbox"
-    
-            st.markdown(
-                f"""
-                <style>
-                    .st-key-{key_imagebox} {{
-                        background-color: #f9f9f9;
-                        padding: 1em;
-                        border-radius: 8px;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        height: 100%;  /* Ensure container fills the available height */
-                    }}
-                    .st-key-{key_imagebox} img {{
-                        max-height: 280px;
-                        border-radius: 8px;
-                        box-shadow: 0px 0px 10px rgba(0,0,0,0.08);
-                        object-fit: contain;
-                    }}
-                    .st-key-{key_bulletsbox} ul {{
-                        padding-left: 1.2em;
-                        color: #333;
-                        margin-top: 0;
-                    }}
-                    .st-key-{key_bulletsbox} li {{
-                        margin-bottom: 0.5em;
-                    }}
-                </style>
-                """,
-                unsafe_allow_html=True,
-            )
-    
-            col_img, col_bullets = st.columns([0.7, 0.3], gap="medium", vertical_alignment="center" )
-    
-            with col_img:
-                with st.container(key=key_imagebox):
-                    st.image(media_url, use_container_width=True)
-    
-            with col_bullets:
-                with st.container(key=key_bulletsbox):
-                    st.markdown(
-                        """
-                        <p style="font-size: 1.1em; font-weight: 600; color: #555; border-left: 4px solid #ccc; padding-left: 0.5em; margin-bottom: 1em;">
-                            Exec Summary
-                        </p>
-                        """,
-                        unsafe_allow_html=True
-                    )
-                    st.markdown(
-                        "<ul>" +
-                        "".join(
-                            f"<li>{markdown.markdown(bullet)}</li>"
-                            for bullet in bullets
-                        ) +
-                        "</ul>",
-                        unsafe_allow_html=True
-                    ) 
-
   
     def render_project_metadata_and_recommendations(self, project_metadata, query):
         """Render project title, video, metadata, dashboard (if available), and recommendations in an ancillary container."""
@@ -816,7 +748,73 @@ class RecommendationSystem(PortfolioSection):
     
             self._render_recommendation_grid(recommendations)  
         
-
+    def _render_executive_dashboard(self, project_metadata):
+        dashboard = project_metadata.get("dashboard", {})
+        media_url = dashboard.get("media", None)
+        bullets = dashboard.get("bullets", [])
+    
+        if media_url and bullets:
+            project_title = project_metadata.get("title", "dashboard")
+            key_namespace = re.sub(r"\W+", "_", project_title.lower())
+            key_imagebox = f"{key_namespace}_dashboard_imagebox"
+            key_bulletsbox = f"{key_namespace}_dashboard_bulletsbox"
+    
+            st.markdown(
+                f"""
+                <style>
+                    .st-key-{key_imagebox} {{
+                        background-color: #f9f9f9;
+                        padding: 1em;
+                        border-radius: 8px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 100%;  /* Ensure container fills the available height */
+                    }}
+                    .st-key-{key_imagebox} img {{
+                        max-height: 280px;
+                        border-radius: 8px;
+                        box-shadow: 0px 0px 10px rgba(0,0,0,0.08);
+                        object-fit: contain;
+                    }}
+                    .st-key-{key_bulletsbox} ul {{
+                        padding-left: 1.2em;
+                        color: #333;
+                        margin-top: 0;
+                    }}
+                    .st-key-{key_bulletsbox} li {{
+                        margin-bottom: 0.5em;
+                    }}
+                </style>
+                """,
+                unsafe_allow_html=True,
+            )
+    
+            col_img, col_bullets = st.columns([0.7, 0.3], gap="medium", vertical_alignment="center" )
+    
+            with col_img:
+                with st.container(key=key_imagebox):
+                    st.image(media_url, use_container_width=True)
+    
+            with col_bullets:
+                with st.container(key=key_bulletsbox):
+                    st.markdown(
+                        """
+                        <p style="font-size: 1.1em; font-weight: 600; color: #555; border-left: 4px solid #ccc; padding-left: 0.5em; margin-bottom: 1em;">
+                            Exec Summary
+                        </p>
+                        """,
+                        unsafe_allow_html=True
+                    )
+                    st.markdown(
+                        "<ul>" +
+                        "".join(
+                            f"<li>{markdown.markdown(bullet)}</li>"
+                            for bullet in bullets
+                        ) +
+                        "</ul>",
+                        unsafe_allow_html=True
+                    ) 
 
 
 
