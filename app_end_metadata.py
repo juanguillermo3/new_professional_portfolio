@@ -125,7 +125,7 @@ def load_repos_metadata():
             }
           ],
           "dashboard": {
-            "media": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Mexico_Oil_Production_Map.svg/1280px-Mexico_Oil_Production_Map.svg.png",
+            "media": "https://en.wikipedia.org/wiki/Petroleum_industry_in_Mexico#/media/File:Gulf_Offshore_Platform.jpg",
             "bullets": [
               "**+92% model precision** in 1-month gas output forecasting.",
               "**Socioeconomic indicators** (education, density, public infrastructure) emerged as key predictors.",
