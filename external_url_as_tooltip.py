@@ -2,6 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin, urlparse
 import os
+import streamlit as st
+import uuid
 
 def extract_all_metadata(url):
     """Fetch title, favicon, metadata, og tags, and best-guess hero image (first <img>)."""
@@ -85,10 +87,6 @@ def extract_all_metadata(url):
             'url': url
         }
 
-
-
-import streamlit as st
-import uuid
 
 def render_tooltip(visible_text, url):
     """Render a span with a hover-activated tooltip containing page metadata."""
@@ -296,7 +294,7 @@ def _url_as_tooltip_html(visible_text, url):
     return html
 
 
-def render_tooltip(visible_text, url):
+def render_url_as_tooltip(visible_text, url):
     """Render the tooltip using Streamlit markdown."""
     html = _url_as_tooltip_html(visible_text, url)
     st.markdown(html, unsafe_allow_html=True)
