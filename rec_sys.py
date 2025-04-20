@@ -473,75 +473,7 @@ class RecommendationSystem(PortfolioSection):
             self.render_project_metadata_and_recommendations(project_metadata, user_query)
             st.markdown("---")
 
-    def render_project_metadata_and_recommendations(self, project_metadata, query):
-        """Render project title, video, metadata, and recommendations in an ancillary container."""
-    
-        # Prepare video filename and path
-        sanitized_title = re.sub(r"[ \-]", "_", project_metadata['title'].lower())
-        video_filename = f"{sanitized_title}_theme.mp4"
-        video_path = os.path.join('assets', video_filename)
-    
-        # 🔧 DEBUG: Print expected video path
-        if not os.path.exists(video_path):
-            st.warning(f"⚠️ Video not found at: `{video_path}`. Check the filename and ensure the file exists.")
-    
-        # Prepare metadata and description
-        tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
-        parsed_description = markdown.markdown(project_metadata['description'])
-        description_html, description_styles = expandable_text_html(parsed_description)
-        description_html = markdown.markdown(f"{description_html} ")
-    
-        # Unique media placeholder for each project
-        media_placeholder = st.empty()
-    
-        # Attempt to show video
-        if os.path.exists(video_path):
-            media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
-    
-        # Render title and description
-        st.markdown(
-            f"""
-            <div style="text-align: center; margin-bottom: 0px;">
-                <h3>{prettify_title(project_metadata['title'])}</h3>
-            </div>
-            <p style="text-align: center; margin-top: 0px;">{tags_html}</p>
-            """,
-            unsafe_allow_html=True,
-        )
-    
-        # Generate a unique key for ancillary container
-        unique_key = hashlib.md5(f"{project_metadata['title']}_{time.time()}".encode()).hexdigest()
-        with st.container(key=unique_key):
-            st.markdown(
-                f"""
-                <div style="text-align: justify;">
-                    {description_html}
-                </div>
-                {description_styles}
-                """,
-                unsafe_allow_html=True,
-            )
-    
-            st.markdown("<br>", unsafe_allow_html=True)
-            self._render_milestones_grid(project_metadata)
-            st.markdown("<br>", unsafe_allow_html=True)
-    
-            recommendations = self.rank_items(None, project_metadata["title"])
-    
-            filter_message = f"Showing all results for project {prettify_title(project_metadata['title'])}"
-            if query:
-                filter_message += f" (and for keyword: {query})"
-    
-            st.markdown(
-                f'<p style="font-style: italic; color: #555; font-size: 105%; font-weight: 550;">{filter_message}</p>',
-                unsafe_allow_html=True
-            )
-    
-            for i in range(0, len(recommendations), self.num_columns):
-                cols = st.columns(self.num_columns)
-                for col, rec in zip(cols, recommendations[i: i + self.num_columns]):
-                    with col:
-                        self.render_card(rec, is_project=rec.get("is_project", False))
+
 
 
     #
@@ -610,6 +542,88 @@ class RecommendationSystem(PortfolioSection):
         # Step 5: Return the top 'num_recommended_items' recommendations
         return final_ranked_items[:self.num_recommended_items]
 
+    def render_project_metadata_and_recommendations(self, project_metadata, query):
+        """Render project title, video, metadata, and recommendations in an ancillary container."""
+    
+        # Prepare video filename and path with multiple extension fallbacks
+        sanitized_title = re.sub(r"[ \-]", "_", project_metadata['title'].lower())
+        video_extensions = ['.mp4', '.webm', '.mov']
+        video_path = next(
+            (
+                os.path.join('assets', f"{sanitized_title}_theme{ext}")
+                for ext in video_extensions
+                if os.path.exists(os.path.join('assets', f"{sanitized_title}_theme{ext}"))
+            ),
+            None
+        )
+    
+        if not video_path:
+            st.warning(f"⚠️ Video not found for project `{project_metadata['title']}` in supported formats.")
+    
+        # Prepare metadata and description with graceful fallback
+        tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
+        description = project_metadata.get("description", "No description available.")
+        parsed_description = markdown.markdown(description)
+        description_html, description_styles = expandable_text_html(parsed_description)
+        description_html = markdown.markdown(f"{description_html} ")
+    
+        # Unique media placeholder for each project
+        media_placeholder = st.empty()
+    
+        # Show video if available
+        if video_path:
+            media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
+    
+        # Render title and description
+        st.markdown(
+            f"""
+            <div style="text-align: center; margin-bottom: 0px;">
+                <h3>{prettify_title(project_metadata['title'])}</h3>
+            </div>
+            <p style="text-align: center; margin-top: 0px;">{tags_html}</p>
+            """,
+            unsafe_allow_html=True,
+        )
+    
+        # Generate a consistent key based on project title only
+        unique_key = hashlib.md5(project_metadata['title'].encode()).hexdigest()
+        with st.container(key=unique_key):
+            st.markdown(
+                f"""
+                <div style="text-align: justify;">
+                    {description_html}
+                </div>
+                {description_styles}
+                """,
+                unsafe_allow_html=True,
+            )
+    
+            st.markdown("<br>", unsafe_allow_html=True)
+            self._render_milestones_grid(project_metadata)
+            st.markdown("<hr style='border: 0.5px solid #ccc;'/>", unsafe_allow_html=True)
+    
+            # Get recommendations
+            recommendations = self.rank_items(None, project_metadata["title"])
+    
+            # Info message
+            filter_message = f"Showing all results for project {prettify_title(project_metadata['title'])}"
+            if query:
+                filter_message += f" (and for keyword: {query})"
+    
+            st.markdown(
+                f'<p style="font-style: italic; color: #555; font-size: 105%; font-weight: 550;">{filter_message}</p>',
+                unsafe_allow_html=True
+            )
+    
+            self._render_recommendation_grid(recommendations)
+    
+    def _render_recommendation_grid(self, recommendations):
+        """Helper to render recommendations in a responsive grid."""
+        for i in range(0, len(recommendations), self.num_columns):
+            cols = st.columns(self.num_columns)
+            for col, rec in zip(cols, recommendations[i: i + self.num_columns]):
+                with col:
+                    self.render_card(rec, is_project=rec.get("is_project", False))
 
 
 # Assume project_retriever is an instance of your semantic retriever (already initialized)
