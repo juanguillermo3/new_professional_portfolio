@@ -658,36 +658,24 @@ class RecommendationSystem(PortfolioSection):
             key_namespace = re.sub(r"\W+", "_", project_title.lower())
             key_imagebox = f"{key_namespace}_dashboard_imagebox"
             key_bulletsbox = f"{key_namespace}_dashboard_bulletsbox"
-            key_outer = f"{key_namespace}_dashboard_outer"
     
             st.markdown(
                 f"""
                 <style>
-                    .st-key-{key_outer} {{
-                        display: flex;
-                        flex-direction: row;
-                        align-items: stretch;
-                        gap: 2rem;
-                        margin-bottom: 2em;
-                    }}
                     .st-key-{key_imagebox} {{
-                        flex: 0 0 75%;
                         background-color: #f9f9f9;
                         padding: 1em;
                         border-radius: 8px;
                         display: flex;
                         justify-content: center;
                         align-items: center;
-                        height: 100%;
+                        height: 100%;  /* Ensure container fills the available height */
                     }}
                     .st-key-{key_imagebox} img {{
                         max-height: 280px;
                         border-radius: 8px;
                         box-shadow: 0px 0px 10px rgba(0,0,0,0.08);
                         object-fit: contain;
-                    }}
-                    .st-key-{key_bulletsbox} {{
-                        flex: 1;
                     }}
                     .st-key-{key_bulletsbox} ul {{
                         padding-left: 1.2em;
@@ -702,10 +690,13 @@ class RecommendationSystem(PortfolioSection):
                 unsafe_allow_html=True,
             )
     
-            with st.container(key=key_outer):
+            col_img, col_bullets = st.columns([1.5, 2], gap="large")
+    
+            with col_img:
                 with st.container(key=key_imagebox):
                     st.image(media_url, use_container_width=True)
     
+            with col_bullets:
                 with st.container(key=key_bulletsbox):
                     st.markdown(
                         """
@@ -723,7 +714,7 @@ class RecommendationSystem(PortfolioSection):
                         ) +
                         "</ul>",
                         unsafe_allow_html=True
-                    )
+                    ) 
 
   
     def render_project_metadata_and_recommendations(self, project_metadata, query):
