@@ -769,6 +769,7 @@ class RecommendationSystem(PortfolioSection):
                         display: flex;
                         justify-content: center;
                         align-items: center;
+                        height: 100%;  /* Ensure container fills the available height */
                     }}
                     .st-key-{key_imagebox} img {{
                         max-height: 280px;
@@ -814,6 +815,7 @@ class RecommendationSystem(PortfolioSection):
                         "</ul>",
                         unsafe_allow_html=True
                     )
+
 
 
 
