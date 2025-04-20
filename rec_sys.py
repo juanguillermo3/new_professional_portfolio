@@ -749,8 +749,6 @@ class RecommendationSystem(PortfolioSection):
     
         
     def _render_executive_dashboard(self, project_metadata):
-
-    
         dashboard = project_metadata.get("dashboard", {})
         media_url = dashboard.get("media", None)
         bullets = dashboard.get("bullets", [])
@@ -758,9 +756,9 @@ class RecommendationSystem(PortfolioSection):
         if media_url and bullets:
             project_title = project_metadata.get("title", "dashboard")
             key_namespace = re.sub(r"\W+", "_", project_title.lower())
-            key_outer = f"{key_namespace}_dashboard_outer"
             key_imagebox = f"{key_namespace}_dashboard_imagebox"
             key_bulletsbox = f"{key_namespace}_dashboard_bulletsbox"
+            key_outer = f"{key_namespace}_dashboard_outer"
     
             st.markdown(
                 f"""
@@ -770,7 +768,6 @@ class RecommendationSystem(PortfolioSection):
                         flex-direction: row;
                         align-items: stretch;
                         gap: 2rem;
-                        width: 100%;
                         margin-bottom: 2em;
                     }}
                     .st-key-{key_imagebox} {{
@@ -784,7 +781,6 @@ class RecommendationSystem(PortfolioSection):
                         height: 100%;
                     }}
                     .st-key-{key_imagebox} img {{
-                        width: 100%;
                         max-height: 280px;
                         border-radius: 8px;
                         box-shadow: 0px 0px 10px rgba(0,0,0,0.08);
@@ -828,7 +824,6 @@ class RecommendationSystem(PortfolioSection):
                         "</ul>",
                         unsafe_allow_html=True
                     )
-
 
 
 
