@@ -816,6 +816,81 @@ class RecommendationSystem(PortfolioSection):
                         unsafe_allow_html=True
                     )
 
+    def _render_executive_dashboard(self, project_metadata):
+        dashboard = project_metadata.get("dashboard", {})
+        media_url = dashboard.get("media", None)
+        bullets = dashboard.get("bullets", [])
+    
+        if media_url and bullets:
+            project_title = project_metadata.get("title", "dashboard")
+            key_namespace = re.sub(r"\W+", "_", project_title.lower())
+            key_imagebox = f"{key_namespace}_dashboard_imagebox"
+            key_bulletsbox = f"{key_namespace}_dashboard_bulletsbox"
+    
+            st.markdown(
+                f"""
+                <style>
+                    .st-key-{key_imagebox} {{
+                        background-color: #f9f9f9;
+                        padding: 1em;
+                        border-radius: 8px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 100%;  /* Ensure container fills the available height */
+                        width: 100%;   /* Ensure container fills the available width */
+                    }}
+                    .st-key-{key_imagebox} img {{
+                        max-height: 280px;
+                        border-radius: 8px;
+                        box-shadow: 0px 0px 10px rgba(0,0,0,0.08);
+                        object-fit: contain;
+                    }}
+                    .st-key-{key_bulletsbox} ul {{
+                        padding-left: 1.2em;
+                        color: #333;
+                        margin-top: 0;
+                    }}
+                    .st-key-{key_bulletsbox} li {{
+                        margin-bottom: 0.5em;
+                    }}
+                    /* Ensure columns have height 100% */
+                    .st-c1, .st-c2 {{
+                        height: 100vh;  /* Make columns take up full height */
+                    }}
+                </style>
+                """,
+                unsafe_allow_html=True,
+            )
+    
+            # Use st.columns to control the width of the layout, but now force full height for both columns
+            col_img, col_bullets = st.columns([1.5, 2], gap="large")
+    
+            with col_img:
+                # Image box container should be centered and take full space
+                with st.container(key=key_imagebox):
+                    st.image(media_url, use_container_width=True)
+    
+            with col_bullets:
+                # Bullets container with proper styling
+                with st.container(key=key_bulletsbox):
+                    st.markdown(
+                        """
+                        <p style="font-size: 1.1em; font-weight: 600; color: #555; border-left: 4px solid #ccc; padding-left: 0.5em; margin-bottom: 1em;">
+                            Exec Summary
+                        </p>
+                        """,
+                        unsafe_allow_html=True
+                    )
+                    st.markdown(
+                        "<ul>" +
+                        "".join(
+                            f"<li>{markdown.markdown(bullet)}</li>"
+                            for bullet in bullets
+                        ) +
+                        "</ul>",
+                        unsafe_allow_html=True
+                    )
 
 
 
