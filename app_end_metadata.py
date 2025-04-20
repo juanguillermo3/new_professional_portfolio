@@ -129,8 +129,9 @@ def load_repos_metadata():
             "bullets": [
               "**+92% model precision** in 1-month gas output forecasting.",
               "**Socioeconomic indicators** (education, density, public infrastructure) emerged as key predictors.",
-              "**Diagnostic overlays** identify underfit risks in long-horizon scenarios.",
+              "**Diagnostic overlays** identify underfit risks in long-horizon scenarios."
             ]
-          }
+          },
+          "call_to_action": "Did you like this project? I can use ML to forecast any relevant parameter of the economic environment for corporate planning. Reach out to discuss your requirements!"
         }
 ]
