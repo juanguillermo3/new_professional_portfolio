@@ -125,7 +125,7 @@ def load_repos_metadata():
             }
           ],
           "dashboard": {
-            "media": "https://www.gasnaturalgnu.com/app/assets/media/2020/12/Cual-es-el-futuro-del-gas-natural-en-Mexico-1.jpg",
+            "media": "https://github.com/juanguillermo3/new_professional_portfolio/blob/main/assets/forecast_per_horizon.png",
             "bullets": [
               "**+92% model precision** in 1-month gas output forecasting.",
               "**Socioeconomic indicators** (education, density, public infrastructure) emerged as key predictors.",
