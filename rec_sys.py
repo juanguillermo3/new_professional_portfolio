@@ -648,11 +648,10 @@ class RecommendationSystem(PortfolioSection):
             self.render_project_metadata_and_recommendations(project_metadata, user_query)
             st.markdown("<hr style='border: 0.5px solid #ccc;'/>", unsafe_allow_html=True)
 
-  
+    #
     def render_project_metadata_and_recommendations(self, project_metadata, query):
         """Render project title, video, metadata, dashboard (if available), and recommendations in an ancillary container."""
     
-        # Prepare video filename and path with multiple extension fallbacks
         sanitized_title = re.sub(r"[ \-]", "_", project_metadata['title'].lower())
         video_extensions = ['.mp4', '.webm', '.mov']
         video_path = next(
@@ -667,21 +666,17 @@ class RecommendationSystem(PortfolioSection):
         if not video_path:
             st.warning(f"⚠️ Video not found for project `{project_metadata['title']}` in supported formats.")
     
-        # Prepare metadata and description with graceful fallback
         tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
         description = project_metadata.get("description", "No description available.")
         parsed_description = markdown.markdown(description)
         description_html, description_styles = expandable_text_html(parsed_description)
         description_html = markdown.markdown(f"{description_html} ")
     
-        # Unique media placeholder for each project
         media_placeholder = st.empty()
     
-        # Show video if available
         if video_path:
             media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
     
-        # Render title and description
         st.markdown(
             f"""
             <div style="text-align: center; margin-bottom: 0px;">
@@ -692,7 +687,6 @@ class RecommendationSystem(PortfolioSection):
             unsafe_allow_html=True,
         )
     
-        # Generate a consistent key based on project title only
         unique_key = hashlib.md5(project_metadata['title'].encode()).hexdigest()
         with st.container(key=unique_key):
             st.markdown(
@@ -705,10 +699,8 @@ class RecommendationSystem(PortfolioSection):
                 unsafe_allow_html=True,
             )
     
-            # 📊 Executive Dashboard (if available)
             self._render_executive_dashboard(project_metadata)
     
-            # 🔗 Notebook Previews (if available)
             colab_links = project_metadata.get("notebooks", [])
             if colab_links:
                 notebook_list = "".join(
@@ -733,10 +725,7 @@ class RecommendationSystem(PortfolioSection):
             st.markdown("<br>", unsafe_allow_html=True)
             self._render_milestones_grid(project_metadata)
     
-            # Get recommendations
             recommendations = self.rank_items(None, project_metadata["title"])
-    
-            # Info message
             filter_message = f"Showing all results for project {prettify_title(project_metadata['title'])}"
             if query:
                 filter_message += f" (and for keyword: {query})"
@@ -746,8 +735,11 @@ class RecommendationSystem(PortfolioSection):
                 unsafe_allow_html=True
             )
     
-            self._render_recommendation_grid(recommendations)  
-        
+            self._render_recommendation_grid(recommendations)
+    
+            # Subtle call to action
+            self._render_cta_box(project_metadata)
+    # 
     def _render_executive_dashboard(self, project_metadata):
         dashboard = project_metadata.get("dashboard", {})
         media_url = dashboard.get("media", None)
@@ -823,6 +815,35 @@ class RecommendationSystem(PortfolioSection):
                         "</ul>",
                         unsafe_allow_html=True
                     ) 
+    #
+    def _render_cta_box(self, project_metadata):
+        """Render a subtle call-to-action box prompting WhatsApp contact."""
+        call_to_action = project_metadata.get("call_to_action")
+        if not call_to_action:
+            return
+    
+        wa_number = "573053658650"  # no '+' in wa.me link
+        wa_url = f"https://wa.me/{wa_number}?text=Hi!%20I'm%20interested%20in%20your%20project%20'{project_metadata['title']}'"
+    
+        st.markdown(
+            f"""
+            <div style="margin: 2em auto 1em auto; padding: 0.9em 1.2em; max-width: 600px;
+                        background-color: #f9fbfc; border-left: 4px solid #cce4f7; border-radius: 8px;
+                        box-shadow: 0 1px 3px rgba(0,0,0,0.03); text-align: center;">
+                <p style="margin-bottom: 0.6em; font-size: 0.95em; color: #444;">
+                    {call_to_action}
+                </p>
+                <a href="{wa_url}" target="_blank" style="text-decoration: none;">
+                    <button style="background-color: #25D366; border: none; color: white;
+                                   padding: 0.5em 1.2em; font-size: 0.95em; border-radius: 20px;
+                                   cursor: pointer;">
+                        💬 Contact via WhatsApp
+                    </button>
+                </a>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
 
 
