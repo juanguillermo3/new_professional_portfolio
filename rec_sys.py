@@ -707,14 +707,22 @@ class RecommendationSystem(PortfolioSection):
             # Optional section for notebook previews
             notebooks = project_metadata.get("notebooks")
             if notebooks:
-                st.markdown("### 🔗 _Notebook Previews_")
-                for entry in notebooks:
-                    title = entry.get("title", "View Notebook")
-                    url = entry.get("url")
-                    if url:
-                        render_url_as_tooltip(title, url)
+                notebook_links = "".join(
+                    f'<li><a href="{entry["url"]}" target="_blank" style="text-decoration: none; color: #1a73e8;">{entry["title"]}</a></li>'
+                    for entry in notebooks if "url" in entry
+                )
             
-                st.markdown("<br>", unsafe_allow_html=True)
+                st.markdown(
+                    f"""
+                    <p style="margin-top: 16px; margin-bottom: 6px;">
+                        🔗 <em>Notebook Previews</em>
+                    </p>
+                    <ul style="padding-left: 20px; margin-top: 0px;">
+                        {notebook_links}
+                    </ul>
+                    """,
+                    unsafe_allow_html=True
+                )
     
             st.markdown("<br>", unsafe_allow_html=True)
             self._render_milestones_grid(project_metadata)
