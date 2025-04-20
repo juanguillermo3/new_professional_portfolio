@@ -723,16 +723,14 @@ class RecommendationSystem(PortfolioSection):
                                     Exec Summary
                                 </p>
                                 <ul style="padding-left: 1.2em; color: #333; margin-top: 0;">
-                                    {"".join(f"<li style='margin-bottom: 0.5em;'>{b}</li>" for b in bullets)}
+                                    {"".join(f"<li style='margin-bottom: 0.5em;'>{markdown.markdown(b)}</li>" for b in bullets)}
                                 </ul>
                             </div>
                         </div>
                         """,
                         unsafe_allow_html=True
                     )
-
-
-    
+                    
             # 🔗 Notebook Previews (if available)
             colab_links = project_metadata.get("notebooks", [])
             if colab_links:
