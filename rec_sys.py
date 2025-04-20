@@ -571,12 +571,22 @@ class RecommendationSystem(PortfolioSection):
                 with col:
                     self.render_card(rec, is_project=rec.get("is_project", False))
 
-    def _render_portfolio_disclaimer(self):
-        """Render a subtle disclaimer about the production orientation of the portfolio."""
+    def _render_portfolio_disclaimer(self, clarification: str = None):
+        """Render a subtle disclaimer about the production orientation of the portfolio.
+    
+        Parameters:
+            clarification (str, optional): Custom message to override the default disclaimer.
+        """
+        message = clarification or (
+            "This portfolio showcases modular, production-oriented designs. "
+            "Although these aren't live systems, each project simulates real-world architecture, "
+            "ready to be adapted to your context."
+        )
+    
         st.markdown(
-            """
+            f"""
             <blockquote style="border-left: 4px solid #d3d3d3; padding-left: 1em; color: #555; margin-bottom: 1.5em;">
-                This portfolio showcases modular, production-oriented designs. Although these aren't live systems, each project simulates real-world architecture, ready to be adapted to your context.
+                {message}
             </blockquote>
             """,
             unsafe_allow_html=True
