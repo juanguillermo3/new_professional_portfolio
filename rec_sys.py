@@ -771,7 +771,7 @@ class RecommendationSystem(PortfolioSection):
                         margin-bottom: 2em;
                     }}
                     .st-key-{key_imagebox} {{
-                        flex: 0 0 75%;
+                        flex: 0 0 60%;
                         background-color: #f9f9f9;
                         padding: 1em;
                         border-radius: 8px;
