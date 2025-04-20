@@ -119,7 +119,20 @@ def load_repos_metadata():
             "Promotes data transparency and reproducibility in energy forecasting pipelines.  # (mock-up)"
           ],
           "notebooks": [
-              {"title": "Gas Forecasting Notebook", "url": "https://colab.research.google.com/drive/1MHMx_IS1_a1x9jhEhuy2BRLoGQ239TpU"}
-          ]
+            {
+              "title": "Gas Forecasting Notebook",
+              "url": "https://colab.research.google.com/drive/1MHMx_IS1_a1x9jhEhuy2BRLoGQ239TpU"
+            }
+          ],
+          "dashboard": {
+            "media": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Mexico_Oil_Production_Map.svg/1280px-Mexico_Oil_Production_Map.svg.png",
+            "bullets": [
+              "**+92% model precision** in 1-month gas output forecasting.",
+              "**Socioeconomic indicators** (education, density, public infrastructure) emerged as key predictors.",
+              "Model highlights **regional disparities** in national production contributions.",
+              "**Diagnostic overlays** identify underfit risks in long-horizon scenarios.",
+              "Supports **policy modeling** through interpretable output mapping."
+            ]
+          }
         }
 ]
