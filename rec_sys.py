@@ -730,6 +730,7 @@ class RecommendationSystem(PortfolioSection):
                         """,
                         unsafe_allow_html=True
                     )
+
                     
             # 🔗 Notebook Previews (if available)
             colab_links = project_metadata.get("notebooks", [])
