@@ -650,7 +650,6 @@ class RecommendationSystem(PortfolioSection):
 
     def render_project_metadata_and_recommendations(self, project_metadata, query):
         """Render project title, video, metadata, dashboard (if available), and recommendations in an ancillary container."""
-  
     
         # Prepare video filename and path with multiple extension fallbacks
         sanitized_title = re.sub(r"[ \-]", "_", project_metadata['title'].lower())
@@ -706,32 +705,8 @@ class RecommendationSystem(PortfolioSection):
             )
     
             # 📊 Executive Dashboard (if available)
-            if "dashboard" in project_metadata:
-                dashboard = project_metadata["dashboard"]
-                media_url = dashboard.get("media", None)
-                bullets = dashboard.get("bullets", [])
-            
-                if media_url and bullets:
-                    st.markdown(
-                        f"""
-                        <div style="display: flex; gap: 3rem; align-items: stretch; margin-bottom: 2em;">
-                            <div style="flex: 1.5; display: flex; align-items: center; justify-content: center; background-color: #f9f9f9; padding: 1em; border-radius: 8px;">
-                                <img src="{media_url}" style="max-width: 100%; max-height: 280px; border-radius: 8px; box-shadow: 0px 0px 10px rgba(0,0,0,0.08);" />
-                            </div>
-                            <div style="flex: 2;">
-                                <p style="font-size: 1.1em; font-weight: 600; color: #555; border-left: 4px solid #ccc; padding-left: 0.5em; margin-bottom: 1em;">
-                                    Exec Summary
-                                </p>
-                                <ul style="padding-left: 1.2em; color: #333; margin-top: 0;">
-                                    {"".join(f"<li style='margin-bottom: 0.5em;'>{markdown.markdown(b)}</li>" for b in bullets)}
-                                </ul>
-                            </div>
-                        </div>
-                        """,
-                        unsafe_allow_html=True
-                    )
-
-                    
+            self._render_executive_dashboard(project_metadata)
+    
             # 🔗 Notebook Previews (if available)
             colab_links = project_metadata.get("notebooks", [])
             if colab_links:
@@ -756,7 +731,6 @@ class RecommendationSystem(PortfolioSection):
     
             st.markdown("<br>", unsafe_allow_html=True)
             self._render_milestones_grid(project_metadata)
-            #st.markdown("<hr style='border: 0.5px solid #ccc;'/>", unsafe_allow_html=True)
     
             # Get recommendations
             recommendations = self.rank_items(None, project_metadata["title"])
@@ -772,7 +746,49 @@ class RecommendationSystem(PortfolioSection):
             )
     
             self._render_recommendation_grid(recommendations)
-
+    
+    
+    def _render_executive_dashboard_builtins(self, dashboard: dict, project_title: str):
+        """Render the executive dashboard section using Streamlit built-in components and CSS-stylable keys."""
+        import streamlit as st
+        import markdown
+    
+        media_url = dashboard.get("media")
+        bullets = dashboard.get("bullets", [])
+    
+        if not (media_url and bullets):
+            return
+    
+        # Use columns to replicate side-by-side layout (image left, bullets right)
+        col_image, col_bullets = st.columns([1.5, 2], gap="large")
+    
+        # Unique identifier from project title to namespace keys
+        key_namespace = re.sub(r"\W+", "_", project_title.lower())
+    
+        with col_image:
+            with st.container(key=f"{key_namespace}_dashboard_imagebox"):
+                st.image(
+                    media_url,
+                    caption=None,
+                    use_column_width=True,
+                    output_format="auto",
+                )
+    
+        with col_bullets:
+            with st.container(key=f"{key_namespace}_dashboard_bulletsbox"):
+                st.markdown(
+                    "<div style='font-size: 1.1em; font-weight: 600; color: #555; "
+                    "border-left: 4px solid #ccc; padding-left: 0.5em; margin-bottom: 1em;'>"
+                    "Exec Summary</div>",
+                    unsafe_allow_html=True
+                )
+    
+                for i, bullet in enumerate(bullets):
+                    st.markdown(
+                        markdown.markdown(f"- {bullet}"),
+                        unsafe_allow_html=True,
+                        key=f"{key_namespace}_bullet_{i}"
+                    )
 
 
 # Assume project_retriever is an instance of your semantic retriever (already initialized)
