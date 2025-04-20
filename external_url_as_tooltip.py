@@ -236,7 +236,7 @@ def extract_metadata_from_colab(url):
 #
 def _url_as_tooltip_html(visible_text, url, strategy="default"):
     """Return the HTML string for a tooltip with embedded metadata from a URL."""
-    
+
     if strategy == "colab":
         metadata = extract_metadata_from_colab(url)
     else:
@@ -249,8 +249,38 @@ def _url_as_tooltip_html(visible_text, url, strategy="default"):
     final_url = metadata.get("url", url)
 
     tooltip_id = f"tooltip_{uuid.uuid4().hex[:8]}"
-    hero_img_html = f'<img src="{hero}" alt="Main Image" class="hero-img" />' if hero else ""
-    description_html = f'<div class="description">{description}</div>' if description else ""
+    tooltip_content = ""
+
+    # Title row (icon + title link)
+    if title:
+        tooltip_content += f"""
+        <div class="row-title">
+            <img src="{logo}" alt="logo"/>
+            <a href="{final_url}" target="_blank">{title}</a>
+        </div>
+        """
+
+    # Final URL (wrapped style)
+    if final_url:
+        tooltip_content += f"""
+        <div class="url-display">{final_url}</div>
+        """
+
+    # Hero image
+    if hero:
+        tooltip_content += f"""
+        <img src="{hero}" alt="Main Image" class="hero-img" />
+        """
+
+    # Description
+    if description:
+        tooltip_content += f"""
+        <div class="description">{description}</div>
+        """
+
+    # If there's no content at all, return just the anchor with no hover
+    if not tooltip_content.strip():
+        return f"<a href='{url}' target='_blank'>{visible_text}</a>"
 
     html = f"""
     <style>
@@ -276,6 +306,7 @@ def _url_as_tooltip_html(visible_text, url, strategy="default"):
         z-index: 999;
         font-family: Arial, sans-serif;
         transition: opacity 0.3s ease-in-out;
+        word-wrap: break-word;
     }}
 
     #{tooltip_id}:hover .tooltip-box {{
@@ -308,6 +339,8 @@ def _url_as_tooltip_html(visible_text, url, strategy="default"):
         font-size: 12px;
         color: #888888;
         margin-bottom: 10px;
+        word-break: break-word;
+        white-space: normal;
     }}
 
     .tooltip-box .hero-img {{
@@ -328,13 +361,7 @@ def _url_as_tooltip_html(visible_text, url, strategy="default"):
     <span id="{tooltip_id}">
         <span style="text-decoration: underline; color: #1a73e8;">{visible_text}</span>
         <div class="tooltip-box">
-            <div class="row-title">
-                <img src="{logo}" alt="logo"/>
-                <a href="{final_url}" target="_blank">{title or 'Página web'}</a>
-            </div>
-            <div class="url-display">{final_url}</div>
-            {hero_img_html}
-            {description_html}
+            {tooltip_content}
         </div>
     </span>
     """
