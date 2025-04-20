@@ -748,47 +748,80 @@ class RecommendationSystem(PortfolioSection):
             self._render_recommendation_grid(recommendations)
     
     
-    def _render_executive_dashboard(self, dashboard: dict, project_title: str):
-        """Render the executive dashboard section using Streamlit built-in components and CSS-stylable keys."""
-        import streamlit as st
-        import markdown
+    def _render_executive_dashboard(self, project_metadata):
+        #import streamlit as st
+        #import markdown
+        #import re
     
-        media_url = dashboard.get("media")
+        dashboard = project_metadata.get("dashboard", {})
+        media_url = dashboard.get("media", None)
         bullets = dashboard.get("bullets", [])
     
-        if not (media_url and bullets):
-            return
+        if media_url and bullets:
+            # Generate a namespaced key based on project title or default
+            project_title = project_metadata.get("title", "dashboard")
+            key_namespace = re.sub(r"\W+", "_", project_title.lower())
     
-        # Use columns to replicate side-by-side layout (image left, bullets right)
-        col_image, col_bullets = st.columns([1.5, 2], gap="large")
+            # Inject internal CSS for styling with st.key-based selectors
+            st.markdown(
+                f"""
+                <style>
+                    [class^="st-key_{key_namespace}_dashboard_imagebox"] {{
+                        background-color: #f9f9f9;
+                        padding: 1em;
+                        border-radius: 8px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }}
+                    [class^="st-key_{key_namespace}_dashboard_imagebox"] img {{
+                        max-height: 280px;
+                        border-radius: 8px;
+                        box-shadow: 0px 0px 10px rgba(0,0,0,0.08);
+                        object-fit: contain;
+                    }}
+                    [class^="st-key_{key_namespace}_dashboard_bulletsbox"] p {{
+                        font-size: 1.1em;
+                        font-weight: 600;
+                        color: #555;
+                        border-left: 4px solid #ccc;
+                        padding-left: 0.5em;
+                        margin-bottom: 1em;
+                    }}
+                    [class^="st-key_{key_namespace}_dashboard_bulletsbox"] ul {{
+                        padding-left: 1.2em;
+                        color: #333;
+                        margin-top: 0;
+                    }}
+                    [class^="st-key_{key_namespace}_dashboard_bulletsbox"] li {{
+                        margin-bottom: 0.5em;
+                    }}
+                </style>
+                """,
+                unsafe_allow_html=True
+            )
     
-        # Unique identifier from project title to namespace keys
-        key_namespace = re.sub(r"\W+", "_", project_title.lower())
+            # Layout: image left (1.5), bullets right (2)
+            col_img, col_bullets = st.columns([1.5, 2], gap="large")
     
-        with col_image:
-            with st.container(key=f"{key_namespace}_dashboard_imagebox"):
-                st.image(
-                    media_url,
-                    caption=None,
-                    use_column_width=True,
-                    output_format="auto",
-                )
+            with col_img:
+                with st.container(key=f"{key_namespace}_dashboard_imagebox"):
+                    st.image(media_url, use_column_width=True)
     
-        with col_bullets:
-            with st.container(key=f"{key_namespace}_dashboard_bulletsbox"):
-                st.markdown(
-                    "<div style='font-size: 1.1em; font-weight: 600; color: #555; "
-                    "border-left: 4px solid #ccc; padding-left: 0.5em; margin-bottom: 1em;'>"
-                    "Exec Summary</div>",
-                    unsafe_allow_html=True
-                )
+            with col_bullets:
+                with st.container(key=f"{key_namespace}_dashboard_bulletsbox"):
+                    st.markdown("Exec Summary")
     
-                for i, bullet in enumerate(bullets):
                     st.markdown(
-                        markdown.markdown(f"- {bullet}"),
-                        unsafe_allow_html=True,
-                        key=f"{key_namespace}_bullet_{i}"
+                        "<ul>" +
+                        "".join(
+                            f"<li>{markdown.markdown(bullet)}</li>"
+                            for bullet in bullets
+                        ) +
+                        "</ul>",
+                        unsafe_allow_html=True
                     )
+
 
 
 # Assume project_retriever is an instance of your semantic retriever (already initialized)
