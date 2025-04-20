@@ -646,7 +646,7 @@ class RecommendationSystem(PortfolioSection):
         # Step 4: Render selected projects
         for project_metadata in projects_to_render:
             self.render_project_metadata_and_recommendations(project_metadata, user_query)
-            st.markdown("---")
+            st.markdown("<hr style='border: 0.5px solid #ccc;'/>", unsafe_allow_html=True)
 
     def render_project_metadata_and_recommendations(self, project_metadata, query):
         """Render project title, video, metadata, dashboard (if available), and recommendations in an ancillary container."""
@@ -756,7 +756,7 @@ class RecommendationSystem(PortfolioSection):
     
             st.markdown("<br>", unsafe_allow_html=True)
             self._render_milestones_grid(project_metadata)
-            st.markdown("<hr style='border: 0.5px solid #ccc;'/>", unsafe_allow_html=True)
+            #st.markdown("<hr style='border: 0.5px solid #ccc;'/>", unsafe_allow_html=True)
     
             # Get recommendations
             recommendations = self.rank_items(None, project_metadata["title"])
