@@ -129,9 +129,7 @@ def load_repos_metadata():
             "bullets": [
               "**+92% model precision** in 1-month gas output forecasting.",
               "**Socioeconomic indicators** (education, density, public infrastructure) emerged as key predictors.",
-              "Model highlights **regional disparities** in national production contributions.",
               "**Diagnostic overlays** identify underfit risks in long-horizon scenarios.",
-              "Supports **policy modeling** through interpretable output mapping."
             ]
           }
         }
