@@ -769,7 +769,13 @@ class RecommendationSystem(PortfolioSection):
                         display: flex;
                         justify-content: center;
                         align-items: center;
-                        height: 100%;  /* Ensure container fills the available height */
+                        height: 100%;
+                        transition: transform 0.3s ease, box-shadow 0.3s ease;
+                    }}
+                    .st-key-{key_imagebox}:hover {{
+                        transform: scale(1.2);
+                        box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.3);
+                        z-index: 20;
                     }}
                     .st-key-{key_imagebox} img {{
                         max-height: 280px;
@@ -789,6 +795,7 @@ class RecommendationSystem(PortfolioSection):
                 """,
                 unsafe_allow_html=True,
             )
+
     
             col_img, col_bullets = st.columns([0.6, 0.4], gap="small", vertical_alignment="center" )
     
