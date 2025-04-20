@@ -712,30 +712,33 @@ class RecommendationSystem(PortfolioSection):
                 bullets = dashboard.get("bullets", [])
             
                 if media_url and bullets:
-                    st.markdown(
-                        """
-                        <div style="text-align: left; margin-top: 2em; margin-bottom: 1em;">
-                            <p style="font-size: 1.1em; font-weight: 600; color: #555; border-left: 4px solid #ccc; padding-left: 0.5em;">
-                                Exec Summary
-                            </p>
-                        </div>
-                        """,
-                        unsafe_allow_html=True,
-                    )
-            
                     col1, col2 = st.columns([1.5, 2], gap="large")
+            
                     with col1:
                         st.markdown(
                             f"""
-                            <div style="display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
                                 <img src="{media_url}" style="max-width: 100%; max-height: 280px; border-radius: 8px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1);" />
                             </div>
                             """,
                             unsafe_allow_html=True,
                         )
+            
                     with col2:
+                        st.markdown(
+                            """
+                            <div style="margin-bottom: 1em;">
+                                <p style="font-size: 1.1em; font-weight: 600; color: #555; border-left: 4px solid #ccc; padding-left: 0.5em;">
+                                    Exec Summary
+                                </p>
+                            </div>
+                            """,
+                            unsafe_allow_html=True,
+                        )
+            
                         for bullet in bullets:
                             st.markdown(f"<p style='margin-bottom: 0.4em;'>• {bullet}</p>", unsafe_allow_html=True)
+
 
     
             # 🔗 Notebook Previews (if available)
