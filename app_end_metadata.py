@@ -125,7 +125,7 @@ def load_repos_metadata():
             }
           ],
           "dashboard": {
-            "media": "https://github.com/juanguillermo3/new_professional_portfolio/blob/12196eba1043d26f8bcb12024c2fe43399478dd0/assets/forecast_per_horizon.png",
+            "media": "assets/forecast_per_horizon.png",
             "bullets": [
               "**+92% model precision** in 1-month gas output forecasting.",
               "**Socioeconomic indicators** (education, density, public infrastructure) emerged as key predictors.",
