@@ -732,28 +732,27 @@ class RecommendationSystem(PortfolioSection):
                     )
 
                     
-            # 🔗 Notebook Previews (with tooltips using the "colab" strategy)
+            # 🔗 Notebook Previews (if available)
             colab_links = project_metadata.get("notebooks", [])
             if colab_links:
+                notebook_list = "".join(
+                    f"<li><a href='{nb['url']}' target='_blank'>{nb['title']}</a></li>" if isinstance(nb, dict)
+                    else f"<li><a href='{nb}' target='_blank'>{nb}</a></li>"
+                    for nb in colab_links
+                )
                 st.markdown(
-                    """
+                    f"""
                     <div style="margin-top: 0.5em;">
                         <p style="font-size: 110%; font-weight: 500; color: #444;">
                             🔗 <em>Notebook Previews</em>
                         </p>
+                        <ul style="margin-top: -0.5em; margin-left: 1.2em; color: #444;">
+                            {notebook_list}
+                        </ul>
                     </div>
                     """,
                     unsafe_allow_html=True
                 )
-                for nb in colab_links:
-                    if isinstance(nb, dict):
-                        visible = nb.get("title", nb["url"])
-                        url = nb["url"]
-                    else:
-                        visible = url = nb
-                    # Use your enhanced function to render with tooltip and colab-specific scraping
-                    render_url_as_tooltip(f"• {visible}", url, strategy="colab")
-
     
             st.markdown("<br>", unsafe_allow_html=True)
             self._render_milestones_grid(project_metadata)
