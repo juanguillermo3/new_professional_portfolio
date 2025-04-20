@@ -648,104 +648,83 @@ class RecommendationSystem(PortfolioSection):
             self.render_project_metadata_and_recommendations(project_metadata, user_query)
             st.markdown("<hr style='border: 0.5px solid #ccc;'/>", unsafe_allow_html=True)
 
-    def render_project_metadata_and_recommendations(self, project_metadata, query):
-        """Render project title, video, metadata, dashboard (if available), and recommendations in an ancillary container."""
+    def _render_executive_dashboard(self, project_metadata):
+        dashboard = project_metadata.get("dashboard", {})
+        media_url = dashboard.get("media", None)
+        bullets = dashboard.get("bullets", [])
     
-        # Prepare video filename and path with multiple extension fallbacks
-        sanitized_title = re.sub(r"[ \-]", "_", project_metadata['title'].lower())
-        video_extensions = ['.mp4', '.webm', '.mov']
-        video_path = next(
-            (
-                os.path.join('assets', f"{sanitized_title}_theme{ext}")
-                for ext in video_extensions
-                if os.path.exists(os.path.join('assets', f"{sanitized_title}_theme{ext}"))
-            ),
-            None
-        )
+        if media_url and bullets:
+            project_title = project_metadata.get("title", "dashboard")
+            key_namespace = re.sub(r"\W+", "_", project_title.lower())
+            key_imagebox = f"{key_namespace}_dashboard_imagebox"
+            key_bulletsbox = f"{key_namespace}_dashboard_bulletsbox"
+            key_outer = f"{key_namespace}_dashboard_outer"
     
-        if not video_path:
-            st.warning(f"⚠️ Video not found for project `{project_metadata['title']}` in supported formats.")
-    
-        # Prepare metadata and description with graceful fallback
-        tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
-        description = project_metadata.get("description", "No description available.")
-        parsed_description = markdown.markdown(description)
-        description_html, description_styles = expandable_text_html(parsed_description)
-        description_html = markdown.markdown(f"{description_html} ")
-    
-        # Unique media placeholder for each project
-        media_placeholder = st.empty()
-    
-        # Show video if available
-        if video_path:
-            media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
-    
-        # Render title and description
-        st.markdown(
-            f"""
-            <div style="text-align: center; margin-bottom: 0px;">
-                <h3>{prettify_title(project_metadata['title'])}</h3>
-            </div>
-            <p style="text-align: center; margin-top: 0px;">{tags_html}</p>
-            """,
-            unsafe_allow_html=True,
-        )
-    
-        # Generate a consistent key based on project title only
-        unique_key = hashlib.md5(project_metadata['title'].encode()).hexdigest()
-        with st.container(key=unique_key):
             st.markdown(
                 f"""
-                <div style="text-align: justify;">
-                    {description_html}
-                </div>
-                {description_styles}
+                <style>
+                    .st-key-{key_outer} {{
+                        display: flex;
+                        flex-direction: row;
+                        align-items: stretch;
+                        gap: 2rem;
+                        margin-bottom: 2em;
+                    }}
+                    .st-key-{key_imagebox} {{
+                        flex: 0 0 75%;
+                        background-color: #f9f9f9;
+                        padding: 1em;
+                        border-radius: 8px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 100%;
+                    }}
+                    .st-key-{key_imagebox} img {{
+                        max-height: 280px;
+                        border-radius: 8px;
+                        box-shadow: 0px 0px 10px rgba(0,0,0,0.08);
+                        object-fit: contain;
+                    }}
+                    .st-key-{key_bulletsbox} {{
+                        flex: 1;
+                    }}
+                    .st-key-{key_bulletsbox} ul {{
+                        padding-left: 1.2em;
+                        color: #333;
+                        margin-top: 0;
+                    }}
+                    .st-key-{key_bulletsbox} li {{
+                        margin-bottom: 0.5em;
+                    }}
+                </style>
                 """,
                 unsafe_allow_html=True,
             )
     
-            # 📊 Executive Dashboard (if available)
-            self._render_executive_dashboard(project_metadata)
+            with st.container(key=key_outer):
+                with st.container(key=key_imagebox):
+                    st.image(media_url, use_container_width=True)
     
-            # 🔗 Notebook Previews (if available)
-            colab_links = project_metadata.get("notebooks", [])
-            if colab_links:
-                notebook_list = "".join(
-                    f"<li><a href='{nb['url']}' target='_blank'>{nb['title']}</a></li>" if isinstance(nb, dict)
-                    else f"<li><a href='{nb}' target='_blank'>{nb}</a></li>"
-                    for nb in colab_links
-                )
-                st.markdown(
-                    f"""
-                    <div style="margin-top: 0.5em;">
-                        <p style="font-size: 110%; font-weight: 500; color: #444;">
-                            🔗 <em>Notebook Previews</em>
+                with st.container(key=key_bulletsbox):
+                    st.markdown(
+                        """
+                        <p style="font-size: 1.1em; font-weight: 600; color: #555; border-left: 4px solid #ccc; padding-left: 0.5em; margin-bottom: 1em;">
+                            Exec Summary
                         </p>
-                        <ul style="margin-top: -0.5em; margin-left: 1.2em; color: #444;">
-                            {notebook_list}
-                        </ul>
-                    </div>
-                    """,
-                    unsafe_allow_html=True
-                )
-    
-            st.markdown("<br>", unsafe_allow_html=True)
-            self._render_milestones_grid(project_metadata)
-    
-            # Get recommendations
-            recommendations = self.rank_items(None, project_metadata["title"])
-    
-            # Info message
-            filter_message = f"Showing all results for project {prettify_title(project_metadata['title'])}"
-            if query:
-                filter_message += f" (and for keyword: {query})"
-    
-            st.markdown(
-                f'<p style="font-style: italic; color: #555; font-size: 105%; font-weight: 550;">{filter_message}</p>',
-                unsafe_allow_html=True
-            )
-    
-            self._render_recommendation_grid(recommendations)
+                        """,
+                        unsafe_allow_html=True
+                    )
+                    st.markdown(
+                        "<ul>" +
+                        "".join(
+                            f"<li>{markdown.markdown(bullet)}</li>"
+                            for bullet in bullets
+                        ) +
+                        "</ul>",
+                        unsafe_allow_html=True
+                    )
+
     
         
 
