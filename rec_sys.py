@@ -749,20 +749,15 @@ class RecommendationSystem(PortfolioSection):
     
     
     def _render_executive_dashboard(self, project_metadata):
-        #import streamlit as st
-        #import markdown
-        #import re
     
         dashboard = project_metadata.get("dashboard", {})
         media_url = dashboard.get("media", None)
         bullets = dashboard.get("bullets", [])
     
         if media_url and bullets:
-            # Generate a namespaced key based on project title or default
             project_title = project_metadata.get("title", "dashboard")
             key_namespace = re.sub(r"\W+", "_", project_title.lower())
     
-            # Inject internal CSS for styling with st.key-based selectors
             st.markdown(
                 f"""
                 <style>
@@ -801,17 +796,15 @@ class RecommendationSystem(PortfolioSection):
                 unsafe_allow_html=True
             )
     
-            # Layout: image left (1.5), bullets right (2)
             col_img, col_bullets = st.columns([1.5, 2], gap="large")
     
             with col_img:
                 with st.container(key=f"{key_namespace}_dashboard_imagebox"):
-                    st.image(media_url, use_column_width=True)
+                    st.image(media_url, use_container_width=True)
     
             with col_bullets:
                 with st.container(key=f"{key_namespace}_dashboard_bulletsbox"):
                     st.markdown("Exec Summary")
-    
                     st.markdown(
                         "<ul>" +
                         "".join(
@@ -821,6 +814,7 @@ class RecommendationSystem(PortfolioSection):
                         "</ul>",
                         unsafe_allow_html=True
                     )
+
 
 
 
