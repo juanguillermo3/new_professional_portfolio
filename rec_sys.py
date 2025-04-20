@@ -32,7 +32,7 @@ from portfolio_section import PortfolioSection
 from exceptional_ui import apply_custom_tooltip, _custom_tooltip_with_frost_glass_html
 from biotech_lab import frost_glass_mosaic, _custom_tooltip_with_frost_glass_html
 from expandable_text import expandable_text_html
-from external_url_as_tooltip import 
+from external_url_as_tooltip import render_url_as_tooltip
 
 import os
 from dotenv import load_dotenv
