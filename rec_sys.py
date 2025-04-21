@@ -652,30 +652,14 @@ class RecommendationSystem(PortfolioSection):
     def render_project_metadata_and_recommendations(self, project_metadata, query):
         """Render project title, video, metadata, dashboard (if available), and recommendations in an ancillary container."""
     
-        sanitized_title = re.sub(r"[ \-]", "_", project_metadata['title'].lower())
-        video_extensions = ['.mp4', '.webm', '.mov']
-        video_path = next(
-            (
-                os.path.join('assets', f"{sanitized_title}_theme{ext}")
-                for ext in video_extensions
-                if os.path.exists(os.path.join('assets', f"{sanitized_title}_theme{ext}"))
-            ),
-            None
-        )
-    
-        if not video_path:
-            st.warning(f"⚠️ Video not found for project `{project_metadata['title']}` in supported formats.")
+        # Render project video (refactored to a helper method)
+        self._render_project_video(project_metadata)
     
         tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
         description = project_metadata.get("description", "No description available.")
         parsed_description = markdown.markdown(description)
         description_html, description_styles = expandable_text_html(parsed_description)
         description_html = markdown.markdown(f"{description_html} ")
-    
-        media_placeholder = st.empty()
-    
-        if video_path:
-            media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
     
         st.markdown(
             f"""
@@ -739,6 +723,7 @@ class RecommendationSystem(PortfolioSection):
     
             # Subtle call to action
             self._render_cta_box(project_metadata)
+
     # 
     def _render_executive_dashboard(self, project_metadata):
         dashboard = project_metadata.get("dashboard", {})
