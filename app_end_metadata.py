@@ -95,41 +95,42 @@ def load_repos_metadata():
             "next_milestones": [
                 "Explore a more flexible, NLP-based query matching system for the RecSys."
             ]
-        }{
-  "title": "Random-Forest-Modeling-of-Mexican-Gas-Output",
-  "tags": [
-    "Energy Forecasting",
-    "Natural Gas",
-    "Random Forest",
-    "Socioeconomic Modeling",
-    "Policy Planning",
-    "Machine Learning"
-  ],
-  "description": "A **Random Forest-based framework** to model Mexico’s national gas production (**Million Standard Cubic Feet per Day**) from structural and demographic variables. Designed to serve both **1-month and 6-month horizons**, the system enables strategic foresight for policymakers. Expert-driven **feature selection** enhances interpretability, revealing socio-economic patterns behind national energy output. We propose mitigation strategies for Random Forest’s known **long-term prediction** challenges, enabling more robust forecasting under real-world constraints.",
-  "achieved_milestones": [
-    "Integrated structural and demographic datasets from public Mexican sources.  # (mock-up)",
-    "Engineered feature set with expert knowledge to reflect socio-economic drivers.  # (mock-up)",
-    "Trained and validated Random Forest models for short- and long-term forecasting.  # (mock-up)",
-    "Implemented diagnostic tools to evaluate long-term predictive reliability.  # (mock-up)"
-  ],
-  "business_impact": [
-    "Supports energy policy decisions with interpretable, data-driven forecasts.  # (mock-up)",
-    "Enables early detection of structural factors affecting gas production trends.  # (mock-up)",
-    "Promotes data transparency and reproducibility in energy forecasting pipelines.  # (mock-up)"
-  ],
-  "notebooks": [
-    {
-      "title": "Gas Forecasting Notebook",
-      "url": "https://colab.research.google.com/drive/1MHMx_IS1_a1x9jhEhuy2BRLoGQ239TpU"
+        },
+      {
+      "title": "Random-Forest-Modeling-of-Mexican-Gas-Output",
+      "tags": [
+        "Energy Forecasting",
+        "Natural Gas",
+        "Random Forest",
+        "Socioeconomic Modeling",
+        "Policy Planning",
+        "Machine Learning"
+      ],
+      "description": "A **Random Forest-based framework** to model Mexico’s national gas production (**Million Standard Cubic Feet per Day**) from structural and demographic variables. Designed to serve both **1-month and 6-month horizons**, the system enables strategic foresight for policymakers. Expert-driven **feature selection** enhances interpretability, revealing socio-economic patterns behind national energy output. We propose mitigation strategies for Random Forest’s known **long-term prediction** challenges, enabling more robust forecasting under real-world constraints.",
+      "achieved_milestones": [
+        "Integrated structural and demographic datasets from public Mexican sources.  # (mock-up)",
+        "Engineered feature set with expert knowledge to reflect socio-economic drivers.  # (mock-up)",
+        "Trained and validated Random Forest models for short- and long-term forecasting.  # (mock-up)",
+        "Implemented diagnostic tools to evaluate long-term predictive reliability.  # (mock-up)"
+      ],
+      "business_impact": [
+        "Supports energy policy decisions with interpretable, data-driven forecasts.  # (mock-up)",
+        "Enables early detection of structural factors affecting gas production trends.  # (mock-up)",
+        "Promotes data transparency and reproducibility in energy forecasting pipelines.  # (mock-up)"
+      ],
+      "notebooks": [
+        {
+          "title": "Gas Forecasting Notebook",
+          "url": "https://colab.research.google.com/drive/1MHMx_IS1_a1x9jhEhuy2BRLoGQ239TpU"
+        }
+      ],
+      "dashboard": {
+        "media": "assets/forecast_per_horizon.png",
+        "bullets": [
+          "**Forecasting system** predicts Mexico’s gas output at multiple horizons (1, 3, 6, and 12 months), achieving R² scores of **0.89**, **0.86**, **0.82**, and **0.70** respectively."
+        ]
+      },
+      "call_to_action": "Did you like this project? I can use ML to forecast any relevant parameter of the economic environment for corporate planning. Reach out to discuss your requirements!"
     }
-  ],
-  "dashboard": {
-    "media": "assets/forecast_per_horizon.png",
-    "bullets": [
-      "**Forecasting system** predicts Mexico’s gas output at multiple horizons (1, 3, 6, and 12 months), achieving R² scores of **0.89**, **0.86**, **0.82**, and **0.70** respectively."
-    ]
-  },
-  "call_to_action": "Did you like this project? I can use ML to forecast any relevant parameter of the economic environment for corporate planning. Reach out to discuss your requirements!"
-}
 
 ]
