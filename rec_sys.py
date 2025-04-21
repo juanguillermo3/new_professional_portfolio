@@ -728,6 +728,7 @@ class RecommendationSystem(PortfolioSection):
     def _render_project_video(self, project_metadata):
         sanitized_title = re.sub(r"[ \-]", "_", project_metadata['title'].lower())
         video_extensions = ['.mp4', '.webm', '.mov']
+    
         video_path = next(
             (
                 os.path.join('assets', f"{sanitized_title}_theme{ext}")
@@ -741,36 +742,9 @@ class RecommendationSystem(PortfolioSection):
             st.warning(f"⚠️ Video not found for project `{project_metadata['title']}` in supported formats.")
             return
     
-        st.markdown(
-            """
-            <style>
-                .video-container {
-                    position: relative;
-                    width: 100%;
-                    max-height: 320px;
-                    overflow: hidden;
-                    border-radius: 10px;
-                }
-                .video-container video {
-                    width: 100%;
-                    height: auto;
-                    pointer-events: none; /* Disable any interaction */
-                }
-            </style>
-            """,
-            unsafe_allow_html=True
-        )
-    
-        video_tag = f"""
-        <div class="video-container">
-            <video autoplay muted loop playsinline>
-                <source src="{video_path}" type="video/{video_path.split('.')[-1]}">
-                Your browser does not support the video tag.
-            </video>
-        </div>
-        """
-    
-        st.markdown(video_tag, unsafe_allow_html=True)
+        media_placeholder = st.empty()
+        media_placeholder.video(video_path, loop=True, autoplay=True, muted=True)
+
 
     # 
     def _render_executive_dashboard(self, project_metadata):
