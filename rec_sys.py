@@ -635,8 +635,8 @@ class RecommendationSystem(PortfolioSection):
     
             recommendations = self.rank_items(None, project_metadata["title"])
             filter_message = f"Showing all results for project {prettify_title(project_metadata['title'])}"
-            if query:
-                filter_message += f" (and for keyword: {query})"
+            #if query:
+            #    filter_message += f" (and for keyword: {query})"
     
             st.markdown(
                 f'<p style="font-style: italic; color: #555; font-size: 105%; font-weight: 550;">{filter_message}</p>',
