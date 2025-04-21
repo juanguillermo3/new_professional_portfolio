@@ -845,7 +845,54 @@ class RecommendationSystem(PortfolioSection):
             unsafe_allow_html=True
         )
 
-
+    
+    def _render_project_video(self, project_metadata):
+        sanitized_title = re.sub(r"[ \-]", "_", project_metadata['title'].lower())
+        video_extensions = ['.mp4', '.webm', '.mov']
+        video_path = next(
+            (
+                os.path.join('assets', f"{sanitized_title}_theme{ext}")
+                for ext in video_extensions
+                if os.path.exists(os.path.join('assets', f"{sanitized_title}_theme{ext}"))
+            ),
+            None
+        )
+    
+        if not video_path:
+            st.warning(f"⚠️ Video not found for project `{project_metadata['title']}` in supported formats.")
+            return
+    
+        # Use a container with overlay to disable interaction with st.video
+        container_id = f"video_overlay_{hash(sanitized_title) % 10**8}"
+    
+        st.markdown(
+            f"""
+            <style>
+                #{container_id} {{
+                    position: relative;
+                    width: 100%;
+                    border-radius: 10px;
+                    overflow: hidden;
+                }}
+                #{container_id} .video-overlay {{
+                    position: absolute;
+                    top: 0; left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: transparent;
+                    pointer-events: all;
+                    z-index: 10;
+                }}
+            </style>
+            <div id="{container_id}">
+                <div class="video-overlay"></div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+    
+        with st.container():
+            st.video(video_path, autoplay=True, loop=True, muted=True)
 
 
 # Assume project_retriever is an instance of your semantic retriever (already initialized)
