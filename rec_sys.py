@@ -816,81 +816,34 @@ class RecommendationSystem(PortfolioSection):
                         unsafe_allow_html=True
                     ) 
     #
-    def _render_cta_box(self, project_metadata, number="+57 3053658650"):
-        """Render a subtle call-to-action box based on the project metadata."""
-    
+    def _render_cta_box(self, project_metadata):
+        """Render a subtle call-to-action box prompting WhatsApp contact."""
         call_to_action = project_metadata.get("call_to_action")
         if not call_to_action:
             return
     
-        # Inject CSS for subtle shimmer border and WhatsApp button hover glow
-        st.markdown("""
-            <style>
-            @keyframes shimmer {
-                0%   { border-left-color: #cce4f7; }
-                50%  { border-left-color: #a3d1f4; }
-                100% { border-left-color: #cce4f7; }
-            }
-            .cta-box {
-                border-left: 4px solid #cce4f7;
-                padding: 1.2em;
-                margin-top: 1em;
-                margin-bottom: 1em;
-                border-radius: 10px;
-                background-color: #f9f9fa;
-                animation: shimmer 4s infinite;
-            }
-            .cta-title {
-                font-weight: 600;
-                font-size: 115%;
-                color: #222;
-                margin-bottom: 0.5em;
-            }
-            .cta-text {
-                color: #444;
-                font-size: 100%;
-                margin-bottom: 1em;
-                line-height: 1.5;
-            }
-            .cta-button {
-                background-color: #25D366;
-                color: white;
-                padding: 0.6em 1em;
-                font-size: 100%;
-                font-weight: 500;
-                border: none;
-                border-radius: 8px;
-                cursor: pointer;
-                text-decoration: none;
-                transition: all 0.3s ease;
-            }
-            .cta-button:hover {
-                background-color: #1ebc5c;
-                box-shadow: 0 0 8px rgba(37, 211, 102, 0.4);
-            }
-            </style>
-        """, unsafe_allow_html=True)
-    
-        whatsapp_link = f"https://wa.me/{number.replace('+', '').replace(' ', '')}"
+        wa_number = "573053658650"  # no '+' in wa.me link
+        wa_url = f"https://wa.me/{wa_number}?text=Hi!%20I'm%20interested%20in%20your%20project%20'{project_metadata['title']}'"
     
         st.markdown(
             f"""
-            <div class="cta-box">
-                <div class="cta-title">📬 Did you like this project?</div>
-                <div class="cta-text">{call_to_action}</div>
-                <a href="{whatsapp_link}" target="_blank" class="cta-button">
-                    📱 Let's Talk on WhatsApp
+            <div style="margin: 2em auto 1em auto; padding: 0.9em 1.2em; max-width: 600px;
+                        background-color: #f9fbfc; border-left: 4px solid #cce4f7; border-radius: 8px;
+                        box-shadow: 0 1px 3px rgba(0,0,0,0.03); text-align: center;">
+                <p style="margin-bottom: 0.6em; font-size: 0.95em; color: #444;">
+                    {call_to_action}
+                </p>
+                <a href="{wa_url}" target="_blank" style="text-decoration: none;">
+                    <button style="background-color: #25D366; border: none; color: white;
+                                   padding: 0.5em 1.2em; font-size: 0.95em; border-radius: 20px;
+                                   cursor: pointer;">
+                        💬 Contact via WhatsApp
+                    </button>
                 </a>
             </div>
             """,
             unsafe_allow_html=True
         )
-
-
-
-
-
-
 
 
 
