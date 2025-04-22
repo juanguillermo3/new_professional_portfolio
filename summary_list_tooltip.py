@@ -77,7 +77,7 @@ STYLES_AVAILABLE = {
 }
 
 def html_for_summary_list_tooltip(items, style_key="achieved_milestones", styles_available=STYLES_AVAILABLE):
-    import html  # needed for html.escape
+    import html  # to safely escape item content
 
     style = styles_available.get(style_key, {
         "label": "Items", 
@@ -100,8 +100,8 @@ def html_for_summary_list_tooltip(items, style_key="achieved_milestones", styles
     if not items:
         return f"""
         <div id="{element_id}-container" style="width: 120px; height: 100px; display: inline-block; text-align: center; cursor: pointer;">
-            <div style="color:gray;">
-                <img src="{icon_url}" alt="{label}" style="width: 30px; height: 30px; filter: grayscale(100%);"/><br>
+            <div style="color: gray; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
+                <img src="{icon_url}" alt="{label}" style="width: 30px; height: 30px; filter: grayscale(100%);" />
                 <label style="font-size: 0.9em;">No {label.lower()}</label>
             </div>
         </div>
@@ -109,65 +109,64 @@ def html_for_summary_list_tooltip(items, style_key="achieved_milestones", styles
 
     count = len(items)
     summary = default_text.format(n=count)
-    visible_part = f'''
-        <div style="color:{color}; text-align: center; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-            <img src="{icon_url}" alt="{label}" style="width: 30px; height: 30px;"/><br>
-            <label style="font-size: 0.9em;">{summary}</label>
-        </div>
-    '''
-
     tooltip_content = "".join(
-        f'<div style="color:{color}; margin-bottom: 3px;">{emoji} {html.escape(str(item))}</div>' for item in items
+        f'<div style="color:{color};">{emoji} {html.escape(str(item))}</div>' for item in items
     )
 
-    return f"""
-        <div id="{element_id}-container" style="width: 120px; height: 100px; position: relative; display: inline-block; cursor: pointer; text-align: center;">
-            <div id="{element_id}" style="border-bottom: 1px dashed gray;" class="hover-trigger">
-                {visible_part}
-            </div>
-            <div class="tooltip">
-                <strong>{label}:</strong>
-                {tooltip_content}
-            </div>
+    visible_part = f"""
+        <div style="color:{color}; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <img src="{icon_url}" alt="{label}" style="width: 30px; height: 30px;" />
+            <label style="font-size: 0.9em;">{summary}</label>
         </div>
-        <style>
-            #{element_id}-container:hover {{
-                background-color: {pastel_color};
-                transition: background-color 0.3s ease-in-out;
-                border-radius: 5px;
-            }}
-
-            .tooltip {{
-                visibility: hidden;
-                opacity: 0;
-                transform: translateY(5px) scale(0.95);
-                transition: 
-                    opacity 0.3s ease-in-out, 
-                    visibility 0.3s ease-in-out, 
-                    transform 0.3s ease-in-out;
-                background-color: rgba(240, 240, 240, 0.7);
-                backdrop-filter: blur(1px);
-                color: black;
-                text-align: left;
-                padding: 10px;
-                border-radius: 5px;
-                box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-                position: absolute;
-                left: 50%;
-                top: 100%;
-                transform: translateX(-50%) translateY(5px);
-                min-width: 300px;
-                max-width: 400px;
-                z-index: 1;
-                border: 1px solid rgba(200, 200, 200, 0.5);
-                transform-origin: top center;
-            }}
-
-            .hover-trigger:hover ~ .tooltip {{
-                visibility: visible;
-                opacity: 1;
-                transform: translateX(-50%) translateY(0px) scale(1.1);
-            }}
-        </style>
     """
+
+    return f"""
+    <div id="{element_id}-container" style="width: 120px; height: 100px; position: relative; display: inline-block; cursor: pointer; text-align: center;">
+        <div id="{element_id}" class="hover-trigger" style="border-bottom: 1px dashed gray;">
+            {visible_part}
+        </div>
+        <div class="tooltip">
+            <strong>{label}:</strong>
+            {tooltip_content}
+        </div>
+    </div>
+    <style>
+        #{element_id}-container:hover {{
+            background-color: {pastel_color};
+            transition: background-color 0.3s ease-in-out;
+            border-radius: 5px;
+        }}
+        .tooltip {{
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(5px) scale(0.95);
+            transition: 
+                opacity 0.3s ease-in-out, 
+                visibility 0.3s ease-in-out, 
+                transform 0.3s ease-in-out;
+            background-color: rgba(240, 240, 240, 0.7);
+            backdrop-filter: blur(1px);
+            color: black;
+            text-align: left;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            left: 50%;
+            top: 100%;
+            transform: translateX(-50%) translateY(5px);
+            min-width: 300px;
+            max-width: 400px;
+            z-index: 1;
+            border: 1px solid rgba(200, 200, 200, 0.5);
+            transform-origin: top center;
+        }}
+        .hover-trigger:hover ~ .tooltip {{
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(-50%) translateY(0px) scale(1.1);
+        }}
+    </style>
+    """
+
 
