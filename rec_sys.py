@@ -620,7 +620,8 @@ class RecommendationSystem(PortfolioSection):
         bullets = dashboard.get("bullets", [])
     
         if media_url and bullets:
-            project_title = project_metadata.get("title", "dashboard")
+            # Prefer dashboard-specific title, fallback to project title
+            project_title = dashboard.get("title", project_metadata.get("title", "dashboard"))
             key_namespace = re.sub(r"\W+", "_", project_title.lower())
             key_imagebox = f"{key_namespace}_dashboard_imagebox"
             key_bulletsbox = f"{key_namespace}_dashboard_bulletsbox"
@@ -662,9 +663,8 @@ class RecommendationSystem(PortfolioSection):
                 """,
                 unsafe_allow_html=True,
             )
-
     
-            col_img, col_bullets = st.columns([0.6, 0.4], gap="small", vertical_alignment="center" )
+            col_img, col_bullets = st.columns([0.6, 0.4], gap="small", vertical_alignment="center")
     
             with col_img:
                 with st.container(key=key_imagebox):
@@ -673,9 +673,9 @@ class RecommendationSystem(PortfolioSection):
             with col_bullets:
                 with st.container(key=key_bulletsbox):
                     st.markdown(
-                        """
+                        f"""
                         <p style="font-size: 1.1em; font-weight: 600; color: #555; border-left: 4px solid #ccc; padding-left: 0.5em; margin-bottom: 1em;">
-                            Exec Summary
+                            {project_title}
                         </p>
                         """,
                         unsafe_allow_html=True
@@ -688,7 +688,7 @@ class RecommendationSystem(PortfolioSection):
                         ) +
                         "</ul>",
                         unsafe_allow_html=True
-                    ) 
+                    )
     #
     def _render_cta_box(self, project_metadata):
         """Render a subtle call-to-action box prompting WhatsApp contact."""
