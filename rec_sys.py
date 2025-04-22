@@ -809,6 +809,90 @@ class RecommendationSystem(PortfolioSection):
                 st.markdown('</div>', unsafe_allow_html=True)
 
 
+import hashlib
+import markdown
+import streamlit as st
+
+class YourClass:
+    def render_project_metadata_and_recommendations(self, project_metadata, query):
+        """Render project title, video, metadata, dashboard (if available), and recommendations in an ancillary container."""
+    
+        # Render project video (refactored to a helper method)
+        self._render_project_video(project_metadata)
+    
+        tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
+        description = project_metadata.get("description", "No description available.")
+        parsed_description = markdown.markdown(description)
+        description_html, description_styles = expandable_text_html(parsed_description)
+        description_html = markdown.markdown(f"{description_html} ")
+    
+        st.markdown(
+            f"""
+            <div style="text-align: center; margin-bottom: 0px;">
+                <h3>{prettify_title(project_metadata['title'])}</h3>
+            </div>
+            <p style="text-align: center; margin-top: 0px;">{tags_html}</p>
+            """,
+            unsafe_allow_html=True,
+        )
+    
+        unique_key = hashlib.md5(project_metadata['title'].encode()).hexdigest()
+        with st.container(key=unique_key):
+            st.markdown(
+                f"""
+                <div style="text-align: justify;">
+                    {description_html}
+                </div>
+                {description_styles}
+                """,
+                unsafe_allow_html=True,
+            )
+    
+            self._render_executive_dashboard(project_metadata)
+    
+            # Factor out notebook previews into a private method
+            self._render_notebook_previews(project_metadata)
+    
+            st.markdown("<br>", unsafe_allow_html=True)
+            self._render_milestones_grid(project_metadata)
+    
+            recommendations = self.rank_items(None, project_metadata["title"])
+            filter_message = f"Showing all results for project {prettify_title(project_metadata['title'])}"
+    
+            st.markdown(
+                f'<p style="font-style: italic; color: #555; font-size: 105%; font-weight: 550;">{filter_message}</p>',
+                unsafe_allow_html=True
+            )
+    
+            self._render_recommendation_grid(recommendations)
+    
+            # Subtle call to action
+            self._render_cta_box(project_metadata)
+    #
+    def _render_notebook_previews(self, project_metadata):
+        """Render notebook previews as a private helper method."""
+        colab_links = project_metadata.get("notebooks", [])
+        if colab_links:
+            notebook_list = "".join(
+                f"<li><a href='{nb['url']}' target='_blank'>{nb['title']}</a></li>" if isinstance(nb, dict)
+                else f"<li><a href='{nb}' target='_blank'>{nb}</a></li>"
+                for nb in colab_links
+            )
+            # Clarifying tooltip with your development philosophy
+            st.markdown(
+                f"""
+                <div style="margin-top: 0.5em;">
+                    <p style="font-size: 110%; font-weight: 500; color: #444;">
+                        🔗 <em>Notebook Previews</em>
+                        <span style="color: #888; font-size: 85%;" data-toggle="tooltip" title="I treat notebooks not as scratchpads, but as structured prototypes that reflect how I think about architecture, modularity, and clean code—even when the deliverable is exploratory."> (Hover for clarification)</span>
+                    </p>
+                    <ul style="margin-top: -0.5em; margin-left: 1.2em; color: #444;">
+                        {notebook_list}
+                    </ul>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
 
 
    
