@@ -716,8 +716,8 @@ class RecommendationSystem(PortfolioSection):
     def _render_milestones_grid(
         self,
         project_metadata,
-        top_margin=5,
-        bottom_margin=5,
+        top_margin=20,
+        bottom_margin=20,
         col_count=4,
         gap_px=20,
         padding_px=10,
@@ -764,7 +764,6 @@ class RecommendationSystem(PortfolioSection):
         # Milestone types to render
         milestones_types = [
             "business_impact",
-            "performance",
             "achieved_milestones",
             "next_milestones",
             "code_samples",
@@ -773,26 +772,33 @@ class RecommendationSystem(PortfolioSection):
     
         # Divide milestone types into rows of col_count
         num_rows = math.ceil(len(milestones_types) / col_count)
+        
         for row_idx in range(num_rows):
             row_types = milestones_types[row_idx * col_count : (row_idx + 1) * col_count]
     
+            # Pad the last row with empty items to ensure it has `col_count` columns
+            while len(row_types) < col_count:
+                row_types.append(None)
+    
             with st.container():
                 st.markdown('<div class="milestone-row">', unsafe_allow_html=True)
-                cols = st.columns(len(row_types))
+                cols = st.columns(col_count)
     
                 for col, milestone_type in zip(cols, row_types):
                     with col:
-                        if show_titles:
-                            st.subheader(milestone_type.replace("_", " ").title())
+                        if milestone_type:
+                            if show_titles:
+                                st.subheader(milestone_type.replace("_", " ").title())
     
-                        summary_items = project_metadata.get(milestone_type, [])
-                        html_content = html_for_summary_list_tooltip(
-                            items=summary_items,
-                            style_key=milestone_type
-                        )
-                        st.markdown(html_content, unsafe_allow_html=True)
-    
+                            summary_items = project_metadata.get(milestone_type, [])
+                            html_content = html_for_summary_list_tooltip(
+                                items=summary_items,
+                                style_key=milestone_type
+                            )
+                            st.markdown(html_content, unsafe_allow_html=True)
+                        # For empty columns, do nothing (they stay empty)
                 st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
