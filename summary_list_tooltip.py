@@ -77,7 +77,18 @@ STYLES_AVAILABLE = {
 }
 
 def html_for_summary_list_tooltip(items, style_key="achieved_milestones", styles_available=STYLES_AVAILABLE):
-    import html  # to safely escape item content
+    """
+    Generates an HTML snippet to visually summarize a list with a styled tooltip.
+
+    Parameters:
+        - items (list): A list of strings to be displayed in the tooltip.
+        - style_key (str): A key from styles_available defining how the block should look.
+        - styles_available (dict): Dictionary of style configurations (externalized).
+
+    Returns:
+        - str: HTML snippet containing the figure with tooltip.
+    """
+    import html
 
     style = styles_available.get(style_key, {
         "label": "Items", 
@@ -109,20 +120,21 @@ def html_for_summary_list_tooltip(items, style_key="achieved_milestones", styles
 
     count = len(items)
     summary = default_text.format(n=count)
+
+    visible_part = f"""
+        <div style="width: 120px; height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: {color};">
+            <img src="{icon_url}" alt="{label}" style="width: 30px; height: 30px;" />
+            <label style="font-size: 0.9em; text-align: center;">{summary}</label>
+        </div>
+    """
+
     tooltip_content = "".join(
         f'<div style="color:{color};">{emoji} {html.escape(str(item))}</div>' for item in items
     )
 
-    visible_part = f"""
-        <div style="color:{color}; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-            <img src="{icon_url}" alt="{label}" style="width: 30px; height: 30px;" />
-            <label style="font-size: 0.9em;">{summary}</label>
-        </div>
-    """
-
     return f"""
     <div id="{element_id}-container" style="width: 120px; height: 100px; position: relative; display: inline-block; cursor: pointer; text-align: center;">
-        <div id="{element_id}" class="hover-trigger" style="border-bottom: 1px dashed gray;">
+        <div id="{element_id}" style="border-bottom: 1px dashed gray;" class="hover-trigger">
             {visible_part}
         </div>
         <div class="tooltip">
@@ -136,6 +148,7 @@ def html_for_summary_list_tooltip(items, style_key="achieved_milestones", styles
             transition: background-color 0.3s ease-in-out;
             border-radius: 5px;
         }}
+
         .tooltip {{
             visibility: hidden;
             opacity: 0;
@@ -161,6 +174,7 @@ def html_for_summary_list_tooltip(items, style_key="achieved_milestones", styles
             border: 1px solid rgba(200, 200, 200, 0.5);
             transform-origin: top center;
         }}
+
         .hover-trigger:hover ~ .tooltip {{
             visibility: visible;
             opacity: 1;
