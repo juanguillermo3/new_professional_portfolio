@@ -712,46 +712,63 @@ class RecommendationSystem(PortfolioSection):
             """,
             unsafe_allow_html=True
         )
-
-
-    def _render_milestones_grid(self, project_metadata, top_margin=20, bottom_margin=20):
-        """Render milestones in a row-based grid with unique styling per project and customizable margins."""
+    #
+    def _render_milestones_grid(
+        self,
+        project_metadata,
+        top_margin=20,
+        bottom_margin=20,
+        col_count=4,
+        gap_px=20,
+        padding_px=10,
+        show_titles=False
+    ):
+        """Render milestones in a row-based grid with unique styling per project and customizable layout."""
     
-        # Add code samples directly to the project metadata so we always access one unified dict
+        import hashlib, time
+        import streamlit as st
+    
+        # Include code samples into metadata
         project_metadata["code_samples"] = self._fetch_files(project_metadata["title"])
     
-        # Generate a unique hash based on project metadata (e.g., project title and current time)
+        # Unique key for style scoping
         unique_key = hashlib.md5(f"{project_metadata['title']}_{time.time()}".encode()).hexdigest()
     
-        # Create a container with the unique key
+        # Scoped container
         with st.container(key=unique_key):
-            # Apply custom styling with unique key for each project's container, including top and bottom margins
             st.markdown(
                 f"""
                 <style>
                     .st-key-{unique_key} {{
                         display: flex;
                         justify-content: center;
-                        align-items: center;
-                        height: 100%;
+                        align-items: flex-start;
                         flex-direction: row;
-                        gap: 20px;
+                        gap: {gap_px}px;
                         margin-top: {top_margin}px;
                         margin-bottom: {bottom_margin}px;
                     }}
                     .st-key-{unique_key} .stColumn {{
                         flex: 1;
+                        padding: {padding_px}px;
                         text-align: center;
+                    }}
+                    .st-key-{unique_key} ul {{
+                        padding-left: 0;
+                        list-style: none;
+                    }}
+                    .st-key-{unique_key} li {{
+                        margin: 10px 0;
                     }}
                 </style>
                 """,
                 unsafe_allow_html=True
             )
     
-            # Initialize the columns for milestones (4 columns including business impact)
-            cols = st.columns(4)
+            # Initialize columns
+            cols = st.columns(col_count)
     
-            # Define milestone types to be rendered
+            # Types of milestones
             milestones_types = [
                 "business_impact",
                 "achieved_milestones",
@@ -762,7 +779,9 @@ class RecommendationSystem(PortfolioSection):
     
             for i, milestone_type in enumerate(milestones_types):
                 with cols[i % len(cols)]:
-                    # Get the list from the project metadata (should now include "code_samples" too)
+                    if show_titles:
+                        st.subheader(milestone_type.replace("_", " ").title())
+    
                     summary_items = project_metadata.get(milestone_type, [])
                     html_content = html_for_summary_list_tooltip(
                         items=summary_items,
