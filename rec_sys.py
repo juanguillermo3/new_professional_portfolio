@@ -721,101 +721,71 @@ class RecommendationSystem(PortfolioSection):
         col_count=4,
         gap_px=20,
         padding_px=10,
-        show_titles=True
+        show_titles=False
     ):
-        """Render milestones in a column-wise vertical grid with consistent spacing, using row-major layout."""
+        """Render milestones in a row-based grid with unique styling per project and customizable layout."""
     
         import hashlib, time
         import streamlit as st
-        import math
     
-        # Add code samples to metadata
+        # Include code samples into metadata
         project_metadata["code_samples"] = self._fetch_files(project_metadata["title"])
     
-        # Unique styling scope
+        # Unique key for style scoping
         unique_key = hashlib.md5(f"{project_metadata['title']}_{time.time()}".encode()).hexdigest()
     
-        # Style block
-        st.markdown(
-            f"""
-            <style>
-                .st-key-{unique_key} {{
-                    display: flex;
-                    justify-content: center;
-                    align-items: flex-start;
-                    flex-direction: row;
-                    gap: {gap_px}px;
-                    margin-top: {top_margin}px;
-                    margin-bottom: {bottom_margin}px;
-                }}
-                .st-key-{unique_key} .stColumn {{
-                    flex: 1;
-                    padding: {padding_px}px;
-                    text-align: center;
-                }}
-                .st-key-{unique_key} ul {{
-                    padding-left: 0;
-                    list-style: none;
-                }}
-                .st-key-{unique_key} li {{
-                    margin: 10px 0;
-                }}
-            </style>
-            """,
-            unsafe_allow_html=True
-        )
+        # Scoped container
+        with st.container(key=unique_key):
+            st.markdown(
+                f"""
+                <style>
+                    .st-key-{unique_key} {{
+                        display: flex;
+                        justify-content: center;
+                        align-items: flex-start;
+                        flex-direction: row;
+                        gap: {gap_px}px;
+                        margin-top: {top_margin}px;
+                        margin-bottom: {bottom_margin}px;
+                    }}
+                    .st-key-{unique_key} .stColumn {{
+                        flex: 1;
+                        padding: {padding_px}px;
+                        text-align: center;
+                    }}
+                    .st-key-{unique_key} ul {{
+                        padding-left: 0;
+                        list-style: none;
+                    }}
+                    .st-key-{unique_key} li {{
+                        margin: 10px 0;
+                    }}
+                </style>
+                """,
+                unsafe_allow_html=True
+            )
     
-        # Create milestone types
-        milestones_types = [
-            "business_impact",
-            "achieved_milestones",
-            "next_milestones",
-            "code_samples",
-            "breakthrough"
-        ]
+            # Initialize columns
+            cols = st.columns(col_count)
     
-        # Collect all items into a flat list of (label, items) pairs
-        all_items = []
-        for milestone_type in milestones_types:
-            items = project_metadata.get(milestone_type, [])
-            if items:
-                all_items.append((milestone_type, items))
+            # Types of milestones
+            milestones_types = [
+                "business_impact",
+                "achieved_milestones",
+                "next_milestones",
+                "code_samples",
+                "breakthrough"
+            ]
     
-        # Flatten all labeled items
-        flat_entries = []
-        for label, items in all_items:
-            for item in items:
-                flat_entries.append((label, item))
+            for i, milestone_type in enumerate(milestones_types):
+                with cols[i % len(cols)]:
+                    if show_titles:
+                        st.subheader(milestone_type.replace("_", " ").title())
     
-        # Determine number of rows
-        total_items = len(flat_entries)
-        row_count = math.ceil(total_items / col_count)
-    
-        # Create empty list for each column
-        columns_data = [[] for _ in range(col_count)]
-    
-        # Row-major fill
-        for idx, (label, item) in enumerate(flat_entries):
-            col_index = idx % col_count
-            columns_data[col_index].append((label, item))
-    
-        # Create columns
-        cols = st.columns(col_count)
-    
-        # Fill each column
-        for col, items in zip(cols, columns_data):
-            with col:
-                last_label = None
-                for label, item in items:
-                    # Optional section title
-                    if show_titles and label != last_label:
-                        st.markdown(f"**{label.replace('_', ' ').title()}**")
-                        last_label = label
-    
-                    # Render HTML per item
+                    summary_items = project_metadata.get(milestone_type, [])
                     html_content = html_for_summary_list_tooltip(
-                        items=[item],
-                        style_key=label
+                        items=summary_items,
+                        style_key=milestone_type
                     )
                     st.markdown(html_content, unsafe_allow_html=True)
 
