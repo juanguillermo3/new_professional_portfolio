@@ -764,6 +764,7 @@ class RecommendationSystem(PortfolioSection):
         # Milestone types to render
         milestones_types = [
             "business_impact",
+            "performance",
             "achieved_milestones",
             "next_milestones",
             "code_samples",
