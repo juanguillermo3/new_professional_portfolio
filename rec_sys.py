@@ -549,26 +549,8 @@ class RecommendationSystem(PortfolioSection):
     
             self._render_executive_dashboard(project_metadata)
     
-            colab_links = project_metadata.get("notebooks", [])
-            if colab_links:
-                notebook_list = "".join(
-                    f"<li><a href='{nb['url']}' target='_blank'>{nb['title']}</a></li>" if isinstance(nb, dict)
-                    else f"<li><a href='{nb}' target='_blank'>{nb}</a></li>"
-                    for nb in colab_links
-                )
-                st.markdown(
-                    f"""
-                    <div style="margin-top: 0.5em;">
-                        <p style="font-size: 110%; font-weight: 500; color: #444;">
-                            🔗 <em>Notebook Previews</em>
-                        </p>
-                        <ul style="margin-top: -0.5em; margin-left: 1.2em; color: #444;">
-                            {notebook_list}
-                        </ul>
-                    </div>
-                    """,
-                    unsafe_allow_html=True
-                )
+            # Factor out notebook previews into a private method
+            self._render_notebook_previews(project_metadata)
     
             st.markdown("<br>", unsafe_allow_html=True)
             self._render_milestones_grid(project_metadata)
@@ -587,6 +569,29 @@ class RecommendationSystem(PortfolioSection):
     
             # Subtle call to action
             self._render_cta_box(project_metadata)
+    #
+    def _render_notebook_previews(self, project_metadata):
+        """Render notebook previews as a private helper method."""
+        colab_links = project_metadata.get("notebooks", [])
+        if colab_links:
+            notebook_list = "".join(
+                f"<li><a href='{nb['url']}' target='_blank'>{nb['title']}</a></li>" if isinstance(nb, dict)
+                else f"<li><a href='{nb}' target='_blank'>{nb}</a></li>"
+                for nb in colab_links
+            )
+            st.markdown(
+                f"""
+                <div style="margin-top: 0.5em;">
+                    <p style="font-size: 110%; font-weight: 500; color: #444;">
+                        🔗 <em>Notebook Previews</em>
+                    </p>
+                    <ul style="margin-top: -0.5em; margin-left: 1.2em; color: #444;">
+                        {notebook_list}
+                    </ul>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
     #
     def _render_project_video(self, project_metadata):
         sanitized_title = re.sub(r"[ \-]", "_", project_metadata['title'].lower())
