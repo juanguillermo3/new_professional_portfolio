@@ -809,7 +809,87 @@ class RecommendationSystem(PortfolioSection):
                         # For empty columns, do nothing (they stay empty)
                 st.markdown('</div>', unsafe_allow_html=True)
 
-
+    def _render_milestones_grid(
+        self,
+        project_metadata,
+        top_margin=20,
+        bottom_margin=20,
+        col_count=4,
+        gap_px=20,
+        padding_px=10,
+        show_titles=False
+    ):
+        """Render milestones in a row-based grid with consistent vertical spacing and shared row styling using only Streamlit containers."""
+    
+        import hashlib, time, math
+        import streamlit as st
+    
+        # Include code samples in metadata
+        project_metadata["code_samples"] = self._fetch_files(project_metadata["title"])
+    
+        # Global styling
+        st.markdown(
+            f"""
+            <style>
+                .milestone-column .stColumn {{
+                    flex: 1;
+                    padding: {padding_px}px;
+                    text-align: center;
+                }}
+                .milestone-column ul {{
+                    padding-left: 0;
+                    list-style: none;
+                }}
+                .milestone-column li {{
+                    margin: 10px 0;
+                }}
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+    
+        # Milestone types
+        milestones_types = [
+            "business_impact",
+            "performance",
+            "achieved_milestones",
+            "next_milestones",
+            "models",
+            "breakthrough",
+            "architecture",
+            "code_samples",
+        ]
+    
+        # Compute number of rows
+        num_rows = math.ceil(len(milestones_types) / col_count)
+    
+        for row_idx in range(num_rows):
+            row_types = milestones_types[row_idx * col_count : (row_idx + 1) * col_count]
+    
+            # Pad row if needed
+            while len(row_types) < col_count:
+                row_types.append(None)
+    
+            # Add top margin only for first row
+            if row_idx == 0 and top_margin > 0:
+                st.empty().markdown(f"<div style='height: {top_margin}px'></div>", unsafe_allow_html=True)
+            elif bottom_margin > 0:
+                st.empty().markdown(f"<div style='height: {bottom_margin}px'></div>", unsafe_allow_html=True)
+    
+            with st.container():
+                cols = st.columns(col_count, gap=f"{gap_px}px")
+                for col, milestone_type in zip(cols, row_types):
+                    with col:
+                        if milestone_type:
+                            if show_titles:
+                                st.subheader(milestone_type.replace("_", " ").title())
+    
+                            summary_items = project_metadata.get(milestone_type, [])
+                            html_content = html_for_summary_list_tooltip(
+                                items=summary_items,
+                                style_key=milestone_type
+                            )
+                            st.markdown(html_content, unsafe_allow_html=True)
    
 
 
