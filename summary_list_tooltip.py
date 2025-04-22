@@ -49,8 +49,15 @@ STYLES_AVAILABLE = {
     "icon": "https://img.icons8.com/?size=100&id=20523&format=png&color=000000",
     "emoji": "💡",
     "default_text": "{n} major breakthroughs"
+    },
+    "performance": {
+    "label": "Performance", 
+    "color": "#0288D1",  # Deep Blue
+    "pastel": "#B3E5FC",  # Light Pastel Blue
+    "icon": "https://img.icons8.com/?size=100&id=XNkj51bATyA5&format=png&color=000000",  # Gauge Icon
+    "emoji": "⚙️",  # Gear emoji
+    "default_text": "{n} performance metrics"
     }
-
 }
 
 def html_for_summary_list_tooltip(items, style_key="achieved_milestones", styles_available=STYLES_AVAILABLE):
