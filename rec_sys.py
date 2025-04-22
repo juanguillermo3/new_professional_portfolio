@@ -764,8 +764,8 @@ class RecommendationSystem(PortfolioSection):
                     # Get the list from the project metadata (should now include "code_samples" too)
                     summary_items = project_metadata.get(milestone_type, [])
                     html_content = html_for_summary_list_tooltip(
-                        summary_items=summary_items,
-                        summary_type=milestone_type
+                        items=summary_items,
+                        style_key=milestone_type
                     )
                     st.markdown(html_content, unsafe_allow_html=True)
    
