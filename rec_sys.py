@@ -552,11 +552,12 @@ class RecommendationSystem(PortfolioSection):
             # Factor out notebook previews into a private method
             self._render_notebook_previews(project_metadata)
     
-            st.markdown("<br>", unsafe_allow_html=True)
+            
             self._render_milestones_grid(project_metadata)
-    
+            st.markdown("<br>", unsafe_allow_html=True)
+          
             recommendations = self.rank_items(None, project_metadata["title"])
-            filter_message = f"Showing all results for project {prettify_title(project_metadata['title'])}"
+            filter_message = f"Showing the codebase for project {prettify_title(project_metadata['title'])}"
             #if query:
             #    filter_message += f" (and for keyword: {query})"
     
