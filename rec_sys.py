@@ -756,7 +756,8 @@ class RecommendationSystem(PortfolioSection):
                 "business_impact",
                 "achieved_milestones",
                 "next_milestones",
-                "code_samples"
+                "code_samples",
+                "breakthrough"
             ]
     
             for i, milestone_type in enumerate(milestones_types):
