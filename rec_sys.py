@@ -807,33 +807,6 @@ class RecommendationSystem(PortfolioSection):
                             st.markdown(html_content, unsafe_allow_html=True)
                         # For empty columns, do nothing (they stay empty)
                 st.markdown('</div>', unsafe_allow_html=True)
-    #
-    def _render_notebook_previews(self, project_metadata):
-        """Render notebook previews as a private helper method."""
-        colab_links = project_metadata.get("notebooks", [])
-        if colab_links:
-            notebook_list = "".join(
-                f"<li><a href='{nb['url']}' target='_blank'>{nb['title']}</a></li>" if isinstance(nb, dict)
-                else f"<li><a href='{nb}' target='_blank'>{nb}</a></li>"
-                for nb in colab_links
-            )
-            # Clarifying tooltip with Streamlit's built-in feature
-            st.markdown(
-                f"""
-                <div style="margin-top: 0.5em;">
-                    <p style="font-size: 110%; font-weight: 500; color: #444;">
-                        🔗 <em>Notebook Previews</em>
-                        <span style="color: #888; font-size: 85%;">
-                            {st.tooltip("I treat notebooks not as scratchpads, but as structured prototypes that reflect how I think about architecture, modularity, and clean code—even when the deliverable is exploratory.")}
-                        </span>
-                    </p>
-                    <ul style="margin-top: -0.5em; margin-left: 1.2em; color: #444;">
-                        {notebook_list}
-                    </ul>
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
 
 
    
