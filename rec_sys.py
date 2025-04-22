@@ -621,7 +621,7 @@ class RecommendationSystem(PortfolioSection):
     
         if media_url and bullets:
             # Prefer dashboard-specific title, fallback to project title
-            project_title = dashboard.get("title", project_metadata.get("title", "dashboard"))
+            project_title = dashboard.get("title", "Exec Summary")
             key_namespace = re.sub(r"\W+", "_", project_title.lower())
             key_imagebox = f"{key_namespace}_dashboard_imagebox"
             key_bulletsbox = f"{key_namespace}_dashboard_bulletsbox"
