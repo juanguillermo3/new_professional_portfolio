@@ -72,22 +72,13 @@ STYLES_AVAILABLE = {
     "pastel": "#BBDEFB",  # Light Blue Pastel
     "icon": "https://img.icons8.com/?size=100&id=nlhCgr8avk8T&format=png&color=000000",  # Updated icon
     "emoji": "🌀",  # Cyclone emoji for abstraction
-    "default_text": "{n} models"
+    "default_text": "{n} models used"
     }
 }
 
 def html_for_summary_list_tooltip(items, style_key="achieved_milestones", styles_available=STYLES_AVAILABLE):
-    """
-    Generates an HTML snippet to visually summarize a list with a styled tooltip.
+    import html  # needed for html.escape
 
-    Parameters:
-        - items (list): A list of strings to be displayed in the tooltip.
-        - style_key (str): A key from styles_available defining how the block should look.
-        - styles_available (dict): Dictionary of style configurations (externalized).
-
-    Returns:
-        - str: HTML snippet containing the figure with tooltip.
-    """
     style = styles_available.get(style_key, {
         "label": "Items", 
         "color": "black", 
@@ -104,32 +95,37 @@ def html_for_summary_list_tooltip(items, style_key="achieved_milestones", styles
     emoji = style["emoji"]
     default_text = style["default_text"]
 
+    element_id = f"tooltip-{style_key}"
+
     if not items:
         return f"""
-        <div style=\"color:gray; text-align: center; cursor: pointer;\">
-            <img src=\"{icon_url}\" alt=\"{label}\" style=\"width: 30px; height: 30px; filter: grayscale(100%);\"/><br>
-            <label>No {label.lower()}</label>
+        <div id="{element_id}-container" style="width: 120px; height: 100px; display: inline-block; text-align: center; cursor: pointer;">
+            <div style="color:gray;">
+                <img src="{icon_url}" alt="{label}" style="width: 30px; height: 30px; filter: grayscale(100%);"/><br>
+                <label style="font-size: 0.9em;">No {label.lower()}</label>
+            </div>
         </div>
         """
 
     count = len(items)
     summary = default_text.format(n=count)
-    visible_part = f'<div style="color:{color}; text-align: center;">' \
-                   f'<img src="{icon_url}" alt="{label}" style="width: 30px; height: 30px;"/><br>' \
-                   f'<label>{summary}</label></div>'
+    visible_part = f'''
+        <div style="color:{color}; text-align: center; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <img src="{icon_url}" alt="{label}" style="width: 30px; height: 30px;"/><br>
+            <label style="font-size: 0.9em;">{summary}</label>
+        </div>
+    '''
 
     tooltip_content = "".join(
-        f'<div style="color:{color};">{emoji} {html.escape(str(item))}</div>' for item in items
+        f'<div style="color:{color}; margin-bottom: 3px;">{emoji} {html.escape(str(item))}</div>' for item in items
     )
 
-    element_id = f"tooltip-{style_key}"
-
     return f"""
-        <div id=\"{element_id}-container\" style=\"position: relative; display: inline-block; cursor: pointer; text-align: center;\">
-            <div id=\"{element_id}\" style=\"border-bottom: 1px dashed gray;\" class=\"hover-trigger\">
+        <div id="{element_id}-container" style="width: 120px; height: 100px; position: relative; display: inline-block; cursor: pointer; text-align: center;">
+            <div id="{element_id}" style="border-bottom: 1px dashed gray;" class="hover-trigger">
                 {visible_part}
             </div>
-            <div class=\"tooltip\">
+            <div class="tooltip">
                 <strong>{label}:</strong>
                 {tooltip_content}
             </div>
@@ -174,3 +170,4 @@ def html_for_summary_list_tooltip(items, style_key="achieved_milestones", styles
             }}
         </style>
     """
+
