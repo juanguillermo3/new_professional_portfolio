@@ -716,14 +716,14 @@ class RecommendationSystem(PortfolioSection):
     def _render_milestones_grid(
         self,
         project_metadata,
-        top_margin=20,
-        bottom_margin=20,
+        top_margin=5,
+        bottom_margin=5,
         col_count=4,
         gap_px=20,
         padding_px=10,
         show_titles=False
     ):
-        """Render milestones in a row-based grid with consistent vertical spacing and styling."""
+        """Render milestones in a row-based grid with consistent vertical spacing and shared row styling."""
     
         import hashlib, time, math
         import streamlit as st
@@ -731,8 +731,35 @@ class RecommendationSystem(PortfolioSection):
         # Include code samples in metadata
         project_metadata["code_samples"] = self._fetch_files(project_metadata["title"])
     
-        # Unique key base for style scoping
-        unique_base = hashlib.md5(f"{project_metadata['title']}_{time.time()}".encode()).hexdigest()
+        # Global styling class for all milestone rows
+        st.markdown(
+            f"""
+            <style>
+                .milestone-row {{
+                    display: flex;
+                    justify-content: center;
+                    align-items: flex-start;
+                    flex-direction: row;
+                    gap: {gap_px}px;
+                    margin-top: {top_margin}px;
+                    margin-bottom: {bottom_margin}px;
+                }}
+                .milestone-row .stColumn {{
+                    flex: 1;
+                    padding: {padding_px}px;
+                    text-align: center;
+                }}
+                .milestone-row ul {{
+                    padding-left: 0;
+                    list-style: none;
+                }}
+                .milestone-row li {{
+                    margin: 10px 0;
+                }}
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
     
         # Milestone types to render
         milestones_types = [
@@ -746,39 +773,10 @@ class RecommendationSystem(PortfolioSection):
         # Divide milestone types into rows of col_count
         num_rows = math.ceil(len(milestones_types) / col_count)
         for row_idx in range(num_rows):
-            row_key = f"{unique_base}-row-{row_idx}"
             row_types = milestones_types[row_idx * col_count : (row_idx + 1) * col_count]
     
-            with st.container(key=row_key):
-                st.markdown(
-                    f"""
-                    <style>
-                        .st-key-{row_key} {{
-                            display: flex;
-                            justify-content: center;
-                            align-items: flex-start;
-                            flex-direction: row;
-                            gap: {gap_px}px;
-                            margin-top: {top_margin}px;
-                            margin-bottom: {bottom_margin}px;
-                        }}
-                        .st-key-{row_key} .stColumn {{
-                            flex: 1;
-                            padding: {padding_px}px;
-                            text-align: center;
-                        }}
-                        .st-key-{row_key} ul {{
-                            padding-left: 0;
-                            list-style: none;
-                        }}
-                        .st-key-{row_key} li {{
-                            margin: 10px 0;
-                        }}
-                    </style>
-                    """,
-                    unsafe_allow_html=True
-                )
-    
+            with st.container():
+                st.markdown('<div class="milestone-row">', unsafe_allow_html=True)
                 cols = st.columns(len(row_types))
     
                 for col, milestone_type in zip(cols, row_types):
@@ -792,6 +790,9 @@ class RecommendationSystem(PortfolioSection):
                             style_key=milestone_type
                         )
                         st.markdown(html_content, unsafe_allow_html=True)
+    
+                st.markdown('</div>', unsafe_allow_html=True)
+
 
 
    
