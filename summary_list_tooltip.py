@@ -41,7 +41,16 @@ STYLES_AVAILABLE = {
         "icon": "https://img.icons8.com/?size=100&id=104252&format=png&color=000000", 
         "emoji": "🏅",
         "default_text": "{n} technical skills listed"
+    },
+    "breakthrough": {
+    "label": "Breakthrough",
+    "color": "#F9A825",        # Vivid Yellow
+    "pastel": "#FFF8DC",       # Light Pastel Yellow (Cornsilk)
+    "icon": "https://img.icons8.com/?size=100&id=20523&format=png&color=000000",
+    "emoji": "💡",
+    "default_text": "{n} major breakthroughs"
     }
+
 }
 
 def html_for_summary_list_tooltip(items, style_key="achieved_milestones", styles_available=STYLES_AVAILABLE):
