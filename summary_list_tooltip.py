@@ -57,6 +57,22 @@ STYLES_AVAILABLE = {
     "icon": "https://img.icons8.com/?size=100&id=XNkj51bATyA5&format=png&color=000000",  # Gauge Icon
     "emoji": "⚙️",  # Gear emoji
     "default_text": "{n} performance metrics"
+    },
+    "architecture": {
+    "label": "Architecture", 
+    "color": "#FF5722",  
+    "pastel": "#FFCCBC",  
+    "icon": "https://img.icons8.com/?size=100&id=gV1xxQ56XnrG&format=png&color=000000", 
+    "emoji": "🏗️",
+    "default_text": "{n} key architectural decisions made"
+    },
+    "models": {
+    "label": "Models",
+    "color": "#1976D2",  # Deep Blue
+    "pastel": "#BBDEFB",  # Light Blue Pastel
+    "icon": "https://img.icons8.com/?size=100&id=nlhCgr8avk8T&format=png&color=000000",  # Updated icon
+    "emoji": "🌀",  # Cyclone emoji for abstraction
+    "default_text": "{n} models"
     }
 }
 
