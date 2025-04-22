@@ -120,6 +120,12 @@ def load_repos_metadata():
           "performance": [
             "Forecasting system predicts Mexico’s gas output at **1, 3, 6, and 12-month horizons**, achieving **R² scores of 0.89, 0.86, 0.82, and 0.70**, respectively, on **holdout validation sets**."
           ],
+          "models": [
+            "Forecasting engine implemented using **`RandomForestRegressor`** from the **scikit-learn** library, leveraging ensemble learning for robust regression performance."
+          ],
+          "breakthrough": [
+            "Applied multiple **feature engineering workarounds** and a **sliding retraining window** strategy to address the limitations of Random Forests when applied to **non-stationary time series forecasting**."
+          ],
           "notebooks": [
             {
               "title": "Gas Forecasting Notebook",
@@ -135,4 +141,5 @@ def load_repos_metadata():
           },
           "call_to_action": "Did you like this project? I can use ML to forecast any relevant parameter of the economic environment for corporate planning. Reach out to discuss your requirements!"
         }
+
 ]
