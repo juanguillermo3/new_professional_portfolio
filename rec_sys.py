@@ -877,7 +877,7 @@ class RecommendationSystem(PortfolioSection):
                 st.empty().markdown(f"<div style='height: {bottom_margin}px'></div>", unsafe_allow_html=True)
     
             with st.container():
-                cols = st.columns(col_count, gap=f"{gap_px}px")
+                cols = st.columns(col_count, gap="small")
                 for col, milestone_type in zip(cols, row_types):
                     with col:
                         if milestone_type:
