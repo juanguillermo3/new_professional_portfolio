@@ -1,0 +1,107 @@
+{
+  "0": {
+    "title": "Assess Program Balance for Treatment and Control Groups",
+    "description": "This function assesses the balance of independent variables across treatment and control groups by performing statistical tests (e.g., T-tests for continuous variables, Proportion tests for binary variables). It calculates the differences between the treatment and control groups, p-values, and adds significance markers (e.g., stars) for each variable. The output is a data frame with the assessment results, including subsample sizes for both groups.",
+    "last_updated": "2025-01-27T04:02:35Z",
+    "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/assess_program_balance.R",
+    "file_path": "assess_program_balance.R",
+    "repo_name": "evaluation_of_job_intermediation_program",
+    "libraries": []
+  },
+  "1": {
+    "title": "Demographic Model",
+    "description": "Provides a demographic model for workers registered with the job agency.",
+    "last_updated": "2025-01-27T04:02:35Z",
+    "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/demographics.R",
+    "file_path": "demographics.R",
+    "repo_name": "evaluation_of_job_intermediation_program",
+    "libraries": []
+  },
+  "2": {
+    "title": "Worker Participation in Job Intermediation Programs",
+    "description": "Describes workers' participation in multiple job intermediation programs provided by the agency personnel.",
+    "last_updated": "2025-01-27T04:02:35Z",
+    "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/experimental_cases.R",
+    "file_path": "experimental_cases.R",
+    "repo_name": "evaluation_of_job_intermediation_program",
+    "libraries": []
+  },
+  "3": {
+    "title": "Data Sharing and Persistence Utilities",
+    "description": "Provides tools to facilitate data sharing and persistence between application modules.",
+    "last_updated": "2025-03-22T03:12:24Z",
+    "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/persistence_utils.R",
+    "file_path": "persistence_utils.R",
+    "repo_name": "evaluation_of_job_intermediation_program",
+    "libraries": [
+      "openxlsx"
+    ]
+  },
+  "4": {
+    "title": "sample balance in workers sample",
+    "description": "merges demographic and professional information from workers, along with participation in job programs, to a single sample. It asses balance in program assignation.",
+    "last_updated": "2025-03-19T23:33:44Z",
+    "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/sample_balance_in_workers_sample.R",
+    "file_path": "sample_balance_in_workers_sample.R",
+    "repo_name": "evaluation_of_job_intermediation_program",
+    "image_path": "assets/sample_balance.png",
+    "libraries": [
+      "ggplot2",
+      "ggrepel",
+      "scales",
+      "dplyr",
+      "tidyr",
+      "tools"
+    ],
+    "image_url": "assets/sample_balance.png"
+  },
+  "5": {
+    "title": "Worker Profiles Module",
+    "description": "Extracts and processes features from the curricula of workers registered with the job agency.",
+    "last_updated": "2025-01-27T04:02:35Z",
+    "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/worker_profiles.R",
+    "file_path": "worker_profiles.R",
+    "repo_name": "evaluation_of_job_intermediation_program",
+    "libraries": []
+  },
+  "6": {
+    "title": "Hirings",
+    "description": "Distributes data about hirings per worker.",
+    "libraries": [
+      "dplyr"
+    ],
+    "last_updated": "2025-03-22T03:11:57Z",
+    "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/hirings.R",
+    "file_path": "hirings.R",
+    "repo_name": "evaluation_of_job_intermediation_program"
+  },
+  "7": {
+    "title": "Labor Market Outcomes",
+    "description": "Summarizes the employment outcomes of workers assisted by the job agency. It computes several individual-level metrics, such as the total number of hires, as well as hires in high-income positions and permanent contract roles.",
+    "image_path": "assets/hiring_rates_*.png",
+    "libraries": [
+      "ggplot2",
+      "stringr",
+      "scales",
+      "dplyr",
+      "tidyr"
+    ],
+    "last_updated": "2025-03-22T03:19:24Z",
+    "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/laboral_outcomes.R",
+    "file_path": "laboral_outcomes.R",
+    "repo_name": "evaluation_of_job_intermediation_program"
+  },
+  "8": {
+    "title": "Merge Workers Dataset with Hiring Rates",
+    "description": "This module merges the worker-level dataset (spanning demographics, labor background, and program participation status) with the hiring rates per worker. The merged dataset is used to provide a basic comparison of hiring rates across different engagement levels in the agency program, offering a preliminary estimate of the program's effect.",
+    "image_path": "assets/naive_*.png",
+    "libraries": [
+      "dplyr",
+      "ggplot2"
+    ],
+    "last_updated": "2025-03-23T00:33:52Z",
+    "url": "https://github.com/juanguillermo3/evaluation_of_job_intermediation_program/blob/main/hiring_rates_per_engagement.R",
+    "file_path": "hiring_rates_per_engagement.R",
+    "repo_name": "evaluation_of_job_intermediation_program"
+  }
+}
