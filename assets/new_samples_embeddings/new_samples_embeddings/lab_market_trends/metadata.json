@@ -1,0 +1,308 @@
+{
+  "0": {
+    "title": "deduplication service for the job listings",
+    "description": "Provides a brute_force_deduplication to deduplicate an RDD with the job listings, by implementing a reduceByKey op which only keep the first text per vancancy code.",
+    "last_updated": "2025-02-21T20:56:31Z",
+    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/deduplication.py",
+    "file_path": "deduplication.py",
+    "repo_name": "lab_market_trends",
+    "libraries": [
+      "typing",
+      "pyspark",
+      "re"
+    ]
+  },
+  "1": {
+    "title": "ingestions service for the job listings",
+    "description": "Reads job listings from a disk folder where scrapped data is located. Discard files that dont follow the expected structure.",
+    "last_updated": "2025-01-23T09:52:15Z",
+    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/ingestion_of_job_listings.py",
+    "file_path": "ingestion_of_job_listings.py",
+    "repo_name": "lab_market_trends",
+    "libraries": [
+      "os",
+      "logging",
+      "re",
+      "gzip"
+    ]
+  },
+  "2": {
+    "project": "lab_market_trends",
+    "title": "Jobs Vacancies scrapper",
+    "description": "This modules performs scrapping of job listings",
+    "author": "Juan Guillermo",
+    "field": "something Include in Portfolio: True",
+    "portfolio": "True",
+    "last_updated": "2025-01-04T07:12:43Z",
+    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/job_listing_scrapper_1.2.py",
+    "file_path": "job_listing_scrapper_1.2.py",
+    "repo_name": "lab_market_trends",
+    "libraries": [
+      "dotenv",
+      "time",
+      "gzip",
+      "datetime",
+      "airflow",
+      "os",
+      "selenium",
+      "dateutil",
+      "re",
+      "logging"
+    ]
+  },
+  "3": {
+    "title": "single provider for the job listings RDD",
+    "description": "A single source of truth for an RDD with job listings. Implements dependency injection to stack several services, such as ingestion and deduplication.",
+    "last_updated": "2025-01-28T05:28:38Z",
+    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/main_provider_curated_job_listings_rdd.py",
+    "file_path": "main_provider_curated_job_listings_rdd.py",
+    "repo_name": "lab_market_trends",
+    "libraries": [
+      "dotenv",
+      "ingestion_of_job_listings",
+      "deduplication",
+      "spark_session_management",
+      "logging"
+    ]
+  },
+  "4": {
+    "title": "Dates Range",
+    "description": "Describes de temporal range (dates covered) by the job listings",
+    "last_updated": "2025-01-28T05:26:59Z",
+    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/dates.py",
+    "file_path": "dates.py",
+    "repo_name": "lab_market_trends",
+    "libraries": [
+      "dotenv",
+      "pandas",
+      "datetime",
+      "re",
+      "matplotlib",
+      "logging"
+    ]
+  },
+  "5": {
+    "title": "Feature Extraction",
+    "description": "Perform extraction of significant features for the job listings dataset.",
+    "last_updated": "2025-02-06T04:38:42Z",
+    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/features.py",
+    "file_path": "features.py",
+    "repo_name": "lab_market_trends",
+    "libraries": [
+      "dotenv",
+      "time",
+      "datetime",
+      "preprocess",
+      "pyspark",
+      "os",
+      "phrases",
+      "collections",
+      "re",
+      "main_provider_curated_job_listings_rdd",
+      "logging"
+    ]
+  },
+  "6": {
+    "title": "Phrases discovery",
+    "description": "Provides tool for discovery of significant N-gram based phrases based on n-grams and lift metrics.",
+    "last_updated": "2025-02-06T04:38:01Z",
+    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/phrases.py",
+    "file_path": "phrases.py",
+    "repo_name": "lab_market_trends",
+    "libraries": [
+      "json",
+      "dotenv",
+      "datetime",
+      "preprocess",
+      "pyspark",
+      "os",
+      "collections",
+      "re",
+      "main_provider_curated_job_listings_rdd",
+      "logging"
+    ]
+  },
+  "7": {
+    "title": "Preprocessing",
+    "description": "Provides tools to prepare job listings for feature discovery/extraction on standardized text.",
+    "last_updated": "2025-02-06T04:36:10Z",
+    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/preprocess.py",
+    "file_path": "preprocess.py",
+    "repo_name": "lab_market_trends",
+    "libraries": [
+      "unicodedata",
+      "textwrap",
+      "re"
+    ]
+  },
+  "8": {
+    "title": "Wages Analysis",
+    "description": "Plots the distribution on wages in job listings, overall vs segment specific",
+    "last_updated": "2025-02-06T04:26:27Z",
+    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/wages.py",
+    "file_path": "wages.py",
+    "repo_name": "lab_market_trends",
+    "galleria": "True",
+    "image_path": "assets/wages.png",
+    "libraries": [
+      "pandas",
+      "matplotlib",
+      "re"
+    ]
+  },
+  "9": {
+    "title": "Wages Drivers",
+    "description": "Detects the main drivers behind wage formation trough the analysis of the gradients of a Neural Network model.",
+    "image_path": "assets/wages_drrivers.png",
+    "galleria": "True",
+    "repo_name": "lab_market_trends",
+    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/wages_drivers.py",
+    "forced_rank": "2",
+    "libraries": [
+      "pandas",
+      "tensorflow",
+      "os",
+      "typing",
+      "numpy",
+      "plotly",
+      "random"
+    ],
+    "last_updated": "2025-02-06T05:01:44Z",
+    "file_path": "wages_drivers.py"
+  },
+  "10": {
+    "title": "Neural Networks for Wages Prediction",
+    "description": "Provides a deep learning approach based on a deep, feed-forward NN to predict wages.",
+    "image_path": "assets/learning_curve.html",
+    "galleria": "True",
+    "repo_name": "lab_market_trends",
+    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/deep_learning.py",
+    "forced_rank": "3",
+    "libraries": [
+      "dotenv",
+      "pandas",
+      "sklearn",
+      "ml_samples",
+      "tensorflow",
+      "plotly",
+      "pyspark",
+      "spark_session_management",
+      "os",
+      "numpy",
+      "logging",
+      "random"
+    ],
+    "last_updated": "2025-02-27T05:47:44Z",
+    "file_path": "deep_learning.py"
+  },
+  "11": {
+    "title": "Overall Application",
+    "description": "Connected version of the wages appication. It combines several modules into a sequence of workflows to analyze wages formation in the Colombian laboral market",
+    "image_path": "assets/lab_market_trends_network_plot.html",
+    "colab_url": "https://colab.research.google.com/drive/1gY17gbUdUxpWv2Ddooo0niPCkmqg8-hg#scrollTo=Hwfe5gZe3e_A>",
+    "galleria": "True",
+    "repo_name": "lab_market_trends",
+    "forced_rank": "1"
+  },
+  "12": {
+    "title": "Feature Transformation",
+    "description": "Converts an RDD to a pandas DataFrame and pipelines operations to create numerical features for downstream machine learning tasks.",
+    "libraries": [
+      "json",
+      "dotenv",
+      "time",
+      "datetime",
+      "preprocess",
+      "pyspark",
+      "os",
+      "typing",
+      "phrases",
+      "features",
+      "main_provider_curated_job_listings_rdd",
+      "numpy",
+      "logging"
+    ],
+    "last_updated": "2025-02-06T04:43:58Z",
+    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/feature_transformation.py",
+    "file_path": "feature_transformation.py",
+    "repo_name": "lab_market_trends"
+  },
+  "13": {
+    "title": "Commit Inference",
+    "description": "Commits the marginal effects and metadata of an inference exercise.  Structured around a Unit of Work (single-transaction) pattern. Depends on: inferences_db.py",
+    "libraries": [
+      "inferences_db",
+      "sqlalchemy",
+      "datetime"
+    ],
+    "last_updated": "2025-02-27T06:29:38Z",
+    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/commit_inference.py",
+    "file_path": "commit_inference.py",
+    "repo_name": "lab_market_trends"
+  },
+  "14": {
+    "title": "Discover Wage Drivers",
+    "description": "Key operational workflow, which fits a NN model for wages and discover wages drivers",
+    "libraries": [
+      "datetime",
+      "deep_learning",
+      "ml_samples",
+      "commit_inference",
+      "spark_session_management",
+      "wages_drivers",
+      "os"
+    ],
+    "last_updated": "2025-02-27T06:33:02Z",
+    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/discover_wage_drivers.py",
+    "file_path": "discover_wage_drivers.py",
+    "repo_name": "lab_market_trends"
+  },
+  "15": {
+    "title": "Inferences Database",
+    "description": "Provides a database model using SQLAlchemy to store marginal effects related to specific inference exercises.",
+    "libraries": [
+      "sqlalchemy",
+      "datetime"
+    ],
+    "last_updated": "2025-02-27T06:29:08Z",
+    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/inferences_db.py",
+    "file_path": "inferences_db.py",
+    "repo_name": "lab_market_trends"
+  },
+  "16": {
+    "title": "Main ETL",
+    "description": "Transform and RDD of job postings into ML samples and stores in disk.",
+    "libraries": [
+      "preprocess",
+      "ml_samples",
+      "shutil",
+      "os",
+      "phrases",
+      "features",
+      "main_provider_curated_job_listings_rdd",
+      "feature_transformation"
+    ],
+    "last_updated": "2025-02-27T06:10:22Z",
+    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/main_etl.py",
+    "file_path": "main_etl.py",
+    "repo_name": "lab_market_trends"
+  },
+  "17": {
+    "title": "ML samples",
+    "description": "Several tools for writing and reading a vectorized dataframe as partitioned data on disk and serving the ML samples for training.",
+    "libraries": [
+      "json",
+      "dotenv",
+      "shutil",
+      "logging",
+      "os",
+      "typing",
+      "numpy",
+      "pyspark"
+    ],
+    "last_updated": "2025-02-27T05:50:18Z",
+    "url": "https://github.com/juanguillermo3/lab_market_trends/blob/main/ml_samples.py",
+    "file_path": "ml_samples.py",
+    "repo_name": "lab_market_trends"
+  }
+}

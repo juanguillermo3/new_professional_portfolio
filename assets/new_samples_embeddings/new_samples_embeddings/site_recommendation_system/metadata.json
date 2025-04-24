@@ -1,0 +1,179 @@
+{
+  "0": {
+    "title": "Data Manager",
+    "description": "Handles ingestion merge and exploratory plottin of 3 data sources              for spatial analysis.",
+    "libraries": [
+      "numpy",
+      "geopandas",
+      "pandas",
+      "plotly",
+      "folium"
+    ],
+    "last_updated": "2025-03-09T07:08:43Z",
+    "url": "https://github.com/juanguillermo3/site_recommendation_system/blob/main/data_manager.py",
+    "file_path": "data_manager.py",
+    "repo_name": "site_recommendation_system"
+  },
+  "1": {
+    "title": "Perform Exploratory Analysis",
+    "description": "Merges the data sources for spatial analysis and produces exploratory plots",
+    "image_path": "{stores_summary.html,plot_store_location_*}",
+    "libraries": [
+      "plotly_styles",
+      "spatial_features",
+      "stores_placements",
+      "spatial_frame",
+      "os",
+      "dotenv",
+      "data_manager"
+    ],
+    "last_updated": "2025-03-09T07:08:43Z",
+    "url": "https://github.com/juanguillermo3/site_recommendation_system/blob/main/perform_exploratory_analysis.py",
+    "file_path": "perform_exploratory_analysis.py",
+    "repo_name": "site_recommendation_system"
+  },
+  "2": {
+    "title": "Perform Spatial Baseline",
+    "description": "Performs the training of baseline model to predict store placements from underlyng              zip data",
+    "image_path": "plot_probabilities_*",
+    "libraries": [
+      "plotly_styles",
+      "spatial_features",
+      "stores_placements",
+      "spatial_frame",
+      "spatial_baseline",
+      "os",
+      "dotenv"
+    ],
+    "last_updated": "2025-03-09T07:08:43Z",
+    "url": "https://github.com/juanguillermo3/site_recommendation_system/blob/main/perform_spatial_baseline.py",
+    "file_path": "perform_spatial_baseline.py",
+    "repo_name": "site_recommendation_system"
+  },
+  "3": {
+    "title": "Perform Spatial Correlation Analysis",
+    "description": "Performs the Spatial Correlation Analysis",
+    "image_path": "{correlation_bars.html,plot_store_location_with_proximity_*}",
+    "libraries": [
+      "plotly_styles",
+      "spatial_features",
+      "stores_placements",
+      "spatial_frame",
+      "os",
+      "dotenv",
+      "spatial_correlation"
+    ],
+    "last_updated": "2025-03-09T07:08:43Z",
+    "url": "https://github.com/juanguillermo3/site_recommendation_system/blob/main/perform_spatial_correlation_analysis.py",
+    "file_path": "perform_spatial_correlation_analysis.py",
+    "repo_name": "site_recommendation_system"
+  },
+  "4": {
+    "title": "plot styles",
+    "description": "Defines several decorators to distributes a custom styles across the plotly figures of a project,              thus providing standardization and a cohesive style. Full suport on plotly. Partial support on Folium              maps",
+    "libraries": [
+      "functools",
+      "plotly",
+      "folium",
+      "textwrap"
+    ],
+    "last_updated": "2025-03-09T07:08:43Z",
+    "url": "https://github.com/juanguillermo3/site_recommendation_system/blob/main/plot_styles.py",
+    "file_path": "plot_styles.py",
+    "repo_name": "site_recommendation_system"
+  },
+  "5": {
+    "title": "Spatial Baseline",
+    "description": "Elaborates SpatialBaseline. It provides a baseline ML model to predict store placements              from underlyng data about the zip codes.",
+    "libraries": [
+      "numpy",
+      "geopandas",
+      "pandas",
+      "warnings",
+      "plotly",
+      "folium",
+      "shapely",
+      "branca",
+      "spatial_correlation",
+      "sklearn"
+    ],
+    "last_updated": "2025-03-09T07:08:43Z",
+    "url": "https://github.com/juanguillermo3/site_recommendation_system/blob/main/spatial_baseline.py",
+    "file_path": "spatial_baseline.py",
+    "repo_name": "site_recommendation_system"
+  },
+  "6": {
+    "title": "Spatial Correlation",
+    "description": "Elaborates StoreLocationDataManager. It provides methods to asses the correlation pattern              between zip level features and the stores location.",
+    "libraries": [
+      "geopandas",
+      "pandas",
+      "warnings",
+      "plotly",
+      "folium",
+      "os",
+      "dotenv",
+      "shapely",
+      "data_manager",
+      "sklearn"
+    ],
+    "last_updated": "2025-03-09T07:08:43Z",
+    "url": "https://github.com/juanguillermo3/site_recommendation_system/blob/main/spatial_correlation.py",
+    "file_path": "spatial_correlation.py",
+    "repo_name": "site_recommendation_system"
+  },
+  "7": {
+    "title": "Spatial Features",
+    "description": "Provides a dataframe with zip level spatial features from the US",
+    "libraries": [
+      "dotenv",
+      "os",
+      "pandas",
+      "re"
+    ],
+    "last_updated": "2025-03-09T07:08:43Z",
+    "url": "https://github.com/juanguillermo3/site_recommendation_system/blob/main/spatial_features.py",
+    "file_path": "spatial_features.py",
+    "repo_name": "site_recommendation_system"
+  },
+  "8": {
+    "title": "Spatial Frame Processing",
+    "description": "This script processes spatial data from shapefiles and standardizes ZIP codes.",
+    "libraries": [
+      "geopandas",
+      "os",
+      "dotenv"
+    ],
+    "last_updated": "2025-03-09T07:08:43Z",
+    "url": "https://github.com/juanguillermo3/site_recommendation_system/blob/main/spatial_frame.py",
+    "file_path": "spatial_frame.py",
+    "repo_name": "site_recommendation_system"
+  },
+  "9": {
+    "title": "Store Placements Processing",
+    "description": "This script processes store locations and standardizes ZIP codes.",
+    "libraries": [
+      "numpy",
+      "geopandas",
+      "pandas",
+      "plotly",
+      "os",
+      "dotenv"
+    ],
+    "last_updated": "2025-03-09T07:08:43Z",
+    "url": "https://github.com/juanguillermo3/site_recommendation_system/blob/main/stores_placements.py",
+    "file_path": "stores_placements.py",
+    "repo_name": "site_recommendation_system"
+  },
+  "10": {
+    "title": "Spatial RecSys",
+    "author": "Juan Guillermo",
+    "description": "End-to-end implementation of a recommendation system for retail store placement.    The system analyzes historical store locations and integrates fine-grained    demographic and socioeconomic data from U.S. ZIP codes. Using machine learning,    it predicts optimal locations for new stores by predicting ZIP codes with a high    probability of a new opening. The underlying probability model ranks    potential store locations in U.S. states not included in the training data.",
+    "image_path": "assets/site_recommendation_system_network_plot.html  -->",
+    "libraries": [],
+    "last_updated": "2025-04-09T12:16:06Z",
+    "url": "https://github.com/juanguillermo3/site_recommendation_system/blob/main/end2end.ipynb",
+    "file_path": "end2end.ipynb",
+    "repo_name": "site_recommendation_system"
+  }
+}

@@ -1,0 +1,214 @@
+{
+  "0": {
+    "title": "Generate Comprehensive Excel Reports",
+    "description": "A flexible function to create Excel reports with dataframes, ggplots, leaflet maps, and nested lists of content.",
+    "last_updated": "2025-01-17T06:10:14Z",
+    "url": "https://github.com/juanguillermo3/monkey_research/blob/main/flexible_excel_reports.R",
+    "file_path": "flexible_excel_reports.R",
+    "repo_name": "monkey_research",
+    "libraries": [
+      "grid",
+      "ggplot2",
+      "png",
+      "webshot",
+      "leaflet",
+      "openxlsx",
+      "gridExtra"
+    ]
+  },
+  "1": {
+    "title": "Flexible Comparison Across Groups",
+    "description": "Performs statistical tests to compare measurements of a dependent variable across groups defined by an independent variable. Supports multiple behaviors for ecological studies.",
+    "last_updated": "2025-02-26T01:37:20Z",
+    "url": "https://github.com/juanguillermo3/monkey_research/blob/main/flexible_test_across_groups.R",
+    "file_path": "flexible_test_across_groups.R",
+    "repo_name": "monkey_research",
+    "libraries": [
+      "dunn.test",
+      "dplyr",
+      "coin",
+      "purrr"
+    ]
+  },
+  "2": {
+    "title": "Food Index over Transect Data",
+    "description": "This scripts performs the computation and vizualization of the food availability data over the vegetation records (transect data) for all the home ranges of the monkey species",
+    "last_updated": "2025-01-17T06:13:28Z",
+    "url": "https://github.com/juanguillermo3/monkey_research/blob/main/food_availability_index_over_transect_data.R",
+    "file_path": "food_availability_index_over_transect_data.R",
+    "repo_name": "monkey_research",
+    "libraries": [
+      "lubridate",
+      "ggplot2",
+      "dplyr",
+      "RSQLite",
+      "ggrepel",
+      "readxl",
+      "tidyr",
+      "stringr",
+      "openxlsx"
+    ]
+  },
+  "3": {
+    "title": "Home range sizes trough CPE",
+    "description": "Implements a the Minimum Convex Polygon Estimator to compute the home range sizes for each of 4 monkey groups under study",
+    "report_url": "https://docs.google.com/spreadsheets/d/1Dr48Q6WI18ldeaSUnL_C2OpaVQPiSNGv/edit?gid=1820260740#gid=1820260740",
+    "last_updated": "2025-02-04T23:57:40Z",
+    "url": "https://github.com/juanguillermo3/monkey_research/blob/main/home_ranges.R",
+    "file_path": "home_ranges.R",
+    "repo_name": "monkey_research",
+    "image_path": "assets/waypoints_*.html",
+    "galleria": "True",
+    "libraries": [
+      "lubridate",
+      "ggplot2",
+      "sp",
+      "adehabitatHR",
+      "dplyr",
+      "RSQLite",
+      "plyr",
+      "htmlwidgets",
+      "tidyr",
+      "purrr",
+      "leaflet",
+      "openxlsx",
+      "sf",
+      "magrittr",
+      "rgdal"
+    ]
+  },
+  "4": {
+    "title": "Computation of Morisita Index",
+    "description": "Computes the Morisita Index for spatial dispersion for the home range of each monkey species",
+    "portfolio": "True",
+    "project": "monkey_research",
+    "version": "2.1.0",
+    "date": "2025-01-02",
+    "last_updated": "2025-01-10T03:30:16Z",
+    "url": "https://github.com/juanguillermo3/monkey_research/blob/main/morisita_index.R",
+    "file_path": "morisita_index.R",
+    "repo_name": "monkey_research",
+    "libraries": [
+      "writexl",
+      "dplyr",
+      "openxlsx",
+      "RSQLite"
+    ]
+  },
+  "5": {
+    "title": "Geometric Modelling for Nutrition Data",
+    "description": "Applies Geometric Modelling based on dimensionality reduction to analize nutritional preferences of the monkey species.",
+    "debrief": "This module performs a visualization devide to facilitate the analisis of the main nutritional profiles for the monkey groups under study.",
+    "image_path": "assets/gm_per_*.png",
+    "last_updated": "2025-02-12T03:42:26Z",
+    "url": "https://github.com/juanguillermo3/monkey_research/blob/main/geometric_modelling.R",
+    "file_path": "geometric_modelling.R",
+    "repo_name": "monkey_research",
+    "galleria": "True",
+    "libraries": [
+      "ggplot2",
+      "dplyr",
+      "ggrepel",
+      "reshape2",
+      "readxl",
+      "ggcorrplot"
+    ]
+  },
+  "6": {
+    "title": "Habitat islands",
+    "description": "Applies k-means clustering within a self-calibration framework to discover smaller partitions habitat islands from sights data. It is useful in ecological studies to decompose the habitat of some species into smaller habitats thus allowing statistical analysis of home range sizes, such as correlation with habitat parameters.",
+    "debrief": "",
+    "url": "https://github.com/juanguillermo3/monkey_research/blob/main/discover_habitat_islands.R",
+    "repo_name": "monkey_research",
+    "galleria": "True",
+    "image_path": "assets/islands_*.html",
+    "libraries": [
+      "sp",
+      "adehabitatHR",
+      "dplyr",
+      "leaflet",
+      "sf"
+    ],
+    "last_updated": "2025-02-14T01:03:40Z",
+    "file_path": "discover_habitat_islands.R"
+  },
+  "7": {
+    "title": "Spatial correlation analysis",
+    "description": "Computes correlation between home ranges sizes and habitat parameters",
+    "report_url": "https://docs.google.com/spreadsheets/d/1KMhoqoPNrcP8Gp5eimwHmUeiFZZhKekL/edit?gid=521562748#gid=521562748",
+    "last_updated": "2025-01-25T03:55:16Z",
+    "url": "https://github.com/juanguillermo3/monkey_research/blob/main/correlation_patterns.R",
+    "repo_name": "monkey_research",
+    "galleria": "True",
+    "image_path": "assets/plots_and_islands_*.html",
+    "libraries": [
+      "RColorBrewer",
+      "ggplot2",
+      "sp",
+      "cluster",
+      "adehabitatHR",
+      "dplyr",
+      "tmap",
+      "stringr",
+      "leaflet",
+      "sf"
+    ],
+    "file_path": "correlation_patterns.R"
+  },
+  "8": {
+    "title": "Geometric modelling tools",
+    "libraries": [
+      "reshape2",
+      "ggrepel",
+      "ggcorrplot"
+    ],
+    "last_updated": "2025-02-12T03:42:26Z",
+    "url": "https://github.com/juanguillermo3/monkey_research/blob/main/geometric_modelling_tools.R",
+    "file_path": "geometric_modelling_tools.R",
+    "repo_name": "monkey_research"
+  },
+  "9": {
+    "title": "Behavioural Analysis",
+    "description": "This modules performs several comparisons to detect behavioral differences between monkey groups defined by species, sex, and reproductive status. It utilizes an engine of inferential statistics powered by the dunn test and a custom implementation of blocked boostrapping algorithm",
+    "report_url": "https://docs.google.com/spreadsheets/d/1JxmBCHIgdH5HYbL0C6YYk3DgW5ZwhmKc/edit?gid=1502020711#gid=1502020711",
+    "image_path": "assets/behav_*.png",
+    "libraries": [
+      "ggplot2",
+      "dplyr",
+      "tidyr",
+      "purrr",
+      "openxlsx",
+      "magrittr"
+    ],
+    "last_updated": "2025-02-26T02:17:23Z",
+    "url": "https://github.com/juanguillermo3/monkey_research/blob/main/behavioural_analysis.R",
+    "file_path": "behavioural_analysis.R",
+    "repo_name": "monkey_research",
+    "galleria": "True",
+    "file_type": ".r"
+  },
+  "10": {
+    "title": "Bootstrapping",
+    "description": "Custom implementation of blocked-bootstrapping algorithm",
+    "libraries": [
+      "dplyr",
+      "purrr"
+    ],
+    "last_updated": "2025-02-26T01:37:20Z",
+    "url": "https://github.com/juanguillermo3/monkey_research/blob/main/bootstrapping.R",
+    "file_path": "bootstrapping.R",
+    "repo_name": "monkey_research"
+  },
+  "11": {
+    "title": "Dataframe extentions",
+    "description": "Provide several enancements to regular R dataframe, wich can be used in dplyr pipelines",
+    "libraries": [
+      "dplyr",
+      "stringr"
+    ],
+    "last_updated": "2025-02-26T01:37:20Z",
+    "url": "https://github.com/juanguillermo3/monkey_research/blob/main/dataframe_extentions.R",
+    "file_path": "dataframe_extentions.R",
+    "repo_name": "monkey_research"
+  }
+}

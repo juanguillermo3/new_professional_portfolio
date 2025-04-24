@@ -1,0 +1,11 @@
+{
+  "0": {
+    "title": "Example Jupyter Notebook",
+    "author": "Taylor White",
+    "date": "2025-01-14",
+    "description": "This notebook demonstrates extracting metadata for Jupyter.",
+    "url": "https://github.com/juanguillermo3/predictive_analytics/blob/main/ensemble_learning.ipynb",
+    "file_path": "ensemble_learning.ipynb",
+    "repo_name": "predictive_analytics"
+  }
+}

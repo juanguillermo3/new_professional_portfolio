@@ -1,0 +1,122 @@
+{
+  "0": {
+    "title": "Overall Application",
+    "description": "Connected version of the forecasting application. It combines capabilities from several modules into a sequence of workflows to forecast sales for the food delivery context.",
+    "image_path": "assets/sales_forecasting_with_genetic_neural_networks_network_plot.html",
+    "colab_url": "https://colab.research.google.com/drive/1QKFY5zfiRkUUPrnhlsOrtRlqGJ14oFf3#scrollTo=ZznO-uxNus8v",
+    "galleria": "True",
+    "repo_name": "sales_forecasting_with_genetic_neural_networks",
+    "forced_rank": "1",
+    "report_url": "https://docs.google.com/spreadsheets/d/1-7xJZvAwYe9B4BYmJcA3-m1rAzf4CXNH/edit?gid=2146063770#gid=2146063770"
+  },
+  "1": {
+    "title": "Visualization of monthly sales",
+    "description": "Visualization tool to inspect the behaviour of sales series produced by company\u00b4s data warehouse",
+    "image_path": "assets/hourly_sales.png",
+    "url": "https://github.com/juanguillermo3/sales_forecasting_with_genetic_neural_networks/blob/main/plot_sales.py",
+    "galleria": "True",
+    "repo_name": "sales_forecasting_with_genetic_neural_networks"
+  },
+  "2": {
+    "title": "Results Parser",
+    "description": "Generates visual reports from optimization process results.   Depends on: plot_utils.py",
+    "url": "https://github.com/juanguillermo3/sales_forecasting_with_genetic_neural_networks/blob/main/results.py",
+    "repo_name": "sales_forecasting_with_genetic_neural_networks",
+    "image_path": "results_*.png",
+    "libraries": [
+      "plot_utils",
+      "matplotlib",
+      "pandas"
+    ],
+    "last_updated": "2025-02-16T05:04:03Z",
+    "file_path": "results.py"
+  },
+  "3": {
+    "title": "Plot Utilities",
+    "description": "Provides styling and export functionalities for plots across the application.",
+    "url": "https://github.com/juanguillermo3/sales_forecasting_with_genetic_neural_networks/blob/main/plot_utils.py",
+    "repo_name": "sales_forecasting_with_genetic_neural_networks",
+    "libraries": [
+      "matplotlib",
+      "logging",
+      "plotly",
+      "pandas"
+    ],
+    "last_updated": "2025-02-16T06:13:23Z",
+    "file_path": "plot_utils.py"
+  },
+  "4": {
+    "title": "Prepare Time Series Data",
+    "description": "Provides a TimeSeriesDataHandler which prepares time series data (loaded from disk) for ML model development. It performs feature extraction using lags of the same series beyond a target forecast horizon. The handler outputs numpy arrays suitable for model development.",
+    "url": "https://github.com/juanguillermo3/sales_forecasting_with_genetic_neural_networks/blob/main/prepare_ts_data.py",
+    "repo_name": "sales_forecasting_with_genetic_neural_networks",
+    "libraries": [
+      "json",
+      "pandas",
+      "sklearn",
+      "plot_utils",
+      "os",
+      "numpy",
+      "plotly"
+    ],
+    "last_updated": "2025-02-16T06:28:49Z",
+    "file_path": "prepare_ts_data.py"
+  },
+  "5": {
+    "title": "Genetic Optimization",
+    "description": "A custom implementation of a genetic optimization algorithm to find optimal hyperparameters for DL/ML models. image_path=ServerDNN*.html",
+    "image_path": "assets/ServerDNN*.html",
+    "repo_name": "sales_forecasting_with_genetic_neural_networks",
+    "libraries": [
+      "datetime",
+      "os",
+      "numpy",
+      "time",
+      "openpyxl",
+      "matplotlib",
+      "plotly",
+      "json",
+      "pandas",
+      "abc",
+      "prepare_ts_data",
+      "plot_utils",
+      "logging",
+      "random",
+      "sklearn",
+      "shutil",
+      "tensorflow",
+      "typing",
+      "optree"
+    ],
+    "last_updated": "2025-02-27T03:56:41Z",
+    "url": "https://github.com/juanguillermo3/sales_forecasting_with_genetic_neural_networks/blob/main/genetic_optimization.py",
+    "file_path": "genetic_optimization.py"
+  },
+  "6": {
+    "title": "Genetic Deep Learning",
+    "description": "Sets up a Deep Neural Network model as target predictive model for genetic optimization",
+    "libraries": [
+      "numpy",
+      "genetic_optimization",
+      "tensorflow",
+      "sklearn"
+    ],
+    "last_updated": "2025-02-27T03:46:42Z",
+    "url": "https://github.com/juanguillermo3/sales_forecasting_with_genetic_neural_networks/blob/main/genetic_deep_learning.py",
+    "file_path": "genetic_deep_learning.py",
+    "repo_name": "sales_forecasting_with_genetic_neural_networks"
+  },
+  "7": {
+    "title": "Plot Sales",
+    "description": "Plots the hourly sales for the food delivery service",
+    "libraries": [
+      "plot_utils",
+      "matplotlib",
+      "pandas"
+    ],
+    "last_updated": "2025-02-27T03:44:22Z",
+    "url": "https://github.com/juanguillermo3/sales_forecasting_with_genetic_neural_networks/blob/main/plot_sales.py",
+    "file_path": "plot_sales.py",
+    "repo_name": "sales_forecasting_with_genetic_neural_networks"
+  }
+}
