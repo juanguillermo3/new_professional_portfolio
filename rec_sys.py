@@ -84,7 +84,7 @@ class RecommendationSystem(PortfolioSection):
     #
     def __init__(self, 
                  semantic_project_retriever=None,
-                 #semantic_code_retriever=None, 
+                 semantic_code_retriever=None, 
                  num_recommended_items=6, 
                  num_columns=3,
                  section_header="Project Galleria 🗂️ ",
@@ -110,7 +110,7 @@ class RecommendationSystem(PortfolioSection):
         )
 
         self.semantic_project_retriever = semantic_project_retriever
-        #self.semantic_code_retriever = semantic_code_retriever
+        self.semantic_code_retriever = semantic_code_retriever
                    
         self.num_recommended_items = num_recommended_items
         self.num_columns = num_columns
