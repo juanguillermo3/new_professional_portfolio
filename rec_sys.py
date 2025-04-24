@@ -47,7 +47,7 @@ MOCK_INFO_PREFIX = os.getenv("MOCK_INFO", "[MOCK INFO]")
 
 from semantic_retriever import SemanticRetriever
 project_retriever=SemanticRetriever("new_project_embeddings")
-code_retriever=SemanticRetriever("new_samples_embeddings")
+#code_retriever=SemanticRetriever("new_samples_embeddings")
 
 #
 # (0) ancillary function to merge metadata about underlyng items
