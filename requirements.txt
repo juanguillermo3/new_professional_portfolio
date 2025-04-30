@@ -11,5 +11,4 @@ faiss-cpu
 
 # Language model encoder
 sentence-transformers
-
-transformers
+#transformers
