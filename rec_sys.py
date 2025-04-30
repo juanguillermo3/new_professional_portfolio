@@ -45,9 +45,9 @@ MOCK_INFO_PREFIX = os.getenv("MOCK_INFO", "[MOCK INFO]")
 # Instantiation of the semantic retriever -> helps to filter projects by meaning
 #
 
-from semantic_retriever import SemanticRetriever
-project_retriever=SemanticRetriever("new_project_embeddings")
-code_retriever=SemanticRetriever("new_samples_embeddings")
+from project_retrieval import SemanticRetriever
+project_retriever=SemanticRetriever("index/projects.index","index/metadata.json")
+code_retriever=SemanticRetriever("index/modules_index.index","index/modules_metadata.json")
 
 #
 # (0) ancillary function to merge metadata about underlyng items
