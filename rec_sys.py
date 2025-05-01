@@ -750,73 +750,88 @@ class RecommendationSystem(PortfolioSection):
     # ranking logic aspect of the RecSys
     #
     def rank_items(self, query=None, selected_project=None):
-        """Rank the items by priority on 'image_path' and 'last_updated', then apply filters."""
+        """Rank the items either via semantic retrieval or heuristics."""
     
         def parse_boolean(value):
-            """Helper function to safely parse boolean values from strings."""
             return str(value).strip().lower() == "true"
     
         def parse_int(value):
-            """Helper function to safely parse integers."""
             try:
                 return int(value)
             except (TypeError, ValueError):
                 return None
     
-        # Step 1: Sort items based on:
-        #   - Priority: Items with "image_path" not empty come first.
-        #   - Secondary: Sort by 'last_updated' in descending order.
+        # 🔁 New semantic ranking logic (if all conditions met)
+        if query and selected_project and selected_project != "All Projects" and hasattr(self, "semantic_code_retriever"):
+            # Work on a copy of the full list of code samples
+            code_samples_copy = self.metadata_list.copy()
+            
+            # Retrieve top-k relevant code samples using the semantic retriever, scoped by project group
+            ranked_code_snippets = self.semantic_code_retriever.search(
+                query, top_k=self.num_recommended_items, group=selected_project
+            )
+            
+            # Extract the titles of the retrieved code samples
+            ranked_titles = [item["title"] for item in ranked_code_snippets]
+            
+            # Reorder the internal metadata to match the ranked list
+            final_ranked_items = [
+                sample for title in ranked_titles
+                for sample in code_samples_copy
+                if sample["title"] == title
+            ]
+            
+            return final_ranked_items[:self.num_recommended_items]
+
+    
+        # 🔁 Default heuristic-based logic
         ranked_items = sorted(
             self.metadata_list,
             key=lambda x: (
-                not bool(x.get("image_path")),  # Items without image_path get a higher value (sorted later)
+                not bool(x.get("image_path")),
                 -datetime.strptime(
                     x.get("last_updated", "1970-01-01T00:00:00Z"), "%Y-%m-%dT%H:%M:%SZ"
                 ).timestamp(),
             ),
         )
     
-        # Step 2: Apply forced rank heuristic
-        forced_ranked_items = [None] * len(ranked_items)  # Create a list with placeholders
+        forced_ranked_items = [None] * len(ranked_items)
         unranked_items = []
     
         for item in ranked_items:
             forced_rank = parse_int(item.get("forced_rank"))
             if isinstance(forced_rank, int) and 0 <= forced_rank < len(ranked_items):
                 if forced_ranked_items[forced_rank] is None:
-                    forced_ranked_items[forced_rank] = item  # Place item in specified position
+                    forced_ranked_items[forced_rank] = item
                 else:
-                    unranked_items.append(item)  # Handle collisions by adding to unranked
+                    unranked_items.append(item)
             else:
-                unranked_items.append(item)  # Add items without forced_rank to unranked
+                unranked_items.append(item)
     
-        # Fill in the remaining slots with unranked items
         final_ranked_items = [item for item in forced_ranked_items if item is not None] + unranked_items
     
-        # Step 3: Filter by project selection
         if selected_project and selected_project != "All Projects":
             final_ranked_items = [
                 item for item in final_ranked_items if item["repo_name"].lower() == selected_project.lower()
             ]
     
-        # Step 4: Filter by search query
         if query:
             query_pattern = re.compile(re.escape(query), re.IGNORECASE)
             final_ranked_items = [
                 item for item in final_ranked_items
-                if query_pattern.search(item.get("title", "")) 
-                or query_pattern.search(item.get("description", "")) 
+                if query_pattern.search(item.get("title", ""))
+                or query_pattern.search(item.get("description", ""))
                 or any(query_pattern.search(lib) for lib in item.get("libraries", []))
             ]
-  
-        # Step 5: Return the top 'num_recommended_items' recommendations
+    
         return final_ranked_items[:self.num_recommended_items]
+
 
 
 
 # Assume project_retriever is an instance of your semantic retriever (already initialized)
 recsys = RecommendationSystem(
     semantic_project_retriever=project_retriever,
-    semantic_code_retriever=code_retriever, 
+    #semantic_code_retriever=code_retriever, 
     section_description="Our Recommendation System (RecSys) helps you discover projects and code examples you may find interesting."
 )
