@@ -904,7 +904,7 @@ class RecommendationSystem(PortfolioSection):
             query = st.text_area(
                 label=label,
                 placeholder=placeholder,
-                height=height,
+                height=height = max(height, 68),  # Enforce Streamlit's minimum height requirement
                 value=value,
             )
             st.caption("💡 Press Ctrl+Enter or click outside the box to apply your query.")
