@@ -832,14 +832,10 @@ class RecommendationSystem(PortfolioSection):
         return final_ranked_items[:self.num_recommended_items]
     #
     def _render_search_box(
-        label: str = "🔍 Search examples by business requirement, methodology, or desired software implementation.",
-        placeholder: str = (
-            "As a small business owner, I want to forecast sales for the next season. "
-            "The system should serve highly accurate forecasts from historical series data and "
-            "forecasts should be displayed in a BI dashboard."
-        ),
-        value: str = None,
-        height: int = 140
+        label,
+        placeholder,
+        value,
+        height
     ):
         """
         Render a sticky, styled search box with full customization and a unique time-based key.
