@@ -488,10 +488,9 @@ class RecommendationSystem(PortfolioSection):
             self._render_notebook_previews(project_metadata)
             self._render_milestones_grid(project_metadata)
     
-            # Use code query if retriever is present
             if hasattr(self, "semantic_code_retriever") and self.semantic_code_retriever:
                 code_query = self._render_search_box(
-                    label="🧠 You can ask anything to the codebase",
+                    label="🧠 You can ask anything to the codebase",  # Keyword argument for label
                     placeholder="how is the predictive model being trained",
                     height=68,
                     value=None
@@ -499,6 +498,7 @@ class RecommendationSystem(PortfolioSection):
                 st.markdown("<br>", unsafe_allow_html=True)
             else:
                 code_query = None
+
     
             # Always render recommendations
             recommendations = self.rank_items(code_query or query, project_metadata["title"])
