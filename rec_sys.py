@@ -491,9 +491,6 @@ class RecommendationSystem(PortfolioSection):
         
                 # 🔍 Codebase-specific search box
                 code_query = self._render_search_box(
-                    #label="🧠 You can ask anything to the codebase",
-                    #placeholder="how is the predictive model being trained",
-                    #height=50,
                     value=None
                 )
         
