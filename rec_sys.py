@@ -831,6 +831,7 @@ class RecommendationSystem(PortfolioSection):
         return final_ranked_items[:self.num_recommended_items]
     #
     def _render_search_box(
+        self,
         label="🧠 You can ask anything to the codebase",
         placeholder="how is the predictive model being trained",
         height=50,
