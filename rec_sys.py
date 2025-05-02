@@ -905,7 +905,7 @@ class RecommendationSystem(PortfolioSection):
                 placeholder=placeholder,
                 height=68,
                 value=value,
-                key=unique_key
+                key=unique_key+"area"
             )
             st.caption("💡 Press Ctrl+Enter or click outside the box to apply your query.")    
         return new_query
