@@ -904,11 +904,9 @@ class RecommendationSystem(PortfolioSection):
                 label=label,
                 placeholder=placeholder,
                 height=68,
-                value=value,
-                key=f"textarea-{unique_key}",  # Ensures Streamlit component uniqueness
+                value=value
             )
-            st.caption("💡 Press Ctrl+Enter or click outside the box to apply your query.")
-    
+            st.caption("💡 Press Ctrl+Enter or click outside the box to apply your query.")    
         return new_query
 
 
