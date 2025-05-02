@@ -490,10 +490,10 @@ class RecommendationSystem(PortfolioSection):
         
                 # 🔍 Codebase-specific search box
                 code_query = self._render_search_box(
-                    label="🧠 You can ask anything to the codebase",
-                    placeholder="how is the predictive model being trained",
-                    height=50,
-                    value=None
+                    #label="🧠 You can ask anything to the codebase",
+                    #placeholder="how is the predictive model being trained",
+                    #height=50,
+                    #value=None
                 )
         
                 st.markdown("<br>", unsafe_allow_html=True)
@@ -673,8 +673,6 @@ class RecommendationSystem(PortfolioSection):
     ):
         """Render milestones in a row-based grid with consistent vertical spacing and shared row styling."""
     
-        import hashlib, time, math
-        import streamlit as st
     
         # Include code samples in metadata
         project_metadata["code_samples"] = self._fetch_files(project_metadata["title"])
@@ -832,10 +830,10 @@ class RecommendationSystem(PortfolioSection):
         return final_ranked_items[:self.num_recommended_items]
     #
     def _render_search_box(
-        label,
-        placeholder,
-        value,
-        height
+        label="🧠 You can ask anything to the codebase",
+        placeholder="how is the predictive model being trained",
+        height=50,
+        value=None
     ):
         """
         Render a sticky, styled search box with full customization and a unique time-based key.
