@@ -900,7 +900,7 @@ class RecommendationSystem(PortfolioSection):
         )
     
         with st.container(key=unique_key):
-            query = st.text_area(
+            new_query = st.text_area(
                 label=label,
                 placeholder=placeholder,
                 height=68,
@@ -909,7 +909,7 @@ class RecommendationSystem(PortfolioSection):
             )
             st.caption("💡 Press Ctrl+Enter or click outside the box to apply your query.")
     
-        return query
+        return new_query
 
 
 
