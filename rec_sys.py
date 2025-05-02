@@ -502,8 +502,8 @@ class RecommendationSystem(PortfolioSection):
                 # 🧩 Generate and render code recommendations based on project and optional code query
                 recommendations = self.rank_items(code_query, project_metadata["title"])
               
-                if query:
-                    filter_message = f"Showing code samples related to query: {query}"
+                if code_query:
+                    filter_message = f"Showing code samples related to query: {code_query}"
                 else:
                     filter_message = f"Showing the codebase for project {prettify_title(project_metadata['title'])}"
 
