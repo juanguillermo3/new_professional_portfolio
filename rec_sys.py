@@ -444,9 +444,11 @@ class RecommendationSystem(PortfolioSection):
                 ]
             else:
                 projects_to_render = projects_copy
-    
+
+        projects_to_render = [projects_to_render[0]]
+
         # Step 4: Render selected projects
-        for project_metadata in [projects_to_render[0]]:
+        for project_metadata in projects_to_render:
             self.render_project_metadata_and_recommendations(project_metadata, user_query)
             st.markdown("<hr style='border: 0.5px solid #ccc;'/>", unsafe_allow_html=True)
 
