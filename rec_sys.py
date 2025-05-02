@@ -451,66 +451,66 @@ class RecommendationSystem(PortfolioSection):
 
     #
     def render_project_metadata_and_recommendations(self, project_metadata, query):
-        """Render project title, video, metadata, dashboard (if available), and recommendations in an ancillary container."""
-    
-        # Render project video (refactored to a helper method)
-        self._render_project_video(project_metadata)
-    
-        tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
-        description = project_metadata.get("description", "No description available.")
-        parsed_description = markdown.markdown(description)
-        description_html, description_styles = expandable_text_html(parsed_description)
-        description_html = markdown.markdown(f"{description_html} ")
-    
-        st.markdown(
-            f"""
-            <div style="text-align: center; margin-bottom: 0px;">
-                <h3>{prettify_title(project_metadata['title'])}</h3>
-            </div>
-            <p style="text-align: center; margin-top: 0px;">{tags_html}</p>
-            """,
-            unsafe_allow_html=True,
-        )
-    
-        unique_key = hashlib.md5(project_metadata['title'].encode()).hexdigest()
-        with st.container(key=unique_key):
+            """Render project title, video, metadata, dashboard (if available), and recommendations in an ancillary container."""
+        
+            # Render project video (refactored to a helper method)
+            self._render_project_video(project_metadata)
+        
+            tags_html = tags_in_twitter_style(project_metadata.get("tags", []))
+            description = project_metadata.get("description", "No description available.")
+            parsed_description = markdown.markdown(description)
+            description_html, description_styles = expandable_text_html(parsed_description)
+            description_html = markdown.markdown(f"{description_html} ")
+        
             st.markdown(
                 f"""
-                <div style="text-align: justify;">
-                    {description_html}
+                <div style="text-align: center; margin-bottom: 0px;">
+                    <h3>{prettify_title(project_metadata['title'])}</h3>
                 </div>
-                {description_styles}
+                <p style="text-align: center; margin-top: 0px;">{tags_html}</p>
                 """,
                 unsafe_allow_html=True,
             )
-    
-            self._render_executive_dashboard(project_metadata)
-            self._render_notebook_previews(project_metadata)
-            self._render_milestones_grid(project_metadata)
-    
-            if hasattr(self, "semantic_code_retriever") and self.semantic_code_retriever:
+        
+            unique_key = hashlib.md5(project_metadata['title'].encode()).hexdigest()
+            with st.container(key=unique_key):
+                st.markdown(
+                    f"""
+                    <div style="text-align: justify;">
+                        {description_html}
+                    </div>
+                    {description_styles}
+                    """,
+                    unsafe_allow_html=True,
+                )
+        
+                self._render_executive_dashboard(project_metadata)
+                self._render_notebook_previews(project_metadata)
+                self._render_milestones_grid(project_metadata)
+        
+                # 🔍 Codebase-specific search box
                 code_query = self._render_search_box(
-                    label="🧠 You can ask anything to the codebase",  # Keyword argument for label
+                    label="🧠 You can ask anything to the codebase",
                     placeholder="how is the predictive model being trained",
-                    height=68,
+                    height=50,
                     value=None
                 )
+        
                 st.markdown("<br>", unsafe_allow_html=True)
-            else:
-                code_query = None
-
-    
-            # Always render recommendations
-            recommendations = self.rank_items(code_query or query, project_metadata["title"])
-            filter_message = f"Showing the codebase for project {prettify_title(project_metadata['title'])}"
-            st.markdown(
-                f'<p style="font-style: italic; color: #555; font-size: 105%; font-weight: 550;">{filter_message}</p>',
-                unsafe_allow_html=True
-            )
-            self._render_recommendation_grid(recommendations)
-    
-            # Subtle call to action
-            self._render_cta_box(project_metadata)
+        
+                # 🧩 Generate and render code recommendations based on project and optional code query
+                recommendations = self.rank_items(code_query, project_metadata["title"])
+                filter_message = f"Showing the codebase for project {prettify_title(project_metadata['title'])}"
+        
+                st.markdown(
+                    f'<p style="font-style: italic; color: #555; font-size: 105%; font-weight: 550;">{filter_message}</p>',
+                    unsafe_allow_html=True
+                )
+        
+                self._render_recommendation_grid(recommendations)
+        
+                # Subtle call to action
+                self._render_cta_box(project_metadata)
 
     #
     def _render_notebook_previews(self, project_metadata):
