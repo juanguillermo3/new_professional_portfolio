@@ -485,18 +485,22 @@ class RecommendationSystem(PortfolioSection):
             )
     
             self._render_executive_dashboard(project_metadata)
-    
-            # Factor out notebook previews into a private method
             self._render_notebook_previews(project_metadata)
-    
-            
             self._render_milestones_grid(project_metadata)
+    
+            # 🔍 Codebase-specific search box
+            code_query = self._render_search_box(
+                label="🧠 You can ask anything to the codebase",
+                placeholder="how is the predictive model being trained",
+                height=50,
+                value=None
+            )
+    
             st.markdown("<br>", unsafe_allow_html=True)
-          
-            recommendations = self.rank_items(None, project_metadata["title"])
+    
+            # 🧩 Generate and render code recommendations based on project and optional code query
+            recommendations = self.rank_items(code_query, project_metadata["title"])
             filter_message = f"Showing the codebase for project {prettify_title(project_metadata['title'])}"
-            #if query:
-            #    filter_message += f" (and for keyword: {query})"
     
             st.markdown(
                 f'<p style="font-style: italic; color: #555; font-size: 105%; font-weight: 550;">{filter_message}</p>',
@@ -507,6 +511,7 @@ class RecommendationSystem(PortfolioSection):
     
             # Subtle call to action
             self._render_cta_box(project_metadata)
+
     #
     def _render_notebook_previews(self, project_metadata):
         """Render notebook previews as a private helper method."""
@@ -825,7 +830,86 @@ class RecommendationSystem(PortfolioSection):
             ]
     
         return final_ranked_items[:self.num_recommended_items]
-
+    #
+    def _render_search_box(
+        unique_key: str = "control-panel",
+        label: str = "🔍 Search examples by business requirement, methodology, or desired software implementation.",
+        placeholder: str = (
+            "As a small business owner, I want to forecast sales for the next season. "
+            "The system should serve highly accurate forecasts from historical series data and "
+            "forecasts should be displayed in a BI dashboard."
+        ),
+        value: str = None,
+        height: int = 140
+    ):
+        """
+        Render a sticky, styled search box with full customization and defaults.
+    
+        Parameters:
+            unique_key (str): A key to uniquely identify this search container.
+            label (str): Label displayed above the text area.
+            placeholder (str): Placeholder shown inside the text area.
+            value (str): Default value of the text area.
+            height (int): Height of the text area in pixels.
+    
+        Returns:
+            str: The user-provided query.
+        """
+    
+        # Inject scoped CSS styling
+        st.markdown(
+            f"""
+            <style>
+                .st-key-{unique_key} {{
+                    position: sticky;
+                    top: 10px;
+                    background-color: #e5e5e5;
+                    border: 2px solid rgba(255, 255, 255, 0.9);
+                    padding: 25px;
+                    margin-top: 40px;
+                    margin-bottom: 40px;
+                    margin-left: auto;
+                    margin-right: auto;
+                    width: 82%;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                    border-radius: 14px;
+                    z-index: 1000;
+                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+                    cursor: grab;
+                }}
+    
+                .st-key-{unique_key}:hover {{
+                    transform: scale(1.02);
+                    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+                }}
+    
+                .stTextArea > div > textarea {{
+                    transition: border 0.3s ease, box-shadow 0.3s ease;
+                    border-radius: 6px;
+                    height: {height}px !important;
+                    resize: vertical;
+                }}
+    
+                .stTextArea > div > textarea:focus {{
+                    border: 1px solid #4a90e2;
+                    box-shadow: 0 0 6px rgba(74, 144, 226, 0.6);
+                    outline: none;
+                }}
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+    
+        with st.container(key=unique_key):
+            query = st.text_area(
+                label=label,
+                placeholder=placeholder,
+                height=height,
+                value=value,
+            )
+            st.caption("💡 Press Ctrl+Enter or click outside the box to apply your query.")
+    
+        return query
 
 
 
