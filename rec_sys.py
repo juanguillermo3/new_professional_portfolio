@@ -490,9 +490,7 @@ class RecommendationSystem(PortfolioSection):
                 self._render_milestones_grid(project_metadata)
         
                 # 🔍 Codebase-specific search box
-                code_query = self._render_search_box(
-                    value=None
-                )
+                code_query = None
         
                 #st.markdown("<br>", unsafe_allow_html=True)
         
