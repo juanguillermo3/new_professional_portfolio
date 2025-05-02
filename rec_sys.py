@@ -918,6 +918,6 @@ class RecommendationSystem(PortfolioSection):
 # Assume project_retriever is an instance of your semantic retriever (already initialized)
 recsys = RecommendationSystem(
     semantic_project_retriever=project_retriever,
-    #semantic_code_retriever=code_retriever, 
+    semantic_code_retriever=code_retriever, 
     section_description="Our Recommendation System (RecSys) helps you discover projects and code examples you may find interesting."
 )
