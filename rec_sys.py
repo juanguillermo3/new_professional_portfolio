@@ -833,10 +833,11 @@ class RecommendationSystem(PortfolioSection):
     #
     def _render_search_box(
         self,
+        value,
         label="🧠 You can ask anything to the codebase",
         placeholder="how is the predictive model being trained",
         height=50,
-        value=None
+        
     ):
         """
         Render a sticky, styled search box with full customization and a unique time-based key.
