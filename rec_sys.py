@@ -900,7 +900,7 @@ class RecommendationSystem(PortfolioSection):
             query = st.text_area(
                 label=label,
                 placeholder=placeholder,
-                height=max(height, 68),
+                height=68,
                 value=value,
                 key=f"textarea-{unique_key}",  # Ensures Streamlit component uniqueness
             )
