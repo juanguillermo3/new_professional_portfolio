@@ -488,25 +488,25 @@ class RecommendationSystem(PortfolioSection):
             self._render_notebook_previews(project_metadata)
             self._render_milestones_grid(project_metadata)
     
-            # 🔍 Codebase-specific search box
-            code_query = self._render_search_box(
-                label="🧠 You can ask anything to the codebase",
-                placeholder="how is the predictive model being trained",
-                height=50,
-                value=None
-            )
+            # Use code query if retriever is present
+            if hasattr(self, "semantic_code_retriever") and self.semantic_code_retriever:
+                code_query = self._render_search_box(
+                    label="🧠 You can ask anything to the codebase",
+                    placeholder="how is the predictive model being trained",
+                    height=68,
+                    value=None
+                )
+                st.markdown("<br>", unsafe_allow_html=True)
+            else:
+                code_query = None
     
-            st.markdown("<br>", unsafe_allow_html=True)
-    
-            # 🧩 Generate and render code recommendations based on project and optional code query
-            recommendations = self.rank_items(code_query, project_metadata["title"])
+            # Always render recommendations
+            recommendations = self.rank_items(code_query or query, project_metadata["title"])
             filter_message = f"Showing the codebase for project {prettify_title(project_metadata['title'])}"
-    
             st.markdown(
                 f'<p style="font-style: italic; color: #555; font-size: 105%; font-weight: 550;">{filter_message}</p>',
                 unsafe_allow_html=True
             )
-    
             self._render_recommendation_grid(recommendations)
     
             # Subtle call to action
@@ -832,7 +832,6 @@ class RecommendationSystem(PortfolioSection):
         return final_ranked_items[:self.num_recommended_items]
     #
     def _render_search_box(
-        unique_key: str = "control-panel",
         label: str = "🔍 Search examples by business requirement, methodology, or desired software implementation.",
         placeholder: str = (
             "As a small business owner, I want to forecast sales for the next season. "
@@ -843,20 +842,22 @@ class RecommendationSystem(PortfolioSection):
         height: int = 140
     ):
         """
-        Render a sticky, styled search box with full customization and defaults.
-    
+        Render a sticky, styled search box with full customization and a unique time-based key.
+        
         Parameters:
-            unique_key (str): A key to uniquely identify this search container.
             label (str): Label displayed above the text area.
             placeholder (str): Placeholder shown inside the text area.
             value (str): Default value of the text area.
             height (int): Height of the text area in pixels.
-    
+        
         Returns:
             str: The user-provided query.
         """
+        # Generate unique key using current time hash
+        timestamp = str(time.time_ns())
+        unique_key = hashlib.md5(timestamp.encode()).hexdigest()
     
-        # Inject scoped CSS styling
+        # Inject scoped CSS styling using that unique key
         st.markdown(
             f"""
             <style>
@@ -886,7 +887,7 @@ class RecommendationSystem(PortfolioSection):
                 .stTextArea > div > textarea {{
                     transition: border 0.3s ease, box-shadow 0.3s ease;
                     border-radius: 6px;
-                    height: {height}px !important;
+                    height: {max(height, 68)}px !important;
                     resize: vertical;
                 }}
     
@@ -904,8 +905,9 @@ class RecommendationSystem(PortfolioSection):
             query = st.text_area(
                 label=label,
                 placeholder=placeholder,
-                height = max(height, 68),  # Enforce Streamlit's minimum height requirement
+                height=max(height, 68),
                 value=value,
+                key=f"textarea-{unique_key}",  # Ensures Streamlit component uniqueness
             )
             st.caption("💡 Press Ctrl+Enter or click outside the box to apply your query.")
     
