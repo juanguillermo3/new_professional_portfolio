@@ -494,15 +494,19 @@ class RecommendationSystem(PortfolioSection):
                     #label="🧠 You can ask anything to the codebase",
                     #placeholder="how is the predictive model being trained",
                     #height=50,
-                    #value=None
+                    value=None
                 )
         
-                st.markdown("<br>", unsafe_allow_html=True)
+                #st.markdown("<br>", unsafe_allow_html=True)
         
                 # 🧩 Generate and render code recommendations based on project and optional code query
                 recommendations = self.rank_items(code_query, project_metadata["title"])
-                filter_message = f"Showing the codebase for project {prettify_title(project_metadata['title'])}"
-        
+              
+                if query:
+                    filter_message = f"Showing code samples related to query: {query}"
+                else:
+                    filter_message = f"Showing the codebase for project {prettify_title(project_metadata['title'])}"
+
                 st.markdown(
                     f'<p style="font-style: italic; color: #555; font-size: 105%; font-weight: 550;">{filter_message}</p>',
                     unsafe_allow_html=True
