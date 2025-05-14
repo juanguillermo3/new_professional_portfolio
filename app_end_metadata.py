@@ -166,7 +166,8 @@ def load_repos_metadata():
           "When compared with more traditional measures of how a country is welcomed abroad, a welcoming index provides insight into the *efficiency* of immigration policy—i.e., whether the openness of a country’s immigration policy is *reciprocated* by the rest of the world. This can be analyzed through *lift* measures that compare welcoming and welcomed scores for each country."
         ],
         "performance": [
-          #"# (ai placeholder: performance details)"
+          "Not being a supervised model, we don´t have performance metrics to report.",
+          "Our index reproduces some stylized fact about international inmigration policy, matching theoretical expectations."      
         ],
         "models": [
           "The index we propose here takes the opposite approach to the well-known **[Henley Passport Index (HPI)](https://www-henleyglobal-com.translate.goog/passport-index?_x_tr_sl=en&_x_tr_tl=es&_x_tr_hl=es&_x_tr_pto=sge)**, which measures how much a particular citizenship is *welcomed* abroad."  
