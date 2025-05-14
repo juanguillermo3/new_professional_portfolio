@@ -177,7 +177,7 @@ def load_repos_metadata():
         ],
         "dashboard": {
           #"title": "# (ai placeholder: dashboard title)",
-          "media": "welcoming_choroplet.png",
+          "media": "assets/welcoming_choroplet.png",
           "bullets": [
             "**Overall positive association** between open migratory policies (being *welcoming*) and low visa requirements (being *welcomed*) → basic reciprocation in action.",
             "**Large regional disparities** in migratory policies and reception: North America and Europe are much more *welcomed*, while countries in the Caribbean, Central, and South America are much more *welcoming*.",
