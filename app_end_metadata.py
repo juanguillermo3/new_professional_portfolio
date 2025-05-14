@@ -140,6 +140,50 @@ def load_repos_metadata():
             ]
           },
           "call_to_action": "Did you like this project? I can use ML to forecast any relevant parameter of the economic environment for corporate planning. Reach out to discuss your requirements!"
-        }
+        },
+        {
+        "title": "welcoming_index",
+        "tags": [
+          "International Policy",
+          "Visa Openness",
+          "Index Design",
+          "Global Mobility",
+          "Data Visualization"
+        ],
+        "description": "This exercise implements an index to measure how welcoming a given country is—in principle—to citizens from any other country in the world.",
+        "achieved_milestones": [
+          "# (ai placeholder: milestone 1)",
+          "# (ai placeholder: milestone 2)",
+          "# (ai placeholder: milestone 3)"
+        ],
+        "business_impact": [
+          "# (ai placeholder: business impact 1)",
+          "# (ai placeholder: business impact 2)"
+        ],
+        "performance": [
+          "# (ai placeholder: performance details)"
+        ],
+        "models": [
+          "# (ai placeholder: model description)"
+        ],
+        "breakthrough": [
+          "# (ai placeholder: breakthrough details)"
+        ],
+        "notebooks": [
+          {
+            "title": "Visa Requirement Index",
+            "url": "https://colab.research.google.com/drive/1JMsWOW2dnL_sc1_v_yuqE1097dfWWWcn#scrollTo=8O2UpQkk03VY"
+          }
+        ],
+        "dashboard": {
+          "title": "# (ai placeholder: dashboard title)",
+          "media": "# (ai placeholder: media URL)",
+          "bullets": [
+            "# (ai placeholder: dashboard bullet 1)"
+          ]
+        },
+        "call_to_action": "Do you find this project interesting? I can organize and develop data collection and information processing activities for research environments, with a focus on public policy analysis. Reach out to discuss your requirements!"
+  }
+
 
 ]
