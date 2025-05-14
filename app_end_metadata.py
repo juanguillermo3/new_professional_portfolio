@@ -183,11 +183,11 @@ def load_repos_metadata():
         "dashboard": {
           #"title": "# (ai placeholder: dashboard title)",
           "media": "assets/welcoming_choroplet.png",
-          "bullets": [
+          "bullets": [[
             "**Overall positive association** between open migratory policies (being *welcoming*) and low visa requirements (being *welcomed*) → basic reciprocation in action.",
             "**Large regional disparities** in migratory policies and reception: North America and Europe are much more *welcomed*, while countries in the Caribbean, Central, and South America are much more *welcoming*.",
             "**Reciprocation varies widely** between regions: Eastern Europe, East and Southeast Asia are almost as *welcomed* as South and Central America, but are far more *restrictive* in their own policies."
-          ][0]
+          ][0]]
         },
         "call_to_action": "Do you find this project interesting? I can organize and develop data collection and information processing activities for research environments, with a focus on public policy analysis. Reach out to discuss your requirements!"
   }
