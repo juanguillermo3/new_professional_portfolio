@@ -623,50 +623,56 @@ class RecommendationSystem(PortfolioSection):
                         #st.image("path/to/fallback/image.png", use_container_width=True)
     
             with col_bullets:
-              with st.container(key=key_bulletsbox):
-                  st.markdown(
-                      f"""
-                      <style>
-                          .st-key-{key_bulletsbox} {{
-                              position: relative;
-                              height: 120px;  /* Adjust based on expected size */
-                              overflow: hidden;
-                              background-color: #ffffff;
-                              padding: 1em;
-                              border-radius: 8px;
-                              box-shadow: 0px 0px 6px rgba(0,0,0,0.05);
-                          }}
-                          .st-key-{key_bulletsbox} .carousel-item {{
-                              position: absolute;
-                              top: 0;
-                              left: 0;
-                              right: 0;
-                              opacity: 0;
-                              animation: fadeCarousel {len(bullets)*5}s infinite;
-                              transition: opacity 1s ease-in-out;
-                              padding-left: 0.5em;
-                              font-size: 1em;
-                              font-weight: 500;
-                              color: #444;
-                          }}
-                          {"".join([
-                              f".st-key-{key_bulletsbox} .carousel-item:nth-child({i+1}) {{ animation-delay: {i*5}s; }}"
-                              for i in range(len(bullets))
-                          ])}
-                          @keyframes fadeCarousel {{
-                              0% {{ opacity: 0; }}
-                              10% {{ opacity: 1; }}
-                              25% {{ opacity: 1; }}
-                              35% {{ opacity: 0; }}
-                              100% {{ opacity: 0; }}
-                          }}
-                      </style>
-                      <div class="st-key-{key_bulletsbox}">
-                          {''.join(f'<div class="carousel-item">{markdown.markdown(b)}</div>' for b in bullets)}
-                      </div>
-                      """,
-                      unsafe_allow_html=True
-                  )
+              with col_bullets:
+                  dashboard_title = dashboard.get("title", "Executive Summary")
+              
+                  with st.container(key=key_bulletsbox):
+                      st.markdown(
+                          f"""
+                          <p style="font-size: 1.1em; font-weight: 600; color: #555; border-left: 4px solid #ccc; padding-left: 0.5em; margin-bottom: 1em;">
+                              {dashboard_title}
+                          </p>
+                          <style>
+                              .st-key-{key_bulletsbox} {{
+                                  position: relative;
+                                  overflow: hidden;
+                                  background-color: #ffffff;
+                                  padding: 1em;
+                                  border-radius: 8px;
+                                  box-shadow: 0px 0px 6px rgba(0,0,0,0.05);
+                              }}
+                              .st-key-{key_bulletsbox} .carousel-item {{
+                                  position: absolute;
+                                  top: 0;
+                                  left: 0;
+                                  right: 0;
+                                  opacity: 0;
+                                  animation: fadeCarousel {len(bullets)*5}s infinite;
+                                  transition: opacity 1s ease-in-out;
+                                  padding-left: 0.5em;
+                                  font-size: 1em;
+                                  font-weight: 500;
+                                  color: #444;
+                              }}
+                              {"".join([
+                                  f".st-key-{key_bulletsbox} .carousel-item:nth-child({i+1}) {{ animation-delay: {i*5}s; }}"
+                                  for i in range(len(bullets))
+                              ])}
+                              @keyframes fadeCarousel {{
+                                  0% {{ opacity: 0; }}
+                                  10% {{ opacity: 1; }}
+                                  25% {{ opacity: 1; }}
+                                  35% {{ opacity: 0; }}
+                                  100% {{ opacity: 0; }}
+                              }}
+                          </style>
+                          <div class="st-key-{key_bulletsbox}">
+                              {''.join(f'<div class="carousel-item">{markdown.markdown(b)}</div>' for b in bullets)}
+                          </div>
+                          """,
+                          unsafe_allow_html=True
+                      )
+
 
 
     #
