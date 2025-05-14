@@ -162,17 +162,17 @@ def load_repos_metadata():
           "# (ai placeholder: milestone 3)"
         ],
         "business_impact": [
-          "# (ai placeholder: business impact 1)",
-          "# (ai placeholder: business impact 2)"
+          "Policy makers can assess how *competitive* a country’s **immigration policy** is. By comparing welcoming indexes within regions, one can evaluate whether a country’s policy is **overly restrictive**, potentially discouraging *tourism* (as people may choose to visit more accessible neighboring countries).",
+          "When compared with more traditional measures of how a country is welcomed abroad, a welcoming index provides insight into the *efficiency* of immigration policy—i.e., whether the openness of a country’s immigration policy is *reciprocated* by the rest of the world. This can be analyzed through *lift* measures that compare welcoming and welcomed scores for each country."
         ],
         "performance": [
-          "# (ai placeholder: performance details)"
+          #"# (ai placeholder: performance details)"
         ],
         "models": [
-          "# (ai placeholder: model description)"
+          "The index we propose here takes the opposite approach to the well-known **[Henley Passport Index (HPI)](https://www-henleyglobal-com.translate.goog/passport-index?_x_tr_sl=en&_x_tr_tl=es&_x_tr_hl=es&_x_tr_pto=sge)**, which measures how much a particular citizenship is *welcomed* abroad."  
         ],
         "breakthrough": [
-          "# (ai placeholder: breakthrough details)"
+          "We invert this empirical strategy: instead of focusing on *being welcomed*, we focus on *being welcoming*. Our index measures how open a country’s immigration policy is toward travelers from around the globe."
         ],
         "notebooks": [
           {
