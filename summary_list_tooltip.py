@@ -1,4 +1,5 @@
-import html
+import html  # Needed for escaping
+import markdown  # Needed for Markdown conversion
 
 # Define available styles externally, this can be imported from a config module
 STYLES_AVAILABLE = {
@@ -81,20 +82,20 @@ def html_for_summary_list_tooltip(items, style_key="achieved_milestones", styles
     Generates an HTML snippet to visually summarize a list with a styled tooltip.
 
     Parameters:
-        - items (list): A list of strings to be displayed in the tooltip.
+        - items (list): A list of strings (with optional markdown) to be displayed in the tooltip.
         - style_key (str): A key from styles_available defining how the block should look.
         - styles_available (dict): Dictionary of style configurations (externalized).
 
     Returns:
         - str: HTML snippet containing the figure with tooltip.
     """
-    import html  # Needed for html.escape
+
 
     style = styles_available.get(style_key, {
-        "label": "Items", 
-        "color": "black", 
+        "label": "Items",
+        "color": "black",
         "pastel": "#E0E0E0",
-        "icon": "https://icons8.com/icon/gbhGcQX6NZvT/milestones", 
+        "icon": "https://icons8.com/icon/gbhGcQX6NZvT/milestones",
         "emoji": "📌",
         "default_text": "{n} items"
     })
@@ -121,7 +122,7 @@ def html_for_summary_list_tooltip(items, style_key="achieved_milestones", styles
                    f'<label>{summary}</label></div>'
 
     tooltip_content = "".join(
-        f'<div style="color:{color};">{emoji} {html.escape(str(item))}</div>' for item in items
+        f'<div style="color:{color};">{emoji} {markdown.markdown(str(item))}</div>' for item in items
     )
 
     element_id = f"tooltip-{style_key}"
@@ -177,6 +178,7 @@ def html_for_summary_list_tooltip(items, style_key="achieved_milestones", styles
             }}
         </style>
     """
+
 
 
 
