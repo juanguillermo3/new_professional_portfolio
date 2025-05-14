@@ -89,7 +89,7 @@ def html_for_summary_list_tooltip(items, style_key="achieved_milestones", styles
     Returns:
         - str: HTML snippet containing the figure with tooltip.
     """
-
+    import markdown
 
     style = styles_available.get(style_key, {
         "label": "Items",
@@ -122,7 +122,7 @@ def html_for_summary_list_tooltip(items, style_key="achieved_milestones", styles
                    f'<label>{summary}</label></div>'
 
     tooltip_content = "".join(
-        f'<div style="color:{color};">{emoji} {markdown.markdown(str(item))}</div>' for item in items
+        f'<div style="color:{color};">{markdown.markdown(f"{emoji} {item}")}</div>' for item in items
     )
 
     element_id = f"tooltip-{style_key}"
@@ -176,8 +176,13 @@ def html_for_summary_list_tooltip(items, style_key="achieved_milestones", styles
                 opacity: 1;
                 transform: translateX(-50%) translateY(0px) scale(1.1);
             }}
+
+            .tooltip p {{
+                margin: 0.2em 0;
+            }}
         </style>
     """
+
 
 
 
