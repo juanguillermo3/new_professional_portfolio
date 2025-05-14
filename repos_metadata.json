@@ -39,5 +39,11 @@
     "description": "Reccommend sites where a store might be openned, given historical placements",
     "image": "https://raw.githubusercontent.com/juanguillermo3/site_recommendation_system/main/project_image.png",
     "url": "https://github.com/juanguillermo3/site_recommendation_system"
+  },
+  {
+    "title": "welcoming_index",
+    "description": "This exercise implements an index to measure how welcoming a given country is\u2014in principle\u2014to citizens from any other country in the world. ",
+    "image": "https://raw.githubusercontent.com/juanguillermo3/welcoming_index/main/project_image.png",
+    "url": "https://github.com/juanguillermo3/welcoming_index"
   }
 ]
