@@ -563,7 +563,7 @@ class RecommendationSystem(PortfolioSection):
     
         if not media_url:
             st.warning(f"⚠️ Media not found for project `{project_metadata['title']}`.")
-            media_url = "path/to/default/image_or_placeholder.png"  # Provide a fallback image if necessary
+            #media_url = "path/to/default/image_or_placeholder.png"  # Provide a fallback image if necessary
     
         if media_url and bullets:
             # Prefer dashboard-specific title, fallback to project title
@@ -620,7 +620,7 @@ class RecommendationSystem(PortfolioSection):
                     except Exception as e:
                         st.error(f"⚠️ Error loading media for project `{project_metadata['title']}`: {str(e)}")
                         # Optionally, provide a fallback image or placeholder
-                        st.image("path/to/fallback/image.png", use_container_width=True)
+                        #st.image("path/to/fallback/image.png", use_container_width=True)
     
             with col_bullets:
                 with st.container(key=key_bulletsbox):
