@@ -150,7 +150,12 @@ def load_repos_metadata():
           "Global Mobility",
           "Data Visualization"
         ],
-        "description": "This exercise implements an index to measure how welcoming a given country is—in principle—to citizens from any other country in the world.",
+        "description" = "This exercise implements an index to measure how *welcoming* a given country is—*in principle*—to citizens from any other country in the world. " \
+                      "In other words, it reflects how easily someone can obtain full clearance for *all* visa requirements to travel to that country. " \
+                      "The index we propose here takes the opposite approach to the well-known **[Henley Passport Index (HPI)](https://www-henleyglobal-com.translate.goog/passport-index?_x_tr_sl=en&_x_tr_tl=es&_x_tr_hl=es&_x_tr_pto=sge)**, " \
+                      "which measures how much a particular citizenship is *welcomed* abroad. The **HPI** scoring system considers how many countries citizens from a given country " \
+                      "can travel to without a visa (either visa-free or visa-on-arrival). We invert this empirical strategy: instead of focusing on *being welcomed*, " \
+                      "we focus on *being welcoming*. Our index measures how open a country’s immigration policy is toward travelers from around the globe."
         "achieved_milestones": [
           "# (ai placeholder: milestone 1)",
           "# (ai placeholder: milestone 2)",
