@@ -561,6 +561,10 @@ class RecommendationSystem(PortfolioSection):
         media_url = dashboard.get("media", None)
         bullets = dashboard.get("bullets", [])
     
+        if not media_url:
+            st.warning(f"⚠️ Media not found for project `{project_metadata['title']}`.")
+            media_url = "path/to/default/image_or_placeholder.png"  # Provide a fallback image if necessary
+    
         if media_url and bullets:
             # Prefer dashboard-specific title, fallback to project title
             project_title = dashboard.get("title", "Exec Summary")
@@ -610,7 +614,13 @@ class RecommendationSystem(PortfolioSection):
     
             with col_img:
                 with st.container(key=key_imagebox):
-                    st.image(media_url, use_container_width=True)
+                    try:
+                        # Try to load the media
+                        st.image(media_url, use_container_width=True)
+                    except Exception as e:
+                        st.error(f"⚠️ Error loading media for project `{project_metadata['title']}`: {str(e)}")
+                        # Optionally, provide a fallback image or placeholder
+                        st.image("path/to/fallback/image.png", use_container_width=True)
     
             with col_bullets:
                 with st.container(key=key_bulletsbox):
@@ -631,6 +641,7 @@ class RecommendationSystem(PortfolioSection):
                         "</ul>",
                         unsafe_allow_html=True
                     )
+
     #
     def _render_cta_box(self, project_metadata):
         """Render a subtle call-to-action box prompting WhatsApp contact."""
