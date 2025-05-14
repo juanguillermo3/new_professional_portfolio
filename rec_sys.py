@@ -635,6 +635,7 @@ class RecommendationSystem(PortfolioSection):
                           <style>
                               .st-key-{key_bulletsbox} {{
                                   position: relative;
+                                  min-height: 160px;
                                   overflow: hidden;
                                   background-color: #ffffff;
                                   padding: 1em;
@@ -672,6 +673,7 @@ class RecommendationSystem(PortfolioSection):
                           """,
                           unsafe_allow_html=True
                       )
+
 
 
 
