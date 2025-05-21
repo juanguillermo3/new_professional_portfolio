@@ -954,7 +954,81 @@ class RecommendationSystem(PortfolioSection):
             st.caption("💡 Press Ctrl+Enter or click outside the box to apply your query.")    
         return new_query
 
-
+    def _render_executive_dashboard(self, project_metadata):
+        dashboard = project_metadata.get("dashboard", {})
+        media_url = dashboard.get("media", None)
+        bullets = dashboard.get("bullets", [])
+    
+        if media_url and bullets:
+            # Prefer dashboard-specific title, fallback to project title
+            project_title = dashboard.get("title", "Exec Summary")
+            key_namespace = re.sub(r"\W+", "_", project_title.lower())
+            key_imagebox = f"{key_namespace}_dashboard_imagebox"
+            key_bulletsbox = f"{key_namespace}_dashboard_bulletsbox"
+    
+            st.markdown(
+                f"""
+                <style>
+                    .st-key-{key_imagebox} {{
+                        background-color: #f9f9f9;
+                        padding: 1em;
+                        border-radius: 8px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 100%;
+                        transition: transform 0.3s ease, box-shadow 0.3s ease;
+                        cursor: pointer;
+                    }}
+                    .st-key-{key_imagebox}:hover {{
+                        transform: scale(1.5);
+                        box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.3);
+                        z-index: 20;
+                    }}
+                    .st-key-{key_imagebox} img {{
+                        max-height: 280px;
+                        border-radius: 8px;
+                        box-shadow: 0px 0px 10px rgba(0,0,0,0.08);
+                        object-fit: contain;
+                    }}
+                    .st-key-{key_bulletsbox} ul {{
+                        padding-left: 1.2em;
+                        color: #333;
+                        margin-top: 0;
+                    }}
+                    .st-key-{key_bulletsbox} li {{
+                        margin-bottom: 0.5em;
+                    }}
+                </style>
+                """,
+                unsafe_allow_html=True,
+            )
+    
+            col_img, col_bullets = st.columns([0.6, 0.4], gap="small", vertical_alignment="center")
+    
+            with col_img:
+                with st.container(key=key_imagebox):
+                    st.image(media_url, use_container_width=True)
+    
+            with col_bullets:
+                with st.container(key=key_bulletsbox):
+                    st.markdown(
+                        f"""
+                        <p style="font-size: 1.1em; font-weight: 600; color: #555; border-left: 4px solid #ccc; padding-left: 0.5em; margin-bottom: 1em;">
+                            {project_title}
+                        </p>
+                        """,
+                        unsafe_allow_html=True
+                    )
+                    st.markdown(
+                        "<ul>" +
+                        "".join(
+                            f"<li>{markdown.markdown(bullet)}</li>"
+                            for bullet in bullets
+                        ) +
+                        "</ul>",
+                        unsafe_allow_html=True
+                    )
 
 # Assume project_retriever is an instance of your semantic retriever (already initialized)
 recsys = RecommendationSystem(
